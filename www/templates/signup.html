@@ -44,11 +44,11 @@
                                 </label>
                                 <label class="item item-input">
                                     <span class="input-label calm">Email</span>
-                                    <input type="text" placeholder="example@email.com" class="form-control" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="nhahah" data-parsley-required data-parsley-required-message="*">
+                                    <input type="text" placeholder="example@email.com" class="form-control" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
                                 </label>
                                 <label class="item item-input">
                                     <span class="input-label calm">Password</span>
-                                    <input type="password" placeholder="Password" class="form-control" data-parsley-required data-parsley-required-message="*">
+                                    <input type="password" placeholder="Password" class="form-control" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                                 </label>
                                 <label class="item item-input">
                                     <label class="toggle row-center">
@@ -59,7 +59,7 @@
                                     </label> I agree to Nooch's Term of Services.
 
                                 </label>
-                                <button type="button" onclick="SignUp()" ng-click="Data(name)" class="button button-block button-calm" value="validate">Signup</button>
+                                <button type="button"  ng-click="Data()" class="button button-block button-calm" value="validate">Signup</button>
                             </form>
                         </div>
                     </div>
