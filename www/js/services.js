@@ -1,5 +1,66 @@
 angular.module('starter.services', [])
 
+     .service('authenticationService', function ($http) {
+         var Operations = {};
+
+         Operations.Login = function (username, password, ip, callback) {
+             $http.get('http://54.201.43.89/noochservice/api/NoochServices/LoginRequest?userName=' + username + '&pwd=' + password + '&rememberMeEnabled=false&lat=0.0&lng=0.0&udid=11&devicetoken=111')
+                   .success(function (response) {
+                       callback(response);
+                   });
+         };
+
+
+         Operations.FBLogin = function (email, firstName, lastName, gender, photoUrl, ip, fingerprint, fbUserId, callback) {
+             var data = {};
+             data.FirstName = firstName;
+             data.LastName = lastName;
+             data.eMail = email;
+             data.Gender = gender;
+             data.PhotoUrl = photoUrl;
+             data.FacebookUserId = fbUserId;
+             data.UserFingerPrints = fingerprint;
+             data.Ip = ip;
+
+             console.log(data);
+
+             $http.post(URLs.LoginWithFB, data)
+                 .success(function (response) {
+                     callback(response);
+                 });
+         };
+
+
+         Operations.GoogleLogin = function (email, name, photoUrl, ip, fingerprint, googleUserId, callback) {
+             var data = {};
+             data.Name = name;
+             data.eMail = email;
+             data.Gender = '';
+             data.PhotoUrl = photoUrl;
+             data.GoogleUserId = googleUserId;
+             data.UserFingerPrints = fingerprint;
+             data.Ip = ip;
+
+             console.log(data);
+
+             $http.post(URLs.LoginWithGoogle, data)
+                 .success(function (response) {
+                     callback(response);
+                 });
+         };
+
+
+
+
+
+
+
+
+
+         return Operations;
+     })
+
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 

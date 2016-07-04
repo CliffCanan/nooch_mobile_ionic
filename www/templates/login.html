@@ -36,28 +36,30 @@
         <div class="row">
             <div class="col col-center">
                 <div class="text-center">
-                    <div class="card">
-                        <div class="list">
-                            
-                            <label class="item item-input">
-                                <span class="input-label calm">Email</span>
-                                <input type="email" placeholder="example@email.com">
-                            </label>
-                            <label class="item item-input">
-                                <span class="input-label calm">Password</span>
-                                <input type="password" placeholder="Password">
-                            </label>
-                            <label class="item item-input">
-                                <label class="toggle row-center">
-                                    <input type="checkbox">
-                                    <div class="track">
-                                        <div class="handle"></div>
-                                    </div>
-                                </label> Remember Me
-                            </label>
-                            <button type="button" class="button button-block button-dark">Login</button>
+                    <form id="frmLogin" data-parsley-validate>
+                        <div class="card">
+                            <div class="list">
+
+                                <label class="item item-input">
+                                    <span class="input-label calm">Email</span>
+                                    <input  ng-model="email" type="email" placeholder="example@email.com">
+                                </label>
+                                <label class="item item-input">
+                                    <span class="input-label calm">Password</span>
+                                    <input ng-model="pwd" type="password" placeholder="Password">
+                                </label>
+                                <label class="item item-input">
+                                    <label class="toggle row-center">
+                                        <input type="checkbox">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label> Remember Me
+                                </label>
+                                <button type="button" class="button button-block button-dark" ng-click="SignIn(email,pwd)">Login</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

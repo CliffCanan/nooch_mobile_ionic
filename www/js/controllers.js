@@ -1,11 +1,28 @@
-﻿angular.module('starter.controllers', [])
-    .controller('LoginCtrl', function ($scope) {
+﻿angular.module('starter.controllers', ['starter.services'])
+    .controller('LoginCtrl', function ($scope, authenticationService) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
             // handle event
             console.log('Login Controller loaded');
            // swal("Here's a message!");
         });
+
+        $scope.SignIn = function (username, pwd) {
+         
+          
+
+            authenticationService.Login(username, pwd, '', function (response) {
+
+                console.log(response.Result + ',' + response.Result.indexOf('Temporarily_Blocked'));
+                
+                if (response.Result.indexOf('Invalid ') > -1 || response.Result.indexOf('incorrect ') > -1 || response.Result.indexOf('Temporarily_Blocked') > -1) {
+                    swal(response.Result);
+                }
+                else {
+                    swal("login successfull");
+                }
+            });
+        }
         
     })
 
@@ -16,11 +33,7 @@
         console.log('Signup Controller loaded');
         // swal("Here's a message!");
        
-      
-            $scope.Data = function (name) {
-                console.log(name);
-                alert(name);
-            }
+ 
     });
 
 
