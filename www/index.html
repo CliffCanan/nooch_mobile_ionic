@@ -20,12 +20,13 @@
 
     <link href="css/sweetalert.css" rel="stylesheet" />
     <script src="libs/sweetalert.min.js"></script>
-
     <script src="libs/jQuery.2.2.4.min.js"></script>
-
+    <script src="libs/parsley.min.js"></script>
 
 </head>
 <body ng-app="starter">
+
+
     <ion-nav-view></ion-nav-view>
 <script type="text/javascript">
 
@@ -33,6 +34,15 @@
         console.log('Jquery working');
     });
 
+    function SignUp(name) {
+        var flag = $('#submitForm').parsley().validate();
+        console.log(flag);
+        console.log(name);
+
+        if (flag == true) {
+            alert('Congrats Bro');
+        }
+    }
 </script>
 </body>
 </html>

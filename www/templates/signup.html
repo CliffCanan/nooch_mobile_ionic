@@ -1,154 +1,96 @@
 ﻿<ion-view>
     <!--<ion-header-bar align-title="center">
-
-
-
     </ion-header-bar>-->
-
     <ion-content>
-
-
-
-
         <div class="row">
-
-
             <div class="col col-center">
                 <div class="text-center">
                     <img src="../img/nooch-logo.svg" class="title-image" />
-
                 </div>
             </div>
         </div>
-
         <div class="row">
-
-
             <div class="col col-center">
                 <div class="text-center">
-                    <b>  Sign Up With</b>
+                    <b>  Sign Up with</b>
                 </div>
-
             </div>
         </div>
         <div class="row">
-
-
             <div class="col col-center">
                 <div class="text-center">
-                    <button class="button button-large icon-left ion-social-facebook button-calm">
-                        Facebook
+                    <button class="button button-block icon-pulling ion-social-facebook button-calm">
+                       &nbsp;&nbsp; Facebook
                     </button>
-
                 </div>
             </div>
         </div>
-
         <div class="row">
-
-
             <div class="col col-center">
                 <div class="text-center">
-
                     Or...
-
-
                 </div>
             </div>
         </div>
-
-
         <div class="row">
-
-
             <div class="col col-center">
                 <div class="text-center">
-
                     <div class="card">
                         <div class="list">
-                            <label class="item item-input">
-                                <span class="input-label calm">Full Name</span>
-                                <input type="text" placeholder="i.e Abe Licoln">
-                            </label>
-                            <label class="item item-input">
-                                <span class="input-label calm">Email</span>
-                                <input type="email" placeholder="example@email.com">
-                            </label>
-                            <label class="item item-input">
-                                <span class="input-label calm">Password</span>
-                                <input type="password" placeholder="Password">
-                            </label>
-                            <label class="item item-input">
-                                <label class="toggle row-center">
-                                    <input type="checkbox">
-                                    <div class="track">
-                                        <div class="handle"></div>
-                                    </div>
-                                </label> I agree to Nooch's Term of Services.
-                            </label>
+                            <form id="submitForm" data-parsley-validate="">
+                                <label class="item item-input">
+                                    <span class="input-label calm">Full Name</span>
+                                    <input type="text" placeholder="i.e Abe Licoln" ng-model="name" class="form-control" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                                </label>
+                                <label class="item item-input">
+                                    <span class="input-label calm">Email</span>
+                                    <input type="text" placeholder="example@email.com" class="form-control" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="nhahah" data-parsley-required data-parsley-required-message="*">
+                                </label>
+                                <label class="item item-input">
+                                    <span class="input-label calm">Password</span>
+                                    <input type="password" placeholder="Password" class="form-control" data-parsley-required data-parsley-required-message="*">
+                                </label>
+                                <label class="item item-input">
+                                    <label class="toggle row-center">
+                                        <input type="checkbox" id="ckBox" class="form-control" data-parsley-required="" data-parsley-checkmin="1" data-parsley-required-message="*">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label> I agree to Nooch's Term of Services.
+
+                                </label>
+                                <button type="button" onclick="SignUp()" ng-click="Data(name)" class="button button-block button-calm" value="validate">Signup</button>
+                            </form>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
-
-
         <div class="row">
-
-
             <div class="col col-center">
                 <div class="text-center">
-
-                    
-
-
                 </div>
             </div>
         </div>
         <div class="row">
-
-
             <div class="col col-center">
                 <div class="text-center">
-
-                    
-
-
                 </div>
             </div>
         </div>
-
-
         <div class="row">
-
-
             <div class="col col-center">
                 <div class="text-center">
-
-                    Already a member? <a href="#">Sign in Here</a>
-
-
+                    Already a member? <a href="login" ui-sref="/login">Sign in Here</a>
                 </div>
             </div>
         </div>
-
         <div class="row">
-
-
             <div class="col col-center">
                 <div class="text-center">
                     <div class="ion-android-arrow-dropright-circle balanced button-large"></div>
-                    
-
-
                 </div>
             </div>
         </div>
-
-
-
-        
     </ion-content>
 </ion-view>

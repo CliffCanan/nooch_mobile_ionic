@@ -1,7 +1,21 @@
 /* Empty. Add your own CSS if you like */
 .title-image {
     margin-top: 8px;
-    height: 37px;
-    
+    height: 37px;   
     
 }
+
+input.parsley-error {
+    border: 1px solid red;    
+}
+
+.parsley-error-list {
+    color: red;
+}
+
+.parsley-required{ 
+  font-weight: 400;
+  font-size: 20px;
+  color: red;
+ display: block;
+}   
