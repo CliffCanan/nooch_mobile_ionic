@@ -42,15 +42,15 @@
 
                                 <label class="item item-input">
                                     <span class="input-label calm">Email</span>
-                                    <input ng-model="email" type="text" class="form-control" placeholder="example@email.com" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                                    <input ng-model="loginData.email" type="text" class="form-control" placeholder="example@email.com" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
                                 </label>
                                 <label class="item item-input">
                                     <span class="input-label calm">Password</span>
-                                    <input ng-model="pwd" type="password" placeholder="Password" class="form-control" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                                    <input ng-model="loginData.pwd" type="password" placeholder="Password" class="form-control" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                                 </label>
                                 <label class="item item-input">
                                     <label class="toggle row-center">
-                                        <input type="checkbox">
+                                        <input type="checkbox" ng-model="loginData.rmmbrMe.val">
                                         <div class="track">
                                             <div class="handle"></div>
                                         </div>

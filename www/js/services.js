@@ -3,8 +3,8 @@ angular.module('starter.services', [])
      .service('authenticationService', function ($http) {
          var Operations = {};
 
-         Operations.Login = function (username, password, ip, callback) {
-             $http.get(URLs.Login + '?userName=' + username + '&pwd=' + password + '&rememberMeEnabled=false&lat=0.0&lng=0.0&udid=11&devicetoken=111')
+         Operations.Login = function (username, password, remmberMe, callback) {
+             $http.get(URLs.Login + '?userName=' + username + '&pwd=' + password + '&rememberMeEnabled='+remmberMe+'&lat=0.0&lng=0.0&udid=11&devicetoken=111')
                    .success(function (response) {
                        callback(response);
                    });

@@ -45,15 +45,15 @@
                                 </label>
                                 <label class="item item-input">
                                     <span class="input-label calm">Email</span>
-                                    <input type="text" placeholder="example@email.com" class="form-control" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                                    <input type="text" placeholder="example@email.com" ng-model="signupData.Email" class="form-control" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
                                 </label>
                                 <label class="item item-input">
                                     <span class="input-label calm">Password</span>
-                                    <input type="password" placeholder="Password" class="form-control" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                                    <input type="password" placeholder="Password" ng-model="signupData.Password" class="form-control" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                                 </label>
                                 <label class="item item-input">
                                     <label class="toggle row-center">
-                                        <input type="checkbox" id="ckBox" class="form-control" data-parsley-required="" data-parsley-checkmin="1" data-parsley-required-message="*">
+                                        <input type="checkbox" id="ckBox"   class="form-control" data-parsley-required="" data-parsley-checkmin="1" data-parsley-required-message="*">
                                         <div class="track">
                                             <div class="handle"></div>
                                         </div>

@@ -8,11 +8,21 @@
         });
 
 
-      
+        $scope.loginData = {
+            email: '',
+            pwd: '',
+            rmmbrMe: {
+                val: true
+            }
+        };
 
-        $scope.SignIn = function (username, pwd) {
+        $scope.SignIn = function () {
             if ($('#frmLogin').parsley().validate() == true) {
-                authenticationService.Login(username, pwd, '', function (response) {
+                username = $scope.loginData.email;
+                pwd = $scope.loginData.pwd;
+                remmbrMe = $scope.loginData.rmmbrMe.val;
+                console.log(remmbrMe);
+                authenticationService.Login(username, pwd, remmbrMe, function (response) {
                     console.log(response.Result + ',' + response.Result.indexOf('Temporarily_Blocked'));
 
                     if (response.Result.indexOf('Invalid ') > -1 || response.Result.indexOf('incorrect ') > -1) {
