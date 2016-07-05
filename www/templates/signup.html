@@ -35,13 +35,13 @@
         <div class="row">
             <div class="col col-center">
                 <div class="text-center">
-                    <div class="card">
-                        <div class="list">
-                            <form id="submitForm" data-parsley-validate="">
-                                <!--ng-model="frmSubmit"-->
+                    <form id="submitForm" data-parsley-validate="">
+                        <!--ng-model="frmSubmit"-->
+                        <div class="card">
+                            <div class="list">
                                 <label class="item item-input">
                                     <span class="input-label calm">Full Name</span>
-                                    <input type="text" placeholder="i.e Abe Licoln" ng-model="signupData.Name" class="form-control" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                                    <input type="text" placeholder="i.e Abe Licoln" ng-model="signupData.Name" class="form-control" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" data-parsley-pattern="[(a-zA-Z)] [(a-zA-Z)]+$" data-parsley-pattern-message="*">
                                 </label>
                                 <label class="item item-input">
                                     <span class="input-label calm">Email</span>
@@ -60,10 +60,11 @@
                                     </label> I agree to Nooch's Term of Services.
 
                                 </label>
-                                <button type="button" ng-click="signUpClick()" class="button button-block button-calm" value="validate">Signup</button>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                        <button type="button" ng-click="signUpClick()" class="button button-block button-calm" value="validate"><i class="ion-person-add"></i> &nbsp; &nbsp; Signup</button>
+                    </form>
+                        
                 </div>
             </div>
         </div>
@@ -83,7 +84,7 @@
             <div class="col col-center">
                 <div class="text-center">
                     Already a member?
-                    <button ng-click="gotoSignInPage()" class="button icon ion-key">  Sign in Here</button>
+                    <a href="#" ng-click="gotoSignInPage()" ><i class="button icon ion-key"></i>  Sign in Here</a>
                     
                 </div>
             </div>
