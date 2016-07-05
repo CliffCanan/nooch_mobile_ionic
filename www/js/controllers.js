@@ -12,9 +12,27 @@
                 authenticationService.Login(username, pwd, '', function (response) {
                     console.log(response.Result + ',' + response.Result.indexOf('Temporarily_Blocked'));
 
-                    if (response.Result.indexOf('Invalid ') > -1 || response.Result.indexOf('incorrect ') > -1 || response.Result.indexOf('Temporarily_Blocked') > -1) {
+                    if (response.Result.indexOf('Invalid ') > -1 || response.Result.indexOf('incorrect ') > -1) {
                         swal(response.Result);
                     }
+                    else if (response.Result.indexOf('Temporarily_Blocked') > -1) {
+                        swal({
+                            title: "Oh No!",
+                            text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience.Our top priority id keeping Nooch safe and secure.",
+                            type: "error",
+                            showCancelButton: true,
+                            cancelButtonText: "Ok",
+                            confirmButtonColor: "#3fabe1",
+                            confirmButtonText: "Contact Support",
+                            customClass: "stackedBtns",
+                            html: true,
+                        }, function (isConfirm) {
+                            if (isConfirm) {
+
+                            }
+                        });
+                    }
+
                     else {
                         swal("login successfull");
                     }
