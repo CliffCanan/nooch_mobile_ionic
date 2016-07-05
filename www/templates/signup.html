@@ -20,7 +20,7 @@
             <div class="col col-center">
                 <div class="text-center">
                     <button class="button button-block icon-pulling ion-social-facebook button-calm">
-                       &nbsp;&nbsp; Facebook
+                        &nbsp;&nbsp; Facebook
                     </button>
                 </div>
             </div>
@@ -37,10 +37,11 @@
                 <div class="text-center">
                     <div class="card">
                         <div class="list">
-                            <form id="submitForm" data-parsley-validate=""> <!--ng-model="frmSubmit"-->
+                            <form id="submitForm" data-parsley-validate="">
+                                <!--ng-model="frmSubmit"-->
                                 <label class="item item-input">
                                     <span class="input-label calm">Full Name</span>
-                                    <input type="text" placeholder="i.e Abe Licoln" ng-model="name" class="form-control" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                                    <input type="text" placeholder="i.e Abe Licoln" ng-model="signupData.Name" class="form-control" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                                 </label>
                                 <label class="item item-input">
                                     <span class="input-label calm">Email</span>
@@ -59,7 +60,7 @@
                                     </label> I agree to Nooch's Term of Services.
 
                                 </label>
-                                <button type="button" onclick="SignUp()" class="button button-block button-calm" value="validate">Signup</button>
+                                <button type="button" ng-click="signUpClick()" class="button button-block button-calm" value="validate">Signup</button>
                             </form>
                         </div>
                     </div>
@@ -81,7 +82,9 @@
         <div class="row">
             <div class="col col-center">
                 <div class="text-center">
-                    Already a member? <a href="login" ui-sref="/login">Sign in Here</a>
+                    Already a member?
+                    <button ng-click="gotoSignInPage()" class="button icon ion-key">  Sign in Here</button>
+                    
                 </div>
             </div>
         </div>

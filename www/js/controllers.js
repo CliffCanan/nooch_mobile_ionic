@@ -7,6 +7,9 @@
             // swal("Here's a message!");
         });
 
+
+      
+
         $scope.SignIn = function (username, pwd) {
             if ($('#frmLogin').parsley().validate() == true) {
                 authenticationService.Login(username, pwd, '', function (response) {
@@ -41,15 +44,44 @@
         }
     })
 
-.controller('SignupCtrl', function ($scope) {
+.controller('SignupCtrl', function ($scope, $location) {
+
+
+    $scope.signupData = {
+        Name: '',
+        Email: '',
+        Password: ''
+    };
+
+
+    $scope.gotoSignInPage = function () {
+        console.log('came in btn click');
+        $location.path("/login");
+       
+    };
+    $scope.signUpClick = function () {
+
+
+        var flag = $('#submitForm').parsley().validate();
+        console.log(flag);
+        if (flag) {
+            console.log('came in btn click');
+
+            console.log('signupData ' + JSON.stringify($scope.signupData));
+        }
+    };
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
         console.log('Signup Controller loaded');
+
+        console.log('signupData ' + JSON.stringify($scope.signupData));
         // swal("Here's a message!");
 
 
     });
+
+
 
 
 });
