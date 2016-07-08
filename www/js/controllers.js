@@ -50,9 +50,9 @@
             }
         }
     })
+
+
     .controller('SignupCtrl', function($scope, $location) {
-
-
         $scope.signupData = {
             Name: '',
             Email: '',
@@ -83,23 +83,23 @@
 
             console.log('signupData ' + JSON.stringify($scope.signupData));
             // swal("Here's a message!");
-
-
         });
-
-
     })
+
+
+
     .controller('AppCtrl', function ($scope, authenticationService) {
         $scope.$on("$ionicView.enter", function (event, data) {
             // handle event
-            console.log('App ctrl loaded');
-
-            
+            console.log('App ctrl loaded');       
 
 
         });
-
     })
+
+
+
+
 .controller('DashboardCtrl', function ($scope, authenticationService) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -107,12 +107,17 @@
         console.log('dash ctrl loaded');
 
 
-
-
     });
     
+})
+
+ .controller('SettingCtrl', function ($scope, authenticationService) {
+
+        $scope.$on("$ionicView.enter", function (event, data) {
+            // handle event
+            console.log('Setting ctrl loaded');
+
+
+        });
     
 });
-
-
-;
