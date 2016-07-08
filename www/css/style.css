@@ -18,19 +18,22 @@ input.parsley-error {
   font-size: 20px;
   color: red;
  display: block;
-}   
+}  
+
+
+ 
 .btnColorGray
 {
     background-color: #D3D3D3;
 }
-.navColor
+/*.navColor
 {
    background-color : #696969;
-   /*color:#D3D3D3;*/
-}
-.item
+   /*color:#D3D3D3;
+}*/
+.itemCnav
 {
-    background-color:#3498DB;    
+    background-color:#53B2E4;    
 }
 
 .item-divider
@@ -38,21 +41,27 @@ input.parsley-error {
     padding-top:8px;
     padding-bottom:0px;
 }
-.list
+.listCnav
 {
     line-height:10px;
     /*padding-top:30px !important;*/
 }
 
    .item-content{
-    background-color: #58585B !important;
+    background-color: #58595B !important;
     color:#ffffff !important;
     font-weight:100;
     height:45px;
  
 }
-  .ion-chevron-right
+  .FloatRight
    {
        float:right;
    }
-  
+
+.coustomColor
+{
+    background-color: #58595B;
+    color:#ffffff !important;
+        font-weight:100;
+}  

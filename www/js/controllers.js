@@ -21,7 +21,7 @@
                 username = $scope.loginData.email;
                 pwd = $scope.loginData.pwd;
                 remmbrMe = $scope.loginData.rmmbrMe.val;
-                console.log(remmbrMe);
+                console.log(username,pwd);
                 authenticationService.Login(username, pwd, remmbrMe, function(response) {
                     console.log(response.Result + ',' + response.Result.indexOf('Temporarily_Blocked'));
 
