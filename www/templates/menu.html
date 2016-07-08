@@ -10,24 +10,62 @@
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
     <ion-side-menu side="left">
-        <ion-header-bar class="bar-stable">
-            <h1 class="title">Left</h1>
-        </ion-header-bar>
+
+        <!--<ion-header-bar class="bar-stable">
+                 <h2>Name</h2>
+        </ion-header-bar>-->
+
         <ion-content>
             <ion-list>
-                <ion-item menu-close ng-click="login()">
-                    Login
+                <div class="item item-avatar">
+                    <img src="//ionicframework.com/img/docs/spengler.jpg">
+                    <h2>Surya</h2>
+                    <p>Nooch.com</p>
+                    <!--<div style="float:right" class="ion-ios-cog-outline">Setting</div>-->
+                </div>
+
+                <div class="item item-divider">ACCOUNT</div>
+
+                <ion-item menu-close href="#">
+                    <div class="ion-ios-home">&nbsp;&nbsp;Home <i class="ion-chevron-right"></i></div>
                 </ion-item>
-                <ion-item menu-close href="#/app/search">
-                    Search
+
+                <ion-item menu-close href="#">
+                    <div class="ion-clock">&nbsp;&nbsp;Transfer History <i class="ion-chevron-right"></i></div>
                 </ion-item>
-                <ion-item menu-close href="#/app/browse">
-                    Browse
+
+                <ion-item menu-close href="#">
+                    <div class="ion-gear-b">&nbsp;&nbsp;Setting <i class="ion-chevron-right"></i></div>
                 </ion-item>
-                <ion-item menu-close href="#/app/playlists">
-                    Playlists
+
+                <ion-item menu-close href="#">
+                    <div class="ion-arrow-graph-up-right">&nbsp;&nbsp;Statictics <i class="ion-chevron-right"></i></div>
                 </ion-item>
+
+                <div class="item item-divider">SOCIAL</div>
+
+                <ion-item menu-close href="#">
+                    <div class="ion-ios-people">&nbsp;&nbsp;Refer a Friend <i class="ion-chevron-right"></i></div>
+                </ion-item>
+
+                <ion-item menu-close href="#">
+                    <div class="ion-thumbsup">&nbsp;&nbsp;Rate Nooch <i class="ion-chevron-right"></i></div>
+                </ion-item>
+
+                <div class="item item-divider">ABOUT</div>
+
+                <ion-item menu-close href="#">
+                    <div class="ion-help">&nbsp;&nbsp;How Nooch Works <i class="ion-chevron-right"></i></div>
+                </ion-item>
+
+                <ion-item menu-close href="#">
+                    <div class="ion-email">&nbsp;&nbsp;Support <i class="ion-chevron-right"></i></div>
+                </ion-item>
+
+                <div class="item item-divider text-center"><h1><b>nooch</b></h1></div>
             </ion-list>
+
+
         </ion-content>
     </ion-side-menu>
 </ion-side-menus>
