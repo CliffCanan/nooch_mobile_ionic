@@ -30,11 +30,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             templateUrl: 'templates/login.html',
             controller: 'LoginCtrl'
         })
-    .state('signup', {
-        url: '/signup',
-        templateUrl: 'templates/signup.html',
-        controller: 'SignupCtrl'
-    });
+        .state('signup', {
+            url: '/signup',
+            templateUrl: 'templates/signup.html',
+            controller: 'SignupCtrl'
+        })
+        .state('app', {
+            url: '/app',
+            abstract: true,
+            templateUrl: 'templates/menu.html',
+            controller: 'AppCtrl'
+        })
+        .state('app.dashboard', {
+            url: '/dashboard',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/dashboard.html',
+                    ontroller: 'DashboardCtrl'
+                }
+            }
+        });
 
-    $urlRouterProvider.otherwise('/signup');
+    $urlRouterProvider.otherwise('/app/dashboard');
 });
