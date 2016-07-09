@@ -35,9 +35,9 @@ input.parsley-error {
    background-color : #696969;
    /*color:#D3D3D3;
 }*/
-.itemCnav
+.itemCnavDivider
 {
-    background-color:#53B2E4;    
+    background-color:#11C1F3;   
 }
 
 .item-divider
@@ -88,7 +88,38 @@ input.parsley-error {
     font-size:20px;
     
 }
-
-
-
 /*Setting page CSS Ends*/
+
+
+
+
+
+/*Statistics page Css Starts*/
+
+.IconGreeen
+{
+    /*background: #76C14B;
+    padding: 10px 20px;
+    border-radius: 50%;*/
+    font-size: 40px;
+    color:#76C14B;
+    margin-right: 50px;
+    margin-left:40px;
+    }
+.IconBasicBlue
+{
+    /*background: #11C1F3;
+    padding: 10px 10px;
+    border-radius: 50%;*/
+    font-size: 40px;
+    color:#11C1F3;
+    margin-right: 50px;
+}
+
+.ItemCList
+{
+    font-weight:400;    
+    color:#000;
+}
+
+    /*Statistics page Css Ends*/

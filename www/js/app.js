@@ -58,7 +58,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                   controller: 'SettingCtrl'
                  }
               }
-          })
+        })
+     .state('app.statistics', {
+         url: '/statistics',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/statistics.html',
+                 controller: 'StatisticsCtrl'
+             }
+         }
+     })
 
     $urlRouterProvider.otherwise('/app/dashboard');
 });

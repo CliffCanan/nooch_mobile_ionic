@@ -1,7 +1,7 @@
 ﻿angular.module('starter.controllers', ['starter.services'])
-    .controller('LoginCtrl', function($scope, authenticationService) {
+    .controller('LoginCtrl', function ($scope, authenticationService) {
 
-        $scope.$on("$ionicView.enter", function(event, data) {
+        $scope.$on("$ionicView.enter", function (event, data) {
             // handle event
             console.log('Login Controller loaded');
             // swal("Here's a message!");
@@ -16,13 +16,13 @@
             }
         };
 
-        $scope.SignIn = function() {
+        $scope.SignIn = function () {
             if ($('#frmLogin').parsley().validate() == true) {
                 username = $scope.loginData.email;
                 pwd = $scope.loginData.pwd;
                 remmbrMe = $scope.loginData.rmmbrMe.val;
-                console.log(username,pwd);
-                authenticationService.Login(username, pwd, remmbrMe, function(response) {
+                console.log(username, pwd);
+                authenticationService.Login(username, pwd, remmbrMe, function (response) {
                     console.log(response.Result + ',' + response.Result.indexOf('Temporarily_Blocked'));
 
                     if (response.Result.indexOf('Invalid ') > -1 || response.Result.indexOf('incorrect ') > -1) {
@@ -38,7 +38,7 @@
                             confirmButtonText: "Contact Support",
                             customClass: "stackedBtns",
                             html: true,
-                        }, function(isConfirm) {
+                        }, function (isConfirm) {
                             if (isConfirm) {
 
                             }
@@ -52,7 +52,7 @@
     })
 
 
-    .controller('SignupCtrl', function($scope, $location) {
+    .controller('SignupCtrl', function ($scope, $location) {
         $scope.signupData = {
             Name: '',
             Email: '',
@@ -60,12 +60,12 @@
         };
 
 
-        $scope.gotoSignInPage = function() {
+        $scope.gotoSignInPage = function () {
             console.log('came in btn click');
             $location.path("/login");
 
         };
-        $scope.signUpClick = function() {
+        $scope.signUpClick = function () {
 
 
             var flag = $('#submitForm').parsley().validate();
@@ -77,7 +77,7 @@
             }
         };
 
-        $scope.$on("$ionicView.enter", function(event, data) {
+        $scope.$on("$ionicView.enter", function (event, data) {
             // handle event
             console.log('Signup Controller loaded');
 
@@ -91,7 +91,7 @@
     .controller('AppCtrl', function ($scope, authenticationService) {
         $scope.$on("$ionicView.enter", function (event, data) {
             // handle event
-            console.log('App ctrl loaded');       
+            console.log('App ctrl loaded');
 
 
         });
@@ -108,16 +108,27 @@
 
 
     });
-    
+
 })
 
  .controller('SettingCtrl', function ($scope, authenticationService) {
 
-        $scope.$on("$ionicView.enter", function (event, data) {
-            // handle event
-            console.log('Setting ctrl loaded');
+     $scope.$on("$ionicView.enter", function (event, data) {
+         // handle event
+         console.log('Setting ctrl loaded');
 
 
-        });
-    
+     });
+
+ })
+
+.controller('StatisticsCtrl', function ($scope, authenticationService) {
+
+    $scope.$on("$ionicView.enter", function (event, data) {
+        // handle event
+        console.log('Statistics Controller Loaded');
+
+
+    });
+
 });
