@@ -53,11 +53,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         .state('app.setting', {
             url: '/setting',
             views: {
-               'menuContent': {
-                 templateUrl: 'templates/setting.html',
-                  controller: 'SettingCtrl'
-                 }
-              }
+                'menuContent': {
+                    templateUrl: 'templates/setting.html',
+                    controller: 'SettingCtrl'
+                }
+            }
         })
      .state('app.statistics', {
          url: '/statistics',
@@ -68,6 +68,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
              }
          }
      })
-
+    .state('socialSetting', {
+            url: '/socialSetting',
+            templateUrl: 'templates/socialSetting.html',
+            controller: 'socialSettingCtrl'
+    })
     $urlRouterProvider.otherwise('/app/dashboard');
 });

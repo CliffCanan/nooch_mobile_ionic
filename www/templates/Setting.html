@@ -11,10 +11,16 @@
         </div>
 
         <div class="list">
-            <div class="item"><i class="ion-person ionColor"></i>&nbsp;&nbsp;&nbsp;My Profile <i class="ion-chevron-right FloatRight"></i></div> 
-            <div class="item"><i class="ion-locked ionColor"></i>&nbsp;&nbsp;&nbsp;Security Setting <i class="ion-chevron-right FloatRight"></i></div>
-            <div class="item"><i class="ion-ios-bell ionColor"></i>&nbsp;&nbsp;&nbsp;Notification Setting <i class="ion-chevron-right FloatRight"></i></div>
-            <div class="item"><i class="ion-social-facebook ionColor"></i>&nbsp;&nbsp;&nbsp;Social Setting <i class="ion-chevron-right FloatRight"></i></div>
+           
+             <div class="item" ng-click="go('MyProfile')"><i class="ion-person ionColor"></i>&nbsp;&nbsp;&nbsp;My Profile <i class="ion-chevron-right FloatRight"></i></div>
+            
+            <div class="item" ng-click="go('Security')"><i class="ion-locked ionColor"></i>&nbsp;&nbsp;&nbsp;Security Setting <i class="ion-chevron-right FloatRight"></i></div>
+            
+            <div class="item" ng-click="go('Notification')"><i class="ion-ios-bell ionColor"></i>&nbsp;&nbsp;&nbsp;Notification Setting <i class="ion-chevron-right FloatRight"></i></div>
+
+            <div class="item" ng-click="go('Social')"><i class="ion-social-facebook ionColor"></i>&nbsp;&nbsp;&nbsp;Social Setting <i class="ion-chevron-right FloatRight"></i></div>
+
+            
         </div>
 
         <button type="button" class="button btnColorGray button-block"><i class="ion-log-out"></i>&nbsp;&nbsp;&nbsp;Sign Out</button>

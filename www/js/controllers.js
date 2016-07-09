@@ -111,16 +111,38 @@
 
 })
 
- .controller('SettingCtrl', function ($scope, authenticationService) {
+ .controller('SettingCtrl', function ($scope, authenticationService, $state) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // handle event
          console.log('Setting ctrl loaded');
 
-
      });
 
+     $scope.go = function (data) {
+         console.log(data);
+         if (data == 'Social') {
+             $state.go('socialSetting');
+             console.log("Clicked Social Setting");
+         }
+         else if (data == 'Notification')
+         {
+             //$state.go('socialSetting');
+             console.log("State Is not Ready yet -- Notification");
+         }
+         else if (data == 'Security') {
+             //$state.go('socialSetting');
+             console.log("State Is not Ready yet -- Security");
+         }
+         else if(data == 'MyProfile') {
+             //$state.go('socialSetting');
+             console.log("State Is not Ready yet -- MyProfile");
+         }
+     }
+
  })
+
+
 
 .controller('StatisticsCtrl', function ($scope, authenticationService) {
 
@@ -129,6 +151,14 @@
         console.log('Statistics Controller Loaded');
 
 
-    });
+    })
+})
+.controller('socialSettingCtrl', function ($scope, authenticationService) {
+
+    $scope.$on("$ionicView.enter", function (event, data) {
+        // handle event
+        console.log('Social Setting Controller Loadad');
+
+    })
 
 });

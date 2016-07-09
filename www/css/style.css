@@ -20,13 +20,11 @@ input.parsley-error {
  display: block;
 }  
 
-
  
 .btnColorGray /*Login page -- login Button color*/
 {
     background-color: #D3D3D3;
 }
-
 
 /*Css For Navigation page Start*/
 
@@ -72,9 +70,6 @@ input.parsley-error {
 
 /*Css For Navigation page end*/
 
-
-
-
 /*Setting page CSS Start*/
 
 .cardBgColor
@@ -82,17 +77,12 @@ input.parsley-error {
     background-color:#EFEFF4;
 }
 
-
 .ionColor {
     color:#11C1F3;
     font-size:20px;
     
 }
 /*Setting page CSS Ends*/
-
-
-
-
 
 /*Statistics page Css Starts*/
 
