@@ -38,11 +38,11 @@ input.parsley-error {
     background-color:#11C1F3;   
 }
 
-.item-divider
+/*.item-divider
 {
     padding-top:8px;
     padding-bottom:0px;
-}
+}*/
 .listCnav
 {
     line-height:10px;
@@ -85,7 +85,6 @@ input.parsley-error {
 /*Setting page CSS Ends*/
 
 /*Statistics page Css Starts*/
-
 .IconGreeen
 {
     /*background: #76C14B;
@@ -112,4 +111,28 @@ input.parsley-error {
     color:#000;
 }
 
-    /*Statistics page Css Ends*/
+/*Statistics page Css Ends*/
+
+
+
+
+  /*Notification Page CSS Start here*/
+
+  .ItemBlack
+  {
+      font-weight:400;
+      color:#000;
+      /*margin-left:100px;*/
+  }
+    
+  /*Notification Page CSS Ends*/
+  
+  
+  /*My Profile Page CSS Starts*/
+  /*.aliginRight
+  {
+     float:right;  -- useless 
+  }*/
+
+   
+  /*My Profile Page CSS Starts*/

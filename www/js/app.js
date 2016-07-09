@@ -73,5 +73,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             templateUrl: 'templates/socialSetting.html',
             controller: 'socialSettingCtrl'
     })
+     .state('NotificationSetting', {
+         url: '/NotificationSetting',
+         templateUrl: 'templates/NotificationSetting.html',
+         controller: 'notificationCtrl'
+     })
+       .state('myProfile', {
+           url: '/myProfile',
+           templateUrl: 'templates/myProfile.html',
+           controller: 'myProfileCtrl'
+       })
+
     $urlRouterProvider.otherwise('/app/dashboard');
 });

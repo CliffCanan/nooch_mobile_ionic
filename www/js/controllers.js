@@ -125,18 +125,17 @@
              $state.go('socialSetting');
              console.log("Clicked Social Setting");
          }
-         else if (data == 'Notification')
-         {
-             //$state.go('socialSetting');
-             console.log("State Is not Ready yet -- Notification");
+         else if (data == 'Notification') {
+             $state.go('NotificationSetting');
+             console.log("Navigated Succesfully to my notification page");
          }
          else if (data == 'Security') {
              //$state.go('socialSetting');
              console.log("State Is not Ready yet -- Security");
          }
-         else if(data == 'MyProfile') {
-             //$state.go('socialSetting');
-             console.log("State Is not Ready yet -- MyProfile");
+         else if (data == 'MyProfile') {
+             $state.go('myProfile');
+             console.log("Navigated Succesfully to my profile page");
          }
      }
 
@@ -153,12 +152,44 @@
 
     })
 })
-.controller('socialSettingCtrl', function ($scope, authenticationService) {
+.controller('socialSettingCtrl', function ($scope, authenticationService, $state) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
         console.log('Social Setting Controller Loadad');
 
     })
+    $scope.GoBack = function () {
+        console.log("Back Button Clicked");
+        $state.go('app.setting');
+    }
+})
 
+
+    .controller('myProfileCtrl', function ($scope, authenticationService, $state) {
+
+        $scope.$on("$ionicView.enter", function (event, data) {
+            // handle event
+            console.log('My Profile page Loadad');
+
+        })
+        $scope.GoBack = function () {
+            console.log("Back Button Clicked");
+            $state.go('app.setting');
+        }
+    })
+
+
+
+.controller('notificationCtrl', function ($scope, authenticationService, $state) {
+
+    $scope.$on("$ionicView.enter", function (event, data) {
+        // handle event
+        console.log('Notification Controller loaded');
+
+    })
+    $scope.GoBack = function () {
+        console.log("Back Button Clicked");
+        $state.go('app.setting');
+    }
 });
