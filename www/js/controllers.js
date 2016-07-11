@@ -26,6 +26,11 @@
              remmbrMe = $scope.loginData.rmmbrMe.val;
 
              authenticationService.Login(username, pwd, remmbrMe, function (response) {
+
+                 $scope.loginData.email = '';
+                 $scope.loginData.pwd = '';
+                 $scope.loginData.rmmbrMe.val = false;
+
                  console.log(response.Result + ',' + response.Result.indexOf('Temporarily_Blocked'));
                  console.log(response);
                  if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1) {
@@ -52,7 +57,7 @@
                  } else {
                      $ionicLoading.hide();
                      swal("login successfull");
-                     $state.go("#/app/dashboard");
+                    // $state.go("#/app/dashboard"); --not Woking
                  }
              });
          }
@@ -70,7 +75,7 @@
 
     $scope.gotoSignInPage = function () {
         console.log('came in btn click');
-        $location.path("/login");
+        $location.path("#/login");
 
     };
     $scope.signUpClick = function () {
