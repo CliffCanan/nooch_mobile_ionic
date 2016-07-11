@@ -68,6 +68,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
              }
          }
      })
+      .state('app.history', {
+          url: '/history',
+          views: {
+              'menuContent': {
+                  templateUrl: 'templates/history.html',
+                  controller: 'historyCtrl'
+              }
+          }
+      })
+
     .state('socialSetting', {
             url: '/socialSetting',
             templateUrl: 'templates/socialSetting.html',
