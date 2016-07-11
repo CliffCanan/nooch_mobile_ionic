@@ -130,7 +130,7 @@
              console.log("Navigated Succesfully to my notification page");
          }
          else if (data == 'Security') {
-             //$state.go('socialSetting');
+             $state.go('securitySetting');
              console.log("State Is not Ready yet -- Security");
          }
          else if (data == 'MyProfile') {
@@ -179,6 +179,19 @@
         }
     })
 
+
+    .controller('securitySettingCtrl', function ($scope, authenticationService, $state) {
+
+        $scope.$on("$ionicView.enter", function (event, data) {
+            // handle event
+            console.log('My Profile page Loadad');
+
+        })
+        $scope.GoBack = function () {
+            console.log("Back Button Clicked");
+            $state.go('app.setting');
+        }
+    })
 
 
 .controller('notificationCtrl', function ($scope, authenticationService, $state) {

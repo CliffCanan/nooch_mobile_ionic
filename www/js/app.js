@@ -83,6 +83,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
            templateUrl: 'templates/myProfile.html',
            controller: 'myProfileCtrl'
        })
+    .state('securitySetting', {
+        url: '/securitySetting',
+        templateUrl: 'templates/securitySetting.html',
+        controller: 'securitySettingCtrl'
+    })
 
     $urlRouterProvider.otherwise('/app/dashboard');
 });
