@@ -230,11 +230,27 @@
 
 
 //Surya Testing Contact plugin
-.controller('AccountCtrl', function ($scope, $cordovaContacts) {
+.controller('AccountCtrl', function ($scope, $cordovaContacts,$state) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('History Page Loaded');
 
+        $scope.go = function (data) {
+            console.log(data);
+            if (data == 'howMuch') {
+                $state.go('howMuch');              
+            }
+            else if (data =='login') {
+                $state.go('login');           
+            }
+            else if (data == 'signup') {
+                $state.go('signup');                
+            }
+            else if (data == 'MyProfile') {
+                $state.go('myProfile');
+                console.log("Navigated Succesfully to my profile page");
+            }
+        }
         $scope.getContact = function () {
             $cordovaContacts.pickContact().then(function (result) {
                 console.log(result);
@@ -265,6 +281,18 @@
     }
 
 })
+
+    .controller('howMuchCtrl', function ($scope, authenticationService, $state) {
+        $scope.$on("$ionicView.enter", function (event, data) {
+            console.log('hOW muCH Controller');
+
+        })
+        $scope.GoBack = function () {
+            console.log("hOW muCH Controller");
+            //$state.go('securitySetting');
+        }
+
+    })
     
 
 .controller('notificationCtrl', function ($scope, authenticationService, $state) {

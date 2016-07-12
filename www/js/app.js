@@ -7,8 +7,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
-        if (window.cordova && window.cordova.plugins.Keyboard)
-        {
+        if (window.cordova && window.cordova.plugins.Keyboard) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -18,8 +17,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             // a much nicer keyboard experience.
             cordova.plugins.Keyboard.disableScroll(true);
         }
-        if (window.StatusBar)
-        {
+        if (window.StatusBar) {
             StatusBar.styleDefault();
         }
     });
@@ -104,8 +102,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
              url: '/resetPwd',
              templateUrl: 'templates/resetPwd.html',
              controller: 'resetPwdCtrl'
-                 
-             })
+
+         })
+
+        .state('howMuch', {
+            url: '/howMuch',
+            templateUrl: 'templates/howMuch.html',
+            controller: 'howMuchCtrl'
+
+        })
 
         //Surya Testing Contact plugin
         .state('app.Accounts', {
