@@ -566,7 +566,7 @@ input.parsley-error {
 .list i:not(.ion-chevron-right):before {
     color: #41ABE1;
     font-size: 22px;
-    margin-right:14px;
+    margin-right: 14px;
     text-align: center;
     position: relative;
     top: 1px;
@@ -583,6 +583,7 @@ input.parsley-error {
     font-size: 18px;
     text-shadow: 0px -1px 0px rgba(19,32,38,.3);
 }
+
 .bar .button, .bar button {
     border: none;
     font-size: 12px;
@@ -746,6 +747,83 @@ input.parsley-error {
 }
 
 
+/*****************/
+/***  HISTORY  ***/
+/*****************/
+.history-list .date {
+    color: #58595B;
+    display: inline-block;
+    height: 10px;
+    margin-left: 10px;
+}
+
+.history-list .typeDateContainer {
+    position: absolute;
+    top: 5px;
+}
+
+.transTypeLabel {
+    background-color: rgba(232,233,234,1);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 8px;
+    opacity: .9;
+    padding: 1px 14px;
+    text-align: center;
+}
+
+    .transTypeLabel.sent {
+        background-color: #D2232A;
+    }
+
+    .transTypeLabel.received {
+        background-color: #72BF44;
+    }
+
+    .transTypeLabel.neutral {
+        background-color: #4FABE1;
+    }
+
+.history-list .item-avatar, .history-list .item-avatar .item-content {
+    padding: 20px 5px 16px 72px;
+}
+
+    .history-list .item-avatar img {
+        border: 1px solid #6D6E71;
+        left: 12px;
+        max-width: 47px;
+        max-height: 47px;
+        top: 16px;
+    }
+
+.history-list .name {
+    font-size: 18px;
+    margin: 6px 0 2px;
+}
+.history-list .memo-container {
+    color: rgba(88,90,92,.96);
+    width: 80%;
+}
+
+.history-list .amount {
+    color: #555;
+    font-size: 18px;
+    position: absolute;
+    top: 35%;
+    right: 4px;
+    text-align: right;
+}
+
+#export-btn {
+    font-size: 14px;
+    position: fixed;
+    bottom: 20px;
+    left: 10px;
+    padding: 1px 20px;
+    line-height: inherit;
+    min-height: 32px;
+}
+
 /******************/
 /*** STATISTICS ***/
 /******************/
@@ -772,8 +850,6 @@ input.parsley-error {
     font-weight: 400;
     color: #000;
 }
-
-/*Statistics page Css Ends*/
 
 
 
