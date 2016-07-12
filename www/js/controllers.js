@@ -33,8 +33,7 @@
      };
 
      $scope.SignIn = function () {
-         if ($('#frmLogin').parsley().validate() == true)
-         {
+         if ($('#frmLogin').parsley().validate() == true) {
              $ionicLoading.show({
                  template: 'Loading...'
              });
@@ -50,14 +49,12 @@
 
                  console.log(response.Result + ',' + response.Result.indexOf('Temporarily_Blocked'));
                  console.log(response);
-                 if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1)
-                 {
+                 if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1) {
                      $ionicLoading.hide();
                      swal(response.Result);
 
                  }
-                 else if (response.Result.indexOf('Temporarily_Blocked') > -1)
-                 {
+                 else if (response.Result.indexOf('Temporarily_Blocked') > -1) {
                      $ionicLoading.hide();
                      swal({
                          title: "Oh No!",
@@ -70,14 +67,12 @@
                          customClass: "stackedBtns",
                          html: true,
                      }, function (isConfirm) {
-                         if (isConfirm)
-                         {
+                         if (isConfirm) {
 
                          }
                      });
                  }
-                 else
-                 {
+                 else {
                      $ionicLoading.hide();
                      swal("login successfull");
                      // $state.go("#/app/dashboard"); --not Woking
@@ -105,8 +100,7 @@
         var flag = $('#submitForm').parsley().validate();
         console.log(flag);
 
-        if (flag)
-        {
+        if (flag) {
             console.log('came in btn click');
             console.log('signupData ' + JSON.stringify($scope.signupData));
         }
@@ -158,23 +152,19 @@
 
      $scope.go = function (data) {
          console.log(data);
-         if (data == 'Social')
-         {
+         if (data == 'Social') {
              $state.go('socialSetting');
              console.log("Clicked Social Setting");
          }
-         else if (data == 'Notification')
-         {
+         else if (data == 'Notification') {
              $state.go('NotificationSetting');
              console.log("Navigated Succesfully to my notification page");
          }
-         else if (data == 'Security')
-         {
+         else if (data == 'Security') {
              $state.go('securitySetting');
-             console.log("State Is not Ready yet -- Security");
+             console.log("State Navigated Success -- Security");
          }
-         else if (data == 'MyProfile')
-         {
+         else if (data == 'MyProfile') {
              $state.go('myProfile');
              console.log("Navigated Succesfully to my profile page");
          }
@@ -220,6 +210,11 @@
     $scope.GoBack = function () {
         $state.go('app.setting');
     }
+
+    $scope.goo = function () {
+        console.log("Entered in Security Setting Controller");
+        $state.go('ResetPwd');
+    }
 })
 
 
@@ -252,7 +247,25 @@
         }
     })
 })
-//have to delete after testing
+//have to delete after testing 
+
+
+/**********************/
+/*** Reset Password ***/
+/**********************/
+
+.controller('resetPwdCtrl', function ($scope, authenticationService,$state) {
+    $scope.$on("$ionicView.enter", function (event, data) {
+        console.log('Reset Pwd Page Is Loaded');
+
+    })
+    $scope.GoBack = function () {
+        console.log("just Touched in reset pwd Controller");
+        $state.go('securitySetting');
+    }
+
+})
+    
 
 .controller('notificationCtrl', function ($scope, authenticationService, $state) {
 

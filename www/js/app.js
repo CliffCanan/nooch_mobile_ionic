@@ -99,6 +99,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             templateUrl: 'templates/securitySetting.html',
             controller: 'securitySettingCtrl'
         })
+
+         .state('ResetPwd', {
+             url: '/resetPwd',
+             templateUrl: 'templates/resetPwd.html',
+             controller: 'resetPwdCtrl'
+                 
+             })
+
         //Surya Testing Contact plugin
         .state('app.Accounts', {
             url: '/Accounts',
@@ -109,7 +117,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 }
             }
         })
-
     //have to delete after testing 
     $urlRouterProvider.otherwise('app/dashboard');
 });
