@@ -5,6 +5,11 @@
         // handle event
         console.log('App ctrl loaded');
     });
+
+
+    //$scope.settingsClick = function () {
+    //    $state.go("app.setting");
+    //};
 })
 
 
