@@ -1,14 +1,64 @@
 ﻿<ion-view view-title="History">
 
-    <ion-tabs class="tabs-calm tabs-top tabs-icon-top">
+    <ion-tabs class="tabs-striped tabs-top tabs-icon-left tabs-background-positive tabs-color-light">
         <ion-tab title="Completed" icon-on="ion-checkmark-circled" icon-off="ion-checkmark-circled">
 
-            <br>
-            <br>
-            <br>
-            <br>
-            <h3> Completed tab </h3>
+            <br /><br />
+            <br />
+            <br />
+            <br />
+            <div class="history-list">
+
+                <a class="item item-avatar" href="#">
+                    <img src="../img/profile_picture.png">
+
+                    <div class="name">Abe Lincoln</div>
+
+                    <p class="memo-container">For "<span class="memo-text">Back off, man. I'm a scientist.</span>"</p>
+
+                    <div class="typeDateContainer">
+                        <label class="transTypeLabel sent">Transfer To</label>
+                        <h5 class="date"><i class="ion-android-time m-r-5"></i>July 4, 2016</h5>
+                    </div>
+
+                    <span class="item-note amount">$50.00</span>
+                </a>
+
+                <a class="item item-avatar item-icon-right" href="#">
+                    <img src="../img/RoundLoading.png">
+
+                    <div class="name">Joe Schmoe</div>
+
+                    <p class="memo-container">For "<span class="memo-text">Back off, man. I'm a scientist.</span>"</p>
+
+                    <div class="typeDateContainer">
+                        <label class="transTypeLabel received">Transfer From</label>
+                        <h5 class="date"><i class="ion-android-time m-r-5"></i>July 4, 2016</h5>
+                    </div>
+
+                    <span class="item-note amount">$50.00</span>
+                </a>
+
+                <a class="item item-avatar item-icon-right" href="#">
+                    <img src="../img/profile_picture.png">
+
+                    <div class="name">Tim Duncan</div>
+
+                    <p class="memo-container">For "<span class="memo-text">Back off, man. I'm a scientist.</span>"</p>
+
+                    <div class="typeDateContainer">
+                        <label class="transTypeLabel neutral">Request From</label>
+                        <h5 class="date"><i class="ion-android-time m-r-5"></i>July 4, 2016</h5>
+                    </div>
+
+                    <span class="item-note amount">$50.00</span>
+                </a>
+
+                <button type="button" id="export-btn" class="btn btn-primary"><i class="ion-ios-cloud-download"></i>Export</button>
+
+            </div>
         </ion-tab>
+
         <ion-tab title="Pending" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
             <br>
             <br>
@@ -18,22 +68,4 @@
         </ion-tab>
     </ion-tabs>
 
-<!--<div class="tabs-striped tabs-top tabs-background-calm tabs-color-light">
-        <div class="tabs">
-            <a class="tab-item active" href="#">
-                <i class="icon ion-checkmark-circled"></i>
-                Compleated
-            </a>
-            <a class="tab-item" href="#">
-                <i class="icon ion-ios-clock"></i>
-                Pending
-            </a>
-        </div>
-    </div>-->     
-    <ion-content>
-
-        <h1> Not Showing this One  </h1>
-
-
-    </ion-content>
 </ion-view>
