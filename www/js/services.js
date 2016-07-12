@@ -4,7 +4,7 @@ angular.module('starter.services', [])
          var Operations = {};
 
          Operations.Login = function (username, password, remmberMe, callback) {
-             $http.get(URLs.Login + '?userName=' + username + '&pwd=' + password + '&rememberMeEnabled='+remmberMe+'&lat=0.0&lng=0.0&udid=11&devicetoken=111')
+             $http.get(URLs.Login + '?userName=' + username + '&pwd=' + password + '&rememberMeEnabled=' + remmberMe + '&lat=0.0&lng=0.0&udid=11&devicetoken=111')
                    .success(function (response) {
                        callback(response);
                    });
@@ -100,8 +100,10 @@ angular.module('starter.services', [])
             chats.splice(chats.indexOf(chat), 1);
         },
         get: function (chatId) {
-            for (var i = 0; i < chats.length; i++) {
-                if (chats[i].id === parseInt(chatId)) {
+            for (var i = 0; i < chats.length; i++)
+            {
+                if (chats[i].id === parseInt(chatId))
+                {
                     return chats[i];
                 }
             }

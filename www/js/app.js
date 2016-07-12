@@ -3,11 +3,12 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
-        if (window.cordova && window.cordova.plugins.Keyboard) {
+        if (window.cordova && window.cordova.plugins.Keyboard)
+        {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -17,7 +18,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
             // a much nicer keyboard experience.
             cordova.plugins.Keyboard.disableScroll(true);
         }
-        if (window.StatusBar) {
+        if (window.StatusBar)
+        {
             StatusBar.styleDefault();
         }
     });
@@ -50,67 +52,64 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
                 }
             }
         })
-        .state('app.setting', {
-            url: '/setting',
+        .state('app.statistics', {
+            url: '/statistics',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/setting.html',
+                    templateUrl: 'templates/statistics.html',
+                    controller: 'StatisticsCtrl'
+                }
+            }
+        })
+        .state('app.history', {
+            url: '/history',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/history.html',
+                    controller: 'historyCtrl'
+                }
+            }
+        })
+        .state('app.setting', {
+            url: '/settings',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/settings.html',
                     controller: 'SettingCtrl'
                 }
             }
         })
-     .state('app.statistics', {
-         url: '/statistics',
-         views: {
-             'menuContent': {
-                 templateUrl: 'templates/statistics.html',
-                 controller: 'StatisticsCtrl'
-             }
-         }
-     })
-      .state('app.history', {
-          url: '/history',
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/history.html',
-                  controller: 'historyCtrl'
-              }
-          }
-      })
-
-    .state('socialSetting', {
+        .state('myProfile', {
+            url: '/myProfile',
+            templateUrl: 'templates/myProfile.html',
+            controller: 'myProfileCtrl'
+        })
+        .state('socialSetting', {
             url: '/socialSetting',
             templateUrl: 'templates/socialSetting.html',
             controller: 'socialSettingCtrl'
-    })
-     .state('NotificationSetting', {
-         url: '/NotificationSetting',
-         templateUrl: 'templates/NotificationSetting.html',
-         controller: 'notificationCtrl'
-     })
-       .state('myProfile', {
-           url: '/myProfile',
-           templateUrl: 'templates/myProfile.html',
-           controller: 'myProfileCtrl'
-       })
-    .state('securitySetting', {
-        url: '/securitySetting',
-        templateUrl: 'templates/securitySetting.html',
-        controller: 'securitySettingCtrl'
-    })
-
-
-//Surya Testing Contact plugin
-    .state('app.Accounts', {
-        url: '/Accounts',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/Accounts.html',
-                controller: 'AccountCtrl'
+        })
+        .state('NotificationSetting', {
+            url: '/NotificationSetting',
+            templateUrl: 'templates/NotificationSetting.html',
+            controller: 'notificationCtrl'
+        })
+        .state('securitySetting', {
+            url: '/securitySetting',
+            templateUrl: 'templates/securitySetting.html',
+            controller: 'securitySettingCtrl'
+        })
+        //Surya Testing Contact plugin
+        .state('app.Accounts', {
+            url: '/Accounts',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/Accounts.html',
+                    controller: 'AccountCtrl'
+                }
             }
-        }
-    })
-//have to delete after testing 
+        })
 
+    //have to delete after testing 
     $urlRouterProvider.otherwise('app/dashboard');
 });

@@ -9,6 +9,7 @@
         </ion-nav-bar>
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
+
     <ion-side-menu side="left">
 
         <!--<ion-header-bar class="bar-stable">
@@ -17,54 +18,61 @@
 
         <ion-content>
             <ion-list class="listCnav">
-                <div class="item item-avatar coustomColor">
-                    <img src="//ionicframework.com/img/docs/spengler.jpg">
-                    <h2>Surya</h2>
-                    <h3>Nooch.com</h3>
-                    <div style="float:right;font-size:30px;" class="ion-ios-cog-outline"></div>
+                <div class="item item-avatar side_menu_top">
+                    <img class="user-img" src="//ionicframework.com/img/docs/spengler.jpg">
+                    <h2 id="first-name">Cliff</h2>
+                    <h3 id="last-name">Canan</h3>
+                    <a href="#/app/settings"><i class="ion-gear-a white-text" id="settings-icon"></i></a>
                 </div>
 
                 <div class="item item-divider itemCnavDivider">ACCOUNT</div>
 
                 <ion-item menu-close href="#">
-                    <div class="ion-ios-home">&nbsp;&nbsp;Home <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-ios-home">Home <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#/app/history">
-                    <div class="ion-clock">&nbsp;&nbsp;Transfer History <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-clock">Transfer History <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
-                <ion-item menu-close href="#/app/setting">
-                    <div class="ion-gear-b">&nbsp;&nbsp;Setting <i class="ion-chevron-right FloatRight"></i></div>
+                <ion-item menu-close href="#/app/settings">
+                    <div class="ion-gear-b">Settings <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#/app/statistics">
-                    <div class="ion-arrow-graph-up-right">&nbsp;&nbsp;Statictics <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-arrow-graph-up-right">Statistics <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
                 <div class="item item-divider itemCnavDivider">SOCIAL</div>
 
                 <ion-item menu-close href="#/app/Accounts">
-                    <div class="ion-ios-people">&nbsp;&nbsp;Refer a Friend <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-ios-people">Refer a Friend <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#">
-                    <div class="ion-thumbsup">&nbsp;&nbsp;Rate Nooch <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-thumbsup">Rate Nooch <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
                 <div class="item item-divider itemCnavDivider">ABOUT</div>
 
                 <ion-item menu-close href="#">
-                    <div class="ion-help">&nbsp;&nbsp;How Nooch Works <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-help">How Nooch Works <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#">
-                    <div class="ion-email">&nbsp;&nbsp;Support <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-email">Contact Support <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
-                <div class="item item-divider text-center itemCnavDivider"><h1><b>nooch</b></h1></div>
-            </ion-list>
+                <ion-item menu-close href="#">
+                    <div class="ion-email">Limits &amp; Fees<i class="ion-chevron-right FloatRight"></i></div>
+                </ion-item>
 
+                <div id="btm-section" class="item item-divider text-center">
+                    <img src="../img/logo_white.png">
+                    <span id="version">Version 2.0.0</span>
+                </div>
+            
+            </ion-list>
 
         </ion-content>
     </ion-side-menu>

@@ -1,56 +1,64 @@
 ﻿
-<ion-view view-title="my Profile">
+<ion-view view-title="Security Settings">
     <ion-content>
 
         <div class="bar bar-header bar-calm">
             <button class="button ion-chevron-left" ng-click="GoBack()"></button>
-            <h6 class="title">Security Setting</h6>
+            <h6 class="title">Security Settings</h6>
         </div>
 
-        <br>
+        <br />
         <br />
 
-        <div class="list">
-            <div class="item">PIN </div>
-            <div class="item ItemBlack">Change Pin <i class="ion-chevron-right FloatRight"></i> </div>
+        <div class="section-header m-t-20">PIN</div>
 
-            <div class="item item-toggle ItemBlack">
+        <div class="list m-b-5">
+
+            <a href="" class="item item-icon-right">
+                Change PIN
+                <i class="icon ion-chevron-right"></i>
+            </a>
+
+            <div class="item item-toggle">
                 Require PIN Immediately
                 <label class="toggle toggle-calm">
-                    <input type="checkbox">
+                    <input type="checkbox" checked/>
                     <div class="track">
                         <div class="handle"></div>
                     </div>
                 </label>
-            </div>
-
-            <div>
-                <p class="text-center" style="padding-top:10px; padding-bottom:5px">Require your PIN to enter the app.</p>
-
-                <label class="item item-input">
-                    <input type="password" placeholder="Password">
-                </label>
-            </div>
-            <div class="item"> Change Password <i class="ion-chevron-right FloatRight"></i></div>
-            <br>
-            <br>
-            <div>
-                <div class="item">Privacy</div>
-            </div>
-            <div class="item item-toggle ItemBlack">
-                Show In Search
-                <label class="toggle toggle-calm">
-                    <input type="checkbox">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </div>
-            <div class="text-center">
-                <p style="padding-left:10px;">Show up when other members serach for <br>people nearby to send or request money. </p>
             </div>
 
         </div>
+
+        <div class="section-note">Require your PIN to enter the app.</div>
+
+
+        <div class="section-header m-t-30">Password</div>
+
+        <div class="list">
+            <a href="" class="item item-icon-right">
+                Change Password
+                <i class="icon ion-chevron-right"></i>
+            </a>
+        </div>
+
+
+        <div class="section-header m-t-30">Privacy</div>
+        
+        <div class="list m-b-5">
+            <div class="item item-toggle">
+                Show In Search
+                <label class="toggle toggle-calm">
+                    <input type="checkbox" checked>
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="section-note">Show up when other members serach for people nearby to send or request money.</div>
 
 
     </ion-content>
