@@ -144,7 +144,7 @@
                  {
                      $ionicLoading.hide();
                      swal("login successfull");
-                     // $state.go("#/app/dashboard"); --not working
+                     // $state.go("#/app/home"); --not working
                  }
              });
          }
@@ -190,21 +190,54 @@
  })
 
 
-/*******************/
-/***  DASHBOARD  ***/
-/*******************/
-.controller('DashboardCtrl', function ($scope, authenticationService) {
+/****************/
+/***   HOME   ***/
+/****************/
+.controller('HomeCtrl', function ($scope, $state, authenticationService) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        // handle event
-        console.log('dash ctrl loaded');
+        console.log('Home Ctrl loaded');
     });
+
+    $scope.goToSelectRecip = function () {
+        $state.go('app.selectRecipient');
+    }
+})
+
+
+/************************/
+/*** SELECT RECIPIENT ***/
+/************************/
+.controller('SelectRecipCtrl', function ($scope, authenticationService, $state) {
+    $scope.$on("$ionicView.enter", function (event, data) {
+        console.log('SelectRecipCtrl Fired');
+    })
+
+    $scope.GoBack = function () {
+        console.log("hOW muCH Controller");
+        //$state.go('securitySetting');
+    }
 })
 
 
 /******************/
-/*** STATISTICS ***/
+/***  HOW MUCH  ***/
 /******************/
+.controller('howMuchCtrl', function ($scope, authenticationService, $state) {
+    $scope.$on("$ionicView.enter", function (event, data) {
+        console.log('HowMuchCntrl Fired');
+    })
+
+    $scope.GoBack = function () {
+        console.log("hOW muCH Controller");
+        //$state.go('securitySetting');
+    }
+})
+
+
+/********************/
+/***  STATISTICS  ***/
+/********************/
 .controller('StatisticsCtrl', function ($scope, authenticationService) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -229,22 +262,18 @@
          if (data == 'Social')
          {
              $state.go('socialSetting');
-             console.log("Clicked Social Setting");
          }
          else if (data == 'Notification')
          {
              $state.go('NotificationSetting');
-             console.log("Navigated Succesfully to my notification page");
          }
          else if (data == 'Security')
          {
              $state.go('securitySetting');
-             console.log("State Navigated Success -- Security");
          }
          else if (data == 'MyProfile')
          {
              $state.go('myProfile');
-             console.log("Navigated Succesfully to my profile page");
          }
      }
 
@@ -279,6 +308,9 @@
 })
 
 
+/***************************/
+/***  SECURITY SETTINGS  ***/
+/***************************/
 .controller('securitySettingCtrl', function ($scope, authenticationService, $state) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -292,6 +324,39 @@
     $scope.goo = function () {
         console.log("Entered in Security Setting Controller");
         $state.go('ResetPwd');
+    }
+})
+
+
+/************************/
+/***  RESET PASSWORD  ***/
+/************************/
+.controller('resetPwdCtrl', function ($scope, authenticationService, $state) {
+    $scope.$on("$ionicView.enter", function (event, data) {
+        console.log('Reset Pwd Page Is Loaded');
+
+    })
+    $scope.GoBack = function () {
+        console.log("just Touched in reset pwd Controller");
+        $state.go('securitySetting');
+    }
+
+})
+
+
+/****************************/
+/**  NOTIFICATION SETTINGS **/
+/****************************/
+.controller('notificationCtrl', function ($scope, authenticationService, $state) {
+
+    $scope.$on("$ionicView.enter", function (event, data) {
+        // handle event
+        console.log('Notification Controller loaded');
+    })
+
+    $scope.GoBack = function () {
+        console.log("Back Button Clicked");
+        $state.go('app.setting');
     }
 })
 
@@ -346,46 +411,3 @@
     })
 })
 //have to delete after testing 
-
-
-/**********************/
-/*** Reset Password ***/
-/**********************/
-
-.controller('resetPwdCtrl', function ($scope, authenticationService, $state) {
-    $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('Reset Pwd Page Is Loaded');
-
-    })
-    $scope.GoBack = function () {
-        console.log("just Touched in reset pwd Controller");
-        $state.go('securitySetting');
-    }
-
-})
-
-    .controller('howMuchCtrl', function ($scope, authenticationService, $state) {
-        $scope.$on("$ionicView.enter", function (event, data) {
-            console.log('hOW muCH Controller');
-
-        })
-        $scope.GoBack = function () {
-            console.log("hOW muCH Controller");
-            //$state.go('securitySetting');
-        }
-
-    })
-
-
-.controller('notificationCtrl', function ($scope, authenticationService, $state) {
-
-    $scope.$on("$ionicView.enter", function (event, data) {
-        // handle event
-        console.log('Notification Controller loaded');
-    })
-
-    $scope.GoBack = function () {
-        console.log("Back Button Clicked");
-        $state.go('app.setting');
-    }
-});
