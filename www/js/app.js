@@ -111,6 +111,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             controller: 'howMuchCtrl'
 
         })
+        .state('TransferDetails', {
+            url: '/TransferDetails',
+            templateUrl: 'templates/TransferDetails.html',
+            controller: 'TransferDetailsCtrl'
+
+        })
 
         //Surya Testing Contact plugin
         .state('app.Accounts', {

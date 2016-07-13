@@ -1070,3 +1070,14 @@ iframe {
 .h1-c {
     color: #696969;
 }
+
+
+/*************************/
+/*** Transfer Details  ***/
+/*************************/
+
+.header-item-blue {
+    background-color: blue;
+    color: #fff;
+    height: 30px;
+}

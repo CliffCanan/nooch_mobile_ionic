@@ -300,8 +300,9 @@
 /***  HISTORY  ***/
 /*****************/
 .controller('historyCtrl', function ($scope, authenticationService) {
-
+   
     $scope.$on("$ionicView.enter", function (event, data) {
+         
         console.log('History Page Loaded');
     })
 })
@@ -327,10 +328,9 @@
             {
                 $state.go('signup');
             }
-            else if (data == 'MyProfile')
+            else if (data == 'TrnsDetails')
             {
-                $state.go('myProfile');
-                console.log("Navigated Succesfully to my profile page");
+                $state.go('TransferDetails');             
             }
         }
         $scope.getContact = function () {
@@ -375,6 +375,17 @@
         }
 
     })
+
+       .controller('TransferDetailsCtrl', function ($scope, authenticationService, $state) {
+           $scope.$on("$ionicView.enter", function (event, data) {
+               console.log('Transfer Details Controller');
+
+           })
+           $scope.GoBack = function () {
+               console.log("Transfer Details Controller");
+               //$state.go('securitySetting');
+           }
+       })
 
 
 .controller('notificationCtrl', function ($scope, authenticationService, $state) {
