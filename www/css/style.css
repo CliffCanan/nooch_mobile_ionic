@@ -1071,13 +1071,12 @@ iframe {
     color: #696969;
 }
 
-
 /*************************/
 /*** Transfer Details  ***/
 /*************************/
 
 .header-item-blue {
-    background-color: blue;
+    background-color: #11C1F3;
     color: #fff;
     height: 30px;
 }
