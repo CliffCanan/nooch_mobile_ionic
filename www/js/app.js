@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('noochApp', ['ionic', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
     'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.myProfileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl', 'noochApp.securitySettingCtrl',
-    'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl',
+    'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl','noochApp.testPageCtrl',
     'noochApp.services', 'ngCordova'])
 
 .run(function ($ionicPlatform) {
@@ -138,16 +138,16 @@ angular.module('noochApp', ['ionic', 'noochApp.controllers', 'noochApp.LoginCtrl
                 }
             }
         })
-        //Surya Testing Contact plugin
-        //.state('app.Accounts', {
-        //    url: '/Accounts',
-        //    views: {
-        //        'menuContent': {
-        //            templateUrl: 'templates/Accounts.html',
-        //            controller: 'AccountCtrl'
-        //        }
-        //    }
-        //})
-    //have to delete after testing 
+        //Test Page
+        .state('app.testPage', {
+            url: '/testPage',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/testPage/testPage.html',
+                    controller: 'testPageCtrl'
+                }
+            }
+        })
+    //test Page
     $urlRouterProvider.otherwise('app/home');
 });
