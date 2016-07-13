@@ -7,7 +7,7 @@
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
             </ion-nav-buttons>
         </ion-nav-bar>
-        <ion-nav-view name="menuContent"></ion-nav-view>
+        <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
     </ion-side-menu-content>
 
     <ion-side-menu side="left">
@@ -35,7 +35,8 @@
                     <div class="ion-clock">Transfer History <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
-                <ion-item menu-close href="#/app/settings"><!--ng-click="settingsClick()"-->
+                <ion-item menu-close href="#/app/settings">
+                    <!--ng-click="settingsClick()"-->
                     <div class="ion-gear-b">Settings <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
@@ -71,7 +72,7 @@
                     <img src="../img/logo_white.png">
                     <span id="version">Version 2.0.0</span>
                 </div>
-            
+
             </ion-list>
 
         </ion-content>
