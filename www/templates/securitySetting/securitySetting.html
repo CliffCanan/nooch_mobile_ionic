@@ -1,0 +1,65 @@
+﻿
+<ion-view view-title="Security Settings">
+    <ion-content>
+
+        <div class="bar bar-header bar-calm">
+            <button class="button ion-chevron-left" ng-click="GoBack()"></button>
+            <h6 class="title">Security Settings</h6>
+        </div>
+
+        <br />
+        <br />
+
+        <div class="section-header m-t-20">PIN</div>
+
+        <div class="list m-b-5">
+
+            <a href="" class="item item-icon-right">
+                Change PIN
+                <i class="icon ion-chevron-right"></i>
+            </a>
+
+            <div class="item item-toggle">
+                Require PIN Immediately
+                <label class="toggle toggle-calm">
+                    <input type="checkbox" checked/>
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+
+        </div>
+
+        <div class="section-note">Require your PIN to enter the app.</div>
+
+
+        <div class="section-header m-t-30">Password</div>
+
+        <div class="list" ng-click="goo()">
+            <a href="" class="item item-icon-right">
+                Change Password
+                <i class="icon ion-chevron-right"></i>
+            </a>            
+        </div>
+
+
+        <div class="section-header m-t-30">Privacy</div>
+        
+        <div class="list m-b-5">
+            <div class="item item-toggle">
+                Show In Search
+                <label class="toggle toggle-calm">
+                    <input type="checkbox" checked>
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="section-note">Show up when other members serach for people nearby to send or request money.</div>
+
+
+    </ion-content>
+</ion-view>

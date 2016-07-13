@@ -1,0 +1,92 @@
+﻿<ion-view>
+    <!--<ion-header-bar align-title="center">
+    </ion-header-bar>-->
+    <ion-content id="registerScrn" class="signupFlow">
+
+        <div class="row">
+            <div class="col text-center">
+                <img src="../img/nooch-logo.svg" class="mainLogo" />
+
+                <p class="instructionText m-b-5">Sign Up With</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <button class="button btn-primary button-block icon-left ion-social-facebook fb-signup">Facebook</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center label-small">
+                Or...
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+
+                <form id="submitForm" data-parsley-validate="">
+
+                    <!--ng-model="frmSubmit"-->
+                    <div class="list list-inset noDivider primary raised-view">
+
+                        <label class="item item-input">
+                            <span class="input-label calm">Full Name</span>
+                            <input type="text" placeholder="i.e Abe Licoln" ng-model="signupData.Name" class="form-control" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" data-parsley-pattern="[(a-zA-Z)] [(a-zA-Z)]+$" data-parsley-pattern-message="*">
+                        </label>
+
+                        <label class="item item-input">
+                            <span class="input-label calm">Email</span>
+                            <input type="text" placeholder="example@email.com" ng-model="signupData.Email" class="form-control" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                        </label>
+
+                        <label class="item item-input">
+                            <span class="input-label calm">Password</span>
+                            <input type="password" placeholder="Password" ng-model="signupData.Password" class="form-control" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                        </label>
+
+                        <div class="item item-input p-b-5">
+                            <label class="toggle toggle-small">
+                                <input type="checkbox" id="ckBox" class="form-control" data-parsley-required="" data-parsley-checkmin="1" data-parsley-required-message="*">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+
+                            <label>I agree to <button type="button" class="btn btn-link" ng-click="openTos()">Nooch's Term of Services</button>.</label>
+                        </div>
+
+                    </div>
+
+                    <button type="button" ng-click="signUpClick()" class="button btn-success button-block" value="validate">Continue</button>
+
+                </form>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <a href="#/login" id="toLoginBtn">
+                    <!--ng-click="gotoSignInPage()"-->
+                    Already a member? &nbsp;Sign in Here
+                    <i class="ion-ios-arrow-forward text-success"></i>
+                </a>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
+
+<script id="tosModal.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar>
+            <h1 class="title">Nooch Terms of Service</h1>
+            <button class="button button-clear button-dark" ng-click="closeTosModal()">Close</button>
+        </ion-header-bar>
+        <ion-content>
+            <iframe src="https://www.nooch.com/tos"></iframe>
+        </ion-content>
+    </ion-modal-view>
+</script>

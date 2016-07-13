@@ -3,12 +3,14 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
+angular.module('noochApp', ['ionic', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
+    'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.myProfileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl', 'noochApp.securitySettingCtrl',
+    'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.TransferDetailsCtrl',
+    'noochApp.services', 'ngCordova'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
-        if (window.cordova && window.cordova.plugins.Keyboard)
-        {
+        if (window.cordova && window.cordova.plugins.Keyboard) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -18,8 +20,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             // a much nicer keyboard experience.
             cordova.plugins.Keyboard.disableScroll(true);
         }
-        if (window.StatusBar)
-        {
+        if (window.StatusBar) {
             StatusBar.styleDefault();
         }
     });
@@ -29,25 +30,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     $stateProvider
         .state('login', {
             url: '/login',
-            templateUrl: 'templates/login.html',
+            templateUrl: 'templates/login/login.html',
             controller: 'LoginCtrl'
         })
         .state('signup', {
             url: '/signup',
-            templateUrl: 'templates/signup.html',
+            templateUrl: 'templates/signup/signup.html',
             controller: 'SignupCtrl'
         })
         .state('app', {
             url: '/app',
             abstract: true,
-            templateUrl: 'templates/menu.html',
-            controller: 'AppCtrl'
+            templateUrl: 'templates/menu/menu.html',
+            controller: 'MenuCtrl'
         })
         .state('app.home', {
             url: '/home',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/home.html',
+                    templateUrl: 'templates/home/home.html',
                     controller: 'HomeCtrl'
                 }
             }
@@ -56,7 +57,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             url: '/selectRecipient',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/selectRecipient.html',
+                    templateUrl: 'templates/selectRecipient/selectRecipient.html',
                     controller: 'SelectRecipCtrl'
                 }
             }
@@ -65,7 +66,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             url: '/statistics',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/statistics.html',
+                    templateUrl: 'templates/statistics/statistics.html',
                     controller: 'StatisticsCtrl'
                 }
             }
@@ -74,7 +75,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             url: '/history',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/history.html',
+                    templateUrl: 'templates/history/history.html',
                     controller: 'historyCtrl'
                 }
             }
@@ -83,48 +84,48 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             url: '/settings',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/settings.html',
+                    templateUrl: 'templates/settings/settings.html',
                     controller: 'SettingCtrl'
                 }
             }
         })
         .state('myProfile', {
             url: '/myProfile',
-            templateUrl: 'templates/myProfile.html',
+            templateUrl: 'templates/myProfile/myProfile.html',
             controller: 'myProfileCtrl'
         })
         .state('socialSetting', {
             url: '/socialSetting',
-            templateUrl: 'templates/socialSetting.html',
+            templateUrl: 'templates/socialSetting/socialSetting.html',
             controller: 'socialSettingCtrl'
         })
         .state('NotificationSetting', {
             url: '/NotificationSetting',
-            templateUrl: 'templates/NotificationSetting.html',
+            templateUrl: 'templates/notificationSetting/NotificationSetting.html',
             controller: 'notificationCtrl'
         })
         .state('securitySetting', {
             url: '/securitySetting',
-            templateUrl: 'templates/securitySetting.html',
+            templateUrl: 'templates/securitySetting/securitySetting.html',
             controller: 'securitySettingCtrl'
         })
 
          .state('ResetPwd', {
              url: '/resetPwd',
-             templateUrl: 'templates/resetPwd.html',
+             templateUrl: 'templates/resetPassword/resetPwd.html',
              controller: 'resetPwdCtrl'
 
          })
 
         .state('howMuch', {
             url: '/howMuch',
-            templateUrl: 'templates/howMuch.html',
+            templateUrl: 'templates/howMuch/howMuch.html',
             controller: 'howMuchCtrl'
 
         })
         .state('TransferDetails', {
             url: '/TransferDetails',
-            templateUrl: 'templates/TransferDetails.html',
+            templateUrl: 'templates/transferDetails/TransferDetails.html',
             controller: 'TransferDetailsCtrl'
 
         })

@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('noochApp.services', [])
 
      .service('authenticationService', function ($http) {
          var Operations = {};
