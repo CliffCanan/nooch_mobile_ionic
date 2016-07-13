@@ -1,16 +1,26 @@
 ﻿<ion-view view-title="Accounts">
 
- 
+
     <ion-content>
 
         <h1>Test page </h1>
 
-        <button class="button button-calm" ng-click="getContact()">   Get Contact </button>       
-
-        <button class="button button-calm  button-small" ng-click="go('howMuch')"> HowMuch</button>
-        <button class="button button-calm  button-small" ng-click="go('login')"> Login Page</button>
-        <button class="button button-calm button-small" ng-click="go('signup')"> Signup Page</button>
-
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary button-block" ng-click="getContact()">Get Contacts</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-success button-block" ng-click="go('howMuch')">How Much</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-gray button-block" ng-click="go('login')">Login Screen</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-gray button-block" ng-click="go('signup')">Register Screen</button>
+            </div>
+        </div>
 
     </ion-content>
 </ion-view>

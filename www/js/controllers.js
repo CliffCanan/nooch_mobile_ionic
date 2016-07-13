@@ -13,13 +13,76 @@
 })
 
 
+/******************/
+/***  REGISTER  ***/
+/******************/
+.controller('SignupCtrl', function ($scope, $location, $ionicModal) {
+
+    $scope.signupData = {
+        Name: '',
+        Email: '',
+        Password: ''
+    };
+
+    $scope.gotoSignInPage = function () {
+        console.log('came in btn click');
+        $location.path("#/login");
+    };
+
+    $scope.$on("$ionicView.enter", function (event, data) {
+        // handle event
+        console.log('Signup Controller loaded');
+
+        console.log('signupData ' + JSON.stringify($scope.signupData));
+        // swal("Here's a message!");
+    });
+
+
+    $scope.signUpClick = function () {
+
+        var flag = $('#submitForm').parsley().validate();
+        console.log(flag);
+
+        if (flag)
+        {
+            console.log('signupData ' + JSON.stringify($scope.signupData));
+        }
+    };
+
+    $scope.openTos = function () {
+        $scope.openTosModal();
+        console.log("Clicked Social Setting");
+    };
+
+    // Viewing TOS Webview (in an Ionic Modal)
+    $ionicModal.fromTemplateUrl('tosModal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.tosModal = modal;
+    });
+
+    $scope.openTosModal = function () {
+        $scope.tosModal.show();
+    };
+
+    $scope.closeTosModal = function () {
+        $scope.tosModal.hide();
+    };
+
+    // Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function () {
+        $scope.tosModal.remove();
+    });
+})
+
+
 /***************/
 /***  LOGIN  ***/
 /***************/
  .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
-         // handle event
          console.log('Login Controller loaded');
          // swal("Here's a message!");
      });
@@ -33,10 +96,12 @@
      };
 
      $scope.SignIn = function () {
-         if ($('#frmLogin').parsley().validate() == true) {
+         if ($('#frmLogin').parsley().validate() == true)
+         {
              $ionicLoading.show({
                  template: 'Loading...'
              });
+
              username = $scope.loginData.email;
              pwd = $scope.loginData.pwd;
              remmbrMe = $scope.loginData.rmmbrMe.val;
@@ -49,12 +114,14 @@
 
                  console.log(response.Result + ',' + response.Result.indexOf('Temporarily_Blocked'));
                  console.log(response);
-                 if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1) {
+
+                 if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1)
+                 {
                      $ionicLoading.hide();
                      swal(response.Result);
-
                  }
-                 else if (response.Result.indexOf('Temporarily_Blocked') > -1) {
+                 else if (response.Result.indexOf('Temporarily_Blocked') > -1)
+                 {
                      $ionicLoading.hide();
                      swal({
                          title: "Oh No!",
@@ -67,53 +134,60 @@
                          customClass: "stackedBtns",
                          html: true,
                      }, function (isConfirm) {
-                         if (isConfirm) {
+                         if (isConfirm)
+                         {
 
                          }
                      });
                  }
-                 else {
+                 else
+                 {
                      $ionicLoading.hide();
                      swal("login successfull");
-                     // $state.go("#/app/dashboard"); --not Woking
+                     // $state.go("#/app/dashboard"); --not working
                  }
              });
          }
      }
+
+     $scope.forgotPw = function (type) {
+
+         var msgTxt = type == 1 ? "Please enter your email and we will send you a reset link." : "Please make sure you entered a valid email address.";
+
+         swal({
+             title: "Forgot Password",
+             text: msgTxt,
+             type: "input",
+             inputPlaceholder: "Email Address",
+             showCancelButton: true,
+             cancelButtonText: "Cancel",
+             confirmButtonColor: "#3fabe1",
+             confirmButtonText: "Submit",
+             closeOnConfirm: false,
+             html: true,
+         }, function (inputValue) {
+             if (inputValue === false) return false;
+
+             if (inputValue === "" || inputValue.length == 0)
+             {
+                 swal.showInputError("Please enter the email address associated with your account.");
+                 return false
+             }
+
+             if (inputValue.indexOf('@') > 1 &&
+                 inputValue.indexOf('.') > inputValue.indexOf('@') &&
+                 inputValue.indexOf('.') < inputValue.length - 2)
+             {
+                 swal("Success!", "Input email validated, need to submit to sever here. Input was: [" + inputValue + "]", "success");
+             }
+             else
+             {
+                 $scope.forgotPw(2)
+             }
+         });
+     }
+
  })
-
-
-.controller('SignupCtrl', function ($scope, $location) {
-    $scope.signupData = {
-        Name: '',
-        Email: '',
-        Password: ''
-    };
-
-    $scope.gotoSignInPage = function () {
-        console.log('came in btn click');
-        $location.path("#/login");
-    };
-
-    $scope.signUpClick = function () {
-
-        var flag = $('#submitForm').parsley().validate();
-        console.log(flag);
-
-        if (flag) {
-            console.log('came in btn click');
-            console.log('signupData ' + JSON.stringify($scope.signupData));
-        }
-    };
-
-    $scope.$on("$ionicView.enter", function (event, data) {
-        // handle event
-        console.log('Signup Controller loaded');
-
-        console.log('signupData ' + JSON.stringify($scope.signupData));
-        // swal("Here's a message!");
-    });
-})
 
 
 /*******************/
@@ -152,19 +226,23 @@
 
      $scope.go = function (data) {
          console.log(data);
-         if (data == 'Social') {
+         if (data == 'Social')
+         {
              $state.go('socialSetting');
              console.log("Clicked Social Setting");
          }
-         else if (data == 'Notification') {
+         else if (data == 'Notification')
+         {
              $state.go('NotificationSetting');
              console.log("Navigated Succesfully to my notification page");
          }
-         else if (data == 'Security') {
+         else if (data == 'Security')
+         {
              $state.go('securitySetting');
              console.log("State Navigated Success -- Security");
          }
-         else if (data == 'MyProfile') {
+         else if (data == 'MyProfile')
+         {
              $state.go('myProfile');
              console.log("Navigated Succesfully to my profile page");
          }
@@ -230,23 +308,27 @@
 
 
 //Surya Testing Contact plugin
-.controller('AccountCtrl', function ($scope, $cordovaContacts,$state) {
+.controller('AccountCtrl', function ($scope, $cordovaContacts, $state) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('History Page Loaded');
 
         $scope.go = function (data) {
             console.log(data);
-            if (data == 'howMuch') {
-                $state.go('howMuch');              
+            if (data == 'howMuch')
+            {
+                $state.go('howMuch');
             }
-            else if (data =='login') {
-                $state.go('login');           
+            else if (data == 'login')
+            {
+                $state.go('login');
             }
-            else if (data == 'signup') {
-                $state.go('signup');                
+            else if (data == 'signup')
+            {
+                $state.go('signup');
             }
-            else if (data == 'MyProfile') {
+            else if (data == 'MyProfile')
+            {
                 $state.go('myProfile');
                 console.log("Navigated Succesfully to my profile page");
             }
@@ -270,7 +352,7 @@
 /*** Reset Password ***/
 /**********************/
 
-.controller('resetPwdCtrl', function ($scope, authenticationService,$state) {
+.controller('resetPwdCtrl', function ($scope, authenticationService, $state) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Reset Pwd Page Is Loaded');
 
@@ -293,7 +375,7 @@
         }
 
     })
-    
+
 
 .controller('notificationCtrl', function ($scope, authenticationService, $state) {
 

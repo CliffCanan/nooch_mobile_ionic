@@ -1,21 +1,21 @@
-.title-image {
-    margin-top: 8px;
-    height: 37px;
-}
 
 input.parsley-error {
-    border: 1px solid red;
+    border: 1px solid rgb(169, 68, 66);
+    box-shadow: 0px 0px 4px rgba(169, 68, 66, .6) inset;
 }
 
-.parsley-error-list {
+.parsley-errors-list {
     color: red;
+    position: relative;
+    top: -5px;
+    left: -15px;
 }
 
 .parsley-required {
+    color: rgb(169, 68, 66);
+    display: block;
     font-weight: 400;
     font-size: 20px;
-    color: red;
-    display: block;
 }
 
 
@@ -465,30 +465,34 @@ input.parsley-error {
 }
 
 
-.btn, .button {
-    color: #fff;
-    font-size: 18px;
-    border-color: transparent;
-    position: relative;
-    display: inline-block;
-    margin: 0;
-    padding: 0 12px;
-    min-width: 52px;
-    min-height: 47px;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 5px;
-    vertical-align: top;
-    text-align: center;
-    text-overflow: ellipsis;
-    line-height: 42px;
+a {
     cursor: pointer;
 }
 
+.btn, .button {
+    color: #fff;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 6px;
+    border-color: transparent;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 42px;
+    margin: 0;
+    min-width: 52px;
+    min-height: 48px;
+    padding: 0 12px;
+    position: relative;
+    vertical-align: top;
+    text-align: center;
+    text-overflow: ellipsis;
+}
+
 .btn-primary {
-    background: -webkit-linear-gradient(#6dbee8, #41abe1);
-    background: -webkit-gradient(#6dbee8, #41abe1);
-    background: linear-gradient(#6dbee8, #41abe1);
+    background: -webkit-linear-gradient(#6dbee8, #3FABE1);
+    background: -webkit-gradient(#6dbee8, #3FABE1);
+    background: linear-gradient(#6dbee8, #3FABE1);
     text-shadow: 0px 1px rgba(19, 32, 38, 0.25);
 }
 
@@ -517,7 +521,7 @@ input.parsley-error {
 .btn-link {
     background: none;
     padding: 2px 5px;
-    color: darkblue;
+    color: #3fabe1;
 }
 
 .gradient_red {
@@ -557,6 +561,14 @@ input.parsley-error {
     transition: all 150ms;
 }
 
+.button.icon-left:before {
+    margin: 1px 6px 0 4px;
+}
+
+.button i, .btn i {
+    margin-right: 8px;
+}
+
 /***  TABLES  ***/
 .list .item {
     color: #313233;
@@ -564,7 +576,7 @@ input.parsley-error {
 }
 
 .list i:not(.ion-chevron-right):before {
-    color: #41ABE1;
+    color: #3FABE1;
     font-size: 22px;
     margin-right: 14px;
     text-align: center;
@@ -578,6 +590,29 @@ input.parsley-error {
     font-size: 20px;
 }
 
+.list.primary .item .input-label {
+    color: #3FABE1;
+}
+
+.list.noDivider .item {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+    .list.noDivider .item:not(:last-child) {
+        border-bottom: none;
+    }
+
+    .list.noDivider .item:not(:first-child) {
+        border-top: none;
+    }
+
+.list.noDivider input {
+    border-radius: 5px;
+    height: 41px;
+    padding: 9px 8px !important;
+}
+
 /*** SCREEN HEADER ***/
 .bar .title {
     font-size: 18px;
@@ -587,6 +622,173 @@ input.parsley-error {
 .bar .button, .bar button {
     border: none;
     font-size: 12px;
+}
+
+
+/***  Cards  ***/
+.card {
+    border-radius: 6px;
+}
+
+
+
+/***  Forms  ***/
+.input-label {
+    font-size: 17px;
+}
+
+.item.item-input input {
+    font-size: 17px;
+}
+
+
+/***  SWEET ALERT  ***/
+.sweet-alert {
+    top: 35%;
+    padding: 4px 16px 12px;
+}
+
+    .sweet-alert p {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .sweet-alert h2 {
+        color: #444;
+        margin: 22px 0 15px;
+    }
+
+    .sweet-alert button {
+        margin: 8px 6px 5px;
+    }
+
+    .sweet-alert fieldset {
+        padding: 0px;
+    }
+
+        .sweet-alert fieldset input {
+            margin-bottom: 10px;
+        }
+
+
+/***  Misc  ***/
+.label-small {
+    font-size: 18px;
+}
+
+.toggle-small input:checked + .track {
+    background: rgba(114,191,68,0.45);
+}
+
+    .toggle-small input:checked + .track .handle {
+        background: #72bf44;
+    }
+
+.raised-view {
+    box-shadow: 1px 1px 4px rgba(0,0,0,.25);
+}
+
+    .raised-view.noDivider .item {
+        border: none;
+    }
+
+iframe {
+    height: 100%;
+    min-height: 568px;
+    width: 100%;
+}
+
+/**********************/
+/****   REGISTER   ****/
+/**********************/
+
+.signupFlow {
+    color: #313233;
+    padding: 0 5px;
+}
+
+    .signupFlow .list {
+        border-radius: 6px;
+        margin: 10px 0;
+    }
+
+    .signupFlow .toggle {
+        margin: 4px 13px 4px 0;
+    }
+
+#registerScrn .btn-link {
+    color: #313233;
+    font-size: 14px;
+    padding: 0px;
+    line-height: inherit;
+    min-height: 10px;
+    text-decoration: underline;
+}
+
+.mainLogo {
+    margin-top: 8px;
+    height: 58px;
+}
+
+.instructionText {
+    font-size: 19px;
+    margin-top: 15px;
+}
+
+.button.fb-signup:before {
+    position: relative;
+    left: 28%;
+}
+
+.boxOutline {
+    margin: 0 3%;
+    width: 94%;
+}
+
+#toLoginBtn {
+    color: #313233;
+    display: block;
+    font-size: 18px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+    #toLoginBtn i {
+        font-size: 22px;
+        position: relative;
+        top: 2px;
+        margin-left: 6px;
+    }
+
+
+/***    LOGIN    ***/
+
+.button.backButton, .btn.backButton {
+    background: none;
+    color: #3fabe1;
+    font-size: 28px;
+    line-height: 1;
+    padding: 2px;
+    min-height: 10px;
+    text-decoration: none;
+}
+
+#loginScrn .btn-link {
+    color: #313233;
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    min-height: 10px;
+    text-decoration: none;
+}
+
+#loginScrn .toggle {
+    margin: 0 8px 0 0;
+}
+
+#rememberMe {
+    position: relative;
+    top: -8px;
 }
 
 /***********************/
@@ -653,7 +855,7 @@ input.parsley-error {
 }
 
 .menu .item-divider {
-    background: linear-gradient(#6DBEE8,#41ABE1);
+    background: linear-gradient(#6DBEE8,#3FABE1);
     box-shadow: 0 2px 1px rgba(46,47,48,.9), 0 -1px 0px rgba(46,47,48,.9);
     border: none;
     color: #fff;
@@ -679,22 +881,11 @@ input.parsley-error {
     margin-top: 6px;
 }
 
-/*Css For Navigation page Start*/
 
-/*.navColor
-{
-   background-color : #696969;
-   /*color:#D3D3D3;
-}*/
 
-/*.item-divider
-{
-    padding-top:8px;
-    padding-bottom:0px;
-}*/
+
 .listCnav {
     line-height: 10px;
-    /*padding-top:30px !important;*/
 }
 
 .item-content {
@@ -800,6 +991,7 @@ input.parsley-error {
     font-size: 18px;
     margin: 6px 0 2px;
 }
+
 .history-list .memo-container {
     color: rgba(88,90,92,.96);
     width: 80%;
@@ -865,27 +1057,16 @@ input.parsley-error {
 /*Notification Page CSS Ends*/
 
 
-/*My Profile Page CSS Starts*/
-/*.aliginRight
-  {
-     float:right;  -- useless 
-  }*/
-
-
-/*My Profile Page CSS Starts*/
-
-
 /******************/
 /*** How Much  ***/
 /******************/
 
-.header-item-c
-{
-   background-color:gray;
-   color:#fff;
-   height:30px;
+.header-item-c {
+    background-color: gray;
+    color: #fff;
+    height: 30px;
 }
-.h1-c
-{
-    color:#696969;
+
+.h1-c {
+    color: #696969;
 }

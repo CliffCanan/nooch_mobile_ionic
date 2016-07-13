@@ -50,13 +50,6 @@ angular.module('starter.services', [])
          };
 
 
-
-
-
-
-
-
-
          return Operations;
      })
 
