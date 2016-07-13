@@ -6,7 +6,7 @@
 angular.module('noochApp', ['ionic', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
     'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.myProfileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl', 'noochApp.securitySettingCtrl',
     'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl','noochApp.testPageCtrl',
-    'noochApp.services', 'ngCordova'])
+    'noochApp.enterPin','noochApp.services', 'ngCordova'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -138,6 +138,13 @@ angular.module('noochApp', ['ionic', 'noochApp.controllers', 'noochApp.LoginCtrl
                 }
             }
         })
+
+        .state('enterPin', {
+            url: '/enterPin',
+            templateUrl: 'templates/enterPin/enterPin.html',
+            controller: 'enterPinCtrl'
+        })
+
         //Test Page
         .state('app.testPage', {
             url: '/testPage',

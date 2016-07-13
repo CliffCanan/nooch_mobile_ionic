@@ -19,6 +19,9 @@
             else if (data == 'TrnsDetails') {
                 $state.go('TransferDetails');
             }
+            else if (data == 'EnterPin') {
+                $state.go('enterPin');
+            }
         }
         $scope.getContact = function () {
             $cordovaContacts.pickContact().then(function (result) {

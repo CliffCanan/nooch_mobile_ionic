@@ -1129,3 +1129,14 @@ iframe {
     margin-right: 10px;
     margin-left:10px;
 }
+
+
+/*************************/
+/*** Enter PIN ***********/
+/*************************/
+
+.header-item-green {
+    background-color: #72BF44;
+    color: #fff;
+    height: 45px;
+}
