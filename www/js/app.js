@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('noochApp', ['ionic', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
     'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.myProfileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl', 'noochApp.securitySettingCtrl',
-    'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.TransferDetailsCtrl',
+    'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl',
     'noochApp.services', 'ngCordova'])
 
 .run(function ($ionicPlatform) {
@@ -128,18 +128,26 @@ angular.module('noochApp', ['ionic', 'noochApp.controllers', 'noochApp.LoginCtrl
             templateUrl: 'templates/transferDetails/TransferDetails.html',
             controller: 'TransferDetailsCtrl'
 
-        })
-
-        //Surya Testing Contact plugin
-        .state('app.Accounts', {
-            url: '/Accounts',
+        })     
+        .state('app.referAfriend', {
+            url: '/referAfriend',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/Accounts.html',
-                    controller: 'AccountCtrl'
+                    templateUrl: 'templates/referAfriend/referAfriend.html',
+                    controller: 'referAfriendCtrl'
                 }
             }
         })
+        //Surya Testing Contact plugin
+        //.state('app.Accounts', {
+        //    url: '/Accounts',
+        //    views: {
+        //        'menuContent': {
+        //            templateUrl: 'templates/Accounts.html',
+        //            controller: 'AccountCtrl'
+        //        }
+        //    }
+        //})
     //have to delete after testing 
     $urlRouterProvider.otherwise('app/home');
 });

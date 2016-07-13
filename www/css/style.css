@@ -1080,3 +1080,52 @@ iframe {
     color: #fff;
     height: 30px;
 }
+
+/*************************/
+/*** Refer A Friend    ***/
+/*************************/
+
+.Item-left
+{
+   
+    float:left;
+   
+}
+.IconBackGroundGreen {
+    background: #76C14B;
+    padding: 10px 20px;
+    border-radius: 70%;
+    font-size: 35px;
+    color: #fff;
+    margin-right: 10px;
+    margin-left:10px;
+}
+
+.IconBackGroundfb {
+    background: #3b5998;
+    padding: 10px 20px;
+    border-radius: 70%;
+    font-size:35px;
+    color: #fff;
+    margin-right: 10px;
+    margin-left:10px;
+}
+
+.IconBackGroundtwitter {
+    background: #11C1F3;
+    padding: 10px 20px;
+    border-radius: 70%;
+    font-size: 35px;
+    color: #fff;
+    margin-right:10px;
+    margin-left:10px;
+}
+.IconBackGroundemail {
+    background: #696969;
+    padding: 10px 20px;
+    border-radius: 70%;
+    font-size: 35px;
+    color: #fff;
+    margin-right: 10px;
+    margin-left:10px;
+}
