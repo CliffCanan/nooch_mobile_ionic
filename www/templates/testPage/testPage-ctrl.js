@@ -22,6 +22,9 @@
             else if (data == 'EnterPin') {
                 $state.go('enterPin');
             }
+            else if (data == 'recentRecipient') {
+                $state.go('recentRecipient');
+            }
         }
 
         $scope.getContact = function () {

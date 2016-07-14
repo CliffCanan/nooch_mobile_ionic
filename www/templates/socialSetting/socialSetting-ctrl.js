@@ -3,7 +3,7 @@
 
 
 
-.controller('socialSettingCtrl', function ($scope, authenticationService, $state) {
+.controller('socialSettingCtrl', function ($scope, authenticationService, $state, $ionicHistory) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
@@ -11,8 +11,7 @@
 
     })
     $scope.GoBack = function () {
-        console.log("Back Button Clicked");
-        $state.go('app.setting');
+        $ionicHistory.goBack();
     }
 })
 

@@ -6,7 +6,7 @@
 /****************************/
 /**  NOTIFICATION SETTINGS **/
 /****************************/
-.controller('notificationCtrl', function ($scope,  $state) {
+.controller('notificationCtrl', function ($scope, $state, $ionicHistory) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
@@ -15,6 +15,6 @@
 
     $scope.GoBack = function () {
         console.log("Back Button Clicked");
-        $state.go('app.setting');
+        $ionicHistory.goBack();
     }
 })
