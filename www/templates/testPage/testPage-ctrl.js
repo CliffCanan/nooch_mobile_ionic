@@ -23,6 +23,7 @@
                 $state.go('enterPin');
             }
         }
+
         $scope.getContact = function () {
             $cordovaContacts.pickContact().then(function (result) {
                 console.log(result);

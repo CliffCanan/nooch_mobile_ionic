@@ -1,35 +1,38 @@
 ﻿<ion-view view-title="Enter PIN">
     <ion-content>
-        <br>
-        <br>
-
-        <div class="bar bar-header bar-calm">
-            <button class="button ion-chevron-left" ng-click="GoBack()"></button>
-            <h6 class="title">Enter PIN</h6>
-        </div>
-        <div class="text-center">
-            <br />
-            <h2> Enter PIN to confirm your</h2>
-            <h2 class="text-success"> transfer </h2>
-        </div>
-        <br>
-        <label class="item item-input text-center">
-
-            <input type="password" placeholder="****">
-        </label>
-        <br>
-        <div class="text-center f-700">
-            <h1> $ &nbsp; 50.00</h1>
+        <!--<br>
             <br>
-            <div class="card text-center" style="line-height:40px;">
-                <div class="header-item header-item-green">
-                    Abe Lincoln
-                </div>
-                <div class="header-item ">
-                    This Is memo ! (y) (y)
+            <div class="bar bar-header bar-calm">
+                <button class="button ion-chevron-left" ng-click="GoBack()"></button>
+                <h6 class="title">Enter PIN</h6>
+            </div>-->
+
+        <h2 class="instructionTextPin m-t-10">
+            Enter PIN to confirm your
+            <span class="show text-success"> transfer </span>
+        </h2>
+
+        <div class="row">
+            <div class="col text-center">
+                <div class="pin-container m-b-20">
+                    <input type="password" id="pin" placeholder="****" maxlength="4">
                 </div>
 
+                <div class="amountPin">$50.00</div>
             </div>
         </div>
+
+        <div class="card text-center m-t-10 recipient-box">
+            <img src="../../img/profile_picture.png" class="recip-pic" />
+
+            <div class="namebar namebar-send">
+                Abe Lincoln
+            </div>
+
+            <div class="memo-text">
+                This is a sample memo!
+            </div>
+        </div>
+
     </ion-content>
 </ion-view>

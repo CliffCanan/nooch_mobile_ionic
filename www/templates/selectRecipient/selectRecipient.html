@@ -1,71 +1,50 @@
-﻿<ion-view view-title="selectRecipient">
+﻿<ion-view view-title="Select Recipient">
+    <ion-content>
 
-    <ion-tabs class="tabs-striped tabs-top tabs-icon-left tabs-background-positive tabs-color-light">
-        <ion-tab title="Completed" icon-on="ion-checkmark-circled" icon-off="ion-checkmark-circled">
-
-            <br /><br />
-            <br />
-            <br />
-            <br />
-            <div class="history-list">
-
-                <a class="item item-avatar" href="#">
-                    <img src="../img/profile_picture.png">
-
-                    <div class="name">Abe Lincoln</div>
-
-                    <p class="memo-container">For "<span class="memo-text">Back off, man. I'm a scientist.</span>"</p>
-
-                    <div class="typeDateContainer">
-                        <label class="transTypeLabel sent">Transfer To</label>
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>July 4, 2016</h5>
-                    </div>
-
-                    <span class="item-note amount">$50.00</span>
-                </a>
-
-                <a class="item item-avatar item-icon-right" href="#">
-                    <img src="../img/RoundLoading.png">
-
-                    <div class="name">Joe Schmoe</div>
-
-                    <p class="memo-container">For "<span class="memo-text">Back off, man. I'm a scientist.</span>"</p>
-
-                    <div class="typeDateContainer">
-                        <label class="transTypeLabel received">Transfer From</label>
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>July 4, 2016</h5>
-                    </div>
-
-                    <span class="item-note amount">$50.00</span>
-                </a>
-
-                <a class="item item-avatar item-icon-right" href="#">
-                    <img src="../img/profile_picture.png">
-
-                    <div class="name">Tim Duncan</div>
-
-                    <p class="memo-container">For "<span class="memo-text">Back off, man. I'm a scientist.</span>"</p>
-
-                    <div class="typeDateContainer">
-                        <label class="transTypeLabel neutral">Request From</label>
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>July 4, 2016</h5>
-                    </div>
-
-                    <span class="item-note amount">$50.00</span>
-                </a>
-
-                <button type="button" id="export-btn" class="btn btn-primary"><i class="ion-ios-cloud-download"></i>Export</button>
-
+        <div class="row">
+            <div class="col p-t-0">
+                <ti-segmented-control on-select="buttonClicked($index)">
+                    <ti-segmented-control-button class="button-positive" title="'Month'" selected><i class="ion-ios-clock-outline"></i>Recents</ti-segmented-control-button>
+                    <ti-segmented-control-button class="button-positive" title="'Day'"><i class="ion-ios-location"></i>Find By Location</ti-segmented-control-button>
+                </ti-segmented-control>
             </div>
-        </ion-tab>
+        </div>
 
-        <ion-tab title="Pending" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
-            <br>
-            <br>
-            <br>
-            <br>
-            <h3> Pending tab</h3>
-        </ion-tab>
-    </ion-tabs>
+        <div class="list list-inset m-t-0 m-b-10">
+            <label class="item item-input searchBarContainer">
+                <i class="icon ion-search placeholder-icon p-r-0"></i>
+                <input type="text" class="p-r-10" placeholder="Search by name or enter an email">
+            </label>
+        </div>
 
+        <div class="list" id="recents-table">
+
+            <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
+                <img src="../../img/profile_picture.png" class="userPic">
+                <h2>John Smith</h2>
+                <p>john.smith@email.com</p>
+                <img src="../../img/n_icon_46x54.png" class="n-icon" />
+            </a>
+
+            <a class="item item-avatar" href="" ng-click="go('howMuch')">
+                <img src="../../img/profile_picture.png">
+                <h2>Meghan Brown</h2>
+                <p>mbrown@email.com</p>
+            </a>
+
+            <a class="item item-avatar" href="" ng-click="go('howMuch')">
+                <img src="../../img/profile_picture.png">
+                <h2>Paul Lazar</h2>
+                <p>p.lazar@domain.com</p>
+            </a>
+
+            <a class="item item-avatar" href="" ng-click="go('howMuch')">
+                <img src="../../img/profile_picture.png">
+                <h2>Julius Smithers</h2>
+                <p>jsmithers1@email.com</p>
+            </a>
+
+        </div>
+
+    </ion-content>
 </ion-view>

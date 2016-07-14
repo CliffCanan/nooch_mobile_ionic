@@ -1,5 +1,5 @@
-﻿angular.module('noochApp.myProfileCtrl', ['noochApp.services'])
-.controller('myProfileCtrl', function ($scope, authenticationService, $state) {
+﻿angular.module('noochApp.profileCtrl', ['noochApp.services'])
+.controller('profileCtrl', function ($scope, authenticationService, $state) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event

@@ -10,7 +10,6 @@
      });
 
      $scope.go = function (data) {
-         console.log(data);
          if (data == 'Social') {
              $state.go('socialSetting');
          }
@@ -20,8 +19,8 @@
          else if (data == 'Security') {
              $state.go('securitySetting');
          }
-         else if (data == 'MyProfile') {
-             $state.go('myProfile');
+         else if (data == 'profile') {
+             $state.go('profile');
          }
      }
 

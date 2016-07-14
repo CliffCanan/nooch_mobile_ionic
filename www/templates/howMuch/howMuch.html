@@ -1,36 +1,53 @@
-﻿<ion-view view-title="How Much">
+﻿
+
+<ion-view view-title="How Much">
     <ion-content>
-        <br>
-        <br>
 
-        <div class="bar bar-header bar-calm">
+        <!--<div class="bar bar-header bar-calm">
             <button class="button ion-chevron-left" ng-click="GoBack()"></button>
-            <h6 class="title">How Much ?</h6>
+            <h6 class="title">How Much?</h6>
+        </div>-->
+
+
+        <div id="howMuchBox" class="card m-t-15">
+
+            <form id="howMuchForm" data-parsley-validate="">
+
+                <div class="header-item barBackground">
+                    To: <span id="recipName">Abe Lincoln</span>
+                    <a class="" href=""><i class="ion-plus-circled pull-right f-19"></i></a>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <img class="recip-pic" src="../../img/RoundLoading.png">
+                    </div>
+
+                    <div class="col amount-container">
+                        <i id="dollarSign" class="ion-social-usd"></i>
+                        <input placeholder="00.00" maxlength="7" pattern="\d*\.*\d+" min="1" max="1000" data-parsley-required data-parsley-required-message="Please enter an amount to continue." data-parsley-range-message="Amount must be between $0-$4,000" data-parsley-error-message="Please enter a valid amount!" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div id="memoField" class="item item-input text-center">
+                            <input type="text" placeholder="                 Enter a Memo" maxlength="100">
+                            <a href="" ng-click="addImage()" id="add-img-btn">
+                                <i class="ion-camera m-l-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-bar">
+                    <button class="button btn-primary button-block" ng-click="submitRequest()">REQUEST</button>
+                    <button class="button button-block btn-success" ng-click="submitSend()">SEND</button>
+                </div>
+
+            </form>
+
         </div>
-        <div class="card">
-            <div class="header-item header-item-c">
-                &nbsp; To : Abe Lincoln <i class="ion-plus-circled" style="float:right;">&nbsp;&nbsp;</i>
-            </div>
 
-            <div class="item item-avatar side_menu_top">
-                <img class="user-img" src="https://goo.gl/zK7SNE">                
-                <h1 class="h1-c"> &nbsp;&nbsp;$ 45.00</h1>
-                &nbsp;
-            </div>
-
-            <label class="item item-input text-center item-body">                
-                <input type="number" placeholder="Concert tickets" >
-               | &nbsp;<i class="ion-camera">&nbsp;&nbsp;</i>
-                   </label>
-            </div>
-
-        <div class="button-bar">
-            <button class="button  button-block button-calm">REQUEST</button>           
-            <button class="button button-block button-balanced">SEND</button>
-        </div>
-            
-
-
-        
     </ion-content>
 </ion-view>
