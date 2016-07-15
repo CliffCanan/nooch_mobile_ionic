@@ -23,7 +23,7 @@
                 $state.go('enterPin');
             }
             else if (data == 'recentRecipient') {
-                $state.go('recentRecipient');
+                $state.go('app.selectRecipient');
             }
         }
 
