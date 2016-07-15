@@ -25,6 +25,9 @@
             else if (data == 'recentRecipient') {
                 $state.go('app.selectRecipient');
             }
+            else if (data == 'addPicture') {
+                $state.go('addPicture');
+            }
         }
 
         $scope.getContact = function () {

@@ -6,7 +6,7 @@
 angular.module('noochApp', ['ionic', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
     'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl', 'noochApp.securitySettingCtrl',
     'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl',
-    'noochApp.enterPin', 'noochApp.services', 'ngCordova', 'ti-segmented-control'])
+    'noochApp.enterPin', 'noochApp.services', 'noochApp.addPicture', 'ngCordova', 'ti-segmented-control'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -143,7 +143,13 @@ angular.module('noochApp', ['ionic', 'noochApp.controllers', 'noochApp.LoginCtrl
             templateUrl: 'templates/enterPin/enterPin.html',
             controller: 'enterPinCtrl'
         })
-        
+
+        .state('addPicture', {
+            url: '/addPicture',
+            templateUrl: 'templates/addPicture/addPicture.html',
+            controller: 'addPictureCtrl'
+        })
+
         //Test Page
         .state('app.testPage', {
             url: '/testPage',
