@@ -28,6 +28,9 @@
             else if (data == 'addPicture') {
                 $state.go('addPicture');
             }
+            else if (data == 'createPin') {
+                $state.go('createPin');
+            }
         }
 
         $scope.getContact = function () {
