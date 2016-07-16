@@ -1175,7 +1175,7 @@ iframe {
 }
 
 #howItWorksSlider #slide1 {
-    background-image: url('../img/0_home-bg.png');
+    background-image: url("../img/0_home-bg.png");
 }
 
 #howItWorksSlider #slide2 {
