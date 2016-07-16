@@ -1,6 +1,12 @@
 /*** GENERAL STYLES ***/
 body, h1, h2, h3, h4, h5, p, input, .btn, .button {
+    color: #313233;
     font-family: Roboto;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.35;
 }
 
 ion-header-bar, .navheader {
@@ -11,14 +17,18 @@ ion-header-bar, .navheader {
         color: #fff !important;
     }
 
+[nav-view-transition="ios"][nav-view-direction="forward"], [nav-view-transition="ios"][nav-view-direction="back"] {
+    background-color: transparent;
+}
+
 .hidden {
     display: none;
 }
 
 .section-header {
     color: #939598;
-    font-size: 16px;
-    margin: 0px 0px 5px 16px;
+    font-size: 17px;
+    margin: 0px 0px 10px 16px;
     height: 24px;
 }
 
@@ -836,7 +846,7 @@ iframe {
 /*** LEFT SIDE MENU  ***/
 /***********************/
 .menu .item a {
-    text-shadow: 0px 2px 0px rgba(30,32,34,.7);
+    text-shadow: 0px 2px 0px rgba(30,32,34,.4);
 }
 
 .menu h2, .menu h3, .menu h4 {
@@ -876,7 +886,7 @@ iframe {
 }
 
 .menu .item-complex .item-content {
-    padding-top: 10px;
+    padding-top: 13px;
     padding-right: 0px;
 }
 
@@ -897,13 +907,16 @@ iframe {
 
 .menu .item-divider {
     background: linear-gradient(#6DBEE8,#3FABE1);
-    box-shadow: 0 2px 1px rgba(46,47,48,.9), 0 -1px 0px rgba(46,47,48,.9);
+    box-shadow: 0 1px 1px rgba(46,47,48,.25), 0 -1px 1px rgba(46,47,48,.25);
     border: none;
     color: #fff;
     font-size: 14px;
     font-weight: 400;
-    padding-top: 11px;
+    letter-spacing: .5px;
+    line-height: 14px;
+    padding: 10px 16px 7px;
     text-shadow: 0 -2px 0 rgba(30,30,30,.2);
+    z-index: 3;
 }
 
 .menu .list .item {
@@ -925,23 +938,39 @@ iframe {
 }
 
 
-
-
-.listCnav {
-    line-height: 10px;
-}
-
-.item-content {
+.menu .item-content {
     background-color: #58595B !important;
     color: #ffffff !important;
     font-weight: 100;
-    height: 45px;
+    height: 48px;
 }
 
 
 /******************/
 /***  SETTINGS  ***/
 /******************/
+
+#replaceBankBtn {
+    border: none;
+    background: transparent;
+    color: #3FABE1;
+    font-size: 20px;
+    padding: 4px 8px;
+    position: relative;
+    top: -5px;
+    left: -5px;
+}
+
+#bankIntro {
+    padding: 5px 16px;
+    text-align: center;
+}
+
+    #bankIntro p {
+        font-size: 18px;
+        margin-bottom: 0;
+    }
+
 .bank-info {
     background: #fff;
     border-top: 1px solid rgba(188,190,192,.9);
@@ -1107,6 +1136,7 @@ iframe {
     right: 1px;
     top: 22px;
 }
+
 
 /**********************/
 /***  HOW IT WORKS  ***/
@@ -1398,50 +1428,55 @@ iframe {
 /*************************/
 /*** Refer A Friend    ***/
 /*************************/
-.Item-left {
-    float: left;
+
+#referral-code {
+    color: #3fabe1;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    text-transform: uppercase;
 }
 
-.IconBackGroundGreen {
-    background: #76C14B;
-    padding: 10px 20px;
-    border-radius: 70%;
-    font-size: 35px;
-    color: #fff;
-    margin-right: 10px;
-    margin-left: 10px;
+.refer-icons-container {
+    padding: 0 2px;
 }
 
-.IconBackGroundfb {
-    background: #3b5998;
-    padding: 10px 20px;
-    border-radius: 70%;
-    font-size: 35px;
-    color: #fff;
-    margin-right: 10px;
-    margin-left: 10px;
+    .refer-icons-container .refer-icon {
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .refer-icons-container img {
+        width: 70%;
+        margin-bottom: 8px;
+    }
+
+    .refer-icons-container .label {
+        color: #6d6e71;
+        font-size: 14px;
+    }
+
+#referredUsersList img {
+    border: 1px solid #6d6e71;
+    box-shadow: 0 3px 7px -1px rgba(0,0,0,.2);
+    max-width: 46px;
+    max-height: 46px;
 }
 
-.IconBackGroundtwitter {
-    background: #11C1F3;
-    padding: 10px 20px;
-    border-radius: 70%;
-    font-size: 35px;
-    color: #fff;
-    margin-right: 10px;
-    margin-left: 10px;
+#referredUsersList h2 {
+    font-weight: 500;
+    margin: 12px 0 0 5px;
+    max-width: 75%;
 }
 
-.IconBackGroundemail {
-    background: #696969;
-    padding: 10px 20px;
-    border-radius: 70%;
-    font-size: 35px;
-    color: #fff;
-    margin-right: 10px;
-    margin-left: 10px;
+#referredUsersList .item-note {
+    font-size: 15px;
+    color: #3fabe1;
+    position: absolute;
+    right: 10px;
+    top: 27px;
 }
-
 
 /*************************/
 /*** Enter PIN ***********/

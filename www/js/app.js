@@ -4,13 +4,15 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
-    'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl', 'noochApp.securitySettingCtrl',
-    'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl',
-    'noochApp.enterPin', 'noochApp.createPin', 'noochApp.services', 'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'ngCordova', 'ti-segmented-control'])
+    'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl',
+    'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
+    'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPin', 'noochApp.services',
+    'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'ngCordova', 'ti-segmented-control'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
-        if (window.cordova && window.cordova.plugins.Keyboard) {
+        if (window.cordova && window.cordova.plugins.Keyboard)
+        {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -20,7 +22,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             // a much nicer keyboard experience.
             cordova.plugins.Keyboard.disableScroll(true);
         }
-        if (window.StatusBar) {
+        if (window.StatusBar)
+        {
             StatusBar.styleDefault();
         }
     });
@@ -111,6 +114,15 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
+        .state('app.limitsAndFees', {
+            url: '/limitsAndFees',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/limitsAndFees/limitsAndFees.html',
+                    controller: 'limitsAndFeesCtrl'
+                }
+            }
+        })
         //.state('profile', {
         //    url: '/profile',
         //    templateUrl: 'templates/profile/profile.html',
@@ -132,13 +144,13 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
         })
        .state('app.securitySetting', {
            url: '/settings/securitySetting',
-            views: {
+           views: {
                'menuContent': {
                    templateUrl: 'templates/securitySetting/securitySetting.html',
                    controller: 'securitySettingCtrl'
-                  }
-              }
-          })
+               }
+           }
+       })
         .state('socialSetting', {
             url: '/socialSetting',
             templateUrl: 'templates/socialSetting/socialSetting.html',

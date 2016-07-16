@@ -36,11 +36,6 @@
         }
     };
 
-    $scope.openTos = function () {
-        $scope.openTosModal();
-        console.log("Clicked Social Setting");
-    };
-
     // Viewing TOS Webview (in an Ionic Modal)
     $ionicModal.fromTemplateUrl('tosModal.html', {
         scope: $scope,
@@ -49,11 +44,11 @@
         $scope.tosModal = modal;
     });
 
-    $scope.openTosModal = function () {
+    $scope.openTos = function () {
         $scope.tosModal.show();
     };
 
-    $scope.closeTosModal = function () {
+    $scope.closeTos = function () {
         $scope.tosModal.hide();
     };
 

@@ -1,42 +1,52 @@
 ﻿<ion-view view-title="Settings">
     <ion-content class="b-gray">
 
-        <div class="section-header m-t-20">Linked Banked Account<i class="ion-alert-circled text-danger m-l-10"></i></div>
+        <div class="section-header m-t-20">
+            Linked Banked Account<i class="ion-android-alert text-danger m-l-10 f-21"></i>
+            <button type="button" id="replaceBankBtn" class="pull-right" ng-click="openAddBank()">
+                <i class="ion-ios-plus-circled"></i>
+            </button>
+        </div>
 
-        <!-- WHEN BANK IS NOT LINKED (UNFINISHED) -->
-        <div class="bank-info hidden">
+        <!-- WHEN BANK IS NOT LINKED -->
+        <div id="bankIntro" class="hidden">
             <p>Attach bank to send or receive payments. Just select your bank, login to your online banking, and you're done.</p>
-            <br>
-            <button class="btn button-block btn-primary m-t-10"><i class="ion-plus"></i>Link Bank Now </button>
+
+            <button class="btn button-block btn-primary m-t-15" ng-click="openAddBank()">
+                <i class="ion-plus-circled m-r-15"></i>Link Bank Now
+            </button>
         </div>
 
         <!-- WHEN BANK IS LINKED -->
-        <div class="bank-info">
+        <div class="">
+            <div class="bank-info">
 
-            <img class="bank-logo pull-left m-r-10" src="../img/bank.png" />
+                <img class="bank-logo pull-left m-r-10" src="../img/bank.png" />
 
-            <div>
-                <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>Bank of America</div>
-                <div id="bank-nickname">Personal Checking</div>
-                <div id="bank-status">
-                    Status:
-                    <span class="text-danger">Not Verified</span>
+                <div>
+                    <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>Bank of America</div>
+                    <div id="bank-nickname">Personal Checking</div>
+                    <div id="bank-status">
+                        Status:
+                        <span class="text-danger">Not Verified</span>
+                    </div>
+                    <button type="button" class="btn btn-link pull-right f-15 text-danger" id="edit-bank">Edit</button>
                 </div>
-                <button type="button" class="btn btn-link pull-right f-14 text-danger" id="edit-bank">Edit</button>
+
             </div>
 
-        </div>
-
-        <div class="section-note">
-            As an extra security measure, your bank must be verified. &nbsp;Learn more &nbsp;<i class="ion-ios-help text-primary"></i>
+            <!-- WHEN BANK IS LINKED, BUT NOT VERIFIED -->
+            <div class="section-note">
+                As an extra security measure, your bank must be verified. &nbsp;Learn more &nbsp;<i class="ion-ios-help text-primary"></i>
+            </div>
         </div>
 
         <div class="list m-t-20">
 
             <a class="item item-icon-left item-icon-right" href="#/app/settings/profile">
                 <i class="icon ion-person"></i>My Profile
-                <!-- IF NOT VERIFIED-->
-                <i class="ion-android-alert text-danger m-l-10 f-24"></i>
+                <!-- IF USER'S PROFILE IS NOT VERIFIED-->
+                <i class="ion-android-alert text-danger m-l-10 f-21"></i>
                 <i class="icon ion-chevron-right"></i>
             </a>
 
@@ -60,6 +70,19 @@
         <div id="sign-out-container">
             <button id="sign-out" type="button" class="btn btn-gray button button-block"><i class="ion-log-out"></i>Sign Out</button>
         </div>
+
+
+        <script id="addBankModal.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar>
+                    <h1 class="title">Add A Bank</h1>
+                    <button class="button button-clear button-dark" ng-click="closeAddBank()">Close</button>
+                </ion-header-bar>
+                <ion-content>
+                    <iframe src="https://www.nooch.com/privacy"></iframe>
+                </ion-content>
+            </ion-modal-view>
+        </script>
 
     </ion-content>
 </ion-view>

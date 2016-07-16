@@ -1,63 +1,70 @@
-﻿<ion-view view-title="Refer a friend">
+﻿<ion-view view-title="Refer a Friend">
     <ion-content>
 
         <div class="text-center">
-            <br />
-            <h2> Your referral code :</h2>
-            <h1 class="text-primary f-700"> CLIF999 </h1>
+            <h2 class="m-t-15">Your referral code:</h2>
+            <div id="referral-code">CLIF999</div>
         </div>
 
-        <div>
-            <h4>Refer a friend with...</h4>
+        <div class="section-header m-t-20">
+            Refer a friend with...
+        </div>
 
-            <div class="text-center" style="line-height:60px;">
-                <span class="IconBackGroundGreen">
-                    <i class="ion-iphone"></i>
-                </span>
-                <span class="IconBackGroundfb">
-                    <i class="ion-social-facebook"></i>
-                </span>
-                <span class="IconBackGroundtwitter">
-                    <i class="ion-social-twitter"></i>
-                </span>
-                <span class="IconBackGroundemail">
-                    <i class="ion-email"></i>
-                </span>
+        <div class="row refer-icons-container p-0">
+            <div class="col refer-icon" ng-click="sendReferralCode('sms')">
+                <img src="../../img/sms-icon.png" />
+                <span class="label">SMS Text</span>
             </div>
 
-        </div>
-        <br>
-        <div>
-            <h4> Friends you have refered :</h4>
-            <div class="card">
-                <div class="list">
-                    <div class="item item item-avatar">
-                        <img class="user-img" src="https://goo.gl/zK7SNE">
-                        <h2> Surya </h2>
-                        <p class="text-primary item-note"> 1/1/1999</p>
-                    </div>
-                    <div class="item item item-avatar">
-                        <img class="user-img" src="https://goo.gl/zK7SNE">
-                        <h2> Surya </h2>
-                        <p class="text-primary item-note"> 1/1/1999</p>
-                    </div>
-                 
-                        <div class="item item-avatar">
-                            <img class="user-img" src="https://goo.gl/zK7SNE">
-                            <h2> Surya </h2>
-                            <p class="text-primary item-note"> 1/1/1999</p>
-                        </div>
+            <div class="col refer-icon" ng-click="sendReferralCode('fb')">
+                <img src="../../img/fb-icon100x100.png" />
+                <span class="label">Facebook</span>
+            </div>
 
-                        
-                            <div class="item item-avatar">
-                                <img class="user-img" src="https://goo.gl/zK7SNE">
-                                <h2> Surya </h2>
-                                <p class="text-primary item-note"> 1/1/1999</p>
-                            </div>                            
-                        </div>
-                  </div>
+            <div class="col refer-icon" ng-click="sendReferralCode('twitter')">
+                <img src="../../img/twitter-icon.png" />
+                <span class="label">Twitter</span>
+            </div>
+
+            <div class="col refer-icon" ng-click="sendReferralCode('email')">
+                <img src="../../img/email-icon.png" />
+                <span class="label">Email</span>
+            </div>
+        </div>
+
+
+        <div class="section-header m-t-20">
+            Friends you have refered
+        </div>
+
+        <div class="card m-t-5">
+            <div id="referredUsersList" class="list">
+
+                <div class="item item item-avatar">
+                    <img class="user-img" src="../../img/profile_picture.png">
+                    <h2>John Wayne</h2>
+                    <p class="item-note">1/1/1999</p>
                 </div>
-     
+
+                <div class="item item item-avatar">
+                    <img class="user-img" src="../../img/RoundLoading.png">
+                    <h2>Manuel Peralta</h2>
+                    <p class="item-note">1/1/1999</p>
+                </div>
+
+                <div class="item item-avatar">
+                    <img class="user-img" src="../../img/profile_picture.png">
+                    <h2>Theresa May</h2>
+                    <p class="item-note">1/1/1999</p>
+                </div>
+
+                <div class="item item-avatar">
+                    <img class="user-img" src="../../img/RoundLoading.png">
+                    <h2>Lenny Kravitz</h2>
+                    <p class="item-note">1/1/1999</p>
+                </div>
+            </div>
+        </div>
 
     </ion-content>
 </ion-view>

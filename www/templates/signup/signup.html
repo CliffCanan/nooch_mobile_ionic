@@ -68,8 +68,7 @@
 
         <div class="row">
             <div class="col text-center">
-                <a href="#/login" id="toLoginBtn">
-                    <!--ng-click="gotoSignInPage()"-->
+                <a href="#/login" id="toLoginBtn" nav-transition="ios" nav-direction="forward">
                     Already a member? &nbsp;Sign in Here
                     <i class="ion-ios-arrow-forward text-success"></i>
                 </a>
@@ -83,7 +82,7 @@
     <ion-modal-view>
         <ion-header-bar>
             <h1 class="title">Nooch Terms of Service</h1>
-            <button class="button button-clear button-dark" ng-click="closeTosModal()">Close</button>
+            <button class="button button-clear button-dark" ng-click="closeTos()">Close</button>
         </ion-header-bar>
         <ion-content>
             <iframe src="https://www.nooch.com/tos"></iframe>
