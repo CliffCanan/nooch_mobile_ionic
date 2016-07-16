@@ -11,15 +11,18 @@
     });
 
     $(".amount-container input").focusout(function () {
-        if ($(this).parsley().validate() != true)
-            $(this).focus();
-        else
+        if ($(".amount-container input").val().trim().length > 0)
         {
-            var enteredAmnt = $(".amount-container input").val().trim();
-            if (enteredAmnt.indexOf(".") == -1)
-                $(".amount-container input").val(enteredAmnt + ".00");
-            else if (enteredAmnt.indexOf(".") > enteredAmnt.length - 3)
-                $(".amount-container input").val(enteredAmnt + "0");
+            if ($(this).parsley().validate() != true)
+                $(this).focus();
+            else
+            {
+                var enteredAmnt = $(".amount-container input").val().trim();
+                if (enteredAmnt.indexOf(".") == -1)
+                    $(".amount-container input").val(enteredAmnt + ".00");
+                else if (enteredAmnt.indexOf(".") > enteredAmnt.length - 3)
+                    $(".amount-container input").val(enteredAmnt + "0");
+            }
         }
     });
 

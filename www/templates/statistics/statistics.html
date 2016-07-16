@@ -1,100 +1,115 @@
 ﻿<ion-view view-title="Statistics">
-    
-            <ion-tabs class="tabs-striped tabs-top tabs-icon-left tabs-background-stable tabs-color-calm">
-            <ion-tab title="" icon-on="ion-cash" icon-off="ion-cash">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
+    <ion-content scroll="false">
+
+        <div class="row row-center statsIconContainer m-t-10">
+            <div class="col">
+                <button class="slide0 selected"><i class="ion-cash"></i></button>
+            </div>
+            <div class="col">
+                <button class="slide1"><i class=" ion-person"></i></button>
+            </div>
+            <div class="col">
+                <button class="slide2"><i class=" ion-ios-people"></i></button>
+            </div>
+        </div>
+
+        <ion-slides options="slideOptions" slider="data.slider">
+            <ion-slide-page>
+
                 <div class="card">
+
+                    <h3 class="text-center m-t-15">Transfer Stats</h3>
+
                     <div class="list">
-                        <!--<div class="item text-center" style="line-height:60px;">
-                            <span class="IconGreeen">
-                                <i class="ion-cash"></i>
-                            </span>
-                            <span class="IconBasicBlue">
-                                <i class="ion-person"></i>
-                            </span>
-                            <span class="IconBasicBlue">
-                                <i class="ion-ios-people"></i>
-                            </span>
-                            <h2><b>Transfer Stats</b></h2>
-                        </div>-->
+                        <div class="item">Totel Compleated Payments <span class="badge badge-calm">0</span></div>
 
-                        <div class="item ItemCList">Totel Compleated Payments <span class="badge badge-calm">0</span></div>
+                        <div class="item">Payments Sent <span class="badge badge-calm">0</span></div>
 
-                        <div class="item ItemCList">Payments Sent <span class="badge badge-calm">0</span></div>
+                        <div class="item">Totel Sent <span class="badge badge-calm">$ 0</span></div>
 
-                        <div class="item ItemCList">Totel Sent <span class="badge badge-calm">$ 0</span></div>
+                        <div class="item">Payments Received <span class="badge badge-calm">0</span></div>
 
-                        <div class="item ItemCList">Payments Received <span class="badge badge-calm">0</span></div>
+                        <div class="item">Totel Received <span class="badge badge-calm">$ 0</span></div>
 
-                        <div class="item ItemCList">Totel Received <span class="badge badge-calm">$ 0</span></div>
+                        <div class="item">Largest Transfer Sent <span class="badge badge-calm">0</span></div>
 
-                        <div class="item ItemCList">Largest Transfer Sent <span class="badge badge-calm">0</span></div>
-
-                        <div class="item ItemCList">Largest Transfer Received <span class="badge badge-calm">0</span></div>
-
+                        <div class="item">Largest Transfer Received <span class="badge badge-calm">0</span></div>
                     </div>
                 </div>
                 <div class="text-center">
-                    <div class="button button-calm"><i class="ion-ios-cloud-download"></i> &nbsp;&nbsp;Export Account History</div>
+                    <div class="btn btn-primary"><i class="ion-ios-cloud-download"></i>Export Account History</div>
+                </div>
+            </ion-slide-page>
+
+            <ion-slide-page>
+
+                <div class="card">
+
+                    <h3 class="text-center m-t-15">Profile Stats</h3>
+
+                    <div class="list">
+
+                        <div class="item">Totel Compleated Payments <span class="badge badge-calm">0</span></div>
+
+                        <div class="item">Payments Sent <span class="badge badge-calm">0</span></div>
+
+                        <div class="item">Totel Sent <span class="badge badge-calm">$ 0</span></div>
+
+                        <div class="item">Payments Received <span class="badge badge-calm">0</span></div>
+
+                        <div class="item">Totel Received <span class="badge badge-calm">$ 0</span></div>
+
+                        <div class="item">Largest Transfer Sent <span class="badge badge-calm">0</span></div>
+
+                        <div class="item">Largest Transfer Received <span class="badge badge-calm">0</span></div>
+
+                    </div>
                 </div>
 
+            </ion-slide-page>
 
+            <ion-slide-page>
 
-            </ion-tab>
-            <ion-tab title="" icon-on="ion-person" icon-off="ion-person">
-                <br>
-                <br>
-                <br>
-                <br>
-                <h3>This Tab is Under Construction......</h3>
-            </ion-tab>
-            <ion-tab title="" icon-on="ion-ios-people" icon-off="ion-ios-people">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-            
-                <div class="text-center"><h3> Top 5 Friends </h3></div>
-                <div class="list" id="recents-table">
+                <div class="card">
 
-                    <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
-                        <img src="../../img/profile_picture.png" class="userPic">
-                        <h2>John Smith</h2>
-                        <p>42 Payments</p>
-                        <i class="n-icon ion-android-checkbox-outline"></i> 
-                    </a>
+                    <h3 class="text-center m-t-15">Top 5 Friends</h3>
 
-                    <a class="item item-avatar" href="" ng-click="go('howMuch')">
-                        <img src="../../img/profile_picture.png">
-                        <h2>Meghan Brown</h2>
-                        <p>26 Payments</p>
-                        <i class="n-icon ion-android-checkbox-outline"></i> 
-                    </a>
+                    <div class="list icon-right">
 
-                    <a class="item item-avatar" href="" ng-click="go('howMuch')">
-                        <img src="../../img/profile_picture.png">
-                        <h2>Paul Lazar</h2>
-                        <p>23 Payments</p>
-                        <i class="n-icon ion-android-checkbox-outline"></i> 
-                    </a>
+                        <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
+                            <img src="../../img/profile_picture.png" class="userPic">
+                            <h2>John Smith</h2>
+                            <p>42 Payments</p>
+                            <i class="ion-ios-compose-outline"></i>
+                        </a>
 
-                    <a class="item item-avatar" href="" ng-click="go('howMuch')">
-                        <img src="../../img/profile_picture.png">
-                        <h2>Julius Smithers</h2>
-                        <p>10 Payments</p>
-                        <i class="n-icon ion-android-checkbox-outline"></i> 
-                    </a>
+                        <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
+                            <img src="../../img/profile_picture.png">
+                            <h2>Meghan Brown</h2>
+                            <p>26 Payments</p>
+                            <i class="ion-ios-compose-outline"></i>
+                        </a>
 
+                        <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
+                            <img src="../../img/profile_picture.png">
+                            <h2>Paul Lazar</h2>
+                            <p>23 Payments</p>
+                            <i class="ion-ios-compose-outline"></i>
+                        </a>
+
+                        <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
+                            <img src="../../img/profile_picture.png">
+                            <h2>Julius Smithers</h2>
+                            <p>10 Payments</p>
+                            <i class="ion-ios-compose-outline"></i>
+                        </a>
+
+                    </div>
                 </div>
-            </ion-tab>
-        </ion-tabs>
-    <ion-content>
-
-       
+            </ion-slide-page>
+        </ion-slides>
     </ion-content>
+
+
+
 </ion-view>

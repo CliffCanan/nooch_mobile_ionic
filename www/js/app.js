@@ -6,7 +6,7 @@
 angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
     'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl', 'noochApp.securitySettingCtrl',
     'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl',
-    'noochApp.enterPin','noochApp.createPin', 'noochApp.services', 'noochApp.addPicture', 'ngCordova', 'ti-segmented-control'])
+    'noochApp.enterPin', 'noochApp.createPin', 'noochApp.services', 'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'ngCordova', 'ti-segmented-control'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -90,12 +90,26 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
                 }
             }
         })
+        .state('TransferDetails', {
+            url: '/TransferDetails',
+            templateUrl: 'templates/transferDetails/TransferDetails.html',
+            controller: 'TransferDetailsCtrl'
+        })
         .state('app.setting', {
             url: '/settings',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/settings/settings.html',
                     controller: 'SettingCtrl'
+                }
+            }
+        })
+        .state('app.howItWorks', {
+            url: '/howItWorks',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/howItWorks/howItWorks.html',
+                    controller: 'howItWorksCtrl'
                 }
             }
         })
@@ -124,11 +138,6 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
             templateUrl: 'templates/resetPassword/resetPwd.html',
             controller: 'resetPwdCtrl'
         })
-        .state('TransferDetails', {
-            url: '/TransferDetails',
-            templateUrl: 'templates/transferDetails/TransferDetails.html',
-            controller: 'TransferDetailsCtrl'
-        })
         .state('app.referAfriend', {
             url: '/referAfriend',
             views: {
@@ -143,7 +152,6 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
             templateUrl: 'templates/enterPin/enterPin.html',
             controller: 'enterPinCtrl'
         })
-
         .state('addPicture', {
             url: '/addPicture',
             templateUrl: 'templates/addPicture/addPicture.html',

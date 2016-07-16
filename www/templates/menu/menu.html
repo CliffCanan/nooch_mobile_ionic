@@ -56,16 +56,20 @@
 
                 <div class="item item-divider itemCnavDivider">ABOUT</div>
 
-                <ion-item menu-close href="#">
+                <ion-item menu-close href="#/app/howItWorks">
                     <div class="ion-help">How Nooch Works <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
-                <ion-item menu-close href="#">
+                <ion-item href="" ng-click="showActionSheet('support')">
                     <div class="ion-email">Contact Support <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#">
-                    <div class="ion-email">Limits &amp; Fees<i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-social-usd">Limits &amp; Fees<i class="ion-chevron-right FloatRight"></i></div>
+                </ion-item>
+
+                <ion-item href="" ng-click="showActionSheet('legal')">
+                    <div class="ion-briefcase">Legal Info <i class="ion-chevron-right FloatRight"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#/app/testPage">
