@@ -11,8 +11,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
-        if (window.cordova && window.cordova.plugins.Keyboard)
-        {
+        if (window.cordova && window.cordova.plugins.Keyboard) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -22,8 +21,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             // a much nicer keyboard experience.
             cordova.plugins.Keyboard.disableScroll(true);
         }
-        if (window.StatusBar)
-        {
+        if (window.StatusBar) {
             StatusBar.styleDefault();
         }
     });
@@ -151,16 +149,24 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                }
            }
        })
-        .state('socialSetting', {
-            url: '/socialSetting',
-            templateUrl: 'templates/socialSetting/socialSetting.html',
-            controller: 'socialSettingCtrl'
-        })
-        .state('NotificationSetting', {
-            url: '/NotificationSetting',
-            templateUrl: 'templates/notificationSetting/NotificationSetting.html',
-            controller: 'notificationCtrl'
-        })
+      .state('app.socialSetting', {
+          url: '/settings/socialSetting',
+          views: {
+              'menuContent': {
+                  templateUrl: 'templates/socialSetting/socialSetting.html',
+                  controller: 'socialSettingCtrl'
+              }
+          }
+      })
+       .state('app.NotificationSetting', {
+           url: '/settings/NotificationSetting',
+           views: {
+               'menuContent': {
+                   templateUrl: 'templates/NotificationSetting/NotificationSetting.html',
+                   controller: 'notificationCtrl'
+               }
+           }
+       })
         .state('ResetPwd', {
             url: '/resetPwd',
             templateUrl: 'templates/resetPassword/resetPwd.html',

@@ -8,20 +8,20 @@
          // On Screen Load
      });
 
-     $scope.go = function (data) {
-         if (data == 'Social') {
-             $state.go('socialSetting');
-         }
-         else if (data == 'Notification') {
-             $state.go('NotificationSetting');
-         }
-         else if (data == 'Security') {
-             $state.go('securitySetting');
-         }
-         else if (data == 'profile') {
-             $state.go('profile');
-         }
-     }
+     //$scope.go = function (data) {
+     //    if (data == 'Social') {
+     //        $state.go('socialSetting');
+     //    }
+     //    else if (data == 'Notification') {
+     //        $state.go('NotificationSetting');
+     //    }
+     //    else if (data == 'Security') {
+     //        $state.go('securitySetting');
+     //    }
+     //    else if (data == 'profile') {
+     //        $state.go('profile');
+     //    }
+     //}
 
 
      // Viewing Add Bank Webview (in an Ionic Modal)
