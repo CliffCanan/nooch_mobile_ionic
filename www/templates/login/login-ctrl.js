@@ -15,33 +15,53 @@
 
         if ($localStorage.GLOBAL_VARIABLES.MemberId) {
           if ($localStorage.GLOBAL_VARIABLES.MemberId.length > 0) {
-            $state.go("#/app/home");
+            $state.go('app.home');
           }
-          else {
-            $state.go("#/login");
-          }
+
         }
       }
 
 
-
-
-      $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude='31.33';
-      $localStorage.GLOBAL_VARIABLES.UserCurrentLongi='54.33';
-      $localStorage.GLOBAL_VARIABLES.DeviceId='UDID123';
-      $localStorage.GLOBAL_VARIABLES.DeviceToken='NOTIF123';
+      $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
+      $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
+      $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
+      $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
 
     });
 
     $scope.loginData = {
-      email: 'rick.lassin@gmail.com',
-      pwd: 'test123!',
+      email: 'bkenny510@gmail.com',
+      pwd: 'Thatsnice1',
       rmmbrMe: {
         chk: true
       }
     };
 
     $scope.SignIn = function () {
+
+
+      function fetchAfterLoginDetails() {
+        $ionicLoading.show({
+          template: 'Reading user details...'
+        });
+
+
+        CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
+          $ionicLoading.hide();
+
+          if (data != null) {
+            $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+            $state.go('app.home');
+
+          }
+
+
+        }).error(function (err) {
+          $ionicLoading.hide();
+        });
+
+
+      }
 
 
       if ($('#frmLogin').parsley().validate() == true) {
@@ -53,24 +73,14 @@
         // notification permission
 
 
-        //password needs to be in encrypted format
-        var baseEncodedPassword = btoa($scope.loginData.pwd);
-
-        CommonServices.GetEncryptedData(baseEncodedPassword).success( function (data) {
-
-          console.log('came in success 1');
+        CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
 
 
           authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
             $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
             .success(function (response) {
-                console.log('came in success 3');
 
-
-                $scope.loginData.email = '';
-                $scope.loginData.pwd = '';
-                $scope.loginData.rmmbrMe.val = false;
-
+                $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
                 console.log(response.Result + ',' + response.Result.indexOf('Temporarily_Blocked'));
                 console.log(response);
 
@@ -108,15 +118,13 @@
                 }
               }
             ).error(function (res) {
-            console.log('came in success 3');
+
 
             console.log('came in login error block ' + res);
           });
 
 
-
-        }).error(function(encError)
-        {
+        }).error(function (encError) {
           console.log('came in enc error block ' + encError);
         });
 
@@ -124,22 +132,6 @@
       }
     }
 
-
-    function fetchAfterLoginDetails() {
-      $ionicLoading.show({
-        template: 'Reading user details...'
-      });
-
-
-      CommonServices.GetMemberIdByUsername($scope.loginData.email, function (data, error) {
-
-        console.log('response of getmemberId ->' + data);
-      });
-
-      $ionicLoading.hide();
-
-
-    }
 
     $scope.forgotPw = function (type) {
 
