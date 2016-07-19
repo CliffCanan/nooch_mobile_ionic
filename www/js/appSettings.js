@@ -21,7 +21,8 @@ var URLs = {
   GetEncryptedData: PATH + 'GetEncryptedData',
   GetDecryptedData: PATH + 'GetDecryptedData',
 
-  GetMemberDetails:PATH+'GetMemberDetails'
+  GetMemberDetails:PATH+'GetMemberDetails',
+  GetMyDetails:PATH+'GetMyDetails'
 
 
 };
