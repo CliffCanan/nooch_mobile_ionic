@@ -12,6 +12,8 @@ angular.module('noochApp.login-service', ['noochApp.services'])
         };
 
         return $http.post(URLs.ForgotPassword, data);
+      //  return $.post(URLs.ForgotPassword, data);
+
     }
 
   })
