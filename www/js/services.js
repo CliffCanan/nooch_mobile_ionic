@@ -76,23 +76,7 @@ angular.module('noochApp.services', ['ngStorage'])
       return $http.get(URLs.GetMemberDetails + '?memberId=' + memberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
     }
 
-    this.ForgotPassword = function (userName) {
 
-      var data = {
-        Input: userName,
-        AuthenticationKey: '' // not in use @ server
-      };
-      // in case some rror occurs
-
-      var config = {
-        headers : {
-          'Content-Type': 'application/json;'
-        }
-      }
-
-      // return $http.post(URLs.ForgotPassword, data,config);
-      return $http.post(URLs.ForgotPassword, data);
-    }
 
     this.IsDuplicateMember = function (userName) {
       return $http.get(URLs.IsDuplicateMember + '?userName=' + userName);

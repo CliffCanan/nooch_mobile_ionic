@@ -15,7 +15,11 @@
 
         if ($localStorage.GLOBAL_VARIABLES.MemberId) {
           if ($localStorage.GLOBAL_VARIABLES.MemberId.length > 0) {
-            //   $state.go('app.home');
+
+ 
+            $state.go('app.home');
+
+
           }
 
         }
