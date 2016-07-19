@@ -4,7 +4,7 @@
 /******************/
 /***  REGISTER  ***/
 /******************/
-.controller('SignupCtrl', function ($scope, $location, $ionicModal,$ionicLoading, MemberRegistration) {
+.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state) {
 
     $scope.signupData = {
         Name: '',
@@ -44,7 +44,7 @@
                    
                 });
                 swal("Signup successfull")
-                $state.go('/login');
+                $state.go('login');
              
             }).error(function (encError) {
                 console.log('came in enc error block ' + encError);
