@@ -15,7 +15,7 @@
 
         if ($localStorage.GLOBAL_VARIABLES.MemberId) {
           if ($localStorage.GLOBAL_VARIABLES.MemberId.length > 0) {
-            $state.go('app.home');
+        //    $state.go('app.home');
           }
 
         }
@@ -160,6 +160,12 @@
           inputValue.indexOf('.') > inputValue.indexOf('@') &&
           inputValue.indexOf('.') < inputValue.length - 2) {
           swal("Success!", "Input email validated, need to submit to sever here. Input was: [" + inputValue + "]", "success");
+          authenticationService.ForgotPassword(inputValue).success(function (data) {
+              console.log(data);
+          }).error(function (encError) {
+              console.log('came in enc error block ' + encError);
+          });
+
         }
         else {
           $scope.forgotPw(2)
