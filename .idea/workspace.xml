@@ -2,67 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0883461f-69d8-4a47-9138-5558291abd8d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/.bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/CHANGELOG.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/Gruntfile.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/dist/ng-cordova-oauth.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/dist/ng-cordova-oauth.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/karma.conf.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.500px.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.adfs.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.azuread.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.box.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.digitalOcean.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.dribble.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.dropbox.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.envato.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.facebook.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.familySearch.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.foursquare.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.github.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.google.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.imgur.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.instagram.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.jawbone.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.linkedin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.magento.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.meetup.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.mercadolibre.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.netatmo.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.odnoklassniki.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.pocket.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.rally.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.reddit.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.salesforce.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.slack.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.spotify.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.strava.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.stripe.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.trakttv.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.twitter.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.uber.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.untappd.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.venmo.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.vkontakte.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.weibo.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.windowslive.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.withings.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.xing.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.yahoo.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/oauth.yammer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/plugin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/lib/ng-cordova-oauth/src/utility.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/signup/signup-service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.html" afterPath="$PROJECT_DIR$/www/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/appSettings.js" afterPath="$PROJECT_DIR$/www/js/appSettings.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/login/login-service.js" afterPath="$PROJECT_DIR$/www/templates/login/login-service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/signup/signup-ctrl.js" afterPath="$PROJECT_DIR$/www/templates/signup/signup-ctrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/signup/signup.html" afterPath="$PROJECT_DIR$/www/templates/signup/signup.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services.js" afterPath="$PROJECT_DIR$/www/js/services.js" />
     </list>
     <ignored path="nooch-ionic-demo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -100,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="services.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="services.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="96" column="26" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="26" />
+            <state relative-caret-position="360">
+              <caret line="96" column="50" selection-start-line="96" selection-start-column="50" selection-end-line="96" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -113,12 +54,10 @@
       <file leaf-file-name="appSettings.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/appSettings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+            <state relative-caret-position="600">
+              <caret line="40" column="97" selection-start-line="40" selection-start-column="97" selection-end-line="40" selection-end-column="97" />
               <folding>
-                <marker date="1468922993000" expanded="true" signature="0:111" ph="//..." />
-                <marker date="1468922993000" expanded="true" signature="114:194" ph="//..." />
-                <marker date="1468922993000" expanded="true" signature="330:1171" ph="{...}" />
+                <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -154,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+            <state relative-caret-position="720">
+              <caret line="48" column="67" selection-start-line="48" selection-start-column="67" selection-end-line="48" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -218,12 +157,12 @@
         <option value="$PROJECT_DIR$/www/templates/login/login.html" />
         <option value="$PROJECT_DIR$/www/templates/login/login-ctrl.js" />
         <option value="$PROJECT_DIR$/www/templates/profile/profile-service.js" />
-        <option value="$PROJECT_DIR$/www/js/services.js" />
         <option value="$PROJECT_DIR$/www/templates/login/login-service.js" />
         <option value="$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient-service.js" />
-        <option value="$PROJECT_DIR$/www/js/appSettings.js" />
         <option value="$PROJECT_DIR$/www/templates/resetPassword/resetPassword-service.js" />
         <option value="$PROJECT_DIR$/www/index.html" />
+        <option value="$PROJECT_DIR$/www/js/appSettings.js" />
+        <option value="$PROJECT_DIR$/www/js/services.js" />
       </list>
     </option>
   </component>
@@ -530,7 +469,7 @@
       <option name="presentableId" value="Default" />
       <updated>1468816664888</updated>
       <workItem from="1468816666078" duration="19124000" />
-      <workItem from="1468904535657" duration="3034000" />
+      <workItem from="1468904535657" duration="3441000" />
     </task>
     <task id="LOCAL-00001" summary="minor changes in code to fix state transfer if user data found in local storage">
       <created>1468841316229</created>
@@ -543,7 +482,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22158000" />
+    <option name="totallyTimeSpent" value="22565000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="137" y="23" width="1783" height="935" extended-state="0" />
@@ -633,9 +572,7 @@
         <state relative-caret-position="75">
           <caret line="6" column="20" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="20" />
           <folding>
-            <marker date="1468922993000" expanded="true" signature="0:111" ph="//..." />
-            <marker date="1468922993000" expanded="true" signature="114:194" ph="//..." />
-            <marker date="1468922993000" expanded="true" signature="330:1171" ph="{...}" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -789,14 +726,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="96" column="26" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/login/login-service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -810,18 +739,6 @@
         <state relative-caret-position="285">
           <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/appSettings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-          <folding>
-            <marker date="1468922993000" expanded="true" signature="0:111" ph="//..." />
-            <marker date="1468922993000" expanded="true" signature="114:194" ph="//..." />
-            <marker date="1468922993000" expanded="true" signature="330:1171" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -843,8 +760,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+        <state relative-caret-position="720">
+          <caret line="48" column="67" selection-start-line="48" selection-start-column="67" selection-end-line="48" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/appSettings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="97" selection-start-line="40" selection-start-column="97" selection-end-line="40" selection-end-column="97" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="96" column="50" selection-start-line="96" selection-start-column="50" selection-end-line="96" selection-end-column="50" />
           <folding />
         </state>
       </provider>

@@ -17,17 +17,15 @@ var URLs = {
   ForgotPassword: PATH + 'ForgotPassword',
   GetMemberIdByPhone: PATH + 'GetMemberIdByPhone',
 
-  // Commong methods
+  // Common methods
   GetEncryptedData: PATH + 'GetEncryptedData',
   GetDecryptedData: PATH + 'GetDecryptedData',
 
 
-  //GetMemberDetails: PATH + 'GetMemberDetails',
 
   GetMemberDetails:PATH+'GetMemberDetails',
   GetMyDetails:PATH+'GetMyDetails',
 
-<<<<<<< HEAD
 
   GetRecentMembers:PATH+'GetRecentMembers',
   IsDuplicateMember:PATH+'IsDuplicateMember',
@@ -38,9 +36,8 @@ var URLs = {
   ResetPin : PATH+'ResetPin',
 
 
-=======
->>>>>>> 0df665147e49c933df2df0762b7f22729548193d
+  Signup: PATH + 'MemberRegistration',
 
-  Signup: PATH + 'MemberRegistration'
-
+  ValidatePinNumberToEnterForEnterForeground : PATH+'ValidatePinNumberToEnterForEnterForeground',
+  ValidatePinNumber:PATH+'ValidatePinNumber'
 };

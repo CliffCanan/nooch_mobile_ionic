@@ -100,6 +100,14 @@ angular.module('noochApp.services', ['ngStorage'])
 
 
 
+    this.ValidatePinNumberToEnterForEnterForeground = function (pinNumber) {
+      return $http.get(URLs.ValidatePinNumberToEnterForEnterForeground + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId +'&pinNo='+pinNumber+ '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+    }
+
+    this.ValidatePinNumber = function (pinNumber) {
+      return $http.get(URLs.ValidatePinNumber + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId +'&pinNo='+pinNumber+ '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+    }
+
   })
 
 
