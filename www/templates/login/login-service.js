@@ -10,15 +10,7 @@ angular.module('noochApp.login-service', ['noochApp.services'])
             Input: userName,
             AuthenticationKey: '' // not in use @ server
         };
-        // in case some rror occurs
 
-        var config = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-            }
-        }
-
-        // return $http.post(URLs.ForgotPassword, data,config);
         return $http.post(URLs.ForgotPassword, data);
       //  return $.post(URLs.ForgotPassword, data);
 

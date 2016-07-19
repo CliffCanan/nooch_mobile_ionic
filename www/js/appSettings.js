@@ -17,17 +17,27 @@ var URLs = {
   ForgotPassword: PATH + 'ForgotPassword',
   GetMemberIdByPhone: PATH + 'GetMemberIdByPhone',
 
-  // Commong methods
+  // Common methods
   GetEncryptedData: PATH + 'GetEncryptedData',
   GetDecryptedData: PATH + 'GetDecryptedData',
 
 
-  //GetMemberDetails: PATH + 'GetMemberDetails',
 
   GetMemberDetails:PATH+'GetMemberDetails',
   GetMyDetails:PATH+'GetMyDetails',
 
 
-  Signup: PATH + 'MemberRegistration'
+  GetRecentMembers:PATH+'GetRecentMembers',
+  IsDuplicateMember:PATH+'IsDuplicateMember',
 
+  MemberEmailNotificationSettings:PATH+'MemberEmailNotificationSettings',
+
+  ResetPassword : PATH+'ResetPassword',
+  ResetPin : PATH+'ResetPin',
+
+
+  Signup: PATH + 'MemberRegistration',
+
+  ValidatePinNumberToEnterForEnterForeground : PATH+'ValidatePinNumberToEnterForEnterForeground',
+  ValidatePinNumber:PATH+'ValidatePinNumber'
 };
