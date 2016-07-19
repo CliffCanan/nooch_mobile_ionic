@@ -1,10 +1,10 @@
-﻿angular.module('noochApp.SignupCtrl', ['noochApp.services'])
+﻿angular.module('noochApp.SignupCtrl', ['noochApp.services', 'noochApp.signup-service'])
 
 
 /******************/
 /***  REGISTER  ***/
 /******************/
-.controller('SignupCtrl', function ($scope, $location, $ionicModal) {
+.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state) {
 
     $scope.signupData = {
         Name: '',
@@ -33,6 +33,23 @@
 
         if (flag) {
             console.log('signupData ' + JSON.stringify($scope.signupData));
+            $ionicLoading.show({
+                template: 'Sigining in...'
+            });
+            
+            MemberRegistration.Signup($scope.signupData).success(function (data) {
+                console.log('Return form Server');
+                console.log(data);
+                $ionicLoading.hide({
+                   
+                });
+                swal("Signup successfull")
+                $state.go('login');
+             
+            }).error(function (encError) {
+                console.log('came in enc error block ' + encError);
+
+            })
         }
     };
 
