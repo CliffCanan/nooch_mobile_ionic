@@ -94,6 +94,12 @@ angular.module('noochApp.services', ['ngStorage'])
       return $http.post(URLs.ForgotPassword, data);
     }
 
+    this.IsDuplicateMember = function (userName) {
+      return $http.get(URLs.IsDuplicateMember + '?userName=' + userName);
+    }
+
+
+
   })
 
 

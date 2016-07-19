@@ -22,7 +22,18 @@ var URLs = {
   GetDecryptedData: PATH + 'GetDecryptedData',
 
   GetMemberDetails:PATH+'GetMemberDetails',
-  GetMyDetails:PATH+'GetMyDetails'
+  GetMyDetails:PATH+'GetMyDetails',
+
+
+  GetRecentMembers:PATH+'GetRecentMembers',
+  IsDuplicateMember:PATH+'IsDuplicateMember',
+
+  MemberEmailNotificationSettings:PATH+'MemberEmailNotificationSettings',
+
+  ResetPassword : PATH+'ResetPassword',
+  ResetPin : PATH+'ResetPin',
+
+
 
 
 };
