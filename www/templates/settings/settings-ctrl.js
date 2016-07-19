@@ -1,8 +1,8 @@
-﻿angular.module('noochApp.SettingCtrl', ['noochApp.services'])
+﻿angular.module('noochApp.SettingCtrl', ['noochApp.settings-service', 'noochApp.services', 'ngStorage'])
 /******************/
 /***  SETTINGS  ***/
 /******************/
- .controller('SettingCtrl', function ($scope, authenticationService, $state, $ionicModal) {
+ .controller('SettingCtrl', function ($scope, settingsService, $state, $ionicModal, $ionicLoading, $localStorage) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // On Screen Load
@@ -46,4 +46,40 @@
          $scope.tosModal.remove();
          $scope.privacyModal.remove();
      });
+
+     $scope.signOut = function () {
+         $ionicLoading.show({
+             template: 'Logging off...'
+         });
+         console.log($localStorage.GLOBAL_VARIABLES.AccessToken);
+         settingsService.logOut($localStorage.GLOBAL_VARIABLES.AccessToken, $localStorage.GLOBAL_VARIABLES.MemberId).success(function (data) {
+             console.log(data.Result);
+             if (data.Result == 'Success.')
+             {
+                
+                 $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
+                 $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
+                 $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+                 $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '';
+                 $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '';
+                 $localStorage.GLOBAL_VARIABLES.MemberId = '';
+                 $localStorage.GLOBAL_VARIABLES.UserName = '';
+                 $localStorage.GLOBAL_VARIABLES.AccessToken = '';
+                 $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
+                 $localStorage.GLOBAL_VARIABLES.DeviceId = '';
+                 $localStorage.GLOBAL_VARIABLES.DeviceToken = '';
+                 $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
+                 console.log($localStorage.GLOBAL_VARIABLES);
+                 $ionicLoading.hide();
+                 $state.go('login');
+             }
+         }).error(function (encError) {
+             console.log('came in enc error block ' + encError);
+             $ionicLoading.hide();
+            
+         });
+
+     };
+
+
  })
