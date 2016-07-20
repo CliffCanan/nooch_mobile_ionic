@@ -1,10 +1,25 @@
 ﻿angular.module('noochApp.referAfriendCtrl', ['noochApp.services'])
 
- .controller('referAfriendCtrl', function ($scope, authenticationService, $ionicPlatform, $cordovaSocialSharing) {
+ .controller('referAfriendCtrl', function (CommonServices, $scope, authenticationService, $ionicPlatform, $cordovaSocialSharing) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
          console.log("Refer a friend Controller Loaded");
+         $scope.ReferFriend();
      });
+
+     $scope.ReferFriend = function () {
+         console.log('Entered into ReferFriend Function');
+
+         CommonServices.getReferralCode()
+             .success(function (Code) {
+                 console.log(Code);
+                 $scope.Code = Code;
+             }
+     ).error(function (encError) {
+         console.log('came in enc error block ' + encError);
+     })
+     }
+
 
      $ionicPlatform.ready(function () {
          //window.plugins.spinnerDialog.show("title", "message", true);

@@ -92,6 +92,9 @@ angular.module('noochApp.services', ['ngStorage'])
       return $http.get(URLs.ValidatePinNumber + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId +'&pinNo='+pinNumber+ '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
     }
 
+    this.getReferralCode = function () {
+        return $http.post(URLs.getReferralCode + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+    }
   })
 
 

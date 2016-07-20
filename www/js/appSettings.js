@@ -41,5 +41,6 @@ var URLs = {
   Signup: PATH + 'MemberRegistration',
 
   ValidatePinNumberToEnterForEnterForeground : PATH+'ValidatePinNumberToEnterForEnterForeground',
-  ValidatePinNumber:PATH+'ValidatePinNumber'
+  ValidatePinNumber: PATH + 'ValidatePinNumber',
+  getReferralCode: PATH + 'getReferralCode'
 };
