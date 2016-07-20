@@ -10,28 +10,56 @@
         <div class="list">
             <div class="item item-divider">CONTACT INFO</div>
 
-            <label class="item item-input"> 
-                <span class="input-label calm">Email</span>
-                <input type="text" placeholder="example@email.com"> <span>{{Details.UserName}}</span> 
-            </label>
+            <div ng-if="Details.UserName===''">
+                <label class="item item-input">
+                    <span class="input-label calm">Email</span>
+                    <input type="text" placeholder="example@email.com">
+                </label>
+            </div>
 
-            <label class="item item-input">
-                <span class="input-label calm">Phone</span>
-                <input type="text" placeholder="123 123 7899" /><span> {{details.contactnumber}}></span>
-            </label>
+            <div ng-if="Details.UserName !=''">
+                <label class="item item-input">
+                    <span class="input-label calm">Email</span>
+                    <label><span>{{Details.UserName}}</span></label>
+                </label>
+            </div>
+
+            <div ng-if="Details.ContactNumber === ''">
+                <label class="item item-input">
+                    <span class="input-label calm">Phone</span>
+                    <input type="text" placeholder="123 123 7899" />
+                </label>
+            </div>
+
+            <div ng-if="Details.ContactNumber != ''">
+                <label class="item item-input">
+                    <span class="input-label calm">Phone</span>
+                    <label> <span> {{details.ContactNumber}}</span> </label>
+                </label>
+            </div>
 
             <div class="item item-divider">ADDRESS</div>
 
-            <label class="item item-input">
-                <span class="input-label calm">Address</span>
-                <input type="text" placeholder="123 Nooch St"> <span> {{details.Address}}></span>
-            </label>
+            <div ng-if="Details.Address === ''">
+                <label class="item item-input">
+                    <span class="input-label calm">Address</span>
+                    <input type="text" placeholder="123 Nooch St">
+                </label>
+            </div>
 
-            <label class="item item-input">
-                <span class="input-label calm">Address 2</span>
-                <input type="text" placeholder="(Optional)"> <span> {{details.Address}}></span>
-            </label>
+            <div ng-if="Details.Address != ''">
+                <label class="item item-input">
+                    <span class="input-label calm">Address</span>
+                    <label> <span> {{details.Address}}</span></label>
+                </label>
+            </div>
 
+            <div ng-if="">
+                <label class="item item-input">
+                    <span class="input-label calm">Address 2</span>
+                    <input type="text" placeholder="(Optional)"> <span> {{details.Address}}></span>
+                </label>
+            </div>
 
             <label class="item item-input">
                 <span class="input-label calm">City</span>

@@ -16,8 +16,6 @@
                 console.log(Details);
                 $scope.Details = Details;
             }
-
-
     ).error(function (encError) {
         console.log('came in enc error block ' + encError);
     })
