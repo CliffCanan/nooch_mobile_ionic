@@ -248,6 +248,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
         //})
           .state('app.TransferDetails', {
               url: '/history/TransferDetails',
+              params: {myParam: null},
               views: {
                   'menuContent': {
                       templateUrl: 'templates/transferDetails/TransferDetails.html',

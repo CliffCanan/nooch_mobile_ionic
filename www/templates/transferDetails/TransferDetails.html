@@ -16,19 +16,19 @@
 
             <div class="item item-avatar side_menu_top">
                 <img class="user-img" src="https://goo.gl/zK7SNE">
-                <h1 class="">Abe Lincoln <br>$ 45.00</h1>
+                <h1 class=""> {{transferDetail.Name}} <br>$ {{transferDetail.Amount}}</h1>
             </div>
         </div>
 
         <div class="card">
             <label class="item item-input">
-                <span class="text-center text-primary">"Being an awesome President"</span>
+                <span class="text-center text-primary">{{transferDetail.Memo}}</span>
             </label>
         </div>
 
         <div class="text-center text-success">
-            <h2>Pending</h2>
-            <h3>Date</h3>
+            <h2>{{transferDetail.TransactionStatus}}</h2>
+            <h3>{{transferDetail.TransactionDate}}</h3>
         </div>
 
         <div style="height:100px;">Map</div>

@@ -1,8 +1,18 @@
-﻿angular.module('noochApp.StatisticsCtrl', ['noochApp.services'])
+﻿angular.module('noochApp.StatisticsCtrl', ['noochApp.statistics-service', 'noochApp.services'])
 /********************/
 /***  STATISTICS  ***/
 /********************/
-.controller('StatisticsCtrl', function ($scope) {
+.controller('StatisticsCtrl', function ($scope, statisticsService) {
+    $scope.stats = {
+        TotalCompletedPayments: '',
+        PaymentSent: '',
+        TotalSent: '',
+        PaymentReceived: '',
+        TotalRecevied: '',
+        LargestTransferSent: '',
+        largestTransferReceived: ''
+         
+    };
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Statistics Controller Loaded');
@@ -46,4 +56,6 @@
     $scope.$on("$ionicSlides.slideChangeEnd", function (event, data) {
         // note: the indexes are 0-based
     });
+
+    statisticsService.getTransferStats();
 })

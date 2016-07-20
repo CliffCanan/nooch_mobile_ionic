@@ -16,7 +16,8 @@ var URLs = {
   GetMemberIdByUsername: PATH + 'GetMemberIdByUsername',
   ForgotPassword: PATH + 'ForgotPassword',
   GetMemberIdByPhone: PATH + 'GetMemberIdByPhone',
-  LogOutRequest:PATH+'LogOutRequest',
+  LogOutRequest: PATH + 'LogOutRequest',
+  getTransferList: PATH + 'GetTransactionsList',
 
   // Common methods
   GetEncryptedData: PATH + 'GetEncryptedData',
