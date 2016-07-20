@@ -9,7 +9,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPin', 'noochApp.services',
   'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
 
-  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5) {
+  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5,$cordovaNetwork) {
       $ionicPlatform.ready(function () {
 
           // $localStorage.GLOBAL_VARIABLES= [
@@ -45,7 +45,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   IsNotificationPermissionGiven: false,// will store here about push notification permission from user
                   DeviceId: '',// this would be unique device id,
                   DeviceToken: '', // or notification token.. will be used for sending push notifications from server
-                  DeviceOS: ''// to save current device operating system info... iOS or Android
+                  DeviceOS: '',// to save current device operating system info... iOS or Android
+
+                IsNetworkAvailable:false
 
 
               };
@@ -131,6 +133,32 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
 
                 });
+
+
+
+            var isOnline = $cordovaNetwork.isOnline();
+            if(isOnline==true)
+            {
+              $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable=true;
+            }
+
+            var isOffline = $cordovaNetwork.isOffline();
+            if(isOffline==true)
+            {
+              $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable=false;
+            }
+
+            // listen for Online event
+            $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+              var onlineState = networkState;
+              console.log('came in online state change'+JSON.stringify(networkState));
+            })
+
+            // listen for Offline event
+            $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+              var offlineState = networkState;
+              console.log('came in offline state change'+JSON.stringify(networkState));
+            })
 
           }
           if (window.cordova && window.cordova.plugins.Keyboard) {

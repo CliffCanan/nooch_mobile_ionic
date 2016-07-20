@@ -4,7 +4,7 @@
 /***************/
 /***  LOGIN  ***/
 /***************/
-  .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading, $localStorage, CommonHelper, $cordovaGeolocation, $cordovaDevice, CommonServices) {
+  .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading, $localStorage, CommonHelper, $cordovaGeolocation, $cordovaDevice, CommonServices,$cordovaNetwork) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
       console.log('Login Controller loaded');
@@ -15,9 +15,11 @@
 
         if ($localStorage.GLOBAL_VARIABLES.MemberId) {
           if ($localStorage.GLOBAL_VARIABLES.MemberId.length > 0) {
+
  
             $state.go('app.home');
- 
+
+
           }
 
         }
@@ -41,29 +43,31 @@
 
     $scope.SignIn = function () {
 
+      if ($cordovaNetwork.isOnline())
 
-      function fetchAfterLoginDetails() {
-        $ionicLoading.show({
-          template: 'Reading user details...'
-        });
-
-
-        CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-          $ionicLoading.hide();
-
-          if (data != null) {
-            $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-            $state.go('app.home');
-
-          }
+      {
+        function fetchAfterLoginDetails() {
+          $ionicLoading.show({
+            template: 'Reading user details...'
+          });
 
 
-        }).error(function (err) {
-          $ionicLoading.hide();
-        });
+          CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
+            $ionicLoading.hide();
+
+            if (data != null) {
+              $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+              $state.go('app.home');
+
+            }
 
 
-      }
+          }).error(function (err) {
+            $ionicLoading.hide();
+          });
+
+
+        }
 
 
       if ($('#frmLogin').parsley().validate() == true) {
@@ -133,6 +137,10 @@
 
       }
     }
+    else{
+        swal("Oops...", "Internet not connected!", "error");
+      }
+  }
 
 
     $scope.forgotPw = function (type) {
