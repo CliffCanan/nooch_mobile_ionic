@@ -337,6 +337,15 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
+           .state('app.ResetPin', {
+               url: '/settings/securitySetting/ResetPin',
+               views: {
+                   'menuContent': {
+                       templateUrl: 'templates/resetPassword/resetPin.html',
+                       controller: 'resetPwdCtrl'
+                   }
+               }
+           })
         .state('app.referAfriend', {
             url: '/referAfriend',
             views: {

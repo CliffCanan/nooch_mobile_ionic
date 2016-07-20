@@ -1,0 +1,25 @@
+﻿<ion-view view-title="Reset Pin">
+    <ion-content>
+        <br>
+        <br>
+        <form id="frmResetPin" class="smErrors" data-parsley-validate="">
+            <div class="bar bar-header">
+                <button class="button ion-chevron-left" ng-click="GoBack()"></button>
+                <h6 class="title">Reset Pin</h6>
+            </div>
+
+            <div class="list text-center">
+
+                <label class="item item-input">
+                    <input type="password" ng-model="ResetPin.noochPin" data-parsley-required data-parsley-required-message="*" placeholder="Enter your old pin">
+                </label>
+                <label class="item item-input">
+                    <input type="password" ng-model="ResetPin.newPin" data-parsley-required data-parsley-required-message="*" placeholder="Enter new pin">
+                </label>
+               <div class="button button-block btn-primary m-t-15" ng-click="ResetPin()">Reset Pin</div>
+
+            </div>
+        </form>
+
+    </ion-content>
+</ion-view>
