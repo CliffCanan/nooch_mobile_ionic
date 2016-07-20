@@ -2,29 +2,30 @@
     <ion-content>
         <br>
         <br>
+        <form id="frmResetPwd" class="smErrors" data-parsley-validate="">
+            <div class="bar bar-header">
+                <button class="button ion-chevron-left" ng-click="GoBack()"></button>
+                <h6 class="title">Reset Password</h6>
+            </div>
 
-        <div class="bar bar-header">
-            <button class="button ion-chevron-left" ng-click="GoBack()"></button>
-            <h6 class="title">Reset Password</h6>
-        </div>
+            <div class="list text-center">
 
-        <div class="list text-center">
+                <label class="item item-input">
+                    <input type="password" ng-model="ResetPwd.currentPwd" data-parsley-required data-parsley-required-message="*" placeholder="Current Password">
+                </label>
 
-            <label class="item item-input">
-                <input type="text" placeholder="Current Password">
-            </label>
+                <label class="item item-input">
+                    <input type="password" data-parsley-required data-parsley-required-message="*" id="password"   ng-model="ResetPwd.newPwd" placeholder="New Password">
+                </label>
 
-            <label class="item item-input">
-                <input type="text" placeholder="New Password">
-            </label>
+                <label class="item item-input">
+                    <input type="password" data-parsley-required data-parsley-required-message="*" data-parsley-equalto="#password" data-parsley-equalto-message="confirm pwd must match" ng-model="ResetPwd.confirmPwd" placeholder="Confirm New Password">
+                </label>
 
-            <label class="item item-input">
-                <input type="text" placeholder="Confirm New Password">
-            </label>
+                <div class="button button-block btn-primary m-t-15" ng-click="ResetPassword()">Change Password</div>
 
-            <div class="button button-block btn-primary m-t-15">Change Password</div>
+            </div>
+        </form>
 
-        </div>
-
-    </ion-content>
+</ion-content>
 </ion-view>

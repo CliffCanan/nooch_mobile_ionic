@@ -300,10 +300,14 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-        .state('ResetPwd', {
-            url: '/resetPwd',
-            templateUrl: 'templates/resetPassword/resetPwd.html',
-            controller: 'resetPwdCtrl'
+        .state('app.ResetPwd', {
+            url: '/settings/securitySetting/ResetPwd',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/resetPassword/resetPwd.html',
+                    controller: 'resetPwdCtrl'
+                }
+            }
         })
         .state('app.referAfriend', {
             url: '/referAfriend',

@@ -1,5 +1,7 @@
 angular.module('noochApp.resetPasswordService', ['ngStorage'])
-  .service('resetPasswordService', function ($http,$localStorage) {
+  .service('resetPasswordService', function ($http, $localStorage) {
+
+
     this.ResetPassword = function (newPassword,newUser) {
 
       return $http.get(URLs.ResetPassword + '?memberId='  +  $localStorage.GLOBAL_VARIABLES.MemberId+'&newPassword='+newPassword+'&newUser='+newUser);
