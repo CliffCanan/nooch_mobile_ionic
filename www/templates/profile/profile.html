@@ -1,12 +1,9 @@
 ﻿<ion-view view-title="Profile">
     <ion-content>
-
-            <br>
-            <br/>
-       
+                    
         <div class="item item-avatar" style="align-items:center">
-            <img src="./img/profile_picture.png">
-            <h2>Surya</h2>
+            <img src={{Details.PhotoUrl}}>
+            <h2> <span>{{Details.FirstName}}</span>&nbsp;<span>{{Details.LastName}}</span> </h2>
             <h3>Nooch.com</h3>
         </div>
 
@@ -15,42 +12,42 @@
 
             <label class="item item-input"> 
                 <span class="input-label calm">Email</span>
-                <input type="text" placeholder="example@email.com">
-           </label>
+                <input type="text" placeholder="example@email.com"> <span>{{Details.UserName}}</span> 
+            </label>
 
             <label class="item item-input">
                 <span class="input-label calm">Phone</span>
-                <input type="text" placeholder="123 123 7899">
+                <input type="text" placeholder="123 123 7899" /><span> {{details.contactnumber}}></span>
             </label>
 
             <div class="item item-divider">ADDRESS</div>
 
             <label class="item item-input">
                 <span class="input-label calm">Address</span>
-                <input type="text" placeholder="123 Nooch St">
+                <input type="text" placeholder="123 Nooch St"> <span> {{details.Address}}></span>
             </label>
 
             <label class="item item-input">
                 <span class="input-label calm">Address 2</span>
-                <input type="text" placeholder="(Optional)">
+                <input type="text" placeholder="(Optional)"> <span> {{details.Address}}></span>
             </label>
 
 
             <label class="item item-input">
                 <span class="input-label calm">City</span>
-                <input type="text" placeholder="City">
+                <input type="text" placeholder="City"> <span> {{details.City}}></span>
             </label>
 
             <label class="item item-input">
                 <span class="input-label calm">ZIP</span>
-                <input type="text" placeholder="90210">
+                <input type="text" placeholder="90210"> <span> {{details.Zip}}></span>
             </label>
 
             <div class="item item-divider">ID VERIFICATIONS</div>
 
             <label class="item item-input">
                 <span class="input-label calm">Date of Birth</span>
-                <input type="text" placeholder="10/04/1984">
+                <input type="text" placeholder="10/04/1984"> <span> {{details.DateOfBirth}}></span>
             </label>
         </div>
 

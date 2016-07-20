@@ -43,9 +43,9 @@
 
     $scope.SignIn = function () {
 
-      if ($cordovaNetwork.isOnline())
+      //if ($cordovaNetwork.isOnline())
 
-      {
+      //{
         function fetchAfterLoginDetails() {
           $ionicLoading.show({
             template: 'Reading user details...'
@@ -136,10 +136,10 @@
 
 
       }
-    }
-    else{
-        swal("Oops...", "Internet not connected!", "error");
-      }
+    //}
+    //else{
+    //    swal("Oops...", "Internet not connected!", "error");
+    //  }
   }
 
 
