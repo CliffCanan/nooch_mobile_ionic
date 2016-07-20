@@ -54,7 +54,8 @@
          console.log($localStorage.GLOBAL_VARIABLES.AccessToken);
          settingsService.logOut($localStorage.GLOBAL_VARIABLES.AccessToken, $localStorage.GLOBAL_VARIABLES.MemberId).success(function (data) {
              console.log(data.Result);
-             if (data.Result == 'Success.')
+
+             if (data.Result == 'Success.' || (data.Result.indexOf('oAuth') > -1))
              {
                 
                  $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
