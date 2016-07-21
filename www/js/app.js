@@ -7,26 +7,27 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
   'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPin', 'noochApp.services',
-  'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
+  'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
 
-  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5,$cordovaNetwork) {
+  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation) {
       $ionicPlatform.ready(function () {
 
-          // $localStorage.GLOBAL_VARIABLES= [
-          //   { IsDemoDone: false }, // for displaying tutorial screens to user - if any
-          //   {IsRemeberMeEnabled:true}, // for remembering user
-          //
-          //   {IsUserLocationSharedWithNooch:false}, // to keep track of location sharing
-          //   {UserCurrentLatitude:''},  // user current lat if shared location
-          //   {UserCurrentLongi:''},  // user current lon if shared location0
-          //
-          //   {MemberId:'MALKIT123'}, // MemberId of user -- logged in user
-          //
-          //   {DeviceId:''} ,// this would be unique device id,
-          //   {DeviceToken:''}, // or notification token.. will be used for sending push notifications from server
-          //   {DeviceOS:''}// to save current device operating system info... iOS or Android
-          //
-          // ];
+
+
+
+          // this functino will gets fired when app comes to foreground
+          document.addEventListener("resume", function () {
+
+              console.log('came in resume state');
+              if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
+                  $state.go('enterPin');
+              }
+
+          }, false);
+          // this function gets fired when app goes to background
+          document.addEventListener("pause", function () {
+              console.log('came in pause state');
+          }, false);
 
           if (!$localStorage.GLOBAL_VARIABLES) {
               $localStorage.GLOBAL_VARIABLES = {
@@ -38,8 +39,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   UserCurrentLongi: '',  // user current lon if shared location0
 
                   MemberId: '', // MemberId of user -- logged in user
-                  UserName: '',
                   Pwd:'',
+                  UserName: '',
+
                   AccessToken: '',
 
                   IsNotificationPermissionGiven: false,// will store here about push notification permission from user
@@ -47,7 +49,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   DeviceToken: '', // or notification token.. will be used for sending push notifications from server
                   DeviceOS: '',// to save current device operating system info... iOS or Android
 
-                IsNetworkAvailable:false
+                  IsNetworkAvailable: false,
+                  EnterPinImmediately: true // to check if pin is required while coming back to foreground or app launch
 
 
               };
@@ -135,30 +138,27 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 });
 
 
+              var isOnline = $cordovaNetwork.isOnline();
+              if (isOnline == true) {
+                  $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = true;
+              }
 
-            var isOnline = $cordovaNetwork.isOnline();
-            if(isOnline==true)
-            {
-              $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable=true;
-            }
+              var isOffline = $cordovaNetwork.isOffline();
+              if (isOffline == true) {
+                  $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = false;
+              }
 
-            var isOffline = $cordovaNetwork.isOffline();
-            if(isOffline==true)
-            {
-              $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable=false;
-            }
+              // listen for Online event
+              $rootScope.$on('$cordovaNetwork:online', function (event, networkState) {
+                  var onlineState = networkState;
+                  console.log('came in online state change' + JSON.stringify(networkState));
+              })
 
-            // listen for Online event
-            $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
-              var onlineState = networkState;
-              console.log('came in online state change'+JSON.stringify(networkState));
-            })
-
-            // listen for Offline event
-            $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
-              var offlineState = networkState;
-              console.log('came in offline state change'+JSON.stringify(networkState));
-            })
+              // listen for Offline event
+              $rootScope.$on('$cordovaNetwork:offline', function (event, networkState) {
+                  var offlineState = networkState;
+                  console.log('came in offline state change' + JSON.stringify(networkState));
+              })
 
           }
           if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -176,13 +176,16 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           }
 
 
+
+
+
       });
   })
 
-  .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider ) {
+  .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider) {
 
       //$cordovaFacebookProvider.browserInit(198279616971457, "v2.0");
-       
+
       $stateProvider
         .state('login', {
             url: '/login',
@@ -246,16 +249,16 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
         //  templateUrl: 'templates/transferDetails/TransferDetails.html',
         //  controller: 'TransferDetailsCtrl'
         //})
-          .state('app.TransferDetails', {
-              url: '/history/TransferDetails',
-              params: {myParam: null},
-              views: {
-                  'menuContent': {
-                      templateUrl: 'templates/transferDetails/TransferDetails.html',
-                      controller: 'TransferDetailsCtrl'
-                  }
-              }
-          })
+        .state('app.TransferDetails', {
+            url: '/history/TransferDetails',
+            params: { myParam: null },
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/transferDetails/TransferDetails.html',
+                    controller: 'TransferDetailsCtrl'
+                }
+            }
+        })
         .state('app.setting', {
             url: '/settings',
             views: {
@@ -324,7 +327,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             url: '/settings/NotificationSetting',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/NotificationSetting/NotificationSetting.html',
+                    templateUrl: 'templates/notificationSetting/NotificationSetting.html',
                     controller: 'notificationCtrl'
                 }
             }
@@ -338,15 +341,15 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-           .state('app.ResetPin', {
-               url: '/settings/securitySetting/ResetPin',
-               views: {
-                   'menuContent': {
-                       templateUrl: 'templates/resetPassword/resetPin.html',
-                       controller: 'resetPwdCtrl'
-                   }
-               }
-           })
+        .state('app.ResetPin', {
+            url: '/settings/securitySetting/ResetPin',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/resetPassword/resetPin.html',
+                    controller: 'resetPwdCtrl'
+                }
+            }
+        })
         .state('app.referAfriend', {
             url: '/referAfriend',
             views: {
@@ -370,6 +373,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             url: '/createPin',
             templateUrl: 'templates/createPin/createPin.html',
             controller: 'createPinCtrl'
+        })
+        .state('enterPinForeground', {
+            url: '/enterPinForeground',
+            templateUrl: 'templates/enterPinForeground/enterPinForeground.html',
+            controller: 'enterPinForegroundCtrl'
         })
 
         //Test Page
