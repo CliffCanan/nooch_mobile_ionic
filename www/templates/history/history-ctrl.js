@@ -17,7 +17,8 @@
             console.log($scope.transactionList);
             $ionicLoading.hide();
         }).error(function (data) {
-            console.log('eror'+data);
+            console.log('eror' + data);
+            $ionicLoading.hide();
         });
     });
 
