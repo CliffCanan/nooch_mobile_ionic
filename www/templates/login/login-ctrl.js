@@ -56,8 +56,9 @@
             $ionicLoading.hide();
 
             if (data != null) {
-              $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-              $state.go('app.home');
+                $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+                
+                $state.go('app.home');
 
             }
 
@@ -116,6 +117,7 @@
 
                   $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
                   $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
+                  $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
                   $ionicLoading.hide();
                   // swal("login successfull");
 

@@ -39,7 +39,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
                   MemberId: '', // MemberId of user -- logged in user
                   UserName: '',
-
+                  Pwd:'',
                   AccessToken: '',
 
                   IsNotificationPermissionGiven: false,// will store here about push notification permission from user
@@ -179,10 +179,10 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       });
   })
 
-  .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider ) {
 
       //$cordovaFacebookProvider.browserInit(198279616971457, "v2.0");
-
+       
       $stateProvider
         .state('login', {
             url: '/login',

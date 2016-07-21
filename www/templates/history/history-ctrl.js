@@ -9,9 +9,12 @@
 
             console.log('History Page Loaded');
         });
+
+        //  if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
             template: 'Loading ...'
         });
+
         historyService.getTransferList().success(function (data) {
             $scope.transactionList = data;
             console.log($scope.transactionList);
@@ -20,5 +23,9 @@
             console.log('eror' + data);
             $ionicLoading.hide();
         });
+        //}
+        //else{
+        //        swal("Oops...", "Internet not connected!", "error");
+        //      }
     });
 

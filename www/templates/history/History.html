@@ -11,10 +11,10 @@
                         <br />
                         <br />
                         <div class="history-list">
-                            <ion-scroll zooming="true" direction="y" style=" height: 1500px">
+                            <ion-scroll zooming="true" direction="y"   >
                                 <a class="item item-avatar" ui-sref="app.TransferDetails({myParam:transaction})" ng-repeat="transaction in  transactionList" ng-if="transaction.TransactionStatus=='Success' && (transaction.TransactionType=='Invite' || transaction.TransactionType=='Transfer')">
 
-                                    <img src="./img/profile_picture.png">
+                                    <img src={{transaction.Photo}}>
 
                                     <div class="name">{{transaction.Name}}</div>
 
@@ -37,7 +37,7 @@
 
                                 <button type="button" id="export-btn" class="btn btn-primary"><i class="ion-ios-cloud-download"></i>Export</button>
 
-                        </div>
+</div>
 </ion-tab>
 
                 <ion-tab title="Pending" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
@@ -47,7 +47,7 @@
                     <br />
                     <div class="history-list">
                         <ion-scroll zooming="true" direction="y" style=" height: 1500px">
-                            <a class="item item-avatar" href="#/app/history/TransferDetails" ng-repeat="transaction in  transactionList" ng-if="transaction.TransactionStatus=='Pending' && (transaction.TransactionType=='Invite' || transaction.TransactionType=='Transfer')">
+                            <a class="item item-avatar" ui-sref="app.TransferDetails({myParam:transaction})" ng-repeat="transaction in  transactionList" ng-if="transaction.TransactionStatus=='Pending' && (transaction.TransactionType=='Invite' || transaction.TransactionType=='Transfer')">
 
                                 <img src="./img/profile_picture.png">
 

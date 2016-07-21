@@ -48,6 +48,8 @@
      });
 
      $scope.signOut = function () {
+
+         //  if ($cordovaNetwork.isOnline()) {
          $ionicLoading.show({
              template: 'Logging off...'
          });
@@ -79,7 +81,10 @@
              $ionicLoading.hide();
             
          });
-
+         //}
+         //else{
+         //        swal("Oops...", "Internet not connected!", "error");
+         //      }
      };
 
 

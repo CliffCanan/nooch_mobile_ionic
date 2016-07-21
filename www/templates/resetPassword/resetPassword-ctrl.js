@@ -3,7 +3,7 @@
 /************************/
 /***  RESET PASSWORD  ***/
 /************************/
-.controller('resetPwdCtrl', function ($scope, resetPasswordService, $state, $ionicLoading, CommonServices, $localStorage) {
+.controller('resetPwdCtrl', function ($scope, resetPasswordService, $state, $ionicLoading, CommonServices, $localStorage, $cordovaNetwork) {
     $scope.ResetPwd = {
         newPwd: '',
         currentPwd: '',
@@ -22,38 +22,73 @@
 
     })
     $scope.ResetPassword = function () {
-        console.log($scope.ResetPwd.newPwd);
-        if ($('#frmResetPwd').parsley().validate() == true) {
-            $ionicLoading.show({
-                template: 'Resetting pwd...'
-            });
-            CommonServices.GetEncryptedData($scope.ResetPwd.newPwd).success(function (data) {
-                console.log(data);
-                resetPasswordService.ResetPassword(data.Status, '').success(function (data) {
-                    console.log(data);
-                     if (data.Result == true) {
-                        swal({
-                            title: "Password Changed!",
-                            text: "Your Nooch password has been changed.",
-                            type: "success",
-                            confirmButtonColor: "#3fabe1",
-                            confirmButtonText: "Ok",
-                            customClass: "stackedBtns",
-                            html: true,
-                        }, function (isConfirm) {
-                            if (isConfirm) {
-                                $ionicLoading.hide();
-                            }
-                        });
+        
+      //  if ($cordovaNetwork.isOnline()) {
+            console.log($scope.ResetPwd.newPwd);
+            if ($('#frmResetPwd').parsley().validate() == true) {
+                $ionicLoading.show({
+                    template: 'Resetting pwd...'
+                });
 
-                        $scope.ResetPwd.newPwd = '';
-                        $scope.ResetPwd.currentPwd = '';
-                        $scope.ResetPwd.confirmPwd = '';
+                CommonServices.GetEncryptedData($scope.ResetPwd.currentPwd).success(function (data) {
+                    console.log(data.Status);
+                    console.log($localStorage.GLOBAL_VARIABLES.Pwd);
+                    
+                    if ($localStorage.GLOBAL_VARIABLES.Pwd == data.Status) {
+                         
+                        CommonServices.GetEncryptedData($scope.ResetPwd.newPwd).success(function (data) {
+                            console.log(data);
+                            resetPasswordService.ResetPassword(data.Status, '').success(function (data) {
+                                console.log(data);
+                                if (data.Result == true) {
+                                    swal({
+                                        title: "Password Changed!",
+                                        text: "Your Nooch password has been changed.",
+                                        type: "success",
+                                        confirmButtonColor: "#3fabe1",
+                                        confirmButtonText: "Ok",
+                                        customClass: "stackedBtns",
+                                        html: true,
+                                    }, function (isConfirm) {
+                                        if (isConfirm) {
+                                            $ionicLoading.hide();
+                                        }
+                                    });
+
+                                    $scope.ResetPwd.newPwd = '';
+                                    $scope.ResetPwd.currentPwd = '';
+                                    $scope.ResetPwd.confirmPwd = '';
+                                }
+                                else {
+                                    swal({
+                                        title: "Expired!",
+                                        text: "Your reset password link has expired.",
+                                        type: "error",
+                                        confirmButtonColor: "#3fabe1",
+                                        confirmButtonText: "Ok",
+                                        customClass: "stackedBtns",
+                                        html: true,
+                                    }, function (isConfirm) {
+                                        if (isConfirm) {
+                                            $ionicLoading.hide();
+                                        }
+                                    });
+                                    $scope.ResetPwd.newPwd = '';
+                                    $scope.ResetPwd.currentPwd = '';
+                                    $scope.ResetPwd.confirmPwd = '';
+                                }
+                            }).error(function (encError) {
+                                console.log('came in enc error block ' + encError);
+                                $ionicLoading.hide();
+                            });
+                        }).error(function (encError) {
+                            console.log('came in enc error block ' + encError);
+                        });
                     }
                     else {
                         swal({
-                            title: "Expired!",
-                            text: "Your reset password link has expired.",
+                            title: "Incorrect Password!",
+                            text: "Current Password is incorrect.",
                             type: "error",
                             confirmButtonColor: "#3fabe1",
                             confirmButtonText: "Ok",
@@ -64,22 +99,19 @@
                                 $ionicLoading.hide();
                             }
                         });
-                        $scope.ResetPwd.newPwd = '';
-                        $scope.ResetPwd.currentPwd = '';
-                        $scope.ResetPwd.confirmPwd = '';
                     }
-                }).error(function (encError) {
-                    console.log('came in enc error block ' + encError);
-                    $ionicLoading.hide();
-                });
-            }).error(function (encError) {
-                console.log('came in enc error block ' + encError);
-            });
-        }
-       
+                }).error(function (data) { });
+
+               
+            }
+        //}
+        //else{
+        //        swal("Oops...", "Internet not connected!", "error");
+        //      }
     }
 
     $scope.ResetPin = function () {
+        //  if ($cordovaNetwork.isOnline()) {
         var encryptedNoochPin = '';
         var encryptedNewPin = '';
         console.log($scope.ResetPin.noochPin);
@@ -170,6 +202,10 @@
            
 
         }
+        //}
+        //else{
+        //        swal("Oops...", "Internet not connected!", "error");
+        //      }
 
     }
 
