@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.referAfriendCtrl', ['noochApp.services'])
 
- .controller('referAfriendCtrl', function (CommonServices, $scope, authenticationService, $ionicPlatform, $cordovaSocialSharing) {
+ .controller('referAfriendCtrl', function (CommonServices, $scope, authenticationService, $ionicPlatform, $cordovaSocialSharing, $cordovaNetwork, $ionicLoading) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
          console.log("Refer a friend Controller Loaded");
@@ -9,15 +9,24 @@
 
      $scope.ReferFriend = function () {
          console.log('Entered into ReferFriend Function');
-
-         CommonServices.getReferralCode()
-             .success(function (Code) {
-                 console.log(Code);
-                 $scope.Code = Code;
-             }
-     ).error(function (encError) {
-         console.log('came in enc error block ' + encError);
-     })
+         //if ($cordovaNetwork.isOnline()) {
+             $ionicLoading.show({
+                 template: 'Loading ...'
+             });
+             CommonServices.getReferralCode()
+                 .success(function (Code) {
+                     console.log(Code);
+                     $ionicLoading.hide();
+                     $scope.Code = Code;                    
+                 }
+         ).error(function (encError) {
+             console.log('came in enc error block ' + encError);
+             $ionicLoading.hide();
+         })
+         //}
+         //else {
+         //    swal("Oops...", "Internet not connected!", "error");
+         //}
      }
 
 
@@ -31,8 +40,7 @@
          var imageURL = "http://noochme.com/noochweb/Assets/Images/noochlogosquare.png";
          var addUrl = "http://bit.ly/1xdG2le";
 
-         if (type == "sms")
-         {
+         if (type == "sms") {
              var msg = "Hey! You should check out Nooch, a great new free app for paying me back. Use my invite code: \"" + $scope.inviteCode + "\" - download here: http://bit.ly/1xdG2le";
 
              $ionicPlatform.ready(function () {
@@ -46,8 +54,7 @@
                    });
              });
          }
-         else if (type == "fb")
-         {
+         else if (type == "fb") {
              var shareDesc = "Check out Nooch, the simplest way to pay me back (and get paid by anyone - for free)! Use my invite code to sign up: \"" + $scope.inviteCode + "\"";
 
              $ionicPlatform.ready(function () {
@@ -60,8 +67,7 @@
                     });
              });
          }
-         else if (type == "twitter")
-         {
+         else if (type == "twitter") {
              var tweetTxt = "Check out @NoochMoney, the simplest free way to pay me back! Use my invite code to sign up: \"" + $scope.inviteCode + "\"";
 
              $ionicPlatform.ready(function () {
@@ -74,8 +80,7 @@
                     });
              });
          }
-         else if (type == "email")
-         {
+         else if (type == "email") {
              var subject = "Check out Nooch - a free app to pay me back";
              var msgBody = "Hey there,<br/><p>You should check out Nooch, a great <strong>free app</strong> that lets me pay you back anytime, anywhere.  Since I know you don't like carrying cash around either, I thought you would love using Nooch!</p><p>You can <a href=\"https://157050.measurementapi.com/serve?action=click&publisher_id=157050&site_id=91086\">download Nooch</a> from the App Store - and be sure to use my Referral Code:</p><p style=\"text-align:center;font-size:1.5em;\"><strong>" + $scope.inviteCode + "</strong></p><p>To learn more about Nooch, here's the website: <a href=\"https://www.nooch.com/overview/\">www.Nooch.com</a>.</p><p>- " + $scope.firstName + "</p>";
              var toArr = ["cliff@nooch.com"]; // Just for testing
