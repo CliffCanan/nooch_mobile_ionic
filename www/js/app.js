@@ -12,6 +12,23 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state,$rootScope,$cordovaGeolocation) {
     $ionicPlatform.ready(function () {
 
+
+
+
+      // this functino will gets fired when app comes to foreground
+      document.addEventListener("resume", function () {
+
+        console.log('came in resume state');
+        if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
+          $state.go('enterPin');
+        }
+
+      }, false);
+      // this function gets fired when app goes to background
+      document.addEventListener("pause", function () {
+        console.log('came in pause state');
+      }, false);
+
       if (!$localStorage.GLOBAL_VARIABLES) {
         $localStorage.GLOBAL_VARIABLES = {
           IsDemoDone: false, // for displaying tutorial screens to user - if any
@@ -32,7 +49,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           DeviceOS: '',// to save current device operating system info... iOS or Android
 
           IsNetworkAvailable: false,
-          EnterPinImmediately: false // to check if pin is required while coming back to foreground or app launch
+          EnterPinImmediately: true // to check if pin is required while coming back to foreground or app launch
 
 
         };
@@ -158,47 +175,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       }
 
 
-      // this functino will gets fired when app comes to foreground
-      document.addEventListener("resume", function () {
 
-        console.log('came in resume state');
-        if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
-          $state.go('enterPin');
-        }
 
-      }, false);
-      // this function gets fired when app goes to background
-      document.addEventListener("pause", function () {
-        console.log('came in pause state');
-      }, false);
-
-      $ionicPlatform.on('resume', function() {
-        console.log('came in resume state2');
-        if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
-          $state.go('enterPin');
-        }
-      });
-
-      $ionicPlatform.on('pause', function() {
-        //Do something here on entering background
-        console.log('came in pause state2');
-      });
-
-      document.addEventListener("deviceready", onDeviceReady, false);
-      function onDeviceReady() {
-
-        console.log('run() -> onDeviceReady');
-
-        document.addEventListener("pause", function (event) {
-          $rootScope.$broadcast('cordovaPauseEvent');
-          console.log('run() -> cordovaPauseEvent');
-        });
-
-        document.addEventListener("resume", function (event) {
-          $rootScope.$broadcast('cordovaResumeEvent');
-          console.log('run() -> cordovaResumeEvent');
-        });
-      }
 
     });
   })

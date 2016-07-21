@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0883461f-69d8-4a47-9138-5558291abd8d" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/www/templates/history/History.html" afterPath="$PROJECT_DIR$/www/templates/history/history.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/app.js" afterPath="$PROJECT_DIR$/www/js/app.js" />
     </list>
     <ignored path="nooch-ionic-demo.iws" />
@@ -102,15 +101,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="396" column="8" selection-start-line="396" selection-start-column="8" selection-end-line="396" selection-end-column="8" />
+            <state relative-caret-position="734">
+              <caret line="255" column="67" selection-start-line="255" selection-start-column="52" selection-end-line="255" selection-end-column="67" />
               <folding>
-                <element signature="e#1227#2304#0" expanded="false" />
-                <element signature="e#5781#6269#0" expanded="false" />
+                <element signature="e#6267#6755#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="enterPin.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/templates/enterPin/enterPin.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -378,7 +386,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="referAfriend" />
+              <option name="myItemId" value="history" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -570,7 +578,7 @@
       <updated>1468816664888</updated>
       <workItem from="1468816666078" duration="19124000" />
       <workItem from="1468904535657" duration="4989000" />
-      <workItem from="1469075464364" duration="2526000" />
+      <workItem from="1469075464364" duration="3169000" />
     </task>
     <task id="LOCAL-00001" summary="minor changes in code to fix state transfer if user data found in local storage">
       <created>1468841316229</created>
@@ -583,7 +591,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26639000" />
+    <option name="totallyTimeSpent" value="27282000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="58" y="44" width="1829" height="935" extended-state="0" />
@@ -718,8 +726,7 @@
         <state relative-caret-position="2070">
           <caret line="138" column="53" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="53" />
           <folding>
-            <element signature="e#1227#2304#0" expanded="false" />
-            <element signature="e#5781#6269#0" expanded="false" />
+            <element signature="e#6267#6755#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -823,8 +830,7 @@
         <state relative-caret-position="2625">
           <caret line="175" column="19" selection-start-line="175" selection-start-column="14" selection-end-line="175" selection-end-column="19" />
           <folding>
-            <element signature="e#1227#2304#0" expanded="false" />
-            <element signature="e#5781#6269#0" expanded="false" />
+            <element signature="e#6267#6755#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1049,12 +1055,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="396" column="8" selection-start-line="396" selection-start-column="8" selection-end-line="396" selection-end-column="8" />
+        <state relative-caret-position="734">
+          <caret line="255" column="67" selection-start-line="255" selection-start-column="52" selection-end-line="255" selection-end-column="67" />
           <folding>
-            <element signature="e#1227#2304#0" expanded="false" />
-            <element signature="e#5781#6269#0" expanded="false" />
+            <element signature="e#6267#6755#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/enterPin/enterPin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
