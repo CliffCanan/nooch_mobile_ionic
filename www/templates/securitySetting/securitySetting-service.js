@@ -2,13 +2,13 @@
   .service('MemberPrivacy', function ($http, $localStorage) {
       
       
-      this.MemberPrivacySettings = function (SecurityData) {
+      this.MemberPrivacySettings = function (ChkBox) {
          
           SecurityData = {
               MemberId: $localStorage.GLOBAL_VARIABLES.MemberId,
-              ShowInSearch: SecurityData.ShowInSearch,
+              ShowInSearch: ChkBox.ShowInSearch,
               AllowSharing: "false",
-              RequireImmediately: SecurityData.RequirePin
+              RequireImmediately: ChkBox.RequirePin
           };
 
           var config = {
@@ -18,7 +18,7 @@
           }
           console.log('data Reached to MembersPrivacy Setting Services service');
           console.log(SecurityData);
-          return $http.post(URLs.MemberPrivacySettings + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken, SecurityData);
+         return $http.post(URLs.MemberPrivacySettings + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken, SecurityData);
       }
 
 

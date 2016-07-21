@@ -16,16 +16,13 @@
         //console.log($scope.ShowInSearch.isCheck = ($scope.ShowInSearch.isCheck == false ? true : false)); //to check toggel Button Values 
         //console.log($scope.ShowInSearch.isCheck);
 
-        $scope.SecurityData = {           
-            RequirePin: {
-                chk: true
-            },
-            ShowInSearch: {
-                chk:true
-            }
+        $scope.ChkBox = {
+            RequirePin: true,
+            ShowInSearch: true
         };
-        console.log($scope.SecurityData.RequirePin.chk, $scope.SecurityData.ShowInSearch.chk    );
-        MemberPrivacy.MemberPrivacySettings($scope.SecurityData.RequirePin.chk, $scope.SecurityData.ShowInSearch.chk)
+
+        console.log($scope.ChkBox.RequirePin, $scope.ChkBox.ShowInSearch);
+        MemberPrivacy.MemberPrivacySettings($scope.ChkBox) //.RequirePin, $scope.ChkBox.ShowInSearch
           .success(function (data) {
               $scope.Data = data;
               console.log($scope.Data);
