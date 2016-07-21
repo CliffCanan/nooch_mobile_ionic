@@ -348,7 +348,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
         url: '/settings/NotificationSetting',
         views: {
           'menuContent': {
-            templateUrl: 'templates/NotificationSetting/NotificationSetting.html',
+            templateUrl: 'templates/notificationSetting/NotificationSetting.html',
             controller: 'notificationCtrl'
           }
         }

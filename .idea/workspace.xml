@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0883461f-69d8-4a47-9138-5558291abd8d" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/www/templates/history/History.html" afterPath="$PROJECT_DIR$/www/templates/history/history.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/app.js" afterPath="$PROJECT_DIR$/www/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/login/login-ctrl.js" afterPath="$PROJECT_DIR$/www/templates/login/login-ctrl.js" />
     </list>
     <ignored path="nooch-ionic-demo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -51,7 +51,31 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2250">
               <caret line="154" column="21" selection-start-line="154" selection-start-column="21" selection-end-line="154" selection-end-column="21" />
-              <folding />
+              <folding>
+                <marker date="1469075386000" expanded="true" signature="52:1764" ph="//..." />
+                <marker date="1469075386000" expanded="true" signature="1893:3664" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="2286:2371" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="2424:2569" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="3248:3443" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="3720:4211" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="3771:4207" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="3834:4039" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="3891:3986" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="3992:4031" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="4114:4201" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="4354:4938" ph="[...]" />
+                <marker date="1469075386000" expanded="true" signature="4355:4464" ph="{&quot;id&quot;: 0...}" />
+                <marker date="1469075386000" expanded="true" signature="4466:4569" ph="{&quot;id&quot;: 1...}" />
+                <marker date="1469075386000" expanded="true" signature="4571:4688" ph="{&quot;id&quot;: 2...}" />
+                <marker date="1469075386000" expanded="true" signature="4690:4807" ph="{&quot;id&quot;: 3...}" />
+                <marker date="1469075386000" expanded="true" signature="4809:4937" ph="{&quot;id&quot;: 4...}" />
+                <marker date="1469075386000" expanded="true" signature="4952:5312" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="4977:5008" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="5040:5095" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="5126:5306" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="5175:5277" ph="{...}" />
+                <marker date="1469075386000" expanded="true" signature="5225:5267" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,8 +105,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="11" column="148" selection-start-line="11" selection-start-column="148" selection-end-line="11" selection-end-column="148" />
+            <state relative-caret-position="540">
+              <caret line="396" column="8" selection-start-line="396" selection-start-column="8" selection-end-line="396" selection-end-column="8" />
               <folding>
                 <element signature="e#1227#2304#0" expanded="false" />
                 <element signature="e#5781#6269#0" expanded="false" />
@@ -117,20 +141,6 @@
             <state relative-caret-position="795">
               <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resetPassword-service.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/templates/resetPassword/resetPassword-service.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding>
-                <marker date="1469075386000" expanded="true" signature="133:608" ph="{...}" />
-                <marker date="1469075386000" expanded="true" signature="190:350" ph="{...}" />
-                <marker date="1469075386000" expanded="true" signature="398:601" ph="{...}" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -261,26 +271,8 @@
               <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="nooch-ionic-demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="nooch-ionic-demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="login" />
+              <option name="myItemId" value="transferDetails" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -299,10 +291,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="home" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -324,7 +312,73 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="history" />
+              <option name="myItemId" value="socialSetting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="securitySetting" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resetPassword" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="referAfriend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -347,6 +401,50 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="enterPin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="createPin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="addPicture" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -472,7 +570,7 @@
       <updated>1468816664888</updated>
       <workItem from="1468816666078" duration="19124000" />
       <workItem from="1468904535657" duration="4989000" />
-      <workItem from="1469075464364" duration="2064000" />
+      <workItem from="1469075464364" duration="2526000" />
     </task>
     <task id="LOCAL-00001" summary="minor changes in code to fix state transfer if user data found in local storage">
       <created>1468841316229</created>
@@ -485,7 +583,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26177000" />
+    <option name="totallyTimeSpent" value="26639000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="58" y="44" width="1829" height="935" extended-state="0" />
@@ -569,7 +667,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2250">
           <caret line="150" column="21" selection-start-line="150" selection-start-column="21" selection-end-line="150" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1469075386000" expanded="true" signature="52:1764" ph="//..." />
+            <marker date="1469075386000" expanded="true" signature="1893:3664" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="2286:2371" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="2424:2569" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3248:3443" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3720:4211" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3771:4207" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3834:4039" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3891:3986" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3992:4031" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="4114:4201" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="4354:4938" ph="[...]" />
+            <marker date="1469075386000" expanded="true" signature="4355:4464" ph="{&quot;id&quot;: 0...}" />
+            <marker date="1469075386000" expanded="true" signature="4466:4569" ph="{&quot;id&quot;: 1...}" />
+            <marker date="1469075386000" expanded="true" signature="4571:4688" ph="{&quot;id&quot;: 2...}" />
+            <marker date="1469075386000" expanded="true" signature="4690:4807" ph="{&quot;id&quot;: 3...}" />
+            <marker date="1469075386000" expanded="true" signature="4809:4937" ph="{&quot;id&quot;: 4...}" />
+            <marker date="1469075386000" expanded="true" signature="4952:5312" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="4977:5008" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5040:5095" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5126:5306" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5175:5277" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5225:5267" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -650,7 +772,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1469075386000" expanded="true" signature="52:1764" ph="//..." />
+            <marker date="1469075386000" expanded="true" signature="1893:3664" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="2286:2371" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="2424:2569" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3248:3443" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3720:4211" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3771:4207" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3834:4039" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3891:3986" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3992:4031" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="4114:4201" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="4354:4938" ph="[...]" />
+            <marker date="1469075386000" expanded="true" signature="4355:4464" ph="{&quot;id&quot;: 0...}" />
+            <marker date="1469075386000" expanded="true" signature="4466:4569" ph="{&quot;id&quot;: 1...}" />
+            <marker date="1469075386000" expanded="true" signature="4571:4688" ph="{&quot;id&quot;: 2...}" />
+            <marker date="1469075386000" expanded="true" signature="4690:4807" ph="{&quot;id&quot;: 3...}" />
+            <marker date="1469075386000" expanded="true" signature="4809:4937" ph="{&quot;id&quot;: 4...}" />
+            <marker date="1469075386000" expanded="true" signature="4952:5312" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="4977:5008" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5040:5095" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5126:5306" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5175:5277" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5225:5267" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -825,7 +971,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2250">
           <caret line="154" column="21" selection-start-line="154" selection-start-column="21" selection-end-line="154" selection-end-column="21" />
-          <folding />
+          <folding>
+            <marker date="1469075386000" expanded="true" signature="52:1764" ph="//..." />
+            <marker date="1469075386000" expanded="true" signature="1893:3664" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="2286:2371" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="2424:2569" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3248:3443" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3720:4211" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3771:4207" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3834:4039" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3891:3986" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="3992:4031" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="4114:4201" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="4354:4938" ph="[...]" />
+            <marker date="1469075386000" expanded="true" signature="4355:4464" ph="{&quot;id&quot;: 0...}" />
+            <marker date="1469075386000" expanded="true" signature="4466:4569" ph="{&quot;id&quot;: 1...}" />
+            <marker date="1469075386000" expanded="true" signature="4571:4688" ph="{&quot;id&quot;: 2...}" />
+            <marker date="1469075386000" expanded="true" signature="4690:4807" ph="{&quot;id&quot;: 3...}" />
+            <marker date="1469075386000" expanded="true" signature="4809:4937" ph="{&quot;id&quot;: 4...}" />
+            <marker date="1469075386000" expanded="true" signature="4952:5312" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="4977:5008" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5040:5095" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5126:5306" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5175:5277" ph="{...}" />
+            <marker date="1469075386000" expanded="true" signature="5225:5267" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -869,10 +1039,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/history/history.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-201">
+          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="11" column="148" selection-start-line="11" selection-start-column="148" selection-end-line="11" selection-end-column="148" />
+        <state relative-caret-position="540">
+          <caret line="396" column="8" selection-start-line="396" selection-start-column="8" selection-end-line="396" selection-end-column="8" />
           <folding>
             <element signature="e#1227#2304#0" expanded="false" />
             <element signature="e#5781#6269#0" expanded="false" />
