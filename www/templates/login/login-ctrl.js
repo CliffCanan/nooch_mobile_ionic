@@ -35,8 +35,10 @@
     });
 
     $scope.loginData = {
-      email: 'cliff@nooch.com',
-      pwd: 'banksCtrl',
+      // email: 'cliff@nooch.com',
+      // pwd: 'banksCtrl',
+      email: 'cliffsatell@gmail.com ',
+      pwd: 'Goran9119!',
       rmmbrMe: {
         chk: true
       }
