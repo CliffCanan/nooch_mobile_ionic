@@ -31,6 +31,9 @@
             else if (data == 'createPin') {
                 $state.go('createPin');
             }
+            else if (data == 'enterPinForeground') {
+                $state.go('enterPinForeground');
+            }
         }
 
         $scope.getContact = function () {

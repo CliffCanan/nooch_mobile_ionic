@@ -7,7 +7,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
   'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPin', 'noochApp.services',
-  'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
+  'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state,$rootScope,$cordovaGeolocation) {
     $ionicPlatform.ready(function () {
@@ -373,6 +373,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
         templateUrl: 'templates/createPin/createPin.html',
         controller: 'createPinCtrl'
       })
+      .state('enterPinForeground', {
+          url: '/enterPinForeground',
+          templateUrl: 'templates/enterPinForeground/enterPinForeground.html',
+          controller: 'enterPinForegroundCtrl'
+        })
 
       //Test Page
       .state('app.testPage', {
