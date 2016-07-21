@@ -4,7 +4,8 @@
 /***************/
 /***  LOGIN  ***/
 /***************/
-  .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading, $localStorage, CommonHelper, $cordovaGeolocation, $cordovaDevice, CommonServices,$cordovaNetwork) {
+  .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading, $localStorage, CommonHelper, $cordovaGeolocation, $cordovaDevice,
+                                     CommonServices, $cordovaNetwork) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
       console.log('Login Controller loaded');
@@ -16,7 +17,7 @@
         if ($localStorage.GLOBAL_VARIABLES.MemberId) {
           if ($localStorage.GLOBAL_VARIABLES.MemberId.length > 0) {
 
- 
+
             $state.go('app.home');
 
 
@@ -34,8 +35,8 @@
     });
 
     $scope.loginData = {
-        email: 'cliff@nooch.com',
-        pwd: 'banksCtrl',
+      email: 'cliff@nooch.com',
+      pwd: 'banksCtrl',
       rmmbrMe: {
         chk: true
       }
@@ -45,28 +46,28 @@
 
       //if ($cordovaNetwork.isOnline())
       //{
-        function fetchAfterLoginDetails() {
-          $ionicLoading.show({
-            template: 'Reading user details...'
-          });
+      function fetchAfterLoginDetails() {
+        $ionicLoading.show({
+          template: 'Reading user details...'
+        });
 
 
-          CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-            $ionicLoading.hide();
+        CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
+          $ionicLoading.hide();
 
-            if (data != null) {
-              $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-              $state.go('app.home');
+          if (data != null) {
+            $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+            $state.go('app.home');
 
-            }
-
-
-          }).error(function (err) {
-            $ionicLoading.hide();
-          });
+          }
 
 
-        }
+        }).error(function (err) {
+          $ionicLoading.hide();
+        });
+
+
+      }
 
 
       if ($('#frmLogin').parsley().validate() == true) {
@@ -81,7 +82,7 @@
         CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
 
 
-            authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
+          authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
             $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
             .success(function (response) {
 
@@ -135,11 +136,11 @@
 
 
       }
-    //}
-    //else{
-    //    swal("Oops...", "Internet not connected!", "error");
-    //  }
-  }
+      //}
+      //else{
+      //    swal("Oops...", "Internet not connected!", "error");
+      //  }
+    }
 
 
     $scope.forgotPw = function (type) {
@@ -170,9 +171,9 @@
           inputValue.indexOf('.') < inputValue.length - 2) {
           swal("Success!", "Input email validated, need to submit to sever here. Input was: [" + inputValue + "]", "success");
           authenticationService.ForgotPassword(inputValue).success(function (data) {
-              console.log(data);
+            console.log(data);
           }).error(function (encError) {
-              console.log('came in enc error block ' + encError);
+            console.log('came in enc error block ' + encError);
           });
 
         }
