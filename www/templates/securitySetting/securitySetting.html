@@ -17,7 +17,7 @@
             <div class="item item-toggle">
                 Require PIN Immediately
                 <label class="toggle toggle-calm">
-                    <input type="checkbox" ng-model="ChkBox.RequirePin" ng-click="MemberPrivacyFn()" />
+                    <input type="checkbox" ng-model="ChkBox.RequirePin" ng-click="MemberPrivacyFn()" ng-checked="Data.RequireImmediately" />
                     <div class="track">
                         <div class="handle"></div>
                     </div>
@@ -45,7 +45,7 @@
             <div class="item item-toggle">
                 Show In Search
                 <label class="toggle toggle-calm">
-                    <input type="checkbox" ng-model="ChkBox.ShowInSearch" ng-change="MemberPrivacyFn()">
+                    <input type="checkbox" ng-model="ChkBox.ShowInSearch" ng-change="MemberPrivacyFn()" ng-checked="Data.ShowInSearch">
                     <div class="track">
                         <div class="handle"></div>
                     </div>

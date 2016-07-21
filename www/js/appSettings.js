@@ -43,5 +43,6 @@ var URLs = {
   ValidatePinNumberToEnterForEnterForeground : PATH+'ValidatePinNumberToEnterForEnterForeground',
   ValidatePinNumber: PATH + 'ValidatePinNumber',
   getReferralCode: PATH + 'getReferralCode',
-  MemberPrivacySettings : PATH +'MemberPrivacySettings'
+  MemberPrivacySettings: PATH + 'MemberPrivacySettings',
+  GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings'
 };
