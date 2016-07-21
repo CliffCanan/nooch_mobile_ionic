@@ -45,7 +45,6 @@
     $scope.SignIn = function () {
 
       //if ($cordovaNetwork.isOnline())
-
       //{
       function fetchAfterLoginDetails() {
         $ionicLoading.show({
