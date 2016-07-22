@@ -10,12 +10,34 @@
         </div>-->
 
         <div class="card text-center">
-            <div class="header-item header-item-blue">
-                Request Sent To :
+            <div class="header-item header-item-blue" ng-if="   transferDetail.TransactionType=='Transfer' && transferDetail.MemberId==memberId">
+                Transfer To:
+            </div>
+            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Transfer' && transferDetail.MemberId!=memberId">
+                Transfer From:
+            </div>
+            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Request' && transferDetail.MemberId==memberId">
+                Request To:
+            </div>
+            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Request' && transferDetail.MemberId!=memberId">
+                Request From:
+            </div>
+            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Invite' && transferDetail.MemberId==memberId">
+                Invite To:
+            </div>
+            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Invite' && transferDetail.MemberId!=memberId">
+                Invite From:
+            </div>
+            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Rent' && transferDetail.MemberId==memberId">
+                Rent To:
+            </div>
+            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Rent' && transferDetail.MemberId!=memberId">
+                Rent From:
             </div>
 
+
             <div class="item item-avatar side_menu_top">
-                <img class="user-img" src="https://goo.gl/zK7SNE">
+                <img class="user-img" src="{{transferDetail.Photo}}">
                 <h1 class=""> {{transferDetail.Name}} <br>$ {{transferDetail.Amount}}</h1>
             </div>
         </div>
@@ -29,16 +51,18 @@
         <div class="text-center text-success">
             <h2>{{transferDetail.TransactionStatus}}</h2>
             <h3>{{transferDetail.TransactionDate}}</h3>
+          
         </div>
 
         <div style="height:100px;">Map</div>
 
-        <div class="row text-center">
+        <div class="row text-center" ng-if="transferDetail.TransactionStatus=='Pending'">
+            
             <div class="col">
-                <button class="button btn-primary button-block">Remind</button>
+                <button class="button btn-primary button-block" ng-click="remindPayment(transferDetail.TransactionId)">Remind</button>
             </div>
             <div class="col">
-                <button class="button btn-danger button-block">Cancel</button>
+                <button class="button btn-danger button-block" ng-click="cancelPayment(transferDetail.TransactionId)">Cancel</button>
             </div>
         </div>
 
