@@ -8,7 +8,7 @@
                 <li class="item item-toggle">
                     Transfer Received
                     <label class="toggle toggle-calm">
-                        <input type="checkbox" ng-model="ChkBox.TransRec" ng-click="" ng-checked="Data.TransferReceived"> <!--ng-checked="Data.RequireImmediately-->
+                        <input type="checkbox" ng-model="ChkBox.TransRec" ng-click="SetNotificationFn()" ng-checked="Data.TransferReceived"> <!--ng-checked="Data.RequireImmediately-->
                          
                         <div class="track">
                             <div class="handle"></div>
@@ -19,7 +19,7 @@
                 <li class="item item-toggle">
                     Transfer Sent
                     <label class="toggle toggle-calm">
-                        <input type="checkbox" ng-model="ChkBox.TransSent" ng-click="" ng-checked="Data.TransferSent">
+                        <input type="checkbox" ng-model="ChkBox.TransSent" ng-click="SetNotificationFn()" ng-checked="Data.TransferSent">
                         <div class="track">
                             <div class="handle"></div>
                         </div>
@@ -29,7 +29,7 @@
                 <li class="item item-toggle">
                     Transfer Unclaimed
                     <label class="toggle toggle-calm">
-                        <input type="checkbox" ng-model="ChkBox.TransUnclaimed" ng-click="" ng-checked="Data.TransferUnclaimed">
+                        <input type="checkbox" ng-model="ChkBox.TransUnclaimed" ng-click="SetNotificationFn()" ng-checked="Data.TransferUnclaimed">
                         <div class="track">
                             <div class="handle"></div>
                         </div>

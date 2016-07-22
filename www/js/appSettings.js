@@ -51,6 +51,7 @@ var URLs = {
   GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
 
   MySettings: PATH + 'MySettings',
-  GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings'
+  GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings',
+  MemberEmailNotificationSettings:PATH+'MemberEmailNotificationSettings'
 
 };
