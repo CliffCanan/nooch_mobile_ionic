@@ -50,37 +50,53 @@
      $scope.signOut = function () {
 
          //  if ($cordovaNetwork.isOnline()) {
-         $ionicLoading.show({
-             template: 'Logging off...'
-         });
-         console.log($localStorage.GLOBAL_VARIABLES.AccessToken);
-         settingsService.logOut($localStorage.GLOBAL_VARIABLES.AccessToken, $localStorage.GLOBAL_VARIABLES.MemberId).success(function (data) {
-             console.log(data.Result);
 
-             if (data.Result == 'Success.' || (data.Result.indexOf('oAuth') > -1))
-             {
-                
-                 $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
-                 $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
-                 $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                 $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '';
-                 $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '';
-                 $localStorage.GLOBAL_VARIABLES.MemberId = '';
-                 $localStorage.GLOBAL_VARIABLES.UserName = '';
-                 $localStorage.GLOBAL_VARIABLES.AccessToken = '';
-                 $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
-                 $localStorage.GLOBAL_VARIABLES.DeviceId = '';
-                 $localStorage.GLOBAL_VARIABLES.DeviceToken = '';
-                 $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
-                 console.log($localStorage.GLOBAL_VARIABLES);
-                 $ionicLoading.hide();
-                 $state.go('login');
-             }
-         }).error(function (encError) {
-             console.log('came in enc error block ' + encError);
-             $ionicLoading.hide();
-            
-         });
+          swal({
+                    title: "Log Out!",
+                    text: "Are you sure logging out.",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Cancel",
+                    confirmButtonColor: "#3fabe1",
+                    confirmButtonText: "Yes",
+                    customClass: "stackedBtns",
+                    html: true,
+                  }, function (isConfirm) {
+                    if (isConfirm) {
+                        $ionicLoading.show({
+                            template: 'Logging off...'
+                        });
+                        console.log($localStorage.GLOBAL_VARIABLES.AccessToken);
+                        settingsService.logOut($localStorage.GLOBAL_VARIABLES.AccessToken, $localStorage.GLOBAL_VARIABLES.MemberId).success(function (data) {
+                            console.log(data.Result);
+
+                            if (data.Result == 'Success.' || (data.Result.indexOf('oAuth') > -1)) {
+
+                                $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
+                                $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
+                                $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+                                $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '';
+                                $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '';
+                                $localStorage.GLOBAL_VARIABLES.MemberId = '';
+                                $localStorage.GLOBAL_VARIABLES.UserName = '';
+                                $localStorage.GLOBAL_VARIABLES.AccessToken = '';
+                                $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
+                                $localStorage.GLOBAL_VARIABLES.DeviceId = '';
+                                $localStorage.GLOBAL_VARIABLES.DeviceToken = '';
+                                $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
+                                console.log($localStorage.GLOBAL_VARIABLES);
+                                $ionicLoading.hide();
+                                $state.go('login');
+                            }
+                        }).error(function (encError) {
+                            console.log('came in enc error block ' + encError);
+                            $ionicLoading.hide();
+
+                        });
+                    }
+                  });
+
+       
          //}
          //else{
          //        swal("Oops...", "Internet not connected!", "error");

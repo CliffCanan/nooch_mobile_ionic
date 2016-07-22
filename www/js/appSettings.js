@@ -8,7 +8,7 @@
 
 //var PATH = 'https://noochme.com/landlords/db/api/';
 var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
-
+ 
 var URLs = {
 
   Login: PATH + 'LoginRequest',
@@ -44,7 +44,13 @@ var URLs = {
   ValidatePinNumber: PATH + 'ValidatePinNumber',
   getReferralCode: PATH + 'getReferralCode',
   MemberPrivacySettings: PATH + 'MemberPrivacySettings',
+ 
+  CancelRequest: PATH + 'CancelMoneyRequestForExistingNoochUser',
+  RemindPayment: PATH + 'SendTransactionReminderEmail',
+ 
   GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
+
   MySettings: PATH + 'MySettings',
   GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings'
+
 };

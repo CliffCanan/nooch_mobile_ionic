@@ -3,7 +3,7 @@
 /*****************/
 /***  HISTORY  ***/
 /*****************/
-    .controller('historyCtrl', function ($scope, historyService, $ionicLoading) {
+    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage) {
 
         $scope.$on("$ionicView.enter", function(event, data) {
 
@@ -17,7 +17,8 @@
 
         historyService.getTransferList().success(function (data) {
             $scope.transactionList = data;
-            console.log($scope.transactionList);
+       
+            $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
             $ionicLoading.hide();
         }).error(function (data) {
             console.log('eror' + data);
