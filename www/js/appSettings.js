@@ -47,11 +47,12 @@ var URLs = {
  
   CancelRequest: PATH + 'CancelMoneyRequestForExistingNoochUser',
   RemindPayment: PATH + 'SendTransactionReminderEmail',
+  RejectPayment: PATH + 'RejectMoneyRequestForExistingNoochUser',
  
   GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
-
   MySettings: PATH + 'MySettings',
   GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings',
   MemberEmailNotificationSettings:PATH+'MemberEmailNotificationSettings'
 
+ 
 };

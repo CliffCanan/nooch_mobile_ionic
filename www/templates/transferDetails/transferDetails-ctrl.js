@@ -70,4 +70,30 @@
                });
            }
 
+           $scope.rejectPayment = function (transactionId) {
+
+               console.log("cancel payment" + transactionId);
+               swal({
+                   title: "Are you sure?",
+                   text: "Do you want to reject this transaction?",
+                   type: "warning",
+                   showCancelButton: true,
+                   confirmButtonColor: "#DD6B55",
+                   confirmButtonText: "Yes - Reject",
+               }, function (isConfirm) {
+                   if (isConfirm) {
+                       $ionicLoading.show({
+                           template: 'Rejecting Payment ...'
+                       });
+                       transferDetailsService.RejectPayment(transactionId).success(function (data) {
+                           if (data.Result.indexOf('Successfully') > -1) {
+                               swal("Rejected...", data.Result, "success");
+                               $ionicLoading.hide();
+                           }
+
+                       }).error(function () { $ionicLoading.hide(); });
+                   }
+               });
+           }
+
        })

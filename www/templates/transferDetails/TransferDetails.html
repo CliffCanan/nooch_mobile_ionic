@@ -58,11 +58,17 @@
 
         <div class="row text-center" ng-if="transferDetail.TransactionStatus=='Pending'">
             
-            <div class="col">
+            <div class="col" ng-if="transferDetail.MemberId==memberId">
                 <button class="button btn-primary button-block" ng-click="remindPayment(transferDetail.TransactionId)">Remind</button>
             </div>
-            <div class="col">
+            <div class="col" ng-if="transferDetail.MemberId==memberId">
                 <button class="button btn-danger button-block" ng-click="cancelPayment(transferDetail.TransactionId)">Cancel</button>
+            </div>
+            <div class="col" ng-if="transferDetail.MemberId!=memberId">
+                <button class="btn btn-danger button-block" ng-click="rejectPayment(transferDetail.TransactionId)">Reject</button>
+            </div>
+            <div class="col" ng-if="transferDetail.MemberId!=memberId">
+                <button class="btn btn-success button-block" ng-click="payPayment(transferDetail.TransactionId)">Pay</button>
             </div>
         </div>
 

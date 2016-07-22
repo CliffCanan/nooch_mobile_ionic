@@ -11,5 +11,10 @@
 
       };
 
+      this.RejectPayment = function (transactionId) {
+          return $http.get(URLs.RejectPayment + '?transactionId='+transactionId);
+
+      };
+
 
   })
