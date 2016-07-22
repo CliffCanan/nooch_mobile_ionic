@@ -44,5 +44,6 @@ var URLs = {
   ValidatePinNumber: PATH + 'ValidatePinNumber',
   getReferralCode: PATH + 'getReferralCode',
   MemberPrivacySettings: PATH + 'MemberPrivacySettings',
-  GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings'
+  GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
+  MySettings: PATH + 'MySettings'
 };
