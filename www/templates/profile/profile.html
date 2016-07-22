@@ -7,111 +7,50 @@
             <h3>Nooch.com</h3>
         </div>
 
+
         <div class="list">
             <div class="item item-divider">CONTACT INFO</div>
-
-            <div ng-if="Details.UserName=== null">
+            
                 <label class="item item-input">
                     <span class="input-label calm">Email</span>
-                    <input type="text" placeholder="example@email.com">
-                </label>
-            </div>
-
-            <div ng-if="Details.UserName != null">
-                <label class="item item-input">
-                    <span class="input-label calm">Email</span>
-                    <label><span>{{Details.UserName}}</span></label>
-                </label>
-            </div>
-
-            <div ng-if="Details.ContactNumber === null">
+                    <label> <span>{{Details.UserName}}</span></label>
+                </label>       
+            
                 <label class="item item-input">
                     <span class="input-label calm">Phone</span>
-                    <input type="text" placeholder="123 123 7899" />
-                </label>
-            </div>
-
-            <div ng-if="Details.ContactNumber != null">
-                <label class="item item-input">
-                    <span class="input-label calm">Phone</span>
-                    <label> <span> {{details.ContactNumber}}</span> </label>
-                </label>
-            </div>
+                    <input type="text" placeholder="123 123 7899" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}">
+                </label>                     
 
             <div class="item item-divider">ADDRESS</div>
-
-            <div ng-if="Details.Address === null">
+            
                 <label class="item item-input">
                     <span class="input-label calm">Address</span>
-                    <input type="text" placeholder="123 Nooch St">
-                </label>
-            </div>
-
-            <div ng-if="Details.Address != null">
-                <label class="item item-input">
-                    <span class="input-label calm">Address</span>
-                    <label> <span> {{details.Address}}</span></label>
-                </label>
-            </div>
-
-            <div ng-if="Details.Address === null">
+                    <input type="text" placeholder="123 Nooch St" ng-model="Details.Address" value="{{Details.Address}}">
+                </label>               
+            
                 <label class="item item-input">
                     <span class="input-label calm">Address 2</span>
-                    <input type="text" placeholder="(Optional)">
-                </label>
-            </div>
+                    <input type="text" placeholder="(Optional)" ng-model="Details.Address" value="{{Details.Address}}">
+                </label>      
 
-            <div ng-if="Details.Address != null">
-                <label class="item item-input">
-                    <span class="input-label calm">Address 2</span>
-                    <label><span> {{details.Address}}></span></label>
-                </label>
-            </div>
-
-            <div ng-if="Details.City === null">
+           
                 <label class="item item-input">
                     <span class="input-label calm">City</span>
-                    <input type="text" placeholder="City"> 
-                </label>
-            </div>
-            <div ng-if="Details.City != null">
-                <label class="item item-input">
-                    <span class="input-label calm">City</span>
-                    <label> <span> {{details.City}}></span></label>
-                </label>
-            </div>
-
-            <div ng-if="Details.Zip === null">
+                    <input type="text" placeholder="City" ng-model="Details.City" value="{{Details.City}}">
+                </label>      
+            
                 <label class="item item-input">
                     <span class="input-label calm">ZIP</span>
-                    <input type="text" placeholder="90210">
-                </label>
-            </div>
-
-            <div ng-if="Details.Zip != null">
-                <label class="item item-input">
-                    <span class="input-label calm">ZIP</span>
-                    <label><span> {{details.Zip}}></span></label>
-                </label>
-            </div>
-         
+                    <input type="text" placeholder="90210" ng-model="Details.Zip" value="{{Details.Zip}}">
+                </label>           
 
             <div class="item item-divider">ID VERIFICATIONS</div>
-                    
-            <div ng-if="Details.DateOfBirth === null">
-                <label class="item item-input">
-                    <span class="input-label calm">ZIP</span>
-                    <input type="text" placeholder="10/04/1984">
-                </label>
-            </div>
-            
-            <div ng-if="Details.DateOfBirth != null">
+
                 <label class="item item-input">
                     <span class="input-label calm">Date of Birth</span>
-                    <label> <span> {{details.DateOfBirth}}</span></label>
-                </label>
-            </div>            
-            </div>
-
+                    <input type="text" placeholder="10/04/1984" ng-model="Details.DateOfBirth" value="{{Details.DateOfBirth}}">
+                </label>            
+        </div>
+        <button class="button button-calm button-block" ng-click="UpdateProfile()">Save</button>
     </ion-content>
 </ion-view>

@@ -5,23 +5,27 @@
       this.MemberPrivacySettings = function (ChkBox) {
 
 
-        var reqForMemberSettings = {
-          method: 'POST',
-          url: URLs.MemberPrivacySettings + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken,
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          data: {
-            MemberId: $localStorage.GLOBAL_VARIABLES.MemberId,
-            ShowInSearch: ChkBox.ShowInSearch,
-            AllowSharing: "false",
-            RequireImmediately: ChkBox.RequirePin
-          }
+          var reqForMemberSettings = {
+              method: 'POST',
+              url: URLs.MemberPrivacySettings + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              data: {
+                  MemberId: $localStorage.GLOBAL_VARIABLES.MemberId,
+                  ShowInSearch: ChkBox.ShowInSearch,
+                  AllowSharing: "false",
+                  RequireImmediately: ChkBox.RequirePin
+              }
+          };
 
-        };
-
-         return $http(reqForMemberSettings);
+          return $http(reqForMemberSettings);
       }
 
 
+
+      this.GetMemberPrivacySettings = function () {
+          return $http.get(URLs.GetMemberPrivacySettings + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+
+      };
   })

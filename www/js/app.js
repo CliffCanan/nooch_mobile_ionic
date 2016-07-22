@@ -20,7 +20,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
               console.log('came in resume state');
               if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
-                  $state.go('enterPin');
+                  $state.go('enterPinForeground');
               }
 
           }, false);

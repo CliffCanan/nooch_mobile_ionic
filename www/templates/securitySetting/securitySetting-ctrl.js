@@ -6,6 +6,8 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Security Settings Screen Loaded');
+
+       $scope.GetMemberPrivacyFn();
     });
 
 
@@ -13,21 +15,45 @@
     $scope.MemberPrivacyFn = function () {
 
         //if ($cordovaNetwork.isOnline()) {
-            $ionicLoading.show({
-                template: 'Loading ...'
-            });
+        $ionicLoading.show({
+            template: 'Loading ...'
+        });
 
-            //console.log($scope.ShowInSearch.isCheck);
-            //console.log($scope.ShowInSearch.isCheck = ($scope.ShowInSearch.isCheck == false ? true : false)); //to check toggel Button Values 
-            //console.log($scope.ShowInSearch.isCheck);
+        //console.log($scope.ShowInSearch.isCheck);
+        //console.log($scope.ShowInSearch.isCheck = ($scope.ShowInSearch.isCheck == false ? true : false)); //to check toggel Button Values 
+        //console.log($scope.ShowInSearch.isCheck);
 
-            $scope.ChkBox = {
-                RequirePin: true,
-                ShowInSearch: true
-            };
+        $scope.ChkBox = {
+            RequirePin: true,
+            ShowInSearch: true
+        };
 
-            console.log($scope.ChkBox.RequirePin, $scope.ChkBox.ShowInSearch);
-            MemberPrivacy.MemberPrivacySettings($scope.ChkBox) //.RequirePin, $scope.ChkBox.ShowInSearch
+        console.log($scope.ChkBox.RequirePin, $scope.ChkBox.ShowInSearch);
+        MemberPrivacy.MemberPrivacySettings($scope.ChkBox) //.RequirePin, $scope.ChkBox.ShowInSearch
+          .success(function (data) {
+              $scope.Data = data;
+              console.log($scope.Data);
+              $ionicLoading.hide();
+          }).error(function (data) {
+              console.log('eror' + data);
+              $ionicLoading.hide();
+          });
+        //}
+        //else {
+        //    swal("Oops...", "Internet not connected!", "error");
+        //}
+    }
+
+
+
+    $scope.GetMemberPrivacyFn = function () {      //For getting Privacy status of user
+        console.log("from GetMemberPrivacyFn");
+        //if ($cordovaNetwork.isOnline()) {
+        $ionicLoading.show({
+            template: 'Loading ...'
+        });
+
+        MemberPrivacy.GetMemberPrivacySettings()
               .success(function (data) {
                   $scope.Data = data;
                   console.log($scope.Data);
@@ -40,5 +66,6 @@
         //else {
         //    swal("Oops...", "Internet not connected!", "error");
         //}
+
     }
 })
