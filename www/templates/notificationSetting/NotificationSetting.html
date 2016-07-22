@@ -1,21 +1,14 @@
 ﻿<ion-view view-title="Notification Settings">
     <ion-content>
-
-        <!--<div class="bar bar-header bar-calm">
-            <button class="button ion-chevron-left" ng-click="GoBack()"></button>
-            <h6 class="title">Notification Settings</h6>
-        </div>-->
-
-        <br>
-
+        
         <div>
-            <br>
+
             <ul class="list">
                 <!--<li class="item" style="float:right"><i class="ion-email"></i><i class="ion-iphone"></i></li>-->
                 <li class="item item-toggle">
                     Transfer Received
                     <label class="toggle toggle-calm">
-                        <input type="checkbox">
+                        <input type="checkbox" ng-model="ChkBox.TransRec" ng-click="" ng-checked="Data.TransferReceived"> <!--ng-checked="Data.RequireImmediately-->
                          
                         <div class="track">
                             <div class="handle"></div>
@@ -26,7 +19,7 @@
                 <li class="item item-toggle">
                     Transfer Sent
                     <label class="toggle toggle-calm">
-                        <input type="checkbox">
+                        <input type="checkbox" ng-model="ChkBox.TransSent" ng-click="" ng-checked="Data.TransferSent">
                         <div class="track">
                             <div class="handle"></div>
                         </div>
@@ -36,7 +29,7 @@
                 <li class="item item-toggle">
                     Transfer Unclaimed
                     <label class="toggle toggle-calm">
-                        <input type="checkbox">
+                        <input type="checkbox" ng-model="ChkBox.TransUnclaimed" ng-click="" ng-checked="Data.TransferUnclaimed">
                         <div class="track">
                             <div class="handle"></div>
                         </div>

@@ -45,5 +45,6 @@ var URLs = {
   getReferralCode: PATH + 'getReferralCode',
   MemberPrivacySettings: PATH + 'MemberPrivacySettings',
   GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
-  MySettings: PATH + 'MySettings'
+  MySettings: PATH + 'MySettings',
+  GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings'
 };
