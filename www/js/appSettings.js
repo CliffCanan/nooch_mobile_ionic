@@ -50,7 +50,8 @@ var URLs = {
   RejectPayment: PATH + 'RejectMoneyRequestForExistingNoochUser',
  
   GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
-  MySettings: PATH + 'MySettings'
+  MySettings: PATH + 'MySettings',
+  GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings'
 
  
 };
