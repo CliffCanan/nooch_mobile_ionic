@@ -11,24 +11,36 @@
     $scope.MemberDetails = function () {
         console.log('memberDetails Function Touched');
         //if ($cordovaNetwork.isOnline()) {
-            $ionicLoading.show({
-                template: 'Loading ...'
-            });
-            CommonServices.GetMemberDetails($localStorage.GLOBAL_VARIABLES.MemberId)
-                .success(function (Details) {
-                    console.log(Details);
-                    $scope.Details = Details;
+        $ionicLoading.show({
+            template: 'Loading ...'
+        });
+        profileService.GetMyDetails()
+                .success(function (details) {
+                    console.log(details);
+                    $scope.Details = details;
+
+                    //console.log('from testing '+$scope.Details.UserName);
+                    //CommonServices.GetDecryptedData($scope.Details.UserName).success(function (data) {
+                    //    console.log(data);
+                    //   // $scope.Details = data;
+                    //}).error(function (encError) {
+                    //    console.log('came in enc error block ' + encError);
+                    //    $ionicLoading.hide();
+                    //})                  
+
                     $ionicLoading.hide();
                 }
         ).error(function (encError) {
             console.log('came in enc error block ' + encError);
             $ionicLoading.hide();
-        })
+        })  
+       
         //}
         //else {
         //    swal("Oops...", "Internet not connected!", "error");
         //}
     }
+
 
 
     $scope.UpdateProfile = function () {

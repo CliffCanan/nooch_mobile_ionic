@@ -1,52 +1,52 @@
 ﻿<ion-view view-title="Notification Settings">
     <ion-content>
-        
-        <div>
 
-            <ul class="list">
-                <!--<li class="item" style="float:right"><i class="ion-email"></i><i class="ion-iphone"></i></li>-->
-                <li class="item item-toggle">
-                    Transfer Received
-                    <label class="toggle toggle-calm">
-                        <input type="checkbox" ng-model="ChkBox.TransRec" ng-click="SetNotificationFn()" ng-checked="Data.TransferReceived"> <!--ng-checked="Data.RequireImmediately-->
-                         
-                        <div class="track">
-                            <div class="handle"></div>
-                        </div>
-                    </label>
-                </li>
+        <!--    <div>
 
-                <li class="item item-toggle">
-                    Transfer Sent
-                    <label class="toggle toggle-calm">
-                        <input type="checkbox" ng-model="ChkBox.TransSent" ng-click="SetNotificationFn()" ng-checked="Data.TransferSent">
-                        <div class="track">
-                            <div class="handle"></div>
-                        </div>
-                    </label>
-                </li>
+                <ul class="list">
+                    <li class="item" style="float:right"><i class="ion-email"></i><i class="ion-iphone"></i></li>
+                    <li class="item item-toggle">
+                        Transfer Received
+                        <label class="toggle toggle-calm">
+                            <input type="checkbox" ng-model="ChkBox.TransRec" ng-click="SetNotificationFn()" ng-checked="Data.TransferReceived"> <!--ng-checked="Data.RequireImmediately
 
-                <li class="item item-toggle">
-                    Transfer Unclaimed
-                    <label class="toggle toggle-calm">
-                        <input type="checkbox" ng-model="ChkBox.TransUnclaimed" ng-click="SetNotificationFn()" ng-checked="Data.TransferUnclaimed">
-                        <div class="track">
-                            <div class="handle"></div>
-                        </div>
-                    </label>
-                </li>
-            </ul>
-        </div>
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </li>
 
-        
+                    <li class="item item-toggle">
+                        Transfer Sent
+                        <label class="toggle toggle-calm">
+                            <input type="checkbox" ng-model="ChkBox.TransSent" ng-click="SetNotificationFn()" ng-checked="Data.TransferSent">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </li>
+
+                    <li class="item item-toggle">
+                        Transfer Unclaimed
+                        <label class="toggle toggle-calm">
+                            <input type="checkbox" ng-model="ChkBox.TransUnclaimed" ng-click="SetNotificationFn()" ng-checked="Data.TransferUnclaimed">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+            </div>-->
+
+
         <!--<div class="text-center" style="font-size:50px;">
-            <table style="line-height:40px;">
-                <tr>
+            <table>
+                <tr class="list">
                     <td></td>
-                    <td><h3><i class="ion-iphone"></i></h3></td>
                     <td><h3><i class="ion-email"></i></h3></td>
+                    <td><h3><i class="ion-iphone"></i></h3></td>
                 </tr>
-                <tr>
+                <tr class="list" style="height:50px;">
                     <td>
                         <h4>Transfer Received</h4>
                     </td>
@@ -75,8 +75,126 @@
                         </li>
                     </td>
                 </tr>
+
+                <tr>
+                    <td>
+                        <h4>Transfer Sent</h4>
+                    </td>
+                    <td>
+                        <ul class="list">
+                            <li class="item item-toggle">
+
+                                <label class="toggle toggle-calm">
+                                    <input type="checkbox">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h4>Transfer Unclaimed</h4>
+                    </td>
+                    <td>
+                        <ul class="list">
+                            <li class="item item-toggle">
+
+                                <label class="toggle toggle-calm">
+                                    <input type="checkbox">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
             </table>
         </div>-->
 
+        
+            <div class="row">
+                <div class="col col-75">
+                    <div class="list">
+                        <div ><i class="ion-email" style="float:right"></i></div>
+
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="list">
+                        <div><i class="ion-iphone" style="float:right"></i></div>
+
+                    </div>
+                </div>
+            </div>
+      
+        <div class="row">
+            <div class="col col-75">
+               
+                   
+                    <div class="item item-toggle">
+                        Transfer Received
+                        <label class="toggle toggle-calm">
+                            <input type="checkbox" ng-model="ChkBox.TransRec" ng-click="SetNotificationFn()" ng-checked="Data.EmailTransferReceived"> <!--ng-checked="Data.RequireImmediately-->
+
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </div>
+            </div>
+            <div class="col">
+                
+
+                    <div class="item item-toggle">
+                        ""
+                        <label class="toggle toggle-calm">
+                            <input type="checkbox" ng-model="ChkBox.TransRecMob" ng-click="SetNotificationFn()" ng-checked="Data.TransRecMob"> 
+
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-75">
+                <div class="item item-toggle">
+                    Transfer Sent
+                    <label class="toggle toggle-calm">
+                        <!--<input type="checkbox" ng-model="ChkBox.TransSent" ng-click="SetNotificationFn()" ng-checked="Data.TransferSent" ng-true-value="'1'" ng-false-value="'0'">-->
+                        <input type="checkbox" ng-model="ChkBox.TransSent" ng-click="SetNotificationFn()" ng-checked="Data.EmailTransferSent">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="col col-75">
+                <div class="item item-toggle">
+                    Transfer Unclaimed
+                    <label class="toggle toggle-calm">
+                        <input type="checkbox" ng-model="ChkBox.TransUnclaimed" ng-click="SetNotificationFn()" ng-checked="ChkBox.TransferUnclaimed" >
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>               
+             
+            </div>
+        </div>
+</div>-->
     </ion-content>
 </ion-view>
