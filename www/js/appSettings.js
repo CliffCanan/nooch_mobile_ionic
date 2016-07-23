@@ -7,7 +7,8 @@
   // pass - test123!
 
 //var PATH = 'https://noochme.com/landlords/db/api/';
-var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
+ var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
+ //var PATH = 'http://localhost:40972/api/NoochServices/';
 
 var URLs = {
 
@@ -49,7 +50,8 @@ var URLs = {
   RemindPayment: PATH + 'SendTransactionReminderEmail',
   RejectPayment: PATH + 'RejectMoneyRequestForExistingNoochUser',
   TransferMoney: PATH + 'TransferMoneyUsingSynapse',
- 
+  TransferMoneyToNonNoochUserUsingSynapse: PATH + 'TransferMoneyToNonNoochUserUsingSynapse',
+  TransferMoneyToNonNoochUserThroughPhoneUsingsynapse: PATH + 'TransferMoneyToNonNoochUserThroughPhoneUsingsynapse',
   GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
   MySettings: PATH + 'MySettings',
   GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings',

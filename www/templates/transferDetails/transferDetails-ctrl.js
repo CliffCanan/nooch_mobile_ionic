@@ -1,7 +1,8 @@
 ﻿angular.module('noochApp.TransferDetailsCtrl', ['noochApp.transferDetails-service', 'noochApp.services'])
 
 
-       .controller('TransferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage) {
+       .controller('TransferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state) {
+           $scope.transferDetail = {};
            $scope.$on("$ionicView.enter", function (event, data) {
 
 
@@ -14,9 +15,9 @@
              
 
            })
-           $scope.remindPayment = function (transactionId) {
+           $scope.remindPayment = function () {
 
-               console.log("remoind payment" + transactionId);
+             
                swal({
                    title: "Are you sure?",
                    text: "Do you want to Send Reminder for this transaction?",
@@ -30,10 +31,14 @@
                            template: 'Sending Reminder ...'
                        });
 
-                       transferDetailsService.RemindPayment(transactionId).success(function (data) {
-                           if (data.Result.indexOf('successfully') > -1)
-                           {
+                       transferDetailsService.RemindPayment($scope.transferDetail.TransactionId).success(function (data) {
+                           if (data.Result.indexOf('successfully') > -1) {
                                swal("Sent...", data.Result, "success");
+                               $ionicLoading.hide();
+                               $state.go('app.history');
+                           }
+                           else {
+                               swal("Error...", data.Result, "error");
                                $ionicLoading.hide();
                            }
                           
@@ -44,9 +49,9 @@
                });
            }
 
-           $scope.cancelPayment = function (transactionId) {
+           $scope.cancelPayment = function () {
                
-               console.log("cancel payment" + transactionId);
+               console.log("cancel payment" + $scope.transferDetail.TransactionId);
                swal({
                    title: "Are you sure?",
                    text: "Do you want to cancel this transaction?",
@@ -59,10 +64,11 @@
                        $ionicLoading.show({
                            template: 'Cancelling Payment ...'
                        });
-                       transferDetailsService.CancelRequest(transactionId).success(function (data) {
+                       transferDetailsService.CancelRequest($scope.transferDetail.TransactionId).success(function (data) {
                            if (data.Result.indexOf('Successfully') > -1) {
                                swal("Cancelled...", data.Result, "success");
                                $ionicLoading.hide();
+                               $state.go('app.history');
                            }
                           
                        }).error(function () { $ionicLoading.hide(); });
@@ -70,9 +76,9 @@
                });
            }
 
-           $scope.rejectPayment = function (transactionId) {
+           $scope.rejectPayment = function () {
 
-               console.log("cancel payment" + transactionId);
+               console.log("cancel payment" + $scope.transferDetail.TransactionId);
                swal({
                    title: "Are you sure?",
                    text: "Do you want to reject this transaction?",
@@ -85,14 +91,61 @@
                        $ionicLoading.show({
                            template: 'Rejecting Payment ...'
                        });
-                       transferDetailsService.RejectPayment(transactionId).success(function (data) {
+                       transferDetailsService.RejectPayment($scope.transferDetail.TransactionId).success(function (data) {
                            if (data.Result.indexOf('Successfully') > -1) {
                                swal("Rejected...", data.Result, "success");
                                $ionicLoading.hide();
+                               $state.go('app.history');
                            }
                            $ionicLoading.hide();
                        }).error(function () { $ionicLoading.hide(); });
                    }
+               });
+           }
+
+           $scope.TransferMoney = function () {
+              
+               console.log("Transfer payment" + JSON.stringify( $scope.transferDetail.TransactionId));
+               swal({
+                   title: "Are you sure?",
+                   text: "Do you want to Pay for this transaction?",
+                   type: "warning",
+                   showCancelButton: true,
+                   confirmButtonColor: "#DD6B55",
+                   confirmButtonText: "Yes - Pay",
+               }, function (isConfirm) {
+                   if (isConfirm) {
+                       $ionicLoading.show({
+                           template: 'Paying Payment ...'
+                       });
+                       if ($scope.transferDetail.MemberId != $scope.transferDetail.RecepientId) {
+                           transferDetailsService.TransferMoney($scope.transferDetail).success(function (data) {
+                               if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                   swal("Payed...", data.Result, "success");
+                                   $ionicLoading.hide();
+                               }
+                               else {
+                                   swal("Error...", data.Result, "error");
+                                   $ionicLoading.hide();
+                               }
+                               $ionicLoading.hide();
+                           }).error(function () { $ionicLoading.hide(); });
+                       }
+                       else if ($scope.transferDetail.MemberId == $scope.transferDetail.RecepientId && $scope.transferDetail.InvitationSentTo.length > 0) {
+                           transferDetailsService.TransferMoney($scope.transferDetail).success(function (data) {
+                               if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                   swal("Payed...", data.Result, "success");
+                                   $ionicLoading.hide();
+                               }
+                               else {
+                                   swal("Error...", data.Result, "error");
+                                   $ionicLoading.hide();
+                               }
+                               $ionicLoading.hide();
+                           }).error(function () { $ionicLoading.hide(); });
+                       }
+                       else if ($scope.transferDetail.MemberId == $scope.transferDetail.RecepientId && $scope.transferDetail.PhoneNumberInvited.length > 0) { }
+                       }
                });
            }
 
