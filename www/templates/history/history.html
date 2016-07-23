@@ -20,7 +20,7 @@
                                         <img src={{transaction.Photo}}>
 
                                     <div class="name" ng-if="transaction.Name.length>1">{{transaction.Name}}</div>
-                                    <div class="name" ng-if="transaction.Name.length==1">{{transaction.InvitationSentTo}}</div>
+                                    <div class="name" ng-if="transaction.Name.length<=1">{{transaction.InvitationSentTo}}</div>
 
                                         <p class="memo-container">For "<span class="memo-text">{{transaction.Memo}}</span>"</p>
                                     <div class="typeDateContainer" ng-if="transaction.TransactionStatus=='Success' && transaction.TransactionType=='Transfer'">
@@ -69,7 +69,7 @@
 
  
                                 <div class="name" ng-if="transaction.Name.length>1">{{transaction.Name}}</div>
-                                <div class="name" ng-if="transaction.Name.length==1">{{transaction.InvitationSentTo}}</div>
+                                <div class="name" ng-if="transaction.Name.length<=1">{{transaction.InvitationSentTo}}</div>
                                 
                                 <p class="memo-container">For "<span class="memo-text">{{transaction.Memo}}</span>"</p>
 

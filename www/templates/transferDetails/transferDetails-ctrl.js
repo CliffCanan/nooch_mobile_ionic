@@ -90,7 +90,7 @@
                                swal("Rejected...", data.Result, "success");
                                $ionicLoading.hide();
                            }
-
+                           $ionicLoading.hide();
                        }).error(function () { $ionicLoading.hide(); });
                    }
                });

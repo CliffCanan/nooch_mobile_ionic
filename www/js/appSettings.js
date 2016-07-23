@@ -8,7 +8,7 @@
 
 //var PATH = 'https://noochme.com/landlords/db/api/';
 var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
- 
+
 var URLs = {
 
   Login: PATH + 'LoginRequest',
@@ -48,6 +48,7 @@ var URLs = {
   CancelRequest: PATH + 'CancelMoneyRequestForExistingNoochUser',
   RemindPayment: PATH + 'SendTransactionReminderEmail',
   RejectPayment: PATH + 'RejectMoneyRequestForExistingNoochUser',
+  TransferMoney: PATH + 'TransferMoneyUsingSynapse',
  
   GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
   MySettings: PATH + 'MySettings',
