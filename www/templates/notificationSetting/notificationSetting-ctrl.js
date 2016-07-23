@@ -18,10 +18,7 @@
         //if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
             template: 'Loading ...'
-        });
-        //console.log($scope.ChkBox.TransRec);
-        //console.log($scope.ChkBox.TransSent);
-        //console.log($scope.ChkBox.TransUnclaimed);
+        });     
 
         notificationServices.GetMemberNotificationSettings() 
           .success(function (data) {
@@ -44,6 +41,7 @@
         $ionicLoading.show({
             template: 'Loading ...'
         });
+        console.log('From Controller'); 
         console.log($scope.ChkBox.TransRec);
         console.log($scope.ChkBox.TransSent);
         console.log($scope.ChkBox.TransUnclaimed);
