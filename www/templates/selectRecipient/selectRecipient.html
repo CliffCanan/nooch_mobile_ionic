@@ -3,9 +3,9 @@
 
         <div class="row">
             <div class="col p-t-0">
-                <ti-segmented-control on-select="buttonClicked($index)">
-                    <ti-segmented-control-button class="button-positive" title="'Month'" selected><i class="ion-ios-clock-outline"></i>Recents</ti-segmented-control-button>
-                    <ti-segmented-control-button class="button-positive" title="'Day'"><i class="ion-ios-location"></i>Find By Location</ti-segmented-control-button>
+                <ti-segmented-control >
+                    <ti-segmented-control-button ng-click="FindRecent()" class="button-positive" title="'Month'" selected><i class="ion-ios-clock-outline"></i>Recents</ti-segmented-control-button>
+                    <ti-segmented-control-button ng-click="GetLocationSearch()" class="button-positive" title="'Day'"><i class="ion-ios-location"></i>Find By Location</ti-segmented-control-button>
                 </ti-segmented-control>
             </div>
         </div>
@@ -19,30 +19,14 @@
 
         <div class="list" id="recents-table">
 
-            <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
-                <img src="./img/profile_picture.png" class="userPic">
-                <h2>John Smith</h2>
-                <p>john.smith@email.com</p>
+            <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward" ng-repeat="member in memberList">
+                <img src="{{member.Photo}}" class="userPic">
+                <h2>{{member.FirstName}} &nbsp; {{member.LastName}}</h2>
+                <p>{{member.UserName}}</p>
                 <img src="../../img/n_icon_46x54.png" class="n-icon" />
             </a>
 
-            <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
-                <img src="./img/profile_picture.png">
-                <h2>Meghan Brown</h2>
-                <p>mbrown@email.com</p>
-            </a>
-
-            <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
-                <img src="./img/profile_picture.png">
-                <h2>Paul Lazar</h2>
-                <p>p.lazar@domain.com</p>
-            </a>
-
-            <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
-                <img src="./img/profile_picture.png">
-                <h2>Julius Smithers</h2>
-                <p>jsmithers1@email.com</p>
-            </a>
+            
 
         </div>
 

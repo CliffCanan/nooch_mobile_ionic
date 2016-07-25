@@ -1,13 +1,13 @@
-﻿angular.module('noochApp.SelectRecipCtrl', ['noochApp.services'])
+﻿angular.module('noochApp.SelectRecipCtrl', ['noochApp.selectRecipientService', 'noochApp.services'])
 
 /************************/
 /*** SELECT RECIPIENT ***/
 /************************/
-.controller('SelectRecipCtrl', function ($scope, $state,$localStorage,$cordovaContacts) {
+.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService,$ionicLoading) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
-
-
+        $scope.FindRecent();
+         
       // to check contacts authorization
       // cordova.plugins.diagnostic.isContactsAuthorized(function(authorized){
       //   console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
@@ -47,27 +47,27 @@
       // });
 
 
-       cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
+      // cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
 
-         // status === authorized    -- in case user has authorized  and by default it will same
+      //   // status === authorized    -- in case user has authorized  and by default it will same
 
-         // status === denied   -- in case turned of contacts permission from settings in iphone
-           console.log("Contact Authorization status is "+status);
-         console.log("Contact Authorization status is "+ JSON.stringify( status));
+      //   // status === denied   -- in case turned of contacts permission from settings in iphone
+      //     console.log("Contact Authorization status is "+status);
+      //   console.log("Contact Authorization status is "+ JSON.stringify( status));
 
-       }, function(onError){
+      // }, function(onError){
 
-         console.log("came in error outer "+onError);
-       });
+      //   console.log("came in error outer "+onError);
+      // });
 
 
-      cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
+      //cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
 
-        console.log("Contact Authorization status is "+status);
+      //  console.log("Contact Authorization status is "+status);
 
-      }, function(error){
-        console.error(error);
-      });
+      //}, function(error){
+      //  console.error(error);
+      //});
 
       if($localStorage)
       {
@@ -89,5 +89,32 @@
         {
             $state.go('howMuch');
         }
+    }
+
+    $scope.FindRecent = function () {
+        $ionicLoading.show({
+            template: 'Loading ...'
+        });
+        selectRecipientService.GetRecentMembers().success(function (data) {
+
+            $scope.memberList = data;
+            $ionicLoading.hide();
+        }).error(function (data) { console.log(data); $ionicLoading.hide(); });
+
+    }
+
+    $scope.GetLocationSearch = function () {
+        $ionicLoading.show({
+            template: 'Loading ...'
+        });
+        selectRecipientService.GetLocationSearch().success(function (data) {
+
+            $scope.memberList = data;
+            $ionicLoading.hide();
+        }).error(function (data) {
+            console.log(data);
+            $ionicLoading.hide();
+        });
+
     }
 })

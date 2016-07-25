@@ -22,6 +22,9 @@
                 console.log('eror' + data);
                 $ionicLoading.hide();
             });
+
+            onSwipeDown = function () { alert();}
+
             //}
             //else{
             //        swal("Oops...", "Internet not connected!", "error");

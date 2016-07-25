@@ -43,5 +43,16 @@ angular.module('noochApp.selectRecipientService', ['ngStorage'])
 
     };
 
+    this.GetRecentMembers = function () {
+         
+        return $http.get(URLs.GetRecentMembers + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+
+    };
+
+    this.GetLocationSearch = function () {
+
+        return $http.get(URLs.GetLocationSearch + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&Radius=100&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+
+    };
 
   })
