@@ -50,7 +50,10 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   DeviceOS: '',// to save current device operating system info... iOS or Android
 
                   IsNetworkAvailable: false,
-                  EnterPinImmediately: true // to check if pin is required while coming back to foreground or app launch
+                  EnterPinImmediately: false, // to check if pin is required while coming back to foreground or app launch
+
+                shouldNotDisplayContactsAlert : false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
+                HasSharedContacts : false // if true then shouldn't ask for contact permission again
 
 
               };
