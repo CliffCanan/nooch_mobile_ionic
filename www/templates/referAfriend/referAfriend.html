@@ -40,29 +40,19 @@
         <div class="card m-t-5">
             <div id="referredUsersList" class="list">
 
-                <div class="item item item-avatar">
-                    <img class="user-img" src="./img/profile_picture.png">
-                    <h2>John Wayne</h2>
-                    <p class="item-note">1/1/1999</p>
+                <div class="item item item-avatar" ng-repeat="member in memberList">
+                    <img class=user-img src="{{Data.Photo}}">
+                    <h2>{{member.FirstName}}&nbsp;{{member.LastName}}</h2>
+                    <p class="item-note">{{member.DateCreated}}</p>
                 </div>
 
-                <div class="item item item-avatar">
-                    <img class="user-img" src="./img/RoundLoading.png">
-                    <h2>Manuel Peralta</h2>
-                    <p class="item-note">1/1/1999</p>
-                </div>
+                            
 
-                <div class="item item-avatar">
-                    <img class="user-img" src="./img/profile_picture.png">
-                    <h2>Theresa May</h2>
-                    <p class="item-note">1/1/1999</p>
-                </div>
-
-                <div class="item item-avatar">
+                <!--<div class="item item-avatar">
                     <img class="user-img" src="./img/RoundLoading.png">
                     <h2>Lenny Kravitz</h2>
                     <p class="item-note">1/1/1999</p>
-                </div>
+                </div>-->
             </div>
         </div>
 
