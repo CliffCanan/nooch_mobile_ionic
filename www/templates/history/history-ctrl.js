@@ -5,7 +5,9 @@
 /*****************/
     .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage) {
 
-        $scope.$on("$ionicView.enter", function(event, data) {
+        $scope.$on("$ionicView.enter", function (event, data) {
+            
+            
             $scope.transactionList = '';
             console.log('History Page Loaded');
             //  if ($cordovaNetwork.isOnline()) {
