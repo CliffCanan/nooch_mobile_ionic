@@ -31,7 +31,7 @@
                  BankToNooch: '',
                  //TransferReceived: (ChkBox.TransRec==true)?'1':'0',
                  //TransferSent: (ChkBox.TransSent==true)?'1':'0',
-                 TransferReceived: (ChkBox.TransRecMob==true)?'1':'0',
+                 TransferReceived: (ChkBox.TransRecMob == true) ? '1' : '0', 
                  TransferSent:'',
                  TransferAttemptFailure: '',
                  FriendRequest: '',
