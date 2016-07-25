@@ -59,7 +59,12 @@ var URLs = {
     MemberEmailNotificationSettings: PATH + 'MemberEmailNotificationSettings',
     GetRecentMembers: PATH + 'GetRecentMembers',
     GetLocationSearch: PATH + 'GetLocationSearch',
+ 
     RequestMoney: PATH + 'RequestMoney'
 
+ 
+    GetMemberStats: PATH + 'GetMemberStats',
+    getInvitedMemberList: PATH + 'getInvitedMemberList'
+ 
 
 };

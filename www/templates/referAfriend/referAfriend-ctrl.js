@@ -1,10 +1,11 @@
-﻿angular.module('noochApp.referAfriendCtrl', ['noochApp.services'])
+﻿angular.module('noochApp.referAfriendCtrl', ['noochApp.services', 'noochApp.referAfriend-service'])
 
- .controller('referAfriendCtrl', function (CommonServices, $scope, authenticationService, $ionicPlatform, $cordovaSocialSharing, $cordovaNetwork, $ionicLoading) {
+ .controller('referAfriendCtrl', function ($scope, authenticationService, $ionicPlatform, $cordovaSocialSharing, $cordovaNetwork, $ionicLoading, ReferralCodeService) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
          console.log("Refer a friend Controller Loaded");
          $scope.ReferFriend();
+         $scope.yourReferral();
      });
 
      $scope.ReferFriend = function () {
@@ -13,7 +14,7 @@
              $ionicLoading.show({
                  template: 'Loading ...'
              });
-             CommonServices.getReferralCode()
+         ReferralCodeService.getReferralCode()
                  .success(function (Code) {
                      console.log(Code);
                      $ionicLoading.hide();
@@ -28,8 +29,7 @@
          //    swal("Oops...", "Internet not connected!", "error");
          //}
      }
-
-
+     
      $ionicPlatform.ready(function () {
          //window.plugins.spinnerDialog.show("title", "message", true);
      });
@@ -98,5 +98,26 @@
                    });
              });
          }
+     }
+     
+     $scope.yourReferral = function () {
+         //if ($cordovaNetwork.isOnline()) {
+         $ionicLoading.show({
+             template: 'Loading ...'
+         });
+
+         ReferralCodeService.getInvitedMemberList()
+           .success(function (data) {
+               $scope.memberList = data;
+               console.log($scope.memberList);
+               $ionicLoading.hide();
+           }).error(function (data) {
+               console.log('eror' + data);
+               $ionicLoading.hide();
+           });
+         //  }
+         //else {
+         //    swal("Oops...", "Internet not connected!", "error");
+         //}        
      }
  })
