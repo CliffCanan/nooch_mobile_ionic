@@ -61,13 +61,13 @@
       // });
 
 
-      //cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
+      cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
 
-      //  console.log("Contact Authorization status is "+status);
+        console.log("Contact Authorization status is "+status);
 
-      //}, function(error){
-      //  console.error(error);
-      //});
+      }, function(error){
+        console.error(error);
+      });
 
       if($localStorage)
       {
