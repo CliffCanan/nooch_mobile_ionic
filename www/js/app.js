@@ -12,15 +12,17 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation) {
       $ionicPlatform.ready(function () {
 
-
-
-
+          
           // this functino will gets fired when app comes to foreground
           document.addEventListener("resume", function () {
-
               console.log('came in resume state');
+
+              if ($localStorage.GLOBAL_VARIABLES.MemberId != null) { //added this to not asked for Pin before login 
+
               if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
                   $state.go('enterPinForeground');
+              }
+
               }
 
           }, false);
