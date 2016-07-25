@@ -8,14 +8,14 @@
 
         <div class="row">
             <div class="col text-center">
-
-                <div class="pin-container">
-                    <label class="item item-input">
-                        <input type="password" placeholder="****" ng-model="Value.Pin" maxlength="4" />
-                    </label>
-                </div>
-
-            </div>
+                <form id="frmPinForeground" class="smErrors" data-parsley-validate="">
+                    <div class="pin-container">
+                        <label class="item item-input">
+                            <input type="password" placeholder="****" ng-model="Value.Pin" maxlength="4" data-parsley-required data-parsley-required-message="*" />
+                        </label>
+                    </div>
+                </form>
+</div>
         </div>
 
         <div class="text-center">
