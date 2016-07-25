@@ -19,7 +19,7 @@
 
         <div class="list" id="recents-table">
 
-            <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward" ng-repeat="member in memberList">
+            <a class="item item-avatar" ui-sref="app.howMuch({myParam:member})" nav-transition="ios" nav-direction="forward" ng-repeat="member in memberList">
                 <img src="{{member.Photo}}" class="userPic">
                 <h2>{{member.FirstName}} &nbsp; {{member.LastName}}</h2>
                 <p>{{member.UserName}}</p>

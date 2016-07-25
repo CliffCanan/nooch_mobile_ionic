@@ -226,11 +226,18 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-        .state('howMuch', {
-            url: '/howMuch',
-            templateUrl: 'templates/howMuch/howMuch.html',
-            controller: 'howMuchCtrl'
-        })
+       
+              .state('app.howMuch', {
+                  url: '/selectRecipien/howMuch',
+                  params: { myParam: null },
+                  views: {
+                      'menuContent': {
+                          templateUrl: 'templates/howMuch/howMuch.html',
+                          controller: 'howMuchCtrl'
+                      }
+                  }
+              })
+
         .state('app.statistics', {
             url: '/statistics',
             views: {
