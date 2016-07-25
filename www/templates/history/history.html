@@ -20,7 +20,7 @@
                                         <img src={{transaction.Photo}}>
 
                                     <div class="name" ng-if="transaction.Name.length>1">{{transaction.Name}}</div>
-                                    <div class="name" ng-if="transaction.Name.length==1">{{transaction.InvitationSentTo}}</div>
+                                    <div class="name" ng-if="transaction.Name.length<=1">{{transaction.InvitationSentTo}}</div>
 
                                         <p class="memo-container">For "<span class="memo-text">{{transaction.Memo}}</span>"</p>
                                     <div class="typeDateContainer" ng-if="transaction.TransactionStatus=='Success' && transaction.TransactionType=='Transfer'">
@@ -30,8 +30,8 @@
                                     </div>
 
                                     <div class="typeDateContainer" ng-if="transaction.TransactionStatus=='Success' && transaction.TransactionType=='Request'">
-                                        <label class="transTypeLabel received" ng-if="transaction.MemberId!=memberId">Paid to</label>
-                                        <label class="transTypeLabel sent" ng-if="transaction.MemberId==memberId">Paid by</label>
+                                        <label class="transTypeLabel received" ng-if="transaction.MemberId==memberId">Paid to</label>
+                                        <label class="transTypeLabel sent" ng-if="transaction.MemberId!=memberId">Paid by</label>
                                         <h5 class="date"><i class="ion-android-time m-r-5"></i>{{transaction.TransactionDate}}</h5>
                                     </div>
 
@@ -63,14 +63,14 @@
                     <br />
                     <div class="history-list">
                         <ion-scroll zooming="true" direction="y" style=" height: 15000px">
-                            <a class="item item-avatar" ui-sref="app.TransferDetails({myParam:transaction})" ng-repeat="transaction in  transactionList" ng-if="transaction.TransactionStatus=='Pending'">
+                            <a class="item item-avatar" ui-sref="app.TransferDetails({myParam:transaction})" ng-repeat="transaction in  transactionList" ng-if="transaction.TransactionStatus=='Pending' ">
 
                                 <img src="./img/profile_picture.png">
 
- 
+
                                 <div class="name" ng-if="transaction.Name.length>1">{{transaction.Name}}</div>
-                                <div class="name" ng-if="transaction.Name.length==1">{{transaction.InvitationSentTo}}</div>
-                                
+                                <div class="name" ng-if="transaction.Name.length<=1">{{transaction.InvitationSentTo}}</div>
+
                                 <p class="memo-container">For "<span class="memo-text">{{transaction.Memo}}</span>"</p>
 
                                 <div class="typeDateContainer" ng-if="transaction.TransactionStatus=='Pending' && transaction.TransactionType=='Transfer'">
@@ -80,8 +80,8 @@
                                 </div>
 
                                 <div class="typeDateContainer" ng-if="transaction.TransactionStatus=='Pending' && transaction.TransactionType=='Request'">
-                                    <label class="transTypeLabel received" ng-if="transaction.MemberId!=memberId">Request from</label>
-                                    <label class="transTypeLabel sent" ng-if="transaction.MemberId==memberId">Request to</label>
+                                    <label class="transTypeLabel received" ng-if="transaction.MemberId==memberId">Request from</label>
+                                    <label class="transTypeLabel sent" ng-if="transaction.MemberId!=memberId">Request to</label>
                                     <h5 class="date"><i class="ion-android-time m-r-5"></i>{{transaction.TransactionDate}}</h5>
                                 </div>
 
@@ -89,12 +89,12 @@
                                     <label class="transTypeLabel received" ng-if="transaction.MemberId!=memberId">Invite from</label>
                                     <label class="transTypeLabel sent" ng-if="transaction.MemberId==memberId">Invite to</label>
                                     <h5 class="date"><i class="ion-android-time m-r-5"></i>{{transaction.TransactionDate}}</h5>
-                                </div>  
+                                </div>
                                 <div class="typeDateContainer" ng-if="transaction.TransactionStatus=='Pending' && transaction.TransactionType=='Rent'">
                                     <label class="transTypeLabel received" ng-if="transaction.MemberId!=memberId">Rent from</label>
                                     <label class="transTypeLabel sent" ng-if="transaction.MemberId==memberId">Rent to</label>
                                     <h5 class="date"><i class="ion-android-time m-r-5"></i>{{transaction.TransactionDate}}</h5>
-                                </div>  
+                                </div>
 
                                 <span class="item-note amount">${{transaction.Amount}}</span>
                             </a>

@@ -4,7 +4,7 @@
 
 // app test credentials
 // username - rick.lassin@gmail.com
-  // pass - test123!
+// pass - test123!
 
 //var PATH = 'https://noochme.com/landlords/db/api/';
 var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
@@ -12,48 +12,51 @@ var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
 
 var URLs = {
 
-  Login: PATH + 'LoginRequest',
-  RegiserWithEmailAndPass: PATH + 'MemberRegistration',
-  GetMemberIdByUsername: PATH + 'GetMemberIdByUsername',
-  ForgotPassword: PATH + 'ForgotPassword',
-  GetMemberIdByPhone: PATH + 'GetMemberIdByPhone',
-  LogOutRequest: PATH + 'LogOutRequest',
-  getTransferList: PATH + 'GetTransactionsList',
+    Login: PATH + 'LoginRequest',
+    RegiserWithEmailAndPass: PATH + 'MemberRegistration',
+    GetMemberIdByUsername: PATH + 'GetMemberIdByUsername',
+    ForgotPassword: PATH + 'ForgotPassword',
+    GetMemberIdByPhone: PATH + 'GetMemberIdByPhone',
+    LogOutRequest: PATH + 'LogOutRequest',
+    getTransferList: PATH + 'GetTransactionsList',
 
-  // Common methods
-  GetEncryptedData: PATH + 'GetEncryptedData',
-  GetDecryptedData: PATH + 'GetDecryptedData',
-
-
-
-  GetMemberDetails:PATH+'GetMemberDetails',
-  GetMyDetails:PATH+'GetMyDetails',
+    // Common methods
+    GetEncryptedData: PATH + 'GetEncryptedData',
+    GetDecryptedData: PATH + 'GetDecryptedData',
 
 
-  GetRecentMembers:PATH+'GetRecentMembers',
-  IsDuplicateMember:PATH+'IsDuplicateMember',
 
-  MemberEmailNotificationSettings:PATH+'MemberEmailNotificationSettings',
-
-  ResetPassword : PATH+'ResetPassword',
-  ResetPin : PATH+'ResetPin',
+    GetMemberDetails: PATH + 'GetMemberDetails',
+    GetMyDetails: PATH + 'GetMyDetails',
 
 
-  Signup: PATH + 'MemberRegistration',
+    GetRecentMembers: PATH + 'GetRecentMembers',
+    IsDuplicateMember: PATH + 'IsDuplicateMember',
 
-  ValidatePinNumberToEnterForEnterForeground : PATH+'ValidatePinNumberToEnterForEnterForeground',
-  ValidatePinNumber: PATH + 'ValidatePinNumber',
-  getReferralCode: PATH + 'getReferralCode',
-  MemberPrivacySettings: PATH + 'MemberPrivacySettings',
- 
-  CancelRequest: PATH + 'CancelMoneyRequestForExistingNoochUser',
-  RemindPayment: PATH + 'SendTransactionReminderEmail',
-  RejectPayment: PATH + 'RejectMoneyRequestForExistingNoochUser',
- 
-  GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
-  MySettings: PATH + 'MySettings',
-  GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings',
-  MemberEmailNotificationSettings:PATH+'MemberEmailNotificationSettings'
+    MemberEmailNotificationSettings: PATH + 'MemberEmailNotificationSettings',
 
- 
+    ResetPassword: PATH + 'ResetPassword',
+    ResetPin: PATH + 'ResetPin',
+
+
+    Signup: PATH + 'MemberRegistration',
+
+    ValidatePinNumberToEnterForEnterForeground: PATH + 'ValidatePinNumberToEnterForEnterForeground',
+    ValidatePinNumber: PATH + 'ValidatePinNumber',
+    getReferralCode: PATH + 'getReferralCode',
+    MemberPrivacySettings: PATH + 'MemberPrivacySettings',
+
+    CancelRequest: PATH + 'CancelMoneyRequestForExistingNoochUser',
+    RemindPayment: PATH + 'SendTransactionReminderEmail',
+    RejectPayment: PATH + 'RejectMoneyRequestForExistingNoochUser',
+    TransferMoney: PATH + 'TransferMoneyUsingSynapse',
+    TransferMoneyToNonNoochUserUsingSynapse: PATH + 'TransferMoneyToNonNoochUserUsingSynapse',
+    TransferMoneyToNonNoochUserThroughPhoneUsingsynapse: PATH + 'TransferMoneyToNonNoochUserThroughPhoneUsingsynapse',
+
+    GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
+    MySettings: PATH + 'MySettings',
+    GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings',
+    MemberEmailNotificationSettings: PATH + 'MemberEmailNotificationSettings'
+
+
 };
