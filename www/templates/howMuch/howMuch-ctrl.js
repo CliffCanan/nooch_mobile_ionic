@@ -2,12 +2,14 @@
 
 .controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading) {
 
-    $ionicModal.fromTemplateUrl('templates/enterPinForeground/enterPinForeground.html', {
+    $ionicModal.fromTemplateUrl('templates/howMuch/modalPin.html', {
         scope: $scope
     }).then(function (modal) {
         $scope.modal = modal;
-        
+
     });
+
+    var type = '';
 
     $scope.requestData = {
         "PinNumber": "",
@@ -33,6 +35,66 @@
         "Picture": "",
         "isTesting": "",
         "isRentPayment": ""
+    }
+
+    $scope.sendData = {
+        "IsPrePaidTransaction":false,
+        "IsPhoneInvitation":false,
+        "IsExistingButNonRegUser":false,
+        "doNotSendEmails":false,
+        "isRentAutoPayment":false,
+        "isRentScene":false,
+        "Amount":"",
+        "TransactionFee":0,
+        "TotalRecordsCount":"",
+        "TransDate":"",
+        "PinNumber":null,
+        "MemberId":"",
+        "NoochId":"",
+        "RecepientId":"",
+        "Status":null,
+        "TransactionId":"",
+        "Name":"Rent Scene",
+        "RecepientName":null,
+        "Memo":"hshs",
+        "TransactionDate":"",
+        "DeviceId":null,
+        "Latitude":"",
+        "Longitude":"",
+        "AddressLine1":"",
+        "AddressLine2":"",
+        "City":"",
+        "State":"",
+        "Country":"",
+        "ZipCode":"",
+        "DisputeStatus":null,
+        "DisputeId":null,
+        "DisputeReportedDate":"",
+        "DisputeReviewDate":"",
+        "DisputeResolvedDate":"",
+        "TransactionType":"",
+        "TransactionStatus":"",
+        "Photo":"",
+        "FirstName":"Rent",
+        "LastName":"Scene",
+        "SenderPhoto":null,
+        "RecepientPhoto":null,
+        "synapseTransResult":null,
+        "InvitationSentTo":null,
+        "PhoneNumberInvited":null,
+        "Date":null,
+        "Time":null,
+        "LocationId":null,
+        "Location":null,
+        "AdminNotes":null,
+        "RaisedBy":null,
+        "Picture":null,
+        "BankPicture":null,
+        "BankAccountId":null,
+        "BankId":null,
+        "BankName":null,
+        "SsnIsVerified":null,
+        "cip":null
     }
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -66,74 +128,145 @@
 
     $scope.submitRequest = function () {
         
-        if ($('#howMuchForm').parsley().validate() == true)
-        {
-            var myPopup = $ionicPopup.show({
-                template: '<input type="password" ng-model="recipientDetail.pin">',
-                title: 'Enter Pin',
-                subTitle: 'Please enter Nooch Pin',
-                scope: $scope,
-                buttons: [
-                  
-                  {
-                      text: '<b>Done</b>',
-                      type: 'button-positive',
-                      onTap: function (e) {
-                          
-                          if (!$scope.recipientDetail.pin) {
-                              //don't allow the user to close unless he enters wifi password
-                              e.preventDefault();
-                          } else {
-                              console.log($scope);
-                              return $scope.recipientDetail.pin;
-                          }
-                      }
-                  }
-                ]
+        type = 'request';
+        
+
+        if ($('#howMuchForm').parsley().validate() == true) {
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to Request Money?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes - Send",
+            }, function (isConfirm) {
+                if (isConfirm) {
+
+                    $scope.modal.show();
+
+                }
             });
 
-            myPopup.then(function (res) {
-                CommonServices.GetEncryptedData(res).success(function (data) {
-                    console.log(data.Status);
 
-                    ValidatePin.ValidatePinNumberToEnterForEnterForeground(data.Status)
-                   .success(function (data) {
-                       // $scope.Data = data;
-                       console.log($scope.data);
 
-                       $ionicLoading.hide();
-                       if (data.Result == 'Success') {
+
+
+            // $state.go('enterPin');
+        }
+    };
+
+
+    $scope.submitSend = function () {
+        type = 'send';
+        
+        if ($('#howMuchForm').parsley().validate() == true) {
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to Send Money?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes - Pay",
+            }, function (isConfirm) {
+                if (isConfirm) {
+
+                    $scope.modal.show();
+
+                }
+            });
+
+            
+
+
+
+            // $state.go('enterPin');
+        }
+
+        
+    }
+
+
+    $scope.CheckPin = function (Pin) {
+        console.log('Check Pin Function called');
+        if ($('#frmPinForeground').parsley().validate() == true) {
+            $scope.modal.hide();
+            console.log(Pin);
+
+            //if ($cordovaNetwork.isOnline()) {
+            $ionicLoading.show({
+                template: 'Loading ...'
+            });
+
+            CommonServices.GetEncryptedData(Pin).success(function (data) {
+                console.log(data.Status);
+                $scope.requestData.PinNumber = data.Status;
+                $scope.sendData.PinNumber = data.Status;
+                ValidatePin.ValidatePinNumberToEnterForEnterForeground(data.Status)
+               .success(function (data) {
+                   // $scope.Data = data;
+                   console.log($scope.data);
+
+                   $ionicLoading.hide();
+                   if (data.Result == 'Success') {
+                       
+
+                       if (type == 'request') {
                            console.log($scope.recipientDetail.Amount);
                            $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
                            $scope.requestData.Amount = $scope.recipientDetail.Amount;
                            $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
                            $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
-                           $scope.requestData.Memo = $scope.recipientDetail.Memo;
+                           $scope.requestData.Memo = $scope.recipientDetail.Amount;
                            howMuchService.RequestMoney($scope.requestData).success(function (data) {
 
                                if (data.Result.indexOf('successfully') > -1) {
                                    swal("Success...", data.Result, "success");
+                                   $scope.recipientDetail.Amount = "";
+                                   $scope.recipientDetail.Memo = "";
                                }
                                else {
                                    swal("Error...", data.Result, "error");
                                }
                            }).error();
-                       }
-                       else if (data.Result == 'Invalid Pin') {
-                           swal("Oops...", "Incorrect Pin !", "error");
-                       }
-                       else if (data.Message == 'An error has occurred.') {
-                           swal("Oops...", "Something went wrong !", "error");
-                       }
 
-                   }).error(function (data) {
-                       console.log('eror' + data);
-                       $ionicLoading.hide();
-                   });
-                }).error(function (data) { });
-            });
-          
-           // $state.go('enterPin');
+                       }
+                       else if (type == 'send') {
+
+                           $scope.sendData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+                           $scope.sendData.Amount = $scope.recipientDetail.Amount;
+                           $scope.sendData.RecepientId = $scope.recipientDetail.MemberId;
+                           $scope.sendData.RecepientName = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
+                           $scope.sendData.Memo = $scope.recipientDetail.Amount;
+                           howMuchService.TransferMoney($scope.sendData).success(function (data) {
+                                   if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                       swal("Payed...", data.Result, "success");
+                                       $ionicLoading.hide();
+                                   }
+                                   else {
+                                       swal("Error...", data.Result, "error");
+                                       $ionicLoading.hide();
+                                   }
+                                   $ionicLoading.hide();
+                               }).error(function () { $ionicLoading.hide(); });
+                            
+                       }
+                   }
+                   else if (data.Result == 'Invalid Pin') {
+                       swal("Oops...", "Incorrect Pin !", "error");
+                   }
+                   else if (data.Message == 'An error has occurred.') {
+                       swal("Oops...", "Something went wrong !", "error");
+                   }
+
+               }).error(function (data) {
+                   console.log('eror' + data);
+                   $ionicLoading.hide();
+               });
+            }).error(function (data) { });
+            //}
+            //else {
+            //    swal("Oops...", "Internet not connected!", "error");
+            //}
         }
     };
  
