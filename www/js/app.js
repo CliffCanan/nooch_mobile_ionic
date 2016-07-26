@@ -7,21 +7,21 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
   'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPin', 'noochApp.services',
-  'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
+  'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation) {
       $ionicPlatform.ready(function () {
 
-          
+
           // this functino will gets fired when app comes to foreground
           document.addEventListener("resume", function () {
               console.log('came in resume state');
 
               if ($localStorage.GLOBAL_VARIABLES.MemberId != null) { //added this to not asked for Pin before login 
 
-              if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
-                  $state.go('enterPinForeground');
-              }
+                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
+                      $state.go('enterPinForeground');
+                  }
 
               }
 
@@ -41,7 +41,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   UserCurrentLongi: '',  // user current lon if shared location0
 
                   MemberId: '', // MemberId of user -- logged in user
-                  Pwd:'',
+                  Pwd: '',
                   UserName: '',
 
                   AccessToken: '',
@@ -54,8 +54,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   IsNetworkAvailable: false,
                   EnterPinImmediately: false, // to check if pin is required while coming back to foreground or app launch
 
-                shouldNotDisplayContactsAlert : false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
-                HasSharedContacts : false // if true then shouldn't ask for contact permission again
+                  shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
+                  HasSharedContacts: false // if true then shouldn't ask for contact permission again
 
 
               };
@@ -226,7 +226,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-       
+
               .state('app.howMuch', {
                   url: '/selectRecipien/howMuch',
                   params: { myParam: null },
@@ -344,6 +344,16 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
+         .state('app.addBank', {
+             url: '/settings/addBank',
+             views: {
+               'menuContent': {
+                   templateUrl: 'templates/addBank/addBank.html',
+                   controller: 'addBankCtrl'
+                 }
+              }
+         })
+
         .state('app.ResetPwd', {
             url: '/settings/securitySetting/ResetPwd',
             views: {
@@ -391,7 +401,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             templateUrl: 'templates/enterPinForeground/enterPinForeground.html',
             controller: 'enterPinForegroundCtrl'
         })
-
+           
         //Test Page
         .state('app.testPage', {
             url: '/testPage',
