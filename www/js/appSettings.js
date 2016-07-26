@@ -60,11 +60,10 @@ var URLs = {
     GetRecentMembers: PATH + 'GetRecentMembers',
     GetLocationSearch: PATH + 'GetLocationSearch',
  
-    RequestMoney: PATH + 'RequestMoney',
-
- 
+    RequestMoney: PATH + 'RequestMoney', 
     GetMemberStats: PATH + 'GetMemberStats',
-    getInvitedMemberList: PATH + 'getInvitedMemberList'
+    getInvitedMemberList: PATH + 'getInvitedMemberList',
+    GetSynapseBankAndUserDetails: PATH + 'GetSynapseBankAndUserDetails'
  
 
 };

@@ -6,24 +6,11 @@
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // On Screen Load
+
+         $scope.checkBankDetails();
      });
 
-     //$scope.go = function (data) {
-     //    if (data == 'Social') {
-     //        $state.go('socialSetting');
-     //    }
-     //    else if (data == 'Notification') {
-     //        $state.go('NotificationSetting');
-     //    }
-     //    else if (data == 'Security') {
-     //        $state.go('securitySetting');
-     //    }
-     //    else if (data == 'profile') {
-     //        $state.go('profile');
-     //    }
-     //}
-
-
+   
      // Viewing Add Bank Webview (in an Ionic Modal)
      $ionicModal.fromTemplateUrl('addBankModal.html', {
          scope: $scope,
@@ -102,6 +89,33 @@
          //        swal("Oops...", "Internet not connected!", "error");
          //      }
      };
+     
+
+     $scope.checkBankDetails = function () {
+         console.log('checkBankDetails function Touched');
+
+         //if ($cordovaNetwork.isOnline()) {
+         $ionicLoading.show({
+             template: 'Loading ...'
+         });
+
+         settingsService.GetSynapseBankAndUserDetails()
+           .success(function (data) {
+               $scope.Data = data;                         
+
+               console.log($scope.Data);
+
+               $ionicLoading.hide();
+           }).error(function (data) {
+               console.log('eror' + data);
+               $ionicLoading.hide();
+           });
+         //  }
+         //else {
+         //    swal("Oops...", "Internet not connected!", "error");
+         //}        
+     }
+
 
 
  })
