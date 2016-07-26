@@ -8,21 +8,21 @@
         newPwd: '',
         currentPwd: '',
         confirmPwd:''
-        
+
     };
 
     $scope.ResetPin = {
         noochPin: '',
-        newPin: '' 
+        newPin: ''
 
     };
-   
+
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Reset Pwd Page Is Loaded');
 
     })
     $scope.ResetPassword = function () {
-        
+
       //  if ($cordovaNetwork.isOnline()) {
             console.log($scope.ResetPwd.newPwd);
             if ($('#frmResetPwd').parsley().validate() == true) {
@@ -33,9 +33,9 @@
                 CommonServices.GetEncryptedData($scope.ResetPwd.currentPwd).success(function (data) {
                     console.log(data.Status);
                     console.log($localStorage.GLOBAL_VARIABLES.Pwd);
-                    
+
                     if ($localStorage.GLOBAL_VARIABLES.Pwd == data.Status) {
-                         
+
                         CommonServices.GetEncryptedData($scope.ResetPwd.newPwd).success(function (data) {
                             console.log(data);
                             resetPasswordService.ResetPassword(data.Status, '').success(function (data) {
@@ -102,7 +102,7 @@
                     }
                 }).error(function (data) { });
 
-               
+
             }
         //}
         //else{
@@ -122,7 +122,7 @@
             CommonServices.GetEncryptedData($scope.ResetPin.noochPin).success(function (data) {
                 console.log(data);
                 encryptedNoochPin = data.Status;
-               
+
             }).error(function (encError) {
                 console.log('came in enc error block ' + encError);
             });
@@ -130,10 +130,10 @@
             CommonServices.GetEncryptedData($scope.ResetPin.newPin).success(function (data) {
                 console.log(data);
                 encryptedNewPin = data.Status;
-                resetPasswordService.ResetPin(encryptedNoochPin, encryptedNewPin).success(function (data) {
+                resetPasswordService.ResetPin(encryptedNewPin,encryptedNoochPin ).success(function (data) {
                     console.log(data);
                     console.log(data.Result.indexOf('Incorrect'));
-                    
+
                     if (data.Result.indexOf('oAuth') > -1)
                     {
                         $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
@@ -153,7 +153,7 @@
                         $state.go('login');
                     }
 
-                   else if (data.Result == true) {
+                   else if (data.Result == 'Pin changed successfully.') {
                         swal({
                             title: "Pin Changed!",
                             text: "Your Nooch pin has been changed.",
@@ -199,7 +199,7 @@
                 console.log('came in enc error block ' + encError);
             });
             console.log(encryptedNewPin);
-           
+
 
         }
         //}

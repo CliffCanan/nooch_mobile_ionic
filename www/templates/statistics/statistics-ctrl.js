@@ -76,6 +76,17 @@
           });
 
 
+      // statisticsService.GetMemberStatsGeneric('Largest_sent_transfer').success(function (data) {
+      //   $scope.stats.Largest_sent_transfer = data;
+      //   console.log('Largest_sent_transfer');
+      //   console.log($scope.stats.Largest_sent_transfer);
+      //   $ionicLoading.hide();
+      // }).error(function (data) {
+      //   console.log('eror' + data);
+      //   $ionicLoading.hide();
+      // });
+
+
         statisticsService.GetMemberStats_totelSent()
          .success(function (data) {
              $scope.stats.TotalSent = data;
@@ -192,7 +203,7 @@
         //  }
         //else {
         //    swal("Oops...", "Internet not connected!", "error");
-        //}        
+        //}
     }
 
 })

@@ -22,5 +22,7 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-contacts"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "android"
+  ]
 }
