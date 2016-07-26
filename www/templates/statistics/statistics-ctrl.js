@@ -2,15 +2,15 @@
 /********************/
 /***  STATISTICS  ***/
 /********************/
-.controller('StatisticsCtrl', function ($scope, statisticsService, $ionicLoading) {
+.controller('StatisticsCtrl', function ($scope, statisticsService, $ionicLoading, $cordovaNetwork) {
     $scope.stats = {
-        TotalCompletedPayments: '',
-        PaymentSent: '',
-        TotalSent: '',
-        PaymentReceived: '',
-        TotalRecevied: '',
-        LargestTransferSent: '',
-        largestTransferReceived: ''
+        //TotalCompletedPayments: '',  
+        //PaymentSent: '',
+        //TotalSent: '',
+        //PaymentReceived: '',
+        //TotalRecevied: '',
+        //LargestTransferSent: '',
+        //largestTransferReceived: ''
     };
 
 
@@ -61,33 +61,22 @@
         //if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
             template: 'Loading ...'
-        });
-
-        //For getting largets transfer
-        statisticsService.GetMemberStats_Largest_sent_transfer()
-          .success(function (data) {
-              $scope.stats.Largest_sent_transfer = data;
-              console.log('Largest_sent_transfer');
-              console.log($scope.stats.Largest_sent_transfer);
-              $ionicLoading.hide();
-          }).error(function (data) {
-              console.log('eror' + data);
-              $ionicLoading.hide();
-          });
+        });  
 
 
-      // statisticsService.GetMemberStatsGeneric('Largest_sent_transfer').success(function (data) {
-      //   $scope.stats.Largest_sent_transfer = data;
-      //   console.log('Largest_sent_transfer');
-      //   console.log($scope.stats.Largest_sent_transfer);
-      //   $ionicLoading.hide();
-      // }).error(function (data) {
-      //   console.log('eror' + data);
-      //   $ionicLoading.hide();
-      // });
+        statisticsService.GetMemberStatsGeneric('Largest_sent_transfer')
+         .success(function (data) {
+         $scope.stats.Largest_sent_transfer = data;
+         console.log('Largest_sent_transfer');
+         console.log($scope.stats.Largest_sent_transfer);
+         $ionicLoading.hide();
+       }).error(function (data) {
+         console.log('eror' + data);
+         $ionicLoading.hide();
+       });
 
 
-        statisticsService.GetMemberStats_totelSent()
+        statisticsService.GetMemberStatsGeneric('totelSent')
          .success(function (data) {
              $scope.stats.TotalSent = data;
              console.log('Totel Payment Sent');
@@ -98,7 +87,8 @@
              $ionicLoading.hide();
          });
 
-        statisticsService.GetMemberStats_Largest_received_transfer()
+              
+        statisticsService.GetMemberStatsGeneric('Largest_received_transfer')
          .success(function (data) {
              $scope.stats.Largest_received_transfer = data;
              console.log('Largest_received_transfer');
@@ -108,9 +98,8 @@
              console.log('eror' + data);
              $ionicLoading.hide();
          });
-
-
-        statisticsService.GetMemberStats_Total_$_Received()
+                       
+        statisticsService.GetMemberStatsGeneric('Total_$_Received')
        .success(function (data) {
            $scope.stats.Total_$_Received = data;
            console.log('Total_$_Received');
@@ -120,9 +109,9 @@
            console.log('eror' + data);
            $ionicLoading.hide();
        });
-
-
-        statisticsService.GetMemberStats_Total_no_of_transfer_Received()
+        
+       
+        statisticsService.GetMemberStatsGeneric('Total_no_of_transfer_Received')
      .success(function (data) {
          $scope.stats.Total_no_of_transfer_Received = data;
          console.log('Total_no_of_transfer_Received');
@@ -133,8 +122,7 @@
          $ionicLoading.hide();
      });
 
-
-        statisticsService.GetMemberStats_Total_no_of_transfer_Sent()
+        statisticsService.GetMemberStatsGeneric('Total_no_of_transfer_Sent')        
         .success(function (data) {
             $scope.stats.Total_no_of_transfer_Sent = data;
             console.log('Total_no_of_transfer_Sent');
@@ -145,8 +133,8 @@
             $ionicLoading.hide();
         });
 
-
-        statisticsService.GetMemberStats_Total_P2P_transfers()
+        
+        statisticsService.GetMemberStatsGeneric('Total_P2P_transfers')
       .success(function (data) {
           $scope.stats.Total_P2P_transfers = data;
           console.log('Total_P2P_transfers');
@@ -157,7 +145,8 @@
           $ionicLoading.hide();
       });
 
-        statisticsService.GetMemberStats_Total_Friends_Invited()
+        
+        statisticsService.GetMemberStatsGeneric('Total_Friends_Invited')
       .success(function (data) {
           $scope.stats.Total_Friends_Invited = data;
           console.log('Total_Friends_Invited');
@@ -168,7 +157,8 @@
           $ionicLoading.hide();
       });
 
-        statisticsService.GetMemberStats_Total_Friends_Joined()
+        
+        statisticsService.GetMemberStatsGeneric('Total_Friends_Joined')
      .success(function (data) {
          $scope.stats.Total_Friends_Joined = data;
          console.log('Total_Friends_Joined');
@@ -179,7 +169,8 @@
          $ionicLoading.hide();
      });
 
-        statisticsService.GetMemberStats_Total_Posts_To_TW()
+        
+        statisticsService.GetMemberStatsGeneric('Total_Posts_To_TW')
     .success(function (data) {
         $scope.stats.Total_Posts_To_TW = data;
         console.log('Total_Posts_To_TW');
@@ -190,7 +181,7 @@
         $ionicLoading.hide();
     });
 
-        statisticsService.GetMemberStats_Total_Posts_To_FB()
+        statisticsService.GetMemberStatsGeneric('Total_Posts_To_FB')        
     .success(function (data) {
         $scope.stats.Total_Posts_To_FB = data;
         console.log('Total_Posts_To_FB');
