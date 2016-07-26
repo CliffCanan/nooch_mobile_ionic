@@ -9,6 +9,8 @@
 
     });
 
+    var type = '';
+
     $scope.requestData = {
         "PinNumber": "",
         "MemberId": "",
@@ -33,6 +35,66 @@
         "Picture": "",
         "isTesting": "",
         "isRentPayment": ""
+    }
+
+    $scope.sendData = {
+        "IsPrePaidTransaction":false,
+        "IsPhoneInvitation":false,
+        "IsExistingButNonRegUser":false,
+        "doNotSendEmails":false,
+        "isRentAutoPayment":false,
+        "isRentScene":false,
+        "Amount":"",
+        "TransactionFee":0,
+        "TotalRecordsCount":"",
+        "TransDate":"",
+        "PinNumber":null,
+        "MemberId":"",
+        "NoochId":"",
+        "RecepientId":"",
+        "Status":null,
+        "TransactionId":"",
+        "Name":"Rent Scene",
+        "RecepientName":null,
+        "Memo":"hshs",
+        "TransactionDate":"",
+        "DeviceId":null,
+        "Latitude":"",
+        "Longitude":"",
+        "AddressLine1":"",
+        "AddressLine2":"",
+        "City":"",
+        "State":"",
+        "Country":"",
+        "ZipCode":"",
+        "DisputeStatus":null,
+        "DisputeId":null,
+        "DisputeReportedDate":"",
+        "DisputeReviewDate":"",
+        "DisputeResolvedDate":"",
+        "TransactionType":"",
+        "TransactionStatus":"",
+        "Photo":"",
+        "FirstName":"Rent",
+        "LastName":"Scene",
+        "SenderPhoto":null,
+        "RecepientPhoto":null,
+        "synapseTransResult":null,
+        "InvitationSentTo":null,
+        "PhoneNumberInvited":null,
+        "Date":null,
+        "Time":null,
+        "LocationId":null,
+        "Location":null,
+        "AdminNotes":null,
+        "RaisedBy":null,
+        "Picture":null,
+        "BankPicture":null,
+        "BankAccountId":null,
+        "BankId":null,
+        "BankName":null,
+        "SsnIsVerified":null,
+        "cip":null
     }
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -66,15 +128,62 @@
 
     $scope.submitRequest = function () {
         
-        if ($('#howMuchForm').parsley().validate() == true)
-        {
-            $scope.modal.show();
+        type = 'request';
+        
 
-       
-          
-           // $state.go('enterPin');
+        if ($('#howMuchForm').parsley().validate() == true) {
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to Request Money?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes - Send",
+            }, function (isConfirm) {
+                if (isConfirm) {
+
+                    $scope.modal.show();
+
+                }
+            });
+
+
+
+
+
+            // $state.go('enterPin');
         }
     };
+
+
+    $scope.submitSend = function () {
+        type = 'send';
+        
+        if ($('#howMuchForm').parsley().validate() == true) {
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to Send Money?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes - Pay",
+            }, function (isConfirm) {
+                if (isConfirm) {
+
+                    $scope.modal.show();
+
+                }
+            });
+
+            
+
+
+
+            // $state.go('enterPin');
+        }
+
+        
+    }
 
 
     $scope.CheckPin = function (Pin) {
@@ -91,6 +200,7 @@
             CommonServices.GetEncryptedData(Pin).success(function (data) {
                 console.log(data.Status);
                 $scope.requestData.PinNumber = data.Status;
+                $scope.sendData.PinNumber = data.Status;
                 ValidatePin.ValidatePinNumberToEnterForEnterForeground(data.Status)
                .success(function (data) {
                    // $scope.Data = data;
@@ -98,21 +208,48 @@
 
                    $ionicLoading.hide();
                    if (data.Result == 'Success') {
-                       console.log($scope.recipientDetail.Amount);
-                       $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
-                       $scope.requestData.Amount = $scope.recipientDetail.Amount;
-                       $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
-                       $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
-                       $scope.requestData.Memo = $scope.recipientDetail.Memo;
-                       howMuchService.RequestMoney($scope.requestData).success(function (data) {
+                       
 
-                           if (data.Result.indexOf('successfully') > -1) {
-                               swal("Success...", data.Result, "success");
-                           }
-                           else {
-                               swal("Error...", data.Result, "error");
-                           }
-                       }).error();
+                       if (type == 'request') {
+                           console.log($scope.recipientDetail.Amount);
+                           $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+                           $scope.requestData.Amount = $scope.recipientDetail.Amount;
+                           $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
+                           $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
+                           $scope.requestData.Memo = $scope.recipientDetail.Amount;
+                           howMuchService.RequestMoney($scope.requestData).success(function (data) {
+
+                               if (data.Result.indexOf('successfully') > -1) {
+                                   swal("Success...", data.Result, "success");
+                                   $scope.recipientDetail.Amount = "";
+                                   $scope.recipientDetail.Memo = "";
+                               }
+                               else {
+                                   swal("Error...", data.Result, "error");
+                               }
+                           }).error();
+
+                       }
+                       else if (type == 'send') {
+
+                           $scope.sendData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+                           $scope.sendData.Amount = $scope.recipientDetail.Amount;
+                           $scope.sendData.RecepientId = $scope.recipientDetail.MemberId;
+                           $scope.sendData.RecepientName = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
+                           $scope.sendData.Memo = $scope.recipientDetail.Amount;
+                           howMuchService.TransferMoney($scope.sendData).success(function (data) {
+                                   if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                       swal("Payed...", data.Result, "success");
+                                       $ionicLoading.hide();
+                                   }
+                                   else {
+                                       swal("Error...", data.Result, "error");
+                                       $ionicLoading.hide();
+                                   }
+                                   $ionicLoading.hide();
+                               }).error(function () { $ionicLoading.hide(); });
+                            
+                       }
                    }
                    else if (data.Result == 'Invalid Pin') {
                        swal("Oops...", "Incorrect Pin !", "error");

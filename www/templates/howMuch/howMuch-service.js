@@ -19,5 +19,20 @@
           return $http(ResTransferPayment);
       };
 
+      this.TransferMoney = function (Data) {
+          console.log(JSON.stringify(Data));
+          var ResTransferPayment = {
+              method: 'POST',
+              url: URLs.TransferMoney + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
 
+              data: Data
+
+          };
+
+
+          return $http(ResTransferPayment);
+      };
   })
