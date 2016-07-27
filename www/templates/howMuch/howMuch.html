@@ -30,9 +30,13 @@
                     <div class="col">
                         <div id="memoField" class="item item-input text-center">
                             <input type="text" ng-model="recipientDetail.Memo" placeholder="Enter a Memo" maxlength="100">
-                            <a href="" ng-click="addImage()" id="add-img-btn">
+                            <a href="" ng-click="takePhoto()" id="add-img-btn">
                                 <i class="ion-camera m-l-5"></i>
                             </a>
+                            <button class="button  button-assertive" ng-click="choosePhoto()">
+                                 
+                            </button>
+                            <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="text-align: center">
                         </div>
                     </div>
                 </div>

@@ -6,8 +6,13 @@
 /****************/
 .controller('HomeCtrl', function ($scope, $state, authenticationService) {
 
+    
+ 
+
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Home Ctrl loaded');
+        
+         
     });
 
     $scope.goToSelectRecip = function () {

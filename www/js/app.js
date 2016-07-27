@@ -11,7 +11,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation) {
       $ionicPlatform.ready(function () {
-
+           
 
           // this functino will gets fired when app comes to foreground
           document.addEventListener("resume", function () {
