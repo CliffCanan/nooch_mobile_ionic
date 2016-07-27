@@ -8,38 +8,45 @@
             </button>
         </div>
 
-        <!-- WHEN BANK IS NOT LINKED -->
-        <div id="bankIntro" class="hidden">
-            <p>Attach bank to send or receive payments. Just select your bank, login to your online banking, and you're done.</p>
+        <div ng-if="Data.wereBankDetailsFound == false">
+            <!-- WHEN BANK IS NOT LINKED -->
+            <div id="bankIntro" class="">
+                <p>Attach bank to send or receive payments. Just select your bank, login to your online banking, and you're done.</p>
 
-            <button class="btn button-block btn-primary m-t-15" ng-click="openAddBank()">
-                <i class="ion-plus-circled m-r-15"></i>Link Bank Now
-            </button>
+                <button class="btn button-block btn-primary m-t-15" ng-click="openAddBank()">
+                    <i class="ion-plus-circled m-r-15"></i>Link Bank Now
+                </button>
+            </div>
         </div>
 
-        <!-- WHEN BANK IS LINKED -->
-        <div class="">
-            <div class="bank-info">
+        <div ng-if="Data.wereBankDetailsFound == true && Data.Status== Verified">
+            <!-- WHEN BANK IS LINKED -->
+            <div class="">
+                <div class="bank-info">
 
-                <img class="bank-logo pull-left m-r-10" src="./img/bank.png" />
+                    <img class="bank-logo pull-left m-r-10" src="./img/bank.png" />
 
-                <div>
-                    <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>Bank of America</div>
-                    <div id="bank-nickname">Personal Checking</div>
-                    <div id="bank-status">
-                        Status:
-                        <span class="text-danger">Not Verified</span>
+                    <div>
+                        <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>Bank of America</div>
+                        <div id="bank-nickname">{{Data.BankDetails.bankType}}</div>
+                        <div id="bank-status">
+                            Status:
+                            <span class="text-danger">{{Data.BankDetails.Status}}</span>
+                        </div>
+                        <a type="button" class="btn btn-link pull-right f-15 text-danger" href="#/app/settings/addBank" id="edit-bank">Edit</a>
                     </div>
-                    <a type="button" class="btn btn-link pull-right f-15 text-danger" href="#/app/settings/addBank" id="edit-bank">Edit</a>
-                </div>
 
+                </div>
             </div>
 
-            <!-- WHEN BANK IS LINKED, BUT NOT VERIFIED -->
-            <div class="section-note">
-                As an extra security measure, your bank must be verified. &nbsp;Learn more &nbsp;<i class="ion-ios-help text-primary"></i>
+            <div ng-if="Data.wereBankDetailsFound === true && Data.Status== notVerified">
+                <!-- WHEN BANK IS LINKED, BUT NOT VERIFIED -->
+                <div class="section-note">
+                    As an extra security measure, your bank must be verified. &nbsp;Learn more &nbsp;<i class="ion-ios-help text-primary"></i>
+                </div>
             </div>
         </div>
+
 
         <div class="list m-t-20">
 
@@ -80,7 +87,10 @@
                     <button class="button button-clear button-dark" ng-click="closeAddBank()">Close</button>
                 </ion-header-bar>
                 <ion-content>
-                    <iframe src="https://www.nooch.com/privacy"></iframe>
+                    <!--<iframe src="https://www.nooch.com/privacy"></iframe>-->
+                    <iframe src="http://nooch.info/noochweb/Nooch/AddBank?MemberId= addbankobj.memberid"></iframe>
+
+
                 </ion-content>
             </ion-modal-view>
         </script>
