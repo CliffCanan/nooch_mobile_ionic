@@ -1,13 +1,13 @@
 {
-  "name": "nooch-ion-demo",
+  "name": "demoapp",
   "version": "1.1.1",
-  "description": "Nooch-Ion-Demo: An Ionic project",
+  "description": "demoApp: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
+    "gulp-sass": "^2.0.4",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
-    "gulp-rename": "^1.2.0",
-    "gulp-sass": "^2.0.4"
+    "gulp-rename": "^1.2.0"
   },
   "devDependencies": {
     "bower": "^1.3.3",
@@ -15,14 +15,12 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-whitelist",
-    "cordova-plugin-console",
     "cordova-plugin-device",
+    "cordova-plugin-console",
+    "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard",
-    "cordova-plugin-contacts"
+    "cordova-plugin-statusbar",
+    "ionic-plugin-keyboard"
   ],
-  "cordovaPlatforms": [
-    "android"
-  ]
+  "cordovaPlatforms": []
 }
