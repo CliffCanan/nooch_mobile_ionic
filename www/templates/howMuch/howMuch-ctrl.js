@@ -3,7 +3,8 @@
 .controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading) {
 
     $ionicModal.fromTemplateUrl('templates/howMuch/modalPin.html', {
-        scope: $scope
+        scope: $scope,
+        animation: 'slide-in-up'    
     }).then(function (modal) {
         $scope.modal = modal;
 
@@ -242,6 +243,7 @@
                                        swal("Payed...", data.Result, "success");
                                        $ionicLoading.hide();
                                    }
+                                  
                                    else {
                                        swal("Error...", data.Result, "error");
                                        $ionicLoading.hide();
@@ -274,6 +276,7 @@
 
     $scope.addImage = function () {
         $ionicPlatform.ready(function () {
+            console.log(window);
             window.imagePicker.getPictures(function (results) {
                 for (var i = 0; i < results.length; i++)
                 {

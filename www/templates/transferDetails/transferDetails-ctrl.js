@@ -2,8 +2,11 @@
 
 
        .controller('TransferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin) {
+
+
            $ionicModal.fromTemplateUrl('templates/transferDetails/modalPin.html', {
-               scope: $scope
+               scope: $scope,
+               animation: 'slide-in-up'
            }).then(function (modal) {
                $scope.modal = modal;
               

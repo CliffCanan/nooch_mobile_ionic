@@ -40,8 +40,8 @@
       //email: 'cliffsatell@gmail.com',
       //pwd: 'Goran9119!',
                
-        email: 'cliff@nooch.com',    
-        pwd: 'banksCtrl',
+        email: 'lance@nooch.com',
+        pwd: 'test1234',
       rmmbrMe: {
         chk: true
       }

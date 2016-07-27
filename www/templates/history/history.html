@@ -64,9 +64,9 @@
                     <br />
                     <div class="history-list" >
                         <ion-scroll zooming="true" direction="y" style=" height: 15000px">
-                            <a class="item item-avatar" ui-sref="app.TransferDetails({myParam:transaction})" ng-repeat="transaction in  transactionList" ng-if="transaction.TransactionStatus=='Pending' ">
+                            <a class="item item-avatar" ui-sref="app.TransferDetails({myParam:transaction})" ng-repeat="transaction in  transactionList" ng-if="transaction.TransactionStatus=='Pending' && (transaction.TransactionType=='Request' || transaction.TransactionType=='Transfer')  ">
 
-                                <img src="./img/profile_picture.png">
+                                <img src={{transaction.Photo}}>
 
 
                                 <div class="name" ng-if="transaction.Name.length>1">{{transaction.Name}}</div>

@@ -7,10 +7,10 @@
             <div class="list text-center">
 
                 <label class="item item-input">
-                    <input type="password" ng-model="ResetPin.noochPin" data-parsley-required data-parsley-required-message="*" placeholder="Enter your old pin">
+                    <input type="password" ng-model="ResetPin.noochPin" data-parsley-required data-parsley-required-message="*" data-parsley-maxlength="4" data-parsley-maxlength-message="*"   placeholder="Enter your old pin">
                 </label>
                 <label class="item item-input">
-                    <input type="password" ng-model="ResetPin.newPin" data-parsley-required data-parsley-required-message="*" placeholder="Enter new pin">
+                    <input type="password" ng-model="ResetPin.newPin" data-parsley-required data-parsley-required-message="*" data-parsley-maxlength="4" data-parsley-maxlength-message="*" placeholder="Enter new pin">
                 </label>
                <div class="button button-block btn-primary m-t-15" ng-click="ResetPin()">Reset Pin</div>
 
