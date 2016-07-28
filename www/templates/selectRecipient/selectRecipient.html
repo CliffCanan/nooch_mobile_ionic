@@ -1,9 +1,9 @@
 ﻿<ion-view view-title="Select Recipient">
-    <ion-content>
+    <ion-content ion-sticky>
 
         <div class="row">
             <div class="col p-t-0">
-                <ti-segmented-control >
+                <ti-segmented-control>
                     <ti-segmented-control-button ng-click="FindRecent()" class="button-positive" title="'Month'" selected><i class="ion-ios-clock-outline"></i>Recents</ti-segmented-control-button>
                     <ti-segmented-control-button ng-click="GetLocationSearch()" class="button-positive" title="'Day'"><i class="ion-ios-location"></i>Find By Location</ti-segmented-control-button>
                 </ti-segmented-control>
@@ -17,19 +17,19 @@
             </label>
         </div>
 
-        <div class="list" id="recents-table">
+        
+        <ion-list >
+            <ion-item ng-repeat="member in memberList" class="list" id="recents-table">
+                <a class="item item-avatar" ui-sref="app.howMuch({myParam:member})" nav-transition="ios" nav-direction="forward">
+                    <img src="{{member.Photo}}" class="userPic">
+                    <h2>{{member.FirstName}} &nbsp; {{member.LastName}}</h2>
+                    <p>{{member.UserName}}</p>
+                    <h3 ng-if="member.Miles">{{member.Miles}}Miles</h3>
+                    <img src="../../img/n_icon_46x54.png" class="n-icon" />
+                </a>
 
-            <a class="item item-avatar" ui-sref="app.howMuch({myParam:member})" nav-transition="ios" nav-direction="forward" ng-repeat="member in memberList">
-                <img src="{{member.Photo}}" class="userPic">
-                <h2>{{member.FirstName}} &nbsp; {{member.LastName}}</h2>
-                <p>{{member.UserName}}</p>
-                <h3 ng-if="member.Miles">{{member.Miles}}Miles</h3>
-                <img src="../../img/n_icon_46x54.png" class="n-icon" />
-            </a>
-
-            
-
-        </div>
+            </ion-item>
+        </ion-list>
 
     </ion-content>
 </ion-view>

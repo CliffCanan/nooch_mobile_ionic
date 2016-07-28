@@ -1,0 +1,40 @@
+{
+  "name": "ion-sticky",
+  "version": "1.0.6",
+  "homepage": "https://github.com/poordeveloper/ion-sticky",
+  "authors": [
+    "zhouhuab <zhb12345@gmail.com>"
+  ],
+  "description": "a lightweight Angular directive for Ionic framework to have sticky list headers",
+  "main": "ion-sticky.js",
+  "keywords": [
+    "ionic",
+    "sticky",
+    "ion-sticky",
+    "ion-affix",
+    "item-divider",
+    "ion-list",
+    "ion-item"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0"
+  },
+  "_release": "1.0.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.6",
+    "commit": "d549e7c1e393b0014b8f28513b225c29a9aff94a"
+  },
+  "_source": "https://github.com/Poordeveloper/ion-sticky.git",
+  "_target": "^1.0.6",
+  "_originalSource": "ion-sticky",
+  "_direct": true
+}
