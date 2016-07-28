@@ -4,13 +4,6 @@
 
     
 
-    $ionicModal.fromTemplateUrl('templates/howMuch/modalPin.html', {
-        scope: $scope,
-        animation: 'slide-in-up'    
-    }).then(function (modal) {
-        $scope.modal = modal;
-
-    });
 
     var type = '';
 
@@ -102,6 +95,14 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('HowMuchCntrl Fired');
+
+        $ionicModal.fromTemplateUrl('templates/howMuch/modalPin.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+
+        });
         console.log($stateParams);
         $scope.recipientDetail = $stateParams.myParam;
         $('#form').parsley();
@@ -192,7 +193,7 @@
     $scope.CheckPin = function (Pin) {
         console.log('Check Pin Function called');
         if ($('#frmPinForeground').parsley().validate() == true) {
-            $scope.modal.hide();
+            
             console.log(Pin);
 
             //if ($cordovaNetwork.isOnline()) {
@@ -209,7 +210,7 @@
                    // $scope.Data = data;
                    console.log($scope.data);
 
-                   $ionicLoading.hide();
+                   
                    if (data.Result == 'Success') {
                        
 
@@ -219,17 +220,23 @@
                            $scope.requestData.Amount = $scope.recipientDetail.Amount;
                            $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
                            $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
-                           $scope.requestData.Memo = $scope.recipientDetail.Amount;
+                           $scope.requestData.Memo = $scope.recipientDetail.Memo;
                            $scope.requestData.Picture = $scope.picture;
                            howMuchService.RequestMoney($scope.requestData).success(function (data) {
 
                                if (data.Result.indexOf('successfully') > -1) {
+                                   $scope.modal.hide();
+                                   $ionicLoading.hide();
                                    swal("Success...", data.Result, "success");
                                    $scope.recipientDetail.Amount = "";
                                    $scope.recipientDetail.Memo = "";
+                                  
                                }
                                else {
+                                   $scope.modal.hide();
+                                   $ionicLoading.hide();
                                    swal("Error...", data.Result, "error");
+                                   
                                }
                            }).error();
 
@@ -240,17 +247,19 @@
                            $scope.sendData.Amount = $scope.recipientDetail.Amount;
                            $scope.sendData.RecepientId = $scope.recipientDetail.MemberId;
                            $scope.sendData.RecepientName = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
-                           $scope.sendData.Memo = $scope.recipientDetail.Amount;
+                           $scope.sendData.Memo = $scope.recipientDetail.Memo;
                            $scope.sendData.Picture = $scope.picture;
                            howMuchService.TransferMoney($scope.sendData).success(function (data) {
-                                   if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                               if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                      $ionicLoading.hide();
                                        swal("Payed...", data.Result, "success");
-                                       $ionicLoading.hide();
+                                      
                                    }
                                   
                                    else {
-                                       swal("Error...", data.Result, "error");
                                        $ionicLoading.hide();
+                                       swal("Error...", data.Result, "error");
+                                     
                                    }
                                    $ionicLoading.hide();
                                }).error(function () { $ionicLoading.hide(); });
@@ -258,9 +267,12 @@
                        }
                    }
                    else if (data.Result == 'Invalid Pin') {
+                       $scope.modal.hide();
                        swal("Oops...", "Incorrect Pin !", "error");
+                       
                    }
                    else if (data.Message == 'An error has occurred.') {
+                       $scope.modal.hide();
                        swal("Oops...", "Something went wrong !", "error");
                    }
 
@@ -268,7 +280,7 @@
                    console.log('eror' + data);
                    $ionicLoading.hide();
                });
-            }).error(function (data) { });
+            }).error(function (data) { $scope.modal.hide(); });
             //}
             //else {
             //    swal("Oops...", "Internet not connected!", "error");
@@ -336,7 +348,13 @@
         $cordovaCamera.getPicture(options).then(function (imageData) {
             console.log(imageData);
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
-            $scope.picture = imageData;
+            var binary_string =  window.atob(base64);
+            var len = binary_string.length;
+            var bytes = new Uint8Array( len );
+            for (var i = 0; i < len; i++) {
+                bytes[i] = binary_string.charCodeAt(i);
+            }
+            $scope.picture = bytes.buffer;
         }, function (err) {
             // An error occured. Show a message to the user
         });
