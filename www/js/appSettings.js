@@ -63,7 +63,8 @@ var URLs = {
     RequestMoney: PATH + 'RequestMoney', 
     GetMemberStats: PATH + 'GetMemberStats',
     getInvitedMemberList: PATH + 'getInvitedMemberList',
-    GetSynapseBankAndUserDetails: PATH + 'GetSynapseBankAndUserDetails'
+    GetSynapseBankAndUserDetails: PATH + 'GetSynapseBankAndUserDetails',
+    sendTransactionInCSV: PATH + 'sendTransactionInCSV'
  
 
 };

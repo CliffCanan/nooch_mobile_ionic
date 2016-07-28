@@ -5,8 +5,9 @@
     this.GetMemberStatsGeneric = function (queryToSearch) {
       return $http.get(URLs.GetMemberStats + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken+'&query='+queryToSearch);
     };
+            
 
-      //this.GetMemberStats_Largest_sent_transfer = function () {
-      //    return $http.get(URLs.GetMemberStats + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken+'&query=Largest_sent_transfer');
-      //};           
+    this.sendTransactionInCSV = function () {
+        return $http.post(URLs.sendTransactionInCSV + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&toAddress='+$localStorage.GLOBAL_VARIABLES.UserName + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+    };
   })
