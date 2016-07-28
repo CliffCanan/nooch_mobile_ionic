@@ -1,11 +1,12 @@
 ﻿angular.module('noochApp.LoginCtrl', ['noochApp.login-service', 'noochApp.services', 'ngStorage'])
 
-
 /***************/
 /***  LOGIN  ***/
 /***************/
   .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading, $localStorage, CommonHelper, $cordovaGeolocation, $cordovaDevice,
                                      CommonServices, $cordovaNetwork) {
+
+     
 
     $scope.$on("$ionicView.enter", function (event, data) {
       console.log('Login Controller loaded');
@@ -37,11 +38,14 @@
     $scope.loginData = {
        //email: 'cliff@nooch.com',
        //pwd: 'banksCtrl'
-      //email: 'cliffsatell@gmail.com',
+     // email: 'cliffsatell@gmail.com',
       //pwd: 'Goran9119!',
-               
-        email: 'lance@nooch.com',
-        pwd: 'test1234',
+
+        //email: 'lance@nooch.com',
+        //pwd: 'test1234',
+        email: 'malkit.singh@venturepact.com',
+        pwd: 'Q123456789',
+
       rmmbrMe: {
         chk: true
       }

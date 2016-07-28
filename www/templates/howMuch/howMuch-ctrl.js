@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.howMuchCtrl', ['ngCordova', 'noochApp.howMuch-service', 'noochApp.services'])
 
-.controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading, $cordovaCamera, $cordovaImagePicker) {
+.controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading, $cordovaCamera) {
 
     
 
@@ -220,7 +220,7 @@
                            $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
                            $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
                            $scope.requestData.Memo = $scope.recipientDetail.Amount;
-                           $scope.requestData.Photo = $scope.imgURI;
+                           $scope.requestData.Picture = $scope.imgURI;
                            howMuchService.RequestMoney($scope.requestData).success(function (data) {
 
                                if (data.Result.indexOf('successfully') > -1) {
@@ -241,7 +241,7 @@
                            $scope.sendData.RecepientId = $scope.recipientDetail.MemberId;
                            $scope.sendData.RecepientName = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
                            $scope.sendData.Memo = $scope.recipientDetail.Amount;
-                           $scope.sendData.Photo = $scope.imgURI;
+                           $scope.sendData.Picture = $scope.imgURI;
                            howMuchService.TransferMoney($scope.sendData).success(function (data) {
                                    if (data.Result && data.Result.indexOf('Successfully') > -1) {
                                        swal("Payed...", data.Result, "success");
@@ -283,44 +283,25 @@
 
 
         $ionicPlatform.ready(function () {
-            
-            //window.imagePicker.getPictures(function (results) {
-            //    for (var i = 0; i < results.length; i++)
-            //    {
-            //        console.log('Image URI: ' + results[i]);
-            //    }
-            //}, function (error) {
-            //    console.log('Error: ' + error);
-            //}, {
-            //    maximumImagesCount: 1,
-            //    width: 800
-            //}
-            //);
-
-            var options = {
-                maximumImagesCount: 10,
-                width: 800,
-                height: 800,
-                quality: 80
-            };
-            console.log($cordovaImagePicker);
-            $cordovaImagePicker.getPictures(options)
-              .then(function (results) {
-                  for (var i = 0; i < results.length; i++) {
-                      console.log('Image URI: ' + results[i]);
-                  }
-              }, function (error) {
-                  // error getting photos
-              });
-
+            console.log(window);
+            window.imagePicker.getPictures(function (results) {
+                for (var i = 0; i < results.length; i++)
+                {
+                    console.log('Image URI: ' + results[i]);
+                }
+            }, function (error) {
+                console.log('Error: ' + error);
+            }, {
+                maximumImagesCount: 1,
+                width: 800
+            }
+            );
         });
     };
 
 
     $scope.takePhoto = function () {
         console.log($cordovaCamera);
-
-        $ionicPlatform.ready(function () {
         var options = {
             quality: 75,
             destinationType: Camera.DestinationType.DATA_URL,
@@ -339,12 +320,10 @@
         }, function (err) {
             // An error occured. Show a message to the user
         });
-        });
     }
 
 
     $scope.choosePhoto = function () {
-        $ionicPlatform.ready(function () {
         var options = {
             quality: 75,
             destinationType: Camera.DestinationType.DATA_URL,
@@ -362,7 +341,6 @@
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
         }, function (err) {
             // An error occured. Show a message to the user
-        });
         });
     }
 })

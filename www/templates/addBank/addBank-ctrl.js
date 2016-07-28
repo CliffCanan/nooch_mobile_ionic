@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.addBankCtrl', ['noochApp.services'])
 
-.controller('addBankCtrl', function ($scope, $state, $ionicLoading, $localStorage, $cordovaNetwork, $sce) {
+.controller('addBankCtrl', function ($scope, $state, $ionicLoading, $localStorage, $cordovaNetwork) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
@@ -19,9 +19,10 @@
 
         $scope.addBankObj = {
             memberId: $localStorage.GLOBAL_VARIABLES.MemberId,
-          //  url: $sce.getTrustedResourceUrl('http://nooch.info//noochweb//Nooch//AddBank?MemberId=$localStorage.GLOBAL_VARIABLES.MemberId')
-            //url : 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId
+           // url: $sce.getTrustedResourceUrl('http://nooch.info//noochweb//Nooch//AddBank?MemberId=memberId')
+            url : 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId
         };
+
 
         console.log('From controller....')
         console.log($scope.addBankObj);
