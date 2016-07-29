@@ -4,7 +4,7 @@
 /******************/
 /***  REGISTER  ***/
 /******************/
-.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state) {
+.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state, CommonServices) {
 
     $scope.signupData = {
         Name: '',
@@ -37,18 +37,26 @@
                 template: 'Sigining in...'
             });
             
-            MemberRegistration.Signup($scope.signupData).success(function (data) {
-                console.log('Return form Server');
-                console.log(data);
-                $ionicLoading.hide({
-                   
-                });
-                swal("Signup successfull")
-                $state.go('login');
-             
-            }).error(function (encError) {
-                console.log('came in enc error block ' + encError);
+            CommonServices.GetEncryptedData($scope.signupData.Password).success(function (data) {
 
+                console.log($scope.signupData.Password);
+                $scope.signupData.Password = data.Status;
+                console.log('befor and after conversion signup controller-->');
+                console.log($scope.signupData.Password);
+
+                MemberRegistration.Signup($scope.signupData).success(function (data) {
+                    console.log('Return form Server');
+                    console.log(data);
+                    $ionicLoading.hide({
+                   
+                    });
+                    swal("Signup successfull")
+                    $state.go('login');
+             
+                }).error(function (encError) {
+                    console.log('came in enc error block ' + encError);
+
+                })
             })
         }
     };

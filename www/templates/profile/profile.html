@@ -48,7 +48,7 @@
 
                 <label class="item item-input">
                     <span class="input-label calm">Date of Birth</span>
-                    <input type="text" placeholder="11/03/1984" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{Details.DateOfBirth | date:'MM-dd-yyyy'}}">
+                    <input type="text" placeholder="11/03/1984" ng-model="Details.DateOfBirth | date:'MM-dd-yyyy'" ng-click="showdate()" value="{{Details.DateOfBirth}}">
                 </label>            
         </div>
         <button class="button button-calm button-block" ng-click="UpdateProfile()">Save</button>
