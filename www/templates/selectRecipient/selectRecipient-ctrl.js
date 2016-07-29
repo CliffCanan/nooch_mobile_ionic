@@ -3,7 +3,7 @@
 /************************/
 /*** SELECT RECIPIENT ***/
 /************************/
-.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService,$ionicLoading) {
+.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService,$ionicLoading , $filter) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
         $scope.FindRecent();
@@ -80,6 +80,23 @@
 
     });
 
+    $scope.getAllContacts = function() {
+        $cordovaContacts.find().then(function(allContacts) { //omitting parameter to .find() causes all contacts to be returned
+            $scope.contacts = allContacts;
+        })
+        console.log($scope.contacts);
+    };
+
+    $scope.showSearch = function (member) {
+        console.log($scope.search);
+        if (member.FirstName == $scope.search ||
+            member.LastName == $scope.search ||
+            member.UserName == $scope.search)
+        {
+            return member
+        }
+    };
+
     $scope.GoBack = function () {
         $state.go('home');
     };
@@ -98,10 +115,16 @@
         selectRecipientService.GetRecentMembers().success(function (data) {
 
             $scope.memberList = data;
+            $scope.item2 = data;
             $ionicLoading.hide();
         }).error(function (data) { console.log(data); $ionicLoading.hide(); });
 
     }
+
+    $scope.$watch('search', function (val) {
+        
+        $scope.memberList = $filter('filter')($scope.items2, val);
+    });
 
     $scope.GetLocationSearch = function () {
         $ionicLoading.show({
