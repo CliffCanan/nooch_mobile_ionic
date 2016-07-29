@@ -64,7 +64,8 @@ var URLs = {
     GetMemberStats: PATH + 'GetMemberStats',
     getInvitedMemberList: PATH + 'getInvitedMemberList',
     GetSynapseBankAndUserDetails: PATH + 'GetSynapseBankAndUserDetails',
-    sendTransactionInCSV: PATH + 'sendTransactionInCSV'
+    sendTransactionInCSV: PATH + 'sendTransactionInCSV',
+    SaveDOBForMember: PATH + 'SaveDOBForMember'
  
 
 };

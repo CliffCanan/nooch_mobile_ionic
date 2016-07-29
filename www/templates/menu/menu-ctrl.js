@@ -1,8 +1,9 @@
-﻿angular.module('noochApp.MenuCtrl', ['noochApp.services'])
+﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service'])
 
-.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal) {
+.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl ctrl loaded');
+        $scope.MemberDetails();
     });
 
     //$scope.settingsClick = function () {
@@ -13,8 +14,7 @@
 
         // Show the correct Action Sheet
 
-        if (id == 'support')
-        {
+        if (id == 'support') {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
                   { text: 'Report a Bug' },
@@ -26,16 +26,13 @@
                 //cancel: function () {
                 //},
                 buttonClicked: function (index) {
-                    if (index == 0)
-                    {
+                    if (index == 0) {
 
                     }
-                    else if (index == 1)
-                    {
+                    else if (index == 1) {
 
                     }
-                    else if (index == 3)
-                    {
+                    else if (index == 3) {
 
                     }
 
@@ -43,8 +40,7 @@
                 }
             });
         }
-        else if (id == 'legal')
-        {
+        else if (id == 'legal') {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
                   { text: 'Terms of Service' },
@@ -55,12 +51,10 @@
                 //cancel: function () {
                 //},
                 buttonClicked: function (index) {
-                    if (index == 0)
-                    {
+                    if (index == 0) {
                         $scope.openTos();
                     }
-                    else if (index == 1)
-                    {
+                    else if (index == 1) {
                         $scope.openPrivacy();
                     }
                     return true;
@@ -107,5 +101,31 @@
         $scope.tosModal.remove();
         $scope.privacyModal.remove();
     });
+
+
+
+    $scope.MemberDetails = function () {
+        console.log('GetMemberDetails touched');
+        //if ($cordovaNetwork.isOnline()) {
+            $ionicLoading.show({
+                template: 'Loading ...'
+            });
+
+            menuService.GetMemberDetails()
+               .success(function (details) {
+                   console.log(details);
+                   $scope.Details = details;
+                   $ionicLoading.hide();
+               }
+       ).error(function (encError) {
+           console.log('came in enc error block ' + encError);
+           $ionicLoading.hide();
+       })
+
+        //}
+        //else {
+        //    swal("Oops...", "Internet not connected!", "error");
+        //}
+    }
 
 })

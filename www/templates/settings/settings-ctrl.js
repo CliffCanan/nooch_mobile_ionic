@@ -2,12 +2,15 @@
 /******************/
 /***  SETTINGS  ***/
 /******************/
- .controller('SettingCtrl', function ($scope, settingsService, $state, $ionicModal, $ionicLoading, $localStorage) {
+ .controller('SettingCtrl', function ($scope, settingsService, $state, $ionicModal, $ionicLoading, $localStorage, $sce) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // On Screen Load
 
          $scope.checkBankDetails();
+         $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
+         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
+         console.log($scope.trustedUrl);         
      });
 
    

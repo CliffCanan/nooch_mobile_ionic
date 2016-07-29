@@ -49,6 +49,8 @@
             .success(function (data) {
                 console.log(data);
                 $scope.Data = data;
+                console.log('from UpdateProfile function');
+                $scope.saveDob($scope.Details.DateOfBirth);
                 $ionicLoading.hide();
             }
     ).error(function (encError) {
@@ -61,8 +63,7 @@
         //}
     }
 
-     //date Picker 
-
+     //date Picker Plugin 
     $scope.showdate = function () {
         
         var options = {
@@ -82,10 +83,51 @@
             $cordovaDatePicker.show(options).then(function (date) {
               //  alert(date);
                 $scope.Details.DateOfBirth = date;
+                if ($scope.Details.DateOfBirth != null) {
+                 //   $scope.saveDob($scope.Details.DateOfBirth);
+                    console.log('from showdate function');
+                    console.log($scope.Details.DateOfBirth);                   
+                }
             });
 
         }, false);
 
-    } 
+    }
+
+
+    $scope.saveDob= function(DateOfBirth){
+        console.log('saveDob Function Touched');
+        console.log($scope.Details.DateOfBirth);
+        //if ($cordovaNetwork.isOnline()) {
+        $ionicLoading.show({
+            template: 'Loading ...'
+        });
+        profileService.SaveDOBForMember($scope.Details.DateOfBirth)
+                .success(function (details) {
+                    console.log(details);
+
+                    if (details.Result == 'DOB saved successfully.')
+                    {
+                        swal("Yup..", "Profile Updated", "success");
+                    }
+                    else {
+                        swal("Oops...", "Something Went Wrong", "error");
+                    }
+
+                    $scope.Details = details;                                
+
+                    $ionicLoading.hide();
+                }
+        ).error(function (encError) {
+            console.log('came in enc error block ' + encError);
+            $ionicLoading.hide();
+        })  
+       
+        //}
+        //else {
+        //    swal("Oops...", "Internet not connected!", "error");
+        //}
+    }
+
   
 })

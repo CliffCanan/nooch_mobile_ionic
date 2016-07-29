@@ -32,4 +32,27 @@ angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
           };             
           return $http(reqForMySettings);
       }
+
+
+      var Data;
+      this.SaveDOBForMember = function (dateOfBirth) {
+
+          console.log('from profile service page');
+          console.log(dateOfBirth);
+
+          var reqForSaveDOBForMember = {
+              method: 'POST',
+              url: URLs.SaveDOBForMember,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              data: {
+                  MemberId: $localStorage.GLOBAL_VARIABLES.MemberId,
+                  DOB:dateOfBirth,
+                 accessToken: $localStorage.GLOBAL_VARIABLES.AccessToken,
+                 
+              }
+          };
+          return $http(reqForSaveDOBForMember);
+      }
   })
