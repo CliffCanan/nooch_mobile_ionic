@@ -38,11 +38,8 @@
             });
             
             CommonServices.GetEncryptedData($scope.signupData.Password).success(function (data) {
-
-                console.log($scope.signupData.Password);
+                              
                 $scope.signupData.Password = data.Status;
-                console.log('befor and after conversion signup controller-->');
-                console.log($scope.signupData.Password);
 
                 MemberRegistration.Signup($scope.signupData).success(function (data) {
                     console.log('Return form Server');
