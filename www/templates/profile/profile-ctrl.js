@@ -1,5 +1,5 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
-.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker) {
+.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera) {
      
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -43,7 +43,7 @@
         });
 
       //console.log('Values from Profile.html Page...');       
-      //console.log($scope.Details);
+      console.log($scope.Details);
       
         profileService.MySettings($scope.Details)
             .success(function (data) {
@@ -129,5 +129,46 @@
         //}
     }
 
+
+
+    $scope.choosePhoto = function () {
+        $ionicPlatform.ready(function () {
+            var options = {
+                quality: 75,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 300,
+                targetHeight: 300,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false
+            };
+
+            $cordovaCamera.getPicture(options).then(function (imageData) {
+                console.log('imagedata --- ');
+                console.log(imageData);
+                $scope.imgURI = "data:image/jpeg;base64," + imageData;
+                console.log('after converting base 64 imgURL');
+                console.log($scope.imgURI);
+
+                             
+                var binary_string = window.atob(imageData);
+                var len = binary_string.length;
+                var bytes = new Uint8Array(len);
+                for (var i = 0; i < len; i++) {
+                    bytes[i] = binary_string.charCodeAt(i);
+                }
+                $scope.Details.picture = imageData;
+                console.log(bytes);
+
+                $scope.Details.Picture = imageData;
+                $scope.Details.Photo = imageData;
+
+            }, function (err) {
+                // An error occured. Show a message to the user
+            });
+        });
+    }
   
 })

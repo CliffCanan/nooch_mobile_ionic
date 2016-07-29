@@ -3,7 +3,7 @@
 .controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl ctrl loaded');
-        $scope.MemberDetails();
+    // $scope.MemberDetails();
     });
 
     //$scope.settingsClick = function () {
@@ -112,9 +112,9 @@
             });
 
             menuService.GetMemberDetails()
-               .success(function (details) {
-                   console.log(details);
-                   $scope.Details = details;
+               .success(function (res) {
+                   console.log(res);
+                   $scope.Res = res;
                    $ionicLoading.hide();
                }
        ).error(function (encError) {
