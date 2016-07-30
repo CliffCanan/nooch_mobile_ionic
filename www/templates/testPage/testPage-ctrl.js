@@ -1,6 +1,6 @@
-﻿angular.module('noochApp.testPageCtrl', ['noochApp.services'])
+﻿angular.module('noochApp.testPageCtrl', ['ngCordova','noochApp.services'])
 
- .controller('testPageCtrl', function ($scope, authenticationService, $state) {
+ .controller('testPageCtrl', function ($scope, authenticationService, $state, $cordovaContacts) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('History Page Loaded');

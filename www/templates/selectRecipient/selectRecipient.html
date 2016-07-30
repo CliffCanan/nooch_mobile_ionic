@@ -19,7 +19,7 @@
 
         
         <ion-list >
-            <ion-item ng-repeat="member in memberList |filter:search" class="list" id="recents-table">
+            <ion-item ng-repeat="member in phoneContacts |filter:search" class="list" id="recents-table">
                 <a class="item item-avatar" ui-sref="app.howMuch({myParam:member})" nav-transition="ios" nav-direction="forward">
                     <img src="{{member.Photo}}" class="userPic">
                     <h2>{{member.FirstName}} &nbsp; {{member.LastName}}</h2>

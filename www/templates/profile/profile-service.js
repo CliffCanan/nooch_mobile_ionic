@@ -28,7 +28,8 @@ angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
                   City: Details.City,
                   Zipcode: Details.Zip,
                   Country: Details.Country,
-                  Photo: Details.Photo
+                  Photo: Details.Photo,
+                  Picture: Details.Picture
               }
           };         
           return $http(reqForMySettings);

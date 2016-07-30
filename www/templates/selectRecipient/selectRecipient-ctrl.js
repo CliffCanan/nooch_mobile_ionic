@@ -1,13 +1,15 @@
-﻿angular.module('noochApp.SelectRecipCtrl', ['noochApp.selectRecipientService', 'noochApp.services', 'ion-sticky'])
+﻿angular.module('noochApp.SelectRecipCtrl', ['ngCordova', 'noochApp.selectRecipientService', 'noochApp.services', 'ion-sticky'])
 
 /************************/
 /*** SELECT RECIPIENT ***/
 /************************/
-.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService,$ionicLoading , $filter) {
+.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
         $scope.FindRecent();
          
+      
+       
       // to check contacts authorization
       // cordova.plugins.diagnostic.isContactsAuthorized(function(authorized){
       //   console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
@@ -80,12 +82,7 @@
 
     });
 
-    $scope.getAllContacts = function() {
-        $cordovaContacts.find().then(function(allContacts) { //omitting parameter to .find() causes all contacts to be returned
-            $scope.contacts = allContacts;
-        })
-        console.log($scope.contacts);
-    };
+   
 
     $scope.showSearch = function (member) {
         console.log($scope.search);
@@ -114,9 +111,51 @@
         });
         selectRecipientService.GetRecentMembers().success(function (data) {
 
-            $scope.memberList = data;
+          //  $scope.memberList = data;
             $scope.item2 = data;
+
+            $ionicPlatform.ready(function () {
+
+                $scope.phoneContacts = [];
+                var readContact =
+                                    {
+                                        FirstName: '',
+                                        UserName: '',
+                                        ContactNumber: '',
+                                        Photo: ''
+                                    };
+                 
+
+                function onSuccess(contacts) {
+
+                    console.log(contacts);
+                    for (var i = 0; i < contacts.length; i++) {
+                       
+                        var contact = contacts[i];
+                        readContact.FirstName = contacts[i].displayName;
+                        $scope.phoneContacts.push(readContact);
+                        
+                        
+                    }
+                    $scope.memberList = $scope.phoneContacts;
+                    console.log($scope.phoneContacts);
+                };
+
+                function onError(contactError) {
+                    alert(contactError);
+                };
+
+                var options = {};
+                options.multiple = true;
+
+                $cordovaContacts.find(options).then(onSuccess, onError);
+
+
+            });
+
             $ionicLoading.hide();
+
+
         }).error(function (data) { console.log(data); $ionicLoading.hide(); });
 
     }
