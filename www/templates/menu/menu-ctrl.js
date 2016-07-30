@@ -1,9 +1,15 @@
-﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service'])
+﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading) {
+.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage) {
+
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl ctrl loaded');
-    // $scope.MemberDetails();
+
+        if ($scope.Res == null) {
+            $scope.MemberDetails();
+          console.log('Loaded at first time');
+       }
+
     });
 
     //$scope.settingsClick = function () {
@@ -115,6 +121,8 @@
                .success(function (res) {
                    console.log(res);
                    $scope.Res = res;
+                   $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.PhotoUrl;
+                   console.log($localStorage.GLOBAL_VARIABLES.PhotoUrl);
                    $ionicLoading.hide();
                }
        ).error(function (encError) {

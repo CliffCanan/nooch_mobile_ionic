@@ -74,6 +74,7 @@
                                 $localStorage.GLOBAL_VARIABLES.DeviceId = '';
                                 $localStorage.GLOBAL_VARIABLES.DeviceToken = '';
                                 $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
+                                $localStorage.GLOBAL_VARIABLES.PhotoUrl = '';
                                 console.log($localStorage.GLOBAL_VARIABLES);
                                 $ionicLoading.hide();
                                 $state.go('login');
@@ -93,6 +94,7 @@
                             $localStorage.GLOBAL_VARIABLES.DeviceId = '';
                             $localStorage.GLOBAL_VARIABLES.DeviceToken = '';
                             $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
+                            $localStorage.GLOBAL_VARIABLES.PhotoUrl = '';
                             console.log($localStorage.GLOBAL_VARIABLES);
                             $ionicLoading.hide();
                             $state.go('login');

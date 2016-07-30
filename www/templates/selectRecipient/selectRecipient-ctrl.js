@@ -132,10 +132,10 @@
                     for (var i = 0; i < contacts.length; i++) {
                        
                         var contact = contacts[i];
-                        readContact.FirstName = contacts[i].displayName;
-                       
+                        readContact.FirstName = contacts[i].name.formatted;
+                        readContact.UserName = contacts[i].emails[0].value;
                         $scope.phoneContacts.push(contact);
-                        
+                        $scope.memberList.push(readContact);
                         
                     }
                     
