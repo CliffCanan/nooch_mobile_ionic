@@ -111,7 +111,7 @@
         });
         selectRecipientService.GetRecentMembers().success(function (data) {
 
-          //  $scope.memberList = data;
+           $scope.memberList = data;
             $scope.item2 = data;
 
             $ionicPlatform.ready(function () {
@@ -133,11 +133,12 @@
                        
                         var contact = contacts[i];
                         readContact.FirstName = contacts[i].displayName;
-                        $scope.phoneContacts.push(readContact);
+                       
+                        $scope.phoneContacts.push(contact);
                         
                         
                     }
-                    $scope.memberList = $scope.phoneContacts;
+                    
                     console.log($scope.phoneContacts);
                 };
 

@@ -15,7 +15,7 @@
         $ionicLoading.show({
             template: 'Loading ...'
         });
-        CommonServices.GetMyDetails()
+        profileService.GetMyDetails()
                 .success(function (details) {
                     console.log(details);
                     $scope.Details = details;                                

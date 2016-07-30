@@ -1,9 +1,9 @@
 angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
   .service('profileService', function ($http, $localStorage) {
-      //this.GetMyDetails = function (memberId) {
-      //    return $http.get(URLs.GetMyDetails + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
-      //};
-      //Moved this service to CommonServices -Surya 30/7/16
+      this.getmydetails = function (memberid) {
+          return $http.get(urls.getmydetails + '?memberid=' + $localstorage.global_variables.memberid + '&accesstoken=' + $localstorage.global_variables.accesstoken);
+      };
+
 
 
       var data;

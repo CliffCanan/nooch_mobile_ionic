@@ -19,7 +19,7 @@
 
         
         <ion-list >
-            <ion-item ng-repeat="member in phoneContacts |filter:search" class="list" id="recents-table">
+            <ion-item ng-repeat="member in memberList |filter:search" class="list" id="recents-table">
                 <a class="item item-avatar" ui-sref="app.howMuch({myParam:member})" nav-transition="ios" nav-direction="forward">
                     <img src="{{member.Photo}}" class="userPic">
                     <h2>{{member.FirstName}} &nbsp; {{member.LastName}}</h2>
@@ -30,6 +30,35 @@
 
             </ion-item>
         </ion-list>
+
+        <ion-list>
+            <ion-item ng-repeat="contact in phoneContacts |filter:search" class="list" id="recents-table">
+                <a class="item item-avatar" ui-sref="app.howMuch({myParam:member})" nav-transition="ios" nav-direction="forward">
+                    <img src="{{member.Photo}}" class="userPic">
+                    <h2>  {{ contact.name.formatted }} </h2>
+                    <p>{{ contact.emails[0].value }}</p>
+                    <h3 ng-if="member.Miles">{{member.Miles}}Miles</h3>
+                    <img src="../../img/n_icon_46x54.png" class="n-icon" />
+                </a>
+
+            </ion-item>
+        </ion-list>
+
+        <!--<div class="card" ng-repeat="contact in phoneContacts">
+            <div class="item item-divider">
+                {{ contact.name.formatted }}
+            </div>
+            <div class="item item-text-wrap">
+                <p><strong>Phone(s)</strong></p>
+                <div ng-repeat="number in contact.phoneNumbers">
+                    <p>{{ number.value }}</p>
+                </div>
+                <p><strong>Email(s)</strong></p>
+                <div ng-repeat="email in contact.emails">
+                    <p>{{ email.value }}</p>
+                </div>
+            </div>
+        </div>-->
 
     </ion-content>
 </ion-view>
