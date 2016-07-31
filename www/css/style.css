@@ -767,6 +767,7 @@ iframe {
     }
 
 #registerScrn .btn-link {
+    border: none;
     color: #313233;
     font-size: 14px;
     padding: 0px;
@@ -839,7 +840,7 @@ iframe {
 
 #rememberMe {
     position: relative;
-    top: -8px;
+    top: -12px;
 }
 
 

@@ -1,19 +1,17 @@
 angular.module('noochApp.login-service', ['noochApp.services'])
   .service('authenticationService', function ($http) {
-    this.Login = function (username, password, remmberMe, lat, lng, deviceId, deviceToken) {
-      return $http.get(URLs.Login + '?userName=' + username + '&pwd=' + password + '&rememberMeEnabled=' + remmberMe + '&lat=' + lat + '&lng=' + lng + '&udid=' + deviceId + '&devicetoken=' + deviceToken);
 
-    };
-    this.ForgotPassword = function (userName) {
+      this.Login = function (username, password, remmberMe, lat, lng, deviceId, deviceToken) {
+          return $http.get(URLs.Login + '?userName=' + username + '&pwd=' + password + '&rememberMeEnabled=' + remmberMe + '&lat=' + lat + '&lng=' + lng + '&udid=' + deviceId + '&devicetoken=' + deviceToken);
+      };
 
-        var data = {
-            Input: userName,
-            AuthenticationKey: '' // not in use @ server
-        };
+      this.ForgotPassword = function (userName) {
 
-        return $http.post(URLs.ForgotPassword, data);
-      //  return $.post(URLs.ForgotPassword, data);
+          var data = {
+              Input: userName,
+              AuthenticationKey: '' // not in use @ server
+          };
 
-    }
-
+          return $http.post(URLs.ForgotPassword, data);
+      }
   })

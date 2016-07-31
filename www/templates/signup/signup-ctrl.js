@@ -13,46 +13,41 @@
     };
 
     $scope.gotoSignInPage = function () {
-        console.log('came in btn click');
         $location.path("#/login");
     };
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        // handle event
-        console.log('Signup Controller loaded');
+        console.log('Signup Controller Loaded');
 
         console.log('signupData ' + JSON.stringify($scope.signupData));
-        // swal("Here's a message!");
     });
 
 
     $scope.signUpClick = function () {
 
-        var flag = $('#submitForm').parsley().validate();
-        console.log(flag);
+        var isFormValid = $('#submitForm').parsley().validate();
 
-        if (flag) {
+        if (isFormValid)
+        {
             console.log('signupData ' + JSON.stringify($scope.signupData));
             $ionicLoading.show({
                 template: 'Sigining in...'
             });
-            
+
             CommonServices.GetEncryptedData($scope.signupData.Password).success(function (data) {
-                              
+
                 $scope.signupData.Password = data.Status;
 
                 MemberRegistration.Signup($scope.signupData).success(function (data) {
                     console.log('Return form Server');
                     console.log(data);
-                    $ionicLoading.hide({
-                   
-                    });
-                    swal("Signup successfull")
-                    $state.go('login');
-             
-                }).error(function (encError) {
-                    console.log('came in enc error block ' + encError);
 
+                    $ionicLoading.hide();
+
+                    $state.go('login');
+
+                }).error(function (encError) {
+                    console.log('Signup Attempt -> Error [' + encError + ']');
                 })
             })
         }

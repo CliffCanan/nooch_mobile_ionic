@@ -1,32 +1,32 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
 .controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera) {
-     
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
-        console.log('My Profile page Loadad');
+        console.log('Profile Page Loadad');
         $scope.MemberDetails();
-
     })
 
     $scope.MemberDetails = function () {
-        console.log('memberDetails Function Touched');
+        console.log('MemberDetails Function Fired');
+
         //if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
-            template: 'Loading ...'
+            template: 'Loading Profile'
         });
+
         profileService.GetMyDetails()
                 .success(function (details) {
                     console.log(details);
-                    $scope.Details = details;                                
+                    $scope.Details = details;
 
                     $ionicLoading.hide();
                 }
         ).error(function (encError) {
             console.log('came in enc error block ' + encError);
             $ionicLoading.hide();
-        })  
-       
+        })
+
         //}
         //else {
         //    swal("Oops...", "Internet not connected!", "error");
@@ -42,9 +42,9 @@
             template: 'Loading ...'
         });
 
-      //console.log('Values from Profile.html Page...');       
-      console.log($scope.Details);
-      
+        //console.log('Values from Profile.html Page...');
+        console.log($scope.Details);
+
         profileService.MySettings($scope.Details)
             .success(function (data) {
                 console.log(data);
@@ -63,9 +63,9 @@
         //}
     }
 
-     //date Picker Plugin 
+    //date Picker Plugin
     $scope.showdate = function () {
-        
+
         var options = {
             date: new Date(),
             mode: 'date', // or 'time'
@@ -76,17 +76,18 @@
             doneButtonColor: '#F2F3F4',
             cancelButtonLabel: 'CANCEL',
             cancelButtonColor: '#000000'
-        };       
-        
+        };
+
         document.addEventListener("deviceready", function () {
-            
+
             $cordovaDatePicker.show(options).then(function (date) {
-              //  alert(date);
+                //  alert(date);
                 $scope.Details.DateOfBirth = date;
-                if ($scope.Details.DateOfBirth != null) {
-                 //   $scope.saveDob($scope.Details.DateOfBirth);
+                if ($scope.Details.DateOfBirth != null)
+                {
+                    //   $scope.saveDob($scope.Details.DateOfBirth);
                     console.log('from showdate function');
-                    console.log($scope.Details.DateOfBirth);                   
+                    console.log($scope.Details.DateOfBirth);
                 }
             });
 
@@ -95,7 +96,7 @@
     }
 
 
-    $scope.saveDob= function(DateOfBirth){
+    $scope.saveDob = function (DateOfBirth) {
         console.log('saveDob Function Touched');
         console.log($scope.Details.DateOfBirth);
         //if ($cordovaNetwork.isOnline()) {
@@ -110,19 +111,20 @@
                     {
                         swal("Yup..", "Profile Updated", "success");
                     }
-                    else {
+                    else
+                    {
                         swal("Oops...", "Something Went Wrong", "error");
                     }
 
-                    $scope.Details = details;                                
+                    $scope.Details = details;
 
                     $ionicLoading.hide();
                 }
         ).error(function (encError) {
             console.log('came in enc error block ' + encError);
             $ionicLoading.hide();
-        })  
-       
+        })
+
         //}
         //else {
         //    swal("Oops...", "Internet not connected!", "error");
@@ -152,24 +154,25 @@
                 console.log('after converting base 64 imgURL');
                 console.log($scope.imgURI);
 
-                             
+
                 var binary_string = window.atob(imageData);
                 var len = binary_string.length;
                 var bytes = new Uint8Array(len);
-                for (var i = 0; i < len; i++) {
+                for (var i = 0; i < len; i++)
+                {
                     bytes[i] = binary_string.charCodeAt(i);
                 }
-               
+
                 console.log(bytes);
                 $scope.Details.picture = bytes;
 
                 $scope.Details.Photo = imageData;
-               // $scope.Details.Photo = imageData;
+                // $scope.Details.Photo = imageData;
 
             }, function (err) {
                 // An error occured. Show a message to the user
             });
         });
     }
-  
+
 })
