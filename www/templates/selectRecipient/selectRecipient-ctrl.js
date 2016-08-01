@@ -136,9 +136,14 @@
                         console.log(contact);
                         readContact.FirstName = contact.name.formatted;
                         readContact.id = i;
-                        //if (contacts[i].emails.length>0)
-                       // readContact.UserName = contact.emails[0].value;
+                        if (contact.emails!=null)
+                            readContact.UserName = contact.emails[0].value;
+                        if (contact.phoneNumbers != null)
+                            readContact.ContactNumber = contact.phoneNumbers[0].value;
+                        if (contact.photos != null)
+                            readContact.Photo = contact.photos[0].value;
                         $scope.phoneContacts.push(readContact);
+                        $scope.memberList.push(readContact);
                         readContact =
                                     {
                                         FirstName: '',
@@ -147,7 +152,7 @@
                                         Photo: '',
                                         id: ''
                                     };
-                       // $scope.memberList.push(readContact);
+                       // 
                         
                     }
                     
