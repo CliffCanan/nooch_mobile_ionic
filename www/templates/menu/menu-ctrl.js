@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing) {
+.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
@@ -10,6 +10,10 @@
             $scope.MemberDetails();
             console.log('Loaded First Time');
         }
+
+        $scope.url = 'http://support.nooch.com/';
+        $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
+        console.log($scope.trustedUrl);
     });
 
     //$scope.settingsClick = function () {

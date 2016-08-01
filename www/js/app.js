@@ -6,7 +6,7 @@
 angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
-  'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPin', 'noochApp.services',
+  'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
   'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation) {

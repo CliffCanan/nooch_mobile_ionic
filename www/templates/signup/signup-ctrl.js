@@ -4,12 +4,17 @@
 /******************/
 /***  REGISTER  ***/
 /******************/
-.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state, CommonServices) {
+.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state, CommonServices,$rootScope) {
 
-    $scope.signupData = {
+    $rootScope.signupData = {
         Name: '',
         Email: '',
-        Password: ''
+        Password: '',
+        Picture: '',
+        Pin: '',
+        rmmbrMe: {
+            chk: true
+        }
     };
 
     $scope.gotoSignInPage = function () {
@@ -32,24 +37,32 @@
             console.log('signupData ' + JSON.stringify($scope.signupData));
             $ionicLoading.show({
                 template: 'Creating Account...'
-            });
+            });     
 
-            CommonServices.GetEncryptedData($scope.signupData.Password).success(function (data) {
+            
+            $rootScope.signupData.Email;
+            $rootScope.signupData.Name;
+            $rootScope.signupData.Password;
 
-                $scope.signupData.Password = data.Status;
+            console.log('From signup page');
+            console.log($rootScope.signupData);
+            $state.go('addPicture');
+            $ionicLoading.hide();
 
-                MemberRegistration.Signup($scope.signupData).success(function (data) {
-                    console.log('Return form Server');
-                    console.log(data);
+            //CommonServices.GetEncryptedData($scope.signupData.Password).success(function (data) {
+            //    $scope.signupData.Password = data.Status;
+            //    MemberRegistration.Signup($scope.signupData).success(function (data) {
+            //        console.log('Return form Server');
+            //        console.log(data);
 
-                    $ionicLoading.hide();
+            //        $ionicLoading.hide();
 
-                    $state.go('login');
+            //        $state.go('addPicture');
 
-                }).error(function (encError) {
-                    console.log('Signup Attempt -> Error [' + encError + ']');
-                })
-            })
+            //    }).error(function (encError) {
+            //        console.log('Signup Attempt -> Error [' + encError + ']');
+            //    })
+            //})
         }
     };
 

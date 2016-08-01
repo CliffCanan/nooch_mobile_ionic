@@ -1,7 +1,7 @@
 ﻿<ion-view view-title="Create PIN">
     <ion-content>
 
-        <a class="button backButton" href="#/app/testPage"><i class="ion-android-arrow-dropleft-circle"></i></a>
+        <a class="button backButton" href="#/addPicture"><i class="ion-android-arrow-dropleft-circle"></i></a>
         <div class="row">
             <div class="col text-center">
                 <img src="../img/nooch-logo.svg" class="mainLogo" />
@@ -19,9 +19,16 @@
             </p>
             <br />
             <br>
-            <label class="item item-input">
-                <input type="number" placeholder="* * * *">
-            </label>
+            <form id="frmCreatePin" class="smErrors" data-parsley-validate="">
+                <div class="pin-container">
+                    <label class="item item-input">
+                        <input type="text" placeholder="* * * *" maxlength="4" ng-model="signupData.Pin" data-parsley-required data-parsley-required-message="*">
+                    </label>
+                </div>
+                <br>
+            </form>
+
+            <button class="button button-calm" ng-click="signUpFn()">Submit</button>
         </div>
     </ion-content>
 </ion-view>
