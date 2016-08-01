@@ -19,6 +19,38 @@
           return $http(ResTransferPayment);
       };
 
+      this.RequestMoneyToNonNoochUserUsingSynapse = function (Data) {
+          // Data.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+          var ResTransferPayment = {
+              method: 'POST',
+              url: URLs.RequestMoneyToNonNoochUserUsingSynapse + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+
+              data: Data
+          };
+
+
+          return $http(ResTransferPayment);
+      };
+
+      this.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse = function (Data,contactNum) {
+          // Data.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+          var ResTransferPayment = {
+              method: 'POST',
+              url: URLs.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&PayorPhoneNumber=' + contactNum,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+
+              data: Data
+          };
+
+
+          return $http(ResTransferPayment);
+      };
+
       this.TransferMoney = function (Data) {
           console.log(JSON.stringify(Data));
           var ResTransferPayment = {

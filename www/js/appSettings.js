@@ -48,6 +48,8 @@ var URLs = {
     GetRecentMembers: PATH + 'GetRecentMembers',
     GetLocationSearch: PATH + 'GetLocationSearch',
     RequestMoney: PATH + 'RequestMoney',
+    RequestMoneyToNonNoochUserUsingSynapse: PATH + 'RequestMoneyToNonNoochUserUsingSynapse',
+    RequestMoneyToNonNoochUserThroughPhoneUsingSynapse: PATH +'RequestMoneyToNonNoochUserThroughPhoneUsingSynapse',
     GetMemberStats: PATH + 'GetMemberStats',
     getInvitedMemberList: PATH + 'getInvitedMemberList',
     GetSynapseBankAndUserDetails: PATH + 'GetSynapseBankAndUserDetails',

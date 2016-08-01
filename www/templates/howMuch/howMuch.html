@@ -12,6 +12,7 @@
                 <div class="header-item barBackground">
                     To: <span id="recipName" ng-if="recipientDetail.FirstName || recipientDetail.LastName">{{recipientDetail.FirstName}} &nbsp; {{recipientDetail.LastName}}</span>
                     <span id="recipName" ng-if="!recipientDetail.FirstName && !recipientDetail.LastName">{{recipientDetail.UserName}}</span>
+                    <span id="contactNum" ng-if="recipientDetail.ContactNumber">{{recipientDetail.ContactNumber}}</span>
                     <a href=""><i class="ion-plus-circled pull-right f-19"></i></a>
                 </div>
 

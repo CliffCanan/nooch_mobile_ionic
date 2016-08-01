@@ -213,31 +213,76 @@
                        
 
                        if (type == 'request') {
-                           console.log($scope.recipientDetail.Amount);
+                           console.log($scope.recipientDetail);
                            $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
                            $scope.requestData.Amount = $scope.recipientDetail.Amount;
                            $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
                            $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
                            $scope.requestData.Memo = $scope.recipientDetail.Memo;
                            $scope.requestData.Picture = $scope.picture;
-                           howMuchService.RequestMoney($scope.requestData).success(function (data) {
+                           $scope.requestData.MoneySenderEmailId = $scope.recipientDetail.UserName;
+                           if ($scope.recipientDetail.MemberId != null) {
+                               howMuchService.RequestMoney($scope.requestData).success(function (data) {
 
-                               if (data.Result.indexOf('successfully') > -1) {
-                                   $scope.modal.hide();
-                                   $ionicLoading.hide();
-                                   swal("Success...", data.Result, "success");
-                                   $scope.recipientDetail.Amount = "";
-                                   $scope.recipientDetail.Memo = "";
-                                  
-                               }
-                               else {
-                                   $scope.modal.hide();
-                                   $ionicLoading.hide();
-                                   swal("Error...", data.Result, "error");
-                                   
-                               }
-                           }).error();
+                                   if (data.Result.indexOf('successfully') > -1) {
+                                       $scope.modal.hide();
+                                       $ionicLoading.hide();
+                                       swal("Success...", data.Result, "success");
+                                       $scope.recipientDetail.Amount = "";
+                                       $scope.recipientDetail.Memo = "";
 
+                                   }
+                                   else {
+                                       $scope.modal.hide();
+                                       $ionicLoading.hide();
+                                       swal("Error...", data.Result, "error");
+
+                                   }
+                               }).error();
+                           }
+                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null || $scope.recipientDetail.UserName.length > 0) && ($scope.recipientDetail.ContactNumber == null))
+                           {
+
+                               howMuchService.RequestMoneyToNonNoochUserUsingSynapse($scope.requestData).success(function (data) {
+
+                                   if (data.Result.indexOf('successfully') > -1) {
+                                       $scope.modal.hide();
+                                       $ionicLoading.hide();
+                                       swal("Success...", data.Result, "success");
+                                       $scope.recipientDetail.Amount = "";
+                                       $scope.recipientDetail.Memo = "";
+
+                                   }
+                                   else {
+                                       $scope.modal.hide();
+                                       $ionicLoading.hide();
+                                       swal("Error...", data.Result, "error");
+
+                                   }
+                               }).error();
+
+                           }
+                           else if (($scope.recipientDetail.MemberId == null)   && ($scope.recipientDetail.ContactNumber!=null)) {
+
+                               howMuchService.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse($scope.requestData, $scope.recipientDetail.ContactNumber).success(function (data) {
+
+                                   if (data.Result.indexOf('successfully') > -1) {
+                                       $scope.modal.hide();
+                                       $ionicLoading.hide();
+                                       swal("Success...", data.Result, "success");
+                                       $scope.recipientDetail.Amount = "";
+                                       $scope.recipientDetail.Memo = "";
+
+                                   }
+                                   else {
+                                       $scope.modal.hide();
+                                       $ionicLoading.hide();
+                                       swal("Error...", data.Result, "error");
+
+                                   }
+                               }).error();
+
+                           }
                        }
                        else if (type == 'send') {
 
@@ -266,11 +311,13 @@
                    }
                    else if (data.Result == 'Invalid Pin') {
                        $scope.modal.hide();
+                       $ionicLoading.hide();
                        swal("Oops...", "Incorrect Pin !", "error");
                        
                    }
                    else if (data.Message == 'An error has occurred.') {
                        $scope.modal.hide();
+                       $ionicLoading.hide();
                        swal("Oops...", "Something went wrong !", "error");
                    }
 

@@ -115,7 +115,9 @@
             $scope.item2 = data;
 
             $ionicPlatform.ready(function () {
-
+                $ionicLoading.show({
+                    template: 'Loading Contacts...'
+                });
                 $scope.phoneContacts = [];
                 var readContact =
                                     {
@@ -128,12 +130,12 @@
                  
 
                 function onSuccess(contacts) {
-
-                    console.log(contacts);
+                    
+                     
                     for (var i = 0; i < contacts.length; i++) {
                        
                         var contact = contacts[i];
-                        console.log(contact);
+                         
                         readContact.FirstName = contact.name.formatted;
                         readContact.id = i;
                         if (contact.emails!=null)
@@ -156,11 +158,12 @@
                         
                     }
                     
-                    console.log($scope.phoneContacts);
+                    $ionicLoading.hide();
+                     
                 };
 
                 function onError(contactError) {
-                    alert(contactError);
+                    console.log(contactError);
                 };
 
                 var options = {};
@@ -168,14 +171,13 @@
 
                 $cordovaContacts.find(options).then(onSuccess, onError);
 
-
             });
 
-            $ionicLoading.hide();
+            
 
 
         }).error(function (data) { console.log(data); $ionicLoading.hide(); });
-
+        
     }
 
     $scope.$watch('search', function (val) {
