@@ -6,13 +6,14 @@
     .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
-            
-            
+
             $scope.transactionList = '';
             console.log('History Page Loaded');
+
             //  if ($cordovaNetwork.isOnline()) {
+
             $ionicLoading.show({
-                template: 'Loading ...'
+                template: 'Loading History...'
             });
 
             historyService.getTransferList().success(function (data) {
@@ -21,18 +22,15 @@
                 $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
                 $ionicLoading.hide();
             }).error(function (data) {
-                console.log('eror' + data);
+                console.log('Get History Error: [' + data + ']');
                 $ionicLoading.hide();
             });
 
-            onSwipeDown = function () { alert();}
+            onSwipeDown = function () { alert(); }
 
             //}
             //else{
             //        swal("Oops...", "Internet not connected!", "error");
             //      }
         });
-
-       
     });
-

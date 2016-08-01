@@ -26,21 +26,24 @@
     });
 
     $scope.$on("$ionicSlides.slideChangeStart", function (event, data) {
-        console.log('Slide change is beginning');
+
         $scope.activeIndex = data.slider.activeIndex;
         $scope.previousIndex = data.slider.previousIndex;
 
-        console.log(data.slider.activeIndex);
+        //console.log(data.slider.activeIndex);
 
-        if ($scope.activeIndex == 0) {
+        if ($scope.activeIndex == 0)
+        {
             $(".statsIconContainer button:not(.slide0)").removeClass("selected");
             $(".statsIconContainer .slide0").addClass("selected");
         }
-        else if ($scope.activeIndex == 1) {
+        else if ($scope.activeIndex == 1)
+        {
             $(".statsIconContainer button:not(.slide1)").removeClass("selected");
             $(".statsIconContainer .slide1").addClass("selected");
         }
-        else if ($scope.activeIndex == 2) {
+        else if ($scope.activeIndex == 2)
+        {
             $(".statsIconContainer button:not(.slide2)").removeClass("selected");
             $(".statsIconContainer .slide2").addClass("selected");
         }
@@ -196,21 +199,21 @@
         console.log('exportHistoryFn touched ');
         // if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
-            template: 'Loading ...'
+            template: 'Getting account stats...'
         });
 
         statisticsService.sendTransactionInCSV()
         .success(function (data) {
-            $scope.export.IsSuccess = data;
-            console.log('export.IsSuccess ->> ' + $scope.export.IsSuccess.Result);
             $ionicLoading.hide();
-            if ($scope.export.IsSuccess.Result == 1) {
 
-                swal("Hey...", "Check Your Mail", "success");
-            }
-            else {
-                swal("Oops...", "Something Went Wrong..", "error");
-            }
+            $scope.export.IsSuccess = data;
+            console.log('export.IsSuccess -> [' + $scope.export.IsSuccess.Result + ']');
+
+            if ($scope.export.IsSuccess.Result == 1)
+                swal("Export Successful", "Please check your email for a .CSV of your account transaction history.", "success");
+            else
+                swal("Error :-(", "Something went wrong! Please contact us to let us know.", "error");
+
             console.log($scope.export.IsSuccess.Result);
 
         }).error(function (data) {

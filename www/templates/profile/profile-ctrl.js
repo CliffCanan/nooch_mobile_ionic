@@ -34,7 +34,6 @@
     }
 
 
-
     $scope.UpdateProfile = function () {
         console.log('Update Profile Function Touched');
         //if ($cordovaNetwork.isOnline()) {

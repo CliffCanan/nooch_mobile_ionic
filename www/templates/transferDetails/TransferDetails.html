@@ -1,88 +1,72 @@
 ﻿<ion-view view-title="Transfer Details">
     <ion-content>
 
-        <br>
-        <br>
+        <div class="row transDetailsHdr">
+            <div class="col p-0">
 
-        <!--<div class="bar bar-header bar-calm">
-            <button class="button ion-chevron-left" ng-click="GoBack()"></button>
-            <h6 class="title">Transfer Details</h6>
-        </div>-->
+                <div class="row">
+                    <div class="label-type {{labelTypeClr}}">
+                        {{typeLabelTxt}}
+                    </div>
+                </div>
 
-        <div class="card text-center">
-            <div class="header-item header-item-blue" ng-if="   transferDetail.TransactionType=='Transfer' && transferDetail.MemberId==memberId">
-                Transfer To:
-            </div>
-            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Transfer' && transferDetail.MemberId!=memberId">
-                Transfer From:
-            </div>
-            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Request' && transferDetail.MemberId==memberId">
-                Request From:
-            </div>
-            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Request' && transferDetail.MemberId!=memberId">
-                Request To:
-            </div>
-            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Invite' && transferDetail.MemberId==memberId">
-                Invite To:
-            </div>
-            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Invite' && transferDetail.MemberId!=memberId">
-                Invite From:
-            </div>
-            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Rent' && transferDetail.MemberId==memberId">
-                Rent To:
-            </div>
-            <div class="header-item header-item-blue" ng-if="  transferDetail.TransactionType=='Rent' && transferDetail.MemberId!=memberId">
-                Rent From:
-            </div>
+                <div class="row">
+                    <div class="col col-25">
+                        <img class="transDetails-userImg" src="{{transferDetail.Photo}}">
+                    </div>
+                    <div class="col">
+                        <h2 class="transDetails-userName">
+                            {{transDetail.Name}}
+                        </h2>
+                        <div class="transDetails-amount">
+                            $ {{transDetail.Amount}}
+                        </div>
+                    </div>
+                </div>
 
-
-            <div class="item item-avatar side_menu_top">
-                <img class="user-img" src="{{transferDetail.Photo}}">
-                <h1 class=""> {{transferDetail.Name}} <br>$ {{transferDetail.Amount}}</h1>
             </div>
         </div>
 
-        <div class="card">
-            <label class="item item-input">
-                <span class="text-center text-primary">{{transferDetail.Memo}}</span>
-            </label>
+        <div class="row p-0" ng-if="transDetail.Memo != ''">
+            <div class="col">
+                <div class="transDetails-memo">"{{transDetail.Memo}}""</div>
+            </div>
         </div>
 
-        <div class="text-center text-success">
-            <h2>{{transferDetail.TransactionStatus}}</h2>
-            <h3>{{transferDetail.TransactionDate}}</h3>
-          
+        <div class="row text-center p-15">
+            <div class="col">
+                <div id="transDetails-status">{{transDetail.TransactionStatus}}</div>
+                <div id="transDetails-date">{{transDetail.TransactionDate}}</div>
+            </div>
         </div>
 
-        <div style="height:100px;">Map</div>
+        <div id="mapRow" ng-if="transDetail.Latitude != '' && transDetail.Longitude != ''">
+            <div style="height:200px;">
+                GOOGLE MAP GOES HERE
 
-        <div class="row text-center" ng-if="transferDetail.TransactionStatus=='Pending'">
-            
-            <div class="col" ng-if="transferDetail.MemberId!=memberId && transferDetail.TransactionType=='Request'">
+                <div id="mapGeoLabel">{{mapGeoLabelTxt}}</div>
+            </div>
+        </div>
+
+        <div class="row text-center m-t-15" ng-if="transDetail.TransactionStatus == 'Pending'">
+
+            <div class="col" ng-if="transDetail.MemberId != memId && transDetail.TransactionType == 'Request'">
                 <button class="button btn-primary button-block" ng-click="remindPayment()">Remind</button>
             </div>
-            <div class="col" ng-if="transferDetail.MemberId!=memberId && transferDetail.TransactionType=='Request'">
+
+            <div class="col" ng-if="transDetail.MemberId != memId && transDetail.TransactionType == 'Request'">
                 <button class="button btn-danger button-block" ng-click="cancelPayment()">Cancel</button>
             </div>
-            <div class="col" ng-if="transferDetail.MemberId==memberId && transferDetail.TransactionType=='Request'">
-                <button class=" btn btn-danger button-block" ng-click="rejectPayment()">
-                Reject</button>
+
+            <div class="col" ng-if="transDetail.MemberId == memId && (transDetail.TransactionType == 'Request' || transDetail.TransactionType == 'Rent')">
+                <button class=" btn btn-danger button-block" ng-click="rejectPayment()">Reject</button>
             </div>
-            <div class="col" ng-if="transferDetail.MemberId==memberId">
+
+            <div class="col" ng-if="transDetail.MemberId == memId && (transDetail.TransactionType == 'Request' || transDetail.TransactionType == 'Rent')">
                 <button class="btn btn-success button-block" ng-click="TransferMoney()">Pay</button>
             </div>
+
         </div>
-
-        <!--For request page-->
-        <!-- <div class="row text-center">
-             <div class="col">
-                 <button class="btn btn-success button-block">Pay</button>
-             </div>
-             <div class="col">
-                 <button class="btn btn-danger button-block">Reject</button>
-             </div>
-         </div> -->
-
 
     </ion-content>
 </ion-view>

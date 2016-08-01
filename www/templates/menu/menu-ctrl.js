@@ -3,13 +3,13 @@
 .controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('MenuCtrl ctrl loaded');
+        console.log('MenuCtrl Ctrl Loaded');
 
-        if ($scope.Res == null) {
+        if ($scope.Res == null)
+        {
             $scope.MemberDetails();
-          console.log('Loaded at first time');
-       }
-
+            console.log('Loaded First Time');
+        }
     });
 
     //$scope.settingsClick = function () {
@@ -20,7 +20,8 @@
 
         // Show the correct Action Sheet
 
-        if (id == 'support') {
+        if (id == 'support')
+        {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
                   { text: 'Report a Bug' },
@@ -32,13 +33,16 @@
                 //cancel: function () {
                 //},
                 buttonClicked: function (index) {
-                    if (index == 0) {
+                    if (index == 0)
+                    {
 
                     }
-                    else if (index == 1) {
+                    else if (index == 1)
+                    {
 
                     }
-                    else if (index == 3) {
+                    else if (index == 3)
+                    {
 
                     }
 
@@ -46,7 +50,8 @@
                 }
             });
         }
-        else if (id == 'legal') {
+        else if (id == 'legal')
+        {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
                   { text: 'Terms of Service' },
@@ -57,10 +62,12 @@
                 //cancel: function () {
                 //},
                 buttonClicked: function (index) {
-                    if (index == 0) {
+                    if (index == 0)
+                    {
                         $scope.openTos();
                     }
-                    else if (index == 1) {
+                    else if (index == 1)
+                    {
                         $scope.openPrivacy();
                     }
                     return true;
@@ -109,31 +116,30 @@
     });
 
 
-
     $scope.MemberDetails = function () {
-        console.log('GetMemberDetails touched');
-        //if ($cordovaNetwork.isOnline()) {
-            $ionicLoading.show({
-                template: 'Loading ...'
-            });
+        console.log('GetMemberDetails Fired');
 
-            menuService.GetMemberDetails()
-               .success(function (res) {
-                   console.log(res);
-                   $scope.Res = res;
-                   $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.PhotoUrl;
-                   console.log($localStorage.GLOBAL_VARIABLES.PhotoUrl);
-                   $ionicLoading.hide();
-               }
-       ).error(function (encError) {
-           console.log('came in enc error block ' + encError);
-           $ionicLoading.hide();
-       })
+        //if ($cordovaNetwork.isOnline()) {
+        $ionicLoading.show({
+            template: 'Loading ...'
+        });
+
+        menuService.GetMemberDetails()
+           .success(function (res) {
+               console.log(res);
+               $scope.Res = res;
+               $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.PhotoUrl;
+               console.log($localStorage.GLOBAL_VARIABLES.PhotoUrl);
+               $ionicLoading.hide();
+           }
+   ).error(function (encError) {
+       console.log('came in enc error block ' + encError);
+       $ionicLoading.hide();
+   })
 
         //}
         //else {
         //    swal("Oops...", "Internet not connected!", "error");
         //}
     }
-
 })

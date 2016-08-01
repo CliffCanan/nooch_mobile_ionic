@@ -11,27 +11,29 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation) {
       $ionicPlatform.ready(function () {
-           
 
           // this functino will gets fired when app comes to foreground
           document.addEventListener("resume", function () {
               console.log('came in resume state');
 
-              if ($localStorage.GLOBAL_VARIABLES.MemberId != null) { //added this to not asked for Pin before login 
+              if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
+              {
+                  //added this to not asked for Pin before login 
 
-                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
+                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
+                  {
                       $state.go('enterPinForeground');
                   }
-
               }
-
           }, false);
+
           // this function gets fired when app goes to background
           document.addEventListener("pause", function () {
               console.log('came in pause state');
           }, false);
 
-          if (!$localStorage.GLOBAL_VARIABLES) {
+          if (!$localStorage.GLOBAL_VARIABLES)
+          {
               $localStorage.GLOBAL_VARIABLES = {
                   IsDemoDone: false, // for displaying tutorial screens to user - if any
                   IsRemeberMeEnabled: false, // for remembering user
@@ -56,13 +58,12 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
                   shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
                   HasSharedContacts: false // if true then shouldn't ask for contact permission again
-
-
               };
           }
-          if (window.cordova) {
 
-              // getting device info..will be used for dealing with notifications
+          if (window.cordova)
+          {
+              // getting device info... will be used for dealing with notifications
 
               var device = $cordovaDevice.getDevice();
 
@@ -96,8 +97,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                       // `data.registrationId` save it somewhere;
                       $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = true;
                       $localStorage.GLOBAL_VARIABLES.DeviceToken = data.registrationId;
-
-
                   })
               });
 
@@ -138,20 +137,16 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                     console.log('error ' + JSON.stringify(err));
 
                     $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-
-
                 });
 
 
               var isOnline = $cordovaNetwork.isOnline();
-              if (isOnline == true) {
+              if (isOnline == true)
                   $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = true;
-              }
 
               var isOffline = $cordovaNetwork.isOffline();
-              if (isOffline == true) {
+              if (isOffline == true)
                   $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = false;
-              }
 
               // listen for Online event
               $rootScope.$on('$cordovaNetwork:online', function (event, networkState) {
@@ -164,9 +159,10 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   var offlineState = networkState;
                   console.log('came in offline state change' + JSON.stringify(networkState));
               })
-
           }
-          if (window.cordova && window.cordova.plugins.Keyboard) {
+
+          if (window.cordova && window.cordova.plugins.Keyboard)
+          {
               // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
               // for form inputs)
               //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -176,14 +172,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               // a much nicer keyboard experience.
               cordova.plugins.Keyboard.disableScroll(true);
           }
-          if (window.StatusBar) {
+
+          if (window.StatusBar)
               StatusBar.styleDefault();
-          }
-
-
-
-
-
       });
   })
 
@@ -226,18 +217,16 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-
-              .state('app.howMuch', {
-                  url: '/selectRecipien/howMuch',
-                  params: { myParam: null },
-                  views: {
-                      'menuContent': {
-                          templateUrl: 'templates/howMuch/howMuch.html',
-                          controller: 'howMuchCtrl'
-                      }
-                  }
-              })
-
+        .state('app.howMuch', {
+            url: '/selectRecipien/howMuch',
+            params: { myParam: null },
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/howMuch/howMuch.html',
+                    controller: 'howMuchCtrl'
+                }
+            }
+        })
         .state('app.statistics', {
             url: '/statistics',
             views: {
@@ -256,14 +245,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-        //.state('TransferDetails', {
-        //  url: '/TransferDetails',
-        //  templateUrl: 'templates/transferDetails/TransferDetails.html',
-        //  controller: 'TransferDetailsCtrl'
-        //})
         .state('app.TransferDetails', {
             url: '/history/TransferDetails',
-            params: { myParam: null },
+            params: { trans: null },
             views: {
                 'menuContent': {
                     templateUrl: 'templates/transferDetails/TransferDetails.html',
@@ -347,11 +331,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
          .state('app.addBank', {
              url: '/settings/addBank',
              views: {
-               'menuContent': {
-                   templateUrl: 'templates/addBank/addBank.html',
-                   controller: 'addBankCtrl'
+                 'menuContent': {
+                     templateUrl: 'templates/addBank/addBank.html',
+                     controller: 'addBankCtrl'
                  }
-              }
+             }
          })
 
         .state('app.ResetPwd', {
@@ -401,7 +385,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             templateUrl: 'templates/enterPinForeground/enterPinForeground.html',
             controller: 'enterPinForegroundCtrl'
         })
-           
+
         //Test Page
         .state('app.testPage', {
             url: '/testPage',

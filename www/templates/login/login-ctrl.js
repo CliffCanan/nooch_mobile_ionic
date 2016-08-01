@@ -25,14 +25,14 @@
       });
 
       $scope.loginData = {
-          //email: 'cliff@nooch.com',
-          //pwd: 'testing123'
+          email: 'cliff@nooch.com',
+          pwd: 'testing123',
 
           //email: 'lance@nooch.com',
           //pwd: 'test1234',
 
-          email: 'malkit.singh@venturepact.com',
-          pwd: 'Q123456789',
+          //email: 'malkit.singh@venturepact.com',
+          //pwd: 'Q123456789',
 
           rmmbrMe: {
               chk: true

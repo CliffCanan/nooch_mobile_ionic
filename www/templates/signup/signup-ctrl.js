@@ -31,7 +31,7 @@
         {
             console.log('signupData ' + JSON.stringify($scope.signupData));
             $ionicLoading.show({
-                template: 'Sigining in...'
+                template: 'Creating Account...'
             });
 
             CommonServices.GetEncryptedData($scope.signupData.Password).success(function (data) {
