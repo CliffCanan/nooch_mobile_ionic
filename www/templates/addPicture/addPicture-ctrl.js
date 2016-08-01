@@ -1,12 +1,21 @@
 ﻿angular.module('noochApp.addPicture', ['noochApp.services'])
 
-    .controller('addPictureCtrl', function ($scope, $state, CommonServices, profileService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, $cordovaCamera) {
+    .controller('addPictureCtrl', function ($scope, $state, CommonServices, profileService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $rootScope) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('Enter Pin Controller loaded');
-            $scope.memberDetails();
+
+
+            console.log('From addpicture page');
+
+            console.log($rootScope.signupData);
+
+            
+
+            //$scope.memberDetails();
             //$("#pin").focus();
         });
+
 
         $scope.memberDetails = function () {
             //if ($cordovaNetwork.isOnline()) {
@@ -24,11 +33,13 @@
                   console.log('eror' + data);
                   $ionicLoading.hide();
               });
+
             //  }
             //else {
             //    swal("Oops...", "Internet not connected!", "error");
             //}        
         }
+
 
         $scope.choosePhoto = function () {
             $ionicPlatform.ready(function () {
@@ -64,7 +75,8 @@
                   //  $scope.Details.Picture = imageData;
                     $scope.Details.Photo = imageData;
 
-                    $scope.UpdatePhoto();
+                    $rootScope.signupData.Picture = imageData;
+                   // $scope.UpdatePhoto();
                   
 
                 }, function (err) {
