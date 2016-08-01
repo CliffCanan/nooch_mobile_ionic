@@ -50,6 +50,9 @@
                             swal("Oops...", "Email is already registered with nooch", "error");
                             $state.go('signup');
                         }
+                        else {
+                            swal("Oops...", "Something went wrong", "error");
+                        }
                  
 
                     }).error(function (encError) {
@@ -78,8 +81,19 @@
                     $ionicLoading.hide();
 
                     if (data != null) {
-                        $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-                        $state.go('app.home');
+                        $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;                        
+                       
+                        $rootScope.signupData = {
+                            Name: '',
+                            Email: '',
+                            Password: '',
+                            Picture: '',
+                            Pin: '',
+                            rmmbrMe: {
+                                chk: true
+                            }
+                        };
+                        $state.go('app.home'); 
                     }
 
                 }).error(function (err) {
