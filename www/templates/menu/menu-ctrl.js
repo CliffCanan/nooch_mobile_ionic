@@ -35,22 +35,31 @@
                 buttonClicked: function (index) {
                     if (index == 0)
                     {
-                       // $scope.openSupportCenter();
+                        // toArr, ccArr and bccArr must be an array, file can be either null, string or array
+                       // .shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
+                        $cordovaSocialSharing
+                          .shareViaEmail('Hello', 'Got a bug','cliff@nooch.com', null, null, null)
+                          .then(function (result) {
+                              // Success!                              
+                              console.log('from social sharing success');
+                          }, function (err) {
+                              // An error occurred. Show a message to the user                            
+                              console.log('from social sharing fail');
+                          });
+
                     }
                     else if (index == 1)
-                    {
-                        console.log('from social sharing +1');
+                    {                       
                         // toArr, ccArr and bccArr must be an array, file can be either null, string or array
+                        //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                         $cordovaSocialSharing
-                          .shareViaEmail('Hello', 'Getting from Nooch', null, null, null, null)
+                          .shareViaEmail('Hello', 'Getting from Nooch', 'cliff@nooch.com', null, null, null)
                           .then(function (result) {
-                              // Success!
-                              swal('hey U ...Success');
-                              console.log('from social sharing +2');
+                              // Success!                              
+                              console.log('from social sharing success');
                           }, function (err) {
-                              // An error occurred. Show a message to the user
-                              swal('Shit man');
-                              console.log('from social sharing +3');
+                              // An error occurred. Show a message to the user                            
+                              console.log('from social sharing fail');
                           });
 
                     }
