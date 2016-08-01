@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage) {
+.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
@@ -35,15 +35,28 @@
                 buttonClicked: function (index) {
                     if (index == 0)
                     {
-
+                       // $scope.openSupportCenter();
                     }
                     else if (index == 1)
                     {
+                        console.log('from social sharing +1');
+                        // toArr, ccArr and bccArr must be an array, file can be either null, string or array
+                        $cordovaSocialSharing
+                          .shareViaEmail('Hello', 'Getting from Nooch', null, null, null, null)
+                          .then(function (result) {
+                              // Success!
+                              swal('hey U ...Success');
+                              console.log('from social sharing +2');
+                          }, function (err) {
+                              // An error occurred. Show a message to the user
+                              swal('Shit man');
+                              console.log('from social sharing +3');
+                          });
 
                     }
-                    else if (index == 3)
-                    {
-
+                    else if (index == 2)
+                    {                        
+                        $scope.openSupportCenter();
                     }
 
                     return true;
@@ -109,11 +122,30 @@
         $scope.privacyModal.hide();
     };
 
+    // Viewing Support Center Modal Webview (in an Ionic Modal)
+    $ionicModal.fromTemplateUrl('supportCenterModal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.supportCenterModal = modal;
+    });
+
+    $scope.openSupportCenter = function () {
+        $scope.supportCenterModal.show();
+    };
+
+    $scope.closeSupportCenter = function () {
+        $scope.supportCenterModal.hide();
+    };
+
     // Cleanup the modal when we're done with it!
     $scope.$on('$destroy', function () {
         $scope.tosModal.remove();
         $scope.privacyModal.remove();
+        $scope.supportCenterModal.remove();
     });
+
+
 
 
     $scope.MemberDetails = function () {

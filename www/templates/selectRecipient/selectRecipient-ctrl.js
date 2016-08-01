@@ -122,7 +122,8 @@
                                         FirstName: '',
                                         UserName: '',
                                         ContactNumber: '',
-                                        Photo: ''
+                                        Photo: '',
+                                        id:''
                                     };
                  
 
@@ -132,10 +133,12 @@
                     for (var i = 0; i < contacts.length; i++) {
                        
                         var contact = contacts[i];
-                        readContact.FirstName = contacts[i].name.formatted;
-                        readContact.UserName = contacts[i].emails[0].value;
-                        $scope.phoneContacts.push(contact);
-                        $scope.memberList.push(readContact);
+                        readContact.FirstName = contact.name.formatted;
+                        readContact.id = i;
+                        //if (contacts[i].emails.length>0)
+                        //readContact.UserName = contacts[i].emails[0].value;
+                        $scope.phoneContacts.push(contact.id);
+                       // $scope.memberList.push(readContact);
                         
                     }
                     
