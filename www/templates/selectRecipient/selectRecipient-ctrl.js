@@ -133,11 +133,20 @@
                     for (var i = 0; i < contacts.length; i++) {
                        
                         var contact = contacts[i];
+                        console.log(contact);
                         readContact.FirstName = contact.name.formatted;
                         readContact.id = i;
                         //if (contacts[i].emails.length>0)
-                        //readContact.UserName = contacts[i].emails[0].value;
-                        $scope.phoneContacts.push(contact.id);
+                       // readContact.UserName = contact.emails[0].value;
+                        $scope.phoneContacts.push(readContact);
+                        readContact =
+                                    {
+                                        FirstName: '',
+                                        UserName: '',
+                                        ContactNumber: '',
+                                        Photo: '',
+                                        id: ''
+                                    };
                        // $scope.memberList.push(readContact);
                         
                     }
