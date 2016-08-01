@@ -127,15 +127,20 @@
         menuService.GetMemberDetails()
            .success(function (res) {
                console.log(res);
+
                $scope.Res = res;
                $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.PhotoUrl;
-               console.log($localStorage.GLOBAL_VARIABLES.PhotoUrl);
+               $localStorage.GLOBAL_VARIABLES.Status = res.Status;
+               $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.IsVerifiedPhone;
+
+               //console.log($localStorage.GLOBAL_VARIABLES.PhotoUrl);
+
                $ionicLoading.hide();
            }
-   ).error(function (encError) {
-       console.log('came in enc error block ' + encError);
-       $ionicLoading.hide();
-   })
+           ).error(function (encError) {
+               console.log('came in enc error block ' + encError);
+               $ionicLoading.hide();
+           })
 
         //}
         //else {

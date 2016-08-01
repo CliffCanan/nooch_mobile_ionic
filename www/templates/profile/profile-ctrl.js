@@ -4,11 +4,16 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
         console.log('Profile Page Loadad');
+
+        $scope.Status = $localStorage.GLOBAL_VARIABLES.Status;
+        $scope.IsPhoneVerified = $localStorage.GLOBAL_VARIABLES.IsPhoneVerified;
         $scope.MemberDetails();
     })
 
+
     $scope.MemberDetails = function () {
         console.log('MemberDetails Function Fired');
+        //console.log($localStorage.GLOBAL_VARIABLES);
 
         //if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
@@ -21,11 +26,11 @@
                     $scope.Details = details;
 
                     $ionicLoading.hide();
-                }
-        ).error(function (encError) {
-            console.log('came in enc error block ' + encError);
-            $ionicLoading.hide();
-        })
+                })
+                .error(function (encError) {
+                    console.log('Profile Error: [' + encError + ']');
+                    $ionicLoading.hide();
+                })
 
         //}
         //else {
@@ -62,7 +67,8 @@
         //}
     }
 
-    //date Picker Plugin
+
+    // Date Picker Plugin
     $scope.showdate = function () {
 
         var options = {
@@ -129,7 +135,6 @@
         //    swal("Oops...", "Internet not connected!", "error");
         //}
     }
-
 
 
     $scope.choosePhoto = function () {

@@ -4,5 +4,5 @@ angular.module('noochApp.menu-service', ['noochApp.services', 'ngStorage'])
           return $http.get(URLs.GetMemberDetails + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
 
       };
-  
+
   })

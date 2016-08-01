@@ -8,49 +8,58 @@
         </div>
 
 
-        <div class="list">
+        <div id="profileTable" class="list table-style-2">
             <div class="item item-divider">CONTACT INFO</div>
 
-            <label class="item item-input">
-                <span class="input-label calm">Email</span>
-                <label> <span>{{Details.UserName}}</span></label>
-            </label>
+            <div class="item item-input">
+                <span class="input-label">
+                    <i class="ion-ios-checkmark text-success" ng-if="Status == 'Active' || Status == 'Accepted'"></i>
+                    <i class="ion-ios-close text-danger" ng-if="Status == 'Registered'"></i>
+                    Email
+                </span>
+                <span id="emailTxt">{{Details.UserName}}</span>
+            </div>
 
-            <label class="item item-input">
-                <span class="input-label calm">Phone</span>
+            <div class="item item-input">
+                <span class="input-label">
+                    <i class="ion-ios-checkmark text-success" ng-if="IsPhoneVerified == true"></i>
+                    <i class="ion-ios-close text-danger" ng-if="IsPhoneVerified != true"></i>
+                    Phone
+                </span>
                 <input type="text" placeholder="(123) 456 7890" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}">
-            </label>
+            </div>
 
             <div class="item item-divider">ADDRESS</div>
 
-            <label class="item item-input">
-                <span class="input-label calm">Address</span>
+            <div class="item item-input">
+                <span class="input-label">Address</span>
                 <input type="text" placeholder="123 Nooch St" ng-model="Details.Address" value="{{Details.Address}}">
-            </label>
+            </div>
 
-            <label class="item item-input">
-                <span class="input-label calm">Address 2</span>
+            <div class="item item-input">
+                <span class="input-label">Address 2</span>
                 <input type="text" placeholder="(Optional)" ng-model="Details.State" value="{{Details.State}}">
-            </label>
+            </div>
 
-
-            <label class="item item-input">
-                <span class="input-label calm">City</span>
+            <div class="item item-input">
+                <span class="input-label">City</span>
                 <input type="text" placeholder="City" ng-model="Details.City" value="{{Details.City}}">
-            </label>
+            </div>
 
-            <label class="item item-input">
-                <span class="input-label calm">ZIP</span>
+            <div class="item item-input">
+                <span class="input-label">ZIP</span>
                 <input type="text" placeholder="90210" ng-model="Details.Zipcode" value="{{Details.Zipcode}}">
-            </label>
+            </div>
 
             <div class="item item-divider">ID VERIFICATION</div>
 
             <label class="item item-input">
-                <span class="input-label calm">Date of Birth</span>
+                <span class="input-label">Date of Birth</span>
                 <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{Details.DateOfBirth}}">
             </label>
         </div>
-        <button class="button button-calm button-block" ng-click="UpdateProfile()">Save</button>
+
+        <button class="button btn-primary button-block" ng-click="UpdateProfile()">Save</button>
+
     </ion-content>
 </ion-view>

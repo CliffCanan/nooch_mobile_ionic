@@ -45,6 +45,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   MemberId: '', // MemberId of user -- logged in user
                   Pwd: '',
                   UserName: '',
+                  Status: '',
+                  IsPhoneVerified: false,
 
                   AccessToken: '',
 

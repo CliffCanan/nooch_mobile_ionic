@@ -624,6 +624,20 @@ a {
 }
 
 
+.table-style-2 .input-label {
+    color: #3fabe1;
+    text-align: right;
+    width: 33%;
+}
+
+    .table-style-2 .input-label i.text-success::before {
+        color: #72bf44;
+    }
+
+    .table-style-2 .input-label i.text-danger::before {
+        color: rgb(169, 68, 66) !important;
+    }
+
 /*** SCREEN HEADER ***/
 .bar .title {
     font-size: 18px;
@@ -1088,6 +1102,27 @@ iframe {
 }
 
 
+/*******************/
+/***   PROFILE   ***/
+/*******************/
+#emailTxt {
+    color: #777;
+    cursor: not-allowed;
+}
+
+#profileTable .item-divider {
+    color: #888;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 6px 15px 5px;
+}
+
+#profileTable.list i::before {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+
 /*********************/
 /**  TRANS DETAILS  **/
 /*********************/
@@ -1187,6 +1222,7 @@ iframe {
     text-shadow: 0 1px 0 rgba(0,0,0,.8);
     width: 100%;
 }
+
 /******************/
 /*** STATISTICS ***/
 /******************/
