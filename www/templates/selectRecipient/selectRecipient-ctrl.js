@@ -3,7 +3,7 @@
 /************************/
 /*** SELECT RECIPIENT ***/
 /************************/
-.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform) {
+.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform, $rootScope) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
         $scope.FindRecent();
@@ -111,67 +111,17 @@
         });
         selectRecipientService.GetRecentMembers().success(function (data) {
 
-           $scope.memberList = data;
+            $scope.memberList = data;
+           
+
+            for (var i = 0; i < $rootScope.phoneContacts.length; i++) {
+                $scope.memberList.push($rootScope.phoneContacts[i]);
+            }
+
+            console.log($scope.memberList);
             $scope.item2 = data;
-
-            $ionicPlatform.ready(function () {
-                $ionicLoading.show({
-                    template: 'Loading Contacts...'
-                });
-                $scope.phoneContacts = [];
-                var readContact =
-                                    {
-                                        FirstName: '',
-                                        UserName: '',
-                                        ContactNumber: '',
-                                        Photo: '',
-                                        id:''
-                                    };
-                 
-
-                function onSuccess(contacts) {
-                    
-                     
-                    for (var i = 0; i < contacts.length; i++) {
-                       
-                        var contact = contacts[i];
-                         
-                        readContact.FirstName = contact.name.formatted;
-                        readContact.id = i;
-                        if (contact.emails!=null)
-                            readContact.UserName = contact.emails[0].value;
-                        if (contact.phoneNumbers != null)
-                            readContact.ContactNumber = contact.phoneNumbers[0].value;
-                        if (contact.photos != null)
-                            readContact.Photo = contact.photos[0].value;
-                        $scope.phoneContacts.push(readContact);
-                        $scope.memberList.push(readContact);
-                        readContact =
-                                    {
-                                        FirstName: '',
-                                        UserName: '',
-                                        ContactNumber: '',
-                                        Photo: '',
-                                        id: ''
-                                    };
-                      
-                        
-                    }
-                    
-                    $ionicLoading.hide();
-                     
-                };
-
-                function onError(contactError) {
-                    console.log(contactError);
-                };
-
-                var options = {};
-                options.multiple = true;
-
-                $cordovaContacts.find(options).then(onSuccess, onError);
-
-            });
+            $ionicLoading.hide();
+          
 
             
 
@@ -182,7 +132,9 @@
 
     $scope.$watch('search', function (val) {
         
+        console.log($filter('filter')($scope.items2, val));
         $scope.memberList = $filter('filter')($scope.items2, val);
+
     });
 
     $scope.GetLocationSearch = function () {

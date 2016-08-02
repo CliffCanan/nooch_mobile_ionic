@@ -9,8 +9,65 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
   'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
 
-  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation) {
+  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts) {
       $ionicPlatform.ready(function () {
+          console.log('app run');
+          $ionicPlatform.ready(function () {
+
+              $rootScope.phoneContacts = [];
+              var readContact =
+                                  {
+                                      FirstName: '',
+                                      UserName: '',
+                                      ContactNumber: '',
+                                      Photo: '',
+                                      id: ''
+                                  };
+
+
+              function onSuccess(contacts) {
+
+                  console.log(contacts);
+                  for (var i = 0; i < contacts.length; i++) {
+
+                      var contact = contacts[i];
+
+                      readContact.FirstName = contact.name.formatted;
+                      readContact.id = i;
+                      if (contact.emails != null)
+                          readContact.UserName = contact.emails[0].value;
+                      if (contact.phoneNumbers != null)
+                          readContact.ContactNumber = contact.phoneNumbers[0].value;
+                      if (contact.photos != null)
+                          readContact.Photo = contact.photos[0].value;
+                      $rootScope.phoneContacts.push(readContact);
+                      
+                      readContact =
+                                  {
+                                      FirstName: '',
+                                      UserName: '',
+                                      ContactNumber: '',
+                                      Photo: '',
+                                      id: ''
+                                  };
+
+
+                  }
+                  console.log($rootScope.phoneContacts);
+                 
+
+              };
+
+              function onError(contactError) {
+                  console.log(contactError);
+              };
+
+              var options = {};
+              options.multiple = true;
+
+              $cordovaContacts.find(options).then(onSuccess, onError);
+
+          });
 
           // this functino will gets fired when app comes to foreground
           document.addEventListener("resume", function () {

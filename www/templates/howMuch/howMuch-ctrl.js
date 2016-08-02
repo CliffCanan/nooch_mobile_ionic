@@ -7,6 +7,7 @@
 
     var type = '';
 
+    $scope.recipientDetail = {};
     $scope.requestData = {
         "PinNumber": "",
         "MemberId": "",
@@ -104,8 +105,22 @@
 
         });
         console.log($stateParams);
-        $scope.recipientDetail = $stateParams.myParam;
-        $('#form').parsley();
+        if (typeof $stateParams.myParam == 'object') {
+            $scope.recipientDetail = $stateParams.myParam;
+        }
+        else if (isNaN($stateParams.myParam))
+        {
+            //'mail'
+            $scope.recipientDetail.UserName = $stateParams.myParam;
+
+        }
+        else if (!isNaN($stateParams.myParam)) {
+             
+            $scope.recipientDetail.ContactNumber = $stateParams.myParam;
+           // alert('num');
+        }
+
+        $('#howMuchForm').parsley();
 
         $(".amount-container input").focus();
     });
@@ -124,6 +139,8 @@
                     $(".amount-container input").val(enteredAmnt + "0");
             }
         }
+
+        console.log($('#howMuchForm').parsley().validate());
     });
 
     $scope.GoBack = function () {
@@ -134,7 +151,7 @@
         
         type = 'request';
         
-
+        console.log($('#howMuchForm').parsley().validate());
         if ($('#howMuchForm').parsley().validate() == true) {
             swal({
                 title: "Are you sure?",
@@ -240,7 +257,7 @@
                                    }
                                }).error();
                            }
-                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null || $scope.recipientDetail.UserName.length > 0) && ($scope.recipientDetail.ContactNumber == null))
+                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null ) && ($scope.recipientDetail.ContactNumber == null))
                            {
 
                                howMuchService.RequestMoneyToNonNoochUserUsingSynapse($scope.requestData).success(function (data) {
@@ -263,7 +280,7 @@
 
                            }
                            else if (($scope.recipientDetail.MemberId == null)   && ($scope.recipientDetail.ContactNumber!=null)) {
-
+                               console.log('sending request from mobile number');
                                howMuchService.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse($scope.requestData, $scope.recipientDetail.ContactNumber).success(function (data) {
 
                                    if (data.Result.indexOf('successfully') > -1) {
