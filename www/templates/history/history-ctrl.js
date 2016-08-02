@@ -3,11 +3,9 @@
 /*****************/
 /***  HISTORY  ***/
 /*****************/
-    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService) {
-
-        
-     
-
+ 
+    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope) {
+ 
         $scope.$on("$ionicView.enter", function (event, data) {
 
             $scope.transactionList = '';
@@ -123,5 +121,12 @@
             //        swal("Oops...", "Internet not connected!", "error");
             //      }
         });
-
+ 
+        $scope.$on('IsVerifiedPhoneFalse', function () {
+            console.log('phone is false');
+            $scope.contentBannerInstance();
+        });
+ 
     });
+
+

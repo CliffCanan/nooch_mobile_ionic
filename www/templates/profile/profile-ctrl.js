@@ -1,15 +1,30 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
-.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera) {
+.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner,$rootScope) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
-        console.log('Profile Page Loadad');
+        console.log('Profile Page Loadad');       
 
         $scope.Status = $localStorage.GLOBAL_VARIABLES.Status;
         $scope.IsPhoneVerified = $localStorage.GLOBAL_VARIABLES.IsPhoneVerified;
         $scope.MemberDetails();
     })
 
+    $rootScope.$on('IsVerifiedPhoneFalse', function (event, args) {
+        console.log('phone is falsee');
+        $scope.contentBannerInstance();
+    });
+
+    $scope.contentBannerInstance = function () {
+        $ionicContentBanner.show({
+
+            text: ['Phone Number Not vefified', 'Please verify Your phone - respond Go to the SMS'],
+            interval: '20',
+            autoClose: '',
+            type: 'error',
+            transition: 'vertical'
+        });
+    }   
 
     $scope.MemberDetails = function () {
         console.log('MemberDetails Function Fired');
@@ -18,7 +33,7 @@
         //if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
             template: 'Loading Profile'
-        });
+        });       
 
         profileService.GetMyDetails()
                 .success(function (details) {
@@ -178,5 +193,5 @@
             });
         });
     }
-
+    
 })

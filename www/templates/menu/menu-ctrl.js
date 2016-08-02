@@ -3,17 +3,15 @@
 .controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('MenuCtrl Ctrl Loaded');
+        console.log('MenuCtrl Ctrl Loaded');           
 
-        if ($scope.Res == null)
-        {
-            $scope.MemberDetails();
-            console.log('Loaded First Time');
-        }
+           // $scope.MemberDetails();
+           // console.log('Loaded First Time');
 
         $scope.url = 'http://support.nooch.com/';
         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
         console.log($scope.trustedUrl);
+               
     });
 
     //$scope.settingsClick = function () {
@@ -172,14 +170,10 @@
         menuService.GetMemberDetails()
            .success(function (res) {
                console.log(res);
-
                $scope.Res = res;
                $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.PhotoUrl;
-               $localStorage.GLOBAL_VARIABLES.Status = res.Status;
-               $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.IsVerifiedPhone;
-
-               //console.log($localStorage.GLOBAL_VARIABLES.PhotoUrl);
-
+               $localStorage.GLOBAL_VARIABLES.Status = res.Status;                           
+               $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.IsVerifiedPhone;                         
                $ionicLoading.hide();
            }
            ).error(function (encError) {
