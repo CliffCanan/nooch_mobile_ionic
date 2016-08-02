@@ -6,6 +6,7 @@
     "platform.js": "platform#^1.3.1"
   },
   "dependencies": {
-    "ion-sticky": "^1.0.6"
+    "ion-sticky": "^1.0.6",
+    "ionic-content-banner": "^1.0.1"
   }
 }

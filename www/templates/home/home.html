@@ -1,12 +1,33 @@
 ﻿<ion-view view-title="Home">
     <ion-content>
 
+        <!--<div ng-if="Details.IsValidProfile == false">
 
-        <div class="row">
-            <div class="col">
-                <button type="button"   class="button btn-success button-block" ng-click="goToSelectRecip()"><i class="ion-ios-search-strong"></i>&nbsp;Search For More Friends</button>
+            <div class="assertive-bg text-center" style="color:#fff">
+                <div> <i class="ion-alert-circled"></i> &nbsp;&nbsp;&nbsp;Profile Not Validated  </div>
+                <div>  <i class="ion-close-circled" style="float:right; font-size:22px;"></i> Complete your profile to unlock all features  </div>
+                <div>TAP TO FIX NOW</div>
             </div>
+
         </div>
 
-    </ion-content>
+        <br>
+
+        <div ng-if="Details.IsVerifiedPhone == false">
+
+            <div class="assertive-bg text-center" style="color:#fff">
+                <div> <i class="ion-android-call"></i>&nbsp;&nbsp;&nbsp; Phone Number Not Verified</div>
+                <div>  <i class="ion-close-circled" style="float:right; font-size:22px;"></i> Please verify your phone - respond 'Go' to the SMS</div>
+                <div>TAP TO ADD NUMBER</div>
+            </div>
+
+        </div>-->
+
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="button btn-success button-block" ng-click="goToSelectRecip()"><i class="ion-ios-search-strong"></i>&nbsp;Search For More Friends</button>
+                </div>
+            </div>
+
+</ion-content>
 </ion-view>

@@ -7,10 +7,10 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
   'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
-  'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage'])
+  'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner'])
 
-  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation) {
-      $ionicPlatform.ready(function () {
+  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $ionicContentBanner) {
+      $ionicPlatform.ready(function () {   
 
           // this functino will gets fired when app comes to foreground
           document.addEventListener("resume", function () {

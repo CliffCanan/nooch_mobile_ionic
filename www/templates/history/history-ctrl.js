@@ -3,8 +3,8 @@
 /*****************/
 /***  HISTORY  ***/
 /*****************/
-    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage) {
-
+    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $rootScope) {
+                
         $scope.$on("$ionicView.enter", function (event, data) {
 
             $scope.transactionList = '';
@@ -33,4 +33,15 @@
             //        swal("Oops...", "Internet not connected!", "error");
             //      }
         });
+
+        
+        console.log('outside the child');
+        $scope.$on('IsVerifiedPhoneFalse', function () {
+            console.log('phone is falsee');
+            $scope.contentBannerInstance();
+        });
+
+        console.log('outside the child +1');
     });
+
+

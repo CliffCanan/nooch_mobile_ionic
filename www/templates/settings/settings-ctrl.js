@@ -10,8 +10,8 @@
          $scope.checkBankDetails();
          $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
-         console.log($scope.trustedUrl);         
-     });
+         console.log($scope.trustedUrl);            
+ });
 
    
      // Viewing Add Bank Webview (in an Ionic Modal)
@@ -36,6 +36,7 @@
          $scope.tosModal.remove();
          $scope.privacyModal.remove();
      });
+
 
      $scope.signOut = function () {
 
