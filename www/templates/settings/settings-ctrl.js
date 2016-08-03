@@ -23,13 +23,32 @@
      $scope.contentBannerInstance = function () {
          $ionicContentBanner.show({
 
-             text: ['Phone Number Not verified', 'Please verify Your phone - respond Go to the SMS'],
+             text: ['Phone Number Not verified'],
              interval: '20',
              autoClose: '',
              type: 'error',
              transition: 'vertical'
          });
      }
+
+
+     $scope.$on('foundPendingReq', function (event, args) {
+         console.log('foundPendingReq');
+         $scope.contentBannerInstance2();
+     });
+
+     $scope.contentBannerInstance2 = function () {
+         $ionicContentBanner.show({
+
+             text: ['Pending Request Waiting'],
+             interval: '30',
+             autoClose: '',
+             type: 'info',
+             transition: 'vertical'
+         });
+     }
+
+
 
    
      // Viewing Add Bank Webview (in an Ionic Modal)

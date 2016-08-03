@@ -23,10 +23,11 @@
         });        
     });
 
+ 
 
     $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
         console.log('IsVerifiedPhoneFalse');
-       $scope.contentBannerInstance();
+        $scope.contentBannerInstance();
     });
 
     $scope.contentBannerInstance = function () {
@@ -36,6 +37,39 @@
             interval: '20',
             autoClose: '',
             type: 'error',
+            transition: 'vertical'
+        });
+    }
+
+    $scope.$on('IsValidProfileFalse', function (event, args) {
+        console.log('IsValidProfileFalse');
+        $scope.contentBannerInstance1();
+    });
+
+    $scope.contentBannerInstance1 = function () {
+        $ionicContentBanner.show({
+
+            text: ['Profile Not Validated'],
+            interval: '20',
+            autoClose: '',
+            type: 'error',
+            transition: 'vertical'
+        });
+    }
+
+
+    $scope.$on('foundPendingReq', function (event, args) {
+        console.log('foundPendingReq');
+        $scope.contentBannerInstance2();
+    });
+
+    $scope.contentBannerInstance2 = function () {
+        $ionicContentBanner.show({
+
+            text: ['Pending Request Waiting'],
+            interval: '30',
+            autoClose: '',
+            type: 'info',
             transition: 'vertical'
         });
     }

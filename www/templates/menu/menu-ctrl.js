@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope) {
+.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');           
@@ -11,7 +11,8 @@
         $scope.url = 'http://support.nooch.com/';
         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
         console.log($scope.trustedUrl);
-        $scope.MemberDetails();
+        $scope.MemberInfo();
+        $scope.pendingList();
                
     });
 
@@ -189,7 +190,7 @@
     }
 
 
-    $scope.MemberDetails = function () {
+    $scope.MemberInfo = function () {
         console.log('MemberDetails Function Fired');
 
         //if ($cordovaNetwork.isOnline()) {
@@ -206,17 +207,17 @@
                     console.log($scope.Details);
 
                     if ($scope.Details.IsVerifiedPhone == false) {
-                        console.log('values IsVerifiedPhone');
+                        console.log('value in IsVerifiedPhone');
                         console.log($scope.Details.IsVerifiedPhone);
                         $rootScope.$broadcast('IsVerifiedPhoneFalse');
 
                     }
 
-                    //if ($scope.Details.IsValidProfile == false) {
-                    //    console.log($scope.Details.IsValidProfile);
-                    //    console.log('values are up there');
-                    //    $rootScope.$broadcast('IsValidProfileFalse');
-                    //}
+                    if ($scope.Details.IsValidProfile == false) {
+                        console.log('value in IsValidProfile');
+                        console.log($scope.Details.IsValidProfile);                       
+                        $rootScope.$broadcast('IsValidProfileFalse');
+                    }
 
                     $ionicLoading.hide();
                 })
@@ -231,4 +232,25 @@
         //}
     }
 
+
+    $scope.pendingList = function () { 
+    historyService.getTransferList().success(function (data) {
+        $scope.Data = data;
+        
+        var i;
+
+        if (data[i] == null) {   // Condition must be like this  -  if (data[i] != null) . will change 
+            
+            console.log('Got Some pending requst..');
+            console.log($scope.Data);
+            $rootScope.$broadcast('foundPendingReq');
+        }
+        $ionicLoading.hide();
+
+
+    }).error(function (data) {
+        console.log('Get History Error: [' + data + ']');
+        $ionicLoading.hide();
+    });
+    }
 })
