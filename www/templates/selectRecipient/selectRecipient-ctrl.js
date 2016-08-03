@@ -134,6 +134,7 @@
         
         console.log($filter('filter')($scope.items2, val));
         $scope.memberList = $filter('filter')($scope.items2, val);
+       
 
     });
 
