@@ -132,7 +132,7 @@
     }
 
     $scope.$watch('search', function (val) {
-
+        
         console.log($filter('filter')($scope.items2, val));
         $scope.memberList = $filter('filter')($scope.items2, val);
         console.log($scope.memberList);
@@ -155,6 +155,7 @@
     }
 
     $scope.checkList = function () {
+        console.log($('#recents-table').html());
         if ($('#recents-table').html() == undefined) {
 
             if (isNaN($('#searchBar').val())) {

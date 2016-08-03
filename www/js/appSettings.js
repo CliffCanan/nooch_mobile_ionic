@@ -50,7 +50,7 @@ var URLs = {
     RequestMoney: PATH + 'RequestMoney',
     RequestMoneyToNonNoochUserUsingSynapse: PATH + 'RequestMoneyToNonNoochUserUsingSynapse',
     RequestMoneyToNonNoochUserThroughPhoneUsingSynapse: PATH +'RequestMoneyToNonNoochUserThroughPhoneUsingSynapse',
-    GetMemberStats: PATH + 'GetMemberStats',
+    GetMemberStatsGeneric: PATH + 'GetMemberStatsGeneric',
     getInvitedMemberList: PATH + 'getInvitedMemberList',
     GetSynapseBankAndUserDetails: PATH + 'GetSynapseBankAndUserDetails',
     sendTransactionInCSV: PATH + 'sendTransactionInCSV',

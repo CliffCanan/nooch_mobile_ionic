@@ -29,30 +29,30 @@
                             <div class="typeDateContainer" ng-if="trans.TransactionType == 'Transfer'">
                                 <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Transfer To</label>
                                 <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Transfer From</label>
-                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate}}</h5>
+                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "MMMM d, y"}}</h5>
                             </div>
 
                             <div class="typeDateContainer" ng-if="trans.TransactionType == 'Request'">
                                 <label class="transTypeLabel received" ng-if="trans.MemberId == memberId">Paid To</label>
                                 <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId">Paid by</label>
-                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate}}</h5>
+                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "MMMM d, y"}}</h5>
                             </div>
 
                             <div class="typeDateContainer" ng-if="trans.TransactionType == 'Invite'">
                                 <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Invite From</label>
                                 <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Invite to</label>
-                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate}}</h5>
+                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "MMMM d, y"}}</h5>
                             </div>
 
                             <div class="typeDateContainer" ng-if="trans.TransactionType == 'Reward'">
                                 <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Reward From</label>
-                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate}}</h5>
+                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "MMMM d, y"}}</h5>
                             </div>
 
                             <div class="typeDateContainer" ng-if="trans.TransactionType == 'Rent'">
                                 <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Rent From</label>
                                 <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Rent to</label>
-                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate}}</h5>
+                                <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "MMMM d, y"}}</h5>
                             </div>
 
                             <span class="item-note amount">{{trans.Amount | currency}}</span>
@@ -96,25 +96,25 @@
                                 <div class="typeDateContainer" ng-if="trans.TransactionType == 'Transfer'">
                                     <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Transfer To</label>
                                     <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Transfer From</label>
-                                    <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate}}</h5>
+                                    <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "MMMM d, y"}}</h5>
                                 </div>
 
                                 <div class="typeDateContainer" ng-if="trans.TransactionType == 'Request'">
                                     <label class="transTypeLabel received" ng-if="trans.MemberId == memberId">Request from</label>
                                     <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId">Request to</label>
-                                    <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate}}</h5>
+                                    <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "MMMM d, y"}}</h5>
                                 </div>
 
                                 <div class="typeDateContainer" ng-if="trans.TransactionType == 'Invite'">
                                     <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Invite from</label>
                                     <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Invite to</label>
-                                    <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate}}</h5>
+                                    <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "MMMM d, y"}}</h5>
                                 </div>
 
                                 <div class="typeDateContainer" ng-if="trans.TransactionType == 'Rent'">
                                     <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Rent from</label>
                                     <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Rent to</label>
-                                    <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate}}</h5>
+                                    <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "MMMM d, y"}}</h5>
                                 </div>
 
                                 <span class="item-note amount">{{ trans.Amount | currency}}</span>

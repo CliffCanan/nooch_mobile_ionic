@@ -2,8 +2,8 @@
   .service('statisticsService', function ($http, $localStorage) {
 
 
-    this.GetMemberStatsGeneric = function (queryToSearch) {
-      return $http.get(URLs.GetMemberStats + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken+'&query='+queryToSearch);
+    this.GetMemberStatsGeneric = function () {
+        return $http.get(URLs.GetMemberStatsGeneric + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken );
     };
             
 
