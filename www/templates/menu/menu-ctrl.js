@@ -1,18 +1,20 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService) {
+.controller('MenuCtrl', function ($scope, $timeout, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');           
 
            // $scope.MemberDetails();
            // console.log('Loaded First Time');
-
+        var firstView = 1;
         $scope.url = 'http://support.nooch.com/';
         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
         console.log($scope.trustedUrl);
-        $scope.MemberInfo();
-        $scope.pendingList();
+
+        $scope.MemberInfo();  //For checking user's Profile Status and PhoneNo Status.
+
+        $timeout($scope.pendingList, 5000); // For checking User's Pending Request.
                
     });
 

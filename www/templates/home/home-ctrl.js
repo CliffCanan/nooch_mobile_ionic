@@ -23,10 +23,45 @@
         });        
     });
 
- 
+    //$scope.contentBannerInstance = function (msg) {  //Trying to Push Msg @RunTime
+    //    $ionicContentBanner.show({
+
+    //        text: msg,
+    //        interval: '20',
+    //        autoClose: '',
+    //        type: 'error',
+    //        transition: 'vertical'
+    //    });
+    //}    
+
+    //(function () {
+    //    var message = [];
+    //    if (!$scope.valid) message.push('Profile not validated');
+    //    if (!$scope.verified) message.push('Phone number not verified');
+    //    $scope.contentBannerInstance(message);
+    //})()
+
+    //$scope.$on('IsValidProfileFalse', function (event, args) {  //OverLapping
+    //    console.log('IsValidProfileFalse');
+    //    //$scope.valid = false;
+    //    $scope.contentBannerInstance1();
+    //});
+    //$scope.contentBannerInstance1 = function () {   //OverLapping
+    //    $ionicContentBanner.show({
+
+    //        text: ['Profile Not Validated'],
+    //        interval: '20',
+    //        autoClose: '',
+    //        type: 'error',
+    //        transition: 'vertical'
+    //    });
+    //}
+
+
 
     $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
         console.log('IsVerifiedPhoneFalse');
+        //$scope.verified = false;
         $scope.contentBannerInstance();
     });
 
@@ -35,27 +70,12 @@
 
             text: ['Phone Number Not verified'],
             interval: '20',
-            autoClose: '',
+            autoClose: '4900',
             type: 'error',
             transition: 'vertical'
         });
     }
 
-    $scope.$on('IsValidProfileFalse', function (event, args) {
-        console.log('IsValidProfileFalse');
-        $scope.contentBannerInstance1();
-    });
-
-    $scope.contentBannerInstance1 = function () {
-        $ionicContentBanner.show({
-
-            text: ['Profile Not Validated'],
-            interval: '20',
-            autoClose: '',
-            type: 'error',
-            transition: 'vertical'
-        });
-    }
 
 
     $scope.$on('foundPendingReq', function (event, args) {
@@ -67,7 +87,7 @@
         $ionicContentBanner.show({
 
             text: ['Pending Request Waiting'],
-            interval: '30',
+            interval: '50',
             autoClose: '',
             type: 'info',
             transition: 'vertical'
@@ -75,50 +95,7 @@
     }
 
 
-    //$scope.MemberDetails = function () {
-    //    console.log('MemberDetails Function Fired');        
-
-    //    //if ($cordovaNetwork.isOnline()) {
-    //    $ionicLoading.show({
-    //        template: 'Loading Details...'
-    //    });
-
-    //    profileService.GetMyDetails()
-    //            .success(function (details) {
-                  
-    //                $scope.Details = details;
-                   
-    //                console.log('values in  Details');
-    //                console.log($scope.Details);                    
-
-    //                if ($scope.Details.IsVerifiedPhone == false)
-    //                {
-    //                    console.log('values IsVerifiedPhone');
-    //                    console.log($scope.Details.IsVerifiedPhone);                                           
-    //                    $rootScope.$broadcast('IsVerifiedPhoneFalse');                                            
-
-    //                }
-
-    //                //if ($scope.Details.IsValidProfile == false) {
-    //                //    console.log($scope.Details.IsValidProfile);
-    //                //    console.log('values are up there');
-    //                //    $rootScope.$broadcast('IsValidProfileFalse');
-    //                //}
-
-    //                $ionicLoading.hide();
-    //            })
-    //            .error(function (encError) {
-    //                console.log('Profile Error: [' + encError + ']');
-    //                $ionicLoading.hide();
-    //            })
-
-    //    //}
-    //    //else {
-    //    //    swal("Oops...", "Internet not connected!", "error");
-    //    //}
-    //}
-       
-     
+        
 
     $scope.goToSelectRecip = function () {
         $state.go('app.selectRecipient');
