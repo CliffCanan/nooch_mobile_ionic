@@ -67,4 +67,37 @@
 
           return $http(ResTransferPayment);
       };
+      this.TransferMoneyToNonNoochUserUsingSynapse = function (Data, receiverEmailId) {
+          console.log(JSON.stringify(Data));
+          var ResTransferPayment = {
+              method: 'POST',
+              url: URLs.TransferMoneyToNonNoochUserUsingSynapse + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&inviteType=email&receiverEmailId=' + receiverEmailId,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+
+              data: Data
+
+          };
+
+
+          return $http(ResTransferPayment);
+      };
+
+      this.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse = function (Data, receiverPhoneNumer) {
+          console.log(JSON.stringify(Data));
+          var ResTransferPayment = {
+              method: 'POST',
+              url: URLs.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&inviteType=email&receiverPhoneNumer=' + receiverPhoneNumer,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+
+              data: Data
+
+          };
+
+
+          return $http(ResTransferPayment);
+      };
   })
