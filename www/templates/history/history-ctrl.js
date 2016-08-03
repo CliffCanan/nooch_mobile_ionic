@@ -4,7 +4,7 @@
 /***  HISTORY  ***/
 /*****************/
  
-    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope) {
+    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner) {
  
         $scope.$on("$ionicView.enter", function (event, data) {
 
@@ -122,10 +122,21 @@
             //      }
         });
  
-        $scope.$on('IsVerifiedPhoneFalse', function () {
-            console.log('phone is false');
+        $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
+            console.log('IsVerifiedPhoneFalse');
             $scope.contentBannerInstance();
         });
+
+        $scope.contentBannerInstance = function () {
+            $ionicContentBanner.show({
+
+                text: ['Phone Number Not verified', 'Please verify Your phone - respond Go to the SMS'],
+                interval: '20',
+                autoClose: '',
+                type: 'error',
+                transition: 'vertical'
+            });
+        }
  
     });
 

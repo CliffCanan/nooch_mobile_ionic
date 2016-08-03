@@ -6,8 +6,7 @@
 /****************/
 .controller('HomeCtrl', function ($scope, $state, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform, profileService, $ionicLoading, $ionicContentBanner, $rootScope) {
 
-
-
+   
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl loaded');
@@ -26,7 +25,7 @@
 
 
     $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
-        console.log('phone is falsee');
+        console.log('IsVerifiedPhoneFalse');
        $scope.contentBannerInstance();
     });
 
@@ -42,48 +41,48 @@
     }
 
 
-    $scope.MemberDetails = function () {
-        console.log('MemberDetails Function Fired');        
+    //$scope.MemberDetails = function () {
+    //    console.log('MemberDetails Function Fired');        
 
-        //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading Details...'
-        });
+    //    //if ($cordovaNetwork.isOnline()) {
+    //    $ionicLoading.show({
+    //        template: 'Loading Details...'
+    //    });
 
-        profileService.GetMyDetails()
-                .success(function (details) {
+    //    profileService.GetMyDetails()
+    //            .success(function (details) {
                   
-                    $scope.Details = details;
+    //                $scope.Details = details;
                    
-                    console.log('values in  Details');
-                    console.log($scope.Details);                    
+    //                console.log('values in  Details');
+    //                console.log($scope.Details);                    
 
-                    if ($scope.Details.IsVerifiedPhone == false)
-                    {
-                        console.log('values IsVerifiedPhone');
-                        console.log($scope.Details.IsVerifiedPhone);                                           
-                        $rootScope.$broadcast('IsVerifiedPhoneFalse');                                            
+    //                if ($scope.Details.IsVerifiedPhone == false)
+    //                {
+    //                    console.log('values IsVerifiedPhone');
+    //                    console.log($scope.Details.IsVerifiedPhone);                                           
+    //                    $rootScope.$broadcast('IsVerifiedPhoneFalse');                                            
 
-                    }
+    //                }
 
-                    //if ($scope.Details.IsValidProfile == false) {
-                    //    console.log($scope.Details.IsValidProfile);
-                    //    console.log('values are up there');
-                    //    $rootScope.$broadcast('IsValidProfileFalse');
-                    //}
+    //                //if ($scope.Details.IsValidProfile == false) {
+    //                //    console.log($scope.Details.IsValidProfile);
+    //                //    console.log('values are up there');
+    //                //    $rootScope.$broadcast('IsValidProfileFalse');
+    //                //}
 
-                    $ionicLoading.hide();
-                })
-                .error(function (encError) {
-                    console.log('Profile Error: [' + encError + ']');
-                    $ionicLoading.hide();
-                })
+    //                $ionicLoading.hide();
+    //            })
+    //            .error(function (encError) {
+    //                console.log('Profile Error: [' + encError + ']');
+    //                $ionicLoading.hide();
+    //            })
 
-        //}
-        //else {
-        //    swal("Oops...", "Internet not connected!", "error");
-        //}
-    }
+    //    //}
+    //    //else {
+    //    //    swal("Oops...", "Internet not connected!", "error");
+    //    //}
+    //}
        
      
 

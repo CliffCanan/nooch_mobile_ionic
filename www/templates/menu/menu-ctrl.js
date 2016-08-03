@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce) {
+.controller('MenuCtrl', function ($scope, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');           
@@ -11,6 +11,7 @@
         $scope.url = 'http://support.nooch.com/';
         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
         console.log($scope.trustedUrl);
+        $scope.MemberDetails();
                
     });
 
@@ -186,4 +187,48 @@
         //    swal("Oops...", "Internet not connected!", "error");
         //}
     }
+
+
+    $scope.MemberDetails = function () {
+        console.log('MemberDetails Function Fired');
+
+        //if ($cordovaNetwork.isOnline()) {
+        $ionicLoading.show({
+            template: 'Loading Details...'
+        });
+
+        profileService.GetMyDetails()
+                .success(function (details) {
+
+                    $scope.Details = details;
+
+                    console.log('values in  Details');
+                    console.log($scope.Details);
+
+                    if ($scope.Details.IsVerifiedPhone == false) {
+                        console.log('values IsVerifiedPhone');
+                        console.log($scope.Details.IsVerifiedPhone);
+                        $rootScope.$broadcast('IsVerifiedPhoneFalse');
+
+                    }
+
+                    //if ($scope.Details.IsValidProfile == false) {
+                    //    console.log($scope.Details.IsValidProfile);
+                    //    console.log('values are up there');
+                    //    $rootScope.$broadcast('IsValidProfileFalse');
+                    //}
+
+                    $ionicLoading.hide();
+                })
+                .error(function (encError) {
+                    console.log('Profile Error: [' + encError + ']');
+                    $ionicLoading.hide();
+                })
+
+        //}
+        //else {
+        //    swal("Oops...", "Internet not connected!", "error");
+        //}
+    }
+
 })
