@@ -20,7 +20,7 @@
     $scope.contentBannerInstance = function () {
         $ionicContentBanner.show({
 
-            text: ['Phone Number Not vefified', 'Please verify Your phone - respond Go to the SMS'],
+            text: ['Phone Number Not vefified'],
             interval: '20',
             autoClose: '',
             type: 'error',

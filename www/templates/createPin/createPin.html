@@ -22,7 +22,7 @@
             <form id="frmCreatePin" class="smErrors" data-parsley-validate="">
                 <div class="pin-container">
                     <label class="item item-input">
-                        <input type="text" placeholder="* * * *" maxlength="4" ng-model="signupData.Pin" data-parsley-required data-parsley-required-message="*">
+                        <input type="number" style="-webkit-text-security:disc" placeholder="* * * *" maxlength="4" ng-model="signupData.Pin" data-parsley-required data-parsley-required-message="*">
                     </label>
                 </div>
                 <br>
