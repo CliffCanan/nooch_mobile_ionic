@@ -134,6 +134,7 @@
         
         console.log($filter('filter')($scope.items2, val));
         $scope.memberList = $filter('filter')($scope.items2, val);
+        console.log($scope.memberList);
 
     });
 
@@ -150,5 +151,32 @@
             $ionicLoading.hide();
         });
 
+    }
+
+    $scope.checkList = function () {
+        if ($('#recents-table').html() == undefined) {
+      
+            if (isNaN($('#searchBar').val())) {
+                if (ValidateEmail($('#searchBar').val())) {
+                    $scope.show = true;
+                    $scope.sendTo = 'Email Address';
+                }
+            }
+            else {
+                $scope.show = true;
+                $scope.sendTo = 'Contact Number';
+            }
+        }
+        else {
+            $scope.show = false;
+        }
+    }
+
+    function ValidateEmail(mail) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+            return (true)
+        }
+        else
+        return (false)
     }
 })

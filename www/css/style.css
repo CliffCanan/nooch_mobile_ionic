@@ -1625,3 +1625,14 @@ iframe {
     color: #fff;
     height: 45px;
 }
+
+
+.bar-subheader.custom
+{
+  height: 114px !important;
+  border: none;
+}
+
+.has-subheader-custom {
+    top: 160px !important;
+}
