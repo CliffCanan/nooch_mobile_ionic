@@ -7,9 +7,9 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
         $scope.FindRecent();
-         
-      
-       
+
+
+
       // to check contacts authorization
       // cordova.plugins.diagnostic.isContactsAuthorized(function(authorized){
       //   console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
@@ -82,7 +82,7 @@
 
     });
 
-   
+
 
     $scope.showSearch = function (member) {
         console.log($scope.search);
@@ -112,7 +112,8 @@
         selectRecipientService.GetRecentMembers().success(function (data) {
 
             $scope.memberList = data;
-           
+
+
 
             for (var i = 0; i < $rootScope.phoneContacts.length; i++) {
                 $scope.memberList.push($rootScope.phoneContacts[i]);
@@ -121,17 +122,17 @@
             console.log($scope.memberList);
             $scope.item2 = data;
             $ionicLoading.hide();
-          
 
-            
+
+
 
 
         }).error(function (data) { console.log(data); $ionicLoading.hide(); });
-        
+
     }
 
     $scope.$watch('search', function (val) {
-        
+
         console.log($filter('filter')($scope.items2, val));
         $scope.memberList = $filter('filter')($scope.items2, val);
         console.log($scope.memberList);
@@ -155,7 +156,7 @@
 
     $scope.checkList = function () {
         if ($('#recents-table').html() == undefined) {
-      
+
             if (isNaN($('#searchBar').val())) {
                 if (ValidateEmail($('#searchBar').val())) {
                     $scope.show = true;

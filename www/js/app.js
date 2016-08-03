@@ -9,11 +9,44 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
   'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner'])
 
- 
+
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts) {
       $ionicPlatform.ready(function () {
           console.log('app run');
-          $ionicPlatform.ready(function () {
+
+
+
+            if (!$localStorage.GLOBAL_VARIABLES)
+            {
+              $localStorage.GLOBAL_VARIABLES = {
+                IsDemoDone: false, // for displaying tutorial screens to user - if any
+                IsRemeberMeEnabled: false, // for remembering user
+
+                IsUserLocationSharedWithNooch: false, // to keep track of location sharing
+                UserCurrentLatitude: '',  // user current lat if shared location
+                UserCurrentLongi: '',  // user current lon if shared location0
+
+                MemberId: '', // MemberId of user -- logged in user
+                Pwd: '',
+                UserName: '',
+                Status: '',
+                IsPhoneVerified: false,
+
+                AccessToken: '',
+
+                IsNotificationPermissionGiven: false,// will store here about push notification permission from user
+                DeviceId: '',// this would be unique device id,
+                DeviceToken: '', // or notification token.. will be used for sending push notifications from server
+                DeviceOS: '',// to save current device operating system info... iOS or Android
+
+                IsNetworkAvailable: false,
+                EnterPinImmediately: false, // to check if pin is required while coming back to foreground or app launch
+
+                shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
+                HasSharedContacts: false // if true then shouldn't ask for contact permission again
+              };
+            }
+
 
               $rootScope.phoneContacts = [];
               var readContact =
@@ -42,7 +75,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                       if (contact.photos != null)
                           readContact.Photo = contact.photos[0].value;
                       $rootScope.phoneContacts.push(readContact);
-                      
+
                       readContact =
                                   {
                                       FirstName: '',
@@ -55,7 +88,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
                   }
                   console.log($rootScope.phoneContacts);
-                 
+
 
               };
 
@@ -68,8 +101,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
               $cordovaContacts.find(options).then(onSuccess, onError);
 
-          });
- 
+
+
 
           // this functino will gets fired when app comes to foreground
           document.addEventListener("resume", function () {
@@ -77,7 +110,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
               if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
               {
-                  //added this to not asked for Pin before login 
+                  //added this to not asked for Pin before login
 
                   if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
                   {
@@ -91,36 +124,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               console.log('came in pause state');
           }, false);
 
-          if (!$localStorage.GLOBAL_VARIABLES)
-          {
-              $localStorage.GLOBAL_VARIABLES = {
-                  IsDemoDone: false, // for displaying tutorial screens to user - if any
-                  IsRemeberMeEnabled: false, // for remembering user
 
-                  IsUserLocationSharedWithNooch: false, // to keep track of location sharing
-                  UserCurrentLatitude: '',  // user current lat if shared location
-                  UserCurrentLongi: '',  // user current lon if shared location0
-
-                  MemberId: '', // MemberId of user -- logged in user
-                  Pwd: '',
-                  UserName: '',
-                  Status: '',
-                  IsPhoneVerified: false,
-
-                  AccessToken: '',
-
-                  IsNotificationPermissionGiven: false,// will store here about push notification permission from user
-                  DeviceId: '',// this would be unique device id,
-                  DeviceToken: '', // or notification token.. will be used for sending push notifications from server
-                  DeviceOS: '',// to save current device operating system info... iOS or Android
-
-                  IsNetworkAvailable: false,
-                  EnterPinImmediately: false, // to check if pin is required while coming back to foreground or app launch
-
-                  shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
-                  HasSharedContacts: false // if true then shouldn't ask for contact permission again
-              };
-          }
 
           if (window.cordova)
           {
