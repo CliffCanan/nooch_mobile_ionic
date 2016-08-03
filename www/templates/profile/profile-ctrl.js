@@ -1,6 +1,8 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
 .controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner,$rootScope) {
 
+    $rootScope.$broadcast('IsVerifiedPhoneTrue');
+
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
         console.log('Profile Page Loadad');       
@@ -11,14 +13,14 @@
     })
 
     $rootScope.$on('IsVerifiedPhoneFalse', function (event, args) {
-        console.log('phone is falsee');
+        console.log('IsVerifiedPhoneFalse');
         $scope.contentBannerInstance();
     });
 
     $scope.contentBannerInstance = function () {
         $ionicContentBanner.show({
 
-            text: ['Phone Number Not vefified', 'Please verify Your phone - respond Go to the SMS'],
+            text: ['Phone Number Not vefified'],
             interval: '20',
             autoClose: '',
             type: 'error',

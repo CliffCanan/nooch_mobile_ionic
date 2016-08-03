@@ -2,7 +2,7 @@
 /******************/
 /***  SETTINGS  ***/
 /******************/
- .controller('SettingCtrl', function ($scope, settingsService, $state, $ionicModal, $ionicLoading, $localStorage, $sce) {
+ .controller('SettingCtrl', function ($scope, settingsService, $state, $ionicModal, $ionicLoading, $localStorage, $sce, $ionicContentBanner) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // On Screen Load
@@ -11,7 +11,25 @@
          $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
          console.log($scope.trustedUrl);            
- });
+     });
+
+
+
+     $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
+         console.log('IsVerifiedPhoneFalse');
+         $scope.contentBannerInstance();
+     });
+
+     $scope.contentBannerInstance = function () {
+         $ionicContentBanner.show({
+
+             text: ['Phone Number Not verified', 'Please verify Your phone - respond Go to the SMS'],
+             interval: '20',
+             autoClose: '',
+             type: 'error',
+             transition: 'vertical'
+         });
+     }
 
    
      // Viewing Add Bank Webview (in an Ionic Modal)

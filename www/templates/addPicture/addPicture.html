@@ -9,22 +9,21 @@
                 <p class="slogan purp-text m-b-5">Money Made Simple</p>
             </div>
         </div>
-        <br>
-        <div class="text-center">
-            <p class="f-30">Hey..&nbsp;{{Data.FirstName}}</p>
-            <img src="./img/RoundLoading.png" />
 
-            <br/>
-            <br />
-            <p style="margin-left: 5px; margin-right:5px;">Add a picture so people will be able to identify you better when sending you money. </p>
-            <br>
-            <button class="button button-calm" ng-click="choosePhoto()"><i class="ion-camera"></i>Choose Picture</button>
+        <div class="row text-center">
+            <div class="col">
 
-            <br />
-            <br />
+                <p class="f-30 m-b-15">Hey,&nbsp;{{Data.FirstName}}!</p>
 
-            <a href="#/createPin" class="button button-clear button-dark"> I don't want to add a picture now...</a>
+                <img class="m-b-20" src="./img/RoundLoading.png" />
+
+                <p class="m-5">Add a picture so people will be able to identify you better when sending you money. </p>
+
+                <button class="button btn-primary button-block m-t-25" ng-click="choosePhoto()"><i class="ion-camera"></i>Choose Picture</button>
+
+                <a href="#/createPin" class="button button-clear button-dark m-t-20">I don't want to add a picture now...</a>
+
+            </div>
         </div>
-
     </ion-content>
 </ion-view>
