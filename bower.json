@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "ion-sticky": "^1.0.6",
-    "ionic-content-banner": "^1.0.1"
+    "ionic-content-banner": "^1.0.1",
+    "ionic-ion-horizontal-scroll-cards": "*"
   }
 }

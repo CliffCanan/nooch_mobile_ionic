@@ -3,10 +3,10 @@
 .controller('MenuCtrl', function ($scope, $timeout, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('MenuCtrl Ctrl Loaded');           
+        console.log('MenuCtrl Ctrl Loaded');
 
-           // $scope.MemberDetails();
-           // console.log('Loaded First Time');
+        // $scope.MemberDetails();
+        // console.log('Loaded First Time');
         var firstView = 1;
         $scope.url = 'http://support.nooch.com/';
         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
@@ -15,7 +15,7 @@
         $scope.MemberInfo();  //For checking user's Profile Status and PhoneNo Status.
 
         $timeout($scope.pendingList, 5000); // For checking User's Pending Request.
-               
+
     });
 
     //$scope.settingsClick = function () {
@@ -26,8 +26,7 @@
 
         // Show the correct Action Sheet
 
-        if (id == 'support')
-        {
+        if (id == 'support') {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
                   { text: 'Report a Bug' },
@@ -39,12 +38,11 @@
                 //cancel: function () {
                 //},
                 buttonClicked: function (index) {
-                    if (index == 0)
-                    {
+                    if (index == 0) {
                         // toArr, ccArr and bccArr must be an array, file can be either null, string or array
-                       // .shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
+                        // .shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                         $cordovaSocialSharing
-                          .shareViaEmail('Hello', 'Got a bug','cliff@nooch.com', null, null, null)
+                          .shareViaEmail('Hello', 'Got a bug', 'cliff@nooch.com', null, null, null)
                           .then(function (result) {
                               // Success!                              
                               console.log('from social sharing success');
@@ -54,8 +52,7 @@
                           });
 
                     }
-                    else if (index == 1)
-                    {                       
+                    else if (index == 1) {
                         // toArr, ccArr and bccArr must be an array, file can be either null, string or array
                         //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                         $cordovaSocialSharing
@@ -69,8 +66,7 @@
                           });
 
                     }
-                    else if (index == 2)
-                    {                        
+                    else if (index == 2) {
                         $scope.openSupportCenter();
                     }
 
@@ -78,8 +74,7 @@
                 }
             });
         }
-        else if (id == 'legal')
-        {
+        else if (id == 'legal') {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
                   { text: 'Terms of Service' },
@@ -90,12 +85,10 @@
                 //cancel: function () {
                 //},
                 buttonClicked: function (index) {
-                    if (index == 0)
-                    {
+                    if (index == 0) {
                         $scope.openTos();
                     }
-                    else if (index == 1)
-                    {
+                    else if (index == 1) {
                         $scope.openPrivacy();
                     }
                     return true;
@@ -176,8 +169,8 @@
                console.log(res);
                $scope.Res = res;
                $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.PhotoUrl;
-               $localStorage.GLOBAL_VARIABLES.Status = res.Status;                           
-               $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.IsVerifiedPhone;                         
+               $localStorage.GLOBAL_VARIABLES.Status = res.Status;
+               $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.IsVerifiedPhone;
                $ionicLoading.hide();
            }
            ).error(function (encError) {
@@ -212,15 +205,11 @@
                         console.log('value in IsVerifiedPhone');
                         console.log($scope.Details.IsVerifiedPhone);
                         $rootScope.$broadcast('IsVerifiedPhoneFalse');
-
                     }
 
                     if ($scope.Details.IsValidProfile == false) {
-                        console.log('value in IsValidProfile');
-                        console.log($scope.Details.IsValidProfile);                       
-                        $rootScope.$broadcast('IsValidProfileFalse');
+                        $timeout($scope.validProfile, 8000);
                     }
-
                     $ionicLoading.hide();
                 })
                 .error(function (encError) {
@@ -234,25 +223,31 @@
         //}
     }
 
-
-    $scope.pendingList = function () { 
-    historyService.getTransferList().success(function (data) {
-        $scope.Data = data;
-        
-        var i;
-
-        if (data[i] == null) {   // Condition must be like this  -  if (data[i] != null) . will change 
-            
-            console.log('Got Some pending requst..');
-            console.log($scope.Data);
-            $rootScope.$broadcast('foundPendingReq');
-        }
-        $ionicLoading.hide();
+    $scope.validProfile = function () {
+        console.log('value in IsValidProfile');
+        console.log($scope.Details.IsValidProfile);
+        $rootScope.$broadcast('IsValidProfileFalse');
+    }
 
 
-    }).error(function (data) {
-        console.log('Get History Error: [' + data + ']');
-        $ionicLoading.hide();
-    });
+    $scope.pendingList = function () {
+        historyService.getTransferList().success(function (data) {
+            $scope.Data = data;
+
+            var i;
+
+            if (data[i] == null) {   // Condition must be like this  -  if (data[i] != null) . will change 
+
+                console.log('Got Some pending requst..');
+                console.log($scope.Data);
+                $rootScope.$broadcast('foundPendingReq');
+            }
+            $ionicLoading.hide();
+
+
+        }).error(function (data) {
+            console.log('Get History Error: [' + data + ']');
+            $ionicLoading.hide();
+        });
     }
 })

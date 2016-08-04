@@ -113,18 +113,15 @@
 
             $scope.memberList = data;
 
-
+            console.log('Find recent Fn-->>');
+            console.log($scope.memberList);
 
             for (var i = 0; i < $rootScope.phoneContacts.length; i++) {
                 $scope.memberList.push($rootScope.phoneContacts[i]);
             }
 
-            console.log($scope.memberList);
             $scope.item2 = data;
             $ionicLoading.hide();
-
-
-
 
 
         }).error(function (data) { console.log(data); $ionicLoading.hide(); });
