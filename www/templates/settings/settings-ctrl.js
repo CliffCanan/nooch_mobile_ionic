@@ -15,8 +15,27 @@
 
 
 
+     $scope.$on('IsValidProfileFalse', function (event, args) {
+         console.log('IsValidProfileFalse');
+         //$scope.valid = false;
+         $scope.contentBannerInstance1();
+     });
+     $scope.contentBannerInstance1 = function () {
+         $ionicContentBanner.show({
+
+             text: ['Profile Not Validated'],
+             interval: '20',
+             autoClose: '',
+             type: 'error',
+             transition: 'vertical'
+         });
+     }
+
+
+
      $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
          console.log('IsVerifiedPhoneFalse');
+         //$scope.verified = false;
          $scope.contentBannerInstance();
      });
 
@@ -25,11 +44,12 @@
 
              text: ['Phone Number Not verified'],
              interval: '20',
-             autoClose: '',
+             autoClose: '4900',
              type: 'error',
              transition: 'vertical'
          });
      }
+
 
 
      $scope.$on('foundPendingReq', function (event, args) {
@@ -41,8 +61,8 @@
          $ionicContentBanner.show({
 
              text: ['Pending Request Waiting'],
-             interval: '30',
-             autoClose: '',
+             interval: '50',
+             autoClose: '3000',
              type: 'info',
              transition: 'vertical'
          });
