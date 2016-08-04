@@ -102,7 +102,7 @@
     }
      
         
-        $scope.memberList = [];
+     $scope.memberList = [];
 
     $scope.FindRecentFriends = function () {  //Use Network check plugin
         $ionicLoading.show({
@@ -114,21 +114,13 @@
 
             console.log('Find recent Fn-->>');
             console.log($scope.memberList);
-            console.log($scope.memberList[0].Photo);                        
+                             
 
   $scope.items = [];
   for (var i = 0; i <= 5; i++) {
 
-      //console.log('memberList Values are =----->>');
-      //console.log($scope.memberList);
-
         var tmp = [
-          { desc: $scope.memberList.FirstName, image: $scope.memberList.Photo },
-          { desc: 'The Beatles', image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTGpH07f9zeucoOs_stZyIFtBncU-Z8TDYmJgoFnlnxYmXjJEaitmxZNDkNvYnCzwWTySM' },
-          { desc: 'Pink Floyd', image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT-FbU5dD_Wz472srRIvoZAhyGTEytx9HWGusbhYgSc2h0N6AqqRrDwzApmyxZoIlyxDcU' },
-          { desc: 'The Rolling Stones', image: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT6uwPPBnHfAAUcSzxr3iq9ou1CZ4f_Zc2O76i5A4IyoymIVwjOMXwUFTGSrVGcdGT9vQY' },
-          { desc: 'The Jimi Hendrix Experience', image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRA3jz0uhVypONAKWUve80Q6HASvuvZiohl4Sru5ZihkAsjWiaGjocfxd0aC3H7EeFk5-I' },
-          { desc: 'Van Halen', image: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRIslVN9cJJ6YuV0y7JihAyA63JDhXGhkCVxHIRE-IoaF-rpefjIXO5osA24QvN9iCptC8' }
+          { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
         ];
         $scope.items = $scope.items.concat(tmp);
     };
