@@ -7,8 +7,10 @@
           console.log('Login Controller Loaded');
           // swal("Here's a message!");
 
+
           if ($localStorage.GLOBAL_VARIABLES)
           {
+              console.log($localStorage.GLOBAL_VARIABLES);
               if ($localStorage.GLOBAL_VARIABLES.MemberId)
               {
                   if ($localStorage.GLOBAL_VARIABLES.MemberId.length > 0)
@@ -17,7 +19,7 @@
                   }
               }
           }
-
+          console.log($localStorage.GLOBAL_VARIABLES);
           $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
           $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
           $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
