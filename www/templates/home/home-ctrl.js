@@ -125,7 +125,7 @@
             console.log($scope.memberList);
 
             $scope.items = [];
-            for (var i = 0; i <= 5; i++) {
+            for (var i = 0; i <= 4; i++) {
 
                 if ($scope.memberList[i].Photo == "") {
                     $scope.memberList[i].Photo = "./img/profile_picture.png";
@@ -140,7 +140,12 @@
 
             $ionicLoading.hide();
 
-        }).error(function (data) { console.log(data); $ionicLoading.hide(); });
+        }).error(function (data) { console.log(data); $ionicLoading.hide(); })
+
+        .finally(function () {
+            // Stop the ion-refresher from spinning
+            $scope.$broadcast('scroll.refreshComplete');
+        });
         //}
         //else{
         //    swal("Oops...", "Internet not connected!", "error");
