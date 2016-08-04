@@ -131,8 +131,6 @@
               }).error(function (encError) {
                   console.log('came in enc error block ' + encError);
               });
-
-
           }
           //}
           //else{
