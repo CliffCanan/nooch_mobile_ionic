@@ -4,16 +4,25 @@
 /***  HISTORY  ***/
 /*****************/
  
-    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner) {
+    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner, $state ) {
  
         $scope.$on("$ionicView.enter", function (event, data) {
-
+           
             $scope.transactionList = '';
-            $scope.click = function (val) {
+            $scope.completed = true;
+            $scope.clickCompleted = function () {
+                 
+                $scope.completed = true;
+                $scope.pending = false;
                 
-                console.log(val);
-                //$state.go('app.TransferDetails', { trans: trans });
             }
+            $scope.clickPending = function () {
+                $scope.pending = true;
+                $scope.completed = false;
+                
+            }
+            
+            
             console.log('History Page Loaded');
 
             //  if ($cordovaNetwork.isOnline()) {
@@ -23,8 +32,14 @@
             });
 
             historyService.getTransferList().success(function (data) {
+                
                 $scope.transactionList = data;
-
+                 
+                for (var i = 0; i < $scope.transactionList.length; i++) {
+                   
+                    $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
+                    console.log($scope.transactionList[i].TransactionDate);
+                }
                 $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
                 $ionicLoading.hide();
             }).error(function (data) {
@@ -49,9 +64,11 @@
                         });
                         transferDetailsService.CancelRequest(trans.TransactionId).success(function (data) {
                             if (data.Result.indexOf('Successfully') > -1) {
-                                swal("Request Cancelled", data.Result, "success");
-                                $ionicLoading.hide();
-                                $state.go('app.history');
+                                 
+                                swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                                    $ionicLoading.hide();
+                                    location.reload();
+                                });
                             }
 
                         }).error(function () { $ionicLoading.hide(); });
@@ -75,9 +92,12 @@
                         });
                         transferDetailsService.RejectPayment(trans.TransactionId).success(function (data) {
                             if (data.Result.indexOf('Successfully') > -1) {
-                                swal("Request Rejected", data.Result, "success");
-                                $ionicLoading.hide();
-                                $state.go('app.history');
+                                 
+
+                                swal({ title: "Request Rejected", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                                    $ionicLoading.hide();
+                                    location.reload();
+                                });
                             }
                             $ionicLoading.hide();
                         }).error(function () { $ionicLoading.hide(); });
@@ -101,9 +121,13 @@
 
                         transferDetailsService.RemindPayment(trans.TransactionId).success(function (data) {
                             if (data.Result.indexOf('successfully') > -1) {
-                                swal("Sent...", data.Result, "success");
-                                $ionicLoading.hide();
-                                $state.go('app.history');
+                                swal({ title: "Sent", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                                    $ionicLoading.hide();
+                                    location.reload();
+                                });
+
+                                
+                                
                             }
                             else {
                                 swal("Error...", data.Result, "error");

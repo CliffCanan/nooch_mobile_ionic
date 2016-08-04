@@ -11,41 +11,40 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts) {
+
+      if (!$localStorage.GLOBAL_VARIABLES) {
+          $localStorage.GLOBAL_VARIABLES = {
+              IsDemoDone: false, // for displaying tutorial screens to user - if any
+              IsRemeberMeEnabled: false, // for remembering user
+
+              IsUserLocationSharedWithNooch: false, // to keep track of location sharing
+              UserCurrentLatitude: '',  // user current lat if shared location
+              UserCurrentLongi: '',  // user current lon if shared location0
+
+              MemberId: '', // MemberId of user -- logged in user
+              Pwd: '',
+              UserName: '',
+              Status: '',
+              IsPhoneVerified: false,
+
+              AccessToken: '',
+
+              IsNotificationPermissionGiven: false,// will store here about push notification permission from user
+              DeviceId: '',// this would be unique device id,
+              DeviceToken: '', // or notification token.. will be used for sending push notifications from server
+              DeviceOS: '',// to save current device operating system info... iOS or Android
+
+              IsNetworkAvailable: false,
+              EnterPinImmediately: false, // to check if pin is required while coming back to foreground or app launch
+
+              shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
+              HasSharedContacts: false // if true then shouldn't ask for contact permission again
+          };
+      }
       $ionicPlatform.ready(function () {
           console.log('app run');
 
-
-
-            if (!$localStorage.GLOBAL_VARIABLES)
-            {
-              $localStorage.GLOBAL_VARIABLES = {
-                IsDemoDone: false, // for displaying tutorial screens to user - if any
-                IsRemeberMeEnabled: false, // for remembering user
-
-                IsUserLocationSharedWithNooch: false, // to keep track of location sharing
-                UserCurrentLatitude: '',  // user current lat if shared location
-                UserCurrentLongi: '',  // user current lon if shared location0
-
-                MemberId: '', // MemberId of user -- logged in user
-                Pwd: '',
-                UserName: '',
-                Status: '',
-                IsPhoneVerified: false,
-
-                AccessToken: '',
-
-                IsNotificationPermissionGiven: false,// will store here about push notification permission from user
-                DeviceId: '',// this would be unique device id,
-                DeviceToken: '', // or notification token.. will be used for sending push notifications from server
-                DeviceOS: '',// to save current device operating system info... iOS or Android
-
-                IsNetworkAvailable: false,
-                EnterPinImmediately: false, // to check if pin is required while coming back to foreground or app launch
-
-                shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
-                HasSharedContacts: false // if true then shouldn't ask for contact permission again
-              };
-            }
+           
 
 
               $rootScope.phoneContacts = [];
