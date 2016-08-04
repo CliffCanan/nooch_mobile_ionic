@@ -146,8 +146,8 @@
 
             <div class="col p-t-0">
                 <ti-segmented-control>
-                    <ti-segmented-control-button ng-click="clickCompleted()" class="button-positive" title="'Completed'" selected><i class="ion-checkmark-circled"></i>Completed</ti-segmented-control-button>
-                    <ti-segmented-control-button ng-click="clickPending()" class="button-positive" title="'Pending'"><i class="ion-ios-clock"></i>Pending</ti-segmented-control-button>
+                    <ti-segmented-control-button ng-click="clickCompleted()" id="btnCompleted" class="button-positive" title="'Completed'" selected><i class="ion-checkmark-circled"></i>Completed</ti-segmented-control-button>
+                    <ti-segmented-control-button ng-click="clickPending()" id="btnPending" class="button-positive" title="'Pending'"><i class="ion-ios-clock"></i>Pending</ti-segmented-control-button>
                 </ti-segmented-control>
             </div>
         </div>
@@ -157,7 +157,7 @@
 
         <ion-scroll>
             <ion-list ng-show="completed">
-                <ion-item class="item item-avatar" ui-sref="app.TransferDetails({trans:trans})" ng-repeat="trans in transactionList" ng-if="trans.TransactionStatus == 'Success'">
+                <ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList" ng-if="trans.TransactionStatus == 'Success'">
                     <img src={{trans.Photo}}>
 
                     <div class="name" ng-if="trans.Name.length>1">{{trans.Name}}</div>
@@ -195,13 +195,13 @@
                     </div>
 
                     <span class="item-note amount">{{trans.Amount | currency}}</span>
-
+                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="PayBack(trans)" ng-show="trans.MemberId != memberId && (trans.TransactionType == 'Request')">Pay Back </ion-option-button>
 
                 </ion-item>
             </ion-list>
 
             <ion-list  ng-show="pending">
-                <ion-item class="item item-avatar" ui-sref-active="false" ui-sref="app.TransferDetails({trans:trans})" ng-repeat="trans in transactionList | filter : a" ng-if="trans.TransactionStatus == 'Pending'">
+                <ion-item class="item item-avatar" ui-sref-active="false" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter : a" ng-if="trans.TransactionStatus == 'Pending'">
                     <img src={{trans.Photo}}>
                      
                     <div class="name" ng-if="trans.Name.length > 1">{{trans.Name}}</div>

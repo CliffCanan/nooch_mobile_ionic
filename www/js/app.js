@@ -309,12 +309,12 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-        .state('app.TransferDetails', {
-            url: '/history/TransferDetails',
+        .state('app.transferDetails', {
+            url: '/history/transferDetails',
             params: { trans:  null },
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/transferDetails/TransferDetails.html',
+                    templateUrl: 'templates/transferDetails/transferDetails.html',
                     controller: 'TransferDetailsCtrl'
                 }
             }

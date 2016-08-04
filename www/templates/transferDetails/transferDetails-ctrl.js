@@ -48,7 +48,8 @@
                    else if ($scope.transDetail.TransactionType == 'Request')
                    {
                        if ($scope.transDetail.MemberId == $scope.memId)
-                       {
+                       { 
+
                            $scope.typeLabelTxt = "Request To";
                            $scope.labelTypeClr = "blue";
                        }
@@ -329,5 +330,24 @@
                    //}
                }
            };
+
+           $scope.PayBack = function () {
+
+               console.log("Pay Back" + JSON.stringify($scope.transDetail));
+               swal({
+                   title: "Are you sure?",
+                   text: "Do you want to Pay Back for this transaction?",
+                   type: "warning",
+                   showCancelButton: true,
+                   confirmButtonColor: "#DD6B55",
+                   confirmButtonText: "Yes - Pay",
+               }, function (isConfirm) {
+                   if (isConfirm) {
+                       $state.go('app.howMuch',{myParam:$scope.transDetail});
+                     //  $scope.modal.show();
+                   }
+               });
+           }
+           
 
        })
