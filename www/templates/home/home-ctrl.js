@@ -6,21 +6,21 @@
 /****************/
 .controller('HomeCtrl', function ($scope, $state, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform, profileService, $ionicLoading, $ionicContentBanner, $rootScope, selectRecipientService) {
 
-   
+
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl loaded');
         $scope.FindRecentFriends();
 
         $ionicPlatform.ready(function () {
-          
+
             // $scope.checkUserDetails();
             console.log($cordovaGoogleAnalytics);
             $cordovaGoogleAnalytics.debugMode();
             $cordovaGoogleAnalytics.startTrackerWithId('UA-XXXXXXXX-X');
             $cordovaGoogleAnalytics.trackView('APP first screen');
-           
-        });        
+
+        });
     });
 
     //$scope.contentBannerInstance = function (msg) {  //Trying to Push Msg @RunTime
@@ -41,12 +41,12 @@
     //    $scope.contentBannerInstance(message);
     //})()
 
-    $scope.$on('IsValidProfileFalse', function (event, args) {  
+    $scope.$on('IsValidProfileFalse', function (event, args) {
         console.log('IsValidProfileFalse');
         //$scope.valid = false;
         $scope.contentBannerInstance1();
     });
-    $scope.contentBannerInstance1 = function () {   
+    $scope.contentBannerInstance1 = function () {
         $ionicContentBanner.show({
 
             text: ['Profile Not Validated'],
@@ -79,7 +79,7 @@
 
 
     $scope.$on('foundPendingReq', function (event, args) {
-        console.log('foundPendingReq');
+        //console.log('foundPendingReq');
         $scope.contentBannerInstance2();
     });
 
@@ -94,15 +94,12 @@
         });
     }
 
-
-        
-
     $scope.goToSelectRecip = function () {
         $state.go('app.selectRecipient');
     }
-     
-        
-     $scope.memberList = [];
+
+
+    $scope.memberList = [];
 
     $scope.FindRecentFriends = function () {  //Use Network check plugin
         $ionicLoading.show({
@@ -112,21 +109,30 @@
 
             $scope.memberList = data;
 
+            if (data[0] == null) {
+                console.log('Got Recent Members Empty, Loding phone contacts ..');
+
+                for (var i = 0; i < $rootScope.phoneContacts.length; i++) {
+                    $scope.memberList.push($rootScope.phoneContacts[i]);                    
+                }
+                console.log('Phone Contacts Are--');
+                console.log($scope.memberList);
+            }
+
             console.log('Find recent Fn-->>');
             console.log($scope.memberList);
-                             
 
-  $scope.items = [];
-  for (var i = 0; i <= 5; i++) {
+            $scope.items = [];
+            for (var i = 0; i <= 5; i++) {
 
-        var tmp = [
-          { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
-        ];
-        $scope.items = $scope.items.concat(tmp);
-    };
+                var tmp = [
+                  { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
+                ];
+                $scope.items = $scope.items.concat(tmp);
+            };
 
 
-  $ionicLoading.hide();
+            $ionicLoading.hide();
 
         }).error(function (data) { console.log(data); $ionicLoading.hide(); });
     }

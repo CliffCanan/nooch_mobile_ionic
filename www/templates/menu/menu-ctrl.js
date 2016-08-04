@@ -229,21 +229,19 @@
         $rootScope.$broadcast('IsValidProfileFalse');
     }
 
-
     $scope.pendingList = function () {
         historyService.getTransferList().success(function (data) {
             $scope.Data = data;
+            
+            for (var i = 0; i <= data.length; i++) {
+                if (data[i].TransactionStatus == 'Pending') {
 
-            var i;
-
-            if (data[i] == null) {   // Condition must be like this  -  if (data[i] != null) . will change 
-
-                console.log('Got Some pending requst..');
-                console.log($scope.Data);
-                $rootScope.$broadcast('foundPendingReq');
+                    console.log('Got Some pending requst..');
+                    //console.log(data[i]);
+                    $rootScope.$broadcast('foundPendingReq');
+                }
             }
             $ionicLoading.hide();
-
 
         }).error(function (data) {
             console.log('Get History Error: [' + data + ']');
