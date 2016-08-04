@@ -41,21 +41,21 @@
     //    $scope.contentBannerInstance(message);
     //})()
 
-    //$scope.$on('IsValidProfileFalse', function (event, args) {  //OverLapping
-    //    console.log('IsValidProfileFalse');
-    //    //$scope.valid = false;
-    //    $scope.contentBannerInstance1();
-    //});
-    //$scope.contentBannerInstance1 = function () {   //OverLapping
-    //    $ionicContentBanner.show({
+    $scope.$on('IsValidProfileFalse', function (event, args) {  //OverLapping
+        console.log('IsValidProfileFalse');
+        //$scope.valid = false;
+        $scope.contentBannerInstance1();
+    });
+    $scope.contentBannerInstance1 = function () {   //OverLapping
+        $ionicContentBanner.show({
 
-    //        text: ['Profile Not Validated'],
-    //        interval: '20',
-    //        autoClose: '',
-    //        type: 'error',
-    //        transition: 'vertical'
-    //    });
-    //}
+            text: ['Profile Not Validated'],
+            interval: '20',
+            autoClose: '',
+            type: 'error',
+            transition: 'vertical'
+        });
+    }
 
 
 
@@ -88,7 +88,7 @@
 
             text: ['Pending Request Waiting'],
             interval: '50',
-            autoClose: '',
+            autoClose: '3000',
             type: 'info',
             transition: 'vertical'
         });
