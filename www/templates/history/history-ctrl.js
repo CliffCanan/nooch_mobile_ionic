@@ -8,19 +8,7 @@
  
         $scope.$on("$ionicView.enter", function (event, data) {
            
-            $scope.transactionList = '';
-            $scope.completed = true;
-            $scope.clickCompleted = function () {
-                 
-                $scope.completed = true;
-                $scope.pending = false;
-                
-            }
-            $scope.clickPending = function () {
-                $scope.pending = true;
-                $scope.completed = false;
-                
-            }
+          
             
             
             console.log('History Page Loaded');
@@ -30,7 +18,22 @@
             $ionicLoading.show({
                 template: 'Loading History...'
             });
+            $scope.transactionList = '';
+            $scope.completed = true;
+            $scope.pending = false;
+            $('#btnCompleted').addClass('active');
+            $('#btnPending').removeClass('active');
+            $scope.clickCompleted = function () {
 
+                $scope.completed = true;
+                $scope.pending = false;
+
+            }
+            $scope.clickPending = function () {
+                $scope.pending = true;
+                $scope.completed = false;
+
+            }
             historyService.getTransferList().success(function (data) {
                 
                 $scope.transactionList = data;
@@ -38,7 +41,7 @@
                 for (var i = 0; i < $scope.transactionList.length; i++) {
                    
                     $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
-                    console.log($scope.transactionList[i].TransactionDate);
+                 
                 }
                 $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
                 $ionicLoading.hide();
@@ -137,6 +140,24 @@
                         }).error(function (data) {
                             $ionicLoading.hide();
                         });
+                    }
+                });
+            }
+
+            $scope.PayBack = function (trans) {
+
+                console.log("Pay Back" + JSON.stringify(trans));
+                swal({
+                    title: "Are you sure?",
+                    text: "Do you want to Pay Back for this transaction?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes - Pay",
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $state.go('app.howMuch', { myParam: trans });
+                        //  $scope.modal.show();
                     }
                 });
             }

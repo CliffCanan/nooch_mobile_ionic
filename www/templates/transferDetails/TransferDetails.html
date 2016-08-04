@@ -66,6 +66,19 @@
                 <button class="btn btn-success button-block" ng-click="TransferMoney()">Pay</button>
             </div>
 
+            <div class="col" ng-show="false">
+                <button class="btn btn-success button-block" ng-click="PayBack(transDetail)">Pay Back</button>
+            </div>
+
+        </div>
+
+        <div class="row text-center m-t-15" ng-if="transDetail.TransactionStatus == 'Success'">
+
+
+            <div class="col" ng-if="transDetail.MemberId != memberId && transDetail.TransactionType == 'Request' ">
+                <button class="btn btn-success button-block" ng-click="PayBack(transDetail)">Pay Back</button>
+            </div>
+
         </div>
 
     </ion-content>
