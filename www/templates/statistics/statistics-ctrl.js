@@ -140,16 +140,14 @@
          });
 
 
-    //    statisticsService.GetMemberStatsGeneric('totelSent')
-    //     .success(function (data) {
-    //         $scope.stats.TotalSent = data;
-    //         console.log('Totel Payment Sent');
-    //         console.log($scope.stats.TotalSent);
-    //         $ionicLoading.hide();
-    //     }).error(function (data) {
-    //         console.log('eror' + data);
-    //         $ionicLoading.hide();
-    //     });
+        statisticsService.GetMostFrequentFriends()
+         .success(function (data) {
+             $scope.friendList = data;
+             console.log(data);
+         }).error(function (data) {
+             console.log('eror' + data);
+             $ionicLoading.hide();
+         });
 
 
     //    statisticsService.GetMemberStatsGeneric('Largest_received_transfer')

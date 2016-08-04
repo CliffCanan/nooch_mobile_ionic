@@ -8,7 +8,7 @@
 
 //var PATH = 'https://noochme.com/landlords/db/api/';
 var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
-//var PATH = 'http://localhost:40972/api/NoochServices/';
+var PATH = 'http://localhost:40972/api/NoochServices/';
 
 var URLs = {
 
@@ -54,5 +54,6 @@ var URLs = {
     getInvitedMemberList: PATH + 'getInvitedMemberList',
     GetSynapseBankAndUserDetails: PATH + 'GetSynapseBankAndUserDetails',
     sendTransactionInCSV: PATH + 'sendTransactionInCSV',
-    SaveDOBForMember: PATH + 'SaveDOBForMember'
+    SaveDOBForMember: PATH + 'SaveDOBForMember',
+    GetMostFrequentFriends: PATH + 'GetMostFrequentFriends'
 };

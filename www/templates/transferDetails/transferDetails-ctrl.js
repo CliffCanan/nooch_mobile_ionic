@@ -59,6 +59,7 @@
                            $scope.labelTypeClr = "blue";
                        }
                    }
+                  
                    else if ($scope.transDetail.TransactionType == 'Reward')
                    {
                        if ($scope.transDetail.MemberId != $scope.memId)

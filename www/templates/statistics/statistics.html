@@ -89,41 +89,16 @@
 
                     <div class="list icon-right">
 
-                        <hscroller>
-                            <hcard   index="1" desc="Meghan Brown 26 Payments" image="./img/profile_picture.png"></hcard>
-                            <hcard index="2" desc="Meghan Brown 26 Payments" image="./img/profile_picture.png"></hcard>
-                            <hcard index="3" desc="Meghan Brown 26 Payments" image="./img/profile_picture.png"></hcard>
-                            <hcard index="4" desc="Meghan Brown 26 Payments" image="./img/profile_picture.png"></hcard>
-                            
-                        </hscroller>
+                      
 
-                        <!--<a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
-                            <img src="./img/profile_picture.png" class="userPic">
-                            <h2>John Smith</h2>
-                            <p>42 Payments</p>
+                        <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward" ng-repeat="friend in friendList">
+                            <img src="{{friend.Photo}}" class="userPic">
+                            <h2>{{friend.FirstName}}{{friend.LastName}}</h2>
+                            <p>{{friend.Frequency}} Payments</p>
                             <i class="ion-ios-compose-outline"></i>
                         </a>
 
-                        <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
-                            <img src="./img/RoundLoading.png">
-                            <h2>Meghan Brown</h2>
-                            <p>26 Payments</p>
-                            <i class="ion-ios-compose-outline"></i>
-                        </a>
-
-                        <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
-                            <img src="./img/profile_picture.png">
-                            <h2>Paul Lazar</h2>
-                            <p>23 Payments</p>
-                            <i class="ion-ios-compose-outline"></i>
-                        </a>
-
-                        <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward">
-                            <img src="./img/profile_picture.png">
-                            <h2>Julius Smithers</h2>
-                            <p>10 Payments</p>
-                            <i class="ion-ios-compose-outline"></i>
-                        </a>-->
+                       
 
                     </div>
                 </div>
