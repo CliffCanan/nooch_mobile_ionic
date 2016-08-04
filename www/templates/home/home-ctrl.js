@@ -101,16 +101,18 @@
 
     $scope.memberList = [];
 
-    $scope.FindRecentFriends = function () {  //Use Network check plugin
+    $scope.FindRecentFriends = function () { 
+        //if ($cordovaNetwork.isOnline())
+        //{
         $ionicLoading.show({
-            template: 'Loading ...'
+            template: 'Loading...'
         });
         selectRecipientService.GetRecentMembers().success(function (data) {
 
             $scope.memberList = data;
-
+            
             if (data[0] == null) {
-                console.log('Got Recent Members Empty, Loding phone contacts ..');
+                console.log('Got Recent Members Empty, Loading phone contacts ..');
 
                 for (var i = 0; i < $rootScope.phoneContacts.length; i++) {
                     $scope.memberList.push($rootScope.phoneContacts[i]);                    
@@ -123,7 +125,11 @@
             console.log($scope.memberList);
 
             $scope.items = [];
-            for (var i = 0; i <= 5; i++) {
+            for (var i = 0; i <= 4; i++) {
+
+                if ($scope.memberList[i].Photo == "") {
+                    $scope.memberList[i].Photo = "./img/profile_picture.png";
+                }
 
                 var tmp = [
                   { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
@@ -134,7 +140,16 @@
 
             $ionicLoading.hide();
 
-        }).error(function (data) { console.log(data); $ionicLoading.hide(); });
+        }).error(function (data) { console.log(data); $ionicLoading.hide(); })
+
+        .finally(function () {
+            // Stop the ion-refresher from spinning
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+        //}
+        //else{
+        //    swal("Oops...", "Internet not connected!", "error");
+        //  }
     }
 
 })

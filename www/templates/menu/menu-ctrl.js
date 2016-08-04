@@ -5,9 +5,9 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
 
-        // $scope.MemberDetails();
+         $scope.MemberDetails();
         // console.log('Loaded First Time');
-        var firstView = 1;
+      
         $scope.url = 'http://support.nooch.com/';
         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
         console.log($scope.trustedUrl);

@@ -23,11 +23,18 @@
 
         </div>-->
 
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="button btn-success button-block" ng-click="goToSelectRecip()"><i class="ion-ios-search-strong"></i>&nbsp;Search For More Friends</button>
-                </div>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="FindRecentFriends()">
+        </ion-refresher>
+        <!--<ion-list>
+            <ion-item ng-repeat="item in items"></ion-item>
+        </ion-list>-->
+
+
+        <div class="row">
+            <div class="col">
+                <button type="button" class="button btn-success button-block" ng-click="goToSelectRecip()"><i class="ion-ios-search-strong"></i>&nbsp;Search For More Friends</button>
             </div>
+        </div>
 
 
 
@@ -35,5 +42,5 @@
             <hcard ng-repeat="item in items" index="{{$index}}" desc="{{item.desc}}" image="{{item.image}}"></hcard>
         </hscroller>
 
-</ion-content>
+    </ion-content>
 </ion-view>
