@@ -1,9 +1,9 @@
-﻿<ion-view view-title="Enter PIN Foreground">
+﻿<ion-view view-title="Enter PIN">
     <ion-content>
-
+        <br>
         <h2 class="instructionTextPin m-t-10">
             Enter PIN to confirm your
-            <span class="show text-success"> Identity </span>
+            <span class="show text-success"> transfer </span>
         </h2>
 
         <div class="row">
@@ -14,7 +14,21 @@
                             <input type="password" placeholder="****" ng-model="Value.Pin" maxlength="4" data-parsley-required data-parsley-required-message="*" />
                         </label>
                     </div>
+                    <br>
+                    <div class="amountPin">{{recipientDetail.Amount | currency}}</div>
                 </form>
+            </div>
+        </div>
+
+        <div class="card text-center m-t-10 recipient-box">
+            <img src="./img/profile_picture.png" class="recip-pic" />
+
+            <div class="namebar namebar-send">
+                {{recipientDetail.UserName}}
+            </div>
+
+            <div class="memo-text">
+                {{recipientDetail.Memo}}
             </div>
         </div>
 
@@ -23,5 +37,4 @@
         </div>
 
     </ion-content>
-
 </ion-view>
