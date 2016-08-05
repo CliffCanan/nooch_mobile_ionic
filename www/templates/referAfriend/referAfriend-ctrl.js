@@ -17,7 +17,7 @@
          ReferralCodeService.getReferralCode()
                  .success(function (Code) {
                      console.log(Code);
-                     $scope.inviteCode = Code;
+                     $scope.inviteCode = Code.Result;
                      $ionicLoading.hide();
                      $scope.Code = Code;                    
                  }

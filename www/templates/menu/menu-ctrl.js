@@ -13,7 +13,6 @@
         console.log($scope.trustedUrl);
 
         $scope.MemberInfo();  //For checking user's Profile Status and PhoneNo Status.
-
         $timeout($scope.pendingList, 5000); // For checking User's Pending Request.
 
     });
@@ -153,9 +152,7 @@
         $scope.supportCenterModal.remove();
     });
 
-
-
-
+  
     $scope.MemberDetails = function () {
         console.log('GetMemberDetails Fired');
 
@@ -248,4 +245,46 @@
             $ionicLoading.hide();
         });
     }
+
+
+    //$scope.choosePhoto = function () {
+    //    $ionicPlatform.ready(function () {
+    //        var options = {
+    //            quality: 75,
+    //            destinationType: Camera.DestinationType.DATA_URL,
+    //            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+    //            allowEdit: true,
+    //            encodingType: Camera.EncodingType.JPEG,
+    //            targetWidth: 300,
+    //            targetHeight: 300,
+    //            popoverOptions: CameraPopoverOptions,
+    //            saveToPhotoAlbum: false
+    //        };
+
+    //        $cordovaCamera.getPicture(options).then(function (imageData) {
+    //            console.log('imagedata --- ');
+    //            console.log(imageData);
+    //            $scope.imgURI = "data:image/jpeg;base64," + imageData;
+    //            console.log('after converting base 64 imgURL');
+    //            console.log($scope.imgURI);
+
+
+    //            var binary_string = window.atob(imageData);
+    //            var len = binary_string.length;
+    //            var bytes = new Uint8Array(len);
+    //            for (var i = 0; i < len; i++) {
+    //                bytes[i] = binary_string.charCodeAt(i);
+    //            }
+
+    //            console.log(bytes);
+    //            $scope.Details.picture = bytes;
+
+    //            $scope.Details.Photo = imageData;
+    //            // $scope.Details.Photo = imageData;
+
+    //        }, function (err) {
+    //            // An error occured. Show a message to the user
+    //        });
+    //    });
+    //}
 })

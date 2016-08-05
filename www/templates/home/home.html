@@ -21,14 +21,7 @@
                 <div>TAP TO ADD NUMBER</div>
             </div>
 
-        </div>-->
-
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="FindRecentFriends()">
-        </ion-refresher>
-        <!--<ion-list>
-            <ion-item ng-repeat="item in items"></ion-item>
-        </ion-list>-->
-
+        </div>-->      
 
         <div class="row">
             <div class="col">
@@ -37,7 +30,11 @@
         </div>
 
 
-
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="FindRecentFriends()">
+        </ion-refresher>
+        <!--<ion-list>
+        <ion-item ng-repeat="item in items"></ion-item>
+    </ion-list>-->
         <hscroller>
             <hcard ng-repeat="item in items" index="{{$index}}" desc="{{item.desc}}" image="{{item.image}}"></hcard>
         </hscroller>

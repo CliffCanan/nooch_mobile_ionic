@@ -8,9 +8,6 @@
  
         $scope.$on("$ionicView.enter", function (event, data) {
            
-          
-            
-            
             console.log('History Page Loaded');
 
             //  if ($cordovaNetwork.isOnline()) {
