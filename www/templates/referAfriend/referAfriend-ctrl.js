@@ -17,6 +17,7 @@
          ReferralCodeService.getReferralCode()
                  .success(function (Code) {
                      console.log(Code);
+                     $scope.inviteCode = Code;
                      $ionicLoading.hide();
                      $scope.Code = Code;                    
                  }
@@ -72,7 +73,7 @@
 
              $ionicPlatform.ready(function () {
                  $cordovaSocialSharing
-                    .shareViaTwitter(tweetTxt, image, addUrl)
+                    .shareViaTwitter(tweetTxt, imageURL, addUrl)
                     .then(function (result) {
                         // Success!
                     }, function (err) {
