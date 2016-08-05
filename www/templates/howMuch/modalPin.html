@@ -20,23 +20,21 @@
             </div>
         </div>
 
+        <div class="card text-center m-t-10 recipient-box">
+            <img src="./img/profile_picture.png" class="recip-pic" />
+
+            <div class="namebar namebar-send">
+                {{recipientDetail.UserName}}
+            </div>
+
+            <div class="memo-text">
+                {{recipientDetail.Memo}}
+            </div>
+        </div>
+
         <div class="text-center">
             <button class="button button-calm button-block" ng-click="CheckPin(Value.Pin)">Submit</button>
         </div>
 
     </ion-content>
-
 </ion-view>
-
-<!--<div class="card text-center m-t-10 recipient-box">
-    <img src="./img/profile_picture.png" class="recip-pic" />
-
-    <div class="namebar namebar-send">
-        Abe Lincoln
-    </div>
-
-    <div class="memo-text">
-        This is a sample memo!
-    </div>
-</div>-->
-
