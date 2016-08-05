@@ -1,4 +1,4 @@
-﻿angular.module('noochApp.SelectRecipCtrl', ['ngCordova', 'noochApp.selectRecipientService', 'noochApp.services', 'ion-sticky'])
+﻿angular.module('noochApp.SelectRecipCtrl', ['ngCordova', 'noochApp.selectRecipientService', 'noochApp.services'])
 
 /************************/
 /*** SELECT RECIPIENT ***/

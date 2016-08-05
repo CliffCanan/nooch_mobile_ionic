@@ -232,9 +232,9 @@
     $scope.pendingList = function () {
         historyService.getTransferList().success(function (data) {
             $scope.Data = data;
-            
+             
             for (var i = 0; i <= data.length; i++) {
-                if (data[i].TransactionStatus == 'Pending') {
+                if (data[i].TransactionStatus == 'Pending' && data) {
 
                     console.log('Got Some pending requst..');
                     //console.log(data[i]);

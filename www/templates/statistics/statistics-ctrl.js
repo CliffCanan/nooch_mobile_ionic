@@ -1,4 +1,4 @@
-﻿angular.module('noochApp.StatisticsCtrl', ['noochApp.statistics-service', 'noochApp.services'])
+﻿angular.module('noochApp.StatisticsCtrl', ['noochApp.statistics-service', 'noochApp.services',   'zingchart-angularjs'])
 /********************/
 /***  STATISTICS  ***/
 /********************/
@@ -7,6 +7,11 @@
     $scope.stats = {};
 
     $scope.export = {};
+
+   
+
+
+
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Statistics Controller Loaded');
@@ -144,6 +149,45 @@
          .success(function (data) {
              $scope.friendList = data;
              console.log(data);
+             var val = [];
+             var totalFrequency = 0;
+          
+             for (var x = 0; x < data.length; x++)
+             {
+                 
+                
+                 val.push({ "values": [data[x].Frequency] });
+                 totalFrequency += data[x].Frequency;
+
+             }
+            
+             console.log(val);
+             var myChartData = {
+                 "graphset": [
+                 {
+                     "plot": {
+                         "value-box": {
+                             "text": "%v",
+                             "placement": "in",
+                             "slice": "50%"
+                         } 
+                     },
+                     "title": {
+                         "text":   totalFrequency +'  Total  payments'
+                     },
+                     "type": "ring",
+                     "series": val
+                 }
+                 ]
+             };
+
+             zingchart.render({
+                 id: "myChartDiv",
+                 height: 200,
+                 width: 200,
+                 data: myChartData
+             });
+
          }).error(function (data) {
              console.log('eror' + data);
              $ionicLoading.hide();
