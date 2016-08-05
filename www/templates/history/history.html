@@ -235,9 +235,9 @@
 
                     <span class="item-note amount">{{ trans.Amount | currency}}</span>
 
-                    <ion-option-button class="button-assertive" ui-sref-ignore ng-click="rejectPayment(trans)" ng-show="trans.MemberId == memberId && (trans.TransactionType == 'Request' )">Reject</ion-option-button>
+                    <ion-option-button class="button-assertive icon ion-ionic" ui-sref-ignore ng-click="rejectPayment(trans)" ng-show="trans.MemberId == memberId && (trans.TransactionType == 'Request' )">Reject</ion-option-button>
                     <ion-option-button class="button-positive" ui-sref-ignore ng-click="TransferMoney(trans)" ng-show="trans.MemberId == memberId && (trans.TransactionType == 'Request' )">Accept </ion-option-button>
-                    <ion-option-button class="button button-assertive" ui-sref-ignore ng-click="cancelPayment(trans)" ng-show="trans.MemberId != memberId && (trans.TransactionType == 'Request' )">Cancel</ion-option-button>
+                    <ion-option-button class="button button-assertive " ui-sref-ignore ng-click="cancelPayment(trans)" ng-show="trans.MemberId != memberId && (trans.TransactionType == 'Request' )">Cancel</ion-option-button>
 
                     <ion-option-button class="button-positive" ui-sref-ignore ng-click="remindPayment(trans)" ng-show="trans.MemberId != memberId && (trans.TransactionType == 'Request' )">Remind</ion-option-button>
 
