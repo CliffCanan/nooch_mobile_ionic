@@ -2,15 +2,15 @@
 /********************/
 /***  STATISTICS  ***/
 /********************/
-.controller('StatisticsCtrl', function ($scope, statisticsService, $ionicLoading, $cordovaNetwork, $ionicContentBanner) {
+.controller('StatisticsCtrl', function ($scope, statisticsService, $ionicLoading, $cordovaNetwork, $ionicContentBanner, $ionicSlideBoxDelegate) {
 
     $scope.stats = {};
 
     $scope.export = {};
 
    
-
-
+ 
+    
 
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -79,13 +79,39 @@
         speed: 500,
     }
 
+    $scope.gotoSlide1 = function () {
+        $ionicSlideBoxDelegate.slide(0);
+    }
+
+    $scope.gotoSlide2 = function () { $ionicSlideBoxDelegate.slide(1); }
+
+    $scope.gotoSlide3 = function () { $ionicSlideBoxDelegate.slide(2); }
+
+    $scope.slideChanged = function (index) {
+        $scope.slideIndex = index;
+        $scope.activeIndex = index;
+        $scope.previousIndex = index;
+        if ($scope.activeIndex == 0) {
+            $(".statsIconContainer button:not(.slide0)").removeClass("selected");
+            $(".statsIconContainer .slide0").addClass("selected");
+        }
+        else if ($scope.activeIndex == 1) {
+            $(".statsIconContainer button:not(.slide1)").removeClass("selected");
+            $(".statsIconContainer .slide1").addClass("selected");
+        }
+        else if ($scope.activeIndex == 2) {
+            $(".statsIconContainer button:not(.slide2)").removeClass("selected");
+            $(".statsIconContainer .slide2").addClass("selected");
+        }
+    };
+
     $scope.$on("$ionicSlides.sliderInitialized", function (event, data) {
         // data.slider is the instance of Swiper
         $scope.slider = data.slider;
     });
 
     $scope.$on("$ionicSlides.slideChangeStart", function (event, data) {
-
+        
         $scope.activeIndex = data.slider.activeIndex;
         $scope.previousIndex = data.slider.previousIndex;
 
@@ -111,7 +137,7 @@
     $scope.$on("$ionicSlides.slideChangeEnd", function (event, data) {
         // note: the indexes are 0-based
     });
-
+   
 
     $scope.GetMemberStatsFn = function () {
         //if ($cordovaNetwork.isOnline()) {

@@ -548,7 +548,8 @@ var ANIMATE_TIMER_KEY = '$$animateCss';
  *
  * ## Usage
  * Once again, `$animateCss` is designed to be used inside of a registered JavaScript animation that
- * is powered by ngAnimate. It is possible to use `$animateCss` directly inside of a directive, however,
+ * is 
+ ngAnimate. It is possible to use `$animateCss` directly inside of a directive, however,
  * any automatic control over cancelling animations and/or preventing animations from being run on
  * child elements will not be handled by Angular. For this to work as expected, please use `$animate` to
  * trigger the animation and then setup a JavaScript animation that injects `$animateCss` to trigger

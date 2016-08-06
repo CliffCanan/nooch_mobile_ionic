@@ -3,20 +3,18 @@
 
         <div class="row statsIconContainer m-t-10">
             <div class="col">
-                <button class="slide0 selected"><i class="ion-cash"></i></button>
+                <button class="slide0 selected" ng-click="gotoSlide1()"><i class="ion-cash"></i></button>
             </div>
             <div class="col">
-                <button class="slide1"><i class=" ion-person"></i></button>
+                <button class="slide1" ng-click="gotoSlide2()"><i class=" ion-person"></i></button>
             </div>
             <div class="col">
-                <button class="slide2"><i class=" ion-ios-people"></i></button>
+                <button class="slide2" ng-click="gotoSlide3()"><i class=" ion-ios-people"></i></button>
             </div>
         </div>
 
-        <ion-slides options="slideOptions" slider="data.slider">
-
-            <ion-slide-page>
-
+        <ion-slide-box on-slide-changed="slideChanged(index)">
+            <ion-slide>
                 <div class="card m-b-10">
 
                     <h3 class="text-center m-t-15">Transfer Stats</h3>
@@ -42,11 +40,8 @@
                 <div class="text-center">
                     <div class="btn btn-primary" ng-click="exportHistory()"><i class="ion-ios-cloud-download"></i>Export Account History</div>
                 </div>
-
-            </ion-slide-page>
-
-            <ion-slide-page>
-
+            </ion-slide>
+            <ion-slide>
                 <div class="card">
 
                     <h3 class="text-center m-t-15">Profile Stats</h3>
@@ -55,7 +50,7 @@
 
                         <div class="item">Friends Invited<span class="badge badge-calm">{{stats.Total_Friends_Invited}}</span></div>
 
-                        <div class="item">Invites Accepted <span class="badge badge-calm">{{stats.Total_Friends_Joined}}</span></div> 
+                        <div class="item">Invites Accepted <span class="badge badge-calm">{{stats.Total_Friends_Joined}}</span></div>
 
 
                         <div class="item">
@@ -79,13 +74,11 @@
                     </div>
                 </div>
 
-            </ion-slide-page>
-
-            <ion-slide-page>
-               
-                    <div align="center"
-                        <zingchart id="myChartDiv" zc-json="myJson" zc-height=200 zc-width=200></zingchart>
-                    </div>
+            </ion-slide>
+            <ion-slide>
+                <div align="center"
+                    <zingchart id="myChartDiv" zc-json="myJson" zc-height=200 zc-width=200></zingchart>
+                </div>
 
                 <ion-scroll>
                     <div class="card">
@@ -106,9 +99,11 @@
 
                         </div>
                     </div>
-</ion-slide-page>
 
-        </ion-slides>
+</ion-slide>
+        </ion-slide-box>
+
+      
 
     </ion-content>
 </ion-view>
