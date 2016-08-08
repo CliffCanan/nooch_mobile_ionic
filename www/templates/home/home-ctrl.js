@@ -138,10 +138,11 @@
 
         }).error(function (data) { console.log(data); $ionicLoading.hide(); })
 
-        .finally(function () {
-            // Stop the ion-refresher from spinning
-            $scope.$broadcast('scroll.refreshComplete');
-        });
+        //.finally(function () {   will be used when ll be dealing with pull to refresh
+        //    // Stop the ion-refresher from spinning
+        //    $scope.$broadcast('scroll.refreshComplete');
+        //});
+
         //}
         //else{
         //    swal("Oops...", "Internet not connected!", "error");
