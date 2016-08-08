@@ -15,20 +15,20 @@
                         </label>
                     </div>
                     <br>
-                    <div class="amountPin">{{recipientDetail.Amount | currency}}</div>
+                    <div class="amountPin">{{transDetailsForPin.Amount | currency}}</div>
                 </form>
             </div>
         </div>
 
         <div class="card text-center m-t-10 recipient-box">
-            <img src="./img/profile_picture.png" class="recip-pic" />
+            <img src=" {{transDetailsForPin.Photo}}" class="recip-pic" />
 
             <div class="namebar namebar-send">
-                {{recipientDetail.UserName}}
+                {{transDetailsForPin.Name}}
             </div>
 
             <div class="memo-text">
-                {{recipientDetail.Memo}}
+                {{transDetailsForPin.Memo}}
             </div>
         </div>
 

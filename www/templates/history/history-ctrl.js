@@ -13,6 +13,7 @@
         });
         $scope.$on("$ionicView.enter", function (event, data) {
             var transDetails = {};
+            $scope.transDetailsForPin = {};
             console.log('History Page Loaded');
 
           
@@ -178,14 +179,20 @@
                     confirmButtonText: "Yes - Pay",
                 }, function (isConfirm) {
                     if (isConfirm) {
+                        $scope.transDetailsForPin = {};
+                        $scope.transDetailsForPin = transDetails;
+                        console.log($scope.transDetailsForPin);
                         $scope.modal.show();
                     }
                 });
             }
 
             $scope.CheckPin = function (Pin) {
+              
                 console.log('Check Pin Function called');
                 console.log("Transfer payment" + JSON.stringify(transDetails));
+             
+               
                 if ($('#frmPinForeground').parsley().validate() == true) {
                     $scope.modal.hide();
                     console.log(Pin);

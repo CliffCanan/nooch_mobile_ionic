@@ -186,7 +186,7 @@
                 confirmButtonText: "Yes - Pay",
             }, function (isConfirm) {
                 if (isConfirm) {
-
+                    console.log($scope.recipientDetail);
                     $scope.modal.show();
 
                 }
