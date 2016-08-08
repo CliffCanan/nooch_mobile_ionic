@@ -293,7 +293,11 @@
                                        swal("Error...", data.Result, "error");
 
                                    }
-                               }).error();
+                               }).error(function () {
+                                   $ionicLoading.hide();
+                                   $scope.modal.hide();
+                                   swal("Error...", data.Result, "error");
+                               });
 
                            }
                        }
@@ -310,6 +314,34 @@
                                howMuchService.TransferMoney($scope.sendData).success(function (data) {
                                    if (data.Result && data.Result.indexOf('Successfully') > -1) {
                                        $ionicLoading.hide();
+                                       $scope.modal.hide();
+                                       $scope.recipientDetail.Amount = "";
+                                       $scope.recipientDetail.Memo = "";
+                                       swal("Payed...", data.Result, "success");
+
+                                   }
+
+                                   else {
+                                       $ionicLoading.hide();
+                                       $scope.modal.hide();
+                                       swal("Error...", data.Result, "error");
+
+                                   }
+                                   $ionicLoading.hide();
+                               }).error(function () {
+                                   $ionicLoading.hide();
+                                   $scope.modal.hide();
+                                   swal("Error...", data.Result, "error");
+                               });
+                           }
+                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null ) && ($scope.recipientDetail.ContactNumber == null))
+                                {
+                               howMuchService.TransferMoneyToNonNoochUserUsingSynapse($scope.sendData, $scope.recipientDetail.UserName).success(function (data) {
+                                   if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                       $ionicLoading.hide();
+                                       $scope.modal.hide();
+                                       $scope.recipientDetail.Amount = "";
+                                       $scope.recipientDetail.Memo = "";
                                        swal("Payed...", data.Result, "success");
 
                                    }
@@ -326,28 +358,13 @@
                                    $scope.modal.hide();
                                });
                            }
-                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null ) && ($scope.recipientDetail.ContactNumber == null))
-                                {
-                               howMuchService.TransferMoneyToNonNoochUserUsingSynapse($scope.sendData, $scope.recipientDetail.UserName).success(function (data) {
-                                   if (data.Result && data.Result.indexOf('Successfully') > -1) {
-                                       $ionicLoading.hide();
-                                       swal("Payed...", data.Result, "success");
-
-                                   }
-
-                                   else {
-                                       $ionicLoading.hide();
-                                       $scope.modal.hide();
-                                       swal("Error...", data.Result, "error");
-
-                                   }
-                                   $ionicLoading.hide();
-                               }).error(function () { $ionicLoading.hide(); });
-                           }
                            else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.ContactNumber != null)) {
                                howMuchService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse($scope.sendData, $scope.recipientDetail.ContactNumber).success(function (data) {
                                    if (data.Result && data.Result.indexOf('Successfully') > -1) {
                                        $ionicLoading.hide();
+                                       $scope.modal.hide();
+                                       $scope.recipientDetail.Amount = "";
+                                       $scope.recipientDetail.Memo = "";
                                        swal("Payed...", data.Result, "success");
 
                                    }
@@ -380,6 +397,7 @@
 
                }).error(function (data) {
                    console.log('eror' + data);
+                   $scope.modal.hide();
                    $ionicLoading.hide();
                });
             }).error(function (data) { $scope.modal.hide(); });

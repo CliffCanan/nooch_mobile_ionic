@@ -4,11 +4,18 @@
 /***  HISTORY  ***/
 /*****************/
  
-    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner, $state ) {
+    .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner, $state, $ionicModal, CommonServices, ValidatePin) {
  
         $scope.$on("$ionicView.enter", function (event, data) {
-           
+            var transDetails = {};
             console.log('History Page Loaded');
+
+            $ionicModal.fromTemplateUrl('templates/history/modalPin.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.modal = modal;
+            });
 
             //  if ($cordovaNetwork.isOnline()) {
 
@@ -158,6 +165,130 @@
                     }
                 });
             }
+
+            $scope.TransferMoney = function (trans) {
+                transDetails = trans;
+                console.log("Transfer payment" + JSON.stringify(transDetails));
+                swal({
+                    title: "Are you sure?",
+                    text: "Do you want to Pay for this transaction?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes - Pay",
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $scope.modal.show();
+                    }
+                });
+            }
+
+            $scope.CheckPin = function (Pin) {
+                console.log('Check Pin Function called');
+                console.log("Transfer payment" + JSON.stringify(transDetails));
+                if ($('#frmPinForeground').parsley().validate() == true) {
+                    $scope.modal.hide();
+                    console.log(Pin);
+
+                    //if ($cordovaNetwork.isOnline()) {
+                    $ionicLoading.show({
+                        template: 'Loading ...'
+                    });
+
+                    CommonServices.GetEncryptedData(Pin).success(function (data) {
+                        console.log("Transfer payment" + JSON.stringify(transDetails));
+                        transDetails.PinNumber = data.Status;
+                        ValidatePin.ValidatePinNumberToEnterForEnterForeground(data.Status)
+                       .success(function (data) {
+                           // $scope.Data = data;
+                           console.log(data);
+
+                           $ionicLoading.hide();
+                           if (data.Result == 'Success') {
+                               console.log(data);
+                               //code to transfer Money
+
+                               $ionicLoading.show({
+                                   template: 'Paying Payment ...'
+                               });
+
+                               if (transDetails.MemberId != transDetails.RecepientId) {
+                                   transferDetailsService.TransferMoney(transDetails).success(function (data) {
+                                       if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                           swal("Payed...", data.Result, "success");
+                                           $ionicLoading.hide();
+                                       }
+                                       else {
+                                           swal("Error...", data.Result, "error");
+                                           $ionicLoading.hide();
+                                       }
+                                       $ionicLoading.hide();
+                                   }).error(function () { $ionicLoading.hide(); });
+                               }
+                               else if (transDetails.MemberId == transDetails.RecepientId && transDetails.InvitationSentTo.length > 0) {
+                                   transferDetailsService.TransferMoneyToNonNoochUserUsingSynapse(transDetails).success(function (data) {
+                                       if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                           swal("Payed...", data.Result, "success");
+                                           $ionicLoading.hide();
+                                       }
+                                       else {
+                                           swal("Error...", data.Result, "error");
+                                           $ionicLoading.hide();
+                                       }
+                                       $ionicLoading.hide();
+                                   }).error(function () { $ionicLoading.hide(); });
+                               }
+                               else if (transDetails.MemberId == transDetails.RecepientId && transDetails.PhoneNumberInvited.length > 0) {
+                                   transferDetailsService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse(transDetails).success(function (data) {
+                                       if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                           swal("Payed...", data.Result, "success");
+                                           $ionicLoading.hide();
+                                       }
+                                       else {
+                                           swal("Error...", data.Result, "error");
+                                           $ionicLoading.hide();
+                                       }
+                                       $ionicLoading.hide();
+                                   }).error(function () { $ionicLoading.hide(); });
+                               }
+
+
+
+                           }
+                           else if (data.Result == 'Invalid Pin') {
+                               swal({
+                                   title: "Oops!",
+                                   text: "Incorrect Pin .",
+                                   type: "warning",
+
+                                   confirmButtonColor: "#DD6B55",
+                                   confirmButtonText: "Ok",
+                               }, function (isConfirm) {
+                                   if (isConfirm) {
+
+                                       $scope.modal.show();
+
+                                   }
+                               });
+
+                           }
+                           else if (data.Message == 'An error has occurred.') {
+                               swal("Oops...", "Something went wrong !", "error");
+                           }
+
+                       }).error(function (data) {
+                           console.log('eror' + data);
+                           $ionicLoading.hide();
+                       });
+                    }).error(function (data) { });
+
+                    //}
+                    //else {
+                    //    swal("Oops...", "Internet not connected!", "error");
+                    //}
+                }
+            };
+
             //}
             //else{
             //        swal("Oops...", "Internet not connected!", "error");
