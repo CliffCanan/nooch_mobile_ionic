@@ -5,9 +5,9 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
 
-         $scope.MemberDetails();
+        $scope.MemberDetails();
         // console.log('Loaded First Time');
-      
+
         $scope.url = 'http://support.nooch.com/';
         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
         console.log($scope.trustedUrl);
@@ -25,7 +25,8 @@
 
         // Show the correct Action Sheet
 
-        if (id == 'support') {
+        if (id == 'support')
+        {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
                   { text: 'Report a Bug' },
@@ -37,7 +38,8 @@
                 //cancel: function () {
                 //},
                 buttonClicked: function (index) {
-                    if (index == 0) {
+                    if (index == 0)
+                    {
                         // toArr, ccArr and bccArr must be an array, file can be either null, string or array
                         // .shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                         $cordovaSocialSharing
@@ -51,7 +53,8 @@
                           });
 
                     }
-                    else if (index == 1) {
+                    else if (index == 1)
+                    {
                         // toArr, ccArr and bccArr must be an array, file can be either null, string or array
                         //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                         $cordovaSocialSharing
@@ -65,7 +68,8 @@
                           });
 
                     }
-                    else if (index == 2) {
+                    else if (index == 2)
+                    {
                         $scope.openSupportCenter();
                     }
 
@@ -73,7 +77,8 @@
                 }
             });
         }
-        else if (id == 'legal') {
+        else if (id == 'legal')
+        {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
                   { text: 'Terms of Service' },
@@ -84,10 +89,12 @@
                 //cancel: function () {
                 //},
                 buttonClicked: function (index) {
-                    if (index == 0) {
+                    if (index == 0)
+                    {
                         $scope.openTos();
                     }
-                    else if (index == 1) {
+                    else if (index == 1)
+                    {
                         $scope.openPrivacy();
                     }
                     return true;
@@ -152,7 +159,7 @@
         $scope.supportCenterModal.remove();
     });
 
-  
+
     $scope.MemberDetails = function () {
         console.log('GetMemberDetails Fired');
 
@@ -195,18 +202,19 @@
 
                     $scope.Details = details;
 
-                    console.log('values in  Details');
+                    console.log('GetMyDetails() ->');
                     console.log($scope.Details);
 
-                    if ($scope.Details.IsVerifiedPhone == false) {
-                        console.log('value in IsVerifiedPhone');
-                        console.log($scope.Details.IsVerifiedPhone);
+                    if ($scope.Details.IsVerifiedPhone == false)
+                    {
+                        //console.log('value in IsVerifiedPhone');
+                        //console.log($scope.Details.IsVerifiedPhone);
                         $rootScope.$broadcast('IsVerifiedPhoneFalse');
                     }
 
-                    if ($scope.Details.IsValidProfile == false) {
+                    if ($scope.Details.IsValidProfile == false)
                         $timeout($scope.validProfile, 8000);
-                    }
+
                     $ionicLoading.hide();
                 })
                 .error(function (encError) {
@@ -229,15 +237,22 @@
     $scope.pendingList = function () {
         historyService.getTransferList().success(function (data) {
             $scope.Data = data;
-             
-            for (var i = 0; i <= data.length; i++) {
-                if (data[i].TransactionStatus == 'Pending' && data) {
 
-                    console.log('Got Some pending requst..');
+            var hasPendingPayments = false;
+
+            for (var i = 0; i <= data.length; i++)
+            {
+                if (data[i] != null && data[i].TransactionStatus == 'Pending')
+                {
                     //console.log(data[i]);
-                    $rootScope.$broadcast('foundPendingReq');
+                    if (!hasPendingPayments)
+                    {
+                        $rootScope.$broadcast('foundPendingReq');
+                        hasPendingPayments = true;
+                    }
                 }
             }
+
             $ionicLoading.hide();
 
         }).error(function (data) {
@@ -273,7 +288,8 @@
                 var binary_string = window.atob(imageData);
                 var len = binary_string.length;
                 var bytes = new Uint8Array(len);
-                for (var i = 0; i < len; i++) {
+                for (var i = 0; i < len; i++)
+                {
                     bytes[i] = binary_string.charCodeAt(i);
                 }
 

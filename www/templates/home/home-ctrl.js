@@ -6,7 +6,6 @@
 /****************/
 .controller('HomeCtrl', function ($scope, $state, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform, profileService, $ionicLoading, $ionicContentBanner, $rootScope, selectRecipientService) {
 
-
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl loaded');
@@ -15,17 +14,15 @@
         $ionicPlatform.ready(function () {
 
             // $scope.checkUserDetails();
-            console.log($cordovaGoogleAnalytics);
-            $cordovaGoogleAnalytics.debugMode();
-            $cordovaGoogleAnalytics.startTrackerWithId('UA-XXXXXXXX-X');
-            $cordovaGoogleAnalytics.trackView('APP first screen');
-
+            // console.log($cordovaGoogleAnalytics);
+            // $cordovaGoogleAnalytics.debugMode();
+            //$cordovaGoogleAnalytics.startTrackerWithId('UA-XXXXXXXX-X');
+            //$cordovaGoogleAnalytics.trackView('Home Screen');
         });
     });
 
     //$scope.contentBannerInstance = function (msg) {  //Trying to Push Msg @RunTime
     //    $ionicContentBanner.show({
-
     //        text: msg,
     //        interval: '20',
     //        autoClose: '',
@@ -46,36 +43,32 @@
         //$scope.valid = false;
         $scope.contentBannerInstance1();
     });
+
     $scope.contentBannerInstance1 = function () {
         $ionicContentBanner.show({
-
             text: ['Profile Not Validated'],
             interval: '20',
-            autoClose: '',
+            //autoClose: '',
             type: 'error',
             transition: 'vertical'
         });
     }
 
 
-
     $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
-        console.log('IsVerifiedPhoneFalse');
         //$scope.verified = false;
         $scope.contentBannerInstance();
     });
 
     $scope.contentBannerInstance = function () {
         $ionicContentBanner.show({
-
             text: ['Phone Number Not verified'],
             interval: '20',
-            autoClose: '4900',
+            //autoClose: '4900',
             type: 'error',
             transition: 'vertical'
         });
     }
-
 
 
     $scope.$on('foundPendingReq', function (event, args) {
@@ -85,13 +78,13 @@
 
     $scope.contentBannerInstance2 = function () {
         $ionicContentBanner.show({
-
             text: ['Pending Request Waiting'],
-            interval: '50',
-            autoClose: '3000',
+            //autoClose: '3000',
             type: 'info',
             transition: 'vertical'
         });
+
+        $('#fav-container').css('margin-top', '40px');
     }
 
     $scope.goToSelectRecip = function () {
@@ -101,42 +94,45 @@
 
     $scope.memberList = [];
 
-    $scope.FindRecentFriends = function () { 
+    $scope.FindRecentFriends = function () {
         //if ($cordovaNetwork.isOnline())
         //{
         $ionicLoading.show({
             template: 'Loading...'
         });
+
         selectRecipientService.GetRecentMembers().success(function (data) {
 
             $scope.memberList = data;
-            
-            if (data[0] == null) {
+
+            if (data[0] == null)
+            {
                 console.log('Got Recent Members Empty, Loading phone contacts ..');
 
-                for (var i = 0; i < $rootScope.phoneContacts.length; i++) {
-                    $scope.memberList.push($rootScope.phoneContacts[i]);                    
+                for (var i = 0; i < $rootScope.phoneContacts.length; i++)
+                {
+                    $scope.memberList.push($rootScope.phoneContacts[i]);
                 }
-                console.log('Phone Contacts Are--');
+                console.log('Phone Contacts Are...');
                 console.log($scope.memberList);
             }
 
-            console.log('Find recent Fn-->>');
+            console.log('GetRecentMembers()-->>');
             console.log($scope.memberList);
 
             $scope.items = [];
-            for (var i = 0; i <= 4; i++) {
 
-                if ($scope.memberList[i].Photo == "") {
+            for (var i = 0; i <= 4; i++)
+            {
+                if ($scope.memberList[i].Photo == "")
                     $scope.memberList[i].Photo = "./img/profile_picture.png";
-                }
 
                 var tmp = [
                   { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
                 ];
+
                 $scope.items = $scope.items.concat(tmp);
             };
-
 
             $ionicLoading.hide();
 

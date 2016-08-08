@@ -12,7 +12,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts) {
 
-      if (!$localStorage.GLOBAL_VARIABLES) {
+      if (!$localStorage.GLOBAL_VARIABLES)
+      {
           $localStorage.GLOBAL_VARIABLES = {
               IsDemoDone: false, // for displaying tutorial screens to user - if any
               IsRemeberMeEnabled: false, // for remembering user
@@ -44,63 +45,54 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       $ionicPlatform.ready(function () {
           console.log('app run');
 
-           
+          $rootScope.phoneContacts = [];
+          var readContact =
+                              {
+                                  FirstName: '',
+                                  UserName: '',
+                                  ContactNumber: '',
+                                  Photo: '',
+                                  id: ''
+                              };
 
+          function onSuccess(contacts) {
 
-              $rootScope.phoneContacts = [];
-              var readContact =
-                                  {
-                                      FirstName: '',
-                                      UserName: '',
-                                      ContactNumber: '',
-                                      Photo: '',
-                                      id: ''
-                                  };
+              console.log(contacts);
+              for (var i = 0; i < contacts.length; i++)
+              {
+                  var contact = contacts[i];
 
+                  readContact.FirstName = contact.name.formatted;
+                  readContact.id = i;
+                  if (contact.emails != null)
+                      readContact.UserName = contact.emails[0].value;
+                  if (contact.phoneNumbers != null)
+                      readContact.ContactNumber = contact.phoneNumbers[0].value;
+                  if (contact.photos != null)
+                      readContact.Photo = contact.photos[0].value;
+                  $rootScope.phoneContacts.push(readContact);
 
-              function onSuccess(contacts) {
+                  readContact =
+                              {
+                                  FirstName: '',
+                                  UserName: '',
+                                  ContactNumber: '',
+                                  Photo: '',
+                                  id: ''
+                              };
+              }
 
-                  console.log(contacts);
-                  for (var i = 0; i < contacts.length; i++) {
+              console.log($rootScope.phoneContacts);
+          };
 
-                      var contact = contacts[i];
+          function onError(contactError) {
+              console.log(contactError);
+          };
 
-                      readContact.FirstName = contact.name.formatted;
-                      readContact.id = i;
-                      if (contact.emails != null)
-                          readContact.UserName = contact.emails[0].value;
-                      if (contact.phoneNumbers != null)
-                          readContact.ContactNumber = contact.phoneNumbers[0].value;
-                      if (contact.photos != null)
-                          readContact.Photo = contact.photos[0].value;
-                      $rootScope.phoneContacts.push(readContact);
+          var options = {};
+          options.multiple = true;
 
-                      readContact =
-                                  {
-                                      FirstName: '',
-                                      UserName: '',
-                                      ContactNumber: '',
-                                      Photo: '',
-                                      id: ''
-                                  };
-
-
-                  }
-                  console.log($rootScope.phoneContacts);
-
-
-              };
-
-              function onError(contactError) {
-                  console.log(contactError);
-              };
-
-              var options = {};
-              options.multiple = true;
-
-              $cordovaContacts.find(options).then(onSuccess, onError);
-
-
+          $cordovaContacts.find(options).then(onSuccess, onError);
 
 
           // this functino will gets fired when app comes to foreground
@@ -112,9 +104,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   //added this to not asked for Pin before login
 
                   if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
-                  {
                       $state.go('enterPinForeground');
-                  }
               }
           }, false);
 
@@ -124,18 +114,16 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           }, false);
 
 
-
           if (window.cordova)
           {
-              // getting device info... will be used for dealing with notifications
+              // Get device info... will be used for handling notifications
 
               var device = $cordovaDevice.getDevice();
 
               $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform;
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
 
-
-              // setting push notification related stuff
+              // Settings for handling push notification
               var optionsForNotificationSetup = {
                   android: {
                       senderID: "104707683579"
@@ -148,8 +136,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   windows: {}
               };
 
-
-              // initialize
               $cordovaPushV5.initialize(optionsForNotificationSetup).then(function () {
                   // start listening for new notifications
                   $cordovaPushV5.onNotification();
@@ -174,7 +160,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   // data.image,
                   // data.additionalData
 
-                  console.log('reveived some notification, notification data -> ' + JSON.stringify(data));
+                  console.log('Reveived notification, notification data -> ' + JSON.stringify(data));
               });
 
               // triggered every time error occurs
@@ -191,14 +177,13 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                     var lat = position.coords.latitude
                     var long = position.coords.longitude
 
-                    console.log('lat in success -> ' + lat);
-                    console.log('long in success -> ' + long);
+                    console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
 
                     $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
 
                 }, function (err) {
                     // error
-                    console.log('error ' + JSON.stringify(err));
+                    console.log('$cordovaGeolocation error ' + JSON.stringify(err));
 
                     $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
                 });
@@ -311,7 +296,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
         })
         .state('app.transferDetails', {
             url: '/history/transferDetails',
-            params: { trans:  null },
+            params: { trans: null },
             views: {
                 'menuContent': {
                     templateUrl: 'templates/transferDetails/transferDetails.html',
