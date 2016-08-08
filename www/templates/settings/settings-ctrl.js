@@ -118,7 +118,7 @@
                         settingsService.logOut($localStorage.GLOBAL_VARIABLES.AccessToken, $localStorage.GLOBAL_VARIABLES.MemberId).success(function (data) {
                             console.log(data.Result);
 
-                            if (data.Result == 'Success.' || (data.Result.indexOf('oAuth') > -1)) {
+                            if (data.Result == 'Success.' || (data.Result == 'Invalid OAuth 2 Access')) {
 
                                 $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
                                 $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
