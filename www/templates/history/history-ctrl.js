@@ -5,17 +5,17 @@
 /*****************/
  
     .controller('historyCtrl', function ($scope, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner, $state, $ionicModal, CommonServices, ValidatePin) {
- 
+        $ionicModal.fromTemplateUrl('templates/history/modalPin.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+        });
         $scope.$on("$ionicView.enter", function (event, data) {
             var transDetails = {};
             console.log('History Page Loaded');
 
-            $ionicModal.fromTemplateUrl('templates/history/modalPin.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                $scope.modal = modal;
-            });
+          
 
             //  if ($cordovaNetwork.isOnline()) {
 

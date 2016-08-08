@@ -2,6 +2,7 @@
     <ion-content scroll="false">
 
         <div class="row statsIconContainer m-t-10">
+
             <div class="col">
                 <button class="slide0 selected" ng-click="gotoSlide1()"><i class="ion-cash"></i></button>
             </div>
@@ -11,10 +12,13 @@
             <div class="col">
                 <button class="slide2" ng-click="gotoSlide3()"><i class=" ion-ios-people"></i></button>
             </div>
+
         </div>
 
         <ion-slide-box on-slide-changed="slideChanged(index)">
+            
             <ion-slide>
+
                 <div class="card m-b-10">
                     <ion-scroll>
                         <h3 class="text-center m-t-15">Transfer Stats</h3>
@@ -35,48 +39,52 @@
                             <div class="item">Largest Transfer Received <span class="badge badge-calm" ng-model="stats.largestTransferReceived">$ &nbsp;{{stats.Largest_received_transfer}}</span></div>
                         </div>
 
-</div>
+                </div>
 
                 <div class="text-center">
                     <div class="btn btn-primary" ng-click="exportHistory()"><i class="ion-ios-cloud-download"></i>Export Account History</div>
                 </div>
+
                 </ion-scroll>
+
             </ion-slide>
+
             <ion-slide>
+
                 <div class="card">
                     <!--<ion-scroll>-->
-                        <h3 class="text-center m-t-15">Profile Stats</h3>
+                    <h3 class="text-center m-t-15">Profile Stats</h3>
 
-                        <div class="list">
+                    <div class="list">
 
-                            <div class="item">Friends Invited<span class="badge badge-calm">{{stats.Total_Friends_Invited}}</span></div>
+                        <div class="item">Friends Invited<span class="badge badge-calm">{{stats.Total_Friends_Invited}}</span></div>
 
-                            <div class="item">Invites Accepted <span class="badge badge-calm">{{stats.Total_Friends_Joined}}</span></div>
+                        <div class="item">Invites Accepted <span class="badge badge-calm">{{stats.Total_Friends_Joined}}</span></div>
 
-
-                            <div class="item">
-                                Posts To Twitter
-                                <i class="ion-social-twitter"></i>
-                                <span class="badge badge-calm"> {{stats.Total_Posts_To_TW}} </span>
-                            </div>
-
-                            <div class="item">
-                                Posts To Facebook
-                                <i class="ion-social-facebook"></i>
-                                <span class="badge badge-calm">{{stats.Total_Posts_To_FB}}</span>
-                            </div>
-
-                            <a class="item" href="#/app/referAfriend">
-                                <i class="ion-person-add text-success"></i>
-                                Refer More Friends
-                                <i class="ion-ios-arrow-thin-right text-success"></i>
-                            </a>
-
+                        <div class="item">
+                            Posts To Twitter
+                            <i class="ion-social-twitter"></i>
+                            <span class="badge badge-calm"> {{stats.Total_Posts_To_TW}} </span>
                         </div>
-                        <!--</ion-scroll>-->
-</div>
+
+                        <div class="item">
+                            Posts To Facebook
+                            <i class="ion-social-facebook"></i>
+                            <span class="badge badge-calm">{{stats.Total_Posts_To_FB}}</span>
+                        </div>
+
+                        <a class="item" href="#/app/referAfriend">
+                            <i class="ion-person-add text-success"></i>
+                            Refer More Friends
+                            <i class="ion-ios-arrow-thin-right text-success"></i>
+                        </a>
+
+                    </div>
+                    <!--</ion-scroll>-->
+                </div>
 
             </ion-slide>
+
             <ion-slide>
                 <div align="center"
                     <zingchart id="myChartDiv" zc-json="myJson" zc-height=200 zc-width=200></zingchart>
@@ -89,24 +97,19 @@
 
                             <div class="list icon-right">
 
-
                                 <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward" ng-repeat="friend in friendList">
                                     <img src="{{friend.Photo}}" class="userPic">
                                     <h2>{{friend.FirstName}}{{friend.LastName}}</h2>
                                     <p>{{friend.Frequency}} Payments</p>
                                     <i class="ion-ios-compose-outline"></i>
                                 </a>
-
-
-
                             </div>
-                            </ion-scroll>
-</div>
 
-</ion-slide>
+                        </ion-scroll>
+                    </div>
+
+            </ion-slide>
         </ion-slide-box>
-
-      
 
     </ion-content>
 </ion-view>
