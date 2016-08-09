@@ -291,20 +291,35 @@
                 console.log('after converting base 64 imgURL');
                 console.log($scope.imgURI);
 
-
-                var binary_string = window.atob(imageData);
-                var len = binary_string.length;
-                var bytes = new Uint8Array(len);
-                for (var i = 0; i < len; i++)
-                {
-                    bytes[i] = binary_string.charCodeAt(i);
-                }
-
-                console.log(bytes);
-                $scope.Details.picture = bytes;
-
                 $scope.Details.Photo = imageData;
-                // $scope.Details.Photo = imageData;
+              
+                console.log('Update Photo Function Touched');
+                //if ($cordovaNetwork.isOnline()) {
+                $ionicLoading.show({
+                    template: 'Loading ...'
+                });
+
+                console.log('Values in scope.Details within fn...');
+
+                console.log($scope.Details);
+
+                profileService.MySettings($scope.Details)
+                    .success(function (data) {
+                        console.log(data);
+                        $scope.Data = data;
+                        
+                        $ionicLoading.hide();
+                    }
+            ).error(function (encError) {
+                console.log('came in enc error block ' + encError);
+                $ionicLoading.hide();
+                if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                { CommonServices.logOut(); }
+            })
+                //}
+                //else {
+                //    swal("Oops...", "Internet not connected!", "error");
+                //}
 
             }, function (err) {
                 // An error occured. Show a message to the user
