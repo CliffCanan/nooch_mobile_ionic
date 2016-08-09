@@ -10,7 +10,7 @@
         Name: '',
         Email: '',
         Password: '',
-        Picture: '',
+        Photo: '',
         Pin: '',
         rmmbrMe: {
             chk: true
