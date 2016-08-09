@@ -10,7 +10,7 @@
 
             console.log($rootScope.signupData);
 
-            
+
 
             //$scope.memberDetails();
             //$("#pin").focus();
@@ -56,25 +56,26 @@
                 };
 
                 $cordovaCamera.getPicture(options).then(function (imageData) {
-                    console.log('imagedata --- ');
-                    console.log(imageData);
-                    $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                    console.log('after converting base 64 imgURL');
-                    //console.log($scope.imgURI);
+                    //console.log('imagedata --- ');
+                    //console.log(imageData);
 
-                    var binary_string = window.atob(imageData);  
-                    var len = binary_string.length;
-                    var bytes = new Uint8Array(len);
-                    for (var i = 0; i < len; i++) {
-                        bytes[i] = binary_string.charCodeAt(i);
-                    }
-                   // $scope.Details.picture = bytes;
-                    console.log(bytes);
+                    $scope.imgURI = "data:image/jpeg;base64," + imageData;
+
+                    //var binary_string = window.atob(imageData);  Surya:09-Aug-16 No need To convert In to Byte Array
+                    //var len = binary_string.length;
+                    //var bytes = new Uint8Array(len);
+                    //for (var i = 0; i < len; i++) {
+                    //    bytes[i] = binary_string.charCodeAt(i);
+                    //}
+                    // $scope.Details.picture = bytes;
+                    //console.log(bytes);
 
                     $rootScope.signupData.Photo = imageData;
 
-                    // $scope.UpdatePhoto();
-                                      
+                    if ($rootScope.signupData.Photo != null) {
+                        $state.go('createPin');
+                    }
+
                 }, function (err) {
                     // An error occured. Show a message to the user
                 });
@@ -96,7 +97,7 @@
                 .success(function (data) {
                     console.log(data);
                     $scope.Data = data;
-                    console.log('from UpdateProfile function');                   
+                    console.log('from UpdateProfile function');
                     $ionicLoading.hide();
                 }
         ).error(function (encError) {
