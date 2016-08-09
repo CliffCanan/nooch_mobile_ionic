@@ -106,9 +106,13 @@
     }
 
     $scope.FindRecent = function () {
+
+       
         $ionicLoading.show({
             template: 'Loading ...'
         });
+        $scope.show = false;
+        $('#searchBar').val('');
         selectRecipientService.GetRecentMembers().success(function (data) {
 
             $scope.memberList = data;
@@ -145,6 +149,8 @@
         $ionicLoading.show({
             template: 'Loading ...'
         });
+        $scope.show = false;
+        $('#searchBar').val('');
         selectRecipientService.GetLocationSearch().success(function (data) {
 
             $scope.memberList = data;
@@ -159,6 +165,10 @@
     }
 
     $scope.checkList = function () {
+        if ($('#searchBar').val() == '') {
+            $scope.show = false;
+            $('#dvSendTo').style('display', 'none');
+        }
         console.log($('#recents-table').html());
         if ($('#recents-table').html() == undefined) {
 

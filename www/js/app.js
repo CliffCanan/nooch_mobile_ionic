@@ -52,7 +52,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                                   UserName: '',
                                   ContactNumber: '',
                                   Photo: '',
-                                  id: ''
+                                  id: '',
+                                  bit:''
                               };
 
           function onSuccess(contacts) {
@@ -64,6 +65,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
                   readContact.FirstName = contact.name.formatted;
                   readContact.id = i;
+                  readContact.bit = 'p';
                   if (contact.emails != null)
                       readContact.UserName = contact.emails[0].value;
                   if (contact.phoneNumbers != null)

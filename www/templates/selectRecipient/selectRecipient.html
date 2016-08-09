@@ -61,7 +61,7 @@
         <div class="list list-inset m-t-0 m-b-10">
             <label class="item item-input searchBarContainer">
                 <i class="icon ion-search placeholder-icon p-r-0"></i>
-                <input type="text" ng-keydown="checkList()" class="p-r-10" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">
+                <input type="text" ng-keyup="checkList()" class="p-r-10" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">
             </label>
         </div>
 
@@ -74,16 +74,16 @@
                         <img src="{{member.Photo}}" class="userPic">
                         <h2>{{member.FirstName}} &nbsp; {{member.LastName}}</h2>
                         <p>{{member.UserName}}</p>
-                        <p>{{member.ContactNumber}}</p>
-                        <h3 ng-if="member.Miles">{{member.Miles}}Miles</h3>
-                        <img src="../../img/n_icon_46x54.png" class="n-icon" />
+                        <p>{{member.ContactNumber}}  </p>
+                        <h3 ng-if="member.Miles">{{member.Miles}}Miles </h3>
+                        <img src="../../img/n_icon_46x54.png" class="n-icon"  ng-if="member.bit!='p'" />
                     </a>
 
                 </ion-item>
             </ion-list>
 
 
-            <div ng-show="show">
+            <div ng-show="show" id="dvSendTo">
 
                 send to {{sendTo}} {{search}}
                 <button class="button button-balanced" ui-sref="app.howMuch({myParam:search})">Done</button>
