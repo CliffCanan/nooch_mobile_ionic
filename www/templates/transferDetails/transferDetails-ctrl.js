@@ -124,6 +124,8 @@
 
                        }).error(function (data) {
                            $ionicLoading.hide();
+                           if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                           { CommonServices.logOut(); }
                        });
                    }
                });
@@ -154,7 +156,11 @@
                                $state.go('app.history');
                            }
 
-                       }).error(function () { $ionicLoading.hide(); });
+                       }).error(function (data) {
+                           $ionicLoading.hide();
+                           if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                           { CommonServices.logOut(); }
+                       });
                    }
                });
            }
@@ -183,7 +189,11 @@
                                $state.go('app.history');
                            }
                            $ionicLoading.hide();
-                       }).error(function () { $ionicLoading.hide(); });
+                       }).error(function (data) {
+                           $ionicLoading.hide();
+                           if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                           { CommonServices.logOut(); }
+                       });
                    }
                });
            }
@@ -322,8 +332,13 @@
                       }).error(function (data) {
                           console.log('eror' + data);
                           $ionicLoading.hide();
+                          if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                          { CommonServices.logOut(); }
                       });
-                   }).error(function (data) { });
+                   }).error(function (data) {
+                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                       { CommonServices.logOut(); }
+                   });
 
                    //}
                    //else {

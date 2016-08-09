@@ -2,7 +2,7 @@
 /******************/
 /***  SETTINGS  ***/
 /******************/
- .controller('SettingCtrl', function ($scope, settingsService, $state, $ionicModal, $ionicLoading, $localStorage, $sce, $ionicContentBanner) {
+ .controller('SettingCtrl', function ($scope, settingsService, $state, $ionicModal, $ionicLoading, $localStorage, $sce, $ionicContentBanner, CommonServices) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // On Screen Load
@@ -120,42 +120,14 @@
 
                             if (data.Result == 'Success.' || (data.Result == 'Invalid OAuth 2 Access')) {
 
-                                $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
-                                $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
-                                $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                                $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '';
-                                $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '';
-                                $localStorage.GLOBAL_VARIABLES.MemberId = '';
-                                $localStorage.GLOBAL_VARIABLES.UserName = '';
-                                $localStorage.GLOBAL_VARIABLES.AccessToken = '';
-                                $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
-                                $localStorage.GLOBAL_VARIABLES.DeviceId = '';
-                                $localStorage.GLOBAL_VARIABLES.DeviceToken = '';
-                                $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
-                                $localStorage.GLOBAL_VARIABLES.PhotoUrl = '';
-                                console.log($localStorage.GLOBAL_VARIABLES);
                                 $ionicLoading.hide();
-                                $state.go('login');
+                                CommonServices.logOut();
+                               
                             }
                         }).error(function (encError) {
                             console.log('came in enc error block ' + encError);
                             $ionicLoading.hide();
-                            $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
-                            $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
-                            $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                            $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '';
-                            $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '';
-                            $localStorage.GLOBAL_VARIABLES.MemberId = '';
-                            $localStorage.GLOBAL_VARIABLES.UserName = '';
-                            $localStorage.GLOBAL_VARIABLES.AccessToken = '';
-                            $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
-                            $localStorage.GLOBAL_VARIABLES.DeviceId = '';
-                            $localStorage.GLOBAL_VARIABLES.DeviceToken = '';
-                            $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
-                            $localStorage.GLOBAL_VARIABLES.PhotoUrl = '';
-                            console.log($localStorage.GLOBAL_VARIABLES);
-                            $ionicLoading.hide();
-                            $state.go('login');
+                            CommonServices.logOut();
                         });
                     }
                   });
@@ -186,6 +158,8 @@
            }).error(function (data) {
                console.log('eror' + data);
                $ionicLoading.hide();
+               if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+               { CommonServices.logOut(); }
            });
          //  }
          //else {

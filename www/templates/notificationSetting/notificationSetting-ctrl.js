@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.notificationSettingCtrl', ['noochApp.services','noochApp.notificationSetting-service'])
 
-.controller('notificationSettingCtrl', function ($scope, $state, notificationServices, $ionicLoading) {
+.controller('notificationSettingCtrl', function ($scope,CommonServices, $state, notificationServices, $ionicLoading) {
 
     $scope.ChkBox = {
         TransRec: '',
@@ -34,6 +34,8 @@
           }).error(function (data) {
               console.log('eror' + data);
               $ionicLoading.hide();
+              if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+              { CommonServices.logOut(); }
           });
       //  }
         //else {
@@ -66,6 +68,8 @@
           }).error(function (data) {
               console.log('eror' + data);
               $ionicLoading.hide();
+              if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+              { CommonServices.logOut(); }
           });
         //  }
         //else {

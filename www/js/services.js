@@ -54,7 +54,7 @@ angular.module('noochApp.services', ['ngStorage'])
 // })
 
 // Adding some common usefull services in here like enc, dec etc.
-  .service('CommonServices', function ($http, $localStorage) {
+  .service('CommonServices', function ($http, $localStorage, $state) {
     this.GetEncryptedData = function (dataToEncrypt) {
       return $http.get(URLs.GetEncryptedData + '?data=' + btoa(dataToEncrypt));   // btoa DOES THE BASE 64 ENCRYPTION FOR GIVEN INPUT
     }
@@ -74,6 +74,26 @@ angular.module('noochApp.services', ['ngStorage'])
 
     this.GetMemberDetails = function (memberId) {
       return $http.get(URLs.GetMemberDetails + '?memberId=' + memberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+    }
+
+    this.logOut = function () {
+
+        $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
+        $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
+        $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+        //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '';
+        //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '';
+        $localStorage.GLOBAL_VARIABLES.MemberId = '';
+        $localStorage.GLOBAL_VARIABLES.UserName = '';
+        $localStorage.GLOBAL_VARIABLES.AccessToken = '';
+        $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
+        //$localStorage.GLOBAL_VARIABLES.DeviceId = '';
+        //$localStorage.GLOBAL_VARIABLES.DeviceToken = '';
+        $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
+        $localStorage.GLOBAL_VARIABLES.PhotoUrl = '';
+        console.log($localStorage.GLOBAL_VARIABLES);
+      
+        $state.go('login');
     }
 
 

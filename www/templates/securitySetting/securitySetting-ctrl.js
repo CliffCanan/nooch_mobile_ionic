@@ -2,7 +2,7 @@
 /***************************/
 /***  SECURITY SETTINGS  ***/
 /***************************/
-.controller('securitySettingCtrl', function ($scope, MemberPrivacy, $state, $ionicHistory, $ionicLoading, $cordovaNetwork) {
+.controller('securitySettingCtrl', function ($scope, MemberPrivacy, $state, $ionicHistory, $ionicLoading, $cordovaNetwork, CommonServices) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Security Settings Screen Loaded');
@@ -37,6 +37,8 @@
           }).error(function (data) {
               console.log('eror' + data);
               $ionicLoading.hide();
+              if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+              { CommonServices.logOut(); }
           });
         //}
         //else {
@@ -61,6 +63,8 @@
               }).error(function (data) {
                   console.log('eror' + data);
                   $ionicLoading.hide();
+                  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                  { CommonServices.logOut(); }
               });
         //}
         //else {

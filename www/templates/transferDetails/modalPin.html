@@ -23,8 +23,11 @@
         <div class="card text-center m-t-10 recipient-box">
             <img src=" {{transDetail.Photo}}" class="recip-pic" />
 
-            <div class="namebar namebar-send">
+            <div class="namebar namebar-send" ng-if="transDetail.Name">
                 {{transDetail.Name}}
+            </div>
+            <div class="namebar namebar-send" ng-if="transDetail.UserName">
+                {{transDetail.UserName}}
             </div>
 
             <div class="memo-text">

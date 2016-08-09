@@ -30,8 +30,10 @@
                   console.log($scope.Data);
                   $ionicLoading.hide();
               }).error(function (data) {
-                  console.log('eror' + data);
-                  $ionicLoading.hide();
+                   
+                  console.log('eror' + data.ExceptionMessage);
+                  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                  { CommonServices.logOut();}
               });
 
             //  }
@@ -104,8 +106,8 @@
                     $ionicLoading.hide();
                 }
         ).error(function (encError) {
-            console.log('came in enc error block ' + encError);
-            $ionicLoading.hide();
+            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+            { CommonServices.logOut(); }
         })
             //}
             //else {

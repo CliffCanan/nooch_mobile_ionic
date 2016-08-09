@@ -83,6 +83,8 @@
                             });
                         }).error(function (encError) {
                             console.log('came in enc error block ' + encError);
+                            if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                            { CommonServices.logOut(); }
                         });
                     }
                     else {
@@ -100,7 +102,10 @@
                             }
                         });
                     }
-                }).error(function (data) { });
+                }).error(function (data) {
+                    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    { CommonServices.logOut(); }
+                });
 
 
             }
@@ -136,21 +141,7 @@
 
                     if (data.Result.indexOf('oAuth') > -1)
                     {
-                        $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
-                        $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
-                        $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                        $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '';
-                        $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '';
-                        $localStorage.GLOBAL_VARIABLES.MemberId = '';
-                        $localStorage.GLOBAL_VARIABLES.UserName = '';
-                        $localStorage.GLOBAL_VARIABLES.AccessToken = '';
-                        $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
-                        $localStorage.GLOBAL_VARIABLES.DeviceId = '';
-                        $localStorage.GLOBAL_VARIABLES.DeviceToken = '';
-                        $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
-                        console.log($localStorage.GLOBAL_VARIABLES);
-                        $ionicLoading.hide();
-                        $state.go('login');
+                         CommonServices.logOut();  
                     }
 
                    else if (data.Result == 'Pin changed successfully.') {
@@ -193,10 +184,14 @@
                 }).error(function (encError) {
                     console.log('came in enc error block ' + encError);
                     $ionicLoading.hide();
+                    if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    { CommonServices.logOut(); }
                 });
 
             }).error(function (encError) {
                 console.log('came in enc error block ' + encError);
+                if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                { CommonServices.logOut(); }
             });
             console.log(encryptedNewPin);
 

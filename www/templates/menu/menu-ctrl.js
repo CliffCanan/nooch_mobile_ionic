@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, $timeout, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService, $cordovaImagePicker, $cordovaCamera, $ionicPlatform) {
+.controller('MenuCtrl', function ($scope, $timeout, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService, $cordovaImagePicker, $cordovaCamera, $ionicPlatform, CommonServices) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
@@ -180,6 +180,9 @@
            ).error(function (encError) {
                console.log('came in enc error block ' + encError);
                $ionicLoading.hide();
+
+               if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+               { CommonServices.logOut(); }
            })
 
         //}
@@ -220,6 +223,8 @@
                 .error(function (encError) {
                     console.log('Profile Error: [' + encError + ']');
                     $ionicLoading.hide();
+                    if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    { CommonServices.logOut(); }
                 })
 
         //}
@@ -258,6 +263,8 @@
         }).error(function (data) {
             console.log('Get History Error: [' + data + ']');
             $ionicLoading.hide();
+            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+            { CommonServices.logOut(); }
         });
     }
 

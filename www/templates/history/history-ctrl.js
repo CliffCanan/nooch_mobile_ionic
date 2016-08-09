@@ -52,7 +52,8 @@
                 $ionicLoading.hide();
             }).error(function (data) {
                 console.log('Get History Error: [' + data + ']');
-                $ionicLoading.hide();
+                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                { CommonServices.logOut(); }
             });
             $scope.cancelPayment = function (trans) {
 
@@ -79,7 +80,10 @@
                                 });
                             }
 
-                        }).error(function () { $ionicLoading.hide(); });
+                        }).error(function (data) {
+                            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                            { CommonServices.logOut(); }
+                        });
                     }
                 });
             }
@@ -108,7 +112,10 @@
                                 });
                             }
                             $ionicLoading.hide();
-                        }).error(function () { $ionicLoading.hide(); });
+                        }).error(function (data) {
+                            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                            { CommonServices.logOut(); }
+                        });
                     }
                 });
             }
@@ -143,7 +150,8 @@
                             }
 
                         }).error(function (data) {
-                            $ionicLoading.hide();
+                            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                            { CommonServices.logOut(); }
                         });
                     }
                 });
@@ -230,7 +238,10 @@
                                            $ionicLoading.hide();
                                        }
                                        $ionicLoading.hide();
-                                   }).error(function () { $ionicLoading.hide(); });
+                                   }).error(function (data) {
+                                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                       { CommonServices.logOut(); }
+                                   });
                                }
                                else if (transDetails.MemberId == transDetails.RecepientId && transDetails.InvitationSentTo.length > 0) {
                                    transferDetailsService.TransferMoneyToNonNoochUserUsingSynapse(transDetails).success(function (data) {
@@ -243,7 +254,10 @@
                                            $ionicLoading.hide();
                                        }
                                        $ionicLoading.hide();
-                                   }).error(function () { $ionicLoading.hide(); });
+                                   }).error(function (data) {
+                                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                       { CommonServices.logOut(); }
+                                   });
                                }
                                else if (transDetails.MemberId == transDetails.RecepientId && transDetails.PhoneNumberInvited.length > 0) {
                                    transferDetailsService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse(transDetails).success(function (data) {
@@ -256,7 +270,10 @@
                                            $ionicLoading.hide();
                                        }
                                        $ionicLoading.hide();
-                                   }).error(function () { $ionicLoading.hide(); });
+                                   }).error(function (data) {
+                                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                       { CommonServices.logOut(); }
+                                   });
                                }
 
 
@@ -287,7 +304,12 @@
                            console.log('eror' + data);
                            $ionicLoading.hide();
                        });
-                    }).error(function (data) { });
+                    }).error(function (data) {
+                        if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                        { CommonServices.logOut(); }
+                    }
+
+                    );
 
                     //}
                     //else {

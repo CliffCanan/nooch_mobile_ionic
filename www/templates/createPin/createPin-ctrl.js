@@ -57,6 +57,8 @@
 
                     }).error(function (encError) {
                         console.log('Signup Attempt -> Error [' + encError + ']');
+                        if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                        { CommonServices.logOut(); }
                     })
                 })
 

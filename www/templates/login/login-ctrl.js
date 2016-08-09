@@ -115,7 +115,8 @@
                         else
                         {
                             $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
-                            $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
+                           $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
+                        
                             $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
                             $ionicLoading.hide();
                             // swal("login successfull");

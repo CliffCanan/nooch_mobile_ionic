@@ -24,6 +24,8 @@
          ).error(function (encError) {
              console.log('came in enc error block ' + encError);
              $ionicLoading.hide();
+             if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+             { CommonServices.logOut(); }
          })
          //}
          //else {
@@ -115,6 +117,8 @@
            }).error(function (data) {
                console.log('eror' + data);
                $ionicLoading.hide();
+               if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+               { CommonServices.logOut(); }
            });
          //  }
          //else {

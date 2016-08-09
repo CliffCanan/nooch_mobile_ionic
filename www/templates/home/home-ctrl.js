@@ -4,7 +4,7 @@
 /****************/
 /***   HOME   ***/
 /****************/
-.controller('HomeCtrl', function ($scope, $state, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform, profileService, $ionicLoading, $ionicContentBanner, $rootScope, selectRecipientService) {
+.controller('HomeCtrl', function ($scope, $state, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform, profileService, $ionicLoading, $ionicContentBanner, $rootScope, selectRecipientService, CommonServices) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
@@ -136,7 +136,13 @@
 
             $ionicLoading.hide();
 
-        }).error(function (data) { console.log(data); $ionicLoading.hide(); })
+        }).error(function (data) {
+            console.log(data);  
+            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+            {
+                CommonServices.logOut();
+            }
+        })
 
         //.finally(function () {   will be used when ll be dealing with pull to refresh
         //    // Stop the ion-refresher from spinning

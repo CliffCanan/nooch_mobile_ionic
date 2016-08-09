@@ -251,7 +251,11 @@
                                        swal("Error...", data.Result, "error");
 
                                    }
-                               }).error();
+                               }).error(function (data) {
+
+                                   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   { CommonServices.logOut(); }
+                               });
                            }
                            else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null ) && ($scope.recipientDetail.ContactNumber == null))
                            {
@@ -272,7 +276,11 @@
                                        swal("Error...", data.Result, "error");
 
                                    }
-                               }).error();
+                               }).error(function (data) {
+
+                                   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   { CommonServices.logOut(); }
+                               });
 
                            }
                            else if (($scope.recipientDetail.MemberId == null)   && ($scope.recipientDetail.ContactNumber!=null)) {
@@ -293,10 +301,12 @@
                                        swal("Error...", data.Result, "error");
 
                                    }
-                               }).error(function () {
+                               }).error(function (data) {
                                    $ionicLoading.hide();
                                    $scope.modal.hide();
                                    swal("Error...", data.Result, "error");
+                                   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   { CommonServices.logOut(); }
                                });
 
                            }
@@ -328,10 +338,12 @@
 
                                    }
                                    $ionicLoading.hide();
-                               }).error(function () {
+                               }).error(function (data) {
                                    $ionicLoading.hide();
                                    $scope.modal.hide();
                                    swal("Error...", data.Result, "error");
+                                   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   { CommonServices.logOut(); }
                                });
                            }
                            else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null ) && ($scope.recipientDetail.ContactNumber == null))
@@ -353,9 +365,11 @@
 
                                    }
                                    $ionicLoading.hide();
-                               }).error(function () {
+                               }).error(function (data) {
                                    $ionicLoading.hide();
                                    $scope.modal.hide();
+                                   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   { CommonServices.logOut(); }
                                });
                            }
                            else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.ContactNumber != null)) {
@@ -376,9 +390,11 @@
 
                                    }
                                    $ionicLoading.hide();
-                               }).error(function () {
+                               }).error(function (data) {
                                    $ionicLoading.hide();
                                    $scope.modal.hide();
+                                   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   { CommonServices.logOut(); }
                                });
                            }
                        }
@@ -399,8 +415,13 @@
                    console.log('eror' + data);
                    $scope.modal.hide();
                    $ionicLoading.hide();
+                   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                   { CommonServices.logOut(); }
                });
-            }).error(function (data) { $scope.modal.hide(); });
+            }).error(function (data) {
+                $scope.modal.hide(); if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                { CommonServices.logOut(); }
+            });
             //}
             //else {
             //    swal("Oops...", "Internet not connected!", "error");
@@ -443,6 +464,8 @@
                   }
               }, function (error) {
                   // error getting photos
+                  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                  { CommonServices.logOut(); }
               });
 
         });
