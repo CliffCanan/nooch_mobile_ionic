@@ -60,25 +60,21 @@
                     console.log(imageData);
                     $scope.imgURI = "data:image/jpeg;base64," + imageData;
                     console.log('after converting base 64 imgURL');
-                    console.log($scope.imgURI);
+                    //console.log($scope.imgURI);
 
+                    var binary_string = window.atob(imageData);  
+                    var len = binary_string.length;
+                    var bytes = new Uint8Array(len);
+                    for (var i = 0; i < len; i++) {
+                        bytes[i] = binary_string.charCodeAt(i);
+                    }
+                   // $scope.Details.picture = bytes;
+                    console.log(bytes);
 
-                    //var binary_string = window.atob(imageData);  for converting in bytes
-                    //var len = binary_string.length;
-                    //var bytes = new Uint8Array(len);
-                    //for (var i = 0; i < len; i++) {
-                    //    bytes[i] = binary_string.charCodeAt(i);
-                    //}
-                    //$scope.Details.picture = imageData;
-                    //console.log(bytes);
+                    $rootScope.signupData.Photo = imageData;
 
-                  //  $scope.Details.Picture = imageData;
-                    $scope.Details.Photo = imageData;
-
-                    $rootScope.signupData.Picture = imageData;
-                   // $scope.UpdatePhoto();
-                  
-
+                    // $scope.UpdatePhoto();
+                                      
                 }, function (err) {
                     // An error occured. Show a message to the user
                 });
