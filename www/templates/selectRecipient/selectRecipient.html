@@ -59,7 +59,7 @@
         </div>
 
 
-        <div class="list list-inset m-t-0 m-b-10" ng-if="showSearchFlag == true">
+        <div class="list list-inset m-t-0 m-b-10" ng-show="showSearchFlag">
             <label class="item item-input searchBarContainer">
                 <i class="icon ion-search placeholder-icon p-r-0"></i>
                 <input type="text" ng-keyup="checkList()" class="p-r-10" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">

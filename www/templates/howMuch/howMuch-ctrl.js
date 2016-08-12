@@ -529,4 +529,11 @@
         });
         });
     }
+
+
+
+    $scope.GoBack = function () {
+         $ionicHistory.goBack();
+        //$state.go('app.selectRecipient');
+    }
 })
