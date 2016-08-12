@@ -114,6 +114,10 @@
                $scope.memberList = data;
                console.log('Member List Data-->');
                console.log($scope.memberList);
+               var i = 0;
+               if ($scope.memberList[i].Photo == "")
+                   $scope.memberList[i].Photo = "./img/profile_picture.png";
+
                $ionicLoading.hide();
            }).error(function (data) {
                console.log('eror' + data);
