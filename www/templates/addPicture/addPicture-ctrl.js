@@ -32,8 +32,8 @@
               }).error(function (data) {
                    
                   console.log('eror' + data.ExceptionMessage);
-                  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                  { CommonServices.logOut();}
+                 // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                  CommonServices.logOut(); 
               });
 
             //  }
@@ -103,8 +103,8 @@
                     $ionicLoading.hide();
                 }
         ).error(function (encError) {
-            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-            { CommonServices.logOut(); }
+          //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+            CommonServices.logOut();  
         })
             //}
             //else {

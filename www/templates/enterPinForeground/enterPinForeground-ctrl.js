@@ -45,12 +45,12 @@
 
                    }).error(function (data) {
                        console.log('eror' + data);
-                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                       { CommonServices.logOut(); }
+                     //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                        CommonServices.logOut();  
                    });
                 }).error(function (data) {
-                    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    { CommonServices.logOut(); }
+                  //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();  
                 });
 
                 //}

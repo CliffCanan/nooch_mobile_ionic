@@ -138,7 +138,7 @@
 
         }).error(function (data) {
             console.log(data);  
-            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+         //   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
             {
                 CommonServices.logOut();
             }
