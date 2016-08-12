@@ -105,13 +105,15 @@
         }
     }
 
-    $scope.FindRecent = function () {
-
+    $scope.FindRecent = function () {      
        
         $ionicLoading.show({
             template: 'Loading ...'
         });
+
+        $scope.showSearchFlag = true;
         $scope.show = false;
+
         $('#searchBar').val('');
         selectRecipientService.GetRecentMembers().success(function (data) {
 
@@ -146,9 +148,12 @@
     });
 
     $scope.GetLocationSearch = function () {
+
         $ionicLoading.show({
             template: 'Loading ...'
         });
+
+        $scope.showSearchFlag = false;
         $scope.show = false;
         $('#searchBar').val('');
         selectRecipientService.GetLocationSearch().success(function (data) {
