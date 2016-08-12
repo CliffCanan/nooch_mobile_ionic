@@ -7,13 +7,12 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
   'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
-  'noochApp.addPicture', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards'])
+  'noochApp.addPicture', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards'])
 
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts) {
 
-      if (!$localStorage.GLOBAL_VARIABLES)
-      {
+      if (!$localStorage.GLOBAL_VARIABLES) {
           $localStorage.GLOBAL_VARIABLES = {
               IsDemoDone: false, // for displaying tutorial screens to user - if any
               IsRemeberMeEnabled: false, // for remembering user
@@ -53,14 +52,13 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                                   ContactNumber: '',
                                   Photo: '',
                                   id: '',
-                                  bit:''
+                                  bit: ''
                               };
 
           function onSuccess(contacts) {
 
               console.log(contacts);
-              for (var i = 0; i < contacts.length; i++)
-              {
+              for (var i = 0; i < contacts.length; i++) {
                   var contact = contacts[i];
 
                   readContact.FirstName = contact.name.formatted;
@@ -101,8 +99,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           document.addEventListener("resume", function () {
               console.log('came in resume state');
 
-              if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
-              {
+              if ($localStorage.GLOBAL_VARIABLES.MemberId != null) {
                   //added this to not asked for Pin before login
 
                   if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
@@ -116,8 +113,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           }, false);
 
 
-          if (window.cordova)
-          {
+          if (window.cordova) {
               // Get device info... will be used for handling notifications
 
               var device = $cordovaDevice.getDevice();
@@ -212,8 +208,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               })
           }
 
-          if (window.cordova && window.cordova.plugins.Keyboard)
-          {
+          if (window.cordova && window.cordova.plugins.Keyboard) {
               // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
               // for form inputs)
               //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -436,6 +431,17 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             templateUrl: 'templates/enterPinForeground/enterPinForeground.html',
             controller: 'enterPinForegroundCtrl'
         })
+
+        .state('app.map', {
+            url: '/map',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/map/map.html',
+                    controller: 'mapCtrl'
+                }
+            }
+        })
+
 
         //Test Page
         .state('app.testPage', {

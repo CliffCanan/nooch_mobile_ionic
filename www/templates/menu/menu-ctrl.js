@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, $timeout, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService, $cordovaImagePicker, $cordovaCamera, $ionicPlatform, CommonServices) {
+.controller('MenuCtrl', function ($scope, $timeout, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService,$ionicPlatform, CommonServices, $state) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
@@ -269,61 +269,66 @@
     }
 
 
-    $scope.choosePhoto = function () {
-        console.log('Choose Photo Function called');
-        $ionicPlatform.ready(function () {
-            var options = {
-                quality: 75,
-                destinationType: Camera.DestinationType.DATA_URL,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                allowEdit: true,
-                encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 300,
-                targetHeight: 300,
-                popoverOptions: CameraPopoverOptions,
-                saveToPhotoAlbum: false
-            };
-
-            $cordovaCamera.getPicture(options).then(function (imageData) {
-                console.log('imagedata --- ');
-                console.log(imageData);
-                $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                console.log('after converting base 64 imgURL');
-                console.log($scope.imgURI);
-
-                $scope.Details.Photo = imageData;
-              
-                console.log('Update Photo Function Touched');
-                //if ($cordovaNetwork.isOnline()) {
-                $ionicLoading.show({
-                    template: 'Loading ...'
-                });
-
-                console.log('Values in scope.Details within fn...');
-
-                console.log($scope.Details);
-
-                profileService.MySettings($scope.Details)
-                    .success(function (data) {
-                        console.log(data);
-                        $scope.Data = data;
-                        
-                        $ionicLoading.hide();
-                    }
-            ).error(function (encError) {
-                console.log('came in enc error block ' + encError);
-                $ionicLoading.hide();
-               // if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                { CommonServices.logOut(); }
-            })
-                //}
-                //else {
-                //    swal("Oops...", "Internet not connected!", "error");
-                //}
-
-            }, function (err) {
-                // An error occured. Show a message to the user
-            });
-        });
+    $scope.goProfile= function(){
+        $state.go('app.profile');
     }
+
+
+    //$scope.choosePhoto = function () {
+    //    console.log('Choose Photo Function called');
+    //    $ionicPlatform.ready(function () {
+    //        var options = {
+    //            quality: 75,
+    //            destinationType: Camera.DestinationType.DATA_URL,
+    //            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+    //            allowEdit: true,
+    //            encodingType: Camera.EncodingType.JPEG,
+    //            targetWidth: 300,
+    //            targetHeight: 300,
+    //            popoverOptions: CameraPopoverOptions,
+    //            saveToPhotoAlbum: false
+    //        };
+
+    //        $cordovaCamera.getPicture(options).then(function (imageData) {
+    //            console.log('imagedata --- ');
+    //            console.log(imageData);
+    //            $scope.imgURI = "data:image/jpeg;base64," + imageData;
+    //            console.log('after converting base 64 imgURL');
+    //            console.log($scope.imgURI);
+
+    //            $scope.Details.Photo = imageData;
+              
+    //            console.log('Update Photo Function Touched');
+    //            //if ($cordovaNetwork.isOnline()) {
+    //            $ionicLoading.show({
+    //                template: 'Loading ...'
+    //            });
+
+    //            console.log('Values in scope.Details within fn...');
+
+    //            console.log($scope.Details);
+
+    //            profileService.MySettings($scope.Details)
+    //                .success(function (data) {
+    //                    console.log(data);
+    //                    $scope.Data = data;
+                        
+    //                    $ionicLoading.hide();
+    //                }
+    //        ).error(function (encError) {
+    //            console.log('came in enc error block ' + encError);
+    //            $ionicLoading.hide();
+    //           // if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+    //            { CommonServices.logOut(); }
+    //        })
+    //            //}
+    //            //else {
+    //            //    swal("Oops...", "Internet not connected!", "error");
+    //            //}
+
+    //        }, function (err) {
+    //            // An error occured. Show a message to the user
+    //        });
+    //    });
+    //}
 })
