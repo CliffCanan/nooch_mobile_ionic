@@ -55,5 +55,6 @@ var URLs = {
     GetSynapseBankAndUserDetails: PATH + 'GetSynapseBankAndUserDetails',
     sendTransactionInCSV: PATH + 'sendTransactionInCSV',
     SaveDOBForMember: PATH + 'SaveDOBForMember',
-    GetMostFrequentFriends: PATH + 'GetMostFrequentFriends'
+    GetMostFrequentFriends: PATH + 'GetMostFrequentFriends',
+    SaveMemberSSN: PATH + 'SaveMemberSSN'
 };

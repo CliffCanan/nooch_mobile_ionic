@@ -143,9 +143,9 @@
         console.log($('#howMuchForm').parsley().validate());
     });
 
-    $scope.GoBack = function () {
-        $state.go('app.selectRecipient');
-    };
+    //$scope.GoBack = function () {
+    //    $state.go('app.selectRecipient');
+    //};
 
     $scope.submitRequest = function () {
         

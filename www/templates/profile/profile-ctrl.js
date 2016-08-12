@@ -75,8 +75,8 @@
                 .success(function (details) {
                     console.log(details);
                     $scope.Details = details;
-                    //  console.log('Profile Data GetMyDetails');
-                    // console.log($scope.Details);
+                      console.log('Profile Data GetMyDetails');
+                     console.log($scope.Details);
                     $ionicLoading.hide();
                 })
                 .error(function (encError) {
@@ -109,6 +109,10 @@
                 $scope.Data = data;
                 console.log('from UpdateProfile function');
                 $scope.saveDob($scope.Details.DateOfBirth);
+
+                if ($scope.Details.SSN != null)
+                    $scope.saveSSN($scope.Details);
+
                 $ionicLoading.hide();
             }
     ).error(function (encError) {
@@ -168,9 +172,9 @@
                 .success(function (details) {
                     console.log(details);
 
-                    if (details.Result == 'DOB saved successfully.')
+                    if (details.Result == 'DOB saved successfully.' && $scope.Details.SSN == null)
                     {
-                        swal("Yup..", "Profile Updated", "success");
+                        swal("Success...", "Profile Updated successfully", "success");
                     }
                     else
                     {
@@ -235,6 +239,43 @@
                 // An error occured. Show a message to the user
             });
         });
+    }
+
+
+    $scope.saveSSN = function (Details) {
+        console.log('saveSSN Function Touched');
+        console.log($scope.Details.SSN);
+        //if ($cordovaNetwork.isOnline()) {
+        $ionicLoading.show({
+            template: 'Loading ...'
+        });
+        profileService.SaveMemberSSN($scope.Details)
+                .success(function (details) {
+                    console.log(details);
+
+                    if (details.Result == 'SSN saved successfully.' && $scope.Details != null) {
+
+                        swal("Success...", "Profile Updated successfully", "success");
+                    }
+                    else {
+                        swal("Oops...", "Something Went Wrong", "error");
+                    }
+
+                    $scope.Details = details;
+
+                    $ionicLoading.hide();
+                }
+        ).error(function (encError) {
+            console.log('came in enc error block ' + encError);
+            $ionicLoading.hide();
+            // if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+            { CommonServices.logOut(); }
+        })
+
+        //}
+        //else {
+        //    swal("Oops...", "Internet not connected!", "error");
+        //}
     }
 
 })

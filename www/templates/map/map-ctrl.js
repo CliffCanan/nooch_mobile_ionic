@@ -7,17 +7,17 @@
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('map Ctrl loaded');
-        $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"; //Google server was not working for key.
+        $scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC3f2pIfit--Qr7Tvl5EGnzvEHpDAIsYoI";
 
         $ionicPlatform.ready(function () {
 
-           // app.controller('MyController', function (NgMap) {
-                ngMap.getMap().then(function (map) {
+           
+              NgMap.getMap().then(function (map) {
                     console.log(map.getCenter());
                     console.log('markers', map.markers);
                     console.log('shapes', map.shapes);
                 });
-            //});
+        
 
     
         });

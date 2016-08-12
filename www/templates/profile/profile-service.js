@@ -34,16 +34,13 @@ angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
                   Picture: Details.Picture
               }
           };
-
           return $http(reqForMySettings);
       }
 
 
       this.SaveDOBForMember = function (dateOfBirth) {
-
           //console.log('Profile Service --> DOB...');
           //console.log(dateOfBirth);
-
           var reqForSaveDOBForMember = {
               method: 'POST',
               url: URLs.SaveDOBForMember,
@@ -56,7 +53,26 @@ angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
                   accessToken: $localStorage.GLOBAL_VARIABLES.AccessToken,
               }
           };
-
           return $http(reqForSaveDOBForMember);
+      }
+
+
+      this.SaveMemberSSN = function (Details) {
+          //console.log('Profile Service --> SSN...');
+          //console.log(Details);
+
+          var reqForSaveMemberSSN = {
+              method: 'POST',
+              url: URLs.SaveMemberSSN,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              data: {
+                  memberId: $localStorage.GLOBAL_VARIABLES.MemberId,
+                  SSN: Details.SSN,
+                  accessToken: $localStorage.GLOBAL_VARIABLES.AccessToken,
+              }
+          };
+          return $http(reqForSaveMemberSSN);
       }
   })

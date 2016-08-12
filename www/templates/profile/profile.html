@@ -1,4 +1,10 @@
 ﻿<ion-view view-title="Profile">
+
+    <ion-nav-buttons side="right">
+        <button class="button button-calm" ng-click="UpdateProfile()">
+           Save &nbsp;<i class="ion-ios-cloud-upload"> </i>
+        </button>
+    </ion-nav-buttons>
     <ion-content>
 
         <div class="item item-avatar" style="align-items:center">
@@ -57,9 +63,15 @@
                 <span class="input-label">Date of Birth</span>
                 <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{Details.DateOfBirth}}">
             </label>
+            
+            <div ng-show="Res.IsSSNAdded== false">
+                <label class="item item-input">
+                    <span class="input-label">SSN</span>
+                    <input type="text" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}">
+                </label>
+            </div>
         </div>
-
-        <button class="button btn-primary button-block" ng-click="UpdateProfile()">Save</button>
+        <!--<button class="button btn-primary" ng-click="UpdateProfile()">Save</button>-->
 
     </ion-content>
 </ion-view>
