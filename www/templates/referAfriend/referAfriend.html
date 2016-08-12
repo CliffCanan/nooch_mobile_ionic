@@ -41,7 +41,7 @@
             <div id="referredUsersList" class="list">
 
                 <div class="item item item-avatar" ng-repeat="member in memberList">
-                    <img class=user-img src="{{Data.Photo}}">
+                    <img class=user-img src={{member.Photo}}>
                     <h2>{{member.FirstName}}&nbsp;{{member.LastName}}</h2>
                     <p class="item-note">{{member.DateCreated | date:'MM-dd-yyyy'}}</p>
                 </div>

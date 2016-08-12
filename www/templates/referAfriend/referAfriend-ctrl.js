@@ -112,6 +112,7 @@
          ReferralCodeService.getInvitedMemberList()
            .success(function (data) {
                $scope.memberList = data;
+               console.log('Member List Data-->');
                console.log($scope.memberList);
                $ionicLoading.hide();
            }).error(function (data) {
