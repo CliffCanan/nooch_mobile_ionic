@@ -1,11 +1,11 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
-.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner,$rootScope) {
+.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner, $rootScope) {
 
     $rootScope.$broadcast('IsVerifiedPhoneTrue');
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
-        console.log('Profile Page Loadad');       
+        console.log('Profile Page Loadad');
 
         $scope.Status = $localStorage.GLOBAL_VARIABLES.Status;
         $scope.IsPhoneVerified = $localStorage.GLOBAL_VARIABLES.IsPhoneVerified;
@@ -15,11 +15,11 @@
     $scope.$on('IsValidProfileFalse', function (event, args) {
         console.log('IsValidProfileFalse');
         //$scope.valid = false;
-        $scope.contentBannerInstance1();
+        $scope.showProfileNotValidatedBanner();
     });
-    $scope.contentBannerInstance1 = function () {
-        $ionicContentBanner.show({
 
+    $scope.showProfileNotValidatedBanner = function () {
+        $ionicContentBanner.show({
             text: ['Profile Not Validated'],
             interval: '20',
             autoClose: '',
@@ -28,20 +28,17 @@
         });
     }
 
-
-
     $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
         console.log('IsVerifiedPhoneFalse');
         //$scope.verified = false;
-        $scope.contentBannerInstance();
+        $scope.showPhoneNotVerifiedBanner();
     });
 
-    $scope.contentBannerInstance = function () {
+    $scope.showPhoneNotVerifiedBanner = function () {
         $ionicContentBanner.show({
-
             text: ['Phone Number Not verified'],
             interval: '20',
-            autoClose: '4900',
+            autoClose: '5000',
             type: 'error',
             transition: 'vertical'
         });
@@ -72,20 +69,20 @@
         //if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
             template: 'Loading Profile'
-        });       
+        });
 
         profileService.GetMyDetails()
                 .success(function (details) {
                     console.log(details);
                     $scope.Details = details;
-                  //  console.log('Profile Data GetMyDetails');
-                   // console.log($scope.Details);
+                    //  console.log('Profile Data GetMyDetails');
+                    // console.log($scope.Details);
                     $ionicLoading.hide();
                 })
                 .error(function (encError) {
                     console.log('Profile Error: [' + encError + ']');
                     $ionicLoading.hide();
-                  //  if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    //  if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
                     { CommonServices.logOut(); }
                 })
 
@@ -117,7 +114,7 @@
     ).error(function (encError) {
         console.log('came in enc error block ' + encError);
         $ionicLoading.hide();
-      //  if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+        //  if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
         { CommonServices.logOut(); }
     })
         //}
@@ -187,7 +184,7 @@
         ).error(function (encError) {
             console.log('came in enc error block ' + encError);
             $ionicLoading.hide();
-           // if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+            // if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
             { CommonServices.logOut(); }
         })
 
@@ -239,5 +236,5 @@
             });
         });
     }
-    
+
 })

@@ -39,7 +39,7 @@
         $ionicContentBanner.show({
             text: ['Phone Number Not verified'],
             interval: '20',
-            autoClose: '4900',
+            autoClose: '5000',
             type: 'error',
             transition: 'vertical'
         });
