@@ -2,9 +2,6 @@
 
 .controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading, $cordovaCamera, $cordovaImagePicker) {
 
-    
-
-
     var type = '';
 
     $scope.recipientDetail = {};
@@ -35,63 +32,63 @@
     }
 
     $scope.sendData = {
-        "IsPrePaidTransaction":false,
-        "IsPhoneInvitation":false,
-        "IsExistingButNonRegUser":false,
-        "doNotSendEmails":false,
-        "isRentAutoPayment":false,
-        "isRentScene":false,
-        "Amount":"",
-        "TransactionFee":0,
-        "TotalRecordsCount":"",
-        "TransDate":"",
-        "PinNumber":null,
-        "MemberId":"",
-        "NoochId":"",
-        "RecepientId":"",
-        "Status":null,
-        "TransactionId":"",
-        "Name":"Rent Scene",
-        "RecepientName":null,
-        "Memo":"hshs",
-        "TransactionDate":"",
-        "DeviceId":null,
-        "Latitude":"",
-        "Longitude":"",
-        "AddressLine1":"",
-        "AddressLine2":"",
-        "City":"",
-        "State":"",
-        "Country":"",
-        "ZipCode":"",
-        "DisputeStatus":null,
-        "DisputeId":null,
-        "DisputeReportedDate":"",
-        "DisputeReviewDate":"",
-        "DisputeResolvedDate":"",
-        "TransactionType":"",
-        "TransactionStatus":"",
-        "Photo":"",
-        "FirstName":"Rent",
-        "LastName":"Scene",
-        "SenderPhoto":null,
-        "RecepientPhoto":null,
-        "synapseTransResult":null,
-        "InvitationSentTo":null,
-        "PhoneNumberInvited":null,
-        "Date":null,
-        "Time":null,
-        "LocationId":null,
-        "Location":null,
-        "AdminNotes":null,
-        "RaisedBy":null,
-        "Picture":null,
-        "BankPicture":null,
-        "BankAccountId":null,
-        "BankId":null,
-        "BankName":null,
-        "SsnIsVerified":null,
-        "cip":null
+        "IsPrePaidTransaction": false,
+        "IsPhoneInvitation": false,
+        "IsExistingButNonRegUser": false,
+        "doNotSendEmails": false,
+        "isRentAutoPayment": false,
+        "isRentScene": false,
+        "Amount": "",
+        "TransactionFee": 0,
+        "TotalRecordsCount": "",
+        "TransDate": "",
+        "PinNumber": null,
+        "MemberId": "",
+        "NoochId": "",
+        "RecepientId": "",
+        "Status": null,
+        "TransactionId": "",
+        "Name": "Rent Scene",
+        "RecepientName": null,
+        "Memo": "hshs",
+        "TransactionDate": "",
+        "DeviceId": null,
+        "Latitude": "",
+        "Longitude": "",
+        "AddressLine1": "",
+        "AddressLine2": "",
+        "City": "",
+        "State": "",
+        "Country": "",
+        "ZipCode": "",
+        "DisputeStatus": null,
+        "DisputeId": null,
+        "DisputeReportedDate": "",
+        "DisputeReviewDate": "",
+        "DisputeResolvedDate": "",
+        "TransactionType": "",
+        "TransactionStatus": "",
+        "Photo": "",
+        "FirstName": "Rent",
+        "LastName": "Scene",
+        "SenderPhoto": null,
+        "RecepientPhoto": null,
+        "synapseTransResult": null,
+        "InvitationSentTo": null,
+        "PhoneNumberInvited": null,
+        "Date": null,
+        "Time": null,
+        "LocationId": null,
+        "Location": null,
+        "AdminNotes": null,
+        "RaisedBy": null,
+        "Picture": null,
+        "BankPicture": null,
+        "BankAccountId": null,
+        "BankId": null,
+        "BankName": null,
+        "SsnIsVerified": null,
+        "cip": null
     }
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -104,20 +101,25 @@
             $scope.modal = modal;
 
         });
+
         console.log($stateParams);
-        if (typeof $stateParams.myParam == 'object') {
+
+        if (typeof $stateParams.myParam == 'object')
+        {
+            if ($stateParams.myParam == null)
+                $state.go('app.selectRecipient');
+
             $scope.recipientDetail = $stateParams.myParam;
         }
         else if (isNaN($stateParams.myParam))
         {
             //'mail'
             $scope.recipientDetail.UserName = $stateParams.myParam;
-
         }
-        else if (!isNaN($stateParams.myParam)) {
-             
+        else if (!isNaN($stateParams.myParam))
+        {
             $scope.recipientDetail.ContactNumber = $stateParams.myParam;
-           // alert('num');
+            alert('num');
         }
 
         $('#howMuchForm').parsley();
@@ -148,26 +150,13 @@
     //};
 
     $scope.submitRequest = function () {
-        
         type = 'request';
-        
+
         console.log($('#howMuchForm').parsley().validate());
-        if ($('#howMuchForm').parsley().validate() == true) {
-            swal({
-                title: "Are you sure?",
-                text: "Do you want to Request Money?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes - Send",
-            }, function (isConfirm) {
-                if (isConfirm) {
 
-                    $scope.modal.show();
-
-                }
-            });
-
+        if ($('#howMuchForm').parsley().validate() == true)
+        {
+            $scope.modal.show();
             // $state.go('enterPin');
         }
     };
@@ -175,36 +164,25 @@
 
     $scope.submitSend = function () {
         type = 'send';
-        
-        if ($('#howMuchForm').parsley().validate() == true) {
-            swal({
-                title: "Are you sure?",
-                text: "Do you want to Send Money?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes - Pay",
-            }, function (isConfirm) {
-                if (isConfirm) {
-                    console.log($scope.recipientDetail);
-                    $scope.modal.show();
 
-                }
-            });      
+        console.log($scope.recipientDetail.Amount);
 
+        if ($('#howMuchForm').parsley().validate() == true)
+        {
+            console.log($scope.recipientDetail);
+            $scope.modal.show();
 
-
+            $('#input.pin').focus();
             // $state.go('enterPin');
         }
-
-        
     }
 
 
     $scope.CheckPin = function (Pin) {
         console.log('Check Pin Function called');
-        if ($('#frmPinForeground').parsley().validate() == true) {
-            
+        if ($('#frmPinForeground').parsley().validate() == true)
+        {
+
             console.log(Pin);
 
             //if ($cordovaNetwork.isOnline()) {
@@ -221,11 +199,13 @@
                    // $scope.Data = data;
                    console.log($scope.data);
 
-                   
-                   if (data.Result == 'Success') {
+
+                   if (data.Result == 'Success')
+                   {
                        console.log(type);
 
-                       if (type == 'request') {
+                       if (type == 'request')
+                       {
                            console.log($scope.recipientDetail);
                            $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
                            $scope.requestData.Amount = $scope.recipientDetail.Amount;
@@ -234,10 +214,12 @@
                            $scope.requestData.Memo = $scope.recipientDetail.Memo;
                            $scope.requestData.Picture = $scope.picture;
                            $scope.requestData.MoneySenderEmailId = $scope.recipientDetail.UserName;
-                           if ($scope.recipientDetail.MemberId != null) {
+                           if ($scope.recipientDetail.MemberId != null)
+                           {
                                howMuchService.RequestMoney($scope.requestData).success(function (data) {
 
-                                   if (data.Result.indexOf('successfully') > -1) {
+                                   if (data.Result.indexOf('successfully') > -1)
+                                   {
                                        $scope.modal.hide();
                                        $ionicLoading.hide();
                                        swal("Success...", data.Result, "success");
@@ -245,7 +227,8 @@
                                        $scope.recipientDetail.Memo = "";
 
                                    }
-                                   else {
+                                   else
+                                   {
                                        $scope.modal.hide();
                                        $ionicLoading.hide();
                                        swal("Error...", data.Result, "error");
@@ -253,16 +236,17 @@
                                    }
                                }).error(function (data) {
 
-                               //    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                                    CommonServices.logOut();  
+                                   //    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   CommonServices.logOut();
                                });
                            }
-                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null ) && ($scope.recipientDetail.ContactNumber == null))
+                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null) && ($scope.recipientDetail.ContactNumber == null))
                            {
 
                                howMuchService.RequestMoneyToNonNoochUserUsingSynapse($scope.requestData).success(function (data) {
 
-                                   if (data.Result.indexOf('successfully') > -1) {
+                                   if (data.Result.indexOf('successfully') > -1)
+                                   {
                                        $scope.modal.hide();
                                        $ionicLoading.hide();
                                        swal("Success...", data.Result, "success");
@@ -270,7 +254,8 @@
                                        $scope.recipientDetail.Memo = "";
 
                                    }
-                                   else {
+                                   else
+                                   {
                                        $scope.modal.hide();
                                        $ionicLoading.hide();
                                        swal("Error...", data.Result, "error");
@@ -278,16 +263,18 @@
                                    }
                                }).error(function (data) {
 
-                                  // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                                    CommonServices.logOut();  
+                                   // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   CommonServices.logOut();
                                });
 
                            }
-                           else if (($scope.recipientDetail.MemberId == null)   && ($scope.recipientDetail.ContactNumber!=null)) {
+                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.ContactNumber != null))
+                           {
                                console.log('sending request from mobile number');
                                howMuchService.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse($scope.requestData, $scope.recipientDetail.ContactNumber).success(function (data) {
 
-                                   if (data.Result.indexOf('successfully') > -1) {
+                                   if (data.Result.indexOf('successfully') > -1)
+                                   {
                                        $scope.modal.hide();
                                        $ionicLoading.hide();
                                        swal("Success...", data.Result, "success");
@@ -295,7 +282,8 @@
                                        $scope.recipientDetail.Memo = "";
 
                                    }
-                                   else {
+                                   else
+                                   {
                                        $scope.modal.hide();
                                        $ionicLoading.hide();
                                        swal("Error...", data.Result, "error");
@@ -305,13 +293,14 @@
                                    $ionicLoading.hide();
                                    $scope.modal.hide();
                                    swal("Error...", data.Result, "error");
-                               //    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                                   CommonServices.logOut();  
+                                   //    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   CommonServices.logOut();
                                });
 
                            }
                        }
-                       else if (type == 'send') {
+                       else if (type == 'send')
+                       {
                            console.log($scope.recipientDetail);
                            $scope.sendData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
                            $scope.sendData.Amount = $scope.recipientDetail.Amount;
@@ -320,9 +309,11 @@
                            $scope.sendData.Memo = $scope.recipientDetail.Memo;
                            $scope.sendData.Picture = $scope.picture;
 
-                           if ($scope.recipientDetail.MemberId != null) {
+                           if ($scope.recipientDetail.MemberId != null)
+                           {
                                howMuchService.TransferMoney($scope.sendData).success(function (data) {
-                                   if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                   if (data.Result && data.Result.indexOf('Successfully') > -1)
+                                   {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
                                        $scope.recipientDetail.Amount = "";
@@ -331,7 +322,8 @@
 
                                    }
 
-                                   else {
+                                   else
+                                   {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
                                        swal("Error...", data.Result, "error");
@@ -342,14 +334,15 @@
                                    $ionicLoading.hide();
                                    $scope.modal.hide();
                                    swal("Error...", data.Result, "error");
-                                 //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                                     CommonServices.logOut();  
+                                   //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   CommonServices.logOut();
                                });
                            }
-                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null ) && ($scope.recipientDetail.ContactNumber == null))
-                                {
+                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null) && ($scope.recipientDetail.ContactNumber == null))
+                           {
                                howMuchService.TransferMoneyToNonNoochUserUsingSynapse($scope.sendData, $scope.recipientDetail.UserName).success(function (data) {
-                                   if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                   if (data.Result && data.Result.indexOf('Successfully') > -1)
+                                   {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
                                        $scope.recipientDetail.Amount = "";
@@ -358,7 +351,8 @@
 
                                    }
 
-                                   else {
+                                   else
+                                   {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
                                        swal("Error...", data.Result, "error");
@@ -368,13 +362,15 @@
                                }).error(function (data) {
                                    $ionicLoading.hide();
                                    $scope.modal.hide();
-                                 //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                                     CommonServices.logOut(); 
+                                   //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   CommonServices.logOut();
                                });
                            }
-                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.ContactNumber != null)) {
+                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.ContactNumber != null))
+                           {
                                howMuchService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse($scope.sendData, $scope.recipientDetail.ContactNumber).success(function (data) {
-                                   if (data.Result && data.Result.indexOf('Successfully') > -1) {
+                                   if (data.Result && data.Result.indexOf('Successfully') > -1)
+                                   {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
                                        $scope.recipientDetail.Amount = "";
@@ -383,7 +379,8 @@
 
                                    }
 
-                                   else {
+                                   else
+                                   {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
                                        swal("Error...", data.Result, "error");
@@ -393,19 +390,21 @@
                                }).error(function (data) {
                                    $ionicLoading.hide();
                                    $scope.modal.hide();
-                                 //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                                     CommonServices.logOut();  
+                                   //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   CommonServices.logOut();
                                });
                            }
                        }
                    }
-                   else if (data.Result == 'Invalid Pin') {
+                   else if (data.Result == 'Invalid Pin')
+                   {
                        $scope.modal.hide();
                        $ionicLoading.hide();
                        swal("Oops...", "Incorrect Pin !", "error");
-                       
+
                    }
-                   else if (data.Message == 'An error has occurred.') {
+                   else if (data.Message == 'An error has occurred.')
+                   {
                        $scope.modal.hide();
                        $ionicLoading.hide();
                        swal("Oops...", "Something went wrong !", "error");
@@ -415,13 +414,13 @@
                    console.log('eror' + data);
                    $scope.modal.hide();
                    $ionicLoading.hide();
-                 //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                     CommonServices.logOut();  
+                   //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                   CommonServices.logOut();
                });
             }).error(function (data) {
                 $scope.modal.hide();
                 //if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                  CommonServices.logOut();  
+                CommonServices.logOut();
             });
             //}
             //else {
@@ -429,15 +428,13 @@
             //}
         }
     };
- 
-   
+
+
 
     $scope.addImage = function () {
 
-
-
         $ionicPlatform.ready(function () {
-            
+
             //window.imagePicker.getPictures(function (results) {
             //    for (var i = 0; i < results.length; i++)
             //    {
@@ -460,13 +457,14 @@
             console.log($cordovaImagePicker);
             $cordovaImagePicker.getPictures(options)
               .then(function (results) {
-                  for (var i = 0; i < results.length; i++) {
+                  for (var i = 0; i < results.length; i++)
+                  {
                       console.log('Image URI: ' + results[i]);
                   }
               }, function (error) {
                   // error getting photos
-                 // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();  
+                  // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                  CommonServices.logOut();
               });
 
         });
@@ -477,63 +475,64 @@
         console.log($cordovaCamera);
 
         $ionicPlatform.ready(function () {
-        var options = {
-            quality: 75,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: true,
-            encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 300,
-            targetHeight: 300,
-            popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false
-        };
+            var options = {
+                quality: 75,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 300,
+                targetHeight: 300,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false
+            };
 
-        $cordovaCamera.getPicture(options).then(function (imageData) {
-            console.log(imageData);
-            $scope.imgURI = "data:image/jpeg;base64," + imageData;
-            var binary_string = window.atob(imageData);
-            var len = binary_string.length;
-            var bytes = new Uint8Array( len );
-            for (var i = 0; i < len; i++) {
-                bytes[i] = binary_string.charCodeAt(i);
-            }
-            $scope.picture = imageData;
-            console.log(bytes);
-        }, function (err) {
-            // An error occured. Show a message to the user
-        });
+            $cordovaCamera.getPicture(options).then(function (imageData) {
+                console.log(imageData);
+                $scope.imgURI = "data:image/jpeg;base64," + imageData;
+                var binary_string = window.atob(imageData);
+                var len = binary_string.length;
+                var bytes = new Uint8Array(len);
+                for (var i = 0; i < len; i++)
+                {
+                    bytes[i] = binary_string.charCodeAt(i);
+                }
+                $scope.picture = imageData;
+                console.log(bytes);
+            }, function (err) {
+                // An error occured. Show a message to the user
+            });
         });
     }
 
 
     $scope.choosePhoto = function () {
         $ionicPlatform.ready(function () {
-        var options = {
-            quality: 75,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            allowEdit: true,
-            encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 300,
-            targetHeight: 300,
-            popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false
-        };
+            var options = {
+                quality: 75,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 300,
+                targetHeight: 300,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false
+            };
 
-        $cordovaCamera.getPicture(options).then(function (imageData) {
-            console.log(imageData);
-            $scope.imgURI = "data:image/jpeg;base64," + imageData;
-        }, function (err) {
-            // An error occured. Show a message to the user
-        });
+            $cordovaCamera.getPicture(options).then(function (imageData) {
+                console.log(imageData);
+                $scope.imgURI = "data:image/jpeg;base64," + imageData;
+            }, function (err) {
+                // An error occured. Show a message to the user
+            });
         });
     }
 
 
 
     $scope.GoBack = function () {
-         $ionicHistory.goBack();
+        $ionicHistory.goBack();
         //$state.go('app.selectRecipient');
     }
 })

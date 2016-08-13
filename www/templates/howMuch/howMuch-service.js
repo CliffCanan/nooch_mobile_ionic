@@ -1,10 +1,8 @@
 ﻿angular.module('noochApp.howMuch-service', ['noochApp.enterPinForeground-service', 'noochApp.services'])
   .service('howMuchService', function ($http, $localStorage) {
 
-     
-
       this.RequestMoney = function (Data) {
-         // Data.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+          // Data.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
           var ResTransferPayment = {
               method: 'POST',
               url: URLs.RequestMoney + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken,
@@ -14,7 +12,6 @@
 
               data: Data
           };
-
 
           return $http(ResTransferPayment);
       };
@@ -31,11 +28,10 @@
               data: Data
           };
 
-
           return $http(ResTransferPayment);
       };
 
-      this.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse = function (Data,contactNum) {
+      this.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse = function (Data, contactNum) {
           // Data.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
           var ResTransferPayment = {
               method: 'POST',
@@ -46,7 +42,6 @@
 
               data: Data
           };
-
 
           return $http(ResTransferPayment);
       };
@@ -61,12 +56,11 @@
               },
 
               data: Data
-
           };
-
 
           return $http(ResTransferPayment);
       };
+
       this.TransferMoneyToNonNoochUserUsingSynapse = function (Data, receiverEmailId) {
           console.log(JSON.stringify(Data));
           var ResTransferPayment = {
@@ -77,9 +71,7 @@
               },
 
               data: Data
-
           };
-
 
           return $http(ResTransferPayment);
       };
@@ -94,9 +86,7 @@
               },
 
               data: Data
-
           };
-
 
           return $http(ResTransferPayment);
       };

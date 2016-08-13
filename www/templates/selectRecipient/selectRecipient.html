@@ -56,6 +56,7 @@
                     <ti-segmented-control-button ng-click="GetLocationSearch()" class="button-positive" title="'Day'"><i class="ion-ios-location"></i>Find By Location</ti-segmented-control-button>
                 </ti-segmented-control>
             </div>
+
         </div>
 
 
@@ -67,17 +68,17 @@
         </div>
 
 
-
         <ion-scroll>
-            <ion-list>
-                <ion-item ng-repeat="member in memberList |filter:search" class="list" id="recents-table">
+            <ion-list class="selectRecipList">
+                <ion-item ng-repeat="member in memberList | filter:search" class="list" id="recents-table">
+
                     <a class="item item-avatar" ui-sref="app.howMuch({myParam:member})" nav-transition="ios" nav-direction="forward">
                         <img src="{{member.Photo}}" class="userPic">
-                        <h2>{{member.FirstName}} &nbsp; {{member.LastName}}</h2>
-                        <p>{{member.UserName}}</p>
-                        <p>{{member.ContactNumber}}  </p>
+                        <h2 class="username">{{member.FirstName}} &nbsp; {{member.LastName}}</h2>
+                        <p class="usersubtitle">{{member.UserName}}</p>
+                        <p class="usersubtitle">{{member.ContactNumber}}  </p>
                         <h3 ng-if="member.Miles">{{member.Miles}}Miles </h3>
-                        <img src="../../img/n_icon_46x54.png" class="n-icon"  ng-if="member.bit!='p'" />
+                        <img src="./../img/n_icon_46x54.png" class="n-icon" ng-if="member.bit!='p'" />
                     </a>
 
                 </ion-item>
@@ -85,11 +86,13 @@
 
 
             <div ng-show="show" id="dvSendTo">
-
-                send to {{sendTo}} {{search}}
-                <button class="button button-balanced" ui-sref="app.howMuch({myParam:search})">Done</button>
-
+                <a class="" ui-sref="app.howMuch({myParam:search})">
+                    <span class="sendTo">Send to: <i ng-if="sendTo == 'Email Address'" class="fa fa-envelope"></i></span>
+                    <span class="enteredTxt">{{search}}</span>
+                    <img class="defaultImg" src="./../img/profile_picture.png"/>
+                </a>
             </div>
+
         </ion-scroll>
 
     </ion-content>
