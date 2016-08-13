@@ -40,10 +40,11 @@
             </div>
         </div>
 
-        <div id="mapRow" ng-if="transDetail.Latitude != '' && transDetail.Longitude != ''">
-            <div style="height:200px;">
-                GOOGLE MAP GOES HERE
-
+        <div id="mapRow" > <!--ng-if="transDetail.Latitude != '' && transDetail.Longitude != ''"Commented this condtion just for testing purpose :Surya -13 Aug 16 -->
+            <div style="height:200px;" map-lazy-load="https://maps.google.com/maps/api/js">
+                    <!--map-lazy-load-params="{{googleMapsUrl}}"-->
+                    <ng-map center="{{Location.longi}},{{Location.lati}}" zoom="7"></ng-map>
+           
                 <div id="mapGeoLabel">{{mapGeoLabelTxt}}</div>
             </div>
         </div>
