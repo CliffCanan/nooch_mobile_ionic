@@ -724,9 +724,22 @@ a {
 
 /***  TI-SEGMENTED-CONTROL  ***/
 .ti-segmented-control a.button {
-    font-size: 14px;
-    padding: 9px 15px 10px;
+    color: #3fabe1 !important;
+    font-size: 16px;
+    padding: 6px 15px 7px;
     max-height: 44px !important;
+}
+
+.ti-segmented-control .button i {
+    font-size: 112%;
+    margin-right: 11px;
+    position: relative;
+    top: 1px;
+}
+
+.ti-segmented-control .button.button-outline.active, .button.button-positive.button-outline.activated {
+    background: #3fabe1;
+    color: #fff !important;
 }
 
 
@@ -992,16 +1005,16 @@ div.hscroller-card {
     color: #333;
 }
 
-div.hscroller-card img {
-    border-radius: 50%;
-}
+    div.hscroller-card img {
+        border-radius: 50%;
+    }
 
-div.hscroller-card div.hscroller-label {
-    color: #444;
-    font-size: 18px;
-    text-align: center;
-    margin-top: 8px;
-}
+    div.hscroller-card div.hscroller-label {
+        color: #444;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 8px;
+    }
 
 #fav-container {
     transition: .6s all ease-in-out;
@@ -1395,7 +1408,7 @@ div.hscroller-card div.hscroller-label {
 /***  SELECT RECIPIENT  ***/
 /**************************/
 #recents-table .item {
-    padding: 15px 15px 15px 80px;
+    padding: 15px 15px 25px 80px;
 }
 
 #recents-table .n-icon {
@@ -1416,6 +1429,57 @@ div.hscroller-card div.hscroller-label {
     border-radius: 6px !important;
     background: #e7e8e9;
 }
+
+.selectRecipList .list {
+    border: 0;
+    margin-bottom: 0;
+    padding-right: 0;
+}
+
+.selectRecipList .item .username {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.selectRecipList .item .usersubtitle {
+    color: #777;
+    font-size: 15px;
+    font-weight: 300;
+    width: 90%;
+}
+
+#dvSendTo {
+    line-height: 1.2;
+    text-align: center;
+    padding: 5px 10px 10px;
+}
+
+    #dvSendTo a {
+        display: block;
+        text-decoration: none;
+    }
+
+    #dvSendTo .sendTo {
+        color: #3fabe1;
+        display: block;
+        font-size: 20px;
+        font-weight: 300;
+        margin-bottom: 6px;
+    }
+
+    #dvSendTo .enteredTxt {
+        color: #222;
+        display: block;
+        font-size: 22px;
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+
+    #dvSendTo .defaultImg{
+        border-radius: 50%;
+        width: 80px;
+        height: auto;
+    }
 
 
 /******************/
@@ -1586,7 +1650,7 @@ div.hscroller-card div.hscroller-label {
 
     .recipient-box .namebar {
         color: #fff;
-        padding: 8px;
+        padding: 8px 5px 8px 30px;
         font-size: 20px;
     }
 
@@ -1597,9 +1661,11 @@ div.hscroller-card div.hscroller-label {
     .recipient-box .memo-text {
         font-size: 18px;
         font-weight: 300;
-        padding: 5px;
+        padding: 5px 5px 5px 30px;
     }
 
+    .recipient-box .memo-text,
+    .recipient-box .memo-text
 /*************************/
 /*** Transfer Details  ***/
 /*************************/

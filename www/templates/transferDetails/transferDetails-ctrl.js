@@ -1,6 +1,6 @@
-﻿angular.module('noochApp.TransferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services'])
+﻿angular.module('noochApp.TransferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services', 'ngMap'])
 
-       .controller('TransferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin) {
+       .controller('TransferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope,$ionicPlatform, NgMap) {
 
            $ionicModal.fromTemplateUrl('templates/transferDetails/modalPin.html', {
                scope: $scope,
@@ -8,13 +8,30 @@
            }).then(function (modal) {
                $scope.modal = modal;
            });
-
-
+          
            $scope.transDetail = {};
-
+         
            $scope.$on("$ionicView.enter", function (event, data) {
-
                console.log('Transfer Details Cntrlr Fired');
+
+               $ionicPlatform.ready(function () {
+                   $scope.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC3f2pIfit--Qr7Tvl5EGnzvEHpDAIsYoI';
+                   var vm = this;
+                   NgMap.getMap().then(function (map) {
+                       
+                       console.log(map.getCenter());
+                       console.log('markers', map.markers);
+                       console.log('shapes', map.shapes);
+
+                       vm.showCustomMarker = function (evt) {
+                           map.customMarkers.foo.setVisible(true);
+                           map.customMarkers.foo.setPosition(this.getPosition());
+                       }
+                       vm.closeCustomMarker = function (evt) {
+                           this.style.display = 'none';
+                       }
+                   });
+               });
 
                console.log('object -> ' + JSON.stringify($stateParams.trans));
 
@@ -355,6 +372,6 @@
                    }
                });
            }
-           
+
 
        })

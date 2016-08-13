@@ -150,9 +150,7 @@
                     <ti-segmented-control-button ng-click="clickPending()" id="btnPending" class="button-positive" title="'Pending'"><i class="ion-ios-clock"></i>Pending</ti-segmented-control-button>
                 </ti-segmented-control>
             </div>
-        </div>
-
-     
+        </div>    
 
 
         <ion-scroll>
@@ -206,6 +204,8 @@
 
                     <span class="item-note amount">{{trans.Amount | currency}}</span>
                     <ion-option-button class="button-positive" ui-sref-ignore ng-click="PayBack(trans)" ng-show="trans.MemberId != memberId && (trans.TransactionType == 'Request')">Pay Back </ion-option-button>
+                  
+                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="showMap(trans.Latitude,trans.Longitude)">Show on map</ion-option-button>
 
                 </ion-item>
             </ion-list>

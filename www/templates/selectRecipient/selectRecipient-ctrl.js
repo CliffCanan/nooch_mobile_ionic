@@ -6,6 +6,7 @@
 .controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform, $rootScope, CommonServices) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
+ 
        
         $scope.FindRecent();
 
@@ -48,8 +49,11 @@
       //
       //   console.log("came in error outer "+onError);
       // });
+ 
 
+     
 
+ 
       // cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
 
       //   // status === authorized    -- in case user has authorized  and by default it will same
@@ -81,8 +85,8 @@
       //}
 
 
+ 
     });
-
 
 
     $scope.showSearch = function (member) {
@@ -101,13 +105,13 @@
 
     $scope.go = function (data) {
         if (data == 'howMuch')
-        {
             $state.go('howMuch');
-        }
     }
 
+ 
     $scope.FindRecent = function () {      
         console.log('Came in find recent');
+ 
         $ionicLoading.show({
             template: 'Loading ...'
         });
@@ -116,6 +120,7 @@
         $scope.show = false;
 
         $('#searchBar').val('');
+
         selectRecipientService.GetRecentMembers().success(function (data) {
 
             $scope.memberList = data;
@@ -123,29 +128,26 @@
             console.log('Find recent Fn-->>');
             console.log($scope.memberList);
 
-            for (var i = 0; i < $rootScope.phoneContacts.length; i++) {
+            for (var i = 0; i < $rootScope.phoneContacts.length; i++)
+            {
                 $scope.memberList.push($rootScope.phoneContacts[i]);
             }
 
             $scope.item2 = data;
             $ionicLoading.hide();
 
-
         }).error(function (data) {
             console.log(data); $ionicLoading.hide();
-
-         //   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+            //   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
             { CommonServices.logOut(); }
         });
 
     }
 
     $scope.$watch('search', function (val) {
-        
         console.log($filter('filter')($scope.items2, val));
         $scope.memberList = $filter('filter')($scope.items2, val);
         console.log($scope.memberList);
-
     });
 
     $scope.GetLocationSearch = function () {
@@ -157,48 +159,52 @@
         $scope.showSearchFlag = false;
         $scope.show = false;
         $('#searchBar').val('');
-        selectRecipientService.GetLocationSearch().success(function (data) {
 
+        selectRecipientService.GetLocationSearch().success(function (data) {
             $scope.memberList = data;
             $ionicLoading.hide();
         }).error(function (data) {
             console.log(data);
             $ionicLoading.hide();
-          //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+            //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
             { CommonServices.logOut(); }
         });
 
     }
 
     $scope.checkList = function () {
-        if ($('#searchBar').val() == '') {
+        if ($('#searchBar').val() == '')
+        {
             $scope.show = false;
             $('#dvSendTo').style('display', 'none');
         }
-        console.log($('#recents-table').html());
-        if ($('#recents-table').html() == undefined) {
 
-            if (isNaN($('#searchBar').val())) {
-                if (ValidateEmail($('#searchBar').val())) {
+        //console.log($('#recents-table').html());
+
+        if ($('#recents-table').html() == undefined)
+        {
+            if (isNaN($('#searchBar').val()))
+            {
+                if (ValidateEmail($('#searchBar').val()))
+                {
                     $scope.show = true;
                     $scope.sendTo = 'Email Address';
                 }
             }
-            else {
+            else
+            {
                 $scope.show = true;
                 $scope.sendTo = 'Contact Number';
             }
         }
-        else {
+        else
             $scope.show = false;
-        }
     }
 
     function ValidateEmail(mail) {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)*.+$/.test(mail))
             return (true)
-        }
         else
-        return (false)
+            return (false)
     }
 })
