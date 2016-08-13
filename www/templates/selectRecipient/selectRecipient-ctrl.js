@@ -1,4 +1,4 @@
-﻿angular.module('noochApp.SelectRecipCtrl', ['ngCordova', 'noochApp.selectRecipientService', 'noochApp.services'])
+﻿angular.module('noochApp.SelectRecipCtrl', ['ngCordova', 'noochApp.selectRecipientService', 'noochApp.services' ])
 
 /************************/
 /*** SELECT RECIPIENT ***/
@@ -6,6 +6,7 @@
 .controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform, $rootScope, CommonServices) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
+       
         $scope.FindRecent();
 
 
@@ -63,21 +64,21 @@
       // });
 
 
-      cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
+      //cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
 
-        console.log("Contact Authorization status is "+status);
+      //  console.log("Contact Authorization status is "+status);
 
-      }, function(error){
-        console.error(error);
-      });
+      //}, function(error){
+      //  console.error(error);
+      //});
 
-      if($localStorage)
-      {
-        if($localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert==false && $localStorage.GLOBAL_VARIABLES.HasSharedContacts==true)
-        {
+      //if($localStorage)
+      //{
+      //  if($localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert==false && $localStorage.GLOBAL_VARIABLES.HasSharedContacts==true)
+      //  {
 
-        }
-      }
+      //  }
+      //}
 
 
     });
@@ -106,7 +107,7 @@
     }
 
     $scope.FindRecent = function () {      
-       
+        console.log('Came in find recent');
         $ionicLoading.show({
             template: 'Loading ...'
         });

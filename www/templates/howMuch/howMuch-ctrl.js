@@ -31,7 +31,8 @@
         "MoneySenderEmailId": "",
         "Picture": "",
         "isTesting": "",
-        "isRentPayment": ""
+        "isRentPayment": "",
+        "contactNumber":""
     }
 
     $scope.sendData = {
@@ -91,7 +92,8 @@
         "BankId":null,
         "BankName":null,
         "SsnIsVerified":null,
-        "cip":null
+        "cip": null,
+        "contactNumber":null
     }
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -152,23 +154,22 @@
         type = 'request';
         
         console.log($('#howMuchForm').parsley().validate());
-        if ($('#howMuchForm').parsley().validate() == true) {
-            swal({
-                title: "Are you sure?",
-                text: "Do you want to Request Money?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes - Send",
-            }, function (isConfirm) {
-                if (isConfirm) {
+        if ($('#howMuchForm').parsley().validate() == true)
+        {
+             
+            console.log($scope.requestData);
+            $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+            $scope.requestData.Amount = $scope.recipientDetail.Amount;
+            $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
+            $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
+            $scope.requestData.Memo = $scope.recipientDetail.Memo;
+            $scope.requestData.Picture = $scope.picture;
+            $scope.requestData.MoneySenderEmailId = $scope.recipientDetail.UserName;
+            $scope.requestData.contactNumber = $scope.recipientDetail.ContactNumber;
+            console.log($scope.requestData);
+            CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.selectRecipient', returnPage: 'Select Recipient', comingFrom: 'Request' });
 
-                    $scope.modal.show();
-
-                }
-            });
-
-            // $state.go('enterPin');
+            $state.go('enterPin');
         }
     };
 
@@ -176,25 +177,29 @@
     $scope.submitSend = function () {
         type = 'send';
         
-        if ($('#howMuchForm').parsley().validate() == true) {
-            swal({
-                title: "Are you sure?",
-                text: "Do you want to Send Money?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes - Pay",
-            }, function (isConfirm) {
-                if (isConfirm) {
-                    console.log($scope.recipientDetail);
-                    $scope.modal.show();
+        if ($('#howMuchForm').parsley().validate() == true)
+        {
+            console.log($scope.recipientDetail);
 
-                }
-            });      
+            $scope.sendData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+            $scope.sendData.Amount = $scope.recipientDetail.Amount;
+            $scope.sendData.RecepientId = $scope.recipientDetail.MemberId;
+            
+                $scope.sendData.RecepientName = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
+ 
+            $scope.sendData.Memo = $scope.recipientDetail.Memo;
+            $scope.sendData.Picture = $scope.picture;
+            $scope.sendData.Photo = $scope.recipientDetail.Photo;
+             
+            $scope.sendData.UserName = $scope.recipientDetail.UserName;
+            $scope.sendData.InvitationSentTo = $scope.recipientDetail.UserName;
+            $scope.sendData.PhoneNumberInvited = $scope.recipientDetail.ContactNumber;
+            console.log($scope.sendData);
+            CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.selectRecipient', returnPage: 'Select Recipient', comingFrom: 'Transfer' });
 
+            $state.go('enterPin');
+          
 
-
-            // $state.go('enterPin');
         }
 
         
@@ -203,7 +208,8 @@
 
     $scope.CheckPin = function (Pin) {
         console.log('Check Pin Function called');
-        if ($('#frmPinForeground').parsley().validate() == true) {
+       // if ($('#frmPinForeground').parsley().validate() == true)
+        {
             
             console.log(Pin);
 

@@ -1,30 +1,47 @@
-﻿<ion-view view-title="Enter PIN">
+﻿<ion-view view-title="Enter PIN" cache-view="false">
     <ion-content>
-
+        <div class="bar bar-header bar-calm">
+            <button class="button ion-chevron-left" ng-click="GoBack(returnUrl)"></button>
+            <h6 class="title">{{returnPage}}</h6>
+        </div>
+        </br> </br> </br>
         <h2 class="instructionTextPin m-t-10">
             Enter PIN to confirm your
-            <span class="show text-success"> transfer </span>
+            <span class="show text-success"> {{comingFrom}} </span>
         </h2>
 
         <div class="row">
             <div class="col text-center">
                 <div class="pin-container m-b-20">
-                    <input type="password" style="-webkit-text-security:disc" id="pin" placeholder="****" maxlength="4">
+                    <input ng-keyup="getTransaction()" type="password" style="-webkit-text-security:disc" id="pin" ng-model="Details.enterPin" placeholder="****" maxlength="4">
                 </div>
 
-                <div class="amountPin">$50.00</div>
+                <div class="amountPin">${{Details.Amount}}</div>
             </div>
         </div>
 
         <div class="card text-center m-t-10 recipient-box">
             <img src="./img/profile_picture.png" class="recip-pic" />
 
-            <div class="namebar namebar-send">
-                Abe Lincoln
+            <div class="namebar namebar-send" ng-if="Details.RecepientId && comingFrom=='Transfer'">
+                {{Details.RecepientName   }} &nbsp; {{Details.InvitationSentTo}}
+            </div>
+            <div class="namebar namebar-send" ng-if="Details.RecepientId==undefined && Details.InvitationSentTo !=undefined && comingFrom=='Transfer' ">
+                {{Details.InvitationSentTo}}
+            </div>
+            <div class="namebar namebar-send" ng-if="Details.PhoneNumberInvited!=undefined && comingFrom=='Transfer' ">
+                {{Details.PhoneNumberInvited}}
+            </div>
+
+            <div class="namebar namebar-send" ng-if="Details.SenderId==undefined && comingFrom=='Request' && Details.MoneySenderEmailId==undefined">
+                {{Details.contactNumber}}
+            </div>
+            <div class="namebar namebar-send" ng-if="comingFrom=='Request' && Details.MoneySenderEmailId!=undefined">
+                {{Details.MoneySenderEmailId}}
             </div>
 
             <div class="memo-text">
-                This is a sample memo!
+                {{Details.Memo}}
             </div>
         </div>
 

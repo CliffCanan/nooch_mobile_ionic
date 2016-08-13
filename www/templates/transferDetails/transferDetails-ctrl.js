@@ -205,20 +205,11 @@
            //                  CAN ENTER AN AMOUNT, THEN TO 'PIN' TO COMPLETE.
            $scope.TransferMoney = function () {
 
-               console.log("Transfer payment" + JSON.stringify($scope.transDetail.TransactionId));
-               swal({
-                   title: "Are you sure?",
-                   text: "Do you want to Pay for this transaction?",
-                   type: "warning",
-                   showCancelButton: true,
-                   confirmButtonColor: "#DD6B55",
-                   confirmButtonText: "Yes - Pay",
-               }, function (isConfirm) {
-                   if (isConfirm)
-                   {
-                       $scope.modal.show();
-                   }
-               });
+               $scope.transDetail.RecepientName = $scope.transDetail.Name;
+               CommonServices.savePinValidationScreenData({ myParam: $scope.transDetail, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });
+               
+               $state.go('enterPin');
+             //  $scope.modal.show();
            }
 
            // (CLIFF (7/31/16): SEE ABOVE NOTE - THIS SHOULD NOT BE HERE!

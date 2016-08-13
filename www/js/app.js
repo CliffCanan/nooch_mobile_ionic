@@ -12,6 +12,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts) {
 
+
+
       if (!$localStorage.GLOBAL_VARIABLES) {
           $localStorage.GLOBAL_VARIABLES = {
               IsDemoDone: false, // for displaying tutorial screens to user - if any
@@ -38,7 +40,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               EnterPinImmediately: false, // to check if pin is required while coming back to foreground or app launch
 
               shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
-              HasSharedContacts: false // if true then shouldn't ask for contact permission again
+              HasSharedContacts: false, // if true then shouldn't ask for contact permission again
+              //pinValidatorData: { myParam: '', type: '', returnUrl: '', returnPage: '', comingFrom: '' }
+              pinValidatorData: { }
           };
       }
       $ionicPlatform.ready(function () {
@@ -102,7 +106,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               if ($localStorage.GLOBAL_VARIABLES.MemberId != null) {
                   //added this to not asked for Pin before login
 
-                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
+                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
+                      CommonServices.savePinValidationScreenData({ myParam: null, type: '', returnUrl: 'app.home', returnPage: 'Home', comingFrom: 'Home' });
+
+                      $state.go('enterPin');
+                  }
                       $state.go('enterPinForeground');
               }
           }, false);
@@ -413,6 +421,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
         })
         .state('enterPin', {
             url: '/enterPin',
+            params: { myParam: null, type: null, returnUrl: null, returnPage: null,comingFrom:null },
             templateUrl: 'templates/enterPin/enterPin.html',
             controller: 'enterPinCtrl'
         })

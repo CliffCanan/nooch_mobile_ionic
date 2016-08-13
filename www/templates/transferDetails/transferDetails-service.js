@@ -38,7 +38,7 @@
           console.log(Data);
           var ResTransferPayment = {
               method: 'POST',
-              url: URLs.TransferMoney + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&inviteType=Email' + 'receiverEmailId=' + Data.InvitationSentTo,
+              url: URLs.TransferMoneyToNonNoochUserUsingSynapse + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&inviteType=Email&' + 'receiverEmailId=' + Data.InvitationSentTo,
               headers: {
                   'Content-Type': 'application/json'
               },
@@ -114,7 +114,8 @@
           console.log(Data);
           var ResTransferPayment = {
               method: 'POST',
-              url: URLs.TransferMoney + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&inviteType=SMS' + 'receiverPhoneNumber=' + Data.PhoneNumberInvited,
+              url: URLs.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&inviteType=email&receiverPhoneNumer=' + Data.PhoneNumberInvited,
+     
               headers: {
                   'Content-Type': 'application/json'
               },

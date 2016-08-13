@@ -115,6 +115,20 @@ angular.module('noochApp.services', ['ngStorage'])
     this.GetMemberDetails = function () {
         return $http.get(URLs.GetMemberDetails + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
     }
+
+    this.savePinValidationScreenData = function (data) {
+        
+        console.log(data);
+        $localStorage.GLOBAL_VARIABLES.pinValidatorData = data;
+       
+        
+    }
+
+    this.getPinValidationScreenData = function () {
+        
+        return $localStorage.GLOBAL_VARIABLES.pinValidatorData;
+
+    }
         
   })
 

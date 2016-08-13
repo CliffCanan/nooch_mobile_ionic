@@ -178,21 +178,10 @@
             $scope.TransferMoney = function (trans) {
                 transDetails = trans;
                 console.log("Transfer payment" + JSON.stringify(transDetails));
-                swal({
-                    title: "Are you sure?",
-                    text: "Do you want to Pay for this transaction?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes - Pay",
-                }, function (isConfirm) {
-                    if (isConfirm) {
-                        $scope.transDetailsForPin = {};
-                        $scope.transDetailsForPin = transDetails;
-                        console.log($scope.transDetailsForPin);
-                        $scope.modal.show();
-                    }
-                });
+                
+                CommonServices.savePinValidationScreenData({ myParam: transDetails, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });
+
+                $state.go('enterPin');
             }
 
             $scope.CheckPin = function (Pin) {
