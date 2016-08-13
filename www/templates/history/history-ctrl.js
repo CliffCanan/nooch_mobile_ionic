@@ -18,10 +18,7 @@
             $rootScope.Location = {
                 logi: '',
                 lati: ''
-            }
-
-            $rootScope.Location.longi = 31.3260; 
-            $rootScope.Location.lati = 75.5762;
+            }          
 
             console.log('History Page Loaded');
 
@@ -324,7 +321,6 @@
                     //}
                 }
             };
-
             //}
             //else{
             //        swal("Oops...", "Internet not connected!", "error");
@@ -348,25 +344,37 @@
         }
  
 
-        $scope.showMap = function (logi,lati) {
-        //    if ($cordovaNetwork.isOnline()) {
+        $scope.showMap = function (longi, lati) {
+               // if ($cordovaNetwork.isOnline()) {
+            if (longi == 0 && lati == 0) {
+                console.log($rootScope.Location.longi);
+                console.log($rootScope.Location.lati);
+                swal("Oops...", "No Location found", "error");               
+            }
+            else if (longi == '' && lati == '') {
+                console.log($rootScope.Location.longi);
+                console.log($rootScope.Location.lati);
+                swal("Oops...", "No Location found", "error");
+            }
+            else {
                 $ionicLoading.show({
                     template: 'Loading History...'
                 });
 
                 $state.go('app.map');
                 console.log('from the function show map');
-            
+
                 console.log($rootScope.Location.longi);
                 console.log($rootScope.Location.lati);
-                    //$rootScope.Location.longi = longi;
-                    //$rootScope.Location.lati = lati;
+                $rootScope.Location.longi = longi;
+                $rootScope.Location.lati = lati;
+                $rootScope.Location.longi = 31.3260;
+                $rootScope.Location.lati = 75.5762;
 
-            //}
-            //else{
-            //        swal("Oops...", "Internet not connected!", "error");
-            //      }
+                //}
+                //else{
+                //        swal("Oops...", "Internet not connected!", "error");
+                //      }
+            }
         }
     });
-
-

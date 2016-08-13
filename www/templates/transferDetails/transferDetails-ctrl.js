@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.TransferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services'])
 
-       .controller('TransferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope) {
+       .controller('TransferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope,$ionicPlatform, NgMap) {
 
            $ionicModal.fromTemplateUrl('templates/transferDetails/modalPin.html', {
                scope: $scope,
@@ -15,6 +15,29 @@
            $scope.$on("$ionicView.enter", function (event, data) {
 
                console.log('Transfer Details Cntrlr Fired');
+
+               console.log('from  Transfer details Ctrl');
+               console.log($rootScope.Location.longi);
+               console.log($rootScope.Location.lati);
+
+               $ionicPlatform.ready(function () {
+
+                   var vm = this;
+                   NgMap.getMap().then(function (map) {
+                       
+                       console.log(map.getCenter());
+                       console.log('markers', map.markers);
+                       console.log('shapes', map.shapes);
+
+                       vm.showCustomMarker = function (evt) {
+                           map.customMarkers.foo.setVisible(true);
+                           map.customMarkers.foo.setPosition(this.getPosition());
+                       }
+                       vm.closeCustomMarker = function (evt) {
+                           this.style.display = 'none';
+                       }
+                   });
+               });
 
                console.log('object -> ' + JSON.stringify($stateParams.trans));
 
