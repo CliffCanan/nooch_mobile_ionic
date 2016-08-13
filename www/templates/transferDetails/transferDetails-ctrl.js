@@ -1,4 +1,4 @@
-﻿angular.module('noochApp.TransferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services'])
+﻿angular.module('noochApp.TransferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services', 'ngMap'])
 
        .controller('TransferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope,$ionicPlatform, NgMap) {
 
@@ -10,18 +10,12 @@
            });
           
            $scope.transDetail = {};
-          
-           
+         
            $scope.$on("$ionicView.enter", function (event, data) {
-
                console.log('Transfer Details Cntrlr Fired');
 
-               console.log('from  Transfer details Ctrl');
-               console.log($rootScope.Location.longi);
-               console.log($rootScope.Location.lati);
-
                $ionicPlatform.ready(function () {
-
+                   $scope.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC3f2pIfit--Qr7Tvl5EGnzvEHpDAIsYoI';
                    var vm = this;
                    NgMap.getMap().then(function (map) {
                        
@@ -387,5 +381,6 @@
                    }
                });
            }
+
 
        })

@@ -6,7 +6,7 @@
 angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
-  'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.testPageCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
+  'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl','noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
   'noochApp.addPicture', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards', 'ngMap'])
 
 
@@ -442,18 +442,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             }
         })
 
-
-        //Test Page
-        .state('app.testPage', {
-            url: '/testPage',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/testPage/testPage.html',
-                    controller: 'testPageCtrl'
-                }
-            }
-        })
-      //test Page
       // $urlRouterProvider.otherwise('app/home');
       $urlRouterProvider.otherwise('/login');
   });
