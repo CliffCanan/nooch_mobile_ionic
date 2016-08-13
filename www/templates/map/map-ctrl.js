@@ -1,8 +1,8 @@
-﻿angular.module('noochApp.mapCtrl', ['ngCordova', 'noochApp.services','ngMap'])
+﻿angular.module('noochApp.mapCtrl', ['ngCordova', 'noochApp.services', 'ngMap'])
 
 //var myApp = angular.module('myApp', ['ngMap']);
 
-.controller('mapCtrl', function ($scope, $state, $ionicPlatform,  $ionicLoading, $ionicContentBanner, $rootScope,NgMap) {
+.controller('mapCtrl', function ($scope, $state, $ionicPlatform, $ionicLoading, $ionicContentBanner, $rootScope, NgMap) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
@@ -15,16 +15,24 @@
 
         $ionicPlatform.ready(function () {
 
+            var vm = this;
             NgMap.getMap().then(function (map) {
+                // console.log(map);
+                //map.markers = [31.3260, 75.5762];
+                //map.shapes = 'lines';
                 console.log(map.getCenter());
                 console.log('markers', map.markers);
                 console.log('shapes', map.shapes);
-            });
 
-          
+                vm.showCustomMarker = function (evt) {
+                    map.customMarkers.foo.setVisible(true);
+                    map.customMarkers.foo.setPosition(this.getPosition());
+                }
+                vm.closeCustomMarker = function (evt) {
+                    this.style.display = 'none';
+                }
+            });
         });
     });
+});
 
-  
-
-})

@@ -47,11 +47,9 @@
             }
             historyService.getTransferList().success(function (data) {
                 
-                $scope.transactionList = data;
-              
-                console.log('getTransferList result data----- >>>>>');
-                console.log($scope.transactionList);
-              
+                $scope.transactionList = data;              
+                //console.log('getTransferList result data----- >>>>>');
+                //console.log($scope.transactionList);              
                 for (var i = 0; i < $scope.transactionList.length; i++) {
                    
                     $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
