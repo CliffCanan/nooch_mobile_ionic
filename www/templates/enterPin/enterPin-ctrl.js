@@ -148,6 +148,7 @@
                                            $scope.Details = '';
                                            swal({ title: "Transferred...", text: data.Result, type: "success" }
                                                  , function () {
+                                                      
                                                      $scope.Details = '';
                                                      $ionicHistory.clearCache().then(function () { $state.go($scope.returnUrl); });
                                                      //$state.go($scope.returnUrl);
@@ -161,6 +162,7 @@
                                          
                                            $ionicLoading.hide();
                                            swal("Error...", data.Result, "error");
+                                           
 
                                        }
                                    }).error(function (data) {
@@ -253,9 +255,8 @@
                                confirmButtonText: "Ok",
                            }, function (isConfirm) {
                                if (isConfirm) {
-
-                                 
-                                   $scope.Details = '';
+ 
+                                   $scope.Details.enterPin = '';
                                   
 
                                }
