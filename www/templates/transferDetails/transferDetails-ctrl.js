@@ -14,24 +14,28 @@
            $scope.$on("$ionicView.enter", function (event, data) {
                console.log('Transfer Details Cntrlr Fired');
 
-               $ionicPlatform.ready(function () {
-                   $scope.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC3f2pIfit--Qr7Tvl5EGnzvEHpDAIsYoI';
-                   var vm = this;
-                   NgMap.getMap().then(function (map) {
-                       
-                       console.log(map.getCenter());
-                       console.log('markers', map.markers);
-                       console.log('shapes', map.shapes);
 
-                       vm.showCustomMarker = function (evt) {
-                           map.customMarkers.foo.setVisible(true);
-                           map.customMarkers.foo.setPosition(this.getPosition());
-                       }
-                       vm.closeCustomMarker = function (evt) {
-                           this.style.display = 'none';
-                       }
-                   });
+               $rootScope.Location = {
+                   longi: '',
+                   lati: ''
+               }
+             
+               var vm = this;
+               NgMap.getMap().then(function (map) {
+                  
+                   console.log(map.getCenter());
+                   console.log('markers', map.markers);
+                   console.log('shapes', map.shapes);
+
+                   vm.showCustomMarker = function (evt) {
+                       map.customMarkers.foo.setVisible(true);
+                       map.customMarkers.foo.setPosition(this.getPosition());
+                   }
+                   vm.closeCustomMarker = function (evt) {
+                       this.style.display = 'none';
+                   }
                });
+
 
                console.log('object -> ' + JSON.stringify($stateParams.trans));
 
@@ -44,6 +48,12 @@
                {
                    $scope.transDetail = $stateParams.trans;
                    $scope.memId = $localStorage.GLOBAL_VARIABLES.MemberId;
+
+                   $rootScope.Location.lati = $scope.transDetail.Latitude;
+                   $rootScope.Location.longi = $scope.transDetail.Longitude;
+
+                   //console.log($rootScope.Location.longi);
+                   //console.log($rootScope.Location.lati);
 
                    $scope.typeLabelTxt = "";
                    $scope.labelTypeClr = "";

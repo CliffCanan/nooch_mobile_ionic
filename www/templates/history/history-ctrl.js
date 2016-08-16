@@ -16,7 +16,7 @@
             $scope.transDetailsForPin = {};
 
             $rootScope.Location = {
-                logi: '',
+                longi: '',
                 lati: ''
             }          
 
@@ -312,8 +312,8 @@
                 console.log($rootScope.Location.lati);
                 $rootScope.Location.longi = longi;
                 $rootScope.Location.lati = lati;
-                $rootScope.Location.longi = 31.3260;
-                $rootScope.Location.lati = 75.5762;
+                //$rootScope.Location.longi = 31.3260;
+                //$rootScope.Location.lati = 75.5762;
 
                 //}
                 //else{
