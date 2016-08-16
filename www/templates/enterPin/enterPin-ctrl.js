@@ -1,6 +1,6 @@
-﻿angular.module('noochApp.enterPin', ['noochApp.services'])
+﻿angular.module('noochApp.enterPin', ['noochApp.services', 'noochApp.enterPin-service'])
 
-    .controller('enterPinCtrl', function ($scope, $state, $stateParams, $localStorage, CommonServices, $ionicLoading, ValidatePin, transferDetailsService, howMuchService, $ionicHistory) {
+    .controller('enterPinCtrl', function ($scope, $state, $stateParams, $localStorage, CommonServices, $ionicLoading, ValidatePin, transferDetailsService, howMuchService, $ionicHistory, enterPinService) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('Enter Pin Controller loaded');
@@ -19,7 +19,7 @@
             $scope.returnUrl = CommonServices.getPinValidationScreenData().returnUrl;
             $scope.returnPage = CommonServices.getPinValidationScreenData().returnPage;
             $scope.comingFrom = CommonServices.getPinValidationScreenData().comingFrom;
-            $scope.Details.enterPin = '';
+           // $scope.Details.enterPin = '';
             $("#pin").focus();
         });
 
@@ -36,7 +36,9 @@
             console.log($scope.Details.enterPin);
             var Pin = $scope.Details.enterPin;
             console.log(Pin);
+            console.log($('#pin').length);
             if (Pin.length == 4) {
+                
 
                 //if ($cordovaNetwork.isOnline()) {
                 $ionicLoading.show({
@@ -67,7 +69,7 @@
 
                                if ($scope.Details.MemberId != $scope.Details.RecepientId && $scope.Details.RecepientId != null && $scope.Details.RecepientId != undefined) {
                                    
-                                   transferDetailsService.TransferMoney($scope.Details).success(function (data) {
+                                   enterPinService.TransferMoney($scope.Details).success(function (data) {
                                        $ionicLoading.hide();
                                        if (data.Result && data.Result.indexOf('Successfully') > -1) {
                                            swal({ title: "Transferred...", text: data.Result, type: "success" }
@@ -92,7 +94,7 @@
                                }
                                else if (($scope.Details.MemberId == $scope.Details.RecepientId || $scope.Details.RecepientId == null || $scope.Details.RecepientId == undefined) && $scope.Details.InvitationSentTo !=undefined) {
 
-                                   transferDetailsService.TransferMoneyToNonNoochUserUsingSynapse($scope.Details).success(function (data) {
+                                   enterPinService.TransferMoneyToNonNoochUserUsingSynapse($scope.Details).success(function (data) {
                                        if (data.Result && data.Result.indexOf('Successfully') > -1) {
                                            swal({ title: "Transferred...", text: data.Result, type: "success" }
                                               , function () {
@@ -113,7 +115,7 @@
                                }
                                else if (($scope.Details.MemberId == $scope.Details.RecepientId  || $scope.Details.RecepientId == null || $scope.Details.RecepientId == undefined)&& $scope.Details.PhoneNumberInvited!=undefined) {
                                    
-                                   transferDetailsService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse($scope.Details).success(function (data) {
+                                   enterPinService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse($scope.Details).success(function (data) {
                                        if (data.Result && data.Result.indexOf('Successfully') > -1) {
                                            swal({ title: "Transferred...", text: data.Result, type: "success" }
                                               , function () {
@@ -138,7 +140,7 @@
 
                                if ($scope.Details.SenderId != null) {
                                    console.log($scope.Details);
-                                   howMuchService.RequestMoney($scope.Details).success(function (data) {
+                                   enterPinService.RequestMoney($scope.Details).success(function (data) {
 
                                        if (data.Result.indexOf('successfully') > -1) {
                                            
@@ -174,7 +176,7 @@
                                }
                                else if (($scope.Details.SenderId == null || $scope.Details.SenderId == undefined) && ($scope.Details.MoneySenderEmailId != null) && ($scope.Details.ContactNumber == null)) {
 
-                                   howMuchService.RequestMoneyToNonNoochUserUsingSynapse($scope.Details).success(function (data) {
+                                   enterPinService.RequestMoneyToNonNoochUserUsingSynapse($scope.Details).success(function (data) {
 
                                        if (data.Result.indexOf('successfully') > -1) {
                                            $ionicLoading.hide();
@@ -207,7 +209,7 @@
                                }
                                else if (($scope.Details.SenderId== null) && ($scope.Details.contactNumber != null)) {
                                    console.log('sending request from mobile number');
-                                   howMuchService.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse($scope.Details, $scope.Details.contactNumber).success(function (data) {
+                                   enterPinService.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse($scope.Details, $scope.Details.contactNumber).success(function (data) {
 
                                        if (data.Result.indexOf('successfully') > -1) {
                                             

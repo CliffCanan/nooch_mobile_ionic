@@ -10,7 +10,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.addPicture', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards', 'ngMap'])
 
 
-  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts) {
+  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices) {
 
 
 
@@ -107,17 +107,18 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   //added this to not asked for Pin before login
 
                   if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
-                      CommonServices.savePinValidationScreenData({ myParam: null, type: '', returnUrl: 'app.home', returnPage: 'Home', comingFrom: 'Home' });
+                      CommonServices.savePinValidationScreenData({ myParam: {}, type: '', returnUrl: 'app.home', returnPage: 'Home', comingFrom: 'Identity' });
 
                       $state.go('enterPin');
                   }
-                      $state.go('enterPinForeground');
+                     // $state.go('enterPinForeground');
               }
           }, false);
 
           // this function gets fired when app goes to background
           document.addEventListener("pause", function () {
               console.log('came in pause state');
+              
           }, false);
 
 

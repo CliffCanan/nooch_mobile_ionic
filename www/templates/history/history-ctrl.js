@@ -136,6 +136,7 @@
 
             $scope.TransferMoney = function (trans) {
                 transDetails = trans;
+                transDetails.RecepientName = trans.Name;
                 console.log("Transfer payment" + JSON.stringify(transDetails));
                 
                 CommonServices.savePinValidationScreenData({ myParam: transDetails, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });

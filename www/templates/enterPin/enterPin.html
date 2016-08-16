@@ -21,25 +21,12 @@
         </div>
 
         <div class="card text-center m-t-10 recipient-box">
-            <img src="./img/profile_picture.png" class="recip-pic" />
+            <img src="{{Details.Photo}}" class="recip-pic" />
 
-            <div class="namebar namebar-send" ng-if="Details.RecepientId && comingFrom=='Transfer'">
-                {{Details.RecepientName   }} &nbsp; {{Details.InvitationSentTo}}
+            <div class="namebar namebar-send" >
+                {{Details.RecepientName}}  
             </div>
-            <div class="namebar namebar-send" ng-if="Details.RecepientId==undefined && Details.InvitationSentTo !=undefined && comingFrom=='Transfer' ">
-                {{Details.InvitationSentTo}}
-            </div>
-            <div class="namebar namebar-send" ng-if="Details.PhoneNumberInvited!=undefined && comingFrom=='Transfer' ">
-                {{Details.PhoneNumberInvited}}
-            </div>
-
-            <div class="namebar namebar-send" ng-if="Details.SenderId==undefined && comingFrom=='Request' && Details.MoneySenderEmailId==undefined">
-                {{Details.contactNumber}}
-            </div>
-            <div class="namebar namebar-send" ng-if="comingFrom=='Request' && Details.MoneySenderEmailId!=undefined">
-                {{Details.MoneySenderEmailId}}
-            </div>
-
+             
             <div class="memo-text">
                 {{Details.Memo}}
             </div>

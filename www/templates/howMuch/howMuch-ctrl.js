@@ -29,7 +29,9 @@
         "Picture": "",
         "isTesting": "",
         "isRentPayment": "",
-        "contactNumber":""
+        "contactNumber": "",
+        "RecepientName": null,
+        "Photo": "",
     }
 
     $scope.sendData = {
@@ -50,9 +52,9 @@
         "RecepientId":"",
         "Status":null,
         "TransactionId":"",
-        "Name":"Rent Scene",
+        "Name":"",
         "RecepientName":null,
-        "Memo":"hshs",
+        "Memo":"",
         "TransactionDate":"",
         "DeviceId":null,
         "Latitude":"",
@@ -71,8 +73,8 @@
         "TransactionType":"",
         "TransactionStatus":"",
         "Photo":"",
-        "FirstName":"Rent",
-        "LastName":"Scene",
+        "FirstName":"",
+        "LastName":"",
         "SenderPhoto":null,
         "RecepientPhoto":null,
         "synapseTransResult":null,
@@ -123,7 +125,7 @@
         else if (!isNaN($stateParams.myParam))
         {
             $scope.recipientDetail.ContactNumber = $stateParams.myParam;
-            alert('num');
+            
         }
 
         $('#howMuchForm').parsley();
@@ -162,15 +164,20 @@
         {
              
             console.log($scope.requestData);
+            $scope.requestData.Photo = $scope.recipientDetail.Photo;
             $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
             $scope.requestData.Amount = $scope.recipientDetail.Amount;
             $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
+            if ($scope.recipientDetail.FirstName!=undefined)
             $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
+            $scope.requestData.RecepientName = $scope.requestData.Name;
             $scope.requestData.Memo = $scope.recipientDetail.Memo;
             $scope.requestData.Picture = $scope.picture;
             $scope.requestData.MoneySenderEmailId = $scope.recipientDetail.UserName;
             $scope.requestData.contactNumber = $scope.recipientDetail.ContactNumber;
-            console.log($scope.requestData);
+            if ($scope.requestData.RecepientName.replace(/\s/g, "") == "")
+                $scope.requestData.RecepientName = $scope.requestData.MoneySenderEmailId ? $scope.requestData.MoneySenderEmailId : $scope.requestData.contactNumber;
+
             CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.selectRecipient', returnPage: 'Select Recipient', comingFrom: 'Request' });
 
             $state.go('enterPin');
@@ -190,9 +197,10 @@
             $scope.sendData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
             $scope.sendData.Amount = $scope.recipientDetail.Amount;
             $scope.sendData.RecepientId = $scope.recipientDetail.MemberId;
-            
+            if ($scope.recipientDetail.FirstName != undefined && $scope.recipientDetail.FirstName != "")
                 $scope.sendData.RecepientName = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
- 
+            else
+                $scope.sendData.RecepientName = "";
             $scope.sendData.Memo = $scope.recipientDetail.Memo;
             $scope.sendData.Picture = $scope.picture;
             $scope.sendData.Photo = $scope.recipientDetail.Photo;
@@ -201,6 +209,10 @@
             $scope.sendData.InvitationSentTo = $scope.recipientDetail.UserName;
             $scope.sendData.PhoneNumberInvited = $scope.recipientDetail.ContactNumber;
             console.log($scope.sendData);
+            if ($scope.sendData.RecepientName.replace(/\s/g, "") == "")
+                $scope.sendData.RecepientName = $scope.sendData.UserName ? $scope.sendData.UserName : $scope.sendData.PhoneNumberInvited;
+
+
             CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.selectRecipient', returnPage: 'Select Recipient', comingFrom: 'Transfer' });
 
             $state.go('enterPin');
