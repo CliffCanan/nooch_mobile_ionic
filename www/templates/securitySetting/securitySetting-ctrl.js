@@ -2,13 +2,18 @@
 /***************************/
 /***  SECURITY SETTINGS  ***/
 /***************************/
-.controller('securitySettingCtrl', function ($scope, MemberPrivacy, $state, $ionicHistory, $ionicLoading, $cordovaNetwork, CommonServices) {
+.controller('securitySettingCtrl', function ($scope, MemberPrivacy, $state, $ionicHistory, $ionicLoading, $cordovaNetwork, CommonServices, $localStorage) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Security Settings Screen Loaded');
 
        $scope.GetMemberPrivacyFn();
     });
+
+    $scope.ChkBox = {
+        RequirePin: false,
+        ShowInSearch: false
+    };
 
 
     //$scope.ShowInSearch.isCheck = false;
@@ -22,15 +27,12 @@
         //console.log($scope.ShowInSearch.isCheck);
         //console.log($scope.ShowInSearch.isCheck = ($scope.ShowInSearch.isCheck == false ? true : false)); //to check toggel Button Values 
         //console.log($scope.ShowInSearch.isCheck);
-
-        $scope.ChkBox = {
-            RequirePin: true,
-            ShowInSearch: true
-        };
-
+       
         console.log($scope.ChkBox.RequirePin, $scope.ChkBox.ShowInSearch);
         MemberPrivacy.MemberPrivacySettings($scope.ChkBox) //.RequirePin, $scope.ChkBox.ShowInSearch
           .success(function (data) {
+              $localStorage.GLOBAL_VARIABLES.EnterPinImmediately = $scope.ChkBox.RequirePin;
+              console.log($localStorage.GLOBAL_VARIABLES.EnterPinImmediately);
               $scope.Data = data;
               console.log($scope.Data);
               $ionicLoading.hide();
