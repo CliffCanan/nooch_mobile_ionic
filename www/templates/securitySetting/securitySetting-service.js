@@ -15,7 +15,7 @@
                   MemberId: $localStorage.GLOBAL_VARIABLES.MemberId,
                   ShowInSearch: ChkBox.ShowInSearch,
                   AllowSharing: "false",
-                  RequireImmediately: ChkBox.RequirePin
+                  RequireImmediately: ChkBox.RequireImmediately
               }
           };
 
