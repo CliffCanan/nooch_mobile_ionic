@@ -6,8 +6,13 @@
       $scope.$on("$ionicView.enter", function (event, data) {
           console.log('Login Controller Loaded');
           // swal("Here's a message!");
+          if ($localStorage.GLOBAL_VARIABLES.UserCurrentLatitude == null || $localStorage.GLOBAL_VARIABLES.UserCurrentLongi == null) {
+              console.log('testing ....123');
+              $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
+              $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
+          }
 
-
+          
           if ($localStorage.GLOBAL_VARIABLES)
           {
               console.log($localStorage.GLOBAL_VARIABLES);
@@ -20,8 +25,8 @@
               }
           }
           console.log($localStorage.GLOBAL_VARIABLES);
-          $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
-          $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
+          //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
+         // $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
           $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
           $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
       });
@@ -49,8 +54,7 @@
               $ionicLoading.show({
                   template: 'Reading user details...'
               });
-
-
+              
               CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
                   $ionicLoading.hide();
 
@@ -74,13 +78,16 @@
 
               // place checks here for user location
               // notification permission
-
-
+            
               CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
 
                   authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
                     $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
                     .success(function (response) {
+
+                        console.log('Longi and lati -->>>')
+                        console.log($localStorage.GLOBAL_VARIABLES.UserCurrentLatitude);
+                        console.log($localStorage.GLOBAL_VARIABLES.UserCurrentLongi);
 
                         $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
 

@@ -4,7 +4,11 @@
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('Enter Pin Controller loaded');
+            if ($localStorage.GLOBAL_VARIABLES.UserCurrentLatitude == null || $localStorage.GLOBAL_VARIABLES.UserCurrentLongi == null) {
 
+                $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
+                $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
+            }
             //$("#pin").focus();
             console.log('form  Create Pin Page..');
             console.log($rootScope.signupData);
@@ -38,8 +42,8 @@
                         {                           
 
                             $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signupData.Email;
-                            $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
-                            $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
+                            //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
+                           // $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
                             $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
                             $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
                             $scope.SignIn();                           
@@ -105,8 +109,7 @@
           
                 // place checks here for user location
                 // notification permission
-          
-
+           
                 authenticationService.Login($rootScope.signupData.Email, $rootScope.signupData.Password, $rootScope.signupData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
                       $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
                       .success(function (response) {
