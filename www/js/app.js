@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
+angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
   'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl','noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
@@ -47,6 +47,16 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       }
       $ionicPlatform.ready(function () {
           console.log('app run');
+
+          var push = new Ionic.Push({
+              "debug": true
+          });
+
+          push.register(function (token) {
+              console.log("Device token:", token.token);
+              push.saveToken(token);  // persist the token in the Ionic Platform
+          });
+
 
           $rootScope.phoneContacts = [];
           var readContact =
@@ -118,7 +128,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           // this function gets fired when app goes to background
           document.addEventListener("pause", function () {
               console.log('came in pause state');
-              
+              $localStorage.GLOBAL_VARIABLES.EnterPinImmediately = true;
           }, false);
 
 
