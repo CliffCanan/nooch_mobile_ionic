@@ -81,8 +81,8 @@ angular.module('noochApp.services', ['ngStorage'])
         $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
         $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
         $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-       // $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = null;
-       // $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = null;
+        //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = null;
+        //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = null;
         $localStorage.GLOBAL_VARIABLES.MemberId = '';
         $localStorage.GLOBAL_VARIABLES.UserName = '';
         $localStorage.GLOBAL_VARIABLES.AccessToken = '';

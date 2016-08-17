@@ -1,14 +1,11 @@
 ﻿angular.module('noochApp.createPinCtrl', ['noochApp.createPin-service', 'noochApp.services'])
 
-    .controller('createPinCtrl', function ($scope, $state, $rootScope, createPinServices, $ionicLoading, CommonServices, authenticationService, $localStorage) {
+    .controller('createPinCtrl', function ($scope, $state, $rootScope, createPinServices, $ionicLoading, CommonServices, authenticationService, $localStorage, $cordovaGeolocation) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('Enter Pin Controller loaded');
-            if ($localStorage.GLOBAL_VARIABLES.UserCurrentLatitude == null || $localStorage.GLOBAL_VARIABLES.UserCurrentLongi == null) {
+            $scope.getLocation();
 
-                $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
-                $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
-            }
             //$("#pin").focus();
             console.log('form  Create Pin Page..');
             console.log($rootScope.signupData);
@@ -30,8 +27,8 @@
 
                 CommonServices.GetEncryptedData($rootScope.signupData.Password).success(function (data) {
                     $rootScope.signupData.Password = data.Status;
-                    console.log('After replacing Root Scope value is--');
-                    console.log($rootScope.signupData.Password);
+                    //console.log('Pwd Encrypted-->');
+                    //console.log($rootScope.signupData.Password);
                     
                     createPinServices.Signup($rootScope.signupData).success(function (data) {
                         console.log('Return form Server');
@@ -160,5 +157,27 @@
             //else{
             //    swal("Oops...", "Internet not connected!", "error");
             //  }
-        }      
+        }
+
+        $scope.getLocation = function () {
+            $cordovaGeolocation
+                  .getCurrentPosition()
+                  .then(function (position) {
+                      var lat = position.coords.latitude
+                      var long = position.coords.longitude
+                      $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
+                      $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
+                      console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
+
+                      $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
+
+                  }, function (err) {
+                      // error
+                      console.log('$cordovaGeolocation error ' + JSON.stringify(err));
+                      //Static Loaction in case user denied 
+                      $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
+                      $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
+                      $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+                  });
+        }
     });

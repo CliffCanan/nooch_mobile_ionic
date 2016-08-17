@@ -188,25 +188,25 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
               });
 
 
-              $cordovaGeolocation
-                .getCurrentPosition()
-                .then(function (position) {
-                    var lat = position.coords.latitude
-                    var long = position.coords.longitude
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
-                   $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
-                    console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
+              //$cordovaGeolocation
+              //  .getCurrentPosition()
+              //  .then(function (position) {
+              //      var lat = position.coords.latitude
+              //      var long = position.coords.longitude
+              //      $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
+              //     $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
+              //      console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
 
-                    $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
+              //      $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
 
-                }, function (err) {
-                    // error
-                    console.log('$cordovaGeolocation error ' + JSON.stringify(err));
-                    //Static Loaction in case user denied 
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
-                    $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                });
+              //  }, function (err) {
+              //      // error
+              //      console.log('$cordovaGeolocation error ' + JSON.stringify(err));
+              //      //Static Loaction in case user denied 
+              //      $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
+              //      $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
+              //      $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+              //  });
 
 
               var isOnline = $cordovaNetwork.isOnline();
