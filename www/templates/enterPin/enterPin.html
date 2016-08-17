@@ -1,7 +1,7 @@
 ﻿<ion-view view-title="Enter PIN" cache-view="false">
     <ion-content>
         <div class="bar bar-header bar-calm">
-            <button class="button ion-chevron-left" ng-click="GoBack(returnUrl)"></button>
+            <button class="button ion-chevron-left" ng-click="GoBack(returnUrl)" ng-show="returnPage!='Home'"></button>
             <h6 class="title">{{returnPage}}</h6>
         </div>
         </br> </br> </br>

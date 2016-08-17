@@ -48,14 +48,14 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
       $ionicPlatform.ready(function () {
           console.log('app run');
 
-          var push = new Ionic.Push({
-              "debug": true
-          });
+          //var push = new Ionic.Push({
+          //    "debug": true
+          //});
 
-          push.register(function (token) {
-              console.log("Device token:", token.token);
-              push.saveToken(token);  // persist the token in the Ionic Platform
-          });
+          //push.register(function (token) {
+          //    console.log("Device token:", token.token);
+          //    push.saveToken(token);  // persist the token in the Ionic Platform
+          //});
 
 
           $rootScope.phoneContacts = [];
@@ -112,7 +112,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
           // this functino will gets fired when app comes to foreground
           document.addEventListener("resume", function () {
               console.log('came in resume state');
-
+              console.log($localStorage.GLOBAL_VARIABLES.EnterPinImmediately);
               if ($localStorage.GLOBAL_VARIABLES.MemberId != null) {
                   //added this to not asked for Pin before login
 
@@ -128,7 +128,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
           // this function gets fired when app goes to background
           document.addEventListener("pause", function () {
               console.log('came in pause state');
-              $localStorage.GLOBAL_VARIABLES.EnterPinImmediately = true;
+               
           }, false);
 
 
