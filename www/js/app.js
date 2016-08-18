@@ -47,7 +47,6 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
       }
       $ionicPlatform.ready(function () {
           console.log('app run');
-
           //var push = new Ionic.Push({
           //    "debug": true
           //});
@@ -128,7 +127,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
           // this function gets fired when app goes to background
           document.addEventListener("pause", function () {
               console.log('came in pause state');
-               
+
           }, false);
 
 
@@ -202,7 +201,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
               //  }, function (err) {
               //      // error
               //      console.log('$cordovaGeolocation error ' + JSON.stringify(err));
-              //      //Static Loaction in case user denied 
+              //      //Static Loaction in case user denied
               //      $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
               //      $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
               //      $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;

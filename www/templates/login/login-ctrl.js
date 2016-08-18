@@ -7,7 +7,7 @@
           console.log('Login Controller Loaded');
           // swal("Here's a message!");
           $scope.getLocation();
-          
+
           if ($localStorage.GLOBAL_VARIABLES)
           {
               console.log($localStorage.GLOBAL_VARIABLES);
@@ -49,7 +49,7 @@
               $ionicLoading.show({
                   template: 'Reading user details...'
               });
-         
+
               CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
                   $ionicLoading.hide();
 
@@ -73,7 +73,7 @@
 
               // place checks here for user location
               // notification permission
-            
+
               CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
 
                   authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
@@ -114,7 +114,7 @@
                         {
                             $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
                            $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
-                        
+
                             $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
                             $ionicLoading.hide();
                             // swal("login successfull");
@@ -205,10 +205,28 @@
             }, function (err) {
                 // error
                 console.log('$cordovaGeolocation error ' + JSON.stringify(err));
-                //Static Loaction in case user denied 
+                //Static Loaction in case user denied
                 $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
                 $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
                 $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
             });
+      }
+
+
+      $scope.SignInWithFB = function()
+      {
+
+
+        console.log('came in sign in with fb');
+
+        if (!window.cordova)
+        { facebookConnectPlugin.browserInit("198279616971457"); }
+
+        facebookConnectPlugin.login([], function (response)
+        { alert(JSON.stringify(response)) },
+          function (response) { alert(JSON.stringify(response)) });//fbLoginSuccess, fbLoginError)
+
+
+
       }
   })
