@@ -145,7 +145,7 @@
                     <div class="item item-toggle">
                         Transfer Received
                         <label class="toggle toggle-calm">
-                            <input type="checkbox" ng-model="ChkBox.TransRec" ng-click="SetNotificationFn()" ng-checked="Data.EmailTransferReceived"> <!--ng-checked="Data.RequireImmediately-->
+                            <input type="checkbox" ng-model="ChkBox.EmailTransferReceived" ng-click="SetNotificationFn()" ng-checked="ChkBox.EmailTransferReceived"> <!--ng-checked="Data.RequireImmediately-->
 
                             <div class="track">
                                 <div class="handle"></div>
@@ -159,7 +159,7 @@
                     <div class="item item-toggle">
                         ""
                         <label class="toggle toggle-calm">
-                            <input type="checkbox" ng-model="ChkBox.TransRecMob" ng-click="SetNotificationFn()" ng-checked="Data.TransRecMob"> 
+                            <input type="checkbox" ng-model="ChkBox.TransferReceived" ng-click="SetNotificationFn()" ng-checked="ChkBox.TransferReceived"> 
 
                             <div class="track">
                                 <div class="handle"></div>
@@ -174,7 +174,7 @@
                     Transfer Sent
                     <label class="toggle toggle-calm">
                         <!--<input type="checkbox" ng-model="ChkBox.TransSent" ng-click="SetNotificationFn()" ng-checked="Data.TransferSent" ng-true-value="'1'" ng-false-value="'0'">-->
-                        <input type="checkbox" ng-model="ChkBox.TransSent" ng-click="SetNotificationFn()" ng-checked="Data.EmailTransferSent">
+                        <input type="checkbox" ng-model="ChkBox.EmailTransferSent" ng-click="SetNotificationFn()" ng-checked="ChkBox.EmailTransferSent">
                         <div class="track">
                             <div class="handle"></div>
                         </div>

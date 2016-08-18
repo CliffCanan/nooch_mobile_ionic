@@ -8,8 +8,8 @@
      };
 
      this.MemberEmailNotificationSettings = function (ChkBox) {
-         console.log('getting from servic page');
-         console.log(ChkBox);
+         //console.log('getting from servic page');
+         //console.log(ChkBox);
 
          var reqForMemberEmailNotificationSettings = {
              method: 'POST',
@@ -21,8 +21,8 @@
                  MemberId: $localStorage.GLOBAL_VARIABLES.MemberId,
                  TransferUnclaimed: (ChkBox.TransUnclaimed==true)?'1':'0',
                  NoochToBankCompleted: '',
-                 EmailTransferSent: (ChkBox.TransSent==true)?'1':'0',
-                 EmailTransferReceived: (ChkBox.TransRec == true) ? '1' : '0',
+                 EmailTransferSent: (ChkBox.EmailTransferSent == true) ? '1' : '0',
+                 EmailTransferReceived: (ChkBox.EmailTransferReceived == true) ? '1' : '0',
                  EmailTransferAttemptFailure: '',
                  BankToNoochRequested: '',
                  BankToNoochCompleted: '',
@@ -31,7 +31,7 @@
                  BankToNooch: '',
                  //TransferReceived: (ChkBox.TransRec==true)?'1':'0',
                  //TransferSent: (ChkBox.TransSent==true)?'1':'0',
-                 TransferReceived: (ChkBox.TransRecMob == true) ? '1' : '0', 
+                 TransferReceived: (ChkBox.TransferReceived == true) ? '1' : '0',
                  TransferSent:'',
                  TransferAttemptFailure: '',
                  FriendRequest: '',
