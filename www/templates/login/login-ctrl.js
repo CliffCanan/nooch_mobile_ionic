@@ -220,16 +220,16 @@
 
 
               console.log(response);
+          //  var a = JSON.stringify(response);
 
 
-              
-
-              console.log('stringfied ' + JSON.stringify(response));
-
-              console.log('stringfied auth ' + JSON.stringify( JSON.stringify(response).authResponse));
 
 
-              console.log('stringfied auth>accesstoken ' + JSON.stringify(JSON.stringify(response).authResponse).accessToken);
+
+              //console.log('stringfied auth ' + JSON.stringify( a.authResponse));
+
+
+              console.log('a val '+_.get(response, 'authResponse.accessToken'));
 
 
 
@@ -238,8 +238,8 @@
              // console.log($scope.fbResult);
              // $scope.FBId = JSON.stringify($scope.fbResult.authResponce.accessToken);
              // $localStorage.GLOBAL_VARIABLES.UserName = 'suryaprakash9@hotmail.com';
-             
-            
+
+
              // $scope.remmberMe = true;
 
              // $scope.deviceId = 'UDID123';
@@ -250,8 +250,8 @@
 
              // alert(JSON.stringify(response));
              // console.log('fb Connect Success');
-             
-              
+
+
 
               authenticationService.LoginWithFacebook($localStorage.GLOBAL_VARIABLES.UserName, $scope.FBId, $scope.remmberMe, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude, $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $scope.deviceId, $localStorage.GLOBAL_VARIABLES.devicetoken)
                     .success(function (response) {
