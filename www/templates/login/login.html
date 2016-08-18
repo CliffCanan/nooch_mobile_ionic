@@ -1,70 +1,71 @@
-﻿<ion-view view-title="Login">
-    <!--<ion-header-bar align-title="center">
-    </ion-header-bar>-->
+﻿    <ion-view view-title="Login">
+        <!--<ion-header-bar align-title="center">
+        </ion-header-bar>-->
+        <div id="fb-root"></div>
+        <script src="libs/facebookConnectPlugin.js"></script>
+        <ion-content id="loginScrn" class="signupFlow">
 
-    <ion-content id="loginScrn" class="signupFlow">
+            <a class="button backButton m-t-15" href="#/signup" nav-transition="ios" nav-direction="back">
+                <i class="ion-android-arrow-dropleft-circle"></i>
+            </a>
 
-        <a class="button backButton m-t-15" href="#/signup" nav-transition="ios" nav-direction="back">
-            <i class="ion-android-arrow-dropleft-circle"></i>
-        </a>
+            <div class="row">
+                <div class="col text-center">
+                    <img src="./img/nooch-logo.svg" class="mainLogo" />
 
-        <div class="row">
-            <div class="col text-center">
-                <img src="./img/nooch-logo.svg" class="mainLogo" />
-
-                <p class="slogan purp-text m-b-5">Money Made Simple</p>
+                    <p class="slogan purp-text m-b-5">Money Made Simple</p>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col text-center">
-                <button class="button btn-primary button-block fb-signup" ng-click="SignInWithFB()">
-                    <i class="ion-social-facebook"></i> Login with Facebook
-                </button>
+            <div class="row">
+                <div class="col text-center">
+                    <button class="button btn-primary button-block fb-signup" ng-click="SignInWithFB()">
+                        <i class="ion-social-facebook"></i> Login with Facebook
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col">
+            <div class="row">
+                <div class="col">
 
-                <form id="frmLogin" class="smErrors" data-parsley-validate="">
-                    <div class="list list-inset noDivider primary raised-view">
+                    <form id="frmLogin" class="smErrors" data-parsley-validate="">
+                        <div class="list list-inset noDivider primary raised-view">
 
-                        <label class="item item-input">
-                            <span class="input-label calm">Email</span>
-                            <input type="text" class="form-control" placeholder="example@email.com" ng-model="loginData.email" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
-                        </label>
+                            <label class="item item-input">
+                                <span class="input-label calm">Email</span>
+                                <input type="text" class="form-control" placeholder="example@email.com" ng-model="loginData.email" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                            </label>
 
-                        <label class="item item-input">
-                            <span class="input-label calm">Password</span>
-                            <input type="password" placeholder="Password" class="form-control" ng-model="loginData.pwd" data-parsley-minlength="5" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
-                        </label>
+                            <label class="item item-input">
+                                <span class="input-label calm">Password</span>
+                                <input type="password" placeholder="Password" class="form-control" ng-model="loginData.pwd" data-parsley-minlength="5" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                            </label>
 
-                        <div class="item item-input p-t-5">
-                            <div class="col p-0">
-                                <label class="toggle p-l-0 p-r-0">
-                                    <input type="checkbox" class="form-control" ng-model="loginData.rmmbrMe.chk" name="remember">
-                                    <div class="track">
-                                        <div class="handle"></div>
-                                    </div>
-                                </label>
+                            <div class="item item-input p-t-5">
+                                <div class="col p-0">
+                                    <label class="toggle p-l-0 p-r-0">
+                                        <input type="checkbox" class="form-control" ng-model="loginData.rmmbrMe.chk" name="remember">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
 
-                                <label id="rememberMe">Remember Me</label>
+                                    <label id="rememberMe">Remember Me</label>
+                                </div>
+
+                                <div class="col p-0 p-r-10 text-right">
+                                    <a href="" ng-click="forgotPw()" class="btn btn-link">Forgot Password</a>
+                                </div>
                             </div>
 
-                            <div class="col p-0 p-r-10 text-right">
-                                <a href="" ng-click="forgotPw()" class="btn btn-link">Forgot Password</a>
-                            </div>
                         </div>
 
-                    </div>
+                        <button type="button" class="button button-block btn-gray" ng-click="SignIn()" value="validate"><i class="ion-log-in"></i> &nbsp; &nbsp;Login</button>
+                        <button type="button" class="button button-block btn-gray" ng-click="logoutFb()" value="validate"><i class="ion-log-in"></i> &nbsp; &nbsp;LogoutFb</button>
+                    </form>
 
-                    <button type="button" class="button button-block btn-gray" ng-click="SignIn()" value="validate"><i class="ion-log-in"></i> &nbsp; &nbsp;Login</button>
-
-                </form>
-
+                </div>
             </div>
-        </div>
 
-    </ion-content>
-</ion-view>
+        </ion-content>
+    </ion-view>

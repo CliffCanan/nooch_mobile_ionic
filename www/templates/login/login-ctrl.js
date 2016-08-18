@@ -8,20 +8,17 @@
           // swal("Here's a message!");
           $scope.getLocation();
 
-          if ($localStorage.GLOBAL_VARIABLES)
-          {
+          if ($localStorage.GLOBAL_VARIABLES) {
               console.log($localStorage.GLOBAL_VARIABLES);
-              if ($localStorage.GLOBAL_VARIABLES.MemberId)
-              {
-                  if ($localStorage.GLOBAL_VARIABLES.MemberId.length > 0)
-                  {
+              if ($localStorage.GLOBAL_VARIABLES.MemberId) {
+                  if ($localStorage.GLOBAL_VARIABLES.MemberId.length > 0) {
                       $state.go('app.home');
                   }
               }
           }
           console.log($localStorage.GLOBAL_VARIABLES);
           //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
-         // $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
+          // $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
           $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
           $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
       });
@@ -49,12 +46,10 @@
               $ionicLoading.show({
                   template: 'Reading user details...'
               });
-
               CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
                   $ionicLoading.hide();
 
-                  if (data != null)
-                  {
+                  if (data != null) {
                       $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
                       $state.go('app.home');
                   }
@@ -65,8 +60,7 @@
           }
 
 
-          if ($('#frmLogin').parsley().validate() == true)
-          {
+          if ($('#frmLogin').parsley().validate() == true) {
               $ionicLoading.show({
                   template: 'Logging in...'
               });
@@ -87,12 +81,10 @@
 
                         $ionicLoading.hide();
 
-                        if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1)
-                        {
+                        if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1) {
                             swal(response.Result);
                         }
-                        else if (response.Result.indexOf('Temporarily_Blocked') > -1)
-                        {
+                        else if (response.Result.indexOf('Temporarily_Blocked') > -1) {
                             swal({
                                 title: "Oh No!",
                                 text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
@@ -104,16 +96,14 @@
                                 customClass: "stackedBtns",
                                 html: true,
                             }, function (isConfirm) {
-                                if (isConfirm)
-                                {
+                                if (isConfirm) {
 
                                 }
                             });
                         }
-                        else
-                        {
+                        else {
                             $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
-                           $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
+                            $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
 
                             $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
                             $ionicLoading.hide();
@@ -156,25 +146,21 @@
           }, function (inputValue) {
               if (inputValue === false) return false;
 
-              if (inputValue === "" || inputValue.length == 0)
-              {
+              if (inputValue === "" || inputValue.length == 0) {
                   swal.showInputError("Please enter the email address associated with your account.");
                   return false
               }
 
               if (inputValue.indexOf('@') > 1 &&
                   inputValue.indexOf('.') > inputValue.indexOf('@') &&
-                  inputValue.indexOf('.') < inputValue.length - 2)
-              {
+                  inputValue.indexOf('.') < inputValue.length - 2) {
                   authenticationService.ForgotPassword(inputValue).success(function (data) {
                       console.log(data);
 
-                      if (data.success == true)
-                      {
+                      if (data.success == true) {
                           swal("Success!", "Input email validated, need to submit to sever here. Input was: [" + inputValue + "]", "success");
                       }
-                      else
-                      {
+                      else {
                           swal("Error :-(", data.msg, "error");
                       }
 
@@ -182,51 +168,148 @@
                       console.log('Forgot PW -> Error block ' + encError);
                   });
               }
-              else
-              {
+              else {
                   $scope.forgotPw(2)
               }
           });
       }
 
-      $scope.getLocation = function()
-      {
-      $cordovaGeolocation
-            .getCurrentPosition()
-            .then(function (position) {
-                var lat = position.coords.latitude
-                var long = position.coords.longitude
-                $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
-                $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
-                console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
+      $scope.getLocation = function () {
+          $cordovaGeolocation
+                .getCurrentPosition()
+                .then(function (position) {
+                    var lat = position.coords.latitude
+                    var long = position.coords.longitude
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
+                    console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
 
-                $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
+                    $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
 
-            }, function (err) {
-                // error
-                console.log('$cordovaGeolocation error ' + JSON.stringify(err));
-                //Static Loaction in case user denied
-                $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
-                $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
-                $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-            });
+                }, function (err) {
+                    // error
+                    console.log('$cordovaGeolocation error ' + JSON.stringify(err));
+                    //Static Loaction in case user denied
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
+                    $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+                });
       }
 
 
-      $scope.SignInWithFB = function()
-      {
+      $scope.SignInWithFB = function () {
+
+          $scope.fbResult = {
+              authResponse: {
+                  userID: '',
+                  accessToken: '',
+                  session_Key: '',
+                  expiresIn: '',
+                  sig: ''
+              },
+              status: ''
+          }
 
 
-        console.log('came in sign in with fb');
+          console.log('came in sign in with fb');
 
-        if (!window.cordova)
-        { facebookConnectPlugin.browserInit("198279616971457"); }
+          if (!window.cordova)
+          { facebookConnectPlugin.browserInit("198279616971457"); }
 
-        facebookConnectPlugin.login([], function (response)
-        { alert(JSON.stringify(response)) },
-          function (response) { alert(JSON.stringify(response)) });//fbLoginSuccess, fbLoginError)
+          facebookConnectPlugin.login(["email", "public_profile"], function (response) {
 
 
+              console.log(response);
 
+
+              
+
+              console.log('stringfied ' + JSON.stringify(response));
+
+              console.log('stringfied auth ' + JSON.stringify( JSON.stringify(response).authResponse));
+
+
+              console.log('stringfied auth>accesstoken ' + JSON.stringify(JSON.stringify(response).authResponse).accessToken);
+
+
+
+             // $scope.fbResult = response;
+             // JSON.stringify($scope.fbResult);
+             // console.log($scope.fbResult);
+             // $scope.FBId = JSON.stringify($scope.fbResult.authResponce.accessToken);
+             // $localStorage.GLOBAL_VARIABLES.UserName = 'suryaprakash9@hotmail.com';
+             
+            
+             // $scope.remmberMe = true;
+
+             // $scope.deviceId = 'UDID123';
+             // $scope.deviceToken = 'SPC123';
+
+             // console.log($scope.FBId);
+             //console.lo(JSON.stringify($scope.fbResult.authResponce));
+
+             // alert(JSON.stringify(response));
+             // console.log('fb Connect Success');
+             
+              
+
+              authenticationService.LoginWithFacebook($localStorage.GLOBAL_VARIABLES.UserName, $scope.FBId, $scope.remmberMe, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude, $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $scope.deviceId, $localStorage.GLOBAL_VARIABLES.devicetoken)
+                    .success(function (response) {
+
+                        // $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
+                        // console.log(response.Result + ', ' + response.Result.indexOf('Temporarily_Blocked'));
+                        console.log(response);
+
+                        $ionicLoading.hide();
+
+                        if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1) {
+                            swal(response.Result);
+                        }
+
+                        else {
+                            $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
+                            $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
+
+                            $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
+                            $ionicLoading.hide();
+                            // swal("login successfull");
+
+                            fetchAfterLoginDetails();
+                            // $state.go("#/app/home"); --not working
+                        }
+                    }
+                    ).error(function (res) {
+                        $ionicLoading.hide();
+                        console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
+                    })
+          },
+            function (response) {
+                console.log('error res');
+                alert(JSON.stringify(response))
+            });
+
+          ;
+
+      }
+
+
+      $scope.logoutFb = function () {
+
+          console.log('came in logout from fb');
+
+          if (!window.cordova)
+          { facebookConnectPlugin.browserInit("198279616971457"); }
+
+          facebookConnectPlugin.logout([], function (response) {
+              alert(JSON.stringify(response));
+              $scope.fbResult = response;
+              console.log($scope.fbResult);
+
+              console.log('fb Logout Success');
+          },
+            function (response) {
+                console.log('error res');
+                alert(JSON.stringify(response))
+            });
       }
   })

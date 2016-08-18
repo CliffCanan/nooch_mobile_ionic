@@ -70,8 +70,8 @@
     </platform>
     <icon src="resources/ios/icon/icon-small@3x.png" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.4.0" />
-    <plugin name="cordova-plugin-facebook4" spec="/Users/SN/Documents/nooch/cordova-plugin-facebook4">
-        <variable name="APP_ID" value="198279616971457" />
-        <variable name="APP_NAME" value="“Nooch”" />
+    <plugin name="cordova-plugin-facebook4" spec="~1.7.1">
+        <variable name="APP_ID" value="494453537413420" />
+        <variable name="APP_NAME" value="Nooch" />
     </plugin>
 </widget>

@@ -28,7 +28,7 @@
               //$scope.ChkBox.TransRec = $scope.Data.EmailTransferReceived;
               //$scope.ChkBox.TransSent = $scope.Data.EmailTransferSent;
               //$scope.ChkBox.TransRecMob = $scope.Data.TransferReceived;
-             
+              console.log('Ctrl Data recieved from Server');
               console.log($scope.ChkBox);
               $ionicLoading.hide();
           }).error(function (data) {

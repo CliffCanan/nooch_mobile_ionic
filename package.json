@@ -34,15 +34,8 @@
       "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
       "id": "cordova-plugin-x-socialsharing"
     },
-    "cordova-plugin-inappbrowser",
-    {
-      "id": "cordova-plugin-facebook4",
-      "locator": "/Users/SN/Documents/nooch/cordova-plugin-facebook4",
-      "variables": {
-        "APP_ID": "198279616971457",
-        "APP_NAME": "“Nooch”"
-      }
-    }
+    "cordova-plugin-inappbrowser"
+    
   ],
   "cordovaPlatforms": [
     "android",

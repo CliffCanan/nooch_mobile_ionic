@@ -56,5 +56,6 @@ var URLs = {
     sendTransactionInCSV: PATH + 'sendTransactionInCSV',
     SaveDOBForMember: PATH + 'SaveDOBForMember',
     GetMostFrequentFriends: PATH + 'GetMostFrequentFriends',
-    SaveMemberSSN: PATH + 'SaveMemberSSN'
+    SaveMemberSSN: PATH + 'SaveMemberSSN',
+    LoginWithFacebook: PATH + 'LoginWithFacebook'
 };
