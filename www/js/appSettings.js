@@ -57,5 +57,6 @@ var URLs = {
     SaveDOBForMember: PATH + 'SaveDOBForMember',
     GetMostFrequentFriends: PATH + 'GetMostFrequentFriends',
     SaveMemberSSN: PATH + 'SaveMemberSSN',
-    LoginWithFacebook: PATH + 'LoginWithFacebook'
+    LoginWithFacebookGeneric: PATH + 'LoginWithFacebookGeneric',
+    SaveMembersFBId: PATH + 'SaveMembersFBId'
 };

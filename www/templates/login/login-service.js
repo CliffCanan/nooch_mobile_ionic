@@ -16,7 +16,11 @@ angular.module('noochApp.login-service', ['noochApp.services'])
       }
 
 
-      this.LoginWithFacebook = function (userEmail, FBId, remmberMe, lat, lng, deviceId, deviceToken) {
-          return $http.get(URLs.LoginWithFacebook + '?userEmail=' + userEmail + '&FBId=' + FBId + '&rememberMeEnabled=' + remmberMe + '&lat=' + lat + '&lng=' + lng + '&udid=' + deviceId + '&devicetoken=' + deviceToken);
+      this.LoginWithFacebookGeneric = function (userEmail, FBId, remmberMe, lat, lng, deviceId, deviceToken) {
+          return $http.get(URLs.LoginWithFacebookGeneric + '?userEmail=' + userEmail + '&FBId=' + FBId + '&rememberMeEnabled=' + remmberMe + '&lat=' + lat + '&lng=' + lng + '&udid=' + deviceId + '&devicetoken=' + deviceToken);
+      };
+
+      this.SaveMembersFBId = function (MemberId, MemberfaceBookId, IsConnect) {
+          return $http.get(URLs.SaveMembersFBId + '?MemberId=' + MemberId  + '&MemberfaceBookId=' + MemberfaceBookId + '&IsConnect=' + IsConnect );
       };
   })
