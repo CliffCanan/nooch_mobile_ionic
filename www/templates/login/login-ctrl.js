@@ -109,11 +109,11 @@
                             $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
                             $ionicLoading.hide();
                             // swal("login successfull");
-                            
+
                             $scope.fetchAfterLoginDetails();
                             if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
-                            $state.go('app.home');
-                            
+                                $state.go('app.home');
+
                         }
                     }
                     ).error(function (res) {
@@ -130,11 +130,8 @@
           //  }
       }
 
-
       $scope.forgotPw = function (type) {
-
           var msgTxt = type == 1 ? "Please enter your email and we will send you a reset link." : "Please make sure you entered a valid email address.";
-
           swal({
               title: "Forgot Password",
               text: msgTxt,
@@ -199,7 +196,6 @@
                 });
       }
 
-
       $scope.SignInWithFB = function () {
 
           $scope.fbResult = {
@@ -216,44 +212,42 @@
           $ionicLoading.show({
               template: 'Loading ...'
           });
-
           console.log('came in sign in with fb');
 
           if (!window.cordova)
           { facebookConnectPlugin.browserInit("198279616971457"); }
 
-          facebookConnectPlugin.login(["email", "public_profile"], function (response) {
+          facebookConnectPlugin.login(['email','public_profile'], function (response) {
 
               console.log(response);
               //  var a = JSON.stringify(response);
               //console.log('stringfied auth ' + JSON.stringify( a.authResponse));
               //console.log('a val ' + _.get(response, 'authResponse.accessToken'));
-             // $scope.FBId = _.get(response, 'authResponse.accessToken');
+              // $scope.FBId = _.get(response, 'authResponse.accessToken');
               $scope.fbResult = response;
               console.log($scope.fbResult);
 
+              //Getting Reay for service Call
               $localStorage.GLOBAL_VARIABLES.UserName = 'suryaprakash9@hotmail.com';
               $scope.FBId = _.get(response, 'authResponse.userID');
-              console.log($scope.FBId);
-              $scope.FBId = '10152498765667084';
+              console.log($scope.FBId);            
               $scope.remmberMe = true;
-              $scope.deviceId = 'UDID123';
-              $scope.deviceToken = 'SPC123';
+              //$scope.deviceId = 'UDID123';
+              //$scope.deviceToken = 'SPC123';
               $scope.fbStatus = _.get($scope.fbResult, 'status');
+              $localStorage.GLOBAL_VARIABLES.AccessToken = _.get(response, 'authResponse.accessToken');
 
-              if ($scope.fbStatus == 'connected')              
+              if ($scope.fbStatus == 'connected')
                   $scope.fbStatus = 'YES';
 
               console.log('After replacing the values of FB Status');
               console.log($scope.fbStatus);
-              alert(JSON.stringify(response));
+             // alert(JSON.stringify(response));
               console.log('fb Connect Success');
 
-              authenticationService.LoginWithFacebookGeneric($localStorage.GLOBAL_VARIABLES.UserName, $scope.FBId, $scope.remmberMe, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude, $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $scope.deviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
+              authenticationService.LoginWithFacebookGeneric($localStorage.GLOBAL_VARIABLES.UserName, $scope.FBId, $scope.remmberMe, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude, $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
                     .success(function (response) {
                         console.log(response);
-                      
-                        $ionicLoading.hide();
 
                         if (response.Result == "FBID or EmailId not registered with Nooch") {
                             swal("Oops...", "Your Mail or FBID is not registered with nooch", "error");
@@ -262,9 +256,10 @@
                             swal("Oops...", "Invalid user id or password.", "error");
                         }
                         else {
-                          //  $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
+                            //  $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
                             $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
 
+                            $ionicLoading.hide();
                             $scope.fetchAfterLoginDetails();
 
                             authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.FBId, $scope.fbStatus)
@@ -275,10 +270,9 @@
                             }).error(function (responce) {
                                 console.log('Got an error while saveMemberFBId');
                                 console.log(responce);
-                            })                           
+                            })
                         }
-                    }
-                    ).error(function (res) {
+                    }).error(function (res) {
                         $ionicLoading.hide();
                         $ionicLoading.hide();
                         console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
@@ -291,23 +285,19 @@
             });
       }
 
-
-      $scope.fetchAfterLoginDetails = function() {
+      $scope.fetchAfterLoginDetails = function () {
           $ionicLoading.show({
               template: 'Reading user details...'
           });
           CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-              $ionicLoading.hide();
-
               if (data != null) {
                   $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+                  $ionicLoading.hide();
               }
-
           }).error(function (err) {
               $ionicLoading.hide();
           });
       }
-
 
       //$scope.logoutFb = function () {
 
