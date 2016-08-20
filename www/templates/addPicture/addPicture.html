@@ -13,10 +13,15 @@
         <div class="row text-center">
             <div class="col">
 
-                <p class="f-30 m-b-15">Hey,&nbsp;{{signupData.Name}}!</p>
+                <p class="f-30 m-b-15">Hey,&nbsp;{{signupData.Name}}</p>
+                <div ng-if="Photo != null">
 
-                <img class="m-b-20" src="./img/RoundLoading.png" />
+                    <img class="m-b-20" src="{{Photo}}" />
+                </div>
+                <div ng-if="Photo == null">
 
+                    <img class="m-b-20" src="./img/RoundLoading.png" />
+                </div>
                 <p class="m-5">Add a picture so people will be able to identify you better when sending you money. </p>
 
                 <button class="button btn-primary button-block m-t-25" ng-click="choosePhoto()"><i class="ion-camera"></i>Choose Picture</button>

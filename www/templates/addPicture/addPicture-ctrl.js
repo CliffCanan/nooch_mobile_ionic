@@ -10,7 +10,7 @@
 
             console.log($rootScope.signupData);
 
-
+            $scope.Photo = $rootScope.signupData.Photo;
 
             //$scope.memberDetails();
             //$("#pin").focus();
