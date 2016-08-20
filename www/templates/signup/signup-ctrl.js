@@ -4,7 +4,7 @@
 /******************/
 /***  REGISTER  ***/
 /******************/
-.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state, CommonServices,$rootScope) {
+.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state, CommonServices, $rootScope, $localStorage, authenticationService) {
 
     $rootScope.signupData = {
         Name: '',
@@ -16,14 +16,13 @@
             chk: true
         }
     };
-
     $scope.gotoSignInPage = function () {
         $location.path("#/login");
     };
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Signup Controller Loaded');
-
+        $scope.getLocation();
         console.log('signupData ' + JSON.stringify($scope.signupData));
     });
 
@@ -126,7 +125,46 @@
             //$scope.deviceId = 'UDID123';
             //$scope.deviceToken = 'SPC123';
             $scope.fbStatus = _.get($scope.fbResult, 'status');
-            $localStorage.GLOBAL_VARIABLES.AccessToken = _.get(response, 'authResponse.accessToken');
+            $scope.fbAccessToken = _.get(response, 'authResponse.accessToken');
+
+
+            //facebookConnectPlugin.api("me", ['email'], function (success) { 
+            //    // success
+            //    console.log(success);
+            //    JSON.stringify(success);
+            //}, function (error) {
+            //    // error
+            //    console.log(error);
+            //});
+
+
+            facebookConnectPlugin.api("me", ['public_profile'], function (success) { 
+                // success
+                console.log(success);
+                JSON.stringify(success);
+            }, function (error) {
+                // error
+                console.log(error);
+            });
+
+            facebookConnectPlugin.api("me", ['user_birthday'], function (success) {
+                // success
+                console.log(success);
+                JSON.stringify(success);
+            }, function (error) {
+                // error
+                console.log(error);
+            });
+
+
+            //facebookConnectPlugin.api(['public_profile'], function (success) { -- not working 
+            //    // success
+            //    console.log(success);
+            //    JSON.stringify(success);
+            //}, function (error) {
+            //    // error
+            //    console.log(error);
+            //});
 
             if ($scope.fbStatus == 'connected')
                 $scope.fbStatus = 'YES';
@@ -157,7 +195,7 @@
                           .success(function (responce) {
                               console.log('SaveMembersFBId got success responce');
                               console.log(responce);
-                              $state.go('app.home');
+                              $state.go('addPicture');
                           }).error(function (responce) {
                               console.log('Got an error while saveMemberFBId');
                               console.log(responce);
@@ -176,4 +214,39 @@
           });
     }
 
+    $scope.getLocation = function () {
+        $cordovaGeolocation
+              .getCurrentPosition()
+              .then(function (position) {
+                  var lat = position.coords.latitude
+                  var long = position.coords.longitude
+                  $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
+                  $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
+                  console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
+
+                  $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
+
+              }, function (err) {
+                  // error
+                  console.log('$cordovaGeolocation error ' + JSON.stringify(err));
+                  //Static Loaction in case user denied 
+                  $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
+                  $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
+                  $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+              });
+    }
+
+    $scope.fetchAfterLoginDetails = function () {
+        $ionicLoading.show({
+            template: 'Reading user details...'
+        });
+        CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
+            if (data != null) {
+                $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+                $ionicLoading.hide();
+            }
+        }).error(function (err) {
+            $ionicLoading.hide();
+        });
+    }
 })
