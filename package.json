@@ -35,7 +35,6 @@
       "id": "cordova-plugin-x-socialsharing"
     },
     "cordova-plugin-inappbrowser"
-    
   ],
   "cordovaPlatforms": [
     "android",
