@@ -24,7 +24,6 @@
     "commit": "fc66c314091d3ad26a51a510fb499930ce6fa247"
   },
   "_source": "https://github.com/driftyco/ionic-platform-web-client.git",
-  "_target": "~0.7.1",
-  "_originalSource": "ionic-platform-web-client",
-  "_direct": true
+  "_target": "^0.7.1",
+  "_originalSource": "ionic-platform-web-client"
 }

@@ -67,9 +67,10 @@
                 <i class="icon ion-search placeholder-icon p-r-0"></i>
                 <input type="text" ng-keyup="checkList()" class="p-r-10" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">
             </label>
+            <img src="../../img/SelectRecip_Empty@2x.png" ng-show="memberList==null" />
         </div>
-
-
+        
+        
         <ion-scroll>
             <ion-list class="selectRecipList">
                 <ion-item ng-repeat="member in memberList | filter:search" class="list" id="recents-table">

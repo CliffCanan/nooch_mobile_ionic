@@ -13,7 +13,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices) {
 
 
-
+       
       if (!$localStorage.GLOBAL_VARIABLES) {
           $localStorage.GLOBAL_VARIABLES = {
               IsDemoDone: false, // for displaying tutorial screens to user - if any
@@ -47,15 +47,8 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
       }
       $ionicPlatform.ready(function () {
           console.log('app run');
-          //var push = new Ionic.Push({
-          //    "debug": true
-          //});
-
-          //push.register(function (token) {
-          //    console.log("Device token:", token.token);
-          //    push.saveToken(token);  // persist the token in the Ionic Platform
-          //});
-
+           
+         
 
           $rootScope.phoneContacts = [];
           var readContact =
@@ -130,15 +123,15 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
 
           }, false);
 
-
+          console.log(window);
           if (window.cordova) {
               // Get device info... will be used for handling notifications
-
+             
               var device = $cordovaDevice.getDevice();
-
+              console.log(device);
               $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform;
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
-
+              console.log(device);
               // Settings for handling push notification
               var optionsForNotificationSetup = {
                   android: {
@@ -151,7 +144,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
                   },
                   windows: {}
               };
-
+              
               $cordovaPushV5.initialize(optionsForNotificationSetup).then(function () {
                   // start listening for new notifications
                   $cordovaPushV5.onNotification();
@@ -166,7 +159,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
                   })
               });
 
-
+              console.log($cordovaPushV5);
               // triggered every time notification received
               $rootScope.$on('$cordovaPushV5:notificationReceived', function (event, data) {
                   // data.message,
