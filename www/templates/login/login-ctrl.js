@@ -43,22 +43,21 @@
           //if ($cordovaNetwork.isOnline())
           //{
 
-          //function fetchAfterLoginDetails() {
-          //    $ionicLoading.show({
-          //        template: 'Reading user details...'
-          //    });
-          //    CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-          //        $ionicLoading.hide();
+          function fetchAfterLoginDetails() {
+              $ionicLoading.show({
+                  template: 'Reading user details...'
+              });
+              CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
+                  $ionicLoading.hide();
 
-          //        if (data != null) {
-          //            $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-          //            $state.go('app.home');
-          //        }
-
-          //    }).error(function (err) {
-          //        $ionicLoading.hide();
-          //    });
-          //}
+                  if (data != null) {
+                      $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+                      $state.go('app.home');
+                  }
+              }).error(function (err) {
+                  $ionicLoading.hide();
+              });
+          }
 
 
           if ($('#frmLogin').parsley().validate() == true) {
@@ -109,10 +108,10 @@
                             $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
                             $ionicLoading.hide();
                             // swal("login successfull");
-
-                            $scope.fetchAfterLoginDetails();
-                            if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
-                                $state.go('app.home');
+                            fetchAfterLoginDetails();
+                            //$scope.fetchAfterLoginDetails();
+                            //if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
+                            //$state.go('app.home');
 
                         }
                     }
@@ -217,7 +216,7 @@
           if (!window.cordova)
           { facebookConnectPlugin.browserInit("198279616971457"); }
 
-          facebookConnectPlugin.login(['email','public_profile'], function (response) {
+          facebookConnectPlugin.login(['email', 'public_profile'], function (response) {
 
               console.log(response);
               //  var a = JSON.stringify(response);
@@ -317,5 +316,5 @@
       //          console.log('error res');
       //          alert(JSON.stringify(response))
       //      });
-      //}
+     // }
   })
