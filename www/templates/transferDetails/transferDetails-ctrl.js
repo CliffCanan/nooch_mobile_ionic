@@ -1,6 +1,6 @@
-﻿angular.module('noochApp.TransferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services', 'ngMap'])
+﻿angular.module('noochApp.transferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services', 'ngMap'])
 
-       .controller('TransferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope,$ionicPlatform, NgMap) {
+       .controller('transferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope,$ionicPlatform, NgMap) {
 
            $ionicModal.fromTemplateUrl('templates/transferDetails/modalPin.html', {
                scope: $scope,

@@ -58,7 +58,7 @@
         </div>-->
 
         <div id="mapRow" ng-show="transDetail.Latitude != '' && transDetail.Longitude != ''">
-            <div ng-controller="TransferDetailsCtrl as vm">
+            <div ng-controller="transferDetailsCtrl as vm">
                 <ng-map zoom="13" center="{{Location.lati}},{{Location.longi}}" style="height:200px"
                         on-center-changed="centerCustomMarker()">
                     <marker position="{{Location.lati}},{{Location.longi}}" on-click="vm.showCustomMarker()"></marker>

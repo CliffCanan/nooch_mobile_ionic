@@ -14,11 +14,11 @@
             <div class="col">
 
                 <p class="f-30 m-b-15">Hey,&nbsp;{{signupData.Name}}</p>
-                <div ng-if="Photo != null">
+                <div ng-if="Photo != ''">
 
                     <img class="m-b-20" src="{{Photo}}" />
                 </div>
-                <div ng-if="Photo == null">
+                <div ng-if="Photo == ''">
 
                     <img class="m-b-20" src="./img/RoundLoading.png" />
                 </div>

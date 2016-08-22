@@ -6,7 +6,7 @@
 angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
-  'noochApp.TransferDetailsCtrl', 'noochApp.referAfriendCtrl','noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
+  'noochApp.transferDetailsCtrl', 'noochApp.referAfriendCtrl','noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
   'noochApp.addPicture', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards', 'ngMap'])
 
 
@@ -311,7 +311,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
             views: {
                 'menuContent': {
                     templateUrl: 'templates/transferDetails/transferDetails.html',
-                    controller: 'TransferDetailsCtrl'
+                    controller: 'transferDetailsCtrl'
                 }
             }
         })
@@ -379,8 +379,8 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
                 }
             }
         })
-        .state('app.NotificationSetting', {
-            url: '/settings/NotificationSetting',
+        .state('app.notificationSetting', {
+            url: '/settings/notificationSetting',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/notificationSetting/notificationSetting.html',

@@ -12,6 +12,9 @@
 
             $scope.Photo = $rootScope.signupData.Photo;
 
+            //$scope.firstName = $scope.trimName($rootScope.signupData.Name);
+            //console.log('this is First Name of the user  ->>' + $scope.firstName);
+
             //$scope.memberDetails();
             //$("#pin").focus();
         });
@@ -112,5 +115,9 @@
             //}
         }
 
-
+        $scope.trimName = function (str) {
+            var patt = /([a-zA-Z]{1,}) (.*)/;
+            var match = str.match(patt);
+            return match[1];
+        }
     });
