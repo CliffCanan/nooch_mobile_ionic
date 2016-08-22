@@ -107,7 +107,7 @@
           // $localStorage.GLOBAL_VARIABLES.UserName = 'suryaprakash9@hotmail.com';
 
 
-          facebookConnectPlugin.api("/me?fields=name,email,picture", ['email'], function (success) {
+          facebookConnectPlugin.api("/me?fields=name,email,picture.type(large)", ['email'], function (success) {
             // success
             console.log('got this from fb ' + JSON.stringify(success));
 

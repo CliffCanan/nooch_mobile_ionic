@@ -27,8 +27,13 @@
                 <button class="button btn-primary button-block m-t-25" ng-click="choosePhoto()"><i class="ion-camera"></i>Choose Picture</button>
 
                 <!--<a href="#/createPin" class="button button-primary button-dark m-t-20">Next</a>-->
+                <div ng-if="Photo != ''">
+                    <a href="#/createPin" class="button button-clear button-dark m-t-20">I don't want to change my picture...</a>
+                </div>
 
-                <a href="#/createPin" class="button button-clear button-dark m-t-20">I don't want to add a picture now...</a>
+                <div ng-if="Photo == ''">
+                    <a href="#/createPin" class="button button-clear button-dark m-t-20">I don't want to add a picture now...</a>
+                </div>
 
             </div>
         </div>
