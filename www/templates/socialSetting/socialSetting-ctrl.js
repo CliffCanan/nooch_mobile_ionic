@@ -6,7 +6,6 @@
         // handle event
         console.log('Social Setting Controller Loadad');
 
-
         $scope.socialSetting = {
             Name: '',
             Email: '',
@@ -18,21 +17,14 @@
             },
             FBId: ''
         };
-
-
-
     })
-    
     $scope.connectFb = function () {
-
         console.log('came in sign in with fb Social Setting page');
-
         if (!window.cordova) {
-
             facebookConnectPlugin.browserInit("198279616971457");
         }
 
-        facebookConnectPlugin.login(['email','public_profile'], function (response) {
+        facebookConnectPlugin.login(['email', 'public_profile'], function (response) {
 
             console.log('login response from fb ' + JSON.stringify(response));
             $scope.fbStatus = _.get(response, 'status');
@@ -48,7 +40,6 @@
 
                 //$scope.$apply();
 
-               
                 if ($scope.fbStatus == 'connected')
                     $scope.fbStatus = 'YES';
 
@@ -56,28 +47,19 @@
                                   .success(function (responce) {
                                       console.log('SaveMembersFBId got success responce');
                                       console.log(responce);
-                                      if (responce.Result == Success)
-                                      swal("Success", "Facebook Connected Successfully", "success");
+                                      if (responce.Result == "Success")
+                                          swal("Success", "Facebook Connected Successfully", "success");
                                   }).error(function (responce) {
                                       console.log('Got an error while saveMemberFBId');
                                       console.log(responce);
                                       swal("Oops..", "Something went wrong", "error");
                                   })
-                              
-
-                console.log('Here is my root scope object' + JSON.stringify($rootScope.signupData));
 
             }, function (error) {
                 // error
                 console.log(error);
             });
-
         });
     }
-
-
 })
-
-
-
 
