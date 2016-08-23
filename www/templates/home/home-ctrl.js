@@ -121,7 +121,7 @@
             console.log($scope.memberList);
 
             $scope.items = [];
-
+            
             for (var i = 0; i <= 4; i++)
             {
                 if ($scope.memberList[i].Photo == "")

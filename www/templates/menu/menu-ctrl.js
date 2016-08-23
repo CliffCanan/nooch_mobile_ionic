@@ -162,7 +162,8 @@
 
         menuService.GetMemberDetails()
            .success(function (res) {
-               // console.log(res);
+               console.log("GetMemberDetails from Menu- >>");
+               console.log(res);
                $scope.Res = res;
 
                $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.PhotoUrl;
@@ -198,7 +199,7 @@
 
                     $scope.Details = details;
 
-                    console.log('GetMyDetails() ->');
+                    console.log('MemberInfo() ->');
                     console.log($scope.Details);
 
                     if ($scope.Details.IsVerifiedPhone == false)

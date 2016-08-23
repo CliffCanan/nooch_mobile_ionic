@@ -56,6 +56,7 @@
                                   .success(function (responce) {
                                       console.log('SaveMembersFBId got success responce');
                                       console.log(responce);
+                                      if (responce.Result == Success)
                                       swal("Success", "Facebook Connected Successfully", "success");
                                   }).error(function (responce) {
                                       console.log('Got an error while saveMemberFBId');

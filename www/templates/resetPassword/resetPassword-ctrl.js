@@ -61,8 +61,8 @@
                                 }
                                 else {
                                     swal({
-                                        title: "Expired!",
-                                        text: "Your reset password link has expired.",
+                                        title: "Oppss...!",
+                                        text: "Something went wrong",
                                         type: "error",
                                         confirmButtonColor: "#3fabe1",
                                         confirmButtonText: "Ok",
