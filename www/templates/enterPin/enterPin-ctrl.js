@@ -24,6 +24,11 @@
         });
 
         $scope.GoBack = function () {
+            if ($scope.returnUrl == 'app.howMuch')
+            {
+                console.log($scope.Details);
+                { $state.go($scope.returnUrl, { myParam: $scope.Details }); };
+            }
             $stateParams = '';
             $scope.Details = '';
 

@@ -178,7 +178,7 @@
             if ($scope.requestData.RecepientName.replace(/\s/g, "") == "")
                 $scope.requestData.RecepientName = $scope.requestData.MoneySenderEmailId ? $scope.requestData.MoneySenderEmailId : $scope.requestData.contactNumber;
 
-            CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.selectRecipient', returnPage: 'Select Recipient', comingFrom: 'Request' });
+            CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
 
             $state.go('enterPin');
  
@@ -213,7 +213,7 @@
                 $scope.sendData.RecepientName = $scope.sendData.UserName ? $scope.sendData.UserName : $scope.sendData.PhoneNumberInvited;
 
 
-            CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.selectRecipient', returnPage: 'Select Recipient', comingFrom: 'Transfer' });
+            CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
 
             $state.go('enterPin');
           

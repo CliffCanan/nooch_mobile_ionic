@@ -97,7 +97,7 @@
 
                             <div class="list icon-right">
 
-                                <a class="item item-avatar" href="#/howMuch" nav-transition="ios" nav-direction="forward" ng-repeat="friend in friendList">
+                                <a class="item item-avatar" ui-sref="app.howMuch({myParam:friend})" nav-transition="ios" nav-direction="forward" ng-repeat="friend in friendList">
                                     <img src="{{friend.Photo}}" class="userPic">
                                     <h2>{{friend.FirstName}}{{friend.LastName}}</h2>
                                     <p>{{friend.Frequency}} Payments</p>
