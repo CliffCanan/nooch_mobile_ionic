@@ -38,7 +38,7 @@
 
                         CommonServices.GetEncryptedData($scope.ResetPwd.newPwd).success(function (data) {
                             console.log(data);
-                            resetPasswordService.ResetPassword(data.Status, '').success(function (data) {
+                            resetPasswordService.ResetPassword(data.Status,true).success(function (data) {
                                 console.log(data);
                                 if (data.Result == true) {
                                     swal({

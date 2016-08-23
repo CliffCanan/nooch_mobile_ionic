@@ -102,11 +102,6 @@
 
           console.log('login response from fb ' + JSON.stringify( response));
 
-
-          //Getting Reay for service Call
-          // $localStorage.GLOBAL_VARIABLES.UserName = 'suryaprakash9@hotmail.com';
-
-
           facebookConnectPlugin.api("/me?fields=name,email,picture.type(large)", ['email'], function (success) {
             // success
             console.log('got this from fb ' + JSON.stringify(success));

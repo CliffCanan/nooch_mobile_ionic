@@ -13,8 +13,6 @@
          console.log($scope.trustedUrl);            
      });
 
-
-
      $scope.$on('IsValidProfileFalse', function (event, args) {
          console.log('IsValidProfileFalse');
          //$scope.valid = false;
@@ -30,8 +28,6 @@
              transition: 'vertical'
          });
      }
-
-
 
      $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
          console.log('IsVerifiedPhoneFalse');
@@ -50,8 +46,6 @@
          });
      }
 
-
-
      $scope.$on('foundPendingReq', function (event, args) {
          console.log('foundPendingReq');
          $scope.contentBannerInstance2();
@@ -68,9 +62,6 @@
          });
      }
 
-
-
-   
      // Viewing Add Bank Webview (in an Ionic Modal)
      $ionicModal.fromTemplateUrl('addBankModal.html', {
          scope: $scope,
@@ -93,7 +84,6 @@
          $scope.tosModal.remove();
          $scope.privacyModal.remove();
      });
-
 
      $scope.signOut = function () {
 
@@ -166,7 +156,5 @@
          //    swal("Oops...", "Internet not connected!", "error");
          //}        
      }
-
-
 
  })
