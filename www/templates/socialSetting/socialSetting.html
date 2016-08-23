@@ -8,17 +8,21 @@
         <br>
 
         <div class="section-header m-t-20 m-b-0">Linked Accounts</div>
-
-        <div class="row">
-            <div class="col">
-                <button class="button btn-primary button-block">
-                    <i class="ion-social-facebook"></i>
-                    Connect To Facebook
-                </button>
+        <!--<div ng-if="socialSetting.Photo != ''">-->
+            <img class="user-img" src="{{socialSetting.Photo}}">
+            <!--</div>-->
+            <div class="row">
+                <div class="col">
+                    <!--<div ng-if="socialsetting.photo == '' ">-->
+                        <button class="button btn-primary button-block" ng-click="connectFb()">
+                            <i class="ion-social-facebook"></i>
+                            Connect To Facebook
+                        </button>
+                    <!--</div>-->
+                </div>
             </div>
-        </div>
 
-        <div class="section-note p-t-0">Connect your Facebook account to Nooch to allow quicker login and to share payments with friends</div>
+            <div class="section-note p-t-0">Connect your Facebook account to Nooch to allow quicker login and to share payments with friends</div>
 
-    </ion-content>
+</ion-content>
 </ion-view>
