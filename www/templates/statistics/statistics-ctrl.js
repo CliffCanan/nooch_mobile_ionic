@@ -30,22 +30,6 @@
         });
     }
 
-    $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
-        console.log('IsVerifiedPhoneFalse');
-        $scope.showPhoneNotVerifiedBanner();
-    });
-
-    $scope.showPhoneNotVerifiedBanner = function () {
-        $ionicContentBanner.show({
-            text: ['Phone Number Not verified'],
-            interval: '20',
-            autoClose: '5000',
-            type: 'error',
-            transition: 'vertical'
-        });
-    }
-
-
     $scope.slideOptions = {
         loop: false,
         effect: 'slide',
@@ -137,10 +121,10 @@
 
              $ionicLoading.hide();
          }).error(function (data) {
-             console.log('eror' + data);
+             console.log('eror: [' + data + ']');
              $ionicLoading.hide();
              if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-             { CommonServices.logOut(); }
+                 CommonServices.logOut();
          });
 
 
@@ -178,23 +162,23 @@
              };
 
              zingchart.render({
-                 id: "myChartDiv",
+                 id: "topFriendsChart",
                  height: 230,
                  width: 240,
                  data: myChartData
              });
 
          }).error(function (data) {
-             console.log('eror' + data);
+             console.log('eror: [' + data + ']');
              $ionicLoading.hide();
              if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-             { CommonServices.logOut(); }
+                 CommonServices.logOut();
          });
     }
 
 
     $scope.exportHistory = function () {
-        console.log('exportHistoryFn touched ');
+        console.log('exportHistoryFn Fired');
         // if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
             template: 'Getting account stats...'
@@ -215,10 +199,11 @@
             console.log($scope.export.IsSuccess.Result);
 
         }).error(function (data) {
-            console.log('eror' + data);
+            console.log('eror: [' + data + ']');
             $ionicLoading.hide();
+
             if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-            { CommonServices.logOut(); }
+                CommonServices.logOut();
         });
 
         //  }

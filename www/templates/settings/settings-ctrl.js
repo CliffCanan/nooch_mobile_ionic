@@ -10,17 +10,15 @@
          $scope.checkBankDetails();
          $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
-         console.log($scope.trustedUrl);            
+         console.log($scope.trustedUrl);
      });
 
      $scope.$on('IsValidProfileFalse', function (event, args) {
-         console.log('IsValidProfileFalse');
-         //$scope.valid = false;
          $scope.contentBannerInstance1();
      });
+
      $scope.contentBannerInstance1 = function () {
          $ionicContentBanner.show({
-
              text: ['Profile Not Validated'],
              interval: '20',
              autoClose: '',
@@ -30,14 +28,12 @@
      }
 
      $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
-         console.log('IsVerifiedPhoneFalse');
          //$scope.verified = false;
          $scope.contentBannerInstance();
      });
 
      $scope.contentBannerInstance = function () {
          $ionicContentBanner.show({
-
              text: ['Phone Number Not verified'],
              interval: '20',
              autoClose: '4900',
@@ -53,7 +49,6 @@
 
      $scope.contentBannerInstance2 = function () {
          $ionicContentBanner.show({
-
              text: ['Pending Request Waiting'],
              interval: '50',
              autoClose: '3000',
@@ -89,49 +84,50 @@
 
          //  if ($cordovaNetwork.isOnline()) {
 
-          swal({
-                    title: "Log Out!",
-                    text: "Are you sure logging out.",
-                    type: "warning",
-                    showCancelButton: true,
-                    cancelButtonText: "Cancel",
-                    confirmButtonColor: "#3fabe1",
-                    confirmButtonText: "Yes",
-                    customClass: "stackedBtns",
-                    html: true,
-                  }, function (isConfirm) {
-                    if (isConfirm) {
-                        $ionicLoading.show({
-                            template: 'Logging off...'
-                        });
-                        console.log($localStorage.GLOBAL_VARIABLES.AccessToken);
-                        settingsService.logOut($localStorage.GLOBAL_VARIABLES.AccessToken, $localStorage.GLOBAL_VARIABLES.MemberId).success(function (data) {
-                            console.log(data.Result);
+         swal({
+             title: "Sign Out?",
+             text: "Are you sure you want to sign out?",
+             type: "warning",
+             showCancelButton: true,
+             cancelButtonText: "Cancel",
+             confirmButtonColor: "#3fabe1",
+             confirmButtonText: "Yes",
+             customClass: "stackedBtns",
+             html: true,
+         }, function (isConfirm) {
+             if (isConfirm)
+             {
+                 $ionicLoading.show({
+                     template: 'Logging off...'
+                 });
 
-                            if (data.Result == 'Success.' || (data.Result == 'Invalid OAuth 2 Access')) {
+                 //console.log($localStorage.GLOBAL_VARIABLES.AccessToken);
 
-                                $ionicLoading.hide();
-                                CommonServices.logOut();
-                               
-                            }
-                        }).error(function (encError) {
-                            console.log('came in enc error block ' + encError);
-                            $ionicLoading.hide();
-                            CommonServices.logOut();
-                        });
-                    }
-                  });
+                 settingsService.logOut($localStorage.GLOBAL_VARIABLES.AccessToken, $localStorage.GLOBAL_VARIABLES.MemberId).success(function (data) {
+                     console.log(data.Result);
 
-       
+                     $ionicLoading.hide();
+
+                     if (data.Result == 'Success.' || data.Result == 'Invalid OAuth 2 Access')
+                         CommonServices.logOut();
+                 }).error(function (encError) {
+                     console.log('came in enc error block ' + encError);
+                     $ionicLoading.hide();
+                     CommonServices.logOut();
+                 });
+             }
+         });
+
+
          //}
          //else{
          //        swal("Oops...", "Internet not connected!", "error");
          //      }
      };
-     
+
 
      $scope.checkBankDetails = function () {
-         console.log('checkBankDetails function Touched');
+         console.log('CheckBankDetails Fired');
 
          //if ($cordovaNetwork.isOnline()) {
          $ionicLoading.show({
@@ -140,7 +136,7 @@
 
          settingsService.GetSynapseBankAndUserDetails()
            .success(function (data) {
-               $scope.Data = data;                         
+               $scope.Data = data;
 
                console.log($scope.Data);
 
@@ -148,7 +144,7 @@
            }).error(function (data) {
                console.log('eror' + data);
                $ionicLoading.hide();
-             //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+               //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                { CommonServices.logOut(); }
            });
          //  }

@@ -1,50 +1,4 @@
 ﻿<ion-view view-title="Select Recipient">
-    <!--<ion-content ion-sticky>-->
-
-        <!--<div class="row">-->
-
-            <!--<div class="col p-t-0">-->
-                <!--<ti-segmented-control>-->
-                    <!--<ti-segmented-control-button ng-click="FindRecent()" class="button-positive" title="'Month'" selected><i class="ion-ios-clock-outline"></i>Recents</ti-segmented-control-button>-->
-                    <!--<ti-segmented-control-button ng-click="GetLocationSearch()" class="button-positive" title="'Day'"><i class="ion-ios-location"></i>Find By Location</ti-segmented-control-button>-->
-                <!--</ti-segmented-control>-->
-            <!--</div>-->
-               <!--</div>-->
-
-        <!--<div class="list list-inset m-t-0 m-b-10">-->
-            <!--<label class="item item-input searchBarContainer">-->
-                <!--<i class="icon ion-search placeholder-icon p-r-0"></i>-->
-                <!--<input type="text" ng-keydown="checkList()" class="p-r-10" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">-->
-            <!--</label>-->
-        <!--</div>-->
-
-
-        <!--<ion-list>-->
-            <!--<ion-item ng-repeat="member in memberList |filter:search" class="list" id="recents-table">-->
-                <!--<a class="item item-avatar" ui-sref="app.howMuch({myParam:member})" nav-transition="ios" nav-direction="forward">-->
-                    <!--<img src="{{member.Photo}}" class="userPic">-->
-                    <!--<h2>{{member.FirstName}} &nbsp; {{member.LastName}}</h2>-->
-                    <!--<p>{{member.UserName}}</p>-->
-                    <!--<p>{{member.ContactNumber}}</p>-->
-                    <!--<h3 ng-if="member.Miles">{{member.Miles}}Miles</h3>-->
-                    <!--<img src="../../img/n_icon_46x54.png" class="n-icon" />-->
-                <!--</a>-->
-
-            <!--</ion-item>-->
-        <!--</ion-list>-->
-
-
-        <!--<div ng-show="show">-->
-
-            <!--send to {{sendTo}} {{search}}-->
-            <!--<button class="button button-balanced"  ui-sref="app.howMuch({myParam:search})">Done</button>-->
-
-        <!--</div>-->
-
-
-    <!--</ion-content>-->
-
-
 
     <ion-content ion-sticky>
 
@@ -59,42 +13,40 @@
 
         </div>
 
-
- 
         <div class="list list-inset m-t-0 m-b-10" ng-show="showSearchFlag">
- 
+
             <label class="item item-input searchBarContainer">
                 <i class="icon ion-search placeholder-icon p-r-0"></i>
                 <input type="text" ng-keyup="checkList()" class="p-r-10" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">
             </label>
-            <img src="../../img/SelectRecip_Empty@2x.png" ng-show="memberList==null" />
+
+            <img src="./../img/SelectRecip_Empty@2x.png" ng-show="memberList==null" />
+
         </div>
-        
-        
+
+
         <ion-scroll>
             <ion-list class="selectRecipList">
                 <ion-item ng-repeat="member in memberList | filter:search" class="list" id="recents-table">
 
-                    <a class="item item-avatar" ui-sref="app.howMuch({myParam:member})" nav-transition="ios" nav-direction="forward">
+                    <a class="item item-avatar" ui-sref="app.howMuch({recip:member})" nav-transition="ios" nav-direction="forward">
                         <img src="{{member.Photo}}" class="userPic">
-                        <h2 class="username">{{member.FirstName}} &nbsp; {{member.LastName}}</h2>
+                        <h2 class="username">{{member.FirstName}} {{member.LastName}}</h2>
                         <p class="usersubtitle">{{member.UserName}}</p>
                         <p class="usersubtitle">{{member.ContactNumber}}  </p>
                         <h3 ng-if="member.Miles">{{member.Miles}}Miles </h3>
- 
+
                         <img src="./../img/n_icon_46x54.png" class="n-icon" ng-if="member.bit!='p'" />
- 
                     </a>
 
                 </ion-item>
             </ion-list>
 
-
             <div ng-show="show" id="dvSendTo">
-                <a class="" ui-sref="app.howMuch({myParam:search})">
+                <a class="" ui-sref="app.howMuch({recip:search})">
                     <span class="sendTo">Send to: <i ng-if="sendTo == 'Email Address'" class="fa fa-envelope"></i></span>
                     <span class="enteredTxt">{{search}}</span>
-                    <img class="defaultImg" src="./../img/profile_picture.png"/>
+                    <img class="defaultImg" src="./../img/profile_picture.png" />
                 </a>
             </div>
 

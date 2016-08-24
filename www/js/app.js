@@ -3,18 +3,19 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
+angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
   'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl',
   'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
-  'noochApp.transferDetailsCtrl', 'noochApp.referAfriendCtrl','noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
+  'noochApp.transferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.services',
   'noochApp.addPicture', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards', 'ngMap'])
 
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices) {
 
 
-       
-      if (!$localStorage.GLOBAL_VARIABLES) {
+
+      if (!$localStorage.GLOBAL_VARIABLES)
+      {
           $localStorage.GLOBAL_VARIABLES = {
               IsDemoDone: false, // for displaying tutorial screens to user - if any
               IsRemeberMeEnabled: false, // for remembering user
@@ -42,13 +43,13 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
               shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
               HasSharedContacts: false, // if true then shouldn't ask for contact permission again
               //pinValidatorData: { myParam: '', type: '', returnUrl: '', returnPage: '', comingFrom: '' }
-              pinValidatorData: { }
+              pinValidatorData: {}
           };
       }
       $ionicPlatform.ready(function () {
           console.log('app run');
-           
-         
+
+
 
           $rootScope.phoneContacts = [];
           var readContact =
@@ -64,7 +65,8 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
           function onSuccess(contacts) {
 
               console.log(contacts);
-              for (var i = 0; i < contacts.length; i++) {
+              for (var i = 0; i < contacts.length; i++)
+              {
                   var contact = contacts[i];
 
                   readContact.FirstName = contact.name.formatted;
@@ -105,15 +107,17 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
           document.addEventListener("resume", function () {
               console.log('came in resume state');
               console.log($localStorage.GLOBAL_VARIABLES.EnterPinImmediately);
-              if ($localStorage.GLOBAL_VARIABLES.MemberId != null) {
+              if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
+              {
                   //added this to not asked for Pin before login
 
-                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
+                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
+                  {
                       CommonServices.savePinValidationScreenData({ myParam: {}, type: '', returnUrl: 'app.home', returnPage: 'Home', comingFrom: 'Identity' });
 
                       $state.go('enterPin');
                   }
-                     // $state.go('enterPinForeground');
+                  // $state.go('enterPinForeground');
               }
           }, false);
 
@@ -124,9 +128,10 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
           }, false);
 
           console.log(window);
-          if (window.cordova) {
+          if (window.cordova)
+          {
               // Get device info... will be used for handling notifications
-             
+
               var device = $cordovaDevice.getDevice();
               console.log(device);
               $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform;
@@ -144,7 +149,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
                   },
                   windows: {}
               };
-              
+
               $cordovaPushV5.initialize(optionsForNotificationSetup).then(function () {
                   // start listening for new notifications
                   $cordovaPushV5.onNotification();
@@ -222,7 +227,8 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
               })
           }
 
-          if (window.cordova && window.cordova.plugins.Keyboard) {
+          if (window.cordova && window.cordova.plugins.Keyboard)
+          {
               // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
               // for form inputs)
               //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -279,7 +285,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
         })
         .state('app.howMuch', {
             url: '/selectRecipien/howMuch',
-            params: { myParam: null },
+            params: { recip: null },
             views: {
                 'menuContent': {
                     templateUrl: 'templates/howMuch/howMuch.html',
@@ -427,7 +433,7 @@ angular.module('noochApp', ['ionic','ionic.service.core',  'noochApp.controllers
         })
         .state('enterPin', {
             url: '/enterPin',
-            params: { myParam: null, type: null, returnUrl: null, returnPage: null,comingFrom:null },
+            params: { myParam: null, type: null, returnUrl: null, returnPage: null, comingFrom: null },
             templateUrl: 'templates/enterPin/enterPin.html',
             controller: 'enterPinCtrl'
         })
