@@ -1,24 +1,21 @@
 ﻿angular.module('noochApp.LoginCtrl', ['noochApp.login-service', 'noochApp.services', 'ngStorage'])
 
-  .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading, $localStorage, CommonHelper, $cordovaGeolocation, $cordovaDevice,
-                                     CommonServices, $cordovaNetwork) {
+  .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading, $localStorage, CommonHelper,
+                                     $cordovaGeolocation, $cordovaDevice, CommonServices, $cordovaNetwork) {
 
       $scope.$on("$ionicView.enter", function (event, data) {
           console.log('Login Controller Loaded');
-          // swal("Here's a message!");
+
           $scope.getLocation();
 
-          if ($localStorage.GLOBAL_VARIABLES) {
-              console.log($localStorage.GLOBAL_VARIABLES);
-              if ($localStorage.GLOBAL_VARIABLES.MemberId) {
-                  if ($localStorage.GLOBAL_VARIABLES.MemberId.length > 0) {
-                      $state.go('app.home');
-                  }
-              }
+          if ($localStorage.GLOBAL_VARIABLES)
+          {
+              // console.log($localStorage.GLOBAL_VARIABLES);
+              if ($localStorage.GLOBAL_VARIABLES.MemberId && $localStorage.GLOBAL_VARIABLES.MemberId.length > 0)
+                  $state.go('app.home');
           }
           console.log($localStorage.GLOBAL_VARIABLES);
-          //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '31.33';
-          // $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '54.33';
+
           $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
           $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
       });
@@ -26,9 +23,6 @@
       $scope.loginData = {
           //email: 'cliff@nooch.com',
           //pwd: 'testing123',
-
-          //email: 'lance@nooch.com',
-          //pwd: 'test1234',
 
           email: 'malkit.singh@venturepact.com',
           pwd: 'Q123456789',
@@ -47,10 +41,12 @@
               $ionicLoading.show({
                   template: 'Reading user details...'
               });
+
               CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
                   $ionicLoading.hide();
 
-                  if (data != null) {
+                  if (data != null)
+                  {
                       $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
                       $state.go('app.home');
                   }
@@ -59,8 +55,8 @@
               });
           }
 
-
-          if ($('#frmLogin').parsley().validate() == true) {
+          if ($('#frmLogin').parsley().validate() == true)
+          {
               $ionicLoading.show({
                   template: 'Logging in...'
               });
@@ -81,12 +77,14 @@
 
                         $ionicLoading.hide();
 
-                        if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1) {
-                            swal(response.Result);
-                        }
-                        else if (response.Result.indexOf('Temporarily_Blocked') > -1) {
+                        if (response.Result.indexOf('Invalid user id') > -1)
+                            swal("Invalid Email or Password", "We don't recognize that information. Please double check check your email is entered correctly and try again.", "error");
+                        else if (response.Result.indexOf('incorrect') > -1)
+                            swal("This is Awkward", "That doesn't appear to be the correct password. Please try again or contact us for further help.");
+                        else if (response.Result.indexOf('Temporarily_Blocked') > -1)
+                        {
                             swal({
-                                title: "Oh No!",
+                                title: "Account Temporarily Suspended",
                                 text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
                                 type: "error",
                                 showCancelButton: true,
@@ -96,12 +94,14 @@
                                 customClass: "stackedBtns",
                                 html: true,
                             }, function (isConfirm) {
-                                if (isConfirm) {
+                                if (isConfirm)
+                                {
 
                                 }
                             });
                         }
-                        else {
+                        else
+                        {
                             $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
                             $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
 
@@ -145,31 +145,29 @@
           }, function (inputValue) {
               if (inputValue === false) return false;
 
-              if (inputValue === "" || inputValue.length == 0) {
+              if (inputValue === "" || inputValue.length == 0)
+              {
                   swal.showInputError("Please enter the email address associated with your account.");
                   return false
               }
 
               if (inputValue.indexOf('@') > 1 &&
                   inputValue.indexOf('.') > inputValue.indexOf('@') &&
-                  inputValue.indexOf('.') < inputValue.length - 2) {
+                  inputValue.indexOf('.') < inputValue.length - 2)
+              {
                   authenticationService.ForgotPassword(inputValue).success(function (data) {
                       console.log(data);
 
-                      if (data.success == true) {
-                          swal("Success!", "Input email validated, need to submit to sever here. Input was: [" + inputValue + "]", "success");
-                      }
-                      else {
-                          swal("Error :-(", data.msg, "error");
-                      }
-
+                      if (data.success == true)
+                          swal("Reset Link Sent", "If that email is associated with a Nooch account, you will receive an email with a link to reset your password.", "success");
+                      else
+                          swal("Error", data.msg, "error");
                   }).error(function (encError) {
                       console.log('Forgot PW -> Error block ' + encError);
                   });
               }
-              else {
+              else
                   $scope.forgotPw(2)
-              }
           });
       }
 
@@ -181,16 +179,15 @@
                     var long = position.coords.longitude
                     $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
                     $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
-                    console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
-
                     $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
 
+                    console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
                 }, function (err) {
                     // error
                     console.log('$cordovaGeolocation error ' + JSON.stringify(err));
-                    //Static Loaction in case user denied
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
+                    // Static Loaction in case user denied
+                    // $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
+                    // $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
                     $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
                 });
       }
@@ -229,7 +226,7 @@
               //Getting Reay for service Call
               $localStorage.GLOBAL_VARIABLES.UserName = 'suryaprakash9@hotmail.com';
               $scope.FBId = _.get(response, 'authResponse.userID');
-              console.log($scope.FBId);            
+              console.log($scope.FBId);
               $scope.remmberMe = true;
               //$scope.deviceId = 'UDID123';
               //$scope.deviceToken = 'SPC123';
@@ -241,20 +238,23 @@
 
               console.log('After replacing the values of FB Status');
               console.log($scope.fbStatus);
-             // alert(JSON.stringify(response));
+              // alert(JSON.stringify(response));
               console.log('fb Connect Success');
 
               authenticationService.LoginWithFacebookGeneric($localStorage.GLOBAL_VARIABLES.UserName, $scope.FBId, $scope.remmberMe, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude, $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
                     .success(function (response) {
                         console.log(response);
 
-                        if (response.Result == "FBID or EmailId not registered with Nooch") {
+                        if (response.Result == "FBID or EmailId not registered with Nooch")
+                        {
                             swal("Oops...", "Your Mail or FBID is not registered with nooch", "error");
                         }
-                        else if (response.Result == "Invalid user id or password.") {
+                        else if (response.Result == "Invalid user id or password.")
+                        {
                             swal("Oops...", "Invalid user id or password.", "error");
                         }
-                        else {
+                        else
+                        {
                             //  $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
                             $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
 
@@ -289,7 +289,8 @@
               template: 'Reading user details...'
           });
           CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-              if (data != null) {
+              if (data != null)
+              {
                   $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
                   $ionicLoading.hide();
               }
@@ -297,24 +298,4 @@
               $ionicLoading.hide();
           });
       }
-
-      //$scope.logoutFb = function () {
-
-      //    console.log('came in logout from fb');
-
-      //    if (!window.cordova)
-      //    { facebookConnectPlugin.browserInit("198279616971457"); }
-
-      //    facebookConnectPlugin.logout([], function (response) {
-      //        alert(JSON.stringify(response));
-      //        $scope.fbResult = response;
-      //        console.log($scope.fbResult);
-
-      //        console.log('fb Logout Success');
-      //    },
-      //      function (response) {
-      //          console.log('error res');
-      //          alert(JSON.stringify(response))
-      //      });
-     // }
   })
