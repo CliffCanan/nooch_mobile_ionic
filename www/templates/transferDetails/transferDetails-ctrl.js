@@ -51,7 +51,7 @@
                    //$rootScope.Location.lati = $scope.transDetail.Latitude;
                    //$rootScope.Location.longi = $scope.transDetail.Longitude;
 
-                   if ($scope.transDetail.Latitude != '' && $scope.transDetail.Longitude != '') {
+                   if (($scope.transDetail.Latitude != '' && $scope.transDetail.Longitude != '') && ($scope.transDetail.Latitude != 0 && $scope.transDetail.Longitude != 0 )){
                        $scope.hasLatiLongi = true;
                        $rootScope.Location.lati = $scope.transDetail.Latitude;
                        $rootScope.Location.longi = $scope.transDetail.Longitude
@@ -61,7 +61,7 @@
                    }
                    if ($scope.transDetail.Picture != null) {
                        $scope.hasPicture = true;
-                       console.log(" This is HasPicture --->  " + $scope.transDetail.Picture);
+                       //console.log(" This is HasPicture --->  " + $scope.transDetail.Picture);
                    }
 
                    //console.log($rootScope.Location.longi);
