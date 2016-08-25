@@ -18,7 +18,9 @@
                    longi: '',
                    lati: ''
                }
- 
+
+               $scope.hasLatiLongi = false;
+               $scope.hasPicture = false;
 
                var vm = this;
                NgMap.getMap().then(function (map) {
@@ -49,20 +51,17 @@
                    //$rootScope.Location.lati = $scope.transDetail.Latitude;
                    //$rootScope.Location.longi = $scope.transDetail.Longitude;
 
-                  
-                   if($scope.transDetail.Latitude != null && $scope.transDetail.Longitude != null)
-                   {
+                   if ($scope.transDetail.Latitude != '' && $scope.transDetail.Longitude != '') {
                        $scope.hasLatiLongi = true;
                        $rootScope.Location.lati = $scope.transDetail.Latitude;
                        $rootScope.Location.longi = $scope.transDetail.Longitude
-                       console.log(" Lati Longis are --->>>>>>  ");
+                       console.log(" Lati Longis are ---> ");
                        console.log($rootScope.Location.longi);
                        console.log($rootScope.Location.lati);
                    }
-                   if ($scope.transDetail.Picture != null)
-                   {
+                   if ($scope.transDetail.Picture != null) {
                        $scope.hasPicture = true;
-                       console.log(" This is HasPicture --->>>>>>  " + $scope.transDetail.Picture);
+                       console.log(" This is HasPicture --->  " + $scope.transDetail.Picture);
                    }
 
                    //console.log($rootScope.Location.longi);
