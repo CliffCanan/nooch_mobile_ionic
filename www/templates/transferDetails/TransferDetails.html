@@ -35,38 +35,29 @@
             </div>
         </div>
 
-        <!--<div id="mapRow" ng-show="transDetail.Latitude != '' && transDetail.Longitude != ''">
-            <div ng-controller="TransferDetailsCtrl as vm">
-                <ng-map zoom="13" center="{{transDetail.Latitude }},{{transDetail.Longitude}}" style="height:200px"
-                        on-center-changed="centerCustomMarker()">
-                    <marker position="{{transDetail.Latitude }},{{transDetail.Longitude}}" on-click="vm.showCustomMarker()"></marker>
-                    <marker position="{{transDetail.Latitude }},{{transDetail.Longitude}}" on-click="vm.showCustomMarker()"></marker>
-                    <custom-marker id="foo" position="{{transDetail.Latitude }},{{transDetail.Longitude}}" on-click="vm.closeCustomMarker()">
-                        <div style="background:black">
-                            <img width="100" src="https://goo.gl/DAAJG3" align="left" /> Hi, This is test Marker <br />
-                            Money made Easy <br />
-                        </div>
-                    </custom-marker>
-                </ng-map>
-                <div id="mapGeoLabel">{{mapGeoLabelTxt}}</div>
+     
+        <div>
+            <div ng-show="transDetail.Picture!=null" style="width:50%">
+                <img width="100" src="transDetail.Picture" align="left"/>
             </div>
-        </div>-->
 
-        <div id="mapRow" ng-show="transDetail.Latitude != '' && transDetail.Longitude != ''">
-            <div ng-controller="transferDetailsCtrl as vm">
-                <ng-map zoom="13" center="{{Location.lati}},{{Location.longi}}" style="height:200px"
-                        on-center-changed="centerCustomMarker()">
-                    <marker position="{{Location.lati}},{{Location.longi}}" on-click="vm.showCustomMarker()"></marker>
-                    <marker position="{{Location.lati}},{{Location.longi}}" on-click="vm.showCustomMarker()"></marker>
-                    <custom-marker id="foo" position="{{Location.lati}},{{Location.longi}}" on-click="vm.closeCustomMarker()">
-                        <div style="background:black">
-                            <img width="100" src="https://goo.gl/DAAJG3" align="left" /> Hi, This is test Marker <br />
-                            Money made Easy <br />
-                        </div>
-                    </custom-marker>
-                </ng-map>
-                <div id="mapGeoLabel">{{mapGeoLabelTxt}}</div>
+            <div style="width:50%" id="mapRow" ng-show="transDetail.Latitude != '' && transDetail.Longitude != ''">
+                <div ng-controller="transferDetailsCtrl as vm">
+                    <ng-map zoom="13" center="{{Location.lati}},{{Location.longi}}" style="height:200px"
+                            on-center-changed="centerCustomMarker()">
+                        <marker position="{{Location.lati}},{{Location.longi}}" on-click="vm.showCustomMarker()"></marker>
+                        <marker position="{{Location.lati}},{{Location.longi}}" on-click="vm.showCustomMarker()"></marker>
+                        <custom-marker id="foo" position="{{Location.lati}},{{Location.longi}}" on-click="vm.closeCustomMarker()">
+                            <div style="background:black">
+                                <img width="100" src="https://goo.gl/DAAJG3" align="left" /> Hi, This is test Marker <br />
+                                Money made Easy <br />
+                            </div>
+                        </custom-marker>
+                    </ng-map>
+                    <div id="mapGeoLabel">{{mapGeoLabelTxt}}</div>
+                </div>
             </div>
+            
         </div>
 
         <div class="row text-center m-t-15" ng-if="transDetail.TransactionStatus == 'Pending'">

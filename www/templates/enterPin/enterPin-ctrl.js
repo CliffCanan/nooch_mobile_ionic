@@ -27,8 +27,16 @@
             if ($scope.returnUrl == 'app.howMuch')
             {
                 console.log($scope.Details);
-                { $state.go($scope.returnUrl, { myParam: $scope.Details }); };
+                { $state.go($scope.returnUrl, { recip: $scope.Details }); };
             }
+
+            if ($scope.returnUrl == 'app.transferDetails') {
+                console.log($scope.Details);
+                { $state.go($scope.returnUrl, { trans: $scope.Details }); };
+            }
+
+
+            
             $stateParams = '';
             $scope.Details = '';
 
