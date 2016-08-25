@@ -26,12 +26,12 @@ angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
                   Password: $localStorage.GLOBAL_VARIABLES.Pwd,
                   ContactNumber: Details.ContactNumber,
                   Address: Details.Address,
+                  Address2: Details.Address2,
                   State: Details.State,
                   City: Details.City,
                   Zipcode: Details.Zip,
                   Country: Details.Country,
-                  Photo: Details.Photo,
-                  Picture: Details.Picture
+                  Photo: Details.Photos                  
               }
           };
           return $http(reqForMySettings);
