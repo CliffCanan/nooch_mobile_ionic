@@ -35,10 +35,10 @@
             </div>
         </div>
 
-     
+
         <div ng-show="hasLatiLongi == true && hasPicture == true">
             <div style="width:50%">
-                <img width="100" src="transDetail.Picture" align="left" />
+                <img width="100" src="data:image/png;base64,{{transDetail.Picture}}" align="left" />
             </div>
             <div style="width:50%" id="mapRow" align="right">
                 <div ng-controller="transferDetailsCtrl as vm">
@@ -82,7 +82,7 @@
 
         <div ng-if="hasLatiLongi == false && hasPicture == true">
             <div>
-                <img width="100" src="transDetail.Picture" align="left" />
+                <img width="100" src="data:image/png;base64,{{transDetail.Picture}}" align="left" />
             </div>
         </div>
 
