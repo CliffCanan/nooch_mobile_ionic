@@ -9,6 +9,9 @@
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl loaded');
+
+        $scope.isBannerShowing = false;
+
         $scope.FindRecentFriends();
 
         $ionicPlatform.ready(function () {
@@ -16,83 +19,72 @@
             // $scope.checkUserDetails();
             // console.log($cordovaGoogleAnalytics);
             // $cordovaGoogleAnalytics.debugMode();
-            //$cordovaGoogleAnalytics.startTrackerWithId('UA-XXXXXXXX-X');
-            //$cordovaGoogleAnalytics.trackView('Home Screen');
+            // $cordovaGoogleAnalytics.startTrackerWithId('UA-XXXXXXXX-X');
+            // $cordovaGoogleAnalytics.trackView('Home Screen');
         });
     });
 
-    //$scope.contentBannerInstance = function (msg) {  //Trying to Push Msg @RunTime
-    //    $ionicContentBanner.show({
-    //        text: msg,
-    //        interval: '20',
-    //        autoClose: '',
-    //        type: 'error',
-    //        transition: 'vertical'
-    //    });
-    //}    
 
-    //(function () {
-    //    var message = [];
-    //    if (!$scope.valid) message.push('Profile not validated');
-    //    if (!$scope.verified) message.push('Phone number not verified');
-    //    $scope.contentBannerInstance(message);
-    //})()
-
-    $scope.$on('IsValidProfileFalse', function (event, args) {
-        console.log('IsValidProfileFalse');
-        //$scope.valid = false;
-        $scope.contentBannerInstance1();
-    });
-
-    $scope.contentBannerInstance1 = function () {
+    $scope.$on('isSuspended'), function (event, args) {
         $ionicContentBanner.show({
-            text: ['Profile Not Validated'],
-            interval: '20',
-            //autoClose: '',
+            text: ['! Account Suspended'],
             type: 'error',
             transition: 'vertical'
         });
-    }
 
-
-    $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
-        //$scope.verified = false;
-        $scope.contentBannerInstance();
-    });
-
-    $scope.contentBannerInstance = function () {
-        $ionicContentBanner.show({
-            text: ['Phone Number Not verified'],
-            interval: '20',
-            //autoClose: '4900',
-            type: 'error',
-            transition: 'vertical'
-        });
-    }
-
-
-    $scope.$on('foundPendingReq', function (event, args) {
-        //console.log('foundPendingReq');
-        $scope.contentBannerInstance2();
-    });
-
-    $scope.contentBannerInstance2 = function () {
-        $ionicContentBanner.show({
-            text: ['Pending Request Waiting'],
-            //autoClose: '3000',
-            type: 'info',
-            transition: 'vertical'
-        });
+        $scope.isBannerShowing = true;
 
         $('#fav-container').css('margin-top', '40px');
     }
 
-    $scope.goToSelectRecip = function () {
-        $state.go('app.selectRecipient');
-    }
+    $scope.$on('IsValidProfileFalse', function (event, args) {
+        if ($scope.isBannerShowing == false)
+        {
+            $ionicContentBanner.show({
+                text: ['Profile Incomplete'],
+                type: 'error',
+                transition: 'vertical'
+            });
+
+            $scope.isBannerShowing = true;
+
+            $('#fav-container').css('margin-top', '40px');
+        }
+    });
+
+    $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
+        if ($scope.isBannerShowing == false)
+        {
+            $ionicContentBanner.show({
+                text: ['Phone Number Not verified'],
+                type: 'error',
+                transition: 'vertical'
+            });
+
+            $scope.isBannerShowing = true;
+
+            $('#fav-container').css('margin-top', '40px');
+        }
+    });
+
+    $scope.$on('foundPendingReq', function (event, args) {
+        if ($scope.isBannerShowing == false)
+        {
+            $ionicContentBanner.show({
+                text: ['Pending Request Waiting'],
+                type: 'info',
+                transition: 'vertical'
+            });
+
+            $scope.isBannerShowing = true;
+
+            $('#fav-container').css('margin-top', '40px');
+        }
+    });
 
 
     $scope.memberList = [];
+
 
     $scope.FindRecentFriends = function () {
         //if ($cordovaNetwork.isOnline())
@@ -121,7 +113,7 @@
             console.log($scope.memberList);
 
             $scope.items = [];
-            
+
             for (var i = 0; i <= 4; i++)
             {
                 if ($scope.memberList[i].Photo == "")
@@ -137,11 +129,9 @@
             $ionicLoading.hide();
 
         }).error(function (data) {
-            console.log(data);  
-         //   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-            {
+            console.log(data);
+            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                 CommonServices.logOut();
-            }
         })
 
         //.finally(function () {   will be used when ll be dealing with pull to refresh
@@ -153,6 +143,11 @@
         //else{
         //    swal("Oops...", "Internet not connected!", "error");
         //  }
+    }
+
+
+    $scope.goToSelectRecip = function () {
+        $state.go('app.selectRecipient');
     }
 
 })

@@ -23,7 +23,7 @@ var URLs = {
     // Common methods
     GetEncryptedData: PATH + 'GetEncryptedData',
     GetDecryptedData: PATH + 'GetDecryptedData',
-    GetMemberDetails: PATH + 'GetMemberDetails',
+    GetUserDetails: PATH + 'GetUserDetailsForApp',
     GetMyDetails: PATH + 'GetMyDetails',
     GetRecentMembers: PATH + 'GetRecentMembers',
     IsDuplicateMember: PATH + 'IsDuplicateMember',
