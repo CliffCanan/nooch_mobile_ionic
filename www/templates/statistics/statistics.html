@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="text-center">
-                    <div class="btn btn-primary" ng-click="exportHistory()"><i class="ion-ios-cloud-download"></i>Export Account History</div>
+                    <button type="button" class="btn btn-primary" ng-click="exportHistory()"><i class="ion-ios-cloud-download"></i>Export Account History</button>
                 </div>
 
                 </ion-scroll>
@@ -87,19 +87,19 @@
 
             <ion-slide>
                 <div align="center"
-                    <zingchart id="myChartDiv" zc-json="myJson" zc-height=200 zc-width=200></zingchart>
+                    <zingchart id="topFriendsChart" zc-json="myJson" zc-height=200 zc-width=200></zingchart>
                 </div>
 
                 <ion-scroll>
-                    <div class="card">
+                    <div id="topFriendsTable" class="card">
                         <ion-scroll>
-                            <h3 class="text-center m-t-15">Top 5 Friends</h3>
+                            <h3 class="text-center m-t-0">Top 5 Friends</h3>
 
                             <div class="list icon-right">
 
                                 <a class="item item-avatar" ui-sref="app.howMuch({myParam:friend})" nav-transition="ios" nav-direction="forward" ng-repeat="friend in friendList">
                                     <img src="{{friend.Photo}}" class="userPic">
-                                    <h2>{{friend.FirstName}}{{friend.LastName}}</h2>
+                                    <h2>{{friend.FirstName}} {{friend.LastName}}</h2>
                                     <p>{{friend.Frequency}} Payments</p>
                                     <i class="ion-ios-compose-outline"></i>
                                 </a>

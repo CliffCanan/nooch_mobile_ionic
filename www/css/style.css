@@ -744,7 +744,6 @@ a {
 
 
 /***  PARSLEY (FORM VALIDATION)  ***/
-
 input.parsley-error {
     border: 1px solid rgb(169, 68, 66);
     box-shadow: 0px 0px 4px rgba(169, 68, 66, .6) inset;
@@ -771,6 +770,10 @@ form.smErrors .parsley-errors-list {
 }
 
 
+/***  BADGES  ***/
+.badge.badge-calm {
+    background-color: #3fabe1;
+}
 /***  Misc  ***/
 .label-small {
     font-size: 18px;
@@ -1335,6 +1338,18 @@ div.hscroller-card {
     top: 22px;
 }
 
+#topFriendsTable .item {
+    padding-bottom: 12px;
+    padding-top: 12px;
+}
+
+#topFriendsTable .item-avatar {
+    min-height: 60px;
+}
+
+    #topFriendsTable .item-avatar > img:first-child {
+        top: 12px;
+    }
 
 /**********************/
 /***  HOW IT WORKS  ***/
@@ -1407,6 +1422,11 @@ div.hscroller-card {
 /**************************/
 /***  SELECT RECIPIENT  ***/
 /**************************/
+.emptyTableImg {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+}
 #recents-table .item {
     padding: 15px 15px 25px 80px;
 }
@@ -1475,7 +1495,7 @@ div.hscroller-card {
         margin-bottom: 10px;
     }
 
-    #dvSendTo .defaultImg{
+    #dvSendTo .defaultImg {
         border-radius: 50%;
         width: 80px;
         height: auto;
@@ -1664,16 +1684,16 @@ div.hscroller-card {
         padding: 5px 5px 5px 30px;
     }
 
-    .recipient-box .memo-text,
-    .recipient-box .memo-text
-/*************************/
-/*** Transfer Details  ***/
-/*************************/
-.header-item-blue {
-    background-color: #11C1F3;
-    color: #fff;
-    height: 30px;
-}
+        .recipient-box .memo-text,
+        .recipient-box .memo-text
+        /*************************/
+        /*** Transfer Details  ***/
+        /*************************/
+        .header-item-blue {
+            background-color: #11C1F3;
+            color: #fff;
+            height: 30px;
+        }
 
 
 /*************************/

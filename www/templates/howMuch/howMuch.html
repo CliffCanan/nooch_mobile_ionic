@@ -6,10 +6,10 @@
             <form id="howMuchForm">
 
                 <div class="header-item barBackground">
-                    To: <span id="recipName" ng-if="recipientDetail.FirstName || recipientDetail.LastName">{{recipientDetail.FirstName}} &nbsp; {{recipientDetail.LastName}}</span>
+                    To: <span id="recipName" ng-if="recipientDetail.FirstName || recipientDetail.LastName">&nbsp;{{recipientDetail.FirstName}}&nbsp;{{recipientDetail.LastName}}</span>
                     <span id="recipName" ng-if="!recipientDetail.FirstName && !recipientDetail.LastName">{{recipientDetail.UserName}}</span>
                     <span id="contactNum" ng-if="recipientDetail.ContactNumber">{{recipientDetail.ContactNumber}}</span>
-                   
+
                     <a href=""><i class="ion-plus-circled pull-right f-19"></i></a>
                 </div>
 
@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="col amount-container">
-                        <i id="dollarSign" class="ion-social-usd"></i> 
+                        <i id="dollarSign" class="ion-social-usd"></i>
                         <input type="number" ng-model="recipientDetail.Amount" placeholder="00.00" maxlength="7" pattern="\d*\.*\d+" min="1" max="5000" data-parsley-required data-parsley-required-message="Please enter an amount to continue." data-parsley-range-message="Amount must be between $0-$5,000" data-parsley-error-message="Please enter a valid amount!" />
                     </div>
                 </div>
@@ -28,14 +28,13 @@
                     <div class="col">
                         <div id="memoField" class="item item-input text-center">
                             <input type="text" ng-model="recipientDetail.Memo" placeholder="Enter a Memo" maxlength="100">
+
                             <a href="" ng-click="takePhoto()" id="add-img-btn">
                                 <i class="ion-camera m-l-5"></i>
                             </a>
-                            <!--<button class="button  button-assertive" ng-click="choosePhoto()">
-                                 
-                            </button>-->
+
                             <input type="hidden" value="{{imgURI}}">
-                          
+
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-﻿angular.module('noochApp.SelectRecipCtrl', ['ngCordova', 'noochApp.selectRecipientService', 'noochApp.services' ])
+﻿angular.module('noochApp.SelectRecipCtrl', ['ngCordova', 'noochApp.selectRecipientService', 'noochApp.services'])
 
 /************************/
 /*** SELECT RECIPIENT ***/
@@ -6,86 +6,69 @@
 .controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform, $rootScope, CommonServices) {
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
- 
-       
+
         $scope.FindRecent();
 
+        $scope.recentCount = null;
+        // to check contacts authorization
+        // cordova.plugins.diagnostic.isContactsAuthorized(function(authorized){
+        //   console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
+        // }, function(error){
+        //   console.error("The following error occurred: "+error);
+        // });
+
+        // to request contact authorization
+
+        // cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
+        //   if(status === cordova.plugins.diagnostic.permissionStatus.GRANTED){
+        //     console.log("Contacts use is authorized");
+        //   }
+        //   else
+        //   {
+        //     console.log("Contact permisison is "+ status);
+        //   }
+        // }, function(error){
+        //   console.error(error);
+        // });
+
+        // to check contacts authorization status
+        // cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
+        //   if(status === cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED){
+        //     console.log("Contacts use never asked");
+        //
+        //   }
+        //   else{
+        //     console.log("came in contacts status else part");
+        //   }
+        // }, function(onError){
+        //
+        //   console.log("came in error outer "+onError);
+        // });
+
+        // cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
+
+        //   // status === authorized    -- in case user has authorized  and by default it will same
+
+        //   // status === denied   -- in case turned of contacts permission from settings in iphone
+        //     console.log("Contact Authorization status is "+status);
+        //   console.log("Contact Authorization status is "+ JSON.stringify( status));
+        // }, function(onError){
+        //   console.log("came in error outer "+onError);
+        // });
 
 
-      // to check contacts authorization
-      // cordova.plugins.diagnostic.isContactsAuthorized(function(authorized){
-      //   console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
-      // }, function(error){
-      //   console.error("The following error occurred: "+error);
-      // });
+        //cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
+        //  console.log("Contact Authorization status is "+status);
+        //}, function(error){
+        //  console.error(error);
+        //});
 
-
-      // to request contact authorization
-
-      // cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
-      //   if(status === cordova.plugins.diagnostic.permissionStatus.GRANTED){
-      //     console.log("Contacts use is authorized");
-      //   }
-      //   else
-      //   {
-      //     console.log("Contact permisison is "+ status);
-      //   }
-      // }, function(error){
-      //   console.error(error);
-      // });
-
-
-
-      // to check contacts authorization status
-      // cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
-      //   if(status === cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED){
-      //     console.log("Contacts use never asked");
-      //
-      //   }
-      //   else{
-      //     console.log("came in contacts status else part");
-      //   }
-      // }, function(onError){
-      //
-      //   console.log("came in error outer "+onError);
-      // });
- 
-
-     
-
- 
-      // cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
-
-      //   // status === authorized    -- in case user has authorized  and by default it will same
-
-      //   // status === denied   -- in case turned of contacts permission from settings in iphone
-      //     console.log("Contact Authorization status is "+status);
-      //   console.log("Contact Authorization status is "+ JSON.stringify( status));
-
-      // }, function(onError){
-
-      //   console.log("came in error outer "+onError);
-      // });
-
-
-      //cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
-
-      //  console.log("Contact Authorization status is "+status);
-
-      //}, function(error){
-      //  console.error(error);
-      //});
-
-      //if($localStorage)
-      //{
-      //  if($localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert==false && $localStorage.GLOBAL_VARIABLES.HasSharedContacts==true)
-      //  {
-
-      //  }
-      //}
-
-
- 
+        //if($localStorage)
+        //{
+        //  if($localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert==false && $localStorage.GLOBAL_VARIABLES.HasSharedContacts==true)
+        //  {
+        //  }
+        //}
     });
 
 
@@ -104,16 +87,15 @@
     };
 
     $scope.go = function (data) {
-        if (data == 'howMuch')
-            $state.go('howMuch');
+        if (data == 'howMuch') $state.go('howMuch');
     }
 
- 
-    $scope.FindRecent = function () {      
-        console.log('Came in find recent');
- 
+
+    $scope.FindRecent = function () {
+        console.log('FindRecent Fired');
+
         $ionicLoading.show({
-            template: 'Loading ...'
+            template: 'Loading Recent Friends...'
         });
 
         $scope.showSearchFlag = true;
@@ -125,7 +107,9 @@
 
             $scope.memberList = data;
 
-            console.log('Find recent Fn-->>');
+            $scope.recentCount = $scope.memberList.length;
+
+            console.log('Recent List -->');
             console.log($scope.memberList);
 
             for (var i = 0; i < $rootScope.phoneContacts.length; i++)
@@ -137,23 +121,27 @@
             $ionicLoading.hide();
 
         }).error(function (data) {
-            console.log(data); $ionicLoading.hide();
-            //   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-            { CommonServices.logOut(); }
+            console.log(data);
+            $ionicLoading.hide();
+
+            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                CommonServices.logOut();
         });
 
     }
 
     $scope.$watch('search', function (val) {
         console.log($filter('filter')($scope.items2, val));
+
         $scope.memberList = $filter('filter')($scope.items2, val);
+
         console.log($scope.memberList);
     });
 
     $scope.GetLocationSearch = function () {
 
         $ionicLoading.show({
-            template: 'Loading ...'
+            template: 'Finding Nearby Users...'
         });
 
         $scope.showSearchFlag = false;
@@ -166,10 +154,10 @@
         }).error(function (data) {
             console.log(data);
             $ionicLoading.hide();
-            //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-            { CommonServices.logOut(); }
-        });
 
+            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                CommonServices.logOut();
+        });
     }
 
     $scope.checkList = function () {

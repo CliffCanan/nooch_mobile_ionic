@@ -35,66 +35,64 @@
     }
 
     $scope.sendData = {
- 
-        "IsPrePaidTransaction":false,
-        "IsPhoneInvitation":false,
-        "IsExistingButNonRegUser":false,
-        "doNotSendEmails":false,
-        "isRentAutoPayment":false,
-        "isRentScene":false,
-        "Amount":"",
-        "TransactionFee":0,
-        "TotalRecordsCount":"",
-        "TransDate":"",
-        "PinNumber":null,
-        "MemberId":"",
-        "NoochId":"",
-        "RecepientId":"",
-        "Status":null,
-        "TransactionId":"",
-        "Name":"",
-        "RecepientName":null,
-        "Memo":"",
-        "TransactionDate":"",
-        "DeviceId":null,
-        "Latitude":"",
-        "Longitude":"",
-        "AddressLine1":"",
-        "AddressLine2":"",
-        "City":"",
-        "State":"",
-        "Country":"",
-        "ZipCode":"",
-        "DisputeStatus":null,
-        "DisputeId":null,
-        "DisputeReportedDate":"",
-        "DisputeReviewDate":"",
-        "DisputeResolvedDate":"",
-        "TransactionType":"",
-        "TransactionStatus":"",
-        "Photo":"",
-        "FirstName":"",
-        "LastName":"",
-        "SenderPhoto":null,
-        "RecepientPhoto":null,
-        "synapseTransResult":null,
-        "InvitationSentTo":null,
-        "PhoneNumberInvited":null,
-        "Date":null,
-        "Time":null,
-        "LocationId":null,
-        "Location":null,
-        "AdminNotes":null,
-        "RaisedBy":null,
-        "Picture":null,
-        "BankPicture":null,
-        "BankAccountId":null,
-        "BankId":null,
-        "BankName":null,
-        "SsnIsVerified":null,
+        "IsPrePaidTransaction": false,
+        "IsPhoneInvitation": false,
+        "IsExistingButNonRegUser": false,
+        "doNotSendEmails": false,
+        "isRentAutoPayment": false,
+        "isRentScene": false,
+        "Amount": "",
+        "TransactionFee": 0,
+        "TotalRecordsCount": "",
+        "TransDate": "",
+        "PinNumber": null,
+        "MemberId": "",
+        "NoochId": "",
+        "RecepientId": "",
+        "Status": null,
+        "TransactionId": "",
+        "Name": "",
+        "RecepientName": null,
+        "Memo": "",
+        "TransactionDate": "",
+        "DeviceId": null,
+        "Latitude": "",
+        "Longitude": "",
+        "AddressLine1": "",
+        "AddressLine2": "",
+        "City": "",
+        "State": "",
+        "Country": "",
+        "ZipCode": "",
+        "DisputeStatus": null,
+        "DisputeId": null,
+        "DisputeReportedDate": "",
+        "DisputeReviewDate": "",
+        "DisputeResolvedDate": "",
+        "TransactionType": "",
+        "TransactionStatus": "",
+        "Photo": "",
+        "FirstName": "",
+        "LastName": "",
+        "SenderPhoto": null,
+        "RecepientPhoto": null,
+        "synapseTransResult": null,
+        "InvitationSentTo": null,
+        "PhoneNumberInvited": null,
+        "Date": null,
+        "Time": null,
+        "LocationId": null,
+        "Location": null,
+        "AdminNotes": null,
+        "RaisedBy": null,
+        "Picture": null,
+        "BankPicture": null,
+        "BankAccountId": null,
+        "BankId": null,
+        "BankName": null,
+        "SsnIsVerified": null,
         "cip": null,
-        "contactNumber":null
- 
+        "contactNumber": null
     }
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -105,28 +103,21 @@
             animation: 'slide-in-up'
         }).then(function (modal) {
             $scope.modal = modal;
-
         });
 
         console.log($stateParams);
 
-        if (typeof $stateParams.myParam == 'object')
+        if (typeof $stateParams.recip == 'object')
         {
-            if ($stateParams.myParam == null)
+            if ($stateParams.recip == null)
                 $state.go('app.selectRecipient');
 
-            $scope.recipientDetail = $stateParams.myParam;
+            $scope.recipientDetail = $stateParams.recip;
         }
-        else if (isNaN($stateParams.myParam))
-        {
-            //'mail'
-            $scope.recipientDetail.UserName = $stateParams.myParam;
-        }
-        else if (!isNaN($stateParams.myParam))
-        {
-            $scope.recipientDetail.ContactNumber = $stateParams.myParam;
-            
-        }
+        else if (isNaN($stateParams.recip)) //'mail'
+            $scope.recipientDetail.UserName = $stateParams.recip;
+        else if (!isNaN($stateParams.recip))
+            $scope.recipientDetail.ContactNumber = $stateParams.recip;
 
         $('#howMuchForm').parsley();
 
@@ -141,6 +132,7 @@
             else
             {
                 var enteredAmnt = $(".amount-container input").val().trim();
+
                 if (enteredAmnt.indexOf(".") == -1)
                     $(".amount-container input").val(enteredAmnt + ".00");
                 else if (enteredAmnt.indexOf(".") > enteredAmnt.length - 3)
@@ -157,39 +149,38 @@
 
     $scope.submitRequest = function () {
         type = 'request';
- 
-        
+
         console.log($('#howMuchForm').parsley().validate());
+
         if ($('#howMuchForm').parsley().validate() == true)
         {
-             
             console.log($scope.requestData);
+
             $scope.requestData.Photo = $scope.recipientDetail.Photo;
             $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
             $scope.requestData.Amount = $scope.recipientDetail.Amount;
             $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
-            if ($scope.recipientDetail.FirstName!=undefined)
-            $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
+            if ($scope.recipientDetail.FirstName != undefined)
+                $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
             $scope.requestData.RecepientName = $scope.requestData.Name;
             $scope.requestData.Memo = $scope.recipientDetail.Memo;
             $scope.requestData.Picture = $scope.picture;
             $scope.requestData.MoneySenderEmailId = $scope.recipientDetail.UserName;
             $scope.requestData.contactNumber = $scope.recipientDetail.ContactNumber;
             if ($scope.requestData.RecepientName.replace(/\s/g, "") == "")
-                $scope.requestData.RecepientName = $scope.requestData.MoneySenderEmailId ? $scope.requestData.MoneySenderEmailId : $scope.requestData.contactNumber;
+                $scope.requestData.RecepientName = $scope.requestData.MoneySenderEmailId ? $scope.requestData.MoneySenderEmailId
+                                                                                         : $scope.requestData.contactNumber;
 
             CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
 
             $state.go('enterPin');
- 
         }
     };
 
 
     $scope.submitSend = function () {
         type = 'send';
- 
-        
+
         if ($('#howMuchForm').parsley().validate() == true)
         {
             console.log($scope.recipientDetail);
@@ -204,48 +195,45 @@
             $scope.sendData.Memo = $scope.recipientDetail.Memo;
             $scope.sendData.Picture = $scope.picture;
             $scope.sendData.Photo = $scope.recipientDetail.Photo;
-             
+
             $scope.sendData.UserName = $scope.recipientDetail.UserName;
             $scope.sendData.InvitationSentTo = $scope.recipientDetail.UserName;
             $scope.sendData.PhoneNumberInvited = $scope.recipientDetail.ContactNumber;
             console.log($scope.sendData);
-            if ($scope.sendData.RecepientName.replace(/\s/g, "") == "")
-                $scope.sendData.RecepientName = $scope.sendData.UserName ? $scope.sendData.UserName : $scope.sendData.PhoneNumberInvited;
 
+            if ($scope.sendData.RecepientName.replace(/\s/g, "") == "")
+                $scope.sendData.RecepientName = $scope.sendData.UserName ? $scope.sendData.UserName
+                                                                         : $scope.sendData.PhoneNumberInvited;
 
             CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
 
             $state.go('enterPin');
-          
-
- 
         }
     }
 
 
     $scope.CheckPin = function (Pin) {
         console.log('Check Pin Function called');
- 
-         if ($('#frmPinForeground').parsley().validate() == true)
+
+        if ($('#frmPinForeground').parsley().validate() == true)
         {
-            
- 
             console.log(Pin);
 
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
-                template: 'Loading ...'
+                template: 'Submitting...'
             });
 
             CommonServices.GetEncryptedData(Pin).success(function (data) {
                 console.log(data.Status);
+
                 $scope.requestData.PinNumber = data.Status;
                 $scope.sendData.PinNumber = data.Status;
+
                 ValidatePin.ValidatePinNumberToEnterForEnterForeground(data.Status)
                .success(function (data) {
                    // $scope.Data = data;
                    console.log($scope.data);
-
 
                    if (data.Result == 'Success')
                    {
@@ -254,6 +242,7 @@
                        if (type == 'request')
                        {
                            console.log($scope.recipientDetail);
+
                            $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
                            $scope.requestData.Amount = $scope.recipientDetail.Amount;
                            $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
@@ -261,81 +250,66 @@
                            $scope.requestData.Memo = $scope.recipientDetail.Memo;
                            $scope.requestData.Picture = $scope.picture;
                            $scope.requestData.MoneySenderEmailId = $scope.recipientDetail.UserName;
+
                            if ($scope.recipientDetail.MemberId != null)
                            {
                                howMuchService.RequestMoney($scope.requestData).success(function (data) {
 
-                                   if (data.Result.indexOf('successfully') > -1)
-                                   {
-                                       $scope.modal.hide();
-                                       $ionicLoading.hide();
-                                       swal("Success...", data.Result, "success");
-                                       $scope.recipientDetail.Amount = "";
-                                       $scope.recipientDetail.Memo = "";
-
-                                   }
-                                   else
-                                   {
-                                       $scope.modal.hide();
-                                       $ionicLoading.hide();
-                                       swal("Error...", data.Result, "error");
-
-                                   }
-                               }).error(function (data) {
-
-                                   //    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                                   CommonServices.logOut();
-                               });
-                           }
-                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.UserName != null) && ($scope.recipientDetail.ContactNumber == null))
-                           {
-
-                               howMuchService.RequestMoneyToNonNoochUserUsingSynapse($scope.requestData).success(function (data) {
+                                   $scope.modal.hide();
+                                   $ionicLoading.hide();
 
                                    if (data.Result.indexOf('successfully') > -1)
                                    {
-                                       $scope.modal.hide();
-                                       $ionicLoading.hide();
-                                       swal("Success...", data.Result, "success");
+                                       swal("Success!", data.Result, "success");
                                        $scope.recipientDetail.Amount = "";
                                        $scope.recipientDetail.Memo = "";
-
                                    }
                                    else
-                                   {
-                                       $scope.modal.hide();
-                                       $ionicLoading.hide();
-                                       swal("Error...", data.Result, "error");
-
-                                   }
+                                       swal("Error", data.Result, "error");
                                }).error(function (data) {
-
                                    // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                                    CommonServices.logOut();
                                });
-
                            }
-                           else if (($scope.recipientDetail.MemberId == null) && ($scope.recipientDetail.ContactNumber != null))
+                           else if ($scope.recipientDetail.MemberId == null &&
+                                    $scope.recipientDetail.UserName != null &&
+                                    $scope.recipientDetail.ContactNumber == null)
+                           {
+                               howMuchService.RequestMoneyToNonNoochUserUsingSynapse($scope.requestData).success(function (data) {
+
+                                   $scope.modal.hide();
+                                   $ionicLoading.hide();
+
+                                   if (data.Result.indexOf('successfully') > -1)
+                                   {
+                                       swal("Success!", data.Result, "success");
+                                       $scope.recipientDetail.Amount = "";
+                                       $scope.recipientDetail.Memo = "";
+                                   }
+                                   else
+                                       swal("Error", data.Result, "error");
+                               }).error(function (data) {
+                                   // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   CommonServices.logOut();
+                               });
+                           }
+                           else if ($scope.recipientDetail.MemberId == null &&
+                                    $scope.recipientDetail.ContactNumber != null)
                            {
                                console.log('sending request from mobile number');
                                howMuchService.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse($scope.requestData, $scope.recipientDetail.ContactNumber).success(function (data) {
 
+                                   $scope.modal.hide();
+                                   $ionicLoading.hide();
+
                                    if (data.Result.indexOf('successfully') > -1)
                                    {
-                                       $scope.modal.hide();
-                                       $ionicLoading.hide();
-                                       swal("Success...", data.Result, "success");
+                                       swal("Success!", data.Result, "success");
                                        $scope.recipientDetail.Amount = "";
                                        $scope.recipientDetail.Memo = "";
-
                                    }
                                    else
-                                   {
-                                       $scope.modal.hide();
-                                       $ionicLoading.hide();
-                                       swal("Error...", data.Result, "error");
-
-                                   }
+                                       swal("Error", data.Result, "error");
                                }).error(function (data) {
                                    $ionicLoading.hide();
                                    $scope.modal.hide();
@@ -365,16 +339,13 @@
                                        $scope.modal.hide();
                                        $scope.recipientDetail.Amount = "";
                                        $scope.recipientDetail.Memo = "";
-                                       swal("Payed...", data.Result, "success");
-
+                                       swal("Paid...", data.Result, "success");
                                    }
-
                                    else
                                    {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
                                        swal("Error...", data.Result, "error");
-
                                    }
                                    $ionicLoading.hide();
                                }).error(function (data) {
@@ -394,16 +365,13 @@
                                        $scope.modal.hide();
                                        $scope.recipientDetail.Amount = "";
                                        $scope.recipientDetail.Memo = "";
-                                       swal("Payed...", data.Result, "success");
-
+                                       swal("Paid...", data.Result, "success");
                                    }
-
                                    else
                                    {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
                                        swal("Error...", data.Result, "error");
-
                                    }
                                    $ionicLoading.hide();
                                }).error(function (data) {
@@ -422,16 +390,13 @@
                                        $scope.modal.hide();
                                        $scope.recipientDetail.Amount = "";
                                        $scope.recipientDetail.Memo = "";
-                                       swal("Payed...", data.Result, "success");
-
+                                       swal("Paid...", data.Result, "success");
                                    }
-
                                    else
                                    {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
                                        swal("Error...", data.Result, "error");
-
                                    }
                                    $ionicLoading.hide();
                                }).error(function (data) {
@@ -447,16 +412,14 @@
                    {
                        $scope.modal.hide();
                        $ionicLoading.hide();
-                       swal("Oops...", "Incorrect Pin !", "error");
-
+                       swal("Oops...", "Incorrect PIN!", "error");
                    }
                    else if (data.Message == 'An error has occurred.')
                    {
                        $scope.modal.hide();
                        $ionicLoading.hide();
-                       swal("Oops...", "Something went wrong !", "error");
+                       swal("Oops...", "Something went wrong!", "error");
                    }
-
                }).error(function (data) {
                    console.log('eror' + data);
                    $scope.modal.hide();
@@ -513,7 +476,6 @@
                   // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                   CommonServices.logOut();
               });
-
         });
     };
 
@@ -575,7 +537,6 @@
             });
         });
     }
-
 
 
     $scope.GoBack = function () {
