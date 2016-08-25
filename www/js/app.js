@@ -46,8 +46,27 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               pinValidatorData: {}
           };
       }
-      $ionicPlatform.ready(function () {
+
+
+         
+              $ionicPlatform.ready(function() {
+                  // Enable to debug issues.
+                  // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+  
+                  var notificationOpenedCallback = function(jsonData) {
+                      console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+                  };
+
+                  window.plugins.OneSignal.init("f8bad22d-b46a-40de-bd66-8d557b32f7ff",
+                                                 {googleProjectNumber: "647272714068"},
+                                                 notificationOpenedCallback);
+  
+                  // Show an alert box if a notification comes in when the user is in your app.
+                  window.plugins.OneSignal.enableInAppAlertNotification(true);
+              
+
           console.log('app run');
+
 
 
 
