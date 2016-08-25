@@ -1,32 +1,36 @@
 ﻿<ion-view view-title="Social Settings">
-    <ion-content>
-
-        <br>
+    <ion-content class="b-gray">
 
         <div class="section-header m-t-20 m-b-0">Linked Accounts</div>
 
-        <div ng-if='Res.FacebookAccountLogin == "" || Res.FacebookAccountLogin == null'>
+        <div class="row p-t-0">
+            <div class="col p-10">
 
-            <button class="button btn-primary button-block" ng-click="connectFb()">
-                <i class="ion-social-facebook"></i>
-                Connect To Facebook
-            </button>
-            <div class="section-note p-t-0">Connect your Facebook account to Nooch to allow quicker login and to share payments with friends</div>
-        </div>
+                <div ng-if='Res.FacebookAccountLogin == "" || Res.FacebookAccountLogin == null'>
 
-        <div ng-if='Res.FacebookAccountLogin != ""'>
-            <div class="row">
-                <div class="col col-10">
-                    <i class="ion-social-facebook" style="font-size:70px"></i>
+                    <button class="button btn-primary button-block m-0 m-b-5" ng-click="connectFb()">
+                        <i class="ion-social-facebook"></i>
+                        Connect To Facebook
+                    </button>
+
+                    <div class="section-note p-5">Connect your Facebook account to Nooch to allow quicker login and to share payments with friends</div>
+
                 </div>
-                <div class="col">
-                    <div class="item item-avatar side_menu_top">
-                        <img class="user-img" src="{{Res.PhotoUrl}}">
+
+                <div ng-if='Res.FacebookAccountLogin != null && Res.FacebookAccountLogin != ""'>
+
+                    <div class="col col-10">
+                        <i class="ion-social-facebook" style="font-size:70px"></i>
+                    </div>
+                    <div class="col">
+                        <div class="item item-avatar side_menu_top">
+                            <img class="user-img" src="{{Res.PhotoUrl}}">
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
-
 
     </ion-content>
 </ion-view>

@@ -29,7 +29,7 @@ ion-header-bar, .navheader {
     color: #939598;
     font-size: 17px;
     margin: 0px 0px 10px 16px;
-    height: 24px;
+    height: 22px;
 }
 
 .section-note {
@@ -659,6 +659,12 @@ a {
 }
 
 
+/***  LISTS  ***/
+.list.border-t-b{
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
 
 /***  Forms  ***/
 .input-label {
@@ -1084,6 +1090,9 @@ div.hscroller-card {
     padding: 0 16px;
 }
 
+.list i.ion-locked:before {
+    font-size: 20px;
+}
 
 /*******************/
 /***   PROFILE   ***/
