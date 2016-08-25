@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.transferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services', 'ngMap'])
 
-       .controller('transferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope,$ionicPlatform, NgMap) {
+       .controller('transferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope, $ionicPlatform, NgMap) {
 
            $ionicModal.fromTemplateUrl('templates/transferDetails/modalPin.html', {
                scope: $scope,
@@ -8,44 +8,39 @@
            }).then(function (modal) {
                $scope.modal = modal;
            });
-          
+
            $scope.transDetail = {};
-         
+
            $scope.$on("$ionicView.enter", function (event, data) {
                console.log('Transfer Details Cntrlr Fired');
-
 
                $rootScope.Location = {
                    longi: '',
                    lati: ''
                }
-               $scope.hasLatiLongi = false;
-               $scope.hasPicture = false;
+ 
 
                var vm = this;
                NgMap.getMap().then(function (map) {
-                  
-                   console.log(map.getCenter());
-                   console.log('markers', map.markers);
-                   console.log('shapes', map.shapes);
+
+                   //console.log(map.getCenter());
+                   //console.log('markers', map.markers);
+                   //console.log('shapes', map.shapes);
 
                    vm.showCustomMarker = function (evt) {
                        map.customMarkers.foo.setVisible(true);
                        map.customMarkers.foo.setPosition(this.getPosition());
                    }
+
                    vm.closeCustomMarker = function (evt) {
                        this.style.display = 'none';
                    }
                });
 
-
-               console.log('object -> ' + JSON.stringify($stateParams.trans));
+               console.log('Transaction Obj -> ' + JSON.stringify($stateParams.trans));
 
                // Make sure there is a transaction object available
-               if ($stateParams.trans == null)
-               {
-                   $state.go('app.history');
-               }
+               if ($stateParams.trans == null) $state.go('app.history');
                else
                {
                    $scope.transDetail = $stateParams.trans;
@@ -93,8 +88,7 @@
                    else if ($scope.transDetail.TransactionType == 'Request')
                    {
                        if ($scope.transDetail.MemberId == $scope.memId)
-                       { 
-
+                       {
                            $scope.typeLabelTxt = "Request To";
                            $scope.labelTypeClr = "blue";
                        }
@@ -104,7 +98,6 @@
                            $scope.labelTypeClr = "blue";
                        }
                    }
-                  
                    else if ($scope.transDetail.TransactionType == 'Reward')
                    {
                        if ($scope.transDetail.MemberId != $scope.memId)
@@ -145,12 +138,14 @@
                });
 
                transferDetailsService.RemindPayment($scope.transDetail.TransactionId).success(function (data) {
-                   if (data.Result.indexOf('successfully') > -1) {
+                   if (data.Result.indexOf('successfully') > -1)
+                   {
                        swal("Sent...", data.Result, "success");
                        $ionicLoading.hide();
                        $state.go('app.history');
                    }
-                   else {
+                   else
+                   {
                        swal("Error...", data.Result, "error");
                        $ionicLoading.hide();
                    }
@@ -169,12 +164,13 @@
                    template: 'Cancelling Request...'
                });
                transferDetailsService.CancelRequest($scope.transDetail.TransactionId).success(function (data) {
-                   if (data.Result.indexOf('Successfully') > -1) {
+                   if (data.Result.indexOf('Successfully') > -1)
+                   {
                        swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
                            $ionicLoading.hide();
                            $state.go('app.history');
                        });
-                     
+
                    }
 
                }).error(function (data) {
@@ -191,12 +187,13 @@
                    template: 'Rejecting Request...'
                });
                transferDetailsService.RejectPayment($scope.transDetail.TransactionId).success(function (data) {
-                   if (data.Result.indexOf('Successfully') > -1) {
+                   if (data.Result.indexOf('Successfully') > -1)
+                   {
                        swal({ title: "Request Rejected", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
                            $ionicLoading.hide();
                            $state.go('app.history');
                        });
-                  
+
                    }
                    $ionicLoading.hide();
                }).error(function (data) {
@@ -214,19 +211,19 @@
            $scope.TransferMoney = function () {
 
                $scope.transDetail.RecepientName = $scope.transDetail.Name;
+ 
                CommonServices.savePinValidationScreenData({ myParam: $scope.transDetail, type: 'transfer', returnUrl: 'app.transferDetails', returnPage: 'Transfer Details', comingFrom: 'Transfer' });
                
+ 
                $state.go('enterPin');
-             //  $scope.modal.show();
+               //  $scope.modal.show();
            }
 
-       
+ 
 
            $scope.PayBack = function () {
-
                console.log("Pay Back" + JSON.stringify($scope.transDetail));
                $state.go('app.howMuch', { myParam: $scope.transDetail });;
            }
-
 
        })
