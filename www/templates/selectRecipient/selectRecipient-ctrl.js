@@ -9,6 +9,7 @@
 
         $scope.FindRecent();
 
+        $scope.recentCount = null;
         // to check contacts authorization
         // cordova.plugins.diagnostic.isContactsAuthorized(function(authorized){
         //   console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
@@ -106,7 +107,9 @@
 
             $scope.memberList = data;
 
-            console.log('Find Recent -->');
+            $scope.recentCount = $scope.memberList.length;
+
+            console.log('Recent List -->');
             console.log($scope.memberList);
 
             for (var i = 0; i < $rootScope.phoneContacts.length; i++)

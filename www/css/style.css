@@ -1422,6 +1422,11 @@ div.hscroller-card {
 /**************************/
 /***  SELECT RECIPIENT  ***/
 /**************************/
+.emptyTableImg {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+}
 #recents-table .item {
     padding: 15px 15px 25px 80px;
 }

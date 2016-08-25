@@ -20,7 +20,7 @@
                 <input type="text" ng-keyup="checkList()" class="p-r-10" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">
             </label>
 
-            <img src="./../img/SelectRecip_Empty@2x.png" ng-show="memberList==null" />
+            <img src="./../img/SelectRecip_Empty@2x.png" ng-show="recentCount===0" class="emptyTableImg"/>
 
         </div>
 
@@ -31,7 +31,7 @@
 
                     <a class="item item-avatar" ui-sref="app.howMuch({recip:member})" nav-transition="ios" nav-direction="forward">
                         <img src="{{member.Photo}}" class="userPic">
-                        <h2 class="username">{{member.FirstName}} {{member.LastName}}</h2>
+                        <h2 class="username">{{member.FirstName}} <span class="f-400">{{member.LastName}}</span></h2>
                         <p class="usersubtitle">{{member.UserName}}</p>
                         <p class="usersubtitle">{{member.ContactNumber}}  </p>
                         <h3 ng-if="member.Miles">{{member.Miles}}Miles </h3>
