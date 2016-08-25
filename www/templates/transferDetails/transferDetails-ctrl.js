@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.transferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services', 'ngMap'])
 
-       .controller('transferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope,$ionicPlatform, NgMap) {
+       .controller('transferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope, $ionicPlatform, NgMap) {
 
            $ionicModal.fromTemplateUrl('templates/transferDetails/modalPin.html', {
                scope: $scope,
@@ -8,42 +8,38 @@
            }).then(function (modal) {
                $scope.modal = modal;
            });
-          
+
            $scope.transDetail = {};
-         
+
            $scope.$on("$ionicView.enter", function (event, data) {
                console.log('Transfer Details Cntrlr Fired');
-
 
                $rootScope.Location = {
                    longi: '',
                    lati: ''
                }
-             
+
                var vm = this;
                NgMap.getMap().then(function (map) {
-                  
-                   console.log(map.getCenter());
-                   console.log('markers', map.markers);
-                   console.log('shapes', map.shapes);
+
+                   //console.log(map.getCenter());
+                   //console.log('markers', map.markers);
+                   //console.log('shapes', map.shapes);
 
                    vm.showCustomMarker = function (evt) {
                        map.customMarkers.foo.setVisible(true);
                        map.customMarkers.foo.setPosition(this.getPosition());
                    }
+
                    vm.closeCustomMarker = function (evt) {
                        this.style.display = 'none';
                    }
                });
 
-
-               console.log('object -> ' + JSON.stringify($stateParams.trans));
+               console.log('Transaction Obj -> ' + JSON.stringify($stateParams.trans));
 
                // Make sure there is a transaction object available
-               if ($stateParams.trans == null)
-               {
-                   $state.go('app.history');
-               }
+               if ($stateParams.trans == null) $state.go('app.history');
                else
                {
                    $scope.transDetail = $stateParams.trans;
@@ -75,8 +71,7 @@
                    else if ($scope.transDetail.TransactionType == 'Request')
                    {
                        if ($scope.transDetail.MemberId == $scope.memId)
-                       { 
-
+                       {
                            $scope.typeLabelTxt = "Request To";
                            $scope.labelTypeClr = "blue";
                        }
@@ -86,7 +81,6 @@
                            $scope.labelTypeClr = "blue";
                        }
                    }
-                  
                    else if ($scope.transDetail.TransactionType == 'Reward')
                    {
                        if ($scope.transDetail.MemberId != $scope.memId)
@@ -127,12 +121,14 @@
                });
 
                transferDetailsService.RemindPayment($scope.transDetail.TransactionId).success(function (data) {
-                   if (data.Result.indexOf('successfully') > -1) {
+                   if (data.Result.indexOf('successfully') > -1)
+                   {
                        swal("Sent...", data.Result, "success");
                        $ionicLoading.hide();
                        $state.go('app.history');
                    }
-                   else {
+                   else
+                   {
                        swal("Error...", data.Result, "error");
                        $ionicLoading.hide();
                    }
@@ -151,12 +147,13 @@
                    template: 'Cancelling Request...'
                });
                transferDetailsService.CancelRequest($scope.transDetail.TransactionId).success(function (data) {
-                   if (data.Result.indexOf('Successfully') > -1) {
+                   if (data.Result.indexOf('Successfully') > -1)
+                   {
                        swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
                            $ionicLoading.hide();
                            $state.go('app.history');
                        });
-                     
+
                    }
 
                }).error(function (data) {
@@ -173,12 +170,13 @@
                    template: 'Rejecting Request...'
                });
                transferDetailsService.RejectPayment($scope.transDetail.TransactionId).success(function (data) {
-                   if (data.Result.indexOf('Successfully') > -1) {
+                   if (data.Result.indexOf('Successfully') > -1)
+                   {
                        swal({ title: "Request Rejected", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
                            $ionicLoading.hide();
                            $state.go('app.history');
                        });
-                  
+
                    }
                    $ionicLoading.hide();
                }).error(function (data) {
@@ -197,12 +195,11 @@
 
                $scope.transDetail.RecepientName = $scope.transDetail.Name;
                CommonServices.savePinValidationScreenData({ myParam: $scope.transDetail, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });
-               
+
                $state.go('enterPin');
-             //  $scope.modal.show();
+               //  $scope.modal.show();
            }
 
-           // (CLIFF (7/31/16): SEE ABOVE NOTE - THIS SHOULD NOT BE HERE!
            $scope.CheckPin = function (Pin) {
                console.log('Check Pin Function called');
 
@@ -213,112 +210,87 @@
 
                    //if ($cordovaNetwork.isOnline()) {
                    $ionicLoading.show({
-                       template: 'Loading ...'
+                       template: 'Submitting...'
                    });
 
                    CommonServices.GetEncryptedData(Pin).success(function (data) {
 
                        $scope.transDetail.PinNumber = data.Status;
+
                        ValidatePin.ValidatePinNumberToEnterForEnterForeground(data.Status)
-                      .success(function (data) {
-                          // $scope.Data = data;
-                          console.log(data);
 
-                          $ionicLoading.hide();
-                          if (data.Result == 'Success')
-                          {
+                          .success(function (data) {
+                              // $scope.Data = data;
                               console.log(data);
-                              //code to transfer Money
 
-                              $ionicLoading.show({
-                                  template: 'Paying Payment ...'
-                              });
+                              $ionicLoading.hide();
 
-                              if ($scope.transDetail.MemberId != $scope.transDetail.RecepientId)
+                              if (data.Result == 'Success')
                               {
-                                  transferDetailsService.TransferMoney($scope.transDetail).success(function (data) {
-                                      if (data.Result && data.Result.indexOf('Successfully') > -1)
-                                      {
-                                          swal("Payed...", data.Result, "success");
-                                          $ionicLoading.hide();
-                                      }
-                                      else
-                                      {
-                                          swal("Error...", data.Result, "error");
-                                          $ionicLoading.hide();
-                                      }
-                                      $ionicLoading.hide();
-                                  }).error(function () { $ionicLoading.hide(); });
-                              }
-                              else if ($scope.transDetail.MemberId == $scope.transDetail.RecepientId && $scope.transDetail.InvitationSentTo.length > 0)
-                              {
-                                  transferDetailsService.TransferMoneyToNonNoochUserUsingSynapse($scope.transDetail).success(function (data) {
-                                      if (data.Result && data.Result.indexOf('Successfully') > -1)
-                                      {
-                                          swal("Payed...", data.Result, "success");
-                                          $ionicLoading.hide();
-                                      }
-                                      else
-                                      {
-                                          swal("Error...", data.Result, "error");
-                                          $ionicLoading.hide();
-                                      }
-                                      $ionicLoading.hide();
-                                  }).error(function () { $ionicLoading.hide(); });
-                              }
-                              else if ($scope.transDetail.MemberId == $scope.transDetail.RecepientId && $scope.transDetail.PhoneNumberInvited.length > 0)
-                              {
-                                  transferDetailsService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse($scope.transDetail).success(function (data) {
-                                      if (data.Result && data.Result.indexOf('Successfully') > -1)
-                                      {
-                                          swal("Payed...", data.Result, "success");
-                                          $ionicLoading.hide();
-                                      }
-                                      else
-                                      {
-                                          swal("Error...", data.Result, "error");
-                                          $ionicLoading.hide();
-                                      }
-                                      $ionicLoading.hide();
-                                  }).error(function () { $ionicLoading.hide(); });
-                              }
+                                  console.log(data);
+                                  //code to transfer Money
 
+                                  $ionicLoading.show({
+                                      template: 'Paying Payment ...'
+                                  });
 
-
-                          }
-                          else if (data.Result == 'Invalid Pin')
-                          {
-                              swal({
-                                  title: "Oops!",
-                                  text: "Incorrect Pin .",
-                                  type: "warning",
-
-                                  confirmButtonColor: "#DD6B55",
-                                  confirmButtonText: "Ok",
-                              }, function (isConfirm) {
-                                  if (isConfirm)
+                                  // CC (8/23/16): THIS SHOULDN'T BE CALLING "TRANSFER MONEY"... IT COULD ONLY BE COMPLETING A REQUEST HERE ("HandleRequestMoney() on the server")
+                                  if ($scope.transDetail.MemberId != $scope.transDetail.RecepientId)
                                   {
-
-                                      $scope.modal.show();
-
+                                      transferDetailsService.TransferMoney($scope.transDetail).success(function (data) {
+                                          $ionicLoading.hide();
+                                          if (data.Result && data.Result.indexOf('Successfully') > -1)
+                                              swal("Request Paid Successfully", data.Result, "success");
+                                          else
+                                              swal("Error", data.Result, "error");
+                                      }).error(function () { $ionicLoading.hide(); });
                                   }
-                              });
+                                  // CC (8/23/16): COMMENTING THIS OUT B/C IT'S IMPOSSIBLE FOR A NON-NOOCH USER TO BE PAYING A REQUEST OR RECEIVING AN INVITE FROM THE APP
+                                  //else if ($scope.transDetail.MemberId == $scope.transDetail.RecepientId && $scope.transDetail.InvitationSentTo.length > 0)
+                                  //{
+                                  //    transferDetailsService.TransferMoneyToNonNoochUserUsingSynapse($scope.transDetail).success(function (data) {
+                                  //        $ionicLoading.hide();
+                                  //        if (data.Result && data.Result.indexOf('Successfully') > -1)
+                                  //            swal("Paid", data.Result, "success");
+                                  //        else
+                                  //            swal("Error", data.Result, "error");
+                                  //    }).error(function () { $ionicLoading.hide(); });
+                                  //}
+                                  //else if ($scope.transDetail.MemberId == $scope.transDetail.RecepientId && $scope.transDetail.PhoneNumberInvited.length > 0)
+                                  //{
+                                  //    transferDetailsService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse($scope.transDetail).success(function (data) {
+                                  //        $ionicLoading.hide();
+                                  //        if (data.Result && data.Result.indexOf('Successfully') > -1)
+                                  //            swal("Paid Successfully", data.Result, "success");
+                                  //        else
+                                  //            swal("Error...", data.Result, "error");
+                                  //    }).error(function () { $ionicLoading.hide(); });
+                                  //}
+                              }
+                              else if (data.Result == 'Invalid Pin')
+                              {
+                                  swal({
+                                      title: "Incorrect PIN",
+                                      text: "Please try again!",
+                                      type: "warning",
+                                      confirmButtonColor: "#DD6B55",
+                                      confirmButtonText: "Ok",
+                                  }, function (isConfirm) {
+                                      if (isConfirm) $scope.modal.show();
+                                  });
+                              }
+                              else if (data.Message == 'An error has occurred.')
+                                  swal("Oh No!", "Looks like something went wrong - we're having some difficulty completing your request!", "error");
 
-                          }
-                          else if (data.Message == 'An error has occurred.')
-                          {
-                              swal("Oops...", "Something went wrong !", "error");
-                          }
-
-                      }).error(function (data) {
-                          console.log('eror' + data);
-                          $ionicLoading.hide();
-                        //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                          { CommonServices.logOut(); }
-                      });
+                          }).error(function (data) {
+                              console.log('eror' + data);
+                              $ionicLoading.hide();
+                              if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                  CommonServices.logOut();
+                          });
                    }).error(function (data) {
-                     //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                       { CommonServices.logOut(); }
+                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                           CommonServices.logOut();
                    });
 
                    //}
@@ -329,10 +301,8 @@
            };
 
            $scope.PayBack = function () {
-
                console.log("Pay Back" + JSON.stringify($scope.transDetail));
                $state.go('app.howMuch', { myParam: $scope.transDetail });;
            }
-
 
        })
