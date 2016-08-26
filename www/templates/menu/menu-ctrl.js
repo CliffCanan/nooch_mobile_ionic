@@ -12,7 +12,7 @@
         console.log($scope.trustedUrl);
 
         // Check user's Profile Status and Phone No. Status
-        $scope.MemberInfo();
+        //$scope.MemberInfo();
 
         // Check if user has any Pending Requests
         $timeout($scope.pendingList, 5000);
@@ -34,7 +34,8 @@
                console.log(res);
 
                $scope.Res = res;
-
+               console.log('GetUserDetailsForApp result -->>')
+               console.log($scope.Res);
                $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.userPicture;
                $localStorage.GLOBAL_VARIABLES.Status = res.status;
                $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.isVerifiedPhone;
@@ -67,32 +68,32 @@
 
 
     // CC (8/25/16): THIS IS REALLY MEANT ONLY FOR PROFILE SCREEN DATA... DON'T NEED TO CALL IT HERE.
-    $scope.MemberInfo = function () {
-        //console.log('MemberDetails Function Fired');
+    //$scope.MemberInfo = function () {
+    //    //console.log('MemberDetails Function Fired');
 
-        //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading Details...'
-        });
+    //    //if ($cordovaNetwork.isOnline()) {
+    //    $ionicLoading.show({
+    //        template: 'Loading Details...'
+    //    });
 
-        profileService.GetMyDetails()
-            .success(function (details) {
+    //    profileService.GetMyDetails()
+    //        .success(function (details) {
 
-                $scope.Details = details;
+    //            $scope.Details = details;
 
-                console.log('MemberInfo() -> GetMyDetails()...');
-                console.log($scope.Details);
+    //            console.log('MemberInfo() -> GetMyDetails()...');
+    //            console.log($scope.Details);
 
-                $ionicLoading.hide();
-            }).error(function (encError) {
-                console.log('Profile Error: [' + encError + ']');
-                $ionicLoading.hide();
-                if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-            })
-        //}
-        //else swal("Oops...", "Internet not connected!", "error");
-    }
+    //            $ionicLoading.hide();
+    //        }).error(function (encError) {
+    //            console.log('Profile Error: [' + encError + ']');
+    //            $ionicLoading.hide();
+    //            if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+    //                CommonServices.logOut();
+    //        })
+    //    //}
+    //    //else swal("Oops...", "Internet not connected!", "error");
+    //}
 
 
     //$scope.settingsClick = function () {

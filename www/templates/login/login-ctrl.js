@@ -16,8 +16,8 @@
           }
           console.log($localStorage.GLOBAL_VARIABLES);
 
-          $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
-          $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
+         // $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
+        //  $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
       });
 
       $scope.loginData = {
