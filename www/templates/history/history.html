@@ -1,5 +1,9 @@
-﻿<ion-view view-title="History">
+﻿ 
 
+<ion-view view-title="History">
+    <ion-nav-buttons side="secondary">
+        <i class="ion-arrow-expand"   ng-click="openModal()"></i></ion-nav-buttons>
+      
     <ion-content>
 
         <div class="row">
@@ -10,16 +14,25 @@
                 </ti-segmented-control>
             </div>
         </div>
+        <div class="list list-inset m-t-0 m-b-10" >
+
+            <label class="item item-input searchBarContainer">
+                <i class="icon ion-search placeholder-icon p-r-0"></i>
+                <input type="text" ng-keyup="checkList()" class="p-r-10" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">
+            </label>
+
+          
+        </div>
 
         <ion-scroll class="history-list">
 
             <ion-list ng-show="completed">
-                <ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList" ng-if="trans.TransactionStatus == 'Success'">
+                <ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.TransactionStatus == 'Success'">
                     <img src={{trans.Photo}}>
 
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Transfer'">
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Transfer To</label>
-                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Transfer From</label>
+                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Transfer'" >
+                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId" >Transfer To</label>
+                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId" >Transfer From</label>
 
                         <h5 class="date">
                             <i class="ion-android-time m-r-5"></i>
@@ -28,28 +41,28 @@
                     </div>
 
                     <div class="typeDateContainer" ng-if="trans.TransactionType == 'Request'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId == memberId">Paid To</label>
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId">Paid by</label>
+                        <label class="transTypeLabel received" ng-if="trans.MemberId == memberId"  >Paid To</label>
+                        <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId"  >Paid by</label>
 
                         <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
                     </div>
 
                     <div class="typeDateContainer" ng-if="trans.TransactionType == 'Invite'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Invite From</label>
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Invite to</label>
+                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId"  >Invite From</label>
+                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId"  >Invite to</label>
 
                         <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
                     </div>
 
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Reward'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Reward From</label>
+                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Reward'" >
+                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId"  >Reward From</label>
 
                         <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
                     </div>
 
                     <div class="typeDateContainer" ng-if="trans.TransactionType == 'Rent'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Rent From</label>
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Rent to</label>
+                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId"  >Rent From</label>
+                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId"  >Rent to</label>
 
                         <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
                     </div>
@@ -70,7 +83,7 @@
             </ion-list>
 
             <ion-list ng-show="pending">
-                <ion-item class="item item-avatar" ui-sref-active="false" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter : a" ng-if="trans.TransactionStatus == 'Pending'">
+                <ion-item class="item item-avatar" ui-sref-active="false" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search " ng-if="trans.TransactionStatus == 'Pending'">
                     <img src={{trans.Photo}}>
 
                     <div class="typeDateContainer" ng-if="trans.TransactionType == 'Transfer'">

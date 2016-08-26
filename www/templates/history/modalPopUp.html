@@ -1,0 +1,36 @@
+﻿<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">Select</h1>
+    </ion-header-bar>
+    <ion-content>
+        <ion-list ng-modal="list">
+           
+            <ion-item ng-show="completed"   ng-click="press('SentC')">
+                Sent
+            </ion-item>
+            <ion-item ng-show="completed" ng-click="press('ReceivedC')">
+                Received
+            </ion-item>
+            <ion-item ng-show="completed" ng-click="press('CancelledC')">
+                Cancelled
+            </ion-item>
+            <ion-item ng-show="completed" ng-click="press('RejectedC')">
+                Rejected
+            </ion-item>
+         
+            <ion-item ng-show="completed" ng-click="press('DisputedC')">
+                Disputed
+            </ion-item>
+            <ion-item ng-show="pending" ng-click="press('SentP')">
+                Sent
+            </ion-item>
+            <ion-item ng-show="pending" ng-click="press('ReceivedP')">
+                Received
+            </ion-item>
+            <ion-item ng-show="pending" ng-click="press('DisputedP')">
+                Disputed
+            </ion-item>
+          
+        </ion-list>
+    </ion-content>
+</ion-modal-view>
