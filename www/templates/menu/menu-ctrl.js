@@ -6,15 +6,94 @@
         console.log('MenuCtrl Ctrl Loaded');
 
         $scope.MemberDetails();
-        // console.log('Loaded First Time');
 
         $scope.url = 'http://support.nooch.com/';
         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
         console.log($scope.trustedUrl);
 
-        $scope.MemberInfo();  //For checking user's Profile Status and PhoneNo Status.
-        $timeout($scope.pendingList, 5000); // For checking User's Pending Request.
+        // Check user's Profile Status and Phone No. Status
+        $scope.MemberInfo();
+
+        // Check if user has any Pending Requests
+        $timeout($scope.pendingList, 5000);
     });
+
+
+
+    $scope.MemberDetails = function () {
+        //console.log('GetMemberDetails Fired');
+
+        //if ($cordovaNetwork.isOnline()) {
+        $ionicLoading.show({
+            template: 'Loading...'
+        });
+
+        menuService.GetUserDetails()
+           .success(function (res) {
+               console.log("GetUserDetails (Menu Cntrlr -->");
+               console.log(res);
+
+               $scope.Res = res;
+
+               $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.userPicture;
+               $localStorage.GLOBAL_VARIABLES.Status = res.status;
+               $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.isVerifiedPhone;
+               $localStorage.GLOBAL_VARIABLES.firstName = res.firstName;
+               $localStorage.GLOBAL_VARIABLES.lastName = res.lastName;
+               $localStorage.GLOBAL_VARIABLES.isProfileComplete = res.isProfileComplete;
+               $localStorage.GLOBAL_VARIABLES.isRequiredImmediately = res.isRequiredImmediately;
+
+               $ionicLoading.hide();
+
+               if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
+                   $rootScope.$broadcast('isSuspended');
+
+               if ($scope.Res.isVerifiedPhone === false)
+                   $rootScope.$broadcast('IsVerifiedPhoneFalse');
+
+               if ($scope.Res.isProfileComplete === false)
+                   $rootScope.$broadcast('IsValidProfileFalse');
+
+           }).error(function (encError) {
+               console.log('GetMemberDetails Error Block: [' + encError + ']');
+               $ionicLoading.hide();
+
+               if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                   CommonServices.logOut();
+           })
+        //}
+        //else swal("Oops...", "Internet not connected!", "error");
+    }
+
+
+    // CC (8/25/16): THIS IS REALLY MEANT ONLY FOR PROFILE SCREEN DATA... DON'T NEED TO CALL IT HERE.
+    $scope.MemberInfo = function () {
+        //console.log('MemberDetails Function Fired');
+
+        //if ($cordovaNetwork.isOnline()) {
+        $ionicLoading.show({
+            template: 'Loading Details...'
+        });
+
+        profileService.GetMyDetails()
+            .success(function (details) {
+
+                $scope.Details = details;
+
+                console.log('MemberInfo() -> GetMyDetails()...');
+                console.log($scope.Details);
+
+                $ionicLoading.hide();
+            }).error(function (encError) {
+                console.log('Profile Error: [' + encError + ']');
+                $ionicLoading.hide();
+                if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            })
+        //}
+        //else swal("Oops...", "Internet not connected!", "error");
+    }
+
 
     //$scope.settingsClick = function () {
     //    $state.go("app.setting");
@@ -23,7 +102,6 @@
     $scope.showActionSheet = function (id) {
 
         // Show the correct Action Sheet
-
         if (id == 'support')
         {
             var hideSheet = $ionicActionSheet.show({
@@ -34,33 +112,28 @@
                 ],
                 titleText: 'Contact Support',
                 cancelText: 'Cancel',
-                //cancel: function () {
-                //},
                 buttonClicked: function (index) {
                     if (index == 0)
                     {
                         // toArr, ccArr and bccArr must be an array, file can be either null, string or array
                         // .shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                         $cordovaSocialSharing
-                          .shareViaEmail('Hello', 'Got a bug', 'cliff@nooch.com', null, null, null)
+                          .shareViaEmail('Hi Nooch, I found a bug and wanted to tell you!', 'Found a Nooch Bug!', 'bugs@nooch.com', null, null, null)
                           .then(function (result) {
                               // Success!                              
-                              console.log('from social sharing success');
                           }, function (err) {
                               // An error occurred. Show a message to the user                            
                               console.log('from social sharing fail');
                           });
-
                     }
                     else if (index == 1)
                     {
                         // toArr, ccArr and bccArr must be an array, file can be either null, string or array
                         //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                         $cordovaSocialSharing
-                          .shareViaEmail('Hello', 'Getting from Nooch', 'cliff@nooch.com', null, null, null)
+                          .shareViaEmail('Hi Nooch - Please help me!', 'Nooch Support Request', 'support@nooch.com', null, null, null)
                           .then(function (result) {
                               // Success!                              
-                              console.log('from social sharing success');
                           }, function (err) {
                               // An error occurred. Show a message to the user                            
                               console.log('from social sharing fail');
@@ -112,6 +185,7 @@
         $scope.tosModal.hide();
     };
 
+
     // Viewing Privacy Policy Webview (in an Ionic Modal)
     $ionicModal.fromTemplateUrl('privacyModal.html', {
         scope: $scope,
@@ -127,6 +201,7 @@
     $scope.closePrivacy = function () {
         $scope.privacyModal.hide();
     };
+
 
     // Viewing Support Center Modal Webview (in an Ionic Modal)
     $ionicModal.fromTemplateUrl('supportCenterModal.html', {
@@ -144,6 +219,7 @@
         $scope.supportCenterModal.hide();
     };
 
+
     // Cleanup the modal when we're done with it!
     $scope.$on('$destroy', function () {
         $scope.tosModal.remove();
@@ -151,87 +227,6 @@
         $scope.supportCenterModal.remove();
     });
 
-
-    $scope.MemberDetails = function () {
-        //console.log('GetMemberDetails Fired');
-
-        //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading ...'
-        });
-
-        menuService.GetMemberDetails()
-           .success(function (res) {
-               console.log("GetMemberDetails from Menu- >>");
-               console.log(res);
-               $scope.Res = res;
-
-               $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.PhotoUrl;
-               $localStorage.GLOBAL_VARIABLES.Status = res.Status;
-               $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.IsVerifiedPhone;
-               $ionicLoading.hide();
-           }
-           ).error(function (encError) {
-               console.log('came in enc error block ' + encError);
-               $ionicLoading.hide();
-
-               //   if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-               CommonServices.logOut();
-           })
-
-        //}
-        //else {
-        //    swal("Oops...", "Internet not connected!", "error");
-        //}
-    }
-
-
-    $scope.MemberInfo = function () {
-        //console.log('MemberDetails Function Fired');
-
-        //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading Details...'
-        });
-
-        profileService.GetMyDetails()
-                .success(function (details) {
-
-                    $scope.Details = details;
-
-                    console.log('MemberInfo() ->');
-                    console.log($scope.Details);
-
-                    if ($scope.Details.IsVerifiedPhone == false)
-                    {
-                        //console.log('value in IsVerifiedPhone');
-                        //console.log($scope.Details.IsVerifiedPhone);
-                        $rootScope.$broadcast('IsVerifiedPhoneFalse');
-                    }
-
-                    if ($scope.Details.IsValidProfile == false)
-                        $timeout($scope.validProfile, 8000);
-
-                    $ionicLoading.hide();
-                })
-                .error(function (encError) {
-                    console.log('Profile Error: [' + encError + ']');
-                    $ionicLoading.hide();
-                    // if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    { CommonServices.logOut(); }
-                })
-
-        //}
-        //else {
-        //    swal("Oops...", "Internet not connected!", "error");
-        //}
-    }
-
-    $scope.validProfile = function () {
-        console.log('value in IsValidProfile');
-        console.log($scope.Details.IsValidProfile);
-        $rootScope.$broadcast('IsValidProfileFalse');
-    }
 
     $scope.pendingList = function () {
         historyService.getTransferList().success(function (data) {
@@ -257,8 +252,8 @@
         }).error(function (data) {
             console.log('Get History Error: [' + data + ']');
             $ionicLoading.hide();
-            //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-            { CommonServices.logOut(); }
+            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                CommonServices.logOut();
         });
     }
 
@@ -266,5 +261,4 @@
     $scope.goProfile = function () {
         $state.go('app.profile');
     }
-
 })

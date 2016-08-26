@@ -108,11 +108,11 @@
                 console.log(data);
                 $scope.Data = data;
                 console.log('from UpdateProfile function');
-                $scope.saveDob($scope.Details.DateOfBirth);
-
+                
                 if ($scope.Details.SSN != null)
                     $scope.saveSSN($scope.Details);
 
+               $scope.saveDob($scope.Details.DateOfBirth);
                 $ionicLoading.hide();
             }
     ).error(function (encError) {
@@ -220,19 +220,18 @@
                 console.log('after converting base 64 imgURL');
                 console.log($scope.imgURI);
 
+                //var binary_string = window.atob(imageData);
+                //var len = binary_string.length;
+                //var bytes = new Uint8Array(len);
+                //for (var i = 0; i < len; i++)
+                //{
+                //    bytes[i] = binary_string.charCodeAt(i);
+                //}
 
-                var binary_string = window.atob(imageData);
-                var len = binary_string.length;
-                var bytes = new Uint8Array(len);
-                for (var i = 0; i < len; i++)
-                {
-                    bytes[i] = binary_string.charCodeAt(i);
-                }
+                //console.log(bytes);
+                //$scope.Details.picture = bytes;
 
-                console.log(bytes);
-                $scope.Details.picture = bytes;
-
-                $scope.Details.Photo = imageData;
+                $scope.Details.Photos = imageData;
                 // $scope.Details.Photo = imageData;
 
             }, function (err) {

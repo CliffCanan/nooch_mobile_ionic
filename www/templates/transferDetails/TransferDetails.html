@@ -35,10 +35,10 @@
             </div>
         </div>
 
-     
+
         <div ng-show="hasLatiLongi == true && hasPicture == true">
             <div style="width:50%">
-                <img width="100" src="transDetail.Picture" align="left" />
+                <img width="100" src="data:image/png;base64,{{transDetail.Picture}}" align="left" />
             </div>
             <div style="width:50%" id="mapRow" align="right">
                 <div ng-controller="transferDetailsCtrl as vm">
@@ -47,10 +47,10 @@
                         <marker position="{{Location.lati}},{{Location.longi}}" on-click="vm.showCustomMarker()"></marker>
                         <marker position="{{Location.lati}},{{Location.longi}}" on-click="vm.showCustomMarker()"></marker>
                         <custom-marker id="foo" position="{{Location.lati}},{{Location.longi}}" on-click="vm.closeCustomMarker()">
-                            <!--<div style="background:black">
+                            <div style="background:black">
                             <img width="100" src="https://goo.gl/DAAJG3" align="left" /> Hi, This is test Marker <br />
                             Money made Easy <br />
-                        </div>-->
+                        </div>
                         </custom-marker>
                     </ng-map>
                     <div id="mapGeoLabel">{{mapGeoLabelTxt}}</div>
@@ -59,9 +59,7 @@
         </div>
 
         <div ng-show="hasLatiLongi == true && hasPicture == false">
-            <!--<div style="width:50%">
-            <img width="100" src="transDetail.Picture" align="left" />
-        </div>-->
+         
             <div style="width:100%" id="mapRow" align="right">
                 <div ng-controller="transferDetailsCtrl as vm">
                     <ng-map zoom="13" center="{{Location.lati}},{{Location.longi}}" style="height:200px"
@@ -81,8 +79,8 @@
         </div>
 
         <div ng-if="hasLatiLongi == false && hasPicture == true">
-            <div>
-                <img width="100" src="transDetail.Picture" align="left" />
+            <div class="text-center">
+                <img width="100" src="data:image/png;base64,{{transDetail.Picture}}"/>
             </div>
         </div>
 
