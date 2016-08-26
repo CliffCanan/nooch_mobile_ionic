@@ -67,7 +67,7 @@
               CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
 
                   authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken,$localStorage.GLOBAL_VARIABLES.DeviceOS)
                     .success(function (response) {
 
                         $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;

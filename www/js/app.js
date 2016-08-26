@@ -99,8 +99,17 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
               var device = $cordovaDevice.getDevice();
               console.log(device);
-              $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform;
+
+
+            if(device.platform=="Android")
+              $localStorage.GLOBAL_VARIABLES.DeviceOS = "A";
+            else
+              $localStorage.GLOBAL_VARIABLES.DeviceOS = "I";
+
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
+
+
+            console.log('device operating sysstem is ---->>>>>>>>>>>>>>>>>>>---->>>>>>>>>>>>>>>>>>>---->>>>>>>>>>>>>>>>>>>---->>>>>>>>>>>>>>>>>>>---->>>>>>>>>>>>>>>>>>> '+device.platform );
 
 
 
