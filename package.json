@@ -20,13 +20,6 @@
     "cordova-plugin-geolocation",
     "cordova-plugin-compat",
     "cordova-plugin-device",
-    {
-      "id": "phonegap-plugin-push",
-      "locator": "phonegap-plugin-push",
-      "variables": {
-        "SENDER_ID": "104707683579"
-      }
-    },
     "cordova-plugin-network-information",
     "cordova-plugin-contacts",
     "cordova.plugins.diagnostic",
@@ -34,11 +27,20 @@
       "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
       "id": "cordova-plugin-x-socialsharing"
     },
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    {
+      "id": "cordova-plugin-facebook4",
+      "locator": "/Users/SN/Documents/nooch/cordova-plugin-facebook4",
+      "variables": {
+        "APP_ID": "198279616971457",
+        "APP_NAME": "“Nooch”"
+      }
+    },
+    "onesignal-cordova-plugin"
   ],
   "cordovaPlatforms": [
-    "android",
     "ios",
+    "android",
     {
       "platform": "android",
       "version": "",

@@ -48,78 +48,24 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       }
 
 
-         
+
               $ionicPlatform.ready(function() {
                   // Enable to debug issues.
                   // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-  
-                  var notificationOpenedCallback = function(jsonData) {
-                      console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-                  };
-
-                  window.plugins.OneSignal.init("f8bad22d-b46a-40de-bd66-8d557b32f7ff",
-                                                 {googleProjectNumber: "647272714068"},
-                                                 notificationOpenedCallback);
-  
-                  // Show an alert box if a notification comes in when the user is in your app.
-                  window.plugins.OneSignal.enableInAppAlertNotification(true);
-              
-
-          console.log('app run');
 
 
+              $rootScope.phoneContacts = [];
+              var readContact =
+                                  {
+                                      FirstName: '',
+                                      UserName: '',
+                                      ContactNumber: '',
+                                      Photo: '',
+                                      id: '',
+                                      bit: ''
+                                  };
 
 
-          $rootScope.phoneContacts = [];
-          var readContact =
-                              {
-                                  FirstName: '',
-                                  UserName: '',
-                                  ContactNumber: '',
-                                  Photo: '',
-                                  id: '',
-                                  bit: ''
-                              };
-
-          function onSuccess(contacts) {
-
-              console.log(contacts);
-              for (var i = 0; i < contacts.length; i++)
-              {
-                  var contact = contacts[i];
-
-                  readContact.FirstName = contact.name.formatted;
-                  readContact.id = i;
-                  readContact.bit = 'p';
-                  if (contact.emails != null)
-                      readContact.UserName = contact.emails[0].value;
-                  if (contact.phoneNumbers != null)
-                      readContact.ContactNumber = contact.phoneNumbers[0].value;
-                  if (contact.photos != null)
-                      readContact.Photo = contact.photos[0].value;
-                  $rootScope.phoneContacts.push(readContact);
-
-                  readContact =
-                              {
-                                  FirstName: '',
-                                  UserName: '',
-                                  ContactNumber: '',
-                                  Photo: '',
-                                  id: ''
-                              };
-              }
-
-              console.log($rootScope.phoneContacts);
-          };
-
-          function onError(contactError) {
-              console.log(contactError);
-          };
-
-          var options = {};
-          options.multiple = true;
-
-          $cordovaContacts.find(options).then(onSuccess, onError);
 
 
           // this functino will gets fired when app comes to foreground
@@ -146,7 +92,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
           }, false);
 
-          console.log(window);
+          //console.log(window);
           if (window.cordova)
           {
               // Get device info... will be used for handling notifications
@@ -155,74 +101,120 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               console.log(device);
               $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform;
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
-              console.log(device);
+
+
+
+            function onSuccess(contacts) {
+
+              console.log(contacts);
+              for (var i = 0; i < contacts.length; i++)
+              {
+                var contact = contacts[i];
+
+                readContact.FirstName = contact.name.formatted;
+                readContact.id = i;
+                readContact.bit = 'p';
+                if (contact.emails != null)
+                  readContact.UserName = contact.emails[0].value;
+                if (contact.phoneNumbers != null)
+                  readContact.ContactNumber = contact.phoneNumbers[0].value;
+                if (contact.photos != null)
+                  readContact.Photo = contact.photos[0].value;
+                $rootScope.phoneContacts.push(readContact);
+
+                readContact =
+                {
+                  FirstName: '',
+                  UserName: '',
+                  ContactNumber: '',
+                  Photo: '',
+                  id: ''
+                };
+              }
+
+              console.log($rootScope.phoneContacts);
+            };
+
+            function onError(contactError) {
+              console.log(contactError);
+            };
+
+            var options = {};
+            options.multiple = true;
+
+            $cordovaContacts.find(options).then(onSuccess, onError);
+
+
+
+            var notificationOpenedCallback = function(jsonData) {
+              console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+            };
+
+            window.plugins.OneSignal.init("fec1f882-0524-49e5-a8f4-1dc0f84cbb00",
+              {googleProjectNumber: "104707683579"},
+              notificationOpenedCallback);
+
+            // Show an alert box if a notification comes in when the user is in your app.
+            window.plugins.OneSignal.enableInAppAlertNotification(true);
+
+
+            // getting device notification token for one singla push notifs
+
+              window.plugins.OneSignal.getIds(function(ids) {
+                console.log("OneSignalUserId UserId: " + ids.userId);
+                console.log("OneSignalPushToken PushToken: " + ids.pushToken);
+                console.log('getIds: ' + JSON.stringify(ids));
+              });
+
+
+            // console.log(device);
               // Settings for handling push notification
-              var optionsForNotificationSetup = {
-                  android: {
-                      senderID: "104707683579"
-                  },
-                  ios: {
-                      alert: "true",
-                      badge: "true",
-                      sound: "true"
-                  },
-                  windows: {}
-              };
+              // var optionsForNotificationSetup = {
+              //     android: {
+              //         senderID: "104707683579"
+              //     },
+              //     ios: {
+              //         alert: "true",
+              //         badge: "true",
+              //         sound: "true"
+              //     },
+              //     windows: {}
+              // };
 
-              $cordovaPushV5.initialize(optionsForNotificationSetup).then(function () {
-                  // start listening for new notifications
-                  $cordovaPushV5.onNotification();
-                  // start listening for errors
-                  $cordovaPushV5.onError();
+              // $cordovaPushV5.initialize(optionsForNotificationSetup).then(function () {
+              //     // start listening for new notifications
+              //     $cordovaPushV5.onNotification();
+              //     // start listening for errors
+              //     $cordovaPushV5.onError();
+              //
+              //     // register to get registrationId
+              //     $cordovaPushV5.register().then(function (data) {
+              //         // `data.registrationId` save it somewhere;
+              //         $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = true;
+              //         $localStorage.GLOBAL_VARIABLES.DeviceToken = data.registrationId;
+              //     })
+              // });
 
-                  // register to get registrationId
-                  $cordovaPushV5.register().then(function (data) {
-                      // `data.registrationId` save it somewhere;
-                      $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = true;
-                      $localStorage.GLOBAL_VARIABLES.DeviceToken = data.registrationId;
-                  })
-              });
-
-              console.log($cordovaPushV5);
+             // console.log($cordovaPushV5);
               // triggered every time notification received
-              $rootScope.$on('$cordovaPushV5:notificationReceived', function (event, data) {
-                  // data.message,
-                  // data.title,
-                  // data.count,
-                  // data.sound,
-                  // data.image,
-                  // data.additionalData
-
-                  console.log('Reveived notification, notification data -> ' + JSON.stringify(data));
-              });
+              // $rootScope.$on('$cordovaPushV5:notificationReceived', function (event, data) {
+              //     // data.message,
+              //     // data.title,
+              //     // data.count,
+              //     // data.sound,
+              //     // data.image,
+              //     // data.additionalData
+              //
+              //     console.log('Reveived notification, notification data -> ' + JSON.stringify(data));
+              // });
 
               // triggered every time error occurs
-              $rootScope.$on('$cordovaPushV5:errorOcurred', function (event, e) {
-                  // e.message
-                  console.log('reveived some notification error, notification error -> ' + e.message);
-                  $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
-              });
+              // $rootScope.$on('$cordovaPushV5:errorOcurred', function (event, e) {
+              //     // e.message
+              //     console.log('reveived some notification error, notification error -> ' + e.message);
+              //     $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
+              // });
 
-
-              //$cordovaGeolocation
-              //  .getCurrentPosition()
-              //  .then(function (position) {
-              //      var lat = position.coords.latitude
-              //      var long = position.coords.longitude
-              //      $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
-              //     $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
-              //      console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
-
-              //      $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
-
-              //  }, function (err) {
-              //      // error
-              //      console.log('$cordovaGeolocation error ' + JSON.stringify(err));
-              //      //Static Loaction in case user denied
-              //      $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
-              //      $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
-              //      $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-              //  });
 
 
               var isOnline = $cordovaNetwork.isOnline();

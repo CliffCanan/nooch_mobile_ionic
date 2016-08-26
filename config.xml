@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.nooch210724" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.nooch" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>nooch</name>
     <description>
         An Ionic Framework and Cordova project.
@@ -22,9 +22,7 @@
     </feature>
     <plugin name="cordova-plugin-contacts" spec="~2.1.0" />
     <plugin name="cordova-plugin-x-socialsharing" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git" />
-    <plugin name="phonegap-plugin-push" spec="~1.8.0">
-        <variable name="SENDER_ID" value="104707683579" />
-    </plugin>
+
     <platform name="android">
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
