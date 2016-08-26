@@ -161,61 +161,14 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             // getting device notification token for one singla push notifs
 
               window.plugins.OneSignal.getIds(function(ids) {
-                console.log("OneSignalUserId UserId: " + ids.userId);
-                console.log("OneSignalPushToken PushToken: " + ids.pushToken);
-                console.log('getIds: ' + JSON.stringify(ids));
+
+
+                $localStorage.GLOBAL_VARIABLES.DeviceToken = ids.pushToken;
+
+                // console.log("OneSignalUserId UserId: " + ids.userId);
+                // console.log("OneSignalPushToken PushToken: " + ids.pushToken);
+                // console.log('getIds: ' + JSON.stringify(ids));
               });
-
-
-            // console.log(device);
-              // Settings for handling push notification
-              // var optionsForNotificationSetup = {
-              //     android: {
-              //         senderID: "104707683579"
-              //     },
-              //     ios: {
-              //         alert: "true",
-              //         badge: "true",
-              //         sound: "true"
-              //     },
-              //     windows: {}
-              // };
-
-              // $cordovaPushV5.initialize(optionsForNotificationSetup).then(function () {
-              //     // start listening for new notifications
-              //     $cordovaPushV5.onNotification();
-              //     // start listening for errors
-              //     $cordovaPushV5.onError();
-              //
-              //     // register to get registrationId
-              //     $cordovaPushV5.register().then(function (data) {
-              //         // `data.registrationId` save it somewhere;
-              //         $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = true;
-              //         $localStorage.GLOBAL_VARIABLES.DeviceToken = data.registrationId;
-              //     })
-              // });
-
-             // console.log($cordovaPushV5);
-              // triggered every time notification received
-              // $rootScope.$on('$cordovaPushV5:notificationReceived', function (event, data) {
-              //     // data.message,
-              //     // data.title,
-              //     // data.count,
-              //     // data.sound,
-              //     // data.image,
-              //     // data.additionalData
-              //
-              //     console.log('Reveived notification, notification data -> ' + JSON.stringify(data));
-              // });
-
-              // triggered every time error occurs
-              // $rootScope.$on('$cordovaPushV5:errorOcurred', function (event, e) {
-              //     // e.message
-              //     console.log('reveived some notification error, notification error -> ' + e.message);
-              //     $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
-              // });
-
-
 
               var isOnline = $cordovaNetwork.isOnline();
               if (isOnline == true)
