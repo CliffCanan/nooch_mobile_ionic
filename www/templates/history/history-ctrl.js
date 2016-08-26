@@ -13,6 +13,8 @@
         });
 
         $scope.openModal = function () {
+            $('#btnCompleted').attr('disabled', true);
+            $('#btnPending').attr('disabled', true);
             $scope.modal.show();
         };
 
@@ -43,9 +45,7 @@
 
         
 
-            $scope.closeModalPopUp = function () {
-                $scope.modal.hide();
-            }
+       
 
           
 
@@ -243,6 +243,7 @@
         }
 
         $scope.press = function (type) {
+           
             $scope.modal.hide();
             var filteredList = [];
             $scope.transactionList = $scope.transList;
@@ -302,7 +303,14 @@
             console.log(filteredList);
 
             $scope.transactionList = filteredList;
+            $('#btnCompleted').attr('disabled', false);
+            $('#btnPending').attr('disabled', false);
 
+        }
+        $scope.closeModalPopUp = function () {
+            $('#btnCompleted').attr('disabled', false);
+            $('#btnPending').attr('disabled', false);
+            $scope.modal.hide();
         }
         $scope.$watch('search', function (val) {
             console.log($filter('filter')($scope.transactionList, val));
