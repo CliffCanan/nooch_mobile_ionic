@@ -112,21 +112,24 @@
                 if ($scope.Details.SSN != null)
                     $scope.saveSSN($scope.Details);
 
-               $scope.saveDob($scope.Details.DateOfBirth);
+               if ($scope.Details.DateOfBirth != null)
+                $scope.saveDob($scope.Details.DateOfBirth);
+             
                 $ionicLoading.hide();
             }
     ).error(function (encError) {
         console.log('came in enc error block ' + encError);
         $ionicLoading.hide();
         //  if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-        { CommonServices.logOut(); }
+        {
+            CommonServices.logOut();
+        }
     })
         //}
         //else {
         //    swal("Oops...", "Internet not connected!", "error");
         //}
     }
-
 
     // Date Picker Plugin
     $scope.showdate = function () {
@@ -169,10 +172,10 @@
             template: 'Loading ...'
         });
         profileService.SaveDOBForMember($scope.Details.DateOfBirth)
-                .success(function (details) {
-                    console.log(details);
+                .success(function (saveDobResponce) {
+                    console.log(saveDobResponce);
 
-                    if (details.Result == 'DOB saved successfully.' && $scope.Details.SSN == null)
+                    if (saveDobResponce.Result == 'DOB saved successfully.' && $scope.Details.SSN == null)
                     {
                         swal("Success...", "Profile Updated successfully", "success");
                     }
@@ -181,7 +184,7 @@
                         swal("Oops...", "Something Went Wrong", "error");
                     }
 
-                    $scope.Details = details;
+                    $scope.saveDobResponce = saveDobResponce;
 
                     $ionicLoading.hide();
                 }
