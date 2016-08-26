@@ -4,7 +4,7 @@
 /***  HISTORY  ***/
 /*****************/
 
-    .controller('historyCtrl', function ($scope,$filter, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner, $state, $ionicModal, CommonServices, ValidatePin) {
+    .controller('historyCtrl', function ($scope, $filter, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner, $state, $ionicModal, CommonServices, ValidatePin, $ionicHistory) {
         $ionicModal.fromTemplateUrl('templates/history/modalPopUp.html', {
             scope: $scope,
             animation: 'slide-in-up'
@@ -19,14 +19,7 @@
 
         $scope.$on("$ionicView.enter", function (event, data) {
             var transDetails = {};
-            $scope.SentC = true;
-            $scope.ReceivedC = true;
-            $scope.CancelledC = true;
-            $scope.RejectedC = true;
-            $scope.DisputedC = true;
-            $scope.SentP = true;
-            $scope.ReceivedP = true;
-            $scope.DisputedP = true;
+            
             
             $scope.transDetailsForPin = {};
 
@@ -48,43 +41,13 @@
             $('#btnCompleted').addClass('active');
             $('#btnPending').removeClass('active');
 
-            $scope.clickCompleted = function () {
-                $scope.completed = true;
-                $scope.pending = false;
+        
+
+            $scope.closeModalPopUp = function () {
+                $scope.modal.hide();
             }
 
-            $scope.clickPending = function () {
-                $scope.pending = true;
-                $scope.completed = false;
-            }
-
-            $scope.press = function (type) {
-                console.log($scope.transactionList);
-                var length = ($scope.transactionList.length);
-                $scope.transactionList = [];
-                for (var i = 0; i < length; i++) {
-                    if (type == 'SentC')
-                    {
-                         
-                        if ($scope.transactionList[i].TransactionStatus == 'Success' && $scope.transactionList[i].TransactionType == 'Transfer' && $scope.transactionList[i].MemberId == $scope.memberId)
-                        $scope.transactionList[i]=($scope.transactionList[i]);
-                    }
-
-
-
-                }
-                console.log($scope.transactionList);
-                console.log($scope.transactionList.length);
-            }
-
-
-            $scope.$watch('search', function (val) {
-                console.log($filter('filter')($scope.transactionList, val));
-
-                $scope.transactionList = $filter('filter')($scope.transactionList, val);
-
-                console.log($scope.transactionList);
-            });
+          
 
             historyService.getTransferList().success(function (data) {
 
@@ -95,12 +58,12 @@
                 {
                     $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
                 }
-
+                $scope.transList = $scope.transactionList;
                 $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
                 $ionicLoading.hide();
             }).error(function (data) {
                 console.log('Get History Error: [' + data + ']');
-                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+               
                     CommonServices.logOut();
             });
 
@@ -247,4 +210,109 @@
                 //      }
             }
         }
+
+        $scope.clickCompleted = function () {
+            $ionicHistory.clearCache().then(function () {
+
+               
+               $scope.transactionList = [];
+                 
+                $scope.transactionList = $scope.transList;
+                $scope.completed = true;
+                $scope.pending = false;
+
+
+                console.log($scope.transactionList);
+            });
+           
+        }
+
+        $scope.clickPending = function () {
+               
+                $ionicHistory.clearCache().then(function () {
+
+                    $scope.transactionList = [];
+                    $scope.transactionList = $scope.transList;
+                    $scope.pending = true;
+                    $scope.completed = false;
+
+
+                    console.log($scope.transactionList);
+                });
+           
+        }
+
+        $scope.press = function (type) {
+            $scope.modal.hide();
+            var filteredList = [];
+            $scope.transactionList = $scope.transList;
+            console.log($scope.transactionList);
+            var length = ($scope.transactionList.length);
+
+            for (var i = 0; i < length; i++) {
+                if (type == 'SentC') {
+
+                    if ($scope.transactionList[i].TransactionStatus == 'Success' && (($scope.transactionList[i].TransactionType == 'Transfer' && $scope.transactionList[i].MemberId == $scope.memberId) || ($scope.transactionList[i].TransactionType == 'Request' && $scope.transactionList[i].MemberId == $scope.memberId)))
+                        filteredList.push($scope.transactionList[i]);
+                }
+
+                if (type == 'ReceivedC') {
+
+                    if ($scope.transactionList[i].TransactionStatus == 'Success' && (($scope.transactionList[i].TransactionType == 'Transfer' && $scope.transactionList[i].MemberId != $scope.memberId) || ($scope.transactionList[i].TransactionType == 'Request' && $scope.transactionList[i].MemberId != $scope.memberId)))
+                        filteredList.push($scope.transactionList[i]);
+                }
+
+                if (type == 'CancelledC') {
+
+                    if ($scope.transactionList[i].TransactionStatus == 'Cancelled' && ($scope.transactionList[i].TransactionType == 'Request'))
+                        filteredList.push($scope.transactionList[i]);
+                }
+
+                if (type == 'RejectedC') {
+
+                    if ($scope.transactionList[i].TransactionStatus == 'Rejected' && ($scope.transactionList[i].TransactionType == 'Request'))
+                        filteredList.push($scope.transactionList[i]);
+                }
+
+                if (type == 'DisputedC') {
+
+                    if ($scope.transactionList[i].DisputeStatus == 'Resolved' && ($scope.transactionList[i].TransactionType == 'Disputed'))
+                        filteredList.push($scope.transactionList[i]);
+                }
+                if (type == 'SentP') {
+
+                    if ($scope.transactionList[i].TransactionStatus == 'Pending' && (($scope.transactionList[i].TransactionType == 'Transfer' && $scope.transactionList[i].MemberId == $scope.memberId) || ($scope.transactionList[i].TransactionType == 'Request' && $scope.transactionList[i].MemberId == $scope.memberId)))
+                        filteredList.push($scope.transactionList[i]);
+                }
+                if (type == 'ReceivedP') {
+
+                    if ($scope.transactionList[i].TransactionStatus == 'Pending' && (($scope.transactionList[i].TransactionType == 'Transfer' && $scope.transactionList[i].MemberId != $scope.memberId) || ($scope.transactionList[i].TransactionType == 'Request' && $scope.transactionList[i].MemberId != $scope.memberId)))
+                        filteredList.push($scope.transactionList[i]);
+                }
+                if (type == 'DisputedP') {
+
+                    if ($scope.transactionList[i].DisputeStatus == 'Under Review' && ($scope.transactionList[i].TransactionType == 'Disputed'))
+                        filteredList.push($scope.transactionList[i]);
+                }
+
+
+
+
+            }
+            console.log(filteredList);
+
+            $scope.transactionList = filteredList;
+
+        }
+        $scope.$watch('search', function (val) {
+            console.log($filter('filter')($scope.transactionList, val));
+
+            $scope.transactionList = $filter('filter')($scope.transactionList, val);
+
+            console.log($scope.transactionList);
+            if ($('#searchBar').val().length == 0) {
+                $scope.transactionList = $scope.transList;
+            }
+
+        });
     });
