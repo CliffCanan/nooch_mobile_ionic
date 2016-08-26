@@ -7,6 +7,7 @@
         // handle event
         console.log('Profile Page Loadad');
 
+        $scope.isAnythingChanged = false;
         $scope.Status = $localStorage.GLOBAL_VARIABLES.Status;
         $scope.IsPhoneVerified = $localStorage.GLOBAL_VARIABLES.IsPhoneVerified;
         $scope.MemberDetails();
@@ -91,7 +92,6 @@
         //    swal("Oops...", "Internet not connected!", "error");
         //}
     }
-
 
     $scope.UpdateProfile = function () {
         console.log('Update Profile Function Touched');
@@ -278,6 +278,11 @@
         //else {
         //    swal("Oops...", "Internet not connected!", "error");
         //}
+    }
+
+    $scope.isAnythingChange = function () {
+        console.log('reached to isAnythingChange function ');
+        $scope.isAnythingChanged = true;
     }
 
 })

@@ -1,7 +1,7 @@
 ﻿<ion-view view-title="Profile">
 
     <ion-nav-buttons side="right">
-        <button class="button button-clear button-calm" ng-click="UpdateProfile()">
+        <button class="button button-clear button-calm" ng-click="UpdateProfile()" ng-disabled="isAnythingChanged != true">
             Save &nbsp;&nbsp;
         </button>
     </ion-nav-buttons>
@@ -36,66 +36,65 @@
                 </div>
             </div>
         </div>
+        <form id="myForm">
+            <div id="profileTable" class="list table-style-2">
+                <div class="item item-divider">CONTACT INFO</div>
 
+                <div class="item item-input">
+                    <span class="input-label">
+                        <i class="ion-ios-checkmark text-success" ng-if="Status == 'Active' || Status == 'Accepted'"></i>
+                        <i class="ion-ios-close text-danger" ng-if="Status == 'Registered'"></i>
+                        Email
+                    </span>
+                    <span id="emailTxt">{{Details.UserName}}</span>
+                </div>
 
-        <div id="profileTable" class="list table-style-2">
-            <div class="item item-divider">CONTACT INFO</div>
+                <div class="item item-input">
+                    <span class="input-label">
+                        <i class="ion-ios-checkmark text-success" ng-if="IsPhoneVerified == true"></i>
+                        <i class="ion-ios-close text-danger" ng-if="IsPhoneVerified != true"></i>
+                        Phone
+                    </span>
+                    <input type="text" placeholder="(123) 456 7890" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" ng-change="isAnythingChange()">
+                </div>
 
-            <div class="item item-input">
-                <span class="input-label">
-                    <i class="ion-ios-checkmark text-success" ng-if="Status == 'Active' || Status == 'Accepted'"></i>
-                    <i class="ion-ios-close text-danger" ng-if="Status == 'Registered'"></i>
-                    Email
-                </span>
-                <span id="emailTxt">{{Details.UserName}}</span>
-            </div>
+                <div class="item item-divider">ADDRESS</div>
 
-            <div class="item item-input">
-                <span class="input-label">
-                    <i class="ion-ios-checkmark text-success" ng-if="IsPhoneVerified == true"></i>
-                    <i class="ion-ios-close text-danger" ng-if="IsPhoneVerified != true"></i>
-                    Phone
-                </span>
-                <input type="text" placeholder="(123) 456 7890" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}">
-            </div>
+                <div class="item item-input">
+                    <span class="input-label">Address</span>
+                    <input type="text" placeholder="123 Nooch St" ng-model="Details.Address" value="{{Details.Address}}" ng-change="isAnythingChange()">
+                </div>
 
-            <div class="item item-divider">ADDRESS</div>
+                <div class="item item-input">
+                    <span class="input-label">Address 2</span>
+                    <input type="text" placeholder="(Optional)" ng-model="Details.Address2" value="{{Details.Address2}}" ng-change="isAnythingChange()">
+                </div>
 
-            <div class="item item-input">
-                <span class="input-label">Address</span>
-                <input type="text" placeholder="123 Nooch St" ng-model="Details.Address" value="{{Details.Address}}">
-            </div>
+                <div class="item item-input">
+                    <span class="input-label">City</span>
+                    <input type="text" placeholder="City" ng-model="Details.City" value="{{Details.City}}" ng-change="isAnythingChange()">
+                </div>
 
-            <div class="item item-input">
-                <span class="input-label">Address 2</span>
-                <input type="text" placeholder="(Optional)" ng-model="Details.Address2" value="{{Details.Address2}}">
-            </div>
+                <div class="item item-input">
+                    <span class="input-label">ZIP</span>
+                    <input type="text" placeholder="90210" ng-model="Details.Zipcode" value="{{Details.Zipcode}}" ng-change="isAnythingChange()">
+                </div>
 
-            <div class="item item-input">
-                <span class="input-label">City</span>
-                <input type="text" placeholder="City" ng-model="Details.City" value="{{Details.City}}">
-            </div>
+                <div class="item item-divider">ID VERIFICATION</div>
 
-            <div class="item item-input">
-                <span class="input-label">ZIP</span>
-                <input type="text" placeholder="90210" ng-model="Details.Zipcode" value="{{Details.Zipcode}}">
-            </div>
-
-            <div class="item item-divider">ID VERIFICATION</div>
-
-            <label class="item item-input">
-                <span class="input-label">Date of Birth</span>
-                <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{Details.DateOfBirth}}">
-            </label>
-            
-            <div ng-show="Res.IsSSNAdded== false">
                 <label class="item item-input">
-                    <span class="input-label">SSN</span>
-                    <input type="text" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}">
+                    <span class="input-label">Date of Birth</span>
+                    <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{Details.DateOfBirth}}" ng-change="isAnythingChange()">
                 </label>
-            </div>
-        </div>
-        <!--<button class="button btn-primary" ng-click="UpdateProfile()">Save</button>-->
 
-    </ion-content>
+                <div ng-show="Res.IsSSNAdded== false">
+                    <label class="item item-input">
+                        <span class="input-label">SSN</span>
+                        <input type="text" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" ng-change="isAnythingChange()">
+                    </label>
+                </div>
+            </div>
+            <!--<button class="button btn-primary" ng-click="UpdateProfile()">Save</button>-->
+            </form>
+</ion-content>
 </ion-view>
