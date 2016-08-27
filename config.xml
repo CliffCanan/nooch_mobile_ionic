@@ -22,7 +22,6 @@
     </feature>
     <plugin name="cordova-plugin-contacts" spec="~2.1.0" />
     <plugin name="cordova-plugin-x-socialsharing" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git" />
-
     <platform name="android">
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -72,4 +71,5 @@
         <variable name="APP_ID" value="494453537413420" />
         <variable name="APP_NAME" value="Nooch" />
     </plugin>
+    <plugin name="cordova-plugin-datepicker" spec="https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git" />
 </widget>

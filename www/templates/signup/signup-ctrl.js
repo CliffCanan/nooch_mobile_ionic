@@ -138,7 +138,6 @@
           //              else {
           //                  //  $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
           //                  $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
-
           //                  $ionicLoading.hide();
           //                  $scope.fetchAfterLoginDetails();
 
