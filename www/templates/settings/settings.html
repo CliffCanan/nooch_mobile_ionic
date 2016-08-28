@@ -1,27 +1,28 @@
 ﻿<ion-view view-title="Settings">
     <ion-content class="b-gray">
 
-        <div class="section-header m-t-20">
-            Linked Banked Account<i class="ion-android-alert text-danger m-l-10 f-21"></i>
-            <button type="button" id="replaceBankBtn" class="pull-right" ng-click="openAddBank()">
-                <i class="ion-ios-plus-circled"></i>
-            </button>
-        </div>
+        <div id="settings_cntnr">
 
-        <div ng-if="Data.wereBankDetailsFound == false">
-            <!-- WHEN BANK IS NOT LINKED -->
-            <div id="bankIntro" class="">
-                <p>Attach bank to send or receive payments. Just select your bank, login to your online banking, and you're done.</p>
-
-                <button class="btn button-block btn-primary m-t-15" ng-click="openAddBank()">
-                    <i class="ion-plus-circled m-r-15"></i>Link Bank Now
+            <div class="section-header m-t-20">
+                Linked Banked Account<i class="ion-android-alert text-danger m-l-10 f-21"></i>
+                <button type="button" id="replaceBankBtn" class="pull-right" ng-click="openAddBank()">
+                    <i class="ion-ios-plus-circled"></i>
                 </button>
             </div>
-        </div>
 
-        <div ng-if="Data.wereBankDetailsFound == true && Data.Status== Verified">
-            <!-- WHEN BANK IS LINKED -->
-            <div class="">
+            <div ng-if="hasSynapseBank != true">
+                <!-- WHEN BANK IS NOT LINKED -->
+                <div id="bankIntro">
+                    <p>Attach a bank account to send or receive payments. Just select your bank, login to your online banking, and you're done.</p>
+
+                    <button class="btn button-block btn-primary m-t-15" ng-click="openAddBank()">
+                        <i class="ion-plus-circled m-r-15"></i>Link Bank Now
+                    </button>
+                </div>
+            </div>
+
+            <div ng-if="hasSynapseBank === true">
+                <!-- WHEN BANK IS LINKED -->
                 <div class="bank-info">
 
                     <img class="bank-logo pull-left m-r-10" src="./img/bank.png" />
@@ -37,47 +38,50 @@
                     </div>
 
                 </div>
-            </div>
 
-            <div ng-if="Data.wereBankDetailsFound === true && Data.Status== notVerified">
-                <!-- WHEN BANK IS LINKED, BUT NOT VERIFIED -->
-                <div class="section-note">
-                    As an extra security measure, your bank must be verified. &nbsp;Learn more &nbsp;<i class="ion-ios-help text-primary"></i>
+                <div ng-if="bankIsVerified === true">
+                    <!-- WHEN BANK IS LINKED, BUT NOT VERIFIED -->
+                    <div class="section-note">
+                        As an extra security measure, your bank must be verified. &nbsp;Learn more &nbsp;<i class="ion-ios-help text-primary"></i>
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="list m-t-20 border-t-b">
+            <div class="list m-t-20 border-t-b">
 
-            <a class="item item-icon-left item-icon-right" href="#/app/settings/profile">
-                <i class="icon ion-person"></i>My Profile
-                <!-- IF USER'S PROFILE IS NOT VERIFIED-->
-                <i class="ion-android-alert text-danger m-l-10 f-21"></i>
-                <i class="icon ion-chevron-right"></i>
-            </a>
+                <a class="item item-icon-left item-icon-right" href="#/app/settings/profile">
+                    <i class="icon ion-person"></i>My Profile
+                    <!-- IF USER'S PROFILE IS NOT VERIFIED-->
+                    <div class="animated bounceIn" style="display:inline-block" ng-if="isProfileComplete === true">
+                        <i class="ion-android-alert text-danger m-l-10 f-21"></i>
+                    </div>
+                    <i class="icon ion-chevron-right"></i>
+                </a>
 
-            <a class="item item-icon-left item-icon-right" href="#/app/settings/securitySetting">
-                <i class="icon ion-locked"></i>Security Settings
-                <i class="icon ion-chevron-right"></i>
-            </a>
+                <a class="item item-icon-left item-icon-right" href="#/app/settings/securitySetting">
+                    <i class="icon ion-locked"></i>Security Settings
+                    <i class="icon ion-chevron-right"></i>
+                </a>
 
-            <a class="item item-icon-left item-icon-right" href="#/app/settings/notificationSetting">
-                <i class=" icon ion-ios-bell"></i>
-                Notification Settings
-                <i class="icon ion-chevron-right"></i>
-            </a>
+                <a class="item item-icon-left item-icon-right" href="#/app/settings/notificationSetting">
+                    <i class=" icon ion-ios-bell"></i>
+                    Notification Settings
+                    <i class="icon ion-chevron-right"></i>
+                </a>
 
-            <a class="item item-icon-left item-icon-right" href="#/app/settings/socialSetting">
-                <i class=" icon ion-social-facebook">
-                </i>Social Settings
-                <i class="icon ion-chevron-right"></i>
-            </a>
+                <a class="item item-icon-left item-icon-right" href="#/app/settings/socialSetting">
+                    <i class=" icon ion-social-facebook">
+                    </i>Social Settings
+                    <i class="icon ion-chevron-right"></i>
+                </a>
 
-        </div>
+            </div>
 
-        <div id="sign-out-container">
-            <button id="sign-out" type="button" class="btn btn-gray button button-block m-r-10" ng-click="signOut()"><i class="ion-log-out"></i>Sign Out</button>
+            <div id="sign-out-container">
+                <button id="sign-out" type="button" class="btn btn-gray button button-block m-r-10" ng-click="signOut()"><i class="ion-log-out"></i>Sign Out</button>
+            </div>
+
         </div>
 
         <script id="addBankModal.html" type="text/ng-template">
@@ -87,9 +91,6 @@
                     <button class="button button-clear button-dark" ng-click="closeAddBank()">Close</button>
                 </ion-header-bar>
                 <ion-content>
-                    <!--<iframe src="https://www.nooch.com/privacy"></iframe>-->
-                    <!--<iframe data-tap-disabled="true" src="http://nooch.info/noochweb/Nooch/AddBank?MemberId=852987e8-d5fe-47e7-a00b-58a80dd15b49" style="width:100%;height:100%"></iframe>-->
-
                     <iframe data-tap-disabled="true" src="{{trustedUrl}}" style="width:100%;height:100%"></iframe>
                 </ion-content>
             </ion-modal-view>

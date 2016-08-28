@@ -9,15 +9,11 @@
 
         $scope.url = 'http://support.nooch.com/';
         $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
-        console.log($scope.trustedUrl);
-
-        // Check user's Profile Status and Phone No. Status
-        //$scope.MemberInfo();
+        // console.log($scope.trustedUrl);
 
         // Check if user has any Pending Requests
-        $timeout($scope.pendingList, 5000);
+        $timeout($scope.pendingList, 4000);
     });
-
 
 
     $scope.MemberDetails = function () {
@@ -30,12 +26,11 @@
 
         menuService.GetUserDetails()
            .success(function (res) {
-               console.log("GetUserDetails (Menu Cntrlr -->");
+               console.log("GetUserDetails - Menu Cntrlr -->");
                console.log(res);
 
                $scope.Res = res;
-               console.log('GetUserDetailsForApp result -->>')
-               console.log($scope.Res);
+
                $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.userPicture;
                $localStorage.GLOBAL_VARIABLES.Status = res.status;
                $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.isVerifiedPhone;
@@ -43,6 +38,15 @@
                $localStorage.GLOBAL_VARIABLES.lastName = res.lastName;
                $localStorage.GLOBAL_VARIABLES.isProfileComplete = res.isProfileComplete;
                $localStorage.GLOBAL_VARIABLES.isRequiredImmediately = res.isRequiredImmediately;
+
+               $localStorage.GLOBAL_VARIABLES.hasSynapseUserAccount = res.hasSynapseUserAccount;
+               $localStorage.GLOBAL_VARIABLES.hasSynapseBank = res.hasSynapseBank;
+               $localStorage.GLOBAL_VARIABLES.isBankVerified = res.isBankVerified;
+               $localStorage.GLOBAL_VARIABLES.bankStatus = res.bankStatus;
+               $localStorage.GLOBAL_VARIABLES.synUserPermission = res.synUserPermission;
+               $localStorage.GLOBAL_VARIABLES.synBankAllowed = res.synBankAllowed;
+
+               $scope.PicUrl = "http://www.nooch.info/noochservice/UploadedPhotos/Photos/" + $localStorage.GLOBAL_VARIABLES.MemberId + ".png";
 
                $ionicLoading.hide();
 
@@ -52,7 +56,7 @@
                if ($scope.Res.isVerifiedPhone === false)
                    $rootScope.$broadcast('IsVerifiedPhoneFalse');
 
-               if ($scope.Res.isProfileComplete === false)
+               if ($scope.Res.status === "Registered" || $scope.Res.isProfileComplete === false)
                    $rootScope.$broadcast('IsValidProfileFalse');
 
            }).error(function (encError) {
@@ -65,36 +69,6 @@
         //}
         //else swal("Oops...", "Internet not connected!", "error");
     }
-
-
-    // CC (8/25/16): THIS IS REALLY MEANT ONLY FOR PROFILE SCREEN DATA... DON'T NEED TO CALL IT HERE.
-    //$scope.MemberInfo = function () {
-    //    //console.log('MemberDetails Function Fired');
-
-    //    //if ($cordovaNetwork.isOnline()) {
-    //    $ionicLoading.show({
-    //        template: 'Loading Details...'
-    //    });
-
-    //    profileService.GetMyDetails()
-    //        .success(function (details) {
-
-    //            $scope.Details = details;
-
-    //            console.log('MemberInfo() -> GetMyDetails()...');
-    //            console.log($scope.Details);
-
-    //            $ionicLoading.hide();
-    //        }).error(function (encError) {
-    //            console.log('Profile Error: [' + encError + ']');
-    //            $ionicLoading.hide();
-    //            if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-    //                CommonServices.logOut();
-    //        })
-    //    //}
-    //    //else swal("Oops...", "Internet not connected!", "error");
-    //}
-
 
     //$scope.settingsClick = function () {
     //    $state.go("app.setting");
@@ -159,10 +133,8 @@
                 //cancel: function () {
                 //},
                 buttonClicked: function (index) {
-                    if (index == 0)
-                        $scope.openTos();
-                    else if (index == 1)
-                        $scope.openPrivacy();
+                    if (index == 0) $scope.openTos();
+                    else if (index == 1) $scope.openPrivacy();
                     return true;
                 }
             });

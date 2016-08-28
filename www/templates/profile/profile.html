@@ -8,8 +8,9 @@
     <ion-content>
 
         <div>
-            <h3 class="text-center"> {{Details.FirstName}}&nbsp;{{Details.LastName}} </h3>
-            <div class="row">               
+            <h3 class="text-center">{{Details.FirstName}}&nbsp;{{Details.LastName}}</h3>
+
+            <div class="row">
                 <div class="col col-40">
                     <div>
                         <div ng-show="Res.hasSynapseBank">
@@ -22,7 +23,7 @@
 
                 </div>
                 <div class="col col-20">
-                    
+
                     <div class="recipient-box">
                         <img src="{{Details.Photo}}" ng-click="choosePhoto()" class="recip-pic" />
                     </div>
@@ -30,12 +31,13 @@
 
                 <div class="col-40">
                     <div class="text-right">
-                        <h5>Member Since</h5>                       
+                        <h5>Member Since:</h5>
                         {{Res.DateCreated | date : "MMMM d, y" : "EDT"}}
-                    </div>                  
+                    </div>
                 </div>
             </div>
         </div>
+
         <form id="myForm">
             <div id="profileTable" class="list table-style-2">
                 <div class="item item-divider">CONTACT INFO</div>
@@ -87,14 +89,14 @@
                     <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{Details.DateOfBirth}}" ng-change="isAnythingChange()">
                 </label>
 
-                <div ng-show="Res.IsSSNAdded== false">
+                <div ng-show="Res.IsSSNAdded == false">
                     <label class="item item-input">
                         <span class="input-label">SSN</span>
                         <input type="text" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" ng-change="isAnythingChange()">
                     </label>
                 </div>
             </div>
-            <!--<button class="button btn-primary" ng-click="UpdateProfile()">Save</button>-->
-            </form>
-</ion-content>
+
+        </form>
+    </ion-content>
 </ion-view>

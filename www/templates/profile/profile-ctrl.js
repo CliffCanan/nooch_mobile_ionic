@@ -16,10 +16,7 @@
     $scope.$on('IsValidProfileFalse', function (event, args) {
         console.log('IsValidProfileFalse');
         //$scope.valid = false;
-        $scope.showProfileNotValidatedBanner();
-    });
 
-    $scope.showProfileNotValidatedBanner = function () {
         $ionicContentBanner.show({
             text: ['Profile Not Validated'],
             interval: '20',
@@ -27,15 +24,12 @@
             type: 'error',
             transition: 'vertical'
         });
-    }
+    });
 
     $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
         console.log('IsVerifiedPhoneFalse');
         //$scope.verified = false;
-        $scope.showPhoneNotVerifiedBanner();
-    });
 
-    $scope.showPhoneNotVerifiedBanner = function () {
         $ionicContentBanner.show({
             text: ['Phone Number Not verified'],
             interval: '20',
@@ -43,25 +37,8 @@
             type: 'error',
             transition: 'vertical'
         });
-    }
-
-
-
-    $scope.$on('foundPendingReq', function (event, args) {
-        console.log('foundPendingReq');
-        $scope.contentBannerInstance2();
     });
 
-    $scope.contentBannerInstance2 = function () {
-        $ionicContentBanner.show({
-
-            text: ['Pending Request Waiting'],
-            interval: '50',
-            autoClose: '3000',
-            type: 'info',
-            transition: 'vertical'
-        });
-    }
 
     $scope.MemberDetails = function () {
         console.log('MemberDetails Function Fired');
@@ -73,24 +50,22 @@
         });
 
         profileService.GetMyDetails()
-                .success(function (details) {
-                    console.log(details);
-                    $scope.Details = details;
-                      console.log('Profile Data GetMyDetails');
-                     console.log($scope.Details);
-                    $ionicLoading.hide();
-                })
-                .error(function (encError) {
-                    console.log('Profile Error: [' + encError + ']');
-                    $ionicLoading.hide();
-                    //  if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    { CommonServices.logOut(); }
-                })
-
+            .success(function (details) {
+                console.log(details);
+                $scope.Details = details;
+                console.log('Profile Data GetMyDetails');
+                console.log($scope.Details);
+                $ionicLoading.hide();
+            })
+            .error(function (encError) {
+                console.log('Profile Error: [' + encError + ']');
+                $ionicLoading.hide();
+                if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            })
         //}
-        //else {
+        //else
         //    swal("Oops...", "Internet not connected!", "error");
-        //}
     }
 
     $scope.UpdateProfile = function () {
@@ -108,27 +83,24 @@
                 console.log(data);
                 $scope.Data = data;
                 console.log('from UpdateProfile function');
-                
+
                 if ($scope.Details.SSN != null)
                     $scope.saveSSN($scope.Details);
 
-               if ($scope.Details.DateOfBirth != null)
-                $scope.saveDob($scope.Details.DateOfBirth);
-             
+                if ($scope.Details.DateOfBirth != null)
+                    $scope.saveDob($scope.Details.DateOfBirth);
+
                 $ionicLoading.hide();
             }
     ).error(function (encError) {
         console.log('came in enc error block ' + encError);
         $ionicLoading.hide();
-        //  if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-        {
+        if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
             CommonServices.logOut();
-        }
     })
         //}
-        //else {
+        //else
         //    swal("Oops...", "Internet not connected!", "error");
-        //}
     }
 
     // Date Picker Plugin
@@ -141,26 +113,23 @@
             allowOldDates: true,
             allowFutureDates: false,
             doneButtonLabel: 'DONE',
-            doneButtonColor: '#F2F3F4',
+            doneButtonColor: '#3fabe1',
             cancelButtonLabel: 'CANCEL',
-            cancelButtonColor: '#000000'
+            cancelButtonColor: '#111111'
         };
 
         document.addEventListener("deviceready", function () {
 
             $cordovaDatePicker.show(options).then(function (date) {
-                //  alert(date);
                 $scope.Details.DateOfBirth = date;
                 if ($scope.Details.DateOfBirth != null)
                 {
-                    //   $scope.saveDob($scope.Details.DateOfBirth);
+                    // $scope.saveDob($scope.Details.DateOfBirth);
                     console.log('from showdate function');
                     console.log($scope.Details.DateOfBirth);
                 }
             });
-
         }, false);
-
     }
 
 
@@ -168,37 +137,51 @@
         console.log('saveDob Function Touched');
         console.log($scope.Details.DateOfBirth);
         //if ($cordovaNetwork.isOnline()) {
+
         $ionicLoading.show({
-            template: 'Loading ...'
+            template: 'Loading Profile...'
         });
+
         profileService.SaveDOBForMember($scope.Details.DateOfBirth)
-                .success(function (saveDobResponce) {
-                    console.log(saveDobResponce);
+            .success(function (saveDobResponce) {
+                console.log(saveDobResponce);
+                $ionicLoading.hide();
 
-                    if (saveDobResponce.Result == 'DOB saved successfully.' && $scope.Details.SSN == null)
-                    {
-                        swal("Success...", "Profile Updated successfully", "success");
-                    }
-                    else
-                    {
-                        swal("Oops...", "Something Went Wrong", "error");
-                    }
+                if (saveDobResponce.Result == 'DOB saved successfully.' && $scope.Details.SSN == null)
+                    $ionicContentBanner.show({
+                        text: ['Profile Updated successfully'],
+                        autoClose: '5000',
+                        type: 'info',
+                        transition: 'vertical'
+                    });
+                else
+                    $ionicContentBanner.show({
+                        text: ['Error: Profile NOT Updated'],
+                        autoClose: '5000',
+                        type: 'error',
+                        transition: 'vertical'
+                    });
 
-                    $scope.saveDobResponce = saveDobResponce;
-
-                    $ionicLoading.hide();
-                }
+                $scope.saveDobResponce = saveDobResponce;
+            }
         ).error(function (encError) {
-            console.log('came in enc error block ' + encError);
+            console.log('SaveDOBForMember Rrror Block: [' + encError + ']');
             $ionicLoading.hide();
-            // if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-            { CommonServices.logOut(); }
+
+            $ionicContentBanner.show({
+                text: ['Error: Profile NOT Updated'],
+                autoClose: '5000',
+                type: 'error',
+                transition: 'vertical'
+            });
+
+            if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                CommonServices.logOut();
         })
 
         //}
-        //else {
+        //else
         //    swal("Oops...", "Internet not connected!", "error");
-        //}
     }
 
 
@@ -245,43 +228,57 @@
 
 
     $scope.saveSSN = function (Details) {
-        console.log('saveSSN Function Touched');
+        console.log('saveSSN Function Fired');
         console.log($scope.Details.SSN);
         //if ($cordovaNetwork.isOnline()) {
+
         $ionicLoading.show({
-            template: 'Loading ...'
+            template: 'Saving...'
         });
+
         profileService.SaveMemberSSN($scope.Details)
-                .success(function (details) {
-                    console.log(details);
+            .success(function (details) {
+                console.log(details);
 
-                    if (details.Result == 'SSN saved successfully.' && $scope.Details != null) {
+                if (details.Result == 'SSN saved successfully.' && $scope.Details != null)
+                    $ionicContentBanner.show({
+                        text: ['Profile Updated Successfully'],
+                        autoClose: '5000',
+                        type: 'info',
+                        transition: 'vertical'
+                    });
+                else
+                    $ionicContentBanner.show({
+                        text: ['Error: Profile NOT Updated'],
+                        autoClose: '5000',
+                        type: 'error',
+                        transition: 'vertical'
+                    });
 
-                        swal("Success...", "Profile Updated successfully", "success");
-                    }
-                    else {
-                        swal("Oops...", "Something Went Wrong", "error");
-                    }
+                $scope.Details = details;
 
-                    $scope.Details = details;
-
-                    $ionicLoading.hide();
-                }
+                $ionicLoading.hide();
+            }
         ).error(function (encError) {
             console.log('came in enc error block ' + encError);
             $ionicLoading.hide();
-            // if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-            { CommonServices.logOut(); }
-        })
 
+            $ionicContentBanner.show({
+                text: ['Error: Profile NOT Updated'],
+                autoClose: '5000',
+                type: 'error',
+                transition: 'vertical'
+            });
+
+            if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                CommonServices.logOut();
+        })
         //}
-        //else {
+        //else
         //    swal("Oops...", "Internet not connected!", "error");
-        //}
     }
 
     $scope.isAnythingChange = function () {
-        console.log('reached to isAnythingChange function ');
         $scope.isAnythingChanged = true;
     }
 

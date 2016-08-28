@@ -4,13 +4,52 @@
 /****************/
 /***   HOME   ***/
 /****************/
-.controller('HomeCtrl', function ($scope, $state, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform, profileService, $ionicLoading, $ionicContentBanner, $rootScope, selectRecipientService, CommonServices) {
+.controller('HomeCtrl', function ($scope, $state, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform, profileService, $ionicLoading, $ionicContentBanner, $rootScope, $localStorage, selectRecipientService, CommonServices) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl loaded');
 
-        $scope.isBannerShowing = false;
+        $scope.shouldDisplayErrorBanner = false;
+        $scope.errorBannerTextArray = [];
+
+        if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified === true)
+        {
+            $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
+            $scope.shouldDisplayErrorBanner = true;
+        }
+        if ($localStorage.GLOBAL_VARIABLES.isProfileComplete === true ||
+            $localStorage.GLOBAL_VARIABLES.Status === "Registered")
+        {
+            $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
+            $scope.shouldDisplayErrorBanner = true;
+        }
+        if ($localStorage.GLOBAL_VARIABLES.Status === "Suspended" ||
+            $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked")
+        {
+            $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
+            $scope.shouldDisplayErrorBanner = true;
+        }
+        if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank != true)
+        {
+            $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
+            $scope.shouldDisplayErrorBanner = true;
+        }
+
+        if ($scope.shouldDisplayErrorBanner)
+        {
+            $ionicContentBanner.show({
+                text: $scope.errorBannerTextArray,
+                interval: '4000',
+                type: 'error',
+                transition: 'vertical'
+            });
+
+            $scope.isBannerShowing == true;
+            $('#fav-container').css('margin-top', '40px');
+        }
+        else
+            $scope.isBannerShowing == false;
 
         $scope.FindRecentFriends();
 
@@ -24,48 +63,6 @@
         });
     });
 
-
-    $scope.$on('isSuspended'), function (event, args) {
-        $ionicContentBanner.show({
-            text: ['! Account Suspended'],
-            type: 'error',
-            transition: 'vertical'
-        });
-
-        $scope.isBannerShowing = true;
-
-        $('#fav-container').css('margin-top', '40px');
-    }
-
-    $scope.$on('IsValidProfileFalse', function (event, args) {
-        if ($scope.isBannerShowing == false)
-        {
-            $ionicContentBanner.show({
-                text: ['Profile Incomplete'],
-                type: 'error',
-                transition: 'vertical'
-            });
-
-            $scope.isBannerShowing = true;
-
-            $('#fav-container').css('margin-top', '40px');
-        }
-    });
-
-    $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
-        if ($scope.isBannerShowing == false)
-        {
-            $ionicContentBanner.show({
-                text: ['Phone Number Not verified'],
-                type: 'error',
-                transition: 'vertical'
-            });
-
-            $scope.isBannerShowing = true;
-
-            $('#fav-container').css('margin-top', '40px');
-        }
-    });
 
     $scope.$on('foundPendingReq', function (event, args) {
         if ($scope.isBannerShowing == false)
@@ -140,9 +137,8 @@
         //});
 
         //}
-        //else{
+        //else
         //    swal("Oops...", "Internet not connected!", "error");
-        //  }
     }
 
 

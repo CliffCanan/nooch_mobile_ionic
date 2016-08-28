@@ -660,7 +660,7 @@ a {
 
 
 /***  LISTS  ***/
-.list.border-t-b{
+.list.border-t-b {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 }
@@ -727,6 +727,15 @@ a {
         padding: 6px 5px;
     }
 
+    .content-banner .content-banner-close {
+        min-width: 30px;
+        padding: 0;
+    }
+
+    .content-banner .content-banner-text {
+        left: 20px;
+        right: 20px;
+    }
 
 /***  TI-SEGMENTED-CONTROL  ***/
 .ti-segmented-control a.button {
@@ -1026,7 +1035,7 @@ div.hscroller-card {
     }
 
 #fav-container {
-    transition: .6s all ease-in-out;
+    transition: .7s all ease-out;
     margin-bottom: -4px;
 }
 
@@ -1034,6 +1043,10 @@ div.hscroller-card {
 /******************/
 /***  SETTINGS  ***/
 /******************/
+
+#settings_cntnr {
+    transition: .7s all ease-out;
+}
 
 #replaceBankBtn {
     border: none;
