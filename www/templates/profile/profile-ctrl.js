@@ -1,43 +1,52 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
 .controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner, $rootScope) {
 
-    $rootScope.$broadcast('IsVerifiedPhoneTrue');
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
         console.log('Profile Page Loadad');
+
+        $scope.shouldDisplayErrorBanner = false;
+        $scope.errorBannerTextArray = [];
+
+        //if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified != true)
+        //{
+        //    $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
+        //    $scope.shouldDisplayErrorBanner = true;
+        //}
+        //if ($localStorage.GLOBAL_VARIABLES.isProfileComplete != true ||
+        //    $localStorage.GLOBAL_VARIABLES.Status === "Registered")
+        //{
+        //    $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
+        //    $scope.shouldDisplayErrorBanner = true;
+        //}
+        if ($localStorage.GLOBAL_VARIABLES.Status === "Suspended" ||
+            $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked")
+        {
+            $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
+            $scope.shouldDisplayErrorBanner = true;
+        }
+        if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank != true)
+        {
+            $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
+            $scope.shouldDisplayErrorBanner = true;
+        }
+
+        if ($scope.shouldDisplayErrorBanner)
+        {
+            $ionicContentBanner.show({
+                text: $scope.errorBannerTextArray,
+                interval: '4000',
+                type: 'error',
+                transition: 'vertical'
+            });
+        }
 
         $scope.isAnythingChanged = false;
         $scope.Status = $localStorage.GLOBAL_VARIABLES.Status;
         $scope.IsPhoneVerified = $localStorage.GLOBAL_VARIABLES.IsPhoneVerified;
         $scope.MemberDetails();
     })
-
-    $scope.$on('IsValidProfileFalse', function (event, args) {
-        console.log('IsValidProfileFalse');
-        //$scope.valid = false;
-
-        $ionicContentBanner.show({
-            text: ['Profile Not Validated'],
-            interval: '20',
-            autoClose: '',
-            type: 'error',
-            transition: 'vertical'
-        });
-    });
-
-    $scope.$on('IsVerifiedPhoneFalse', function (event, args) {
-        console.log('IsVerifiedPhoneFalse');
-        //$scope.verified = false;
-
-        $ionicContentBanner.show({
-            text: ['Phone Number Not verified'],
-            interval: '20',
-            autoClose: '5000',
-            type: 'error',
-            transition: 'vertical'
-        });
-    });
 
 
     $scope.MemberDetails = function () {
@@ -51,16 +60,17 @@
 
         profileService.GetMyDetails()
             .success(function (details) {
-                console.log(details);
-                $scope.Details = details;
                 console.log('Profile Data GetMyDetails');
-                console.log($scope.Details);
+                console.log(details);
+
+                $scope.Details = details;
                 $ionicLoading.hide();
             })
-            .error(function (encError) {
-                console.log('Profile Error: [' + encError + ']');
+            .error(function (error) {
+                console.log('Profile Error: [' + eerrorncError + ']');
                 $ionicLoading.hide();
-                if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
             })
         //}
@@ -163,8 +173,7 @@
                     });
 
                 $scope.saveDobResponce = saveDobResponce;
-            }
-        ).error(function (encError) {
+            }).error(function (encError) {
             console.log('SaveDOBForMember Rrror Block: [' + encError + ']');
             $ionicLoading.hide();
 

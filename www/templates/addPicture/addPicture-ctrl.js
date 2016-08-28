@@ -3,12 +3,13 @@
     .controller('addPictureCtrl', function ($scope, $state, CommonServices, profileService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $rootScope) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
-            console.log('Enter Pin Controller loaded');
-
-
-            console.log('From addpicture page');
+            console.log('Add Picture Controller Loaded');
 
             console.log($rootScope.signupData);
+
+            if ($rootScope.signupData == null)
+                $state.go('signup');
+
 
             $scope.Photo = $rootScope.signupData.Photo;
 
@@ -33,16 +34,13 @@
                   console.log($scope.Data);
                   $ionicLoading.hide();
               }).error(function (data) {
-                   
                   console.log('eror' + data.ExceptionMessage);
-                 // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                  CommonServices.logOut(); 
+                  // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                  CommonServices.logOut();
               });
-
             //  }
-            //else {
+            //else
             //    swal("Oops...", "Internet not connected!", "error");
-            //}        
         }
 
 
@@ -77,9 +75,8 @@
 
                     $rootScope.signupData.Photo = imageData;
 
-                    if ($rootScope.signupData.Photo != null) {
+                    if ($rootScope.signupData.Photo != null)
                         $state.go('createPin');
-                    }
 
                 }, function (err) {
                     // An error occured. Show a message to the user
@@ -89,7 +86,8 @@
 
 
         $scope.UpdatePhoto = function () {
-            console.log(' UpdatePhoto Function Touched');
+            console.log('UpdatePhoto Fired');
+
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
                 template: 'Loading ...'
@@ -101,18 +99,17 @@
             profileService.MySettings($scope.Details)
                 .success(function (data) {
                     console.log(data);
+
                     $scope.Data = data;
-                    console.log('from UpdateProfile function');
                     $ionicLoading.hide();
                 }
         ).error(function (encError) {
-          //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-            CommonServices.logOut();  
+            //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+            CommonServices.logOut();
         })
             //}
-            //else {
+            //else
             //    swal("Oops...", "Internet not connected!", "error");
-            //}
         }
 
         $scope.trimName = function (str) {

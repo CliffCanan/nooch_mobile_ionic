@@ -578,6 +578,10 @@ a {
     margin-right: 8px;
 }
 
+.button.button-block, .button.button-full,
+.btn.button-block, .btn-lg {
+    font-weight: 300;
+}
 
 /***  TABLES  ***/
 .list .item {
@@ -873,9 +877,9 @@ iframe {
 }
 
     #toLoginBtn i {
-        font-size: 22px;
+        font-size: 20px;
         position: relative;
-        top: 2px;
+        top: 1px;
         margin-left: 6px;
     }
 
@@ -1110,6 +1114,43 @@ div.hscroller-card {
 /*******************/
 /***   PROFILE   ***/
 /*******************/
+.profilePicWrapper {
+    position: relative;
+    height: 78px;
+    width: 78px;
+}
+
+    .profilePicWrapper img {
+        box-shadow: 0 2px 7px -1px rgba(0,0,0,.35);
+        display: block;
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        position: absolute;
+        top: 0px;
+        left: 1%;
+        z-index: 9;
+    }
+
+    .profilePicWrapper #editTxt {
+        bottom: 0;
+        color: #fff;
+        display: block;
+        font-size: 12px;
+        position: absolute;
+        text-align: center;
+        text-shadow: 0 -1px 0 rgba(0,0,0,.65);
+        width: 100%;
+        z-index: 10;
+    }
+
+#bankLinkedWrap i {
+    font-size: 20px;
+    position: relative;
+    top: 1px;
+}
+
 #emailTxt {
     color: #777;
     cursor: not-allowed;
@@ -1743,16 +1784,15 @@ div.hscroller-card {
         padding: 5px 5px 5px 30px;
     }
 
-        .recipient-box .memo-text,
-        .recipient-box .memo-text
-        /*************************/
-        /*** Transfer Details  ***/
-        /*************************/
-        .header-item-blue {
-            background-color: #11C1F3;
-            color: #fff;
-            height: 30px;
-        }
+
+/*************************/
+/*** Transfer Details  ***/
+/*************************/
+.header-item-blue {
+    background-color: #11C1F3;
+    color: #fff;
+    height: 30px;
+}
 
 
 /*************************/
@@ -1837,8 +1877,8 @@ div.hscroller-card {
  */
 
 .animated {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
+    -webkit-animation-duration: 1.2s;
+    animation-duration: 1.3s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
@@ -1850,7 +1890,8 @@ div.hscroller-card {
 
     .animated.flipOutX,
     .animated.bounceIn,
-    .animated.bounceOut {
+    .animated.bounceOut,
+    .animated.bounceInUp {
         -webkit-animation-duration: 1.5s;
         animation-duration: 1.5s;
     }

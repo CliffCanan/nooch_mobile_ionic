@@ -5,47 +5,51 @@
             Save &nbsp;&nbsp;
         </button>
     </ion-nav-buttons>
-    <ion-content>
+
+    <ion-content class="b-gray">
 
         <div>
-            <h3 class="text-center">{{Details.FirstName}}&nbsp;{{Details.LastName}}</h3>
+            <h3 class="text-center m-t-10 m-b-0 capitalize">{{Details.FirstName}}&nbsp;{{Details.LastName}}</h3>
 
-            <div class="row">
-                <div class="col col-40">
-                    <div>
-                        <div ng-show="Res.hasSynapseBank">
-                            <img class="bank-logo pull-left m-r-50" src="./img/bank.png" />&nbsp;bank Linked
-                        </div>
-                        <div ng-show="!Res.hasSynapseBank">
-                            <img class="bank-logo pull-left m-r-10" src="./img/bank.png" />&nbsp;bank Not Linked
-                        </div>
+            <div class="row m-b-5">
+
+                <div id="bankLinkedWrap" class="col col-40 p-t-20">
+                    <div class="" ng-show="Res.hasSynapseBank">
+                        <i class="ion-ios-checkmark-outline text-success m-r-10"></i>Bank Linked
                     </div>
-
-                </div>
-                <div class="col col-20">
-
-                    <div class="recipient-box">
-                        <img src="{{Details.Photo}}" ng-click="choosePhoto()" class="recip-pic" />
+                    <div class="" ng-show="!Res.hasSynapseBank">
+                        <i class="ion-ios-close-outline text-danger m-r-10"></i>Bank Not Linked
                     </div>
                 </div>
 
-                <div class="col-40">
-                    <div class="text-right">
-                        <h5>Member Since:</h5>
-                        {{Res.DateCreated | date : "MMMM d, y" : "EDT"}}
+                <div class="col col-20 p-0">
+                    <div class="profilePicWrapper" ng-click="choosePhoto()">
+                        <img src="{{Details.Photo}}" class="recip-pic" />
+                        <span id="editTxt">edit</span>
                     </div>
                 </div>
+
+                <div class="col-40 p-t-20">
+                    <div class="text-center">
+                        <div class="m-t-5 f-600">Member Since:</div>
+                        {{Res.DateCreated | date : "MMM d, y" : "EDT"}}
+                    </div>
+                </div>
+
             </div>
         </div>
 
         <form id="myForm">
             <div id="profileTable" class="list table-style-2">
+
                 <div class="item item-divider">CONTACT INFO</div>
 
                 <div class="item item-input">
                     <span class="input-label">
-                        <i class="ion-ios-checkmark text-success" ng-if="Status == 'Active' || Status == 'Accepted'"></i>
-                        <i class="ion-ios-close text-danger" ng-if="Status == 'Registered'"></i>
+                        <span style="display:inline-block" class="animated bounceIn">
+                            <i class="ion-ios-checkmark-outline text-success" ng-if="Status == 'Active' || Status == 'Accepted'"></i>
+                            <i class="ion-ios-close text-danger" ng-if="Status == 'Registered'"></i>
+                        </span>
                         Email
                     </span>
                     <span id="emailTxt">{{Details.UserName}}</span>
@@ -53,9 +57,10 @@
 
                 <div class="item item-input">
                     <span class="input-label">
-                        <i class="ion-ios-checkmark text-success" ng-if="IsPhoneVerified == true"></i>
-                        <i class="ion-ios-close text-danger" ng-if="IsPhoneVerified != true"></i>
-                        Phone
+                        <span style="display:inline-block" class="animated bounceIn">
+                            <i class="ion-ios-checkmark-outline text-success" ng-if="IsPhoneVerified == true"></i>
+                            <i class="ion-ios-close text-danger" ng-if="IsPhoneVerified == false"></i>
+                        </span>Phone
                     </span>
                     <input type="text" placeholder="(123) 456 7890" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" ng-change="isAnythingChange()">
                 </div>
@@ -89,7 +94,7 @@
                     <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{Details.DateOfBirth}}" ng-change="isAnythingChange()">
                 </label>
 
-                <div ng-show="Res.IsSSNAdded == false">
+                <div ng-show="Details.IsSsnAdded == false">
                     <label class="item item-input">
                         <span class="input-label">SSN</span>
                         <input type="text" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" ng-change="isAnythingChange()">

@@ -2,10 +2,10 @@
     <ion-content>
 
         <a class="button backButton" href="#/signup"><i class="ion-android-arrow-dropleft-circle"></i></a>
+
         <div class="row">
             <div class="col text-center">
                 <img src="./img/nooch-logo.svg" class="mainLogo" />
-
                 <p class="slogan purp-text m-b-5">Money Made Simple</p>
             </div>
         </div>
@@ -13,20 +13,22 @@
         <div class="row text-center">
             <div class="col">
 
-                <p class="f-30 m-b-15">Hey,&nbsp;{{signupData.Name}}</p>
-                <div ng-if="Photo != ''">
+                <p class="f-30 m-b-15">Hey,&nbsp;{{signupData.Name}}!</p>
 
+                <div ng-if="Photo != ''">
                     <img class="m-b-20" src="{{Photo}}" />
                 </div>
-                <div ng-if="Photo == ''">
 
+                <div ng-if="Photo == ''">
                     <img class="m-b-20" src="./img/RoundLoading.png" />
                 </div>
-                <p class="m-5">Add a picture so people will be able to identify you better when sending you money. </p>
 
-                <button class="button btn-primary button-block m-t-25" ng-click="choosePhoto()"><i class="ion-camera"></i>Choose Picture</button>
+                <div class="p-l-10 p-r-10">
+                    <p class="m-5">Add a picture so people will be able to identify you better when sending you money. </p>
 
-                <!--<a href="#/createPin" class="button button-primary button-dark m-t-20">Next</a>-->
+                    <button class="button btn-primary button-block m-t-25" ng-click="choosePhoto()"><i class="ion-camera m-r-15"></i>Choose Picture</button>
+                </div>
+
                 <div ng-if="Photo != ''">
                     <a href="#/createPin" class="button button-clear button-dark m-t-20">I don't want to change my picture...</a>
                 </div>

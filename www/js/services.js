@@ -80,16 +80,26 @@ angular.module('noochApp.services', ['ngStorage'])
           $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
           $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+          $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
+          $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = false;
+          $localStorage.GLOBAL_VARIABLES.hasSynapseUserAccount = false;
+          $localStorage.GLOBAL_VARIABLES.isBankVerified = false;
+          $localStorage.GLOBAL_VARIABLES.isProfileComplete = false;
+
           //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = null;
           //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = null;
           $localStorage.GLOBAL_VARIABLES.MemberId = '';
           $localStorage.GLOBAL_VARIABLES.UserName = '';
           $localStorage.GLOBAL_VARIABLES.AccessToken = '';
-          $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
           //$localStorage.GLOBAL_VARIABLES.DeviceId = '';
           //$localStorage.GLOBAL_VARIABLES.DeviceToken = '';
+
           $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
-          $localStorage.GLOBAL_VARIABLES.PhotoUrl = '';
+          $localStorage.GLOBAL_VARIABLES.PhotoUrl =
+          $localStorage.GLOBAL_VARIABLES.Status = '';
+          $localStorage.GLOBAL_VARIABLES.synBankAllowed = '';
+          $localStorage.GLOBAL_VARIABLES.synUserPermission = '';
+
           console.log($localStorage.GLOBAL_VARIABLES);
 
           $state.go('login');

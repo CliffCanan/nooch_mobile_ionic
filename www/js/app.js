@@ -60,7 +60,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               bit: ''
           };
 
-
           // Fired when the app enters the foreground
           document.addEventListener("resume", function () {
               console.log('came in resume state');
@@ -68,8 +67,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
               if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
               {
-                  //added this to not asked for Pin before login
-
+                  //added this to not asked for PIN before login
                   if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
                   {
                       CommonServices.savePinValidationScreenData({ myParam: {}, type: '', returnUrl: 'app.home', returnPage: 'Home', comingFrom: 'Identity' });
@@ -83,7 +81,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           // this function gets fired when app goes to background
           document.addEventListener("pause", function () {
               console.log('came in pause state');
-
           }, false);
 
           //console.log(window);
@@ -97,6 +94,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
 
               console.log('device operating sysstem is ---->>>>>>>>>---->>>>>>>>>> ' + device.platform);
+
+              var options = {};
+              options.multiple = true;
+
+              $cordovaContacts.find(options).then(onSuccess, onError);
 
               function onSuccess(contacts) {
 
@@ -132,11 +134,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               function onError(contactError) {
                   console.log(contactError);
               };
-
-              var options = {};
-              options.multiple = true;
-
-              $cordovaContacts.find(options).then(onSuccess, onError);
 
               var notificationOpenedCallback = function (jsonData) {
                   console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));

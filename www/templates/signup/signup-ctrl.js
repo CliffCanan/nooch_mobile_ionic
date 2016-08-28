@@ -31,7 +31,7 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Signup Controller Loaded');
         $scope.getLocation();
-        console.log('signupData ' + JSON.stringify($scope.signupData));
+        console.log('signupData: [' + JSON.stringify($scope.signupData) + ']');
     });
 
 
@@ -42,13 +42,14 @@
         if (isFormValid)
         {
             console.log('signupData ' + JSON.stringify($scope.signupData));
+
             $ionicLoading.show({
                 template: 'Creating Account...'
             });
 
-
             console.log('From signup page');
             console.log($rootScope.signupData);
+
             $state.go('addPicture');
             $ionicLoading.hide();
 
@@ -61,7 +62,6 @@
             //        $ionicLoading.hide();
 
             //        $state.go('addPicture');
-
             //    }).error(function (encError) {
             //        console.log('Signup Attempt -> Error [' + encError + ']');
             //    })

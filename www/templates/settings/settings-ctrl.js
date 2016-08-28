@@ -9,7 +9,7 @@
          $scope.shouldDisplayErrorBanner = false;
          $scope.errorBannerTextArray = [];
 
-         if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified === true)
+         if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified != true)
          {
              $scope.isPhoneVerified = false;
              $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
@@ -18,7 +18,7 @@
          else
              $scope.isPhoneVerified = false;
 
-         if ($localStorage.GLOBAL_VARIABLES.isProfileComplete === true ||
+         if ($localStorage.GLOBAL_VARIABLES.isProfileComplete != true ||
              $localStorage.GLOBAL_VARIABLES.Status === "Active")
          {
              $scope.isProfileComplete = true;

@@ -12,13 +12,13 @@
 
         $scope.shouldDisplayErrorBanner = false;
         $scope.errorBannerTextArray = [];
-
-        if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified === true)
+        console.log($localStorage.GLOBAL_VARIABLES);
+        if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified != true)
         {
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
             $scope.shouldDisplayErrorBanner = true;
         }
-        if ($localStorage.GLOBAL_VARIABLES.isProfileComplete === true ||
+        if ($localStorage.GLOBAL_VARIABLES.isProfileComplete != true ||
             $localStorage.GLOBAL_VARIABLES.Status === "Registered")
         {
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');

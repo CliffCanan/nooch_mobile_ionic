@@ -43,14 +43,13 @@
                 <div class="item item item-avatar" ng-repeat="member in memberList">
                     <img class=user-img src={{member.Photo}}>
                     <h2>{{member.FirstName}}&nbsp;{{member.LastName}}</h2>
-                    <p class="item-note">{{member.DateCreated | date:'MM-dd-yyyy'}}</p>
+                    <p class="item-note">{{member.DateCreated | date: 'MMM d, y'}}</p>
                 </div>
 
                 <!--<div class="item item-avatar">
                     <img class="user-img" src="./img/RoundLoading.png">
                     <h2>Lenny Kravitz</h2>
                     <p class="item-note">1/1/1999</p>-->
-                </div>
             </div>
         </div>
 
