@@ -12,8 +12,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices) {
 
-
-
       if (!$localStorage.GLOBAL_VARIABLES)
       {
           $localStorage.GLOBAL_VARIABLES = {
@@ -48,30 +46,26 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       }
 
 
+      $ionicPlatform.ready(function () {
+          // Enable to debug issues.
+          // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-              $ionicPlatform.ready(function() {
-                  // Enable to debug issues.
-                  // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-
-
-              $rootScope.phoneContacts = [];
-              var readContact =
-                                  {
-                                      FirstName: '',
-                                      UserName: '',
-                                      ContactNumber: '',
-                                      Photo: '',
-                                      id: '',
-                                      bit: ''
-                                  };
+          $rootScope.phoneContacts = [];
+          var readContact = {
+              FirstName: '',
+              UserName: '',
+              ContactNumber: '',
+              Photo: '',
+              id: '',
+              bit: ''
+          };
 
 
-
-
-          // this functino will gets fired when app comes to foreground
+          // Fired when the app enters the foreground
           document.addEventListener("resume", function () {
               console.log('came in resume state');
               console.log($localStorage.GLOBAL_VARIABLES.EnterPinImmediately);
+
               if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
               {
                   //added this to not asked for Pin before login
@@ -95,88 +89,74 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           //console.log(window);
           if (window.cordova)
           {
-              // Get device info... will be used for handling notifications
-
+              // Get device info... used for handling notifications
               var device = $cordovaDevice.getDevice();
-              console.log(device);
+              //console.log(device);
 
-
-            if(device.platform=="Android")
-              $localStorage.GLOBAL_VARIABLES.DeviceOS = "A";
-            else
-              $localStorage.GLOBAL_VARIABLES.DeviceOS = "I";
-
+              $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform == "Android" ? "A" : "I";
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
 
+              console.log('device operating sysstem is ---->>>>>>>>>---->>>>>>>>>> ' + device.platform);
 
-            console.log('device operating sysstem is ---->>>>>>>>>>>>>>>>>>>---->>>>>>>>>>>>>>>>>>>---->>>>>>>>>>>>>>>>>>>---->>>>>>>>>>>>>>>>>>>---->>>>>>>>>>>>>>>>>>> '+device.platform );
+              function onSuccess(contacts) {
 
+                  console.log(contacts);
+                  for (var i = 0; i < contacts.length; i++)
+                  {
+                      var contact = contacts[i];
 
+                      readContact.FirstName = contact.name.formatted;
+                      readContact.id = i;
+                      readContact.bit = 'p';
+                      if (contact.emails != null)
+                          readContact.UserName = contact.emails[0].value;
+                      if (contact.phoneNumbers != null)
+                          readContact.ContactNumber = contact.phoneNumbers[0].value;
+                      if (contact.photos != null)
+                          readContact.Photo = contact.photos[0].value;
+                      $rootScope.phoneContacts.push(readContact);
 
-            function onSuccess(contacts) {
+                      readContact =
+                      {
+                          FirstName: '',
+                          UserName: '',
+                          ContactNumber: '',
+                          Photo: '',
+                          id: ''
+                      };
+                  }
 
-              console.log(contacts);
-              for (var i = 0; i < contacts.length; i++)
-              {
-                var contact = contacts[i];
+                  console.log($rootScope.phoneContacts);
+              };
 
-                readContact.FirstName = contact.name.formatted;
-                readContact.id = i;
-                readContact.bit = 'p';
-                if (contact.emails != null)
-                  readContact.UserName = contact.emails[0].value;
-                if (contact.phoneNumbers != null)
-                  readContact.ContactNumber = contact.phoneNumbers[0].value;
-                if (contact.photos != null)
-                  readContact.Photo = contact.photos[0].value;
-                $rootScope.phoneContacts.push(readContact);
+              function onError(contactError) {
+                  console.log(contactError);
+              };
 
-                readContact =
-                {
-                  FirstName: '',
-                  UserName: '',
-                  ContactNumber: '',
-                  Photo: '',
-                  id: ''
-                };
-              }
+              var options = {};
+              options.multiple = true;
 
-              console.log($rootScope.phoneContacts);
-            };
+              $cordovaContacts.find(options).then(onSuccess, onError);
 
-            function onError(contactError) {
-              console.log(contactError);
-            };
+              var notificationOpenedCallback = function (jsonData) {
+                  console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+              };
 
-            var options = {};
-            options.multiple = true;
+              window.plugins.OneSignal.init("fec1f882-0524-49e5-a8f4-1dc0f84cbb00",
+                { googleProjectNumber: "104707683579" },
+                notificationOpenedCallback);
 
-            $cordovaContacts.find(options).then(onSuccess, onError);
+              // Show an alert box if a notification comes in when the user is in your app.
+              window.plugins.OneSignal.enableInAppAlertNotification(true);
 
+              // Get device notification token for One Signal (Push Notifications)
+              window.plugins.OneSignal.getIds(function (ids) {
 
+                  $localStorage.GLOBAL_VARIABLES.DeviceToken = ids.pushToken;
 
-            var notificationOpenedCallback = function(jsonData) {
-              console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-            };
-
-            window.plugins.OneSignal.init("fec1f882-0524-49e5-a8f4-1dc0f84cbb00",
-              {googleProjectNumber: "104707683579"},
-              notificationOpenedCallback);
-
-            // Show an alert box if a notification comes in when the user is in your app.
-            window.plugins.OneSignal.enableInAppAlertNotification(true);
-
-
-            // getting device notification token for one singla push notifs
-
-              window.plugins.OneSignal.getIds(function(ids) {
-
-
-                $localStorage.GLOBAL_VARIABLES.DeviceToken = ids.pushToken;
-
-                // console.log("OneSignalUserId UserId: " + ids.userId);
-                // console.log("OneSignalPushToken PushToken: " + ids.pushToken);
-                // console.log('getIds: ' + JSON.stringify(ids));
+                  // console.log("OneSignalUserId UserId: " + ids.userId);
+                  // console.log("OneSignalPushToken PushToken: " + ids.pushToken);
+                  // console.log('getIds: ' + JSON.stringify(ids));
               });
 
               var isOnline = $cordovaNetwork.isOnline();
@@ -190,13 +170,13 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               // listen for Online event
               $rootScope.$on('$cordovaNetwork:online', function (event, networkState) {
                   var onlineState = networkState;
-                  console.log('came in online state change' + JSON.stringify(networkState));
+                  console.log('Network is ONLINE - ' + JSON.stringify(networkState));
               })
 
               // listen for Offline event
               $rootScope.$on('$cordovaNetwork:offline', function (event, networkState) {
                   var offlineState = networkState;
-                  console.log('came in offline state change' + JSON.stringify(networkState));
+                  console.log('Network is OFFLINE - ' + JSON.stringify(networkState));
               })
           }
 
@@ -321,16 +301,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-        //.state('profile', {
-        //    url: '/profile',
-        //    templateUrl: 'templates/profile/profile.html',
-        //    controller: 'profileCtrl'
-        //})
-        //.state('securitySetting', {
-        //    url: '/securitySetting',
-        //    templateUrl: 'templates/securitySetting/securitySetting.html',
-        //    controller: 'securitySettingCtrl'
-        //})
         .state('app.profile', {
             url: '/settings/profile',
             views: {
@@ -367,16 +337,15 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-         .state('app.addBank', {
-             url: '/settings/addBank',
-             views: {
-                 'menuContent': {
-                     templateUrl: 'templates/addBank/addBank.html',
-                     controller: 'addBankCtrl'
-                 }
-             }
-         })
-
+        .state('app.addBank', {
+            url: '/settings/addBank',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/addBank/addBank.html',
+                    controller: 'addBankCtrl'
+                }
+            }
+        })
         .state('app.ResetPwd', {
             url: '/settings/securitySetting/ResetPwd',
             views: {

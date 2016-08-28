@@ -50,6 +50,9 @@
 
                $ionicLoading.hide();
 
+               console.log("--  ABOUT TO PRINT '$localStorage'  --")
+               console.log($localStorage);
+
                if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
                    $rootScope.$broadcast('isSuspended');
 

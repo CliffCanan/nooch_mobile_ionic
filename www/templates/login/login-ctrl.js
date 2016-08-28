@@ -16,11 +16,11 @@
           }
           console.log($localStorage.GLOBAL_VARIABLES);
 
-         // $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
-        //  $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
+          // $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
+          //  $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
       });
 
-      $scope.loginData = {        
+      $scope.loginData = {
           email: 'malkit.singh@venturepact.com',
           pwd: 'Q123456789',
           rmmbrMe: {
@@ -38,32 +38,13 @@
               chk: true
           },
           FBId: '',
-          fbStatus:''
+          fbStatus: ''
       };
 
       $scope.SignIn = function () {
 
           //if ($cordovaNetwork.isOnline())
           //{
-
-          function fetchAfterLoginDetails() {
-              $ionicLoading.show({
-                  template: 'Reading user details...'
-              });
-
-              CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-                  $ionicLoading.hide();
-
-                  if (data != null)
-                  {
-                      $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-                      $state.go('app.home');
-                  }
-              }).error(function (err) {
-                  $ionicLoading.hide();
-              });
-          }
-
           if ($('#frmLogin').parsley().validate() == true)
           {
               $ionicLoading.show({
@@ -76,7 +57,7 @@
               CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
 
                   authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken,$localStorage.GLOBAL_VARIABLES.DeviceOS)
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken, $localStorage.GLOBAL_VARIABLES.DeviceOS)
                     .success(function (response) {
 
                         $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
@@ -116,15 +97,13 @@
 
                             $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
                             $ionicLoading.hide();
-                            // swal("login successfull");
+
                             fetchAfterLoginDetails();
-                            //$scope.fetchAfterLoginDetails();
+
                             //if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
                             //$state.go('app.home');
-
                         }
-                    }
-                    ).error(function (res) {
+                    }).error(function (res) {
                         $ionicLoading.hide();
                         console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
                     });
@@ -132,10 +111,26 @@
                   console.log('came in enc error block ' + encError);
               });
           }
-          //}
-          //else{
+
+          function fetchAfterLoginDetails() {
+              $ionicLoading.show({
+                  template: 'Reading user details...'
+              });
+
+              CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
+                  $ionicLoading.hide();
+
+                  if (data != null)
+                  {
+                      $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+                      $state.go('app.home');
+                  }
+              }).error(function (err) {
+                  $ionicLoading.hide();
+              });
+          }
+          //} else
           //    swal("Oops...", "Internet not connected!", "error");
-          //  }
       }
 
       $scope.forgotPw = function (type) {
@@ -202,10 +197,11 @@
       }
 
       $scope.loginWithFB = function () {
-          console.log('came in sign in with fb');
-          if (!window.cordova) {
+          console.log('LoginWithFB Fired');
+
+          if (!window.cordova)
               facebookConnectPlugin.browserInit("198279616971457");
-          }
+
           facebookConnectPlugin.login(['email', 'public_profile'], function (response) {
               console.log('login response from fb ' + JSON.stringify(response));
               $scope.loginWithFbData.fbStatus = _.get(response, 'status');
@@ -242,18 +238,14 @@
                             $scope.fetchAfterLoginDetails();
 
                             authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.loginWithFbData.FBId, $scope.fbStatus)
-                                .success(function (responce) {
-                                    console.log('SaveMembersFBId got success responce');
-                                    console.log(responce);
+                                .success(function (response) {
                                     $ionicLoading.hide();
                                     $state.go('app.home');
-                                }).error(function (responce) {
-                                    console.log('Got an error while saveMemberFBId');
-                                    console.log(responce);
+                                }).error(function (response) {
+                                    console.log('saveMemberFBId Error: [' + response + ']');
                                 })
 
                         }).error(function (res) {
-                            $ionicLoading.hide();
                             $ionicLoading.hide();
                             console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
                         })
@@ -262,11 +254,11 @@
                   console.log(error);
               })
           },
-                function (response) {
-                    console.log('error res');
-                    $ionicLoading.hide();
-                    alert(JSON.stringify(response))
-                });
+          function (response) {
+              console.log('error res');
+              $ionicLoading.hide();
+              //alert(JSON.stringify(response))
+          });
       }
 
 
