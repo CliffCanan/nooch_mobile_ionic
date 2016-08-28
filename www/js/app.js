@@ -44,7 +44,10 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               pinValidatorData: {}
           };
       }
-
+	  else if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
+      {
+		  CommonServices.logOut();
+	  }
 
       $ionicPlatform.ready(function () {
           // Enable to debug issues.

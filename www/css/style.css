@@ -892,7 +892,7 @@ iframe {
     color: #3fabe1;
     font-size: 28px;
     line-height: 1;
-    padding: 2px;
+    padding: 20px 2px 2px;
     min-height: 10px;
     text-decoration: none;
 }

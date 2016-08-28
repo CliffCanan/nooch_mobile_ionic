@@ -19,7 +19,7 @@
              $scope.isPhoneVerified = false;
 
          if ($localStorage.GLOBAL_VARIABLES.isProfileComplete != true ||
-             $localStorage.GLOBAL_VARIABLES.Status === "Active")
+             $localStorage.GLOBAL_VARIABLES.Status === "Registered")
          {
              $scope.isProfileComplete = true;
              $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
@@ -204,9 +204,9 @@
 
          settingsService.GetSynapseBankAndUserDetails()
            .success(function (data) {
-               $scope.Data = data;
+               $scope.bankData = data;
 
-               console.log($scope.Data);
+               console.log($scope.bankData);
 
                $ionicLoading.hide();
            }).error(function (data) {

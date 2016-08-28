@@ -5,15 +5,22 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
 
-        $scope.MemberDetails();
+		if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
+		{
+			CommonServices.logOut();
+		}
+		else
+		{
+	        $scope.MemberDetails();
 
-        $scope.url = 'http://support.nooch.com/';
-        $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
-        // console.log($scope.trustedUrl);
+	        $scope.url = 'http://support.nooch.com/';
+	        $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
+	        // console.log($scope.trustedUrl);
 
-        // Check if user has any Pending Requests
-        $timeout($scope.pendingList, 4000);
-    });
+	        // Check if user has any Pending Requests
+	        $timeout($scope.pendingList, 4000);
+		}
+	});
 
 
     $scope.MemberDetails = function () {

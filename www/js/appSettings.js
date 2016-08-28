@@ -52,7 +52,7 @@ var URLs = {
     RequestMoneyToNonNoochUserThroughPhoneUsingSynapse: PATH +'RequestMoneyToNonNoochUserThroughPhoneUsingSynapse',
     GetMemberStatsGeneric: PATH + 'GetMemberStatsGeneric',
     getInvitedMemberList: PATH + 'getInvitedMemberList',
-    GetSynapseBankAndUserDetails: PATH + 'GetSynapseBankAndUserDetails',
+    GetSynapseBankAndUserDetails: PATH + 'GetUsersBankInfoForMobile', // CC (8/28/16) Updated this to call a new server method specifically for sending only the data needed for the mobile app (i.e. no OAuth key or bank OID stuff)
     sendTransactionInCSV: PATH + 'sendTransactionInCSV',
     SaveDOBForMember: PATH + 'SaveDOBForMember',
     GetMostFrequentFriends: PATH + 'GetMostFrequentFriends',

@@ -4,7 +4,8 @@
         <div id="settings_cntnr">
 
             <div class="section-header m-t-20">
-                Linked Banked Account<i class="ion-android-alert text-danger m-l-10 f-21"></i>
+                <span>Linked Banked Account</span>
+				<i class="ion-android-alert text-danger m-l-10 f-21" ng-if="hasSynapseBank != true || bankData.bankStatus == 'Not Verified'"></i>
                 <button type="button" id="replaceBankBtn" class="pull-right" ng-click="openAddBank()">
                     <i class="ion-ios-plus-circled"></i>
                 </button>
@@ -21,18 +22,18 @@
                 </div>
             </div>
 
-            <div ng-if="hasSynapseBank === true">
+            <div ng-if="hasSynapseBank === true && bankData != null">
                 <!-- WHEN BANK IS LINKED -->
                 <div class="bank-info">
 
                     <img class="bank-logo pull-left m-r-10" src="./img/bank.png" />
 
                     <div>
-                        <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>Bank of America</div>
-                        <div id="bank-nickname">{{Data.BankDetails.bankType}}</div>
+                        <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>{{bankData.bankName}}</div>
+                        <div id="bank-nickname">{{bankData.bankNickname}}</div>
                         <div id="bank-status">
                             Status:
-                            <span class="text-danger">{{Data.BankDetails.Status}}</span>
+                            <span class="text-danger">{{bankData.bankStatus}}</span>
                         </div>
                         <a type="button" class="btn btn-link pull-right f-15 text-danger" href="#/app/settings/addBank" id="edit-bank">Edit</a>
                     </div>
