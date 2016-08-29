@@ -1,12 +1,9 @@
 ﻿angular.module('noochApp.SignupCtrl', ['noochApp.services', 'noochApp.signup-service'])
 
-
-/******************/
-/***  REGISTER  ***/
-/******************/
 .controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state, CommonServices, $rootScope, $localStorage, authenticationService) {
 
-    $rootScope.signupData = {
+    $rootScope.signUpData = {
+        FirstName: '',
         Name: '',
         Email: '',
         Password: '',
@@ -18,11 +15,8 @@
         FBId: ''
     };
 
-
     $scope.em = '';
     $scope.na = '';
-
-
 
     $scope.gotoSignInPage = function () {
         $location.path("#/login");
@@ -31,7 +25,7 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Signup Controller Loaded');
         $scope.getLocation();
-        console.log('signupData: [' + JSON.stringify($scope.signupData) + ']');
+        console.log('signUpData: [' + JSON.stringify($scope.signUpData) + ']');
     });
 
 
@@ -39,22 +33,20 @@
 
         var isFormValid = $('#submitForm').parsley().validate();
 
-        if (isFormValid) {
-            console.log('signupData ' + JSON.stringify($scope.signupData));
-
+        if (isFormValid)
+        {
             $ionicLoading.show({
                 template: 'Creating Account...'
             });
 
-            console.log('From signup page');
-            console.log($rootScope.signupData);
+            console.log($rootScope.signUpData);
 
             $state.go('addPicture');
             $ionicLoading.hide();
 
-            //CommonServices.GetEncryptedData($scope.signupData.Password).success(function (data) {
-            //    $scope.signupData.Password = data.Status;
-            //    MemberRegistration.Signup($scope.signupData).success(function (data) {
+            //CommonServices.GetEncryptedData($scope.signUpData.Password).success(function (data) {
+            //    $scope.signUpData.Password = data.Status;
+            //    MemberRegistration.Signup($scope.signUpData).success(function (data) {
             //        console.log('Return form Server');
             //        console.log(data);
 
@@ -93,8 +85,8 @@
 
         console.log('came in sign in with fb');
 
-        if (!window.cordova) {
-
+        if (!window.cordova)
+        {
             facebookConnectPlugin.browserInit("198279616971457");
         }
 
@@ -106,19 +98,17 @@
                 // success
                 console.log('got this from fb ' + JSON.stringify(success));
 
-                $rootScope.signupData.Email = _.get(success, 'email');
-                $rootScope.signupData.Name = _.get(success, 'name');
-                $rootScope.signupData.Photo = _.get(success, 'picture.data.url');
-                $rootScope.signupData.FBId = _.get(success, 'id');
-
+                $rootScope.signUpData.Email = _.get(success, 'email');
+                $rootScope.signUpData.Name = _.get(success, 'name');
+                $rootScope.signUpData.Photo = _.get(success, 'picture.data.url');
+                $rootScope.signUpData.FBId = _.get(success, 'id');
 
                 $scope.em = _.get(success, 'email');
                 $scope.na = _.get(success, 'name');
 
                 $scope.$apply();
 
-                console.log('Here is my root scope object' + JSON.stringify($rootScope.signupData));
-
+                console.log('signUpData: ' + JSON.stringify($rootScope.signUpData));
             }, function (error) {
                 // error
                 console.log(error);
@@ -187,30 +177,43 @@
     };
 
 
+    $scope.nameEntered = function () {
+
+        var fName = $scope.signUpData.Name;
+
+        if (fName.length > 4 && fName.indexOf(' ') > 0)
+        {
+            var nameArray = $rootScope.signUpData.Name.split(" ");
+            $rootScope.signUpData.FirstName = nameArray[0];
+            console.log($rootScope.signUpData.FirstName);
+        }
+    }
+
+
     $scope.checkUserName = function () {
         console.log('checkUserName function Touched');
+
         var isEmailValid = $('#email').parsley().validate();
-        console.log(isEmailValid);
-         if (isEmailValid == true) {
+
+        if (isEmailValid == true)
+        {
             console.log('checkUserName function Touched');
             //$ionicLoading.show({
             //    template: 'Checking user details...'
             //});
-             MemberRegistration.GetMemberNameByUserName($scope.em).success(function (data) {
-                 $scope.Data = data;
-                 console.log($scope.Data);
-                 if ($scope.Data.Result != null) {
-                    console.log(data);
+            MemberRegistration.GetMemberNameByUserName($scope.em).success(function (data) {
+                $scope.Data = data;
+                console.log($scope.Data);
+
+                if ($scope.Data.Result != null)
+                {
                     console.log('checkUserName function Called');
-                    swal("Oops...", "User Already Exsit", "error")
-                  //  $ionicLoading.hide();
+                    swal("Email Already Registered", "Terribly sorry, but it looks like that email address has already been used!", "error")
+                    //  $ionicLoading.hide();
                 }
             }).error(function (err) {
                 $ionicLoading.hide();
             });
         }
     }
-
 })
-
-

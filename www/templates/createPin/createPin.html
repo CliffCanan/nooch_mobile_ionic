@@ -3,10 +3,9 @@
 
         <a class="button backButton" href="#/addPicture"><i class="ion-android-arrow-dropleft-circle"></i></a>
 
-        <div class="row">
-            <div class="col text-center">
+        <div class="row p-t-0">
+            <div class="col p-t-0 text-center">
                 <img src="./img/nooch-logo.svg" class="mainLogo" />
-
                 <p class="slogan purp-text m-b-5">Money Made Simple</p>
             </div>
         </div>
@@ -14,19 +13,21 @@
         <div class="row text-center">
             <div class="col">
 
-                <p class="f-30 m-b-20">Create Your PIN</p>
+                <p class="f-30 m-b-15">Create Your PIN</p>
 
-                <p class="p-10 m-b-30">You'll be asked to enter this PIN anytime you send or request money.</p>
+                <p class="p-10 m-b-20 f-17">You'll be asked to enter this PIN anytime you send or request money.</p>
 
-                <form id="frmCreatePin" class="smErrors m-b-30" data-parsley-validate="">
+                <form id="frmCreatePin" class="smErrors m-b-10" data-parsley-validate="">
                     <div class="pin-container">
-                        <label class="item item-input">
-                            <input type="number" style="-webkit-text-security:disc" placeholder="* * * *" maxlength="4" ng-model="signupData.Pin" data-parsley-required data-parsley-required-message="*">
+                        <label>
+                            <input id="pinTxt" type="number" style="-webkit-text-security:disc" placeholder="* * * *" maxlength="4" ng-model="signupData.Pin" data-parsley-required data-parsley-required-message="*">
                         </label>
                     </div>
                 </form>
 
-                <button class="button btn-primary button-block" ng-click="signUpFn()">Submit</button>
+                <div class="p-l-10 p-r-10">
+                    <button class="button btn-primary button-block m-t-25" ng-click="signUpFn()">Submit<i class="ion-arrow-right-b m-l-15"></i></button>
+                </div>
 
             </div>
         </div>

@@ -337,4 +337,22 @@
               $ionicLoading.hide();
           });
       }
+
+
+      $scope.keyEntered = function () {
+
+          var em = $scope.loginData.email;
+          var pw = $scope.loginData.pwd;
+
+          if (em.length > 4 && em.indexOf('@') > 0 && em.indexOf('.') && pw.length > 4)
+          {
+              if ($('#loginBtn').hasClass('btn-gray'))
+                  $('#loginBtn').removeClass('btn-gray').addClass('btn-success');
+          }
+          else
+          {
+              if ($('#loginBtn').hasClass('btn-success'))
+                  $('#loginBtn').removeClass('btn-success').addClass('btn-gray');
+          }
+      }
   })

@@ -7,8 +7,7 @@
 
         <div class="row">
             <div class="col text-center">
-                <img src="./img/nooch-logo.svg" class="mainLogo" />
-
+                <img src="./img/nooch-logo.svg" class="mainLogo m-t-10" />
                 <p class="instructionText m-b-5">Sign Up With</p>
             </div>
         </div>
@@ -35,17 +34,17 @@
 
                         <label class="item item-input">
                             <span class="input-label calm">Full Name</span>
-                            <input type="text" placeholder="i.e Abe Licoln" ng-model="signupData.Name" value="{{na}}" class="form-control" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" data-parsley-pattern="/[(a-zA-Z)] [(a-zA-Z)]+$/" data-parsley-pattern-message="*">
+                            <input type="text" placeholder="i.e Abe Licoln" ng-model="signUpData.Name" value="{{na}}" class="form-control" ng-keyup="nameEntered()" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" data-parsley-pattern="/[(a-zA-Z)] [(a-zA-Z)]+$/" data-parsley-pattern-message="*">
                         </label>
 
                         <label class="item item-input">
                             <span class="input-label calm">Email</span>
-                            <input type="text" ng-blur="checkUserName()" placeholder="example@email.com" ng-model="signupData.Email" value="{{em}}" class="form-control" id="email" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                            <input type="text" ng-blur="checkUserName()" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" id="email" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
                         </label>
 
                         <label class="item item-input">
                             <span class="input-label calm">Password</span>
-                            <input type="password" placeholder="Password" ng-model="signupData.Password" class="form-control" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                            <input type="password" placeholder="Password" ng-model="signUpData.Password" class="form-control" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                         </label>
 
                         <div class="item item-input p-b-5">

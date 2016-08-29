@@ -44,58 +44,13 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               pinValidatorData: {}
           };
       }
-	  else if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
-      {
-		  CommonServices.logOut();
-	  }
+      else if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
+          CommonServices.logOut();
 
       $ionicPlatform.ready(function () {
           // Enable to debug issues.
           // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-
-          //if (window.cordova) {
-          //    cordova.plugins.diagnostic.isLocationAuthorized(function (enabled) {                  
-          //        console.log(enabled);
-          //       if(enabled ==true)
-          //           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
-          //       console.log('$localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch');
-          //       console.log($localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch);
-
-          //    }, function (error) {
-          //        $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-          //        console.log($localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch);
-          //        console.error("The following error occurred: " + error);
-          //    });
-          //}
-          //if (window.cordova) {
-          //    cordova.plugins.diagnostic.isLocationEnabled(function (Location) {
-          //        alert('reached in diagnostic plugin');
-          //        //alert(enabled);
-          //        //alert(JSON.stringify(enabled));
-          //        if (Location == false)
-          //        {
-          //            swal({
-          //                title: "GPS is Off",
-          //                text: "Your Location is not shared with Nooch Would you like to share it",
-          //                type: "warning",
-          //                showCancelButton: true,
-          //                confirmButtonColor: "#DD6B55",
-          //                confirmButtonText: "Yes, Enable",
-          //                closeOnConfirm: false
-          //            }, function () {
-          //                if (window.cordova) {
-          //                    cordova.plugins.diagnostic.switchToLocationSettings();
-          //                }                        
-          //            });
-          //        }
-                  
-          //    }, function (error) {
-          //        alert("The following error occurred: " + error);
-          //    });
-          //}
-
-          
 
           $rootScope.phoneContacts = [];
           var readContact = {
@@ -106,6 +61,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               id: '',
               bit: ''
           };
+
 
           // Fired when the app enters the foreground
           document.addEventListener("resume", function () {
@@ -142,45 +98,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
               console.log('device operating sysstem is ---->>>>>>>>>---->>>>>>>>>> ' + device.platform);
 
-              var options = {};
-              options.multiple = true;
-
-              $cordovaContacts.find(options).then(onSuccess, onError);
-
-              function onSuccess(contacts) {
-
-                  console.log(contacts);
-                  for (var i = 0; i < contacts.length; i++)
-                  {
-                      var contact = contacts[i];
-
-                      readContact.FirstName = contact.name.formatted;
-                      readContact.id = i;
-                      readContact.bit = 'p';
-                      if (contact.emails != null)
-                          readContact.UserName = contact.emails[0].value;
-                      if (contact.phoneNumbers != null)
-                          readContact.ContactNumber = contact.phoneNumbers[0].value;
-                      if (contact.photos != null)
-                          readContact.Photo = contact.photos[0].value;
-                      $rootScope.phoneContacts.push(readContact);
-
-                      readContact =
-                      {
-                          FirstName: '',
-                          UserName: '',
-                          ContactNumber: '',
-                          Photo: '',
-                          id: ''
-                      };
-                  }
-
-                  console.log($rootScope.phoneContacts);
-              };
-
-              function onError(contactError) {
-                  console.log(contactError);
-              };
+          
 
               var notificationOpenedCallback = function (jsonData) {
                   console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
