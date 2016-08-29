@@ -849,7 +849,6 @@ iframe {
 }
 
 .mainLogo {
-    margin-top: 8px;
     height: 58px;
 }
 
@@ -892,7 +891,7 @@ iframe {
     color: #3fabe1;
     font-size: 28px;
     line-height: 1;
-    padding: 20px 2px 2px;
+    padding: 15px 2px 2px;
     min-height: 10px;
     text-decoration: none;
 }
@@ -1889,9 +1888,8 @@ div.hscroller-card {
     }
 
     .animated.flipOutX,
-    .animated.bounceIn,
-    .animated.bounceOut,
-    .animated.bounceInUp {
+    .animated.bounceIn, .animated.bounceOut,
+    .animated.bounceInUp, .animated.bounceInDown {
         -webkit-animation-duration: 1.5s;
         animation-duration: 1.5s;
     }
@@ -4629,6 +4627,8 @@ div.hscroller-card {
 .slideInDown {
     -webkit-animation-name: slideInDown;
     animation-name: slideInDown;
+    -webkit-animation-duration: .8s;
+    animation-duration: .8s;
 }
 
 @-webkit-keyframes slideInLeft {
