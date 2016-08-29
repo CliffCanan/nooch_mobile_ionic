@@ -35,8 +35,6 @@
 
         if (isFormValid)
         {
-            console.log('signUpData ' + JSON.stringify($scope.signUpData));
-
             $ionicLoading.show({
                 template: 'Creating Account...'
             });
@@ -105,14 +103,12 @@
                 $rootScope.signUpData.Photo = _.get(success, 'picture.data.url');
                 $rootScope.signUpData.FBId = _.get(success, 'id');
 
-
                 $scope.em = _.get(success, 'email');
                 $scope.na = _.get(success, 'name');
 
                 $scope.$apply();
 
-                console.log('Here is my root scope object' + JSON.stringify($rootScope.signUpData));
-
+                console.log('signUpData: ' + JSON.stringify($rootScope.signUpData));
             }, function (error) {
                 // error
                 console.log(error);
@@ -180,6 +176,7 @@
           });
     };
 
+
     $scope.nameEntered = function () {
 
         var fName = $scope.signUpData.Name;
@@ -192,19 +189,31 @@
         }
     }
 
-    //$scope.fetchAfterLoginDetails = function () {
-    //    $ionicLoading.show({
-    //        template: 'Reading user details...'
-    //    });
-    //    CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-    //        if (data != null) {
-    //            $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-    //            $ionicLoading.hide();
-    //        }
-    //    }).error(function (err) {
-    //        $ionicLoading.hide();
-    //    });
-    //}
+
+    $scope.checkUserName = function () {
+        console.log('checkUserName function Touched');
+
+        var isEmailValid = $('#email').parsley().validate();
+
+        if (isEmailValid == true)
+        {
+            console.log('checkUserName function Touched');
+            //$ionicLoading.show({
+            //    template: 'Checking user details...'
+            //});
+            MemberRegistration.GetMemberNameByUserName($scope.em).success(function (data) {
+                $scope.Data = data;
+                console.log($scope.Data);
+
+                if ($scope.Data.Result != null)
+                {
+                    console.log('checkUserName function Called');
+                    swal("Email Already Registered", "Terribly sorry, but it looks like that email address has already been used!", "error")
+                    //  $ionicLoading.hide();
+                }
+            }).error(function (err) {
+                $ionicLoading.hide();
+            });
+        }
+    }
 })
-
-

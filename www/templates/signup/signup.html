@@ -39,7 +39,7 @@
 
                         <label class="item item-input">
                             <span class="input-label calm">Email</span>
-                            <input type="text" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                            <input type="text" ng-blur="checkUserName()" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" id="email" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
                         </label>
 
                         <label class="item item-input">
