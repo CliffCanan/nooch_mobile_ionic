@@ -53,15 +53,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           // Enable to debug issues.
           // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-          $rootScope.phoneContacts = [];
-          var readContact = {
-              FirstName: '',
-              UserName: '',
-              ContactNumber: '',
-              Photo: '',
-              id: '',
-              bit: ''
-          };
+         
 
           // Fired when the app enters the foreground
           document.addEventListener("resume", function () {
@@ -98,45 +90,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
               console.log('device operating sysstem is ---->>>>>>>>>---->>>>>>>>>> ' + device.platform);
 
-              var options = {};
-              options.multiple = true;
-
-              $cordovaContacts.find(options).then(onSuccess, onError);
-
-              function onSuccess(contacts) {
-
-                  console.log(contacts);
-                  for (var i = 0; i < contacts.length; i++)
-                  {
-                      var contact = contacts[i];
-
-                      readContact.FirstName = contact.name.formatted;
-                      readContact.id = i;
-                      readContact.bit = 'p';
-                      if (contact.emails != null)
-                          readContact.UserName = contact.emails[0].value;
-                      if (contact.phoneNumbers != null)
-                          readContact.ContactNumber = contact.phoneNumbers[0].value;
-                      if (contact.photos != null)
-                          readContact.Photo = contact.photos[0].value;
-                      $rootScope.phoneContacts.push(readContact);
-
-                      readContact =
-                      {
-                          FirstName: '',
-                          UserName: '',
-                          ContactNumber: '',
-                          Photo: '',
-                          id: ''
-                      };
-                  }
-
-                  console.log($rootScope.phoneContacts);
-              };
-
-              function onError(contactError) {
-                  console.log(contactError);
-              };
+          
 
               var notificationOpenedCallback = function (jsonData) {
                   console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
