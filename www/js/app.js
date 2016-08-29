@@ -53,6 +53,50 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           // Enable to debug issues.
           // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
+
+          //if (window.cordova) {
+          //    cordova.plugins.diagnostic.isLocationAuthorized(function (enabled) {                  
+          //        console.log(enabled);
+          //       if(enabled ==true)
+          //           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
+          //       console.log('$localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch');
+          //       console.log($localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch);
+
+          //    }, function (error) {
+          //        $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+          //        console.log($localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch);
+          //        console.error("The following error occurred: " + error);
+          //    });
+          //}
+          //if (window.cordova) {
+          //    cordova.plugins.diagnostic.isLocationEnabled(function (Location) {
+          //        alert('reached in diagnostic plugin');
+          //        //alert(enabled);
+          //        //alert(JSON.stringify(enabled));
+          //        if (Location == false)
+          //        {
+          //            swal({
+          //                title: "GPS is Off",
+          //                text: "Your Location is not shared with Nooch Would you like to share it",
+          //                type: "warning",
+          //                showCancelButton: true,
+          //                confirmButtonColor: "#DD6B55",
+          //                confirmButtonText: "Yes, Enable",
+          //                closeOnConfirm: false
+          //            }, function () {
+          //                if (window.cordova) {
+          //                    cordova.plugins.diagnostic.switchToLocationSettings();
+          //                }                        
+          //            });
+          //        }
+                  
+          //    }, function (error) {
+          //        alert("The following error occurred: " + error);
+          //    });
+          //}
+
+          
+
           $rootScope.phoneContacts = [];
           var readContact = {
               FirstName: '',
