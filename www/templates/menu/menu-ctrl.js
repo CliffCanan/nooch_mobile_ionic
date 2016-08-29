@@ -16,7 +16,6 @@
 	        $scope.url = 'http://support.nooch.com/';
 	        $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
 	        // console.log($scope.trustedUrl);
-
 	        // Check if user has any Pending Requests
 	        $timeout($scope.pendingList, 4000);
 		}
