@@ -58,5 +58,6 @@ var URLs = {
     GetMostFrequentFriends: PATH + 'GetMostFrequentFriends',
     SaveMemberSSN: PATH + 'SaveMemberSSN',
     LoginWithFacebookGeneric: PATH + 'LoginWithFacebookGeneric',
-    SaveMembersFBId: PATH + 'SaveMembersFBId'
+    SaveMembersFBId: PATH + 'SaveMembersFBId',
+    GetMemberNameByUserName: PATH + 'GetMemberNameByUserName'
 };

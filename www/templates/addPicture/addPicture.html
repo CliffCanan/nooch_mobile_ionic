@@ -1,7 +1,7 @@
 ﻿<ion-view view-title="Add Picture">
     <ion-content>
 
-        <a class="button backButton animated bounceInDown" href="#/signup"><i class="ion-android-arrow-dropleft-circle"></i></a>
+        <a class="button backButton animated slideInDown" href="#/signup"><i class="ion-android-arrow-dropleft-circle"></i></a>
 
         <div class="row">
             <div class="col text-center">
@@ -13,28 +13,28 @@
         <div class="row text-center">
             <div class="col">
 
-                <p class="f-30 m-b-15">Hey,&nbsp;{{signupData.Name}}!</p>
+                <p class="f-30 m-b-15">Hi,&nbsp;{{signUpData.FirstName}}!</p>
 
-                <div ng-if="Photo != ''">
-                    <img class="m-b-20" src="{{Photo}}" />
+                <div ng-if="signUpData.Photo == null || signUpData.Photo == ''">
+                    <img class="m-b-20" src="./img/RoundLoading.png" ng-click="choosePhoto()" />
                 </div>
 
-                <div ng-if="Photo == ''">
-                    <img class="m-b-20" src="./img/RoundLoading.png" />
+                <div ng-if="signUpData.Photo != null && signUpData.Photo.length > 10">
+                    <img class="m-b-20" src="signUpData.Photo" ng-click="choosePhoto()" />
                 </div>
 
-                <div class="p-l-10 p-r-10">
-                    <p class="m-5">Add a picture so people will be able to identify you better when sending you money. </p>
+                <div class="p-l-5 p-r-5">
+                    <p class="m-0 f-17">Add a picture so people will be able to identify you better when sending you money. </p>
 
                     <button class="button btn-primary button-block m-t-25" ng-click="choosePhoto()"><i class="ion-camera m-r-15"></i>Choose Picture</button>
                 </div>
 
-                <div ng-if="Photo != ''">
-                    <a href="#/createPin" class="button button-clear button-dark m-t-20">I don't want to change my picture...</a>
+                <div ng-if="signUpData.Photo != ''">
+                    <a href="#/createPin" class="button button-clear button-dark p-t-15">I don't want to change my picture...</a>
                 </div>
 
-                <div ng-if="Photo == ''">
-                    <a href="#/createPin" class="button button-clear button-dark m-t-20">I don't want to add a picture now...</a>
+                <div ng-if="signUpData.Photo == ''">
+                    <a href="#/createPin" class="button button-clear button-dark p-t-15">I don't want to add a picture now...</a>
                 </div>
 
             </div>

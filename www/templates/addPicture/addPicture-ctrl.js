@@ -5,19 +5,12 @@
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('Add Picture Controller Loaded');
 
-            console.log($rootScope.signupData);
+            console.log($rootScope.signUpData);
 
-            if ($rootScope.signupData == null)
+            if ($rootScope.signUpData == null)
                 $state.go('signup');
 
-
-            $scope.Photo = $rootScope.signupData.Photo;
-
-            //$scope.firstName = $scope.trimName($rootScope.signupData.Name);
-            //console.log('this is First Name of the user  ->>' + $scope.firstName);
-
             //$scope.memberDetails();
-            //$("#pin").focus();
         });
 
 
@@ -73,9 +66,9 @@
                     // $scope.Details.picture = bytes;
                     //console.log(bytes);
 
-                    $rootScope.signupData.Photo = imageData;
+                    $rootScope.signUpData.Photo = imageData;
 
-                    if ($rootScope.signupData.Photo != null)
+                    if ($rootScope.signUpData.Photo != null)
                         $state.go('createPin');
 
                 }, function (err) {

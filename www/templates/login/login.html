@@ -5,7 +5,7 @@
         <script src="libs/facebookConnectPlugin.js"></script>
         <ion-content id="loginScrn" class="signupFlow">
 
-            <a class="button backButton m-t-15 animated bounceInDown" href="#/signup" nav-transition="ios" nav-direction="back">
+            <a class="button backButton m-t-15 animated slideInDown" href="#/signup" nav-transition="ios" nav-direction="back">
                 <i class="ion-android-arrow-dropleft-circle"></i>
             </a>
 
@@ -33,12 +33,12 @@
 
                             <label class="item item-input">
                                 <span class="input-label calm">Email</span>
-                                <input type="text" class="form-control" placeholder="example@email.com" ng-model="loginData.email" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                                <input type="text" class="form-control" placeholder="example@email.com" ng-model="loginData.email" ng-keyup="keyEntered()" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
                             </label>
 
                             <label class="item item-input">
                                 <span class="input-label calm">Password</span>
-                                <input type="password" placeholder="Password" class="form-control" ng-model="loginData.pwd" data-parsley-minlength="5" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                                <input type="password" placeholder="Password" class="form-control" ng-model="loginData.pwd" ng-keyup="keyEntered()" data-parsley-minlength="5" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                             </label>
 
                             <div class="item item-input p-t-5">
@@ -60,7 +60,7 @@
 
                         </div>
 
-                        <button type="button" class="button button-block btn-gray" ng-click="SignIn()" value="validate"><i class="ion-log-in"></i> &nbsp; &nbsp;Login</button>                        
+                        <button id="loginBtn" type="button" class="btn button-block btn-gray" ng-click="SignIn()" value="validate"><i class="ion-log-in m-r-10"></i>&nbsp;Login</button>                        
                     </form>
 
                 </div>
