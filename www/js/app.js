@@ -236,7 +236,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-        .state('app.setting', {
+        .state('app.settings', {
             url: '/settings',
             views: {
                 'menuContent': {

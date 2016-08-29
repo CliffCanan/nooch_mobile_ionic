@@ -24,11 +24,13 @@
 
             <div ng-if="hasSynapseBank === true && bankData != null">
                 <!-- WHEN BANK IS LINKED -->
-                <div class="bank-info">
+                <div class="bank-info row">
+					
+					<div class="col col-14">
+                    	<img class="bank-logo pull-left m-r-10" src="./img/bank.png" />
+					</div>
 
-                    <img class="bank-logo pull-left m-r-10" src="./img/bank.png" />
-
-                    <div>
+                    <div class="col col-86">
                         <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>{{bankData.bankName}}</div>
                         <div id="bank-nickname">{{bankData.bankNickname}}</div>
                         <div id="bank-status">
