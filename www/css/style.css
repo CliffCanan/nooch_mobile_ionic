@@ -227,9 +227,39 @@ ion-header-bar, .navheader {
 .m-l-30 {
     margin-left: 30px !important;
 }
-
 .m-r-30 {
     margin-right: 30px !important;
+}
+
+.m-40 {
+    margin: 40px !important;
+}
+.m-t-40 {
+    margin-top: 40px !important;
+}
+.m-r-40 {
+    margin-right: 40px !important;
+}
+.m-b-40 {
+    margin-bottom: 40px !important;
+}
+.m-l-40 {
+    margin-left: 40px !important;
+}
+.m-50 {
+    margin: 40px !important;
+}
+.m-t-50 {
+    margin-top: 50px !important;
+}
+.m-r-50 {
+    margin-right: 50px !important;
+}
+.m-b-50 {
+    margin-bottom: 50px !important;
+}
+.m-l-50 {
+    margin-left: 50px !important;
 }
 /** Generate Padding Class
  * padding, padding-top, padding-bottom, padding-left, padding-right **/
@@ -872,14 +902,14 @@ iframe {
     display: block;
     font-size: 18px;
     text-decoration: none;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
     #toLoginBtn i {
         font-size: 20px;
         position: relative;
         top: 1px;
-        margin-left: 6px;
+        margin-left: 8px;
     }
 
 

@@ -47,6 +47,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       else if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
           CommonServices.logOut();
 
+      // Get Screen Width and save in $rootScope for use anywhere
+      $rootScope.screenWidth = CommonServices.getScreenWidth();
+
       $ionicPlatform.ready(function () {
           // Enable to debug issues.
           // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});

@@ -18,15 +18,16 @@
     $scope.em = '';
     $scope.na = '';
 
-    $scope.gotoSignInPage = function () {
-        $location.path("#/login");
-    };
-
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Signup Controller Loaded');
+
         $scope.getLocation();
         console.log('signUpData: [' + JSON.stringify($scope.signUpData) + ']');
     });
+
+    $scope.gotoSignInPage = function () {
+        $location.path("#/login");
+    };
 
 
     $scope.signUpClick = function () {
@@ -58,7 +59,29 @@
             //    })
             //})
         }
+        else
+        {
+            if ($scope.signUpData.Name.indexOf(" ") == -1)
+            {
+                swal({
+                    title: "Need a Full Name",
+                    text: "For security, we ask all Nooch users to sign up with a full name (first and last).",
+                    type: "warning",
+                    confirmButtonColor: "#3fabe1",
+                }, function () {
+                    $('#nameField').focus();
+                });
+            }
+        }
     };
+
+    $scope.checkStringForNumber = function (str) {
+        var match = str.match(/\d+/g);
+        if (match != null)
+            return true;
+        return false;
+    }
+
 
     // Viewing TOS Webview (in an Ionic Modal)
     $ionicModal.fromTemplateUrl('tosModal.html', {
@@ -177,39 +200,44 @@
     };
 
 
-    $scope.nameEntered = function () {
+    $scope.canSubmit = false;
 
-        var fName = $scope.signUpData.Name;
-
-        if (fName.length > 4 && fName.indexOf(' ') > 0)
+    $scope.keyEntered = function (btn) {
+        if (btn == 1)
         {
-            var nameArray = $rootScope.signUpData.Name.split(" ");
-            $rootScope.signUpData.FirstName = nameArray[0];
-            console.log($rootScope.signUpData.FirstName);
+            var fName = $scope.signUpData.Name;
+
+            if (fName.length > 4 && fName.indexOf(' ') > 0)
+            {
+                var nameArray = $rootScope.signUpData.Name.split(" ");
+                $rootScope.signUpData.FirstName = nameArray[0];
+                console.log($rootScope.signUpData.FirstName);
+            }
         }
+
+        if ($scope.signUpData.Name.length > 3 &&
+            $scope.signUpData.Email.length > 3 &&
+            $scope.signUpData.Password.length > 3)
+            $scope.canSubmit = true;
+        else
+            $scope.canSubmit = false;
     }
 
 
-    $scope.checkUserName = function () {
-        console.log('checkUserName function Touched');
+    $scope.checkIfEmailAlreadyRegistered = function () {
+        console.log('checkIfEmailAlreadyRegistered Fired');
 
         var isEmailValid = $('#email').parsley().validate();
 
         if (isEmailValid == true)
         {
-            console.log('checkUserName function Touched');
-            //$ionicLoading.show({
-            //    template: 'Checking user details...'
-            //});
             MemberRegistration.GetMemberNameByUserName($scope.em).success(function (data) {
                 $scope.Data = data;
                 console.log($scope.Data);
 
                 if ($scope.Data.Result != null)
                 {
-                    console.log('checkUserName function Called');
                     swal("Email Already Registered", "Terribly sorry, but it looks like that email address has already been used!", "error")
-                    //  $ionicLoading.hide();
                 }
             }).error(function (err) {
                 $ionicLoading.hide();
