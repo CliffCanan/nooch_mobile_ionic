@@ -227,6 +227,7 @@ ion-header-bar, .navheader {
 .m-l-30 {
     margin-left: 30px !important;
 }
+
 .m-r-30 {
     margin-right: 30px !important;
 }
@@ -234,30 +235,39 @@ ion-header-bar, .navheader {
 .m-40 {
     margin: 40px !important;
 }
+
 .m-t-40 {
     margin-top: 40px !important;
 }
+
 .m-r-40 {
     margin-right: 40px !important;
 }
+
 .m-b-40 {
     margin-bottom: 40px !important;
 }
+
 .m-l-40 {
     margin-left: 40px !important;
 }
+
 .m-50 {
     margin: 40px !important;
 }
+
 .m-t-50 {
     margin-top: 50px !important;
 }
+
 .m-r-50 {
     margin-right: 50px !important;
 }
+
 .m-b-50 {
     margin-bottom: 50px !important;
 }
+
 .m-l-50 {
     margin-left: 50px !important;
 }
@@ -717,8 +727,14 @@ a {
 }
 
     .sweet-alert p {
-        font-size: 18px;
-        margin-bottom: 5px;
+        color: #444;
+        font-size: 17px;
+        line-height: 1.3;
+        margin-bottom: 8px;
+    }
+
+    .sweet-alert .show {
+        margin-top: 10px;
     }
 
     .sweet-alert h2 {
@@ -728,6 +744,14 @@ a {
 
     .sweet-alert button {
         margin: 8px 6px 5px;
+    }
+
+        .sweet-alert button.cancel {
+            float: left;
+        }
+
+    .sweet-alert .sa-confirm-button-container {
+        float: right;
     }
 
     .sweet-alert fieldset {
@@ -1144,7 +1168,7 @@ div.hscroller-card {
 /***   PROFILE   ***/
 /*******************/
 .profilePicWrapper {
-	margin : 0 auto;
+    margin: 0 auto;
     position: relative;
     height: 78px;
     width: 78px;
@@ -1203,12 +1227,12 @@ div.hscroller-card {
 /***  HISTORY  ***/
 /*****************/
 .nav-btn-wrap {
-	padding: 5px 10px 0;
+    padding: 5px 10px 0;
 }
 
-.nav-btn-wrap i {
-	font-size: 21px;
-}
+    .nav-btn-wrap i {
+        font-size: 21px;
+    }
 
 
 .history-list .date {
@@ -1593,13 +1617,13 @@ div.hscroller-card {
 .searchBarContainer {
     border-radius: 6px !important;
     background: #e7e8e9;
-	padding: 2px 0 3px 16px;
+    padding: 2px 0 3px 16px;
 }
 
-.searchBarContainer i {
-	position: relative;
-	top: 1px;
-}
+    .searchBarContainer i {
+        position: relative;
+        top: 1px;
+    }
 
 .selectRecipList .list {
     border: 0;
@@ -1817,32 +1841,32 @@ div.hscroller-card {
         position: absolute;
         top: 8px;
         left: 6px;
-		z-index: 20;
+        z-index: 20;
     }
 
     .recipient-box .namebar {
         color: #fff;
-		border-radius: 6px 6px 0 0;
+        border-radius: 6px 6px 0 0;
         font-size: 20px;
         padding: 8px 5px 8px 30px;
-		position: absolute;
-		top: 0;
-		left: 0;
-		text-shadow: ;
-		width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-shadow:;
+        width: 100%;
     }
 
     .recipient-box .namebar-send {
         background: linear-gradient(#7fd034,#6ab029);
-		text-shadow: 0px 1px rgba(26, 38, 19, 0.3);
+        text-shadow: 0px 1px rgba(26, 38, 19, 0.3);
     }
-	
+
     .recipient-box .namebar-request {
         background: linear-gradient(#7fd034,#6ab029);
-		text-shadow: 0px 1px rgba(19, 32, 38, 0.25);
-	    background: -webkit-linear-gradient(#6dbee8, #3FABE1);
-	    background: -webkit-gradient(#6dbee8, #3FABE1);
-	    background: linear-gradient(#6dbee8, #3FABE1);
+        text-shadow: 0px 1px rgba(19, 32, 38, 0.25);
+        background: -webkit-linear-gradient(#6dbee8, #3FABE1);
+        background: -webkit-gradient(#6dbee8, #3FABE1);
+        background: linear-gradient(#6dbee8, #3FABE1);
     }
 
     .recipient-box .memo-text {

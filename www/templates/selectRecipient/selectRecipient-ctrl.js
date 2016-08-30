@@ -14,37 +14,64 @@
         $scope.recentCount = null;
 
         // to check contacts authorization
-         cordova.plugins.diagnostic.isContactsAuthorized(function(authorized){
-             console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
-             if (authorized == "authorized") {
-                 $localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert = true;
-                 $localStorage.GLOBAL_VARIABLES.HasSharedContacts = true;
-             }
-          
-         }, function(error){
-           console.error("The following error occurred: "+error);
-         });
+        console.log($localStorage.GLOBAL_VARIABLES.HasSharedContacts);
+        if ($localStorage.GLOBAL_VARIABLES.HasSharedContacts == false) {
+            cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
+                console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
+
+                if (authorized) {
+                    console.log(authorized);
+                    $scope.fetchContacts();
+                    $localStorage.GLOBAL_VARIABLES.HasSharedContacts = true;
+                }
+                else {
+                    console.log(authorized);
+                    swal({
+                        title: "Permissions not Granted!",
+                        text: "Please click OK for allowing Nooch to read Contacts",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: "Cancel",
+                        confirmButtonColor: "#3fabe1",
+                        confirmButtonText: "Ok",
+                        customClass: "stackedBtns"
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+
+                            cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
+                                if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED) {
+                                    console.log("Contacts use is authorized");
+
+                                    $scope.fetchContacts();
+                                    $localStorage.GLOBAL_VARIABLES.HasSharedContacts = true;
+                                }
+                                else {
+                                    console.log("Contact permisison is " + status);
+
+                                }
+                            }, function (error) {
+                                console.error(error);
+                            });
+                        }
+                    });
+
+
+
+
+
+                }
+
+            }, function (error) {
+                console.error("The following error occurred: " + error);
+            });
+        }
+        else {
+
+            $scope.fetchContacts();
+        }
 
       //   to request contact authorization
-         if ($localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert == false && $localStorage.GLOBAL_VARIABLES.HasSharedContacts == false) {
-
-             swal({ title: "Permissions not Granted!", text: "Please allow Contact Permissions", type: "error", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                 cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
-                     if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED) {
-                         console.log("Contacts use is authorized");
-                         $localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert = true;
-                         $localStorage.GLOBAL_VARIABLES.HasSharedContacts = true;
-                     }
-                     else {
-                         console.log("Contact permisison is " + status);
-                     }
-                 }, function (error) {
-                     console.error(error);
-                 });
-             });
-
-            
-         }
+         
        //  to check contacts authorization status
         // cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
         //   if(status === cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED){
@@ -80,6 +107,70 @@
         
     });
 
+    $scope.fetchContacts = function () {
+
+     
+  
+                $ionicLoading.show({
+                    template: 'Loading Contacts...'
+                });
+
+                var options = {};
+                options.multiple = true;
+
+                var readContact = {
+                    FirstName: '',
+                    UserName: '',
+                    ContactNumber: '',
+                    Photo: '',
+                    id: '',
+                    bit: ''
+                };
+                $cordovaContacts.find(options).then(onSuccess, onError);
+
+                function onSuccess(contacts) {
+
+                    console.log(contacts);
+                    for (var i = 0; i < contacts.length; i++) {
+                        var contact = contacts[i];
+
+                        readContact.FirstName = contact.name.formatted;
+                        readContact.id = i;
+                        readContact.bit = 'p';
+                        if (contact.emails != null)
+                            readContact.UserName = contact.emails[0].value;
+                        if (contact.phoneNumbers != null)
+                            readContact.ContactNumber = contact.phoneNumbers[0].value;
+                        if (contact.photos != null)
+                            readContact.Photo = contact.photos[0].value;
+                        //$scope.phoneContacts.push(readContact);
+                        $scope.memberList.push(readContact);
+                        readContact =
+                        {
+                            FirstName: '',
+                            UserName: '',
+                            ContactNumber: '',
+                            Photo: '',
+                            id: ''
+                        };
+
+                    }
+
+                    console.log($rootScope.phoneContacts);
+                    $ionicLoading.hide();
+                };
+
+                function onError(contactError) {
+                    console.log(contactError);
+                    $ionicLoading.hide();
+                };
+
+            
+
+            $ionicLoading.hide();
+        
+
+    }
 
     $scope.showSearch = function (member) {
         console.log($scope.search);
@@ -129,66 +220,7 @@
             // read contacts from device and push them in memberList object
 
 
-            if ($localStorage) {
-                if ($localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert == true && $localStorage.GLOBAL_VARIABLES.HasSharedContacts == true) {
-                    $ionicLoading.show({
-                        template: 'Loading Contacts...'
-                    });
-
-            var options = {};
-            options.multiple = true;
-           
-            var readContact = {
-                FirstName: '',
-                UserName: '',
-                ContactNumber: '',
-                Photo: '',
-                id: '',
-                bit: ''
-            };
-            $cordovaContacts.find(options).then(onSuccess, onError);
-
-            function onSuccess(contacts) {
-                
-                console.log(contacts);
-                for (var i = 0; i < contacts.length; i++) {
-                    var contact = contacts[i];
-
-                    readContact.FirstName = contact.name.formatted;
-                    readContact.id = i;
-                    readContact.bit = 'p';
-                    if (contact.emails != null)
-                        readContact.UserName = contact.emails[0].value;
-                    if (contact.phoneNumbers != null)
-                        readContact.ContactNumber = contact.phoneNumbers[0].value;
-                    if (contact.photos != null)
-                        readContact.Photo = contact.photos[0].value;
-                    //$scope.phoneContacts.push(readContact);
-                    $scope.memberList.push(readContact);
-                    readContact =
-                    {
-                        FirstName: '',
-                        UserName: '',
-                        ContactNumber: '',
-                        Photo: '',
-                        id: ''
-                    };
-                   
-                }
-
-                console.log($rootScope.phoneContacts);
-                $ionicLoading.hide();
-            };
-
-            function onError(contactError) {
-                console.log(contactError);
-                $ionicLoading.hide();
-            };
-
-                }
-
-                $ionicLoading.hide();
-            }
+            
 
             $scope.item2 = data;
             $ionicLoading.hide();
