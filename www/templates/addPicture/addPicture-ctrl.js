@@ -110,4 +110,12 @@
             var match = str.match(patt);
             return match[1];
         }
+
+        $scope.isUrlUpdated = function () {
+
+            ($rootScope.signUpData.gotPicUrl == true)
+            {
+                $rootScope.signUpData.isPicChanged = false;
+            }
+        }
     });

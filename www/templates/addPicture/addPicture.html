@@ -30,7 +30,7 @@
                 </div>
 
                 <div ng-if="signUpData.Photo != ''">
-                    <a href="#/createPin" class="button button-clear button-dark p-t-15">I don't want to change my picture...</a>
+                    <a href="#/createPin" ng-click="isUrlUpdated()" class="button button-clear button-dark p-t-15">I don't want to change my picture...</a>
                 </div>
 
                 <div ng-if="signUpData.Photo == ''">

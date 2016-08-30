@@ -14,19 +14,21 @@
 
         //console.log($rootScope.signUpData.Pin);
         console.log($rootScope.signUpData);
-       
+
         $scope.signUpFn = function () {
             console.log('signUpFn called');
-            if ($('#frmCreatePin').parsley().validate() == true)
-            {
+            if ($('#frmCreatePin').parsley().validate() == true) {
                 console.log($rootScope.signUpData);
-
                 //if ($cordovaNetwork.isOnline()) {
                 $ionicLoading.show({
                     template: 'Loading ...'
                 });
 
-
+                if (($rootScope.signUpData.gotPicUrl == true) && ($rootScope.signUpData.isPicChanged == false)) {
+                    console.log('Condition matched now calling thus -> getBase64FromImageUrl');
+                    $scope.getBase64FromImageUrl($rootScope.signUpData.Photo); //Convering facebook URL -> Image -> BAse64
+                }
+               
                 CommonServices.GetEncryptedData($rootScope.signUpData.Password).success(function (data) {
                     $rootScope.signUpData.Password = data.Status;
                     //console.log('Pwd Encrypted-->');
@@ -37,16 +39,13 @@
                         console.log(data);
                         $ionicLoading.hide();
 
-                        if (data = 'Thanks for registering! Check your email to complete activation.')
-                        {
+                        if (data = 'Thanks for registering! Check your email to complete activation.') {
                             $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
                             $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
                             $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
-
                             $scope.SignIn();
                         }
-                        else if (data = 'Duplicate random Nooch ID was generating')
-                        {
+                        else if (data = 'Duplicate random Nooch ID was generating') {
                             swal("Error", "Email is already registered with nooch", "error");
                             $state.go('signup');
                         }
@@ -78,21 +77,8 @@
                 CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
                     $ionicLoading.hide();
 
-                    if (data != null)
-                    {
+                    if (data != null) {
                         $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-
-                        //$rootScope.signUpData = {
-                        //    FirstName: '',
-                        //    Name: '',
-                        //    Email: '',
-                        //    Password: '',
-                        //    Picture: '',
-                        //    Pin: '',
-                        //    rmmbrMe: {
-                        //        chk: true
-                        //    }
-                        //};
 
                         $state.go('app.home');
                     }
@@ -113,13 +99,11 @@
                       console.log(response.Result + ', ' + response.Result.indexOf('Temporarily_Blocked'));
                       console.log(response);
 
-                      if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1)
-                      {
+                      if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1) {
                           $ionicLoading.hide();
                           swal(response.Result);
                       }
-                      else if (response.Result.indexOf('Temporarily_Blocked') > -1)
-                      {
+                      else if (response.Result.indexOf('Temporarily_Blocked') > -1) {
                           $ionicLoading.hide();
                           swal({
                               title: "Oh No!",
@@ -132,13 +116,11 @@
                               customClass: "stackedBtns",
                               html: true,
                           }, function (isConfirm) {
-                              if (isConfirm)
-                              {
+                              if (isConfirm) {
                               }
                           });
                       }
-                      else
-                      {
+                      else {
                           $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
                           $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
                           $localStorage.GLOBAL_VARIABLES.Pwd = $rootScope.signUpData.Password;
@@ -152,5 +134,27 @@
             //}
             //else
             //    swal("Oops...", "Internet not connected!", "error");
+        }
+
+        $scope.getBase64FromImageUrl = function (URL) {
+            var img = new Image();
+            img.setAttribute('crossOrigin', 'anonymous');
+            img.src = URL;
+            img.onload = function () {
+
+                var canvas = document.createElement("canvas");
+                canvas.width = this.width;
+                canvas.height = this.height;
+
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(this, 0, 0);
+
+                var dataURL = canvas.toDataURL("image/png");
+                console.log("Data URL");
+                console.log(dataURL);
+                console.log("BAse 64--->>");
+                console.log(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+                $rootScope.signUpData.Photo = (dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+            };
         }
     });

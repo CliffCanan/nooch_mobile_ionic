@@ -12,7 +12,9 @@
         rmmbrMe: {
             chk: true
         },
-        FBId: ''
+        FBId: '',
+        gotPicUrl: false,
+        isPicChanged:true
     };
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -185,47 +187,18 @@
                 $rootScope.signUpData.Photo = _.get(success, 'picture.data.url');
                 $rootScope.signUpData.FBId = _.get(success, 'id');
 
+                if($rootScope.signUpData.Photo != null)
+                {
+                    $rootScope.signUpData.gotPicUrl = true;
+                }
                 $scope.$apply();
-
                 console.log('signUpData: ' + JSON.stringify($rootScope.signUpData));
             }, function (error) {
                 // error
                 console.log(error);
             });
 
-            //    authenticationService.LoginWithFacebookGeneric($localStorage.GLOBAL_VARIABLES.UserName, $scope.FBId, $scope.remmberMe, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude, $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
-            //          .success(function (response) {
-            //              console.log(response);
-
-            //              if (response.Result == "FBID or EmailId not registered with Nooch") {
-            //                  swal("Oops...", "Your Mail or FBID is not registered with nooch", "error");
-            //              }
-            //              else if (response.Result == "Invalid user id or password.") {
-            //                  swal("Oops...", "Invalid user id or password.", "error");
-            //              }
-            //              else {
-            //                  $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
-            //                  $ionicLoading.hide();
-            //                  $scope.fetchAfterLoginDetails();
-
-            //                  authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.FBId, $scope.fbStatus)
-            //                  .success(function (response) {
-            //                      console.log('SaveMembersFBId got success response');
-            //                      console.log(response);
-            //                      $state.go('addPicture');
-            //                  }).error(function (error) {
-            //                      console.log('Got an error while saveMemberFBId[' + error + ']');
-            //                  })
-            //              }
-            //          }).error(function (res) {
-            //              $ionicLoading.hide();
-            //              console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
-            //          })
-            //},
-            //  function (response) {
-            //      console.log('error res');
-            //      $ionicLoading.hide();
-            //}
+           
         });
     }
 
