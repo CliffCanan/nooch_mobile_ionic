@@ -99,6 +99,22 @@
                 $('#pwField').focus();
             });
         }
+        else if ($('#ckBox').parsley().validate() != true)
+        {
+            swal({
+                title: "Who Loves Lawyers?",
+                text: "Please read Nooch's Terms of Service. <small class='show m-t-10 m-b-20'>(They're definitely as exciting as you think.)</span>",
+                type: "warning",
+                confirmButtonText: "View TOS",
+                confirmButtonColor: "#3fabe1",
+                showCancelButton: true,
+                cancelButtonText: "Ok",
+                html: true
+            }, function (isConfirm) {
+                if (isConfirm)
+                    $scope.openTos();
+            });
+        }
         else
         {
             $ionicLoading.show({
@@ -288,11 +304,13 @@
         {
             console.log("Checking Email with server...");
             MemberRegistration.CheckIfEmailIsRegistered($rootScope.signUpData.Email).success(function (data) {
-                $scope.Data = data;
-                console.log($scope.Data);
 
-                if ($scope.Data.Result != null)
+                console.log(data);
+
+                if (data != null && data.matchFound == true)
                 {
+                    $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = data.rememberMe == true ? true : false;
+
                     swal({
                         title: "Email Already Registered",
                         text: "Terribly sorry, but it looks like <strong>" + $rootScope.signUpData.Email + "</strong> has already been registered!" +
