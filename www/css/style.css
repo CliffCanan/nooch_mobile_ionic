@@ -227,9 +227,39 @@ ion-header-bar, .navheader {
 .m-l-30 {
     margin-left: 30px !important;
 }
-
 .m-r-30 {
     margin-right: 30px !important;
+}
+
+.m-40 {
+    margin: 40px !important;
+}
+.m-t-40 {
+    margin-top: 40px !important;
+}
+.m-r-40 {
+    margin-right: 40px !important;
+}
+.m-b-40 {
+    margin-bottom: 40px !important;
+}
+.m-l-40 {
+    margin-left: 40px !important;
+}
+.m-50 {
+    margin: 40px !important;
+}
+.m-t-50 {
+    margin-top: 50px !important;
+}
+.m-r-50 {
+    margin-right: 50px !important;
+}
+.m-b-50 {
+    margin-bottom: 50px !important;
+}
+.m-l-50 {
+    margin-left: 50px !important;
 }
 /** Generate Padding Class
  * padding, padding-top, padding-bottom, padding-left, padding-right **/
@@ -872,14 +902,14 @@ iframe {
     display: block;
     font-size: 18px;
     text-decoration: none;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
     #toLoginBtn i {
         font-size: 20px;
         position: relative;
         top: 1px;
-        margin-left: 6px;
+        margin-left: 8px;
     }
 
 
@@ -1077,7 +1107,7 @@ div.hscroller-card {
     border-top: 1px solid rgba(188,190,192,.9);
     border-bottom: 1px solid rgba(188,190,192,.9);
     color: #313233;
-    padding: 12px 16px;
+    padding: 10px;
     position: relative;
 }
 
@@ -1114,6 +1144,7 @@ div.hscroller-card {
 /***   PROFILE   ***/
 /*******************/
 .profilePicWrapper {
+	margin : 0 auto;
     position: relative;
     height: 78px;
     width: 78px;
@@ -1171,6 +1202,15 @@ div.hscroller-card {
 /*****************/
 /***  HISTORY  ***/
 /*****************/
+.nav-btn-wrap {
+	padding: 5px 10px 0;
+}
+
+.nav-btn-wrap i {
+	font-size: 21px;
+}
+
+
 .history-list .date {
     color: #888;
     display: inline-block;
@@ -1269,6 +1309,12 @@ div.hscroller-card {
     background: #eee;
     text-align: center;
     padding: 0 5px;
+}
+
+.header-item-blue {
+    background-color: #11C1F3;
+    color: #fff;
+    height: 30px;
 }
 
 .label-type {
@@ -1547,6 +1593,12 @@ div.hscroller-card {
 .searchBarContainer {
     border-radius: 6px !important;
     background: #e7e8e9;
+	padding: 2px 0 3px 16px;
+}
+
+.searchBarContainer i {
+	position: relative;
+	top: 1px;
 }
 
 .selectRecipList .list {
@@ -1761,20 +1813,36 @@ div.hscroller-card {
         height: 58px;
         width: 58px;
         border-radius: 50%;
-        border: 2px solid #fff;
+        border: 1px solid #fff;
         position: absolute;
         top: 8px;
         left: 6px;
+		z-index: 20;
     }
 
     .recipient-box .namebar {
         color: #fff;
-        padding: 8px 5px 8px 30px;
+		border-radius: 6px 6px 0 0;
         font-size: 20px;
+        padding: 8px 5px 8px 30px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		text-shadow: ;
+		width: 100%;
     }
 
     .recipient-box .namebar-send {
         background: linear-gradient(#7fd034,#6ab029);
+		text-shadow: 0px 1px rgba(26, 38, 19, 0.3);
+    }
+	
+    .recipient-box .namebar-request {
+        background: linear-gradient(#7fd034,#6ab029);
+		text-shadow: 0px 1px rgba(19, 32, 38, 0.25);
+	    background: -webkit-linear-gradient(#6dbee8, #3FABE1);
+	    background: -webkit-gradient(#6dbee8, #3FABE1);
+	    background: linear-gradient(#6dbee8, #3FABE1);
     }
 
     .recipient-box .memo-text {
@@ -1782,16 +1850,6 @@ div.hscroller-card {
         font-weight: 300;
         padding: 5px 5px 5px 30px;
     }
-
-
-/*************************/
-/*** Transfer Details  ***/
-/*************************/
-.header-item-blue {
-    background-color: #11C1F3;
-    color: #fff;
-    height: 30px;
-}
 
 
 /*************************/

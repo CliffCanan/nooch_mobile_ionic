@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.historyCtrl', ['noochApp.history-service', 'noochApp.services'])
 
-    .controller('historyCtrl', function ($scope, $filter, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner, $state, $ionicModal, CommonServices, ValidatePin, $ionicHistory) {
+    .controller('historyCtrl', function ($scope, $filter, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner, $state, $ionicModal, CommonServices, ValidatePin, $ionicHistory, $ionicActionSheet) {
 
         $ionicModal.fromTemplateUrl('templates/history/modalPopUp.html', {
             scope: $scope,
@@ -8,12 +8,6 @@
         }).then(function (modal) {
             $scope.modal = modal;
         });
-
-        $scope.openModal = function () {
-            $('#btnCompleted').attr('disabled', true);
-            $('#btnPending').attr('disabled', true);
-            $scope.modal.show();
-        };
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('History Page Loaded');
@@ -185,7 +179,6 @@
 
                 console.log($scope.transactionList);
             });
-
         }
 
 
@@ -200,17 +193,94 @@
 
                 console.log($scope.transactionList);
             });
-
         }
+
+
+        $scope.openModal = function () {
+            $('#btnCompleted').attr('disabled', true);
+            $('#btnPending').attr('disabled', true);
+            
+			//$scope.modal.show();
+			
+			var title = $scope.completed == true ? "Filter Options (Completed Payments)" : "Filter Options (Pending Payments)";
+			var buttons = [];
+			if ($scope.completed == true)
+			{
+				buttons = [
+                    { text: 'Sent' },
+                    { text: 'Received' },
+                    { text: 'Cancelled' },
+                    { text: 'Rejected' },
+                    { text: 'Disputed' }
+				]
+			}
+			else
+			{
+				buttons = [
+                    { text: 'Sent' },
+                    { text: 'Received' },
+                    { text: 'Disputed' },
+				]
+			}
+			
+            var hideSheet = $ionicActionSheet.show({
+                buttons: buttons,
+                titleText: title,
+                cancelText: 'Cancel',
+				cancel: function() {
+		            $('#btnCompleted').attr('disabled', false);
+		            $('#btnPending').attr('disabled', false);
+				},
+                buttonClicked: function (index) {
+                    if (index == 0)
+                    {
+						if ($scope.completed == true)
+							$scope.press('SentC');
+						else
+							$scope.press('SentP');
+                    }
+                    else if (index == 1)
+                    {
+						if ($scope.completed == true)
+							$scope.press('ReceivedC');
+						else
+							$scope.press('ReceivedP');
+                    }
+                    else if (index == 2)
+					{
+						if ($scope.completed == true)
+							$scope.press('Cancelled');
+						else
+							$scope.press('SentP');
+					}
+                    else if (index == 3)
+					{
+						if ($scope.completed == true)
+							$scope.press('Rejected');
+					}
+                    else if (index == 4)
+					{
+						if ($scope.completed == true)
+							$scope.press('DisputedC');
+					}
+
+                    return true;
+                }
+            });
+        };
 
 
         $scope.press = function (type) {
 
             $scope.modal.hide();
+			
             var filteredList = [];
-            $scope.transactionList = $scope.transList;
-            console.log($scope.transactionList);
-            var length = ($scope.transactionList.length);
+            
+			$scope.transactionList = $scope.transList;
+            
+			console.log($scope.transactionList);
+            
+			var length = ($scope.transactionList.length);
 
             for (var i = 0; i < length; i++)
             {
@@ -228,12 +298,12 @@
                         ($scope.transactionList[i].TransactionType == 'Transfer' || $scope.transactionList[i].TransactionType == 'Request'))
                         filteredList.push($scope.transactionList[i]);
                 }
-                else if (type == 'CancelledC')
+                else if (type == 'Cancelled')
                 {
                     if ($scope.transactionList[i].TransactionStatus == 'Cancelled')
                         filteredList.push($scope.transactionList[i]);
                 }
-                else if (type == 'RejectedC')
+                else if (type == 'Rejected')
                 {
                     if ($scope.transactionList[i].TransactionStatus == 'Rejected')
                         filteredList.push($scope.transactionList[i]);
@@ -269,13 +339,6 @@
             $scope.transactionList = filteredList;
             $('#btnCompleted').attr('disabled', false);
             $('#btnPending').attr('disabled', false);
-        }
-
-
-        $scope.closeModalPopUp = function () {
-            $('#btnCompleted').attr('disabled', false);
-            $('#btnPending').attr('disabled', false);
-            $scope.modal.hide();
         }
 
 

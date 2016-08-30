@@ -54,7 +54,7 @@ angular.module('noochApp.services', ['ngStorage'])
 // })
 
 // Adding some common usefull services in here like enc, dec etc.
-  .service('CommonServices', function ($http, $localStorage, $state) {
+  .service('CommonServices', function ($http, $localStorage, $state, $window) {
       this.GetEncryptedData = function (dataToEncrypt) {
           return $http.get(URLs.GetEncryptedData + '?data=' + btoa(dataToEncrypt));   // btoa DOES THE BASE 64 ENCRYPTION FOR GIVEN INPUT
       }
@@ -78,7 +78,6 @@ angular.module('noochApp.services', ['ngStorage'])
       this.logOut = function () {
 
           $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
-          $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
           $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
           $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = false;
@@ -105,7 +104,6 @@ angular.module('noochApp.services', ['ngStorage'])
           $state.go('login');
       }
 
-
       this.IsDuplicateMember = function (userName) {
           return $http.get(URLs.IsDuplicateMember + '?userName=' + userName);
       }
@@ -131,6 +129,9 @@ angular.module('noochApp.services', ['ngStorage'])
           return $localStorage.GLOBAL_VARIABLES.pinValidatorData;
       }
 
+      this.getScreenWidth = function () {
+          return $window.innerWidth;
+      }
   })
 
 

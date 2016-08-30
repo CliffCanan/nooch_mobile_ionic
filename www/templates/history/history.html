@@ -1,12 +1,11 @@
 ﻿
-
 <ion-view view-title="History">
     <ion-nav-buttons side="secondary">
-        <i class="ion-ios-color-filter" ng-click="openModal()"></i>
-      
+		<span class="nav-btn-wrap">
+			<i class="ion-funnel" ng-click="openModal()"></i>
+		</span>
     </ion-nav-buttons>
-    
-   
+
     <ion-content>
 
         <div class="row">
@@ -33,7 +32,6 @@
                 <ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.TransactionStatus == 'Success' || trans.TransactionStatus == 'Cancelled' || trans.TransactionStatus == 'Rejected'  ">
 
                 <!--<ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.TransactionStatus == 'Success'   ">-->
-
 
 
                     <img src={{trans.Photo}}>

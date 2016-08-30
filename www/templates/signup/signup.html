@@ -34,17 +34,17 @@
 
                         <label class="item item-input">
                             <span class="input-label calm">Full Name</span>
-                            <input type="text" placeholder="i.e Abe Licoln" ng-model="signUpData.Name" value="{{na}}" class="form-control" ng-keyup="nameEntered()" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" data-parsley-pattern="/[(a-zA-Z)] [(a-zA-Z)]+$/" data-parsley-pattern-message="*">
+                            <input type="text" placeholder="Abe Licoln" ng-model="signUpData.Name" value="{{na}}" id="nameField" class="form-control capitalize" ng-keyup="keyEntered(1)" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                         </label>
 
                         <label class="item item-input">
                             <span class="input-label calm">Email</span>
-                            <input type="text" ng-blur="checkUserName()" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" id="email" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                            <input type="text" ng-blur="checkIfEmailAlreadyRegistered()" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" id="email" ng-keyup="keyEntered(2)" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
                         </label>
 
                         <label class="item item-input">
                             <span class="input-label calm">Password</span>
-                            <input type="password" placeholder="Password" ng-model="signUpData.Password" class="form-control" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                            <input type="password" placeholder="Password" ng-model="signUpData.Password" class="form-control" ng-keyup="keyEntered(3)" id="pwField" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                         </label>
 
                         <div class="item item-input p-b-5">
@@ -60,7 +60,7 @@
 
                     </div>
 
-                    <button type="button" ng-click="signUpClick()" class="button btn-success button-block" value="validate">Continue</button>
+                    <button id="createAccount"type="button" ng-click="signUpClick()" class="button btn-success button-block" value="validate" disabled><i class="ion-person-add"></i>Create Account</button>
 
                 </form>
 
@@ -69,7 +69,7 @@
 
         <div class="row">
             <div class="col text-center animated bounceInUp">
-                <a href="#/login" id="toLoginBtn" nav-transition="ios" nav-direction="forward">
+                <a href="#/login" id="toLoginBtn" ng-class="{'m-t-50': screenWidth > 360}" nav-transition="ios" nav-direction="forward">
                     Already a member? &nbsp;Sign in Here
                     <i class="ion-android-arrow-dropright-circle text-success"></i>
                 </a>

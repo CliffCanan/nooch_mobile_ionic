@@ -13,27 +13,25 @@
 
             <div class="row m-b-5">
 
-                <div id="bankLinkedWrap" class="col col-40 p-t-20">
-                    <div class="" ng-show="Res.hasSynapseBank">
+                <div id="bankLinkedWrap" class="col col-37 p-t-20 text-center">
+                    <div ng-show="Res.hasSynapseBank" ng-click="goToSettings()">
                         <i class="ion-ios-checkmark-outline text-success m-r-10"></i>Bank Linked
                     </div>
-                    <div class="" ng-show="!Res.hasSynapseBank">
+                    <div class="" ng-show="!Res.hasSynapseBank" ng-click="goToSettings()">
                         <i class="ion-ios-close-outline text-danger m-r-10"></i>Bank Not Linked
                     </div>
                 </div>
 
-                <div class="col col-20 p-0">
+                <div class="col col-26 p-0">
                     <div class="profilePicWrapper" ng-click="choosePhoto()">
                         <img src="{{Details.Photo}}" class="recip-pic" />
                         <span id="editTxt">edit</span>
                     </div>
                 </div>
 
-                <div class="col-40 p-t-20">
-                    <div class="text-center">
-                        <div class="m-t-5 f-600">Member Since:</div>
-                        {{Res.DateCreated | date : "MMM d, y" : "EDT"}}
-                    </div>
+                <div class="col-37 p-t-20 text-center">
+                    <div class="m-t-5 f-600">Member Since:</div>
+                    {{Res.DateCreated | date : "MMM d, y" : "EDT"}}
                 </div>
 
             </div>

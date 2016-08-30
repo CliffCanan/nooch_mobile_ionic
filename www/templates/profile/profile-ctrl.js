@@ -291,4 +291,7 @@
         $scope.isAnythingChanged = true;
     }
 
+	$scope.goToSettings = function () {
+		$state.go('app.settings');
+	}
 })

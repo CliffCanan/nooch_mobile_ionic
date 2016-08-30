@@ -6,25 +6,34 @@
       $scope.$on("$ionicView.enter", function (event, data) {
           console.log('Login Controller Loaded');
 
+          $scope.loginData = {
+              email: emailVal,
+              pwd: '',
+              rmmbrMe: {
+                  chk: rememberMeVal
+              }
+          };
 
-          if ($localStorage.GLOBAL_VARIABLES) {
-              // console.log($localStorage.GLOBAL_VARIABLES);
+          if ($localStorage.GLOBAL_VARIABLES)
+          {
               if ($localStorage.GLOBAL_VARIABLES.MemberId && $localStorage.GLOBAL_VARIABLES.MemberId.length > 0)
+              {
                   $state.go('app.home');
+              }
+              else
+              {
+                  $scope.loginData.rmmbrMe.chk = $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled == false ? false : true;
+                  $scope.loginData.email = $localStorage.GLOBAL_VARIABLES.UserName != '' ? $localStorage.GLOBAL_VARIABLES.UserName : 'malkit.singh@venturepact.com';
+              }
           }
+
+          console.log($scope.loginData);
           console.log($localStorage.GLOBAL_VARIABLES);
 
           // $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
           //  $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
       });
 
-      $scope.loginData = {
-          email: 'malkit.singh@venturepact.com',
-          pwd: 'Q123456789',
-          rmmbrMe: {
-              chk: true
-          }
-      };
 
       $scope.loginWithFbData = {
           Name: '',
@@ -43,122 +52,102 @@
 
           //if ($cordovaNetwork.isOnline())
           //{
-          if ($('#frmLogin').parsley().validate() == true) {
+          if ($('#frmLogin').parsley().validate() == true)
+          {
               $ionicLoading.show({
                   template: 'Logging in...'
               });
+
               $ionicPlatform.ready(function () {
-                  if (window.cordova) {
+
+                  if (window.cordova)
+                  {
                       cordova.plugins.diagnostic.isLocationAuthorized(function (enabled) {
-                          console.log(enabled);
-                          if (enabled == true) {
+                          if (enabled == true)
+                          {
                               $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
-                              console.log('$localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch');
-                              console.log($localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch);
                               $scope.checkGpsStatus();
                           }
-                          else {
-                              swal({
-                                  title: "Location Not Shared",
-                                  text: "Nooch Wanted to share your Location",
-                                  type: "warning",
-                                  showCancelButton: true,
-                                  confirmButtonColor: "#DD6B55",
-                                  confirmButtonText: "Just, Share it.",
-                                  closeOnConfirm: true
-                              }, function () {
-                                  $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
-                                  $scope.checkGpsStatus();
-                              });
-                              //User Not Shared his Location 
+                          else
+                          {
+                              // User has not yet authorized location access - so just login (we request permission later only at a relevant time, i.e. on Select Recipient -> Search By Location Tab)
                               $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
                               $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '0.00';
                               $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '0.00';
+
                               $scope.loginService();
                           }
-
                       }, function (error) {
                           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
                           console.log($localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch);
                           console.error("The following error occurred: " + error);
                       });
                   }
-              });
-
-              $scope.loginService = function () {
-                  CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
-
-                      authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
-                        $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken, $localStorage.GLOBAL_VARIABLES.DeviceOS)
-                        .success(function (response) {
-
-                            $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
-
-                            console.log(response.Result + ', ' + response.Result.indexOf('Temporarily_Blocked'));
-                            console.log(response);
-
-                            $ionicLoading.hide();
-
-                            if (response.Result.indexOf('Invalid user id') > -1)
-                                swal("Invalid Email or Password", "We don't recognize that information. Please double check check your email is entered correctly and try again.", "error");
-                            else if (response.Result.indexOf('incorrect') > -1)
-                                swal("This is Awkward", "That doesn't appear to be the correct password. Please try again or contact us for further help.");
-                            else if (response.Result.indexOf('Temporarily_Blocked') > -1) {
-                                swal({
-                                    title: "Account Temporarily Suspended",
-                                    text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
-                                    type: "error",
-                                    showCancelButton: true,
-                                    cancelButtonText: "Ok",
-                                    confirmButtonColor: "#3fabe1",
-                                    confirmButtonText: "Contact Support",
-                                    customClass: "stackedBtns",
-                                    html: true,
-                                }, function (isConfirm) {
-                                    if (isConfirm) {
-
-                                    }
-                                });
-                            }
-                            else {
-                                $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
-                                $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
-
-                                $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
-                                $ionicLoading.hide();
-                                fetchAfterLoginDetails();
-                                //if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
-                                //$state.go('app.home');
-                            }
-                        }).error(function (res) {
-                            $ionicLoading.hide();
-                            console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
-                        });
-
-                  }).error(function (encError) {
-                      console.log('came in enc error block ' + encError);
-                  });
-              }
-          }
-          function fetchAfterLoginDetails() {
-              $ionicLoading.show({
-                  template: 'Reading user details...'
-              });
-
-              CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-                  $ionicLoading.hide();
-
-                  if (data != null) {
-                      $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-                      $state.go('app.home');
-                  }
-              }).error(function (err) {
-                  $ionicLoading.hide();
+                  else // for Browser testing
+                      $scope.loginService();
               });
           }
           //} else
           //    swal("Oops...", "Internet not connected!", "error");
       }
+
+
+      $scope.loginService = function () {
+          CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
+
+              authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
+                $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken, $localStorage.GLOBAL_VARIABLES.DeviceOS)
+                .success(function (response) {
+
+                    $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
+
+                    console.log(response);
+
+                    $ionicLoading.hide();
+
+                    if (response.Result.indexOf('Invalid user id') > -1)
+                        swal("Invalid Email or Password", "We don't recognize that information. Please double check check your email is entered correctly and try again.", "error");
+                    else if (response.Result.indexOf('incorrect') > -1)
+                        swal("This is Awkward", "That doesn't appear to be the correct password. Please try again or contact us for further help.");
+                    else if (response.Result.indexOf('Temporarily_Blocked') > -1)
+                    {
+                        swal({
+                            title: "Account Temporarily Suspended",
+                            text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
+                            type: "error",
+                            showCancelButton: true,
+                            cancelButtonText: "Ok",
+                            confirmButtonColor: "#3fabe1",
+                            confirmButtonText: "Contact Support",
+                            customClass: "stackedBtns",
+                            html: true,
+                        }, function (isConfirm) {
+                            if (isConfirm)
+                            {
+                            }
+                        });
+                    }
+                    else
+                    {
+                        $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
+                        $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
+                        $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
+
+                        $ionicLoading.hide();
+
+                        $scope.fetchAfterLoginDetails();
+                        //if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
+                        //$state.go('app.home');
+                    }
+                }).error(function (res) {
+                    $ionicLoading.hide();
+                    console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
+                });
+          }).error(function (encError) {
+              console.log('GetEncryptedData Error: [' + encError + ']');
+          });
+      }
+
 
       $scope.forgotPw = function (type) {
           var msgTxt = type == 1 ? "Please enter your email and we will send you a reset link." : "Please make sure you entered a valid email address.";
@@ -176,14 +165,16 @@
           }, function (inputValue) {
               if (inputValue === false) return false;
 
-              if (inputValue === "" || inputValue.length == 0) {
+              if (inputValue === "" || inputValue.length == 0)
+              {
                   swal.showInputError("Please enter the email address associated with your account.");
                   return false
               }
 
               if (inputValue.indexOf('@') > 1 &&
                   inputValue.indexOf('.') > inputValue.indexOf('@') &&
-                  inputValue.indexOf('.') < inputValue.length - 2) {
+                  inputValue.indexOf('.') < inputValue.length - 2)
+              {
                   authenticationService.ForgotPassword(inputValue).success(function (data) {
                       console.log(data);
 
@@ -200,22 +191,27 @@
           });
       }
 
+
       $scope.getLocation = function () {
           $cordovaGeolocation
                 .getCurrentPosition()
                 .then(function (position) {
                     var lat = position.coords.latitude
                     var long = position.coords.longitude
+
                     $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
                     $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
+
                     console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
+
                     $scope.loginService();
                 }, function (err) {
-                    // error
-                    console.log('$cordovaGeolocation error ' + JSON.stringify(err));
-                    // Static Loaction in case user denied                   
+                    console.log('$cordovaGeolocation error: [' + JSON.stringify(err) + ']');
+
+                    // Static Loaction in case user denied
                     $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
                     $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
+
                     $scope.loginService();
                 });
       }
@@ -223,10 +219,24 @@
 
       $scope.checkGpsStatus = function () {
           $ionicPlatform.ready(function () {
-              if (window.cordova) {
+              if (window.cordova)
+              {
                   cordova.plugins.diagnostic.isLocationEnabled(function (Location) {
-                      if (Location == false) {
-                          swal({
+                      if (Location == true)
+                      {
+                          console.log('GPS IS ON - CALLING GET LOACTION');
+                          $scope.getLocation();
+                      }
+                      else
+                      {
+                          // User has not yet authorized location access - so just login (we request permission later only at a relevant time, i.e. on Select Recipient -> Search By Location Tab)
+                          $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+                          $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '0.00';
+                          $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '0.00';
+
+                          $scope.loginService();
+
+                          /*swal({
                               title: "GPS Off",
                               text: "Your Location is not shared with Nooch Would you like to share it",
                               type: "warning",
@@ -237,21 +247,19 @@
                           }, function () {
                               if (window.cordova) {
                                   cordova.plugins.diagnostic.switchToLocationSettings();
-                                  $timeout($scope.getLocation, 4000); //calling this service after 4 sec becz user will take some time to on the GPS :Surya
+                                  $timeout($scope.getLocation, 4000); //calling this service after 4s b/c user will take some time to on the GPS :Surya
                               }
-                          });
+                          });*/
                       }
-                      if (Location == true) {
-                          console.log('GPS IS ON CALLING GET LOACTION');
-                          $scope.getLocation();
-                      }
-
                   }, function (error) {
                       alert("The following error occurred: " + error);
                   });
               }
+              else // For Browser Testing
+                  $scope.loginService();
           });
       }
+
 
       $scope.loginWithFB = function () {
           console.log('LoginWithFB Fired');
@@ -318,30 +326,38 @@
           });
       }
 
+
       $scope.fetchAfterLoginDetails = function () {
           $ionicLoading.show({
-              template: 'Reading user details...'
+              template: 'Signing in...'
           });
+
           CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-              if (data != null) {
+              $ionicLoading.hide();
+
+              if (data != null)
+              {
                   $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-                  $ionicLoading.hide();
+                  $state.go('app.home');
               }
           }).error(function (err) {
               $ionicLoading.hide();
           });
       }
 
+
       $scope.keyEntered = function () {
 
           var em = $scope.loginData.email;
           var pw = $scope.loginData.pwd;
 
-          if (em.length > 4 && em.indexOf('@') > 0 && em.indexOf('.') && pw.length > 4) {
+          if (em.length > 4 && em.indexOf('@') > 0 && em.indexOf('.') && pw.length > 4)
+          {
               if ($('#loginBtn').hasClass('btn-gray'))
                   $('#loginBtn').removeClass('btn-gray').addClass('btn-success');
           }
-          else {
+          else
+          {
               if ($('#loginBtn').hasClass('btn-success'))
                   $('#loginBtn').removeClass('btn-success').addClass('btn-gray');
           }

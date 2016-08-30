@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.howMuchCtrl', ['ngCordova', 'noochApp.howMuch-service', 'noochApp.services'])
 
-.controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading, $cordovaCamera, $cordovaImagePicker) {
+.controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading, $ionicContentBanner, $cordovaCamera, $cordovaImagePicker) {
 
     var type = '';
 
@@ -125,27 +125,37 @@
     });
 
     $(".amount-container input").focusout(function () {
-        if ($(".amount-container input").val().trim().length > 0)
+		//console.log($scope.recipientDetail.Amount);
+		
+        var enteredAmnt = $scope.recipientDetail.Amount;
+		
+        if (enteredAmnt.length > 0)
         {
-            if ($(this).parsley().validate() != true)
-                $(this).focus();
-            else
-            {
-                var enteredAmnt = $(".amount-container input").val().trim();
+			console.log("enteredAmnt > 0");
 
+            //if ($('#howMuchForm').parsley().validate() != true){
+			//	console.log("howMuchForm NOT VALID");
+            //    $(this).focus();
+			//}
+            //else
+            //{
+				//console.log("howMuchForm VALID");
                 if (enteredAmnt.indexOf(".") == -1)
-                    $(".amount-container input").val(enteredAmnt + ".00");
+				{
+					console.log(". was missing");
+                    $scope.recipientDetail.Amount = enteredAmnt + ".00";
+				}
                 else if (enteredAmnt.indexOf(".") > enteredAmnt.length - 3)
-                    $(".amount-container input").val(enteredAmnt + "0");
-            }
+				{
+					console.log("2nd one");
+                    $scope.recipientDetail.Amount = enteredAmnt + "0";
+				}
+				//}
         }
 
         console.log($('#howMuchForm').parsley().validate());
     });
 
-    //$scope.GoBack = function () {
-    //    $state.go('app.selectRecipient');
-    //};
 
     $scope.submitRequest = function () {
         type = 'request';
@@ -180,8 +190,10 @@
 
     $scope.submitSend = function () {
         type = 'send';
+		
+		console.log('SubmitSend() Fired -> Amount: ' + $scope.recipientDetail.Amount);
 
-        if ($('#howMuchForm').parsley().validate() == true)
+        if ($scope.recipientDetail.Amount < 5000)
         {
             console.log($scope.recipientDetail);
 
@@ -212,8 +224,35 @@
     }
 
 
- 
+	$scope.checkAmount = function() {
+		console.log(typeof $scope.recipientDetail.Amount);
+		console.log($scope.recipientDetail.Amount);
 
+		var currentVal = $scope.recipientDetail.Amount;
+		
+		if (currentVal > 5000)
+		{
+			$scope.recipientDetail.Amount = 5000;
+			
+			$ionicContentBanner.show({
+				text: ['The max transfer amount is currently $5,000.'],
+				autoClose: 4000,
+				type: 'error',
+				transition: 'vertical'
+			});	
+		}
+		// if (currentVal < 5)
+// 		{
+// 			//$scope.recipientDetail.Amount = 5000;
+//
+//             $ionicContentBanner.show({
+//                 text: ['The minimum transfer amount is currently $5.'],
+// 				autoClose: 4000,
+//                 type: 'error',
+//                 transition: 'vertical'
+//             });
+// 		}
+	}
 
 
     $scope.addImage = function () {
