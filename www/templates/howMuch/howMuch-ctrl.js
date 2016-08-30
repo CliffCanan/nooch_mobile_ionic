@@ -126,9 +126,9 @@
 
     $(".amount-container input").focusout(function () {
 		//console.log($scope.recipientDetail.Amount);
-		
+
         var enteredAmnt = $scope.recipientDetail.Amount;
-		
+
         if (enteredAmnt.length > 0)
         {
 			console.log("enteredAmnt > 0");
@@ -190,7 +190,7 @@
 
     $scope.submitSend = function () {
         type = 'send';
-		
+
 		console.log('SubmitSend() Fired -> Amount: ' + $scope.recipientDetail.Amount);
 
         if ($scope.recipientDetail.Amount < 5000)
@@ -229,17 +229,17 @@
 		console.log($scope.recipientDetail.Amount);
 
 		var currentVal = $scope.recipientDetail.Amount;
-		
+
 		if (currentVal > 5000)
 		{
 			$scope.recipientDetail.Amount = 5000;
-			
+
 			$ionicContentBanner.show({
 				text: ['The max transfer amount is currently $5,000.'],
 				autoClose: 4000,
 				type: 'error',
 				transition: 'vertical'
-			});	
+			});
 		}
 		// if (currentVal < 5)
 // 		{
@@ -297,35 +297,72 @@
     $scope.takePhoto = function () {
         console.log($cordovaCamera);
 
-        $ionicPlatform.ready(function () {
-            var options = {
-                quality: 75,
-                destinationType: Camera.DestinationType.DATA_URL,
-                sourceType: Camera.PictureSourceType.CAMERA,
-                allowEdit: true,
-                encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 300,
-                targetHeight: 300,
-                popoverOptions: CameraPopoverOptions,
-                saveToPhotoAlbum: false
-            };
 
-            $cordovaCamera.getPicture(options).then(function (imageData) {
-                console.log(imageData);
-                $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                var binary_string = window.atob(imageData);
-                var len = binary_string.length;
-                var bytes = new Uint8Array(len);
-                for (var i = 0; i < len; i++)
-                {
-                    bytes[i] = binary_string.charCodeAt(i);
-                }
-                $scope.picture = imageData;
-                console.log(bytes);
-            }, function (err) {
-                // An error occured. Show a message to the user
-            });
-        });
+      cordova.plugins.diagnostic.isCameraAuthorized(function(authorized){
+        console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
+
+        if(authorized)
+        {
+          var options = {
+            quality: 75,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 300,
+            targetHeight: 300,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+          };
+
+          $cordovaCamera.getPicture(options).then(function (imageData) {
+            console.log(imageData);
+            $scope.imgURI = "data:image/jpeg;base64," + imageData;
+            var binary_string = window.atob(imageData);
+            var len = binary_string.length;
+            var bytes = new Uint8Array(len);
+            for (var i = 0; i < len; i++)
+            {
+              bytes[i] = binary_string.charCodeAt(i);
+            }
+            $scope.picture = imageData;
+            console.log(bytes);
+          }, function (err) {
+            // An error occured. Show a message to the user
+          });
+        }
+        else
+        {
+
+
+          cordova.plugins.diagnostic.getCameraAuthorizationStatus(function(status){
+            if(status === cordova.plugins.diagnostic.permissionStatus.GRANTED){
+              $scope.takePhoto();
+            }
+            if(status === cordova.plugins.diagnostic.permissionStatus.NOT_DETERMINED)
+            {
+              cordova.plugins.diagnostic.requestCameraAuthorization(function(status){
+                console.log("Authorization request for camera use was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
+              }, function(error){
+                console.error(error);
+              });
+
+            }
+          }, function(ee)
+          {
+
+          });
+
+
+
+
+        }
+      }, function(error){
+        console.error("The following error occurred: "+error);
+      });
+
+
+
     }
 
 
