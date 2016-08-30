@@ -78,7 +78,6 @@ angular.module('noochApp.services', ['ngStorage'])
       this.logOut = function () {
 
           $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
-          $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = false;
           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
           $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
           $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = false;

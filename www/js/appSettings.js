@@ -59,5 +59,5 @@ var URLs = {
     SaveMemberSSN: PATH + 'SaveMemberSSN',
     LoginWithFacebookGeneric: PATH + 'LoginWithFacebookGeneric',
     SaveMembersFBId: PATH + 'SaveMembersFBId',
-    GetMemberNameByUserName: PATH + 'GetMemberNameByUserName'
+    CheckIfEmailIsRegistered: PATH + 'CheckIfEmailIsRegistered'
 };
