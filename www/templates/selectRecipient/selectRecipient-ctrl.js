@@ -4,121 +4,33 @@
 /*** SELECT RECIPIENT ***/
 /************************/
 .controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform, $rootScope, CommonServices) {
-    $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('SelectRecipCtrl Fired');
 
-       
+    $scope.$on("$ionicView.enter", function (event, data) {
+      $scope.memberList = new Array();
+        console.log('SelectRecipCtrl Fired');
 
         $scope.FindRecent();
 
         $scope.recentCount = null;
 
-        // to check contacts authorization
-        console.log($localStorage.GLOBAL_VARIABLES.HasSharedContacts);
-        if ($localStorage.GLOBAL_VARIABLES.HasSharedContacts == false) {
-            cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
-                console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
-
-                if (authorized) {
-                    console.log(authorized);
-                    $scope.fetchContacts();
-                    $localStorage.GLOBAL_VARIABLES.HasSharedContacts = true;
-                }
-                else {
-                    console.log(authorized);
-                    swal({
-                        title: "Permissions not Granted!",
-                        text: "Please click OK for allowing Nooch to read Contacts",
-                        type: "warning",
-                        showCancelButton: true,
-                        cancelButtonText: "Cancel",
-                        confirmButtonColor: "#3fabe1",
-                        confirmButtonText: "Ok",
-                        customClass: "stackedBtns"
-                    }, function (isConfirm) {
-                        if (isConfirm) {
-
-                            cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
-                                if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED) {
-                                    console.log("Contacts use is authorized");
-
-                                    $scope.fetchContacts();
-                                    $localStorage.GLOBAL_VARIABLES.HasSharedContacts = true;
-                                }
-                                else {
-                                    console.log("Contact permisison is " + status);
-
-                                }
-                            }, function (error) {
-                                console.error(error);
-                            });
-                        }
-                    });
 
 
-
-
-
-                }
-
-            }, function (error) {
-                console.error("The following error occurred: " + error);
-            });
-        }
-        else {
-
-            $scope.fetchContacts();
-        }
-
-      //   to request contact authorization
-         
-       //  to check contacts authorization status
-        // cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
-        //   if(status === cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED){
-        //     console.log("Contacts use never asked");
-        
-        //   }
-        //   else{
-        //     console.log("came in contacts status else part");
-        //   }
-        // }, function(onError){
-        
-        //   console.log("came in error outer "+onError);
-        // });
-
-        // cordova.plugins.diagnostic.getContactsAuthorizationStatus(function(status){
-
-        //   // status === authorized    -- in case user has authorized  and by default it will same
-
-        //   // status === denied   -- in case turned of contacts permission from settings in iphone
-        //     console.log("Contact Authorization status is "+status);
-        //   console.log("Contact Authorization status is "+ JSON.stringify( status));
-        // }, function(onError){
-        //   console.log("came in error outer "+onError);
-        // });
-
-
-        //cordova.plugins.diagnostic.requestContactsAuthorization(function(status){
-        //  console.log("Contact Authorization status is "+status);
-        //}, function(error){
-        //  console.error(error);
-        //});
-
-        
     });
 
     $scope.fetchContacts = function () {
 
-     
-  
+
+
                 $ionicLoading.show({
-                    template: 'Loading Contacts...'
+                    template: 'Reading Contacts...'
                 });
 
-                var options = {};
-                options.multiple = true;
+                var options = {
+                  multiple : true
+                };
 
-                var readContact = {
+
+                 $scope.readContact = {
                     FirstName: '',
                     UserName: '',
                     ContactNumber: '',
@@ -130,22 +42,22 @@
 
                 function onSuccess(contacts) {
 
-                    console.log(contacts);
                     for (var i = 0; i < contacts.length; i++) {
                         var contact = contacts[i];
 
-                        readContact.FirstName = contact.name.formatted;
-                        readContact.id = i;
-                        readContact.bit = 'p';
+                      $scope.readContact.FirstName = contact.name.formatted;
+                      $scope.readContact.id = i;
+                      $scope.readContact.bit = 'p';
                         if (contact.emails != null)
-                            readContact.UserName = contact.emails[0].value;
+                          $scope.readContact.UserName = contact.emails[0].value;
                         if (contact.phoneNumbers != null)
-                            readContact.ContactNumber = contact.phoneNumbers[0].value;
+                          $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
                         if (contact.photos != null)
-                            readContact.Photo = contact.photos[0].value;
+                          $scope.readContact.Photo = contact.photos[0].value;
                         //$scope.phoneContacts.push(readContact);
-                        $scope.memberList.push(readContact);
-                        readContact =
+                        $scope.memberList.push($scope.readContact);
+
+                      $scope.readContact =
                         {
                             FirstName: '',
                             UserName: '',
@@ -156,19 +68,19 @@
 
                     }
 
-                    console.log($rootScope.phoneContacts);
+                    // console.log($rootScope.phoneContacts);
                     $ionicLoading.hide();
                 };
 
                 function onError(contactError) {
-                    console.log(contactError);
+                    // console.log(contactError);
                     $ionicLoading.hide();
                 };
 
-            
 
-            $ionicLoading.hide();
-        
+
+            //$ionicLoading.hide();
+
 
     }
 
@@ -209,21 +121,58 @@
 
             $scope.recentCount = $scope.memberList.length;
 
-            console.log('Recent List -->');
-            console.log($scope.memberList);
-            $ionicLoading.hide();
-            //for (var i = 0; i < $rootScope.phoneContacts.length; i++)
-            //{
-            //    $scope.memberList.push($rootScope.phoneContacts[i]);
-            //}
 
             // read contacts from device and push them in memberList object
 
-
-            
-
             $scope.item2 = data;
             $ionicLoading.hide();
+
+
+          cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
+            console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
+
+            if (authorized) {
+
+              $scope.fetchContacts();
+
+            }
+            else {
+
+              swal({
+                title: "Permissions not Granted!",
+                text: "Please click OK for allowing Nooch to read Contacts",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancel",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Ok",
+                customClass: "stackedBtns"
+              }, function (isConfirm) {
+                if (isConfirm) {
+
+                  cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
+                    if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED) {
+                      console.log("Contacts use is authorized");
+
+                      $scope.fetchContacts();
+
+                    }
+                    else {
+                      console.log("Contact permisison is " + status);
+
+                    }
+                  }, function (error) {
+                    console.error(error);
+                  });
+                }
+              });
+
+            }
+
+          }, function (error) {
+            console.error("The following error occurred: " + error);
+          });
+
 
         }).error(function (data) {
             console.log(data);
@@ -236,7 +185,7 @@
     }
 
 
-  
+
 
     $scope.$watch('search', function (val) {
         console.log($filter('filter')($scope.items2, val));

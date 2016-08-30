@@ -80,6 +80,7 @@ angular.module('noochApp.services', ['ngStorage'])
           $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
           $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven = false;
+
           $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = false;
           $localStorage.GLOBAL_VARIABLES.hasSynapseUserAccount = false;
           $localStorage.GLOBAL_VARIABLES.isBankVerified = false;

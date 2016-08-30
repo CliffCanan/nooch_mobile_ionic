@@ -8,7 +8,7 @@
 
           $scope.loginData = {
               email: '',
-              pwd: '',
+              pwd: 'Q123456789',
               rmmbrMe: {
                   chk: true
               }

@@ -44,8 +44,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               pinValidatorData: {}
           };
       }
-      else if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
-          CommonServices.logOut();
+      if ($localStorage.GLOBAL_VARIABLES.MemberId == '') {
+        CommonServices.logOut();
+      }
 
       // Get Screen Width and save in $rootScope for use anywhere
       $rootScope.screenWidth = CommonServices.getScreenWidth();
@@ -101,7 +102,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
               console.log('device operating sysstem is ---->>>>>>>>>---->>>>>>>>>> ' + device.platform);
 
-          
+
 
               var notificationOpenedCallback = function (jsonData) {
                   console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
@@ -155,6 +156,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               // from snapping when text inputs are focused. Ionic handles this internally for
               // a much nicer keyboard experience.
               cordova.plugins.Keyboard.disableScroll(true);
+
+
           }
 
           if (window.StatusBar)
@@ -165,6 +168,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider) {
 
       //$cordovaFacebookProvider.browserInit(198279616971457, "v2.0");
+
 
       $stateProvider
         .state('login', {

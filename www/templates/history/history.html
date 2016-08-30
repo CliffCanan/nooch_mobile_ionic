@@ -26,7 +26,9 @@
 
         </div>
 
-        <ion-scroll class="history-list">
+
+
+        <ion-scroll direction="y" class="history-list" style="height: 550px !important;">
 
             <ion-list ng-show="completed">
                 <ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.TransactionStatus == 'Success' || trans.TransactionStatus == 'Cancelled' || trans.TransactionStatus == 'Rejected'  ">
@@ -35,7 +37,7 @@
 
 
                     <img src={{trans.Photo}}>
-                   
+
                     <div class="typeDateContainer" ng-if="trans.TransactionType == 'Transfer'">
                         <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Transfer To</label>
                         <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Transfer From</label>
