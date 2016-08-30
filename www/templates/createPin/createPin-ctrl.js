@@ -4,7 +4,7 @@
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('Create PIN Controller Loaded');
-            console.log($rootScope.signupData);
+            console.log($rootScope.signUpData);
 
             if ($rootScope.signUpData == null)
                 $state.go('signup');
@@ -12,14 +12,14 @@
                 $("#pinTxt").focus();
         });
 
-        //console.log($rootScope.signupData.Pin);
-        console.log($rootScope.signupData);
-
+        //console.log($rootScope.signUpData.Pin);
+        console.log($rootScope.signUpData);
+       
         $scope.signUpFn = function () {
             console.log('signUpFn called');
             if ($('#frmCreatePin').parsley().validate() == true)
             {
-                console.log($rootScope.signupData);
+                console.log($rootScope.signUpData);
 
                 //if ($cordovaNetwork.isOnline()) {
                 $ionicLoading.show({
@@ -27,19 +27,19 @@
                 });
 
 
-                CommonServices.GetEncryptedData($rootScope.signupData.Password).success(function (data) {
-                    $rootScope.signupData.Password = data.Status;
+                CommonServices.GetEncryptedData($rootScope.signUpData.Password).success(function (data) {
+                    $rootScope.signUpData.Password = data.Status;
                     //console.log('Pwd Encrypted-->');
-                    //console.log($rootScope.signupData.Password);
+                    //console.log($rootScope.signUpData.Password);
 
-                    createPinServices.Signup($rootScope.signupData).success(function (data) {
+                    createPinServices.Signup($rootScope.signUpData).success(function (data) {
                         console.log('Return form Server');
                         console.log(data);
                         $ionicLoading.hide();
 
                         if (data = 'Thanks for registering! Check your email to complete activation.')
                         {
-                            $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signupData.Email;
+                            $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
                             $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
                             $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
 
@@ -82,7 +82,7 @@
                     {
                         $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
 
-                        //$rootScope.signupData = {
+                        //$rootScope.signUpData = {
                         //    FirstName: '',
                         //    Name: '',
                         //    Email: '',
@@ -104,11 +104,11 @@
             // place checks here for user location
             // notification permission
 
-            authenticationService.Login($rootScope.signupData.Email, $rootScope.signupData.Password, $rootScope.signupData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
+            authenticationService.Login($rootScope.signUpData.Email, $rootScope.signUpData.Password, $rootScope.signUpData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
                   $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
                   .success(function (response) {
 
-                      $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signupData.Email;
+                      $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
 
                       console.log(response.Result + ', ' + response.Result.indexOf('Temporarily_Blocked'));
                       console.log(response);
@@ -139,9 +139,9 @@
                       }
                       else
                       {
-                          $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signupData.Email;
+                          $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
                           $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
-                          $localStorage.GLOBAL_VARIABLES.Pwd = $rootScope.signupData.Password;
+                          $localStorage.GLOBAL_VARIABLES.Pwd = $rootScope.signUpData.Password;
                           $ionicLoading.hide();
 
                           fetchAfterLoginDetails();
