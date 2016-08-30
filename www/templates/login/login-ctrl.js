@@ -7,7 +7,9 @@
           console.log('Login Controller Loaded');
 
           $scope.loginData = {
-              email:  '',
+ 
+              email: '',
+ 
               pwd: '',
               rmmbrMe: {
                   chk: true
