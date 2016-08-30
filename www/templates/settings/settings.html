@@ -26,11 +26,11 @@
                 <!-- WHEN BANK IS LINKED -->
                 <div class="bank-info row">
 					
-					<div class="col col-14">
+					<div class="col col-20">
                     	<img class="bank-logo pull-left m-r-10" src="./img/bank.png" />
 					</div>
 
-                    <div class="col col-86">
+                    <div class="col">
                         <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>{{bankData.bankName}}</div>
                         <div id="bank-nickname">{{bankData.bankNickname}}</div>
                         <div id="bank-status">
@@ -42,16 +42,24 @@
 
                 </div>
 
-                <div ng-if="bankIsVerified === true">
+                <div ng-if="bankData.bankStatus === 'Not Verified'">
                     <!-- WHEN BANK IS LINKED, BUT NOT VERIFIED -->
                     <div class="section-note">
                         As an extra security measure, your bank must be verified. &nbsp;Learn more &nbsp;<i class="ion-ios-help text-primary"></i>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col">
+                        <button class="btn button-block btn-primary" ng-click="openAddBank()">
+                            <i class="ion-plus-circled m-r-15"></i>Link New Account
+                        </button>
+                    </div>
+                </div>
             </div>
 
 
-            <div class="list m-t-20 border-t-b">
+            <div class="list m-t-25 border-t-b">
 
                 <a class="item item-icon-left item-icon-right" href="#/app/settings/profile">
                     <i class="icon ion-person"></i>My Profile

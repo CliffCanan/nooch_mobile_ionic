@@ -13,12 +13,12 @@
         $scope.shouldDisplayErrorBanner = false;
         $scope.errorBannerTextArray = [];
         console.log($localStorage.GLOBAL_VARIABLES);
-        if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified != true)
+        if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified == false)
         {
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
             $scope.shouldDisplayErrorBanner = true;
         }
-        if ($localStorage.GLOBAL_VARIABLES.isProfileComplete != true ||
+        if ($localStorage.GLOBAL_VARIABLES.isProfileComplete == false ||
             $localStorage.GLOBAL_VARIABLES.Status === "Registered")
         {
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
@@ -30,7 +30,7 @@
             $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
             $scope.shouldDisplayErrorBanner = true;
         }
-        if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank != true)
+        if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
         {
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
             $scope.shouldDisplayErrorBanner = true;
@@ -113,14 +113,17 @@
 
             for (var i = 0; i <= 4; i++)
             {
-                if ($scope.memberList[i].Photo == "")
-                    $scope.memberList[i].Photo = "./img/profile_picture.png";
+                if (i < $scope.memberList.length)
+                {
+                    if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
+                        $scope.memberList[i].Photo = "./img/profile_picture.png";
 
-                var tmp = [
-                  { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
-                ];
+                    var tmp = [
+                      { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
+                    ];
 
-                $scope.items = $scope.items.concat(tmp);
+                    $scope.items = $scope.items.concat(tmp);
+                }
             };
 
             $ionicLoading.hide();
