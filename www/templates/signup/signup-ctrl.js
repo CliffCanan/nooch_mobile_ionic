@@ -41,8 +41,8 @@
             swal({
                 title: "Really?",
                 text: "Your name has a number in it?" +
-                      "<span class='show m-t-10'>Please enter a real name.</span>" +
-                      "<span class='show m-t-10'>Or if your name actually does contain a number, our bad... please contact support@nooch.com and we'll create an account for you.</span>",
+                      "<span class='show'>Please enter a real name.</span>" +
+                      "<span class='show'>Or if your name actually does contain a number, our bad... please contact support@nooch.com and we'll create an account for you.</span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
                 html: true
@@ -55,8 +55,8 @@
             swal({
                 title: "Really?",
                 text: "Your name has a symbol in it?" +
-                      "<span class='show m-t-10'>Please enter a real name.</span>" +
-                      "<span class='show m-t-10'>Or if your name actually does contain a symbol, our apologies... please contact support@nooch.com and we'll create an account for you.</span>",
+                      "<span class='show'>Please enter a real name.</span>" +
+                      "<span class='show'>Or if your name actually does contain a symbol, our apologies... please contact support@nooch.com and we'll create an account for you.</span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
                 html: true
@@ -80,7 +80,7 @@
             swal({
                 title: "Insecure Password",
                 text: "For security reasons, etc, we ask that passwords contain at least 1 number." +
-                      "<span class='show m-t-10'>We know it's annoying, but we're just looking out for you ;-) &nbsp;Keep it safe!</span>",
+                      "<span class='show'>We know it's annoying, but we're just looking out for you ;-) &nbsp;Keep it safe!</span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
                 html: true
@@ -103,7 +103,7 @@
         {
             swal({
                 title: "Who Loves Lawyers?",
-                text: "Please read Nooch's Terms of Service. <small class='show m-t-10 m-b-20'>(They're definitely as exciting as you think.)</span>",
+                text: "Please read Nooch's Terms of Service. <small class='show m-b-20'>(They're definitely as exciting as you think.)</span>",
                 type: "warning",
                 confirmButtonText: "View TOS",
                 confirmButtonColor: "#3fabe1",
@@ -314,7 +314,7 @@
                     swal({
                         title: "Email Already Registered",
                         text: "Terribly sorry, but it looks like <strong>" + $rootScope.signUpData.Email + "</strong> has already been registered!" +
-                              "<span class='show m-t-10'>If this is your account, click 'Login' to, well, login!</span>",
+                              "<span class='show'>If this is your account, click 'Login' to, well, login!</span>",
                         type: "error",
                         confirmButtonColor: "#3fabe1",
                         showCancelButton: true,

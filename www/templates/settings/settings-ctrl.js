@@ -127,11 +127,11 @@
          {
              swal({
                  title: "Attach New Bank Account",
-                 text: "You can only have one bank account attached at a time. &npsp;If you link a new account, it will replace your current bank account. &nbsp;This cannot be undone." +
-                       "<span class='show m-t-10'>Are you sure you want to replace this bank account?</span>",
+                 text: "You can only have one bank account attached at a time. &nbsp;If you link a new account, it will replace your current bank account. &nbsp;This cannot be undone." +
+                       "<span class='show'>Are you sure you want to replace this bank account?</span>",
                  type: "warning",
                  confirmButtonColor: "#3fabe1",
-                 confirmButtonText: "Yes - Replace",
+                 confirmButtonText: "Yes",
                  showCancelButton: true,
                  cancelButtonText: "Cancel",
                  html: true
