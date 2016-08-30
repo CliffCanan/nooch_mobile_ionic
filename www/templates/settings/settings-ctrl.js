@@ -134,13 +134,13 @@
                  confirmButtonText: "Yes",
                  showCancelButton: true,
                  cancelButtonText: "Cancel",
-                 html: true
+                 html: true,
+             }, function (isConfirm) {
+				 if (isConfirm) $scope.addBankModal.show();
              });
          }
          else
-         {
              $scope.addBankModal.show();
-         }
      };
 
      $scope.closeAddBank = function () {

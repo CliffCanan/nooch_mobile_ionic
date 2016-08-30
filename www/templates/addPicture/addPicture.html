@@ -20,7 +20,7 @@
                 </div>
 
                 <div ng-if="signUpData.Photo != null && signUpData.Photo.length > 10">
-                    <img class="m-b-20" src="signUpData.Photo" ng-click="choosePhoto()" />
+                    <img class="m-b-20" src="{{signUpData.Photo}}" ng-click="choosePhoto()" />
                 </div>
 
                 <div class="p-l-5 p-r-5">
@@ -29,11 +29,11 @@
                     <button class="button btn-primary button-block m-t-25" ng-click="choosePhoto()"><i class="ion-camera m-r-15"></i>Choose Picture</button>
                 </div>
 
-                <div ng-if="signUpData.Photo != ''">
+                <div ng-if="signUpData.Photo != null && signUpData.Photo != ''">
                     <a href="#/createPin" ng-click="isUrlUpdated()" class="button button-clear button-dark p-t-15">I don't want to change my picture...</a>
                 </div>
 
-                <div ng-if="signUpData.Photo == ''">
+                <div ng-if="signUpData.Photo == null || signUpData.Photo == ''">
                     <a href="#/createPin" class="button button-clear button-dark p-t-15">I don't want to add a picture now...</a>
                 </div>
 

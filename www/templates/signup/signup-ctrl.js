@@ -119,28 +119,10 @@
         }
         else
         {
-            $ionicLoading.show({
-                template: 'Creating Account...'
-            });
-
+			console.log("ABOUT TO LEAVE SIGN UP SCRN");
             console.log($rootScope.signUpData);
 
             $state.go('addPicture');
-            $ionicLoading.hide();
-
-            //CommonServices.GetEncryptedData($scope.signUpData.Password).success(function (data) {
-            //    $scope.signUpData.Password = data.Status;
-            //    MemberRegistration.Signup($scope.signUpData).success(function (data) {
-            //        console.log('Return form Server');
-            //        console.log(data);
-
-            //        $ionicLoading.hide();
-
-            //        $state.go('addPicture');
-            //    }).error(function (encError) {
-            //        console.log('Signup Attempt -> Error [' + encError + ']');
-            //    })
-            //})
         }
     };
 

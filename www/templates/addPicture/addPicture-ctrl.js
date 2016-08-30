@@ -9,11 +9,10 @@
 
             if ($rootScope.signUpData == null)
                 $state.go('signup');
-
-            //$scope.memberDetails();
         });
 
-
+		console.log('TEST');
+		
         $scope.memberDetails = function () {
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
@@ -105,17 +104,14 @@
             //    swal("Oops...", "Internet not connected!", "error");
         }
 
-        $scope.trimName = function (str) {
+        /*$scope.trimName = function (str) {
             var patt = /([a-zA-Z]{1,}) (.*)/;
             var match = str.match(patt);
             return match[1];
-        }
+        }*/
 
         $scope.isUrlUpdated = function () {
-
-            ($rootScope.signUpData.gotPicUrl == true)
-            {
+            if ($rootScope.signUpData.gotPicUrl == true)
                 $rootScope.signUpData.isPicChanged = false;
-            }
         }
     });

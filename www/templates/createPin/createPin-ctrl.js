@@ -17,15 +17,18 @@
 
         $scope.signUpFn = function () {
             console.log('signUpFn called');
-            if ($('#frmCreatePin').parsley().validate() == true) {
+
+            if ($('#frmCreatePin').parsley().validate() == true)
+			{
                 console.log($rootScope.signUpData);
                 //if ($cordovaNetwork.isOnline()) {
                 $ionicLoading.show({
-                    template: 'Loading ...'
+                    template: 'Creating...'
                 });
 
-                if (($rootScope.signUpData.gotPicUrl == true) && ($rootScope.signUpData.isPicChanged == false)) {
-                    console.log('Condition matched now calling thus -> getBase64FromImageUrl');
+                if ($rootScope.signUpData.gotPicUrl == true && $rootScope.signUpData.isPicChanged == false)
+				{
+                    console.log('Condition matched now calling getBase64FromImageUrl');
                     $scope.getBase64FromImageUrl($rootScope.signUpData.Photo); //Convering facebook URL -> Image -> BAse64
                 }
                
@@ -35,18 +38,20 @@
                     //console.log($rootScope.signUpData.Password);
 
                     createPinServices.Signup($rootScope.signUpData).success(function (data) {
-                        console.log('Return form Server');
                         console.log(data);
+
                         $ionicLoading.hide();
 
-                        if (data = 'Thanks for registering! Check your email to complete activation.') {
+                        if (data = 'Thanks for registering! Check your email to complete activation.')
+						{
                             $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
                             $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
                             $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
                             $scope.SignIn();
                         }
-                        else if (data = 'Duplicate random Nooch ID was generating') {
-                            swal("Error", "Email is already registered with nooch", "error");
+                        else if (data = 'Duplicate random Nooch ID was generating')
+						{
+                            swal("Uh Oh...", "Email is already registered with nooch", "error");
                             $state.go('signup');
                         }
                         else
@@ -60,7 +65,7 @@
                 })
                 //}
                 //else
-                //    swal("Oops...", "Internet not connected!", "error");
+                //    swal("Error", "Internet not connected!", "error");
             }
         };
 
@@ -69,26 +74,9 @@
 
             //if ($cordovaNetwork.isOnline())
             //{
-            function fetchAfterLoginDetails() {
-                $ionicLoading.show({
-                    template: 'Reading user details...'
-                });
-
-                CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-                    $ionicLoading.hide();
-
-                    if (data != null) {
-                        $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-
-                        $state.go('app.home');
-                    }
-                }).error(function (err) {
-                    $ionicLoading.hide();
-                });
-            }
-
-            // place checks here for user location
-            // notification permission
+			$ionicLoading.show({
+				template: 'Grabbing account details...'
+			});
 
             authenticationService.Login($rootScope.signUpData.Email, $rootScope.signUpData.Password, $rootScope.signUpData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
                   $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
@@ -96,15 +84,13 @@
 
                       $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
 
-                      console.log(response.Result + ', ' + response.Result.indexOf('Temporarily_Blocked'));
                       console.log(response);
+                      $ionicLoading.hide();
 
-                      if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1) {
-                          $ionicLoading.hide();
-                          swal(response.Result);
-                      }
-                      else if (response.Result.indexOf('Temporarily_Blocked') > -1) {
-                          $ionicLoading.hide();
+                      if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1)
+                          swal("Error", response.Result, "error");
+                      else if (response.Result.indexOf('Temporarily_Blocked') > -1)
+					  {
                           swal({
                               title: "Oh No!",
                               text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
@@ -120,17 +106,40 @@
                               }
                           });
                       }
-                      else {
+                      else 
+					  {
                           $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
                           $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
                           $localStorage.GLOBAL_VARIABLES.Pwd = $rootScope.signUpData.Password;
-                          $ionicLoading.hide();
+						  
+						  console.log($localStorage.GLOBAL_VARIABLES);
 
                           fetchAfterLoginDetails();
                       }
                   }).error(function (res) {
                       console.log('Login Attempt Error: [' + res + ']');
                   });
+				  
+	              function fetchAfterLoginDetails() {
+					  $ionicLoading.show({
+						  template: 'Grabbing account details...'
+					  });
+					
+	                  CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
+	                      $ionicLoading.hide();
+						  
+						  console.log(data);
+
+	                      if (data != null)
+						  {
+	                          $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+
+	                          $state.go('app.home');
+	                      }
+	                  }).error(function (err) {
+	                      $ionicLoading.hide();
+	                  });
+	              }
             //}
             //else
             //    swal("Oops...", "Internet not connected!", "error");
@@ -153,7 +162,7 @@
                 console.log("Data URL");
                 console.log(dataURL);
                 console.log("BAse 64--->>");
-                console.log(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+                //console.log(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
                 $rootScope.signUpData.Photo = (dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
             };
         }

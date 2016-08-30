@@ -6,7 +6,7 @@
              
               var data = {
                   UdId: "4c7b35b939a89bca631003d3fec736e",
-                  Photo :(signupData.Photo !=null)?signupData.Photo:null,
+                  Photo: signupData.Photo != null ? signupData.Photo : null,
                   UserName: signupData.Email,
                   FirstName: signupData.Name,
                   LastName: '',
@@ -19,7 +19,7 @@
                   invitedFriendFacebookId: "",
                   facebookAccountLogin: "",
                   inviteCode: "",
-                  sendEmail: signupData.Email,
+                  sendEmail: "true",
                   type: "Personal"
               };
               // in case some error occurs
@@ -29,10 +29,8 @@
                       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
                   }
               }
-              console.log('data Reached tp SignUp service');
+              console.log('SignUp Data to send to server...');
               console.log(data);
               return $http.post(URLs.Signup, data);
           }
-
-      })    
-
+      })
