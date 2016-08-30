@@ -20,6 +20,10 @@
                  $localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert = true;
                  $localStorage.GLOBAL_VARIABLES.HasSharedContacts = true;
              }
+             else {
+                 $localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert = false;
+                 $localStorage.GLOBAL_VARIABLES.HasSharedContacts = false;
+             }
           
          }, function(error){
            console.error("The following error occurred: "+error);
@@ -37,6 +41,8 @@
                      }
                      else {
                          console.log("Contact permisison is " + status);
+                         $localStorage.GLOBAL_VARIABLES.shouldNotDisplayContactsAlert = false;
+                         $localStorage.GLOBAL_VARIABLES.HasSharedContacts = false;
                      }
                  }, function (error) {
                      console.error(error);
