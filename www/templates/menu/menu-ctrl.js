@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, $timeout, authenticationService, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService, $ionicPlatform, CommonServices, $state) {
+.controller('MenuCtrl', function ($scope, $timeout,authenticationService,$cordovaAppRate,$ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService, $ionicPlatform, CommonServices, $state) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
@@ -19,6 +19,7 @@
 	        // Check if user has any Pending Requests
 	        $timeout($scope.pendingList, 4000);
 		}
+
 	});
 
 
@@ -239,5 +240,23 @@
 
     $scope.goProfile = function () {
         $state.go('app.profile');
+    }
+
+
+    $scope.rateNooch = function () {
+        document.addEventListener("deviceready", function () {
+            $cordovaAppRate.promptForRating(true).then(function (result) {
+                // success
+                console.log(result);
+            });
+        }, false);
+
+        document.addEventListener("deviceready", function () {
+
+            $cordovaAppRate.navigateToAppStore().then(function (result) {
+                // success
+                console.log(result);
+            });
+        }, false);
     }
 })

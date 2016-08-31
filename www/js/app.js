@@ -67,6 +67,17 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               bit: ''
           };
 
+          //androidURL: 'market://details?id=<package_name>',
+          //windowsURL: 'ms-windows-store:Review?name=<...>'
+
+          var prefs = {
+              language: 'en',
+              appName: 'nooch',
+              iosURL: 'https://itunes.apple.com/us/app/nooch/id917955306?mt=8"',
+              androidURL: 'https://play.google.com/store?hl=en',
+          };
+          $cordovaAppRateProvider.setPreferences(prefs),false
+
 
           // Fired when the app enters the foreground
           document.addEventListener("resume", function () {

@@ -9,12 +9,8 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-
-
-  <allow-navigation href="*" />
-
-
-  <preference name="webviewbounce" value="false" />
+    <allow-navigation href="*" />
+    <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="SplashScreenDelay" value="2000" />
@@ -78,4 +74,5 @@
     </plugin>
     <plugin name="cordova-plugin-datepicker" spec="https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git" />
     <plugin name="cordova.plugins.diagnostic" spec="~3.1.2" />
+    <plugin name="cordova-plugin-apprate" spec="https://github.com/pushandplay/cordova-plugin-apprate.git" />
 </widget>
