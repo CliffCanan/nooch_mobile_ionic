@@ -4,66 +4,58 @@
 /****************/
 /***   HOME   ***/
 /****************/
-.controller('HomeCtrl', function ($scope, $state, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform, profileService, $ionicLoading, $ionicContentBanner, $rootScope, $localStorage, selectRecipientService, CommonServices) {
+.controller('HomeCtrl', function ($scope, $state, $cordovaGoogleAnalytics, $ionicPlatform, $timeout,
+                                  $ionicLoading, $ionicContentBanner, $rootScope, $localStorage,
+                                  authenticationService, profileService, selectRecipientService, CommonServices) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
-        console.log('Home Ctrl loaded');
+        console.log('Home Ctrl Loaded');
 
         $scope.shouldDisplayErrorBanner = false;
         $scope.errorBannerTextArray = [];
 
-        console.log($localStorage.GLOBAL_VARIABLES);
+        $timeout(function () {
+            //console.log($localStorage.GLOBAL_VARIABLES);
 
-        var phoneVerifiedTest = $localStorage.GLOBAL_VARIABLES.IsPhoneVerified;
-        console.log(phoneVerifiedTest);
+            if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified == false)
+            {
+                $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
+                $scope.shouldDisplayErrorBanner = true;
+            }
+            if ($localStorage.GLOBAL_VARIABLES.isProfileComplete == false ||
+                $localStorage.GLOBAL_VARIABLES.Status === "Registered")
+            {
+                $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
+                $scope.shouldDisplayErrorBanner = true;
+            }
+            if ($localStorage.GLOBAL_VARIABLES.Status === "Suspended" ||
+                $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked")
+            {
+                $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
+                $scope.shouldDisplayErrorBanner = true;
+            }
+            if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
+            {
+                $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
+                $scope.shouldDisplayErrorBanner = true;
+            }
 
-        if (phoneVerifiedTest == false)
-        {
-            console.log("Home Cntlr -> IsPhoneVerified == false");
-            console.log($localStorage.GLOBAL_VARIABLES.IsPhoneVerified);
-            console.log($localStorage.GLOBAL_VARIABLES);
+            if ($scope.shouldDisplayErrorBanner)
+            {
+                $ionicContentBanner.show({
+                    text: $scope.errorBannerTextArray,
+                    interval: '4000',
+                    type: 'error',
+                    transition: 'vertical'
+                });
 
-            $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
-            $scope.shouldDisplayErrorBanner = true;
-        }
-        if ($localStorage.GLOBAL_VARIABLES.isProfileComplete == false ||
-            $localStorage.GLOBAL_VARIABLES.Status === "Registered")
-        {
-            console.log("Home Cntlr -> isProfileComplete == false || Status === 'Registered'");
-            console.log($localStorage.GLOBAL_VARIABLES.isProfileComplete);
-            console.log($localStorage.GLOBAL_VARIABLES.Status);
-            $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
-            $scope.shouldDisplayErrorBanner = true;
-        }
-        if ($localStorage.GLOBAL_VARIABLES.Status === "Suspended" ||
-            $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked")
-        {
-            $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
-            $scope.shouldDisplayErrorBanner = true;
-        }
-        if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
-        {
-            console.log("Home Cntlr -> hasSynapseBank == false");
-            console.log($localStorage.GLOBAL_VARIABLES.hasSynapseBank);
-            $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
-            $scope.shouldDisplayErrorBanner = true;
-        }
-
-        if ($scope.shouldDisplayErrorBanner)
-        {
-            $ionicContentBanner.show({
-                text: $scope.errorBannerTextArray,
-                interval: '4000',
-                type: 'error',
-                transition: 'vertical'
-            });
-
-            $scope.isBannerShowing == true;
-            $('#fav-container').css('margin-top', '40px');
-        }
-        else
-            $scope.isBannerShowing == false;
+                $scope.isBannerShowing == true;
+                $('#fav-container').css('margin-top', '40px');
+            }
+            else
+                $scope.isBannerShowing == false;
+        }, 1500);
 
         $scope.FindRecentFriends();
 
