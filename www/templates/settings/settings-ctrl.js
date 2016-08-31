@@ -6,6 +6,8 @@
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // On Screen Load
+         $scope.deleteBank = false;
+         $scope.eBank = true;
          $scope.shouldDisplayErrorBanner = false;
          $scope.errorBannerTextArray = [];
 
@@ -73,6 +75,49 @@
      }).then(function (modal) {
          $scope.addBankModal = modal;
      });
+
+     $scope.editBank = function () {
+         $scope.deleteBank = true;
+         $scope.eBank = false;
+     }
+
+     $scope.delBank = function () {
+         swal({
+             title: "Delete bank!",
+             text: "Are you sure you want to delete this bank",
+             type: "warning",
+             showCancelButton: true,
+             cancelButtonText: "Cancel",
+             confirmButtonColor: "#3fabe1",
+             confirmButtonText: "Ok",
+             customClass: "stackedBtns"
+         }, function (isConfirm) {
+             if (isConfirm) {
+
+
+                 settingsService.DeleteAttachedBankNode()
+                    .success(function (result) {
+                        console.log(result);
+                        $ionicLoading.hide();
+
+                        if (result == 'Success') {
+
+                            swal("Deleted", "Bank deleted successfully!", "success");
+                        }
+                        else {
+                            swal("Error", result, "error");
+                        }
+
+
+                    }).error(function (encError) {
+
+                        CommonServices.logOut();
+                    });
+
+               
+             }
+         });
+     }
 
      $scope.openAddBank = function () {
          if ($localStorage.GLOBAL_VARIABLES.Status == "Suspended" ||

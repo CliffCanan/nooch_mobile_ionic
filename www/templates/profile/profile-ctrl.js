@@ -132,11 +132,11 @@
                    swal("Not Sent...", result.Result, "error");
                }
 
-               
+
            }).error(function (encError) {
-              
-           CommonServices.logOut();
-           })
+
+               CommonServices.logOut();
+           });
     }
 
 

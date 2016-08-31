@@ -6,7 +6,13 @@
       };
      
       this.GetSynapseBankAndUserDetails = function () {
-          return $http.get(URLs.GetSynapseBankAndUserDetails +'?memberId='+$localStorage.GLOBAL_VARIABLES.MemberId);
-      }
+          return $http.get(URLs.GetSynapseBankAndUserDetails + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId);
+      };
+
+      this.DeleteAttachedBankNode = function () {
+          return $http.get(URLs.DeleteAttachedBankNode +
+            '?memberid=' + $localStorage.GLOBAL_VARIABLES.MemberId );
+
+      };
 
   })

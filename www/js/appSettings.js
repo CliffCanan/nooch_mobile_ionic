@@ -61,6 +61,7 @@ var URLs = {
     SaveMembersFBId: PATH + 'SaveMembersFBId',
     CheckIfEmailIsRegistered: PATH + 'CheckIfEmailIsRegistered',
     ResendVerificationLink: PATH + 'ResendVerificationLink',
-    ResendVerificationSMS: PATH + 'ResendVerificationSMS'
+    ResendVerificationSMS: PATH + 'ResendVerificationSMS',
+    DeleteAttachedBankNode:PATH+'DeleteAttachedBankNode'
 
 };
