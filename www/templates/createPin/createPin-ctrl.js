@@ -10,6 +10,19 @@
                 $state.go('signup');
             else
                 $("#pinTxt").focus();
+
+            if($localStorage.GLOBAL_VARIABLES.DeviceToken == '')
+            {
+                $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
+            }
+            else if($localStorage.GLOBAL_VARIABLES.DeviceToken == null)
+            {
+                $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
+            }
+            else {
+                console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
+            }
+
         });
 
         //console.log($rootScope.signUpData.Pin);
@@ -45,8 +58,11 @@
                         if (data = 'Thanks for registering! Check your email to complete activation.')
 						{
                             $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
-                            $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
-                            $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
+                            //$localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
+                            //$localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
+                            console.log('RunTime values ----->> DeviceId And DeviceToken');
+                            console.log($localStorage.GLOBAL_VARIABLES.DeviceId);
+                            console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
                             $scope.SignIn();
                         }
                         else if (data = 'Duplicate random Nooch ID was generating')
