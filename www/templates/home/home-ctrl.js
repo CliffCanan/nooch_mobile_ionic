@@ -12,15 +12,27 @@
 
         $scope.shouldDisplayErrorBanner = false;
         $scope.errorBannerTextArray = [];
+
         console.log($localStorage.GLOBAL_VARIABLES);
-        if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified == false)
+
+        var phoneVerifiedTest = $localStorage.GLOBAL_VARIABLES.IsPhoneVerified;
+        console.log(phoneVerifiedTest);
+
+        if (phoneVerifiedTest == false)
         {
+            console.log("Home Cntlr -> IsPhoneVerified == false");
+            console.log($localStorage.GLOBAL_VARIABLES.IsPhoneVerified);
+            console.log($localStorage.GLOBAL_VARIABLES);
+
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
             $scope.shouldDisplayErrorBanner = true;
         }
         if ($localStorage.GLOBAL_VARIABLES.isProfileComplete == false ||
             $localStorage.GLOBAL_VARIABLES.Status === "Registered")
         {
+            console.log("Home Cntlr -> isProfileComplete == false || Status === 'Registered'");
+            console.log($localStorage.GLOBAL_VARIABLES.isProfileComplete);
+            console.log($localStorage.GLOBAL_VARIABLES.Status);
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
             $scope.shouldDisplayErrorBanner = true;
         }
@@ -32,6 +44,8 @@
         }
         if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
         {
+            console.log("Home Cntlr -> hasSynapseBank == false");
+            console.log($localStorage.GLOBAL_VARIABLES.hasSynapseBank);
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
             $scope.shouldDisplayErrorBanner = true;
         }

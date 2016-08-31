@@ -14,6 +14,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
       if (!$localStorage.GLOBAL_VARIABLES)
       {
+          console.log("App.js -> Run -> GLOBAL_VARs did not exist, creating defaults now");
           $localStorage.GLOBAL_VARIABLES = {
               IsDemoDone: false, // for displaying tutorial screens to user - if any
               IsRemeberMeEnabled: false, // for remembering user
@@ -44,8 +45,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               pinValidatorData: {}
           };
       }
-      if ($localStorage.GLOBAL_VARIABLES.MemberId == '') {
-        CommonServices.logOut();
+
+      if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
+      {
+          console.log("App.js -> Run -> MemberId == '' so calling LOGOUT CommonService");
+          CommonServices.logOut();
       }
 
       // Get Screen Width and save in $rootScope for use anywhere
@@ -54,7 +58,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       $ionicPlatform.ready(function () {
           // Enable to debug issues.
           // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
-
 
           $rootScope.phoneContacts = [];
           var readContact = {
@@ -100,7 +103,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform == "Android" ? "A" : "I";
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
 
-              console.log('device operating sysstem is ---->>>>>>>>>---->>>>>>>>>> ' + device.platform);
+              console.log('device operating system is: [' + device.platform + ']');
 
 
 
@@ -156,8 +159,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               // from snapping when text inputs are focused. Ionic handles this internally for
               // a much nicer keyboard experience.
               cordova.plugins.Keyboard.disableScroll(true);
-
-
           }
 
           if (window.StatusBar)
@@ -168,7 +169,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider) {
 
       //$cordovaFacebookProvider.browserInit(198279616971457, "v2.0");
-
 
       $stateProvider
         .state('login', {

@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.LoginCtrl', ['noochApp.login-service', 'noochApp.services', 'ngStorage'])
 
   .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading, $localStorage, CommonHelper,
-                                     $cordovaGeolocation, $cordovaDevice, CommonServices, $cordovaNetwork, $ionicPlatform, $timeout) {
+                                     $cordovaGeolocation, $cordovaDevice, CommonServices, $cordovaNetwork, $ionicPlatform, $cordovaSocialSharing, $timeout) {
 
       $scope.$on("$ionicView.enter", function (event, data) {
           console.log('Login Controller Loaded');
@@ -54,11 +54,10 @@
           //{
           if ($('#frmLogin').parsley().validate() == true)
           {
-              $ionicLoading.show({
-                  template: 'Logging in...'
-              });
-
               $ionicPlatform.ready(function () {
+                  $ionicLoading.show({
+                      template: 'Logging in...'
+                  });
 
                   if (window.cordova)
                   {
@@ -106,11 +105,18 @@
                     $ionicLoading.hide();
 
                     if (response.Result.indexOf('Invalid user id') > -1)
+                    {
+                        $ionicLoading.hide();
                         swal("Invalid Email or Password", "We don't recognize that information. Please double check check your email is entered correctly and try again.", "error");
+                    }
                     else if (response.Result.indexOf('incorrect') > -1)
+                    {
+                        $ionicLoading.hide();
                         swal("This is Awkward", "That doesn't appear to be the correct password. Please try again or contact us for further help.");
+                    }
                     else if (response.Result.indexOf('Temporarily_Blocked') > -1)
                     {
+                        $ionicLoading.hide();
                         swal({
                             title: "Account Temporarily Suspended",
                             text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
@@ -124,6 +130,16 @@
                         }, function (isConfirm) {
                             if (isConfirm)
                             {
+                                // toArr, ccArr and bccArr must be an array, file can be either null, string or array
+                                //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
+                                $cordovaSocialSharing
+                                  .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
+                                  .then(function (result) {
+                                      swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                                  }, function (err) {
+                                      // An error occurred. Show a message to the user
+                                      console.log('Error attempting to send email from social sharing: [' + err + ']');
+                                  });
                             }
                         });
                     }
@@ -132,8 +148,6 @@
                         $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
                         $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
                         $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
-
-                        $ionicLoading.hide();
 
                         $scope.fetchAfterLoginDetails();
                         //if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
@@ -144,6 +158,7 @@
                     console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
                 });
           }).error(function (encError) {
+              $ionicLoading.hide();
               console.log('GetEncryptedData Error: [' + encError + ']');
           });
       }
@@ -338,6 +353,10 @@
               if (data != null)
               {
                   $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+
+                  console.log("LOGIN CNTL -> JUST GOT MEMBERID, ABOUT TO GO TO HOME SCREEN...");
+                  console.log($localStorage.GLOBAL_VARIABLES);
+
                   $state.go('app.home');
               }
           }).error(function (err) {

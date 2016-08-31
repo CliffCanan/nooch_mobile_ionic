@@ -89,7 +89,8 @@ angular.module('noochApp.services', ['ngStorage'])
           //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = null;
           //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = null;
           $localStorage.GLOBAL_VARIABLES.MemberId = '';
-          $localStorage.GLOBAL_VARIABLES.UserName = '';
+          if ($localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled == false)
+              $localStorage.GLOBAL_VARIABLES.UserName = '';
           $localStorage.GLOBAL_VARIABLES.AccessToken = '';
           //$localStorage.GLOBAL_VARIABLES.DeviceId = '';
           //$localStorage.GLOBAL_VARIABLES.DeviceToken = '';
