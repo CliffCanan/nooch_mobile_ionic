@@ -335,24 +335,30 @@
         {
 
 
-          cordova.plugins.diagnostic.getCameraAuthorizationStatus(function(status){
-            if(status === cordova.plugins.diagnostic.permissionStatus.GRANTED){
-              $scope.takePhoto();
-            }
-            if(status === cordova.plugins.diagnostic.permissionStatus.NOT_DETERMINED)
-            {
-              cordova.plugins.diagnostic.requestCameraAuthorization(function(status){
-                console.log("Authorization request for camera use was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
-              }, function(error){
-                console.error(error);
-              });
+            swal({
+                title: "Permissions not Granted!",
+                text: "Please click OK for allowing Nooch to access camera",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Cancel",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Ok",
+                customClass: "stackedBtns"
+            }, function (isConfirm) {
+                if (isConfirm) {
 
-            }
-          }, function(ee)
-          {
+                    cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
+                        console.log("Authorization request for camera use was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
+                        if (status)
+                        {
+                            $scope.takePhoto();
+                        }
 
-          });
-
+                    }, function (error) {
+                        console.error(error);
+                    });
+                }
+            });
 
 
 
