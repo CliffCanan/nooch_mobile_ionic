@@ -354,8 +354,7 @@
               {
                   $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
 
-                  console.log("LOGIN CNTL -> JUST GOT MEMBERID, ABOUT TO GO TO HOME SCREEN...");
-                  console.log($localStorage.GLOBAL_VARIABLES);
+                  //console.log($localStorage.GLOBAL_VARIABLES);
 
                   $state.go('app.home');
               }

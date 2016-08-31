@@ -59,14 +59,14 @@
                //console.log("--  menu-ctrl -> ABOUT TO PRINT '$localStorage'  --")
                //console.log($localStorage);
 
-               if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
-                   $rootScope.$broadcast('isSuspended');
+               //if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
+               //    $rootScope.$broadcast('isSuspended');
 
-               if ($scope.Res.isVerifiedPhone === false)
-                   $rootScope.$broadcast('IsVerifiedPhoneFalse');
+               //if ($scope.Res.isVerifiedPhone === false)
+               //    $rootScope.$broadcast('IsVerifiedPhoneFalse');
 
-               if ($scope.Res.status === "Registered" || $scope.Res.isProfileComplete === false)
-                   $rootScope.$broadcast('IsValidProfileFalse');
+               //if ($scope.Res.status === "Registered" || $scope.Res.isProfileComplete === false)
+               //    $rootScope.$broadcast('IsValidProfileFalse');
 
            }).error(function (encError) {
                console.log('GetMemberDetails Error Block: [' + encError + ']');
@@ -79,9 +79,6 @@
         //else swal("Oops...", "Internet not connected!", "error");
     }
 
-    //$scope.settingsClick = function () {
-    //    $state.go("app.setting");
-    //};
 
     $scope.showActionSheet = function (id) {
 

@@ -2,19 +2,19 @@
 
   .service('createPinServices', function ($http, $localStorage) {
    
-          this.Signup = function (signupData) {
+      this.Signup = function (signUpData) {
              
               var data = {
-                  UdId: "4c7b35b939a89bca631003d3fec736e",
-                  Photo: signupData.Photo != null ? signupData.Photo : null,
-                  UserName: signupData.Email,
-                  FirstName: signupData.Name,
-                  LastName: '',
-                  PinNumber: signupData.Pin,
-                  Password: signupData.Password,
-                  SecondaryMail: signupData.Email,
-                  RecoveryMail: signupData.Email,
-                  deviceTokenId: "132",
+                  UdId: $localStorage.GLOBAL_VARIABLES.DeviceId,
+                  Photo: signUpData.Photo != "" ? signUpData.Photo : null,
+                  UserName: signUpData.Email,
+                  FirstName: signUpData.Name,
+                  LastName: signUpData.Name, 
+                  PinNumber: signUpData.Pin,
+                  Password: signUpData.Password,
+                  SecondaryMail: signUpData.Email,
+                  RecoveryMail: signUpData.Email,
+                  deviceTokenId: $localStorage.GLOBAL_VARIABLES.DeviceToken,
                   friendRequestId: "",
                   invitedFriendFacebookId: "",
                   facebookAccountLogin: "",

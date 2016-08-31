@@ -15,10 +15,10 @@
         <ion-content>
             <ion-list>
                 <div class="item item-avatar side_menu_top">
-                    <img class="user-img" src="{{PicUrl}}" ng-click="goProfile()">
+                    <img class="user-img" src="{{PicUrl}}" ng-click="goProfile()" menu-close>
                     <h2 id="first-name">{{Res.firstName}}</h2>
                     <h3 id="last-name">{{Res.lastName}}</h3>
-                    <a href="#/app/settings"><i class="ion-gear-a white-text" id="settings-icon"></i></a>
+                    <a href="#/app/settings" menu-close><i class="ion-gear-a white-text" id="settings-icon"></i></a>
                 </div>
 
                 <div class="item item-divider">ACCOUNT</div>

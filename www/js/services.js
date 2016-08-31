@@ -93,8 +93,7 @@ angular.module('noochApp.services', ['ngStorage'])
               $localStorage.GLOBAL_VARIABLES.UserName = '';
           $localStorage.GLOBAL_VARIABLES.AccessToken = '';
           //$localStorage.GLOBAL_VARIABLES.DeviceId = '';
-          //$localStorage.GLOBAL_VARIABLES.DeviceToken = '';
-
+          $localStorage.GLOBAL_VARIABLES.DeviceToken = '';
           $localStorage.GLOBAL_VARIABLES.DeviceOS = '';
           $localStorage.GLOBAL_VARIABLES.PhotoUrl =
           $localStorage.GLOBAL_VARIABLES.Status = '';
