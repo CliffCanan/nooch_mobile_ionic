@@ -106,6 +106,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               //console.log(device);
 
               $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform == "Android" ? "A" : "I";
+                
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
 
               console.log('device operating system is: [' + device.platform + ']');
