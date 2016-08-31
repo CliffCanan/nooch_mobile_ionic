@@ -113,6 +113,58 @@
         //    swal("Oops...", "Internet not connected!", "error");
     }
 
+
+    $scope.ResendVerificationLink = function () {
+        $ionicLoading.show({
+            template: 'Sending ...'
+        });
+
+        profileService.ResendVerificationLink()
+           .success(function (result) {
+               console.log(result);
+               $ionicLoading.hide();
+
+               if (result.Result == 'Success') {
+
+                   swal("Sent...", "Email successfully sent!", "success");
+               }
+               else {
+                   swal("Not Sent...", result.Result, "error");
+               }
+
+               
+           }).error(function (encError) {
+              
+           CommonServices.logOut();
+           })
+    }
+
+
+    $scope.ResendVerificationSMS = function () {
+        $ionicLoading.show({
+            template: 'Sending ...'
+        });
+
+        profileService.ResendVerificationSMS()
+           .success(function (result) {
+               console.log(result);
+               $ionicLoading.hide();
+
+               if (result.Result == 'Success') {
+
+                   swal("Sent...", "Sms successfully sent!", "success");
+               }
+               else {
+                   swal("Not Sent...", result.Result, "error");
+               }
+
+
+           }).error(function (encError) {
+
+               CommonServices.logOut();
+           })
+    }
+
     // Date Picker Plugin
     $scope.showdate = function () {
 

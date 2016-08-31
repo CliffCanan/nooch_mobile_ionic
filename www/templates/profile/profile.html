@@ -51,6 +51,7 @@
                         Email
                     </span>
                     <span id="emailTxt">{{Details.UserName}}</span>
+                    <span ng-show="Details.IsVerifiedEmail==false"><button class="button button-assertive" ng-click="ResendVerificationLink()">Resend-Email verification</button></span>
                 </div>
 
                 <div class="item item-input">
@@ -61,7 +62,9 @@
                         </span>Phone
                     </span>
                     <input type="text" placeholder="(123) 456 7890" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" ng-change="isAnythingChange()">
-                </div>
+                    <span ng-show="Details.IsVerifiedPhone==false"><button class="button button-assertive" ng-click="ResendVerificationSMS()">Resend-Phone verification</button></span>
+
+                 </div>
 
                 <div class="item item-divider">ADDRESS</div>
 
