@@ -55,9 +55,12 @@
             }
             else
                 $scope.isBannerShowing == false;
-        }, 1500);
 
-        $scope.FindRecentFriends();
+            if ($localStorage.GLOBAL_VARIABLES.MemberId != null &&
+                $localStorage.GLOBAL_VARIABLES.MemberId != '')
+                $scope.FindRecentFriends();
+
+        }, 1500);
 
         $ionicPlatform.ready(function () {
 
@@ -144,7 +147,6 @@
         //    // Stop the ion-refresher from spinning
         //    $scope.$broadcast('scroll.refreshComplete');
         //});
-
         //}
         //else
         //    swal("Oops...", "Internet not connected!", "error");

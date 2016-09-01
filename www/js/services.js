@@ -1,57 +1,5 @@
 angular.module('noochApp.services', ['ngStorage'])
 
-// .service('authenticationService', function ($http) {
-//     var Operations = {};
-//
-//     Operations.Login = function (username, password, remmberMe, callback) {
-//         $http.get(URLs.Login + '?userName=' + username + '&pwd=' + password + '&rememberMeEnabled=' + remmberMe + '&lat=0.0&lng=0.0&udid=11&devicetoken=111')
-//               .success(function (response) {
-//                   callback(response);
-//               });
-//     };
-//
-//
-//     Operations.FBLogin = function (email, firstName, lastName, gender, photoUrl, ip, fingerprint, fbUserId, callback) {
-//         var data = {};
-//         data.FirstName = firstName;
-//         data.LastName = lastName;
-//         data.eMail = email;
-//         data.Gender = gender;
-//         data.PhotoUrl = photoUrl;
-//         data.FacebookUserId = fbUserId;
-//         data.UserFingerPrints = fingerprint;
-//         data.Ip = ip;
-//
-//         console.log(data);
-//
-//         $http.post(URLs.LoginWithFB, data)
-//             .success(function (response) {
-//                 callback(response);
-//             });
-//     };
-//
-//
-//     Operations.GoogleLogin = function (email, name, photoUrl, ip, fingerprint, googleUserId, callback) {
-//         var data = {};
-//         data.Name = name;
-//         data.eMail = email;
-//         data.Gender = '';
-//         data.PhotoUrl = photoUrl;
-//         data.GoogleUserId = googleUserId;
-//         data.UserFingerPrints = fingerprint;
-//         data.Ip = ip;
-//
-//         console.log(data);
-//
-//         $http.post(URLs.LoginWithGoogle, data)
-//             .success(function (response) {
-//                 callback(response);
-//             });
-//     };
-//
-//
-//     return Operations;
-// })
 
 // Adding some common usefull services in here like enc, dec etc.
   .service('CommonServices', function ($http, $localStorage, $state, $window) {
@@ -86,8 +34,8 @@ angular.module('noochApp.services', ['ngStorage'])
           $localStorage.GLOBAL_VARIABLES.isBankVerified = false;
           $localStorage.GLOBAL_VARIABLES.isProfileComplete = false;
 
-          //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = null;
-          //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = null;
+          $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = "0";
+          $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = "0";
           $localStorage.GLOBAL_VARIABLES.MemberId = '';
           if ($localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled == false)
               $localStorage.GLOBAL_VARIABLES.UserName = '';

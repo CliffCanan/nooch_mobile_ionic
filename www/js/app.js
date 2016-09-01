@@ -12,15 +12,16 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices) {
 
-      if (!$localStorage.GLOBAL_VARIABLES) {
+      if (!$localStorage.GLOBAL_VARIABLES)
+      {
           console.log("App.js -> Run -> GLOBAL_VARs did not exist, creating defaults now");
           $localStorage.GLOBAL_VARIABLES = {
               IsDemoDone: false, // for displaying tutorial screens to user - if any
               IsRemeberMeEnabled: false, // for remembering user
 
               IsUserLocationSharedWithNooch: false, // to keep track of location sharing
-              UserCurrentLatitude: '',  // user current lat if shared location
-              UserCurrentLongi: '',  // user current lon if shared location0
+              UserCurrentLatitude: '0',  // user current lat if shared location
+              UserCurrentLongi: '0',  // user current lon if shared location0
 
               MemberId: '', // MemberId of user -- logged in user
               Pwd: '',
@@ -45,7 +46,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           };
       }
 
-      if ($localStorage.GLOBAL_VARIABLES.MemberId == '') {
+      if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
+      {
           console.log("App.js -> Run -> MemberId == '' so calling LOGOUT CommonService");
           CommonServices.logOut();
       }
@@ -76,7 +78,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               iosURL: 'https://itunes.apple.com/us/app/nooch/id917955306?mt=8"',
               androidURL: 'https://play.google.com/store?hl=en',
           };
-          $cordovaAppRateProvider.setPreferences(prefs),false
+          $cordovaAppRateProvider.setPreferences(prefs), false
 
 
           // Fired when the app enters the foreground
@@ -84,9 +86,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               console.log('came in resume state');
               console.log($localStorage.GLOBAL_VARIABLES.EnterPinImmediately);
 
-              if ($localStorage.GLOBAL_VARIABLES.MemberId != null) {
+              if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
+              {
                   //added this to not asked for PIN before login
-                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
+                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
+                  {
                       CommonServices.savePinValidationScreenData({ myParam: {}, type: '', returnUrl: 'app.home', returnPage: 'Home', comingFrom: 'Identity' });
 
                       $state.go('enterPin');
@@ -101,17 +105,17 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           }, false);
 
           //console.log(window);
-          if (window.cordova) {
+          if (window.cordova)
+          {
               // Get device info... used for handling notifications
               var device = $cordovaDevice.getDevice();
               //console.log(device);
 
               $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform == "Android" ? "A" : "I";
-                
+
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
 
               console.log('device operating system is: [' + device.platform + ']');
-
 
 
               var notificationOpenedCallback = function (jsonData) {
@@ -156,7 +160,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               })
           }
 
-          if (window.cordova && window.cordova.plugins.Keyboard) {
+          if (window.cordova && window.cordova.plugins.Keyboard)
+          {
               // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
               // for form inputs)
               //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -322,14 +327,14 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
          }
      })
      .state('app.addBank', {
-            url: '/settings/addBank',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/addBank/addBank.html',
-                    controller: 'addBankCtrl'
-                }
-            }
-        })
+         url: '/settings/addBank',
+         views: {
+             'menuContent': {
+                 templateUrl: 'templates/addBank/addBank.html',
+                 controller: 'addBankCtrl'
+             }
+         }
+     })
         .state('app.ResetPwd', {
             url: '/settings/securitySetting/ResetPwd',
             views: {
