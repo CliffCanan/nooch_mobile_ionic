@@ -45,7 +45,9 @@
         };
 
         $scope.getTransaction = function () {
-            console.log($scope.Details.enterPin);
+            $scope.Details.Latitude=$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude;
+            $scope.Details.Longitude = $localStorage.GLOBAL_VARIABLES.UserCurrentLongi;
+            console.log($scope.Details);
             var Pin = $scope.Details.enterPin;
             console.log(Pin);
             
