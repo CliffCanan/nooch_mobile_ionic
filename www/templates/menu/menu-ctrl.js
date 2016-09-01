@@ -70,7 +70,7 @@
                //    $rootScope.$broadcast('IsValidProfileFalse');
 
            }).error(function (encError) {
-               console.log('GetMemberDetails Error Block: [' + encError + ']');
+               console.log('GetMemberDetails Error Block: [' + JSON.stringify(encError) + ']');
                $ionicLoading.hide();
 
                if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
@@ -230,7 +230,7 @@
             $ionicLoading.hide();
 
         }).error(function (data) {
-            console.log('Get History Error: [' + data + ']');
+            console.log('Get History Error: [' + JSON.stringify(data) + ']');
             $ionicLoading.hide();
             if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                 CommonServices.logOut();
