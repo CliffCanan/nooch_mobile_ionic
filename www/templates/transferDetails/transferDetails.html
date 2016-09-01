@@ -37,10 +37,10 @@
 
 
         <div ng-show="hasLatiLongi == true && hasPicture == true">
-            <div style="width:50%">
-                <img width="100" src="data:image/png;base64,{{transDetail.Picture}}" align="left" />
+            <div style="height:100%; width:50%; float:left">
+                <img width="200" src="data:image/png;base64,{{transDetail.Picture}}"/>
             </div>
-            <div style="width:50%" id="mapRow" align="right">
+            <div style="height:100%; width: 50%; float: left; position:relative" id="mapRow" >
                 <div ng-controller="transferDetailsCtrl as vm">
                     <ng-map zoom="13" center="{{Location.lati}},{{Location.longi}}" style="height:200px"
                             on-center-changed="centerCustomMarker()">
