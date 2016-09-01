@@ -9,7 +9,7 @@
                   Photo: signUpData.Photo != "" ? signUpData.Photo : null,
                   UserName: signUpData.Email,
                   FirstName: signUpData.Name,
-                  LastName: signUpData.Name, 
+                  LastName: '',// Server is expecting empty LastName - we're sending full name in 'FirstName' and parsing on the server
                   PinNumber: signUpData.Pin,
                   Password: signUpData.Password,
                   SecondaryMail: signUpData.Email,
