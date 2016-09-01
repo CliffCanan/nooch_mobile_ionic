@@ -5,7 +5,7 @@
 
             <div class="section-header m-t-20">
                 <span>Linked Banked Account</span>
-				<i class="ion-android-alert text-danger m-l-10 f-21" ng-if="hasSynapseBank != true || bankData.bankStatus == 'Not Verified'"></i>
+                <i class="ion-android-alert text-danger m-l-10 f-21" ng-if="hasSynapseBank != true || bankData.bankStatus == 'Not Verified'"></i>
                 <button type="button" id="replaceBankBtn" class="pull-right" ng-click="openAddBank()">
                     <i class="ion-ios-plus-circled"></i>
                 </button>
@@ -25,10 +25,10 @@
             <div ng-if="hasSynapseBank === true && bankData != null">
                 <!-- WHEN BANK IS LINKED -->
                 <div class="bank-info row">
-					
-					<div class="col col-20">
-                    	<img class="bank-logo pull-left m-r-10" src="./img/bank.png" />
-					</div>
+
+                    <div class="col col-20">
+                        <img class="bank-logo pull-left m-r-10" src="./img/bank.png" />
+                    </div>
 
                     <div class="col">
                         <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>{{bankData.bankName}}</div>
@@ -37,9 +37,11 @@
                             Status:
                             <span class="text-danger">{{bankData.bankStatus}}</span>
                         </div>
-                        <a ng-show="deleteBank" class="  pull-right ion-minus-circled" ng-click="delBank()"> </a>
 
-                        <a ng-show="eBank"  class="btn btn-link pull-right f-15 text-danger"   ng-click="editBank()" id="edit-bank">Edit</a>
+                        <div id="editBankWrapper">
+                            <a ng-if="deleteBank" class="text-danger oomInUp f-21" ng-click="delBank()"><i class="ion-ios-trash"></i></a>
+                            <a ng-if="eBank" class="btn btn-link f-15 text-danger" ng-click="editBank()" id="edit-bank">Edit</a>
+                        </div>
                     </div>
 
                 </div>

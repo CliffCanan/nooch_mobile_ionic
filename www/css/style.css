@@ -1150,10 +1150,16 @@ div.hscroller-card {
     font-size: 14px;
 }
 
-#edit-bank {
+#editBankWrapper {
     position: absolute;
     top: 16px;
     right: 6px;
+}
+
+#editBankWrapper i {
+    position: absolute;
+    top: 19px;
+    right: 8px;
 }
 
 #sign-out-container {
