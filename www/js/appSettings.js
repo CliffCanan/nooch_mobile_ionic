@@ -62,6 +62,7 @@ var URLs = {
     CheckIfEmailIsRegistered: PATH + 'CheckIfEmailIsRegistered',
     ResendVerificationLink: PATH + 'ResendVerificationLink',
     ResendVerificationSMS: PATH + 'ResendVerificationSMS',
-    DeleteAttachedBankNode:PATH+'DeleteAttachedBankNode'
+    DeleteAttachedBankNode: PATH + 'DeleteAttachedBankNode',
+    submitDocumentToSynapseV3: PATH + 'submitDocumentToSynapseV3'
 
 };
