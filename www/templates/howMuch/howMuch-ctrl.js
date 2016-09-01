@@ -296,8 +296,6 @@
 
     $scope.takePhoto = function () {
         console.log($cordovaCamera);
-
-
       cordova.plugins.diagnostic.isCameraAuthorized(function(authorized){
         console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
 
@@ -333,8 +331,6 @@
         }
         else
         {
-
-
             swal({
                 title: "Permissions not Granted!",
                 text: "Please click OK for allowing Nooch to access camera",
@@ -346,7 +342,6 @@
                 customClass: "stackedBtns"
             }, function (isConfirm) {
                 if (isConfirm) {
-
                     cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
                         console.log("Authorization request for camera use was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
                         if (status)
@@ -359,16 +354,10 @@
                     });
                 }
             });
-
-
-
         }
       }, function(error){
         console.error("The following error occurred: "+error);
       });
-
-
-
     }
 
 
@@ -383,8 +372,7 @@
                 targetWidth: 300,
                 targetHeight: 300,
                 popoverOptions: CameraPopoverOptions,
-                saveToPhotoAlbum: false
-            };
+                saveToPhotoAlbum: false            };
 
             $cordovaCamera.getPicture(options).then(function (imageData) {
                 console.log(imageData);
