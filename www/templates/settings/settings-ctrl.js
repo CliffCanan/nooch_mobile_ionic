@@ -100,9 +100,19 @@
                         console.log(result);
                         $ionicLoading.hide();
 
-                        if (result == 'Success') {
+                        if (result == 'Deleted') {
 
-                            swal("Deleted", "Bank deleted successfully!", "success");
+                            swal({
+                                title: "Bank Deleted",
+                                text: "Attached bank deleted successfully",
+                                type: "success",
+                                confirmButtonColor: "#3fabe1",
+                                confirmButtonText: "Ok" 
+                            }, function (isConfirm) {
+                                if (isConfirm) {
+                                    location.reload();
+                                }
+                            });
                         }
                         else {
                             swal("Error", result, "error");

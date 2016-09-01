@@ -45,13 +45,13 @@
                 <div class="item item-input">
                     <span class="input-label">
                         <span style="display:inline-block" class="animated bounceIn">
-                            <i class="ion-ios-checkmark-outline text-success" ng-if="Status == 'Active' || Status == 'Accepted'"></i>
-                            <i class="ion-ios-close text-danger" ng-if="Status == 'Registered'"></i>
+                            <i class="ion-ios-checkmark-outline text-success" ng-if="(Status == 'Active' || Status == 'Accepted') && Details.IsVerifiedEmail!=false"></i>
+                            <i class="ion-ios-close text-danger" ng-if="Status == 'Registered' || Details.IsVerifiedEmail==false"></i>
                         </span>
                         Email
                     </span>
                     <span id="emailTxt">{{Details.UserName}}</span>
-                    <span ng-show="Details.IsVerifiedEmail==false"><button class="button button-assertive" ng-click="ResendVerificationLink()">Resend-Email verification</button></span>
+                    <span ng-show="Details.IsVerifiedEmail==false"><button class="button button-assertive" ng-click="ResendVerificationLink()">Resend-Email</button></span>
                 </div>
 
                 <div class="item item-input">
@@ -61,8 +61,10 @@
                             <i class="ion-ios-close text-danger" ng-if="IsPhoneVerified == false"></i>
                         </span>Phone
                     </span>
-                    <input type="text" placeholder="(123) 456 7890" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" ng-change="isAnythingChange()">
-                    <span ng-show="Details.IsVerifiedPhone==false"><button class="button button-assertive" ng-click="ResendVerificationSMS()">Resend-Phone verification</button></span>
+                    <span>
+                        <input type="text" placeholder="(123) 456 7890" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" ng-change="isAnythingChange()">
+                    </span>
+                         <span ng-show="Details.IsVerifiedPhone==false"><button class="button button-assertive" ng-click="ResendVerificationSMS()">Resend-Sms</button></span>
 
                  </div>
 

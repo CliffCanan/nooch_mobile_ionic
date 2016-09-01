@@ -37,11 +37,13 @@
                             Status:
                             <span class="text-danger">{{bankData.bankStatus}}</span>
                         </div>
+ 
 
                         <div id="editBankWrapper">
-                            <a ng-if="deleteBank" class="text-danger oomInUp f-21" ng-click="delBank()"><i class="ion-ios-trash"></i></a>
+                            <i ng-show="deleteBank" class=" pull-right ion-ios-close text-danger" ng-click="delBank()"></i>
                             <a ng-if="eBank" class="btn btn-link f-15 text-danger" ng-click="editBank()" id="edit-bank">Edit</a>
                         </div>
+ 
                     </div>
 
                 </div>
