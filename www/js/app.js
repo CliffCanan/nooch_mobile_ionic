@@ -67,16 +67,27 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               bit: ''
           };
 
-          //androidURL: 'market://details?id=<package_name>',
-          //windowsURL: 'ms-windows-store:Review?name=<...>'
-
-          var prefs = {
-              language: 'en',
-              appName: 'nooch',
-              iosURL: 'https://itunes.apple.com/us/app/nooch/id917955306?mt=8"',
-              androidURL: 'https://play.google.com/store?hl=en',
+          AppRate.preferences = {
+              openStoreInApp: true,
+              displayAppName: 'nooch',
+              usesUntilPrompt: 5,
+              promptAgainForEachNewVersion: false,
+              storeAppURL: {
+                  ios: 'https://itunes.apple.com/us/app/nooch/id917955306?mt=8',
+                  android: 'market://details?id=<com.soundcloud.android>',
+                  windows: 'ms-windows-store://pdp/?ProductId=<the apps Store ID>'                 
+              },
+              customLocale: {
+                  title: "Rate nooch",
+                  message: "If you enjoy using nooch, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!",
+                  cancelButtonLabel: "No, Thanks",
+                  laterButtonLabel: "Remind Me Later",
+                  rateButtonLabel: "Rate It Now"
+              }
           };
-          $cordovaAppRateProvider.setPreferences(prefs),false
+        //  AppRate.promptForRating();
+          AppRate.promptForRating(false);
+
 
 
           // Fired when the app enters the foreground
