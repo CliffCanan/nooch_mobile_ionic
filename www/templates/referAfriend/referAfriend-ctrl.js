@@ -2,40 +2,62 @@
 
  .controller('referAfriendCtrl', function ($scope, authenticationService, $ionicPlatform, $cordovaSocialSharing, $cordovaNetwork, $ionicLoading, ReferralCodeService) {
 
-     $scope.$on("$ionicView.enter", function (event, data) {
-         console.log("Refer a friend Controller Loaded");
-         $scope.ReferFriend();
-         $scope.yourReferral();
-     });
-
-     $scope.ReferFriend = function () {
-         console.log('Entered into ReferFriend Function');
-         //if ($cordovaNetwork.isOnline()) {
-             $ionicLoading.show({
-                 template: 'Loading ...'
-             });
-         ReferralCodeService.getReferralCode()
-                 .success(function (Code) {
-                     console.log(Code);
-                     $scope.inviteCode = Code.Result;
-                     $ionicLoading.hide();
-                     $scope.Code = Code;                    
-                 }
-         ).error(function (encError) {
-             console.log('came in enc error block ' + encError);
-             $ionicLoading.hide();
-           //  if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-             { CommonServices.logOut(); }
-         })
-         //}
-         //else {
-         //    swal("Oops...", "Internet not connected!", "error");
-         //}
-     }
-     
      $ionicPlatform.ready(function () {
          //window.plugins.spinnerDialog.show("title", "message", true);
      });
+
+     $scope.$on("$ionicView.enter", function (event, data) {
+         console.log("Refer a friend Controller Loaded");
+
+         $ionicLoading.show({
+             template: 'Loading...'
+         });
+
+         $scope.getReferralCode();
+     });
+
+     $scope.getReferralCode = function () {
+         //if ($cordovaNetwork.isOnline()) {
+			 ReferralCodeService.getReferralCode()
+                 .success(function (Code) {
+                     $scope.inviteCode = Code.Result;
+
+					 $scope.getReferredUsersList();
+                 })
+				 .error(function (error) {
+					 console.log('GetReferralCode Error: [' + JSON.stringify(error) + ']');
+					 $ionicLoading.hide();
+					 if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+						 CommonServices.logOut();
+         })
+         //}
+         //else
+         //    swal("Oops...", "Internet not connected!", "error");
+     }
+
+     $scope.getReferredUsersList = function () {
+         //if ($cordovaNetwork.isOnline()) {
+         ReferralCodeService.getInvitedMemberList()
+           .success(function (data) {
+               $scope.memberList = data;
+               console.log('Referred Users List -->');
+               console.log($scope.memberList);
+
+               if ($scope.memberList[0].Photo == "")
+                   $scope.memberList[0].Photo = "./img/profile_picture.png";
+
+               $ionicLoading.hide();
+           })
+		   .error(function (data) {
+               console.log('getInvitedMemberList Error: [' + JSON.stringify(data) + ']');
+               $ionicLoading.hide();
+			   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+				   CommonServices.logOut();
+           });
+         //  }
+         //else
+         //    swal("Oops...", "Internet not connected!", "error");
+     }
 
      $scope.sendReferralCode = function (type) {
          console.log(type + " clicked");
@@ -86,7 +108,7 @@
          else if (type == "email") {
              var subject = "Check out Nooch - a free app to pay me back";
              var msgBody = "Hey there,<br/><p>You should check out Nooch, a great <strong>free app</strong> that lets me pay you back anytime, anywhere.  Since I know you don't like carrying cash around either, I thought you would love using Nooch!</p><p>You can <a href=\"https://157050.measurementapi.com/serve?action=click&publisher_id=157050&site_id=91086\">download Nooch</a> from the App Store - and be sure to use my Referral Code:</p><p style=\"text-align:center;font-size:1.5em;\"><strong>" + $scope.inviteCode + "</strong></p><p>To learn more about Nooch, here's the website: <a href=\"https://www.nooch.com/overview/\">www.Nooch.com</a>.</p><p>- " + $scope.firstName + "</p>";
-             var toArr = ["cliff@nooch.com"]; // Just for testing
+             var toArr = [""]; // Just for testing
              var ccArr = [""];
              var bccArr = ["cliff@nooch.com"];
 
@@ -102,32 +124,5 @@
              });
          }
      }
-     
-     $scope.yourReferral = function () {
-         //if ($cordovaNetwork.isOnline()) {
-         $ionicLoading.show({
-             template: 'Loading ...'
-         });
 
-         ReferralCodeService.getInvitedMemberList()
-           .success(function (data) {
-               $scope.memberList = data;
-               console.log('Member List Data-->');
-               console.log($scope.memberList);
-               var i = 0;
-               if ($scope.memberList[i].Photo == "")
-                   $scope.memberList[i].Photo = "./img/profile_picture.png";
-
-               $ionicLoading.hide();
-           }).error(function (data) {
-               console.log('eror' + data);
-               $ionicLoading.hide();
-             //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-               { CommonServices.logOut(); }
-           });
-         //  }
-         //else {
-         //    swal("Oops...", "Internet not connected!", "error");
-         //}        
-     }
  })

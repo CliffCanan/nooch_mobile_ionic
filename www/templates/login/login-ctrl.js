@@ -23,7 +23,7 @@
               else
               {
                   $scope.loginData.rmmbrMe.chk = $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled == false ? false : true;
-                  $scope.loginData.email = $localStorage.GLOBAL_VARIABLES.UserName != '' ? $localStorage.GLOBAL_VARIABLES.UserName : 'malkit.singh@venturepact.com';
+                  $scope.loginData.email = $localStorage.GLOBAL_VARIABLES.UserName;
               }
           }
 

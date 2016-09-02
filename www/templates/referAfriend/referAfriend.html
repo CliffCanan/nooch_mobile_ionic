@@ -3,7 +3,7 @@
 
         <div class="text-center">
             <h2 class="m-t-15">Your referral code:</h2>
-            <div id="referral-code"><span>{{Code.Result}}</span></div>
+            <div id="referral-code"><span>{{inviteCode}}</span></div>
         </div>
 
         <div class="section-header m-t-20">
@@ -37,21 +37,22 @@
             Friends you have refered
         </div>
 
-        <div class="card m-t-5">
-            <div id="referredUsersList" class="list">
+        <div class="card m-t-5" ng-if="memberList != null">
 
+            <div id="referredUsersList" class="list" ng-if="memberList.length > 0">
                 <div class="item item item-avatar" ng-repeat="member in memberList">
                     <img class=user-img src={{member.Photo}}>
                     <h2>{{member.FirstName}}&nbsp;{{member.LastName}}</h2>
                     <p class="item-note">{{member.DateCreated | date: 'MMM d, y'}}</p>
                 </div>
-
-                <!--<div class="item item-avatar">
-                    <img class="user-img" src="./img/RoundLoading.png">
-                    <h2>Lenny Kravitz</h2>
-                    <p class="item-note">1/1/1999</p>-->
             </div>
-        </div>
+
+			<div class="text-center p-20 animated slideInUp" ng-if="memberList.length < 2">
+				<h2 class="f-300">No Referrals Yet!</h2>
+				<p class="f-300 f-20 p-l-10 p-r-10 m-0">Tap an option above to invite friends to use Nooch.</p>
+			</div>
+
+		</div>
 
     </ion-content>
 </ion-view>

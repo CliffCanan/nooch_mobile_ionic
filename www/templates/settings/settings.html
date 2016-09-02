@@ -77,6 +77,12 @@
                     <i class="icon ion-chevron-right"></i>
                 </a>
 
+                <a class="item item-icon-left item-icon-right" href="#/app/settings/uploadID" ng-if="hasSynapseUserAccount == true && synUserPermission != 'SEND-AND-RECEIVE'">
+                    <i class="icon ion-document-text">
+                    </i>Upload ID
+                    <i class="icon ion-chevron-right"></i>
+                </a>
+
                 <a class="item item-icon-left item-icon-right" href="#/app/settings/securitySetting">
                     <i class="icon ion-locked"></i>Security Settings
                     <i class="icon ion-chevron-right"></i>
@@ -91,12 +97,6 @@
                 <a class="item item-icon-left item-icon-right" href="#/app/settings/socialSetting">
                     <i class=" icon ion-social-facebook">
                     </i>Social Settings
-                    <i class="icon ion-chevron-right"></i>
-                </a>
-
-                <a class="item item-icon-left item-icon-right" href="#/app/settings/uploadID" ng-if="synUserPermission != 'SEND-AND-RECEIVE'">
-                    <i class="icon ion-document-text">
-                    </i>Upload ID
                     <i class="icon ion-chevron-right"></i>
                 </a>
 

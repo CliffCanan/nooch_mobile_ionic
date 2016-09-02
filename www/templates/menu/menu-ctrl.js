@@ -19,7 +19,6 @@
             // Check if user has any Pending Requests
             //$timeout($scope.pendingList, 4000);
         }
-
     });
 
 
@@ -45,7 +44,6 @@
                $localStorage.GLOBAL_VARIABLES.lastName = res.lastName;
                $localStorage.GLOBAL_VARIABLES.isProfileComplete = res.isProfileComplete;
                $localStorage.GLOBAL_VARIABLES.isRequiredImmediately = res.isRequiredImmediately;
-
                $localStorage.GLOBAL_VARIABLES.hasSynapseUserAccount = res.hasSynapseUserAccount;
                $localStorage.GLOBAL_VARIABLES.hasSynapseBank = res.hasSynapseBank;
                $localStorage.GLOBAL_VARIABLES.isBankVerified = res.isBankVerified;
@@ -56,10 +54,12 @@
                $scope.PicUrl = res.userPicture;//"http://www.nooch.info/noochservice/UploadedPhotos/Photos/" + $localStorage.GLOBAL_VARIABLES.MemberId + ".png";
 
                // CC (9/1/16): SETTING $rootScope values so we can access directly in HTML pages w/o setting in each scope
+               $rootScope.memberId = res.memberId;
                $rootScope.isProfileComplete = res.isProfileComplete;
                $rootScope.isBankVerified = res.isBankVerified;
                $rootScope.IsPhoneVerified = res.IsPhoneVerified;
                $rootScope.Status = res.Status;
+               $rootScope.hasSynapseUserAccount = res.hasSynapseUserAccount;
                $rootScope.hasSynapseBank = res.hasSynapseBank;
                $rootScope.bankStatus = res.bankStatus;
                $rootScope.synUserPermission = res.synUserPermission;
