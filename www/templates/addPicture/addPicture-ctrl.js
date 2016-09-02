@@ -10,31 +10,7 @@
             if ($rootScope.signUpData == null)
                 $state.go('signup');
         });
-
-		console.log('TEST');
 		
-        $scope.memberDetails = function () {
-            //if ($cordovaNetwork.isOnline()) {
-            $ionicLoading.show({
-                template: 'Loading ...'
-            });
-
-            CommonServices.GetMemberDetails()
-              .success(function (data) {
-                  $scope.Data = data;
-
-                  console.log($scope.Data);
-                  $ionicLoading.hide();
-              }).error(function (data) {
-                  console.log('eror' + data.ExceptionMessage);
-                  // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                  CommonServices.logOut();
-              });
-            //  }
-            //else
-            //    swal("Oops...", "Internet not connected!", "error");
-        }
-
 
         $scope.choosePhoto = function () {
             $ionicPlatform.ready(function () {
@@ -76,39 +52,6 @@
             });
         }
 
-
-        $scope.UpdatePhoto = function () {
-            console.log('UpdatePhoto Fired');
-
-            //if ($cordovaNetwork.isOnline()) {
-            $ionicLoading.show({
-                template: 'Loading ...'
-            });
-
-            console.log('Values from UpdatePhoto function Page...');
-            console.log($scope.Details);
-
-            profileService.MySettings($scope.Details)
-                .success(function (data) {
-                    console.log(data);
-
-                    $scope.Data = data;
-                    $ionicLoading.hide();
-                }
-        ).error(function (encError) {
-            //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-            CommonServices.logOut();
-        })
-            //}
-            //else
-            //    swal("Oops...", "Internet not connected!", "error");
-        }
-
-        /*$scope.trimName = function (str) {
-            var patt = /([a-zA-Z]{1,}) (.*)/;
-            var match = str.match(patt);
-            return match[1];
-        }*/
 
         $scope.isUrlUpdated = function () {
             if ($rootScope.signUpData.gotPicUrl == true)

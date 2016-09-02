@@ -23,7 +23,6 @@
                  $rootScope.IsPhoneVerified === false ||
                  $rootScope.Status === "Registered")
              {
-                 console.log("CHECKPOINT #1");
                  $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
                  $scope.shouldDisplayErrorBanner = true;
              }
@@ -31,7 +30,6 @@
              if ($rootScope.Status === "Suspended" ||
                  $rootScope.Status === "Temporarily_Blocked")
              {
-                 console.log("CHECKPOINT #2");
                  $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
                  $scope.shouldDisplayErrorBanner = true;
              }

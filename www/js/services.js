@@ -2,7 +2,7 @@ angular.module('noochApp.services', ['ngStorage'])
 
 
 // Adding some common usefull services in here like enc, dec etc.
-  .service('CommonServices', function ($http, $localStorage, $state, $window) {
+  .service('CommonServices', function ($http, $localStorage, $state, $window, $ionicLoading) {
       this.GetEncryptedData = function (dataToEncrypt) {
           return $http.get(URLs.GetEncryptedData + '?data=' + btoa(dataToEncrypt));   // btoa DOES THE BASE 64 ENCRYPTION FOR GIVEN INPUT
       }
@@ -24,6 +24,9 @@ angular.module('noochApp.services', ['ngStorage'])
       }
 
       this.logOut = function () {
+          //$ionicLoading.show({
+          //    template: 'Logging out...'
+          //});
 
           $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;

@@ -271,6 +271,14 @@ ion-header-bar, .navheader {
 .m-l-50 {
     margin-left: 50px !important;
 }
+
+.m-t-neg-20 {
+    margin-top: -20px !important;
+}
+
+.m-t-neg-30 {
+    margin-top: -30px !important;
+}
 /** Generate Padding Class
  * padding, padding-top, padding-bottom, padding-left, padding-right **/
 .p-0 {
@@ -573,7 +581,6 @@ a {
 }
 
     .btn-success:disabled {
-        border-radius: 3px;
         background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c0c2c4), color-stop(100%, #b1b3b6));
         background: -webkit-linear-gradient(top, #c0c2c4,#b1b3b6);
         background: linear-gradient(top, #c0c2c4,#b1b3b6);
@@ -768,7 +775,7 @@ a {
 
     .sweet-alert h2 {
         color: #444;
-        margin: 22px 0 15px;
+        margin: 22px 0 12px;
     }
 
     .sweet-alert button {
@@ -904,6 +911,27 @@ iframe {
     width: 100%;
 }
 
+
+.searchBarContainer {
+    border-radius: 6px !important;
+    background: #e7e8e9;
+    padding: 2px 0 3px 12px;
+}
+
+    .searchBarContainer input {
+        text-align: center;
+        padding-right: 15px !important;
+    }
+
+    .searchBarContainer i {
+        position: relative;
+        top: 1px;
+    }
+
+        .searchBarContainer i.ion-search::before {
+            margin: 0;
+        }
+
 /**********************/
 /****   REGISTER   ****/
 /**********************/
@@ -975,9 +1003,11 @@ iframe {
     color: #3fabe1;
     font-size: 28px;
     line-height: 1;
-    padding: 15px 2px 2px;
+    padding: 0px 2px 2px;
     min-height: 10px;
     text-decoration: none;
+    position: relative;
+    top: 40px;
 }
 
 #loginScrn .btn-link {
@@ -996,6 +1026,16 @@ iframe {
 #rememberMe {
     position: relative;
     top: -12px;
+}
+
+
+/*********************/
+/***  ADD PICTURE  ***/
+/*********************/
+#picWrap img {
+    border: 5px solid #acacac;
+    border-radius: 50%;
+    box-shadow: 0 3px 9px -2px rgba(0,0,0,.25);
 }
 
 
@@ -1253,7 +1293,7 @@ div.hscroller-card {
 }
 
     .profilePicWrapper img {
-        box-shadow: 0 2px 7px -1px rgba(0,0,0,.35);
+        box-shadow: 0 3px 7px -1px rgba(31,32,33,.3);
         display: block;
         height: 100%;
         width: 100%;
@@ -1268,20 +1308,24 @@ div.hscroller-card {
     .profilePicWrapper #editTxt {
         bottom: 0;
         color: #fff;
-        display: block;
-        font-size: 12px;
+        font-size: 11px;
+        font-weight: 300;
         position: absolute;
         text-align: center;
-        text-shadow: 0 -1px 0 rgba(0,0,0,.65);
+        text-shadow: 0 -1px 0 rgba(31,32,33,.6);
         width: 100%;
         z-index: 10;
     }
 
-#bankLinkedWrap i {
-    font-size: 20px;
-    position: relative;
-    top: 1px;
+#bankLinkedWrap {
+    padding-top: 24px;
 }
+
+    #bankLinkedWrap i {
+        font-size: 17px;
+        position: relative;
+        top: 1px;
+    }
 
 #emailTxt {
     color: #777;
@@ -1334,27 +1378,64 @@ div.hscroller-card {
         font-size: 21px;
     }
 
-
-.history-list .date {
-    color: #888;
-    display: inline-block;
-    height: 14px;
-    margin-left: 10px;
-    position: relative;
-    top: 3px;
+.history-list {
+    min-height: 530px;
 }
 
-.history-list .typeDateContainer {
-    position: absolute;
-    top: 8px;
-}
+    .history-list .date {
+        color: #888;
+        display: inline-block;
+        height: 14px;
+        margin-left: 10px;
+        position: relative;
+        top: 3px;
+    }
 
-    .history-list .typeDateContainer .date i:before {
-        color: #666;
-        font-size: 12px;
-        margin-right: 0;
-        padding: 1px 0;
-        width: initial;
+    .history-list .typeDateContainer {
+        position: absolute;
+        top: 8px;
+    }
+
+        .history-list .typeDateContainer .date i:before {
+            color: #666;
+            font-size: 12px;
+            margin-right: 0;
+            padding: 1px 0;
+            width: initial;
+        }
+
+    .history-list .item-avatar .item-content {
+        padding: 28px 5px 14px 74px;
+    }
+
+        .history-list .item-avatar .item-content img {
+            border: 1px solid #6D6E71;
+            left: 12px;
+            max-width: 50px;
+            max-height: 50px;
+            top: 16px;
+        }
+
+    .history-list .name {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 5px 0 4px;
+    }
+
+    .history-list .memo-container {
+        color: rgb(88,90,92);
+        width: 80%;
+    }
+
+    .history-list .amount {
+        color: #333;
+        font-size: 21px;
+        font-weight: 600;
+        letter-spacing: -.25px;
+        position: absolute;
+        top: 33%;
+        right: 5px;
+        text-align: right;
     }
 
 .transTypeLabel {
@@ -1380,40 +1461,6 @@ div.hscroller-card {
         background-color: #4FABE1;
     }
 
-.history-list .item-avatar .item-content {
-    padding: 28px 5px 14px 74px;
-}
-
-    .history-list .item-avatar .item-content img {
-        border: 1px solid #6D6E71;
-        left: 12px;
-        max-width: 50px;
-        max-height: 50px;
-        top: 16px;
-    }
-
-.history-list .name {
-    font-size: 18px;
-    font-weight: 500;
-    margin: 5px 0 4px;
-}
-
-.history-list .memo-container {
-    color: rgb(88,90,92);
-    width: 80%;
-}
-
-.history-list .amount {
-    color: #333;
-    font-size: 21px;
-    font-weight: 600;
-    letter-spacing: -.25px;
-    position: absolute;
-    top: 33%;
-    right: 5px;
-    text-align: right;
-}
-
 #export-btn {
     font-size: 16px;
     position: fixed;
@@ -1425,6 +1472,30 @@ div.hscroller-card {
     z-index: 9;
 }
 
+.firstTimeWrap {
+    box-shadow: 0 1px 45px -1px rgba(63,64,65,.16) inset;
+    background-color: #eee;
+    padding: 28px 20px 0;
+    min-height: 530px;
+    text-align: center;
+    text-shadow: 0 2px 0 rgba(250,251,252,.8);
+}
+
+    .firstTimeWrap h2 {
+        color: #777;
+        font-weight: 300;
+    }
+
+    .firstTimeWrap p {
+        color: #999;
+        font-size: 20px;
+        font-weight: 300;
+        margin-bottom: 15px;
+    }
+
+    .firstTimeWrap img {
+        width: 82%;
+    }
 
 /*********************/
 /**  TRANS DETAILS  **/
@@ -1711,17 +1782,6 @@ div.hscroller-card {
     max-width: 50px;
     max-height: 50px;
 }
-
-.searchBarContainer {
-    border-radius: 6px !important;
-    background: #e7e8e9;
-    padding: 2px 0 3px 16px;
-}
-
-    .searchBarContainer i {
-        position: relative;
-        top: 1px;
-    }
 
 .selectRecipList .list {
     border: 0;

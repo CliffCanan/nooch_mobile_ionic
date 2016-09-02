@@ -31,9 +31,9 @@
             historyService.getTransferList().success(function (data) {
 
                 $scope.transactionList = data;
-                console.log('getTransferList result data----- >>>>>');
+                console.log('GetTransferList Result Data >>>>>');
                 console.log($scope.transactionList);
-                console.log($scope.transactionList.length);
+
                 for (var i = 0; i < $scope.transactionList.length; i++)
                 {
                     $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
@@ -44,91 +44,107 @@
                 $ionicLoading.hide();
             }).error(function (error) {
                 console.log('History Cntrl -> GetTransferList Error: [' + JSON.stringify(error) + ']');
+                $ionicLoading.hide();
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
             });
-
-            $scope.cancelPayment = function (trans) {
-
-                console.log("Cancel Payment: [" + trans.TransactionId + ']');
-
-                $ionicLoading.show({
-                    template: 'Cancelling Request...'
-                });
-
-                transferDetailsService.CancelRequest(trans.TransactionId).success(function (data) {
-                    if (data.Result.indexOf('Successfully') > -1)
-                        swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                            $ionicLoading.hide();
-                            location.reload();
-                        });
-                }).error(function (error) {
-                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                        CommonServices.logOut();
-                });
-            }
-
-            $scope.rejectPayment = function (trans) {
-
-                console.log("Reject Payment Fired: [" + trans.TransactionId + ']');
-
-                $ionicLoading.show({
-                    template: 'Rejecting Request...'
-                });
-
-                transferDetailsService.RejectPayment(trans.TransactionId).success(function (data) {
-                    $ionicLoading.hide();
-
-                    if (data.Result.indexOf('Successfully') > -1)
-                        swal({ title: "Request Rejected", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                            location.reload();
-                        });
-                }).error(function (error) {
-                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                        CommonServices.logOut();
-                });
-            }
-
-            $scope.remindPayment = function (trans) {
-
-                $ionicLoading.show({
-                    template: 'Sending Reminder...'
-                });
-
-                transferDetailsService.RemindPayment(trans.TransactionId).success(function (data) {
-                    $ionicLoading.hide();
-
-                    if (data.Result.indexOf('successfully') > -1)
-                        swal({ title: "Sent", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                            location.reload();
-                        });
-                    else
-                        swal("Error", data.Result, "error");
-
-                }).error(function (error) {
-                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                        CommonServices.logOut();
-                });
-            }
-
-            $scope.PayBack = function (trans) {
-                console.log("Pay Back" + JSON.stringify(trans));
-                $state.go('app.howMuch', { myParam: trans });
-            }
-
-            $scope.TransferMoney = function (trans) {
-                transDetails = trans;
-                transDetails.RecepientName = trans.Name;
-                console.log("Transfer payment" + JSON.stringify(transDetails));
-
-                CommonServices.savePinValidationScreenData({ myParam: transDetails, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });
-
-                $state.go('enterPin');
-            }
             //}
             //else
             //  swal("Oops...", "Internet not connected!", "error");
         });
+
+        $scope.cancelPayment = function (trans) {
+
+            console.log("Cancel Payment: [" + trans.TransactionId + ']');
+
+            $ionicLoading.show({
+                template: 'Cancelling Request...'
+            });
+
+            transferDetailsService.CancelRequest(trans.TransactionId).success(function (data) {
+                if (data.Result.indexOf('Successfully') > -1)
+                    swal({
+                        title: "Request Cancelled",
+                        text: data.Result,
+                        type: "success",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Ok!"
+                    }, function () {
+                        $ionicLoading.hide();
+                        location.reload();
+                    });
+            }).error(function (error) {
+                $ionicLoading.hide();
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            });
+        }
+
+        $scope.rejectPayment = function (trans) {
+
+            console.log("Reject Payment Fired: [" + trans.TransactionId + ']');
+
+            $ionicLoading.show({
+                template: 'Rejecting Request...'
+            });
+
+            transferDetailsService.RejectPayment(trans.TransactionId).success(function (data) {
+                $ionicLoading.hide();
+
+                if (data.Result.indexOf('Successfully') > -1)
+                    swal({
+                        title: "Request Rejected",
+                        text: data.Result,
+                        type: "success",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Ok!"
+                    }, function () {
+                        location.reload();
+                    });
+            }).error(function (error) {
+                $ionicLoading.hide();
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            });
+        }
+
+        $scope.remindPayment = function (trans) {
+
+            $ionicLoading.show({
+                template: 'Sending Reminder...'
+            });
+
+            transferDetailsService.RemindPayment(trans.TransactionId).success(function (data) {
+                $ionicLoading.hide();
+
+                if (data.Result.indexOf('successfully') > -1)
+                    swal({ title: "Sent", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                        location.reload();
+                    });
+                else
+                    swal("Error", data.Result, "error");
+
+            }).error(function (error) {
+                $ionicLoading.hide();
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            });
+        }
+
+        $scope.PayBack = function (trans) {
+            console.log("Pay Back Result: [" + JSON.stringify(trans) + ']');
+            $state.go('app.howMuch', { myParam: trans });
+        }
+
+        $scope.TransferMoney = function (trans) {
+            transDetails = trans;
+            transDetails.RecepientName = trans.Name;
+            console.log("Transfer Money Result: [" + JSON.stringify(transDetails) + ']');
+
+            CommonServices.savePinValidationScreenData({ myParam: transDetails, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });
+
+            $state.go('enterPin');
+        }
 
 
         $scope.showMap = function (longi, lati) {
@@ -164,29 +180,25 @@
         }
 
 
-        $scope.clickCompleted = function () {
+        $scope.toggleView = function (view) {
             $ionicHistory.clearCache().then(function () {
 
-                $scope.transactionList = [];
-                $scope.transactionList = $scope.transList;
-                $scope.completed = true;
-                $scope.pending = false;
-
-                console.log($scope.transactionList);
-            });
-        }
-
-
-        $scope.clickPending = function () {
-
-            $ionicHistory.clearCache().then(function () {
-
-                $scope.transactionList = [];
-                $scope.transactionList = $scope.transList;
-                $scope.pending = true;
-                $scope.completed = false;
-
-                console.log($scope.transactionList);
+                if (view == 'completed')
+                {
+                    $scope.transactionList = [];
+                    $scope.transactionList = $scope.transList;
+                    $scope.completed = true;
+                    $scope.pending = false;
+                }
+                else
+                {
+                    $scope.transactionList = [];
+                    $scope.transactionList = $scope.transList;
+                    $scope.pending = true;
+                    $scope.completed = false;
+                }
+                console.log("ToggleView Fired - [" + view + "]");
+                //console.log($scope.transactionList);
             });
         }
 
@@ -194,8 +206,6 @@
         $scope.openFilterChoices = function () {
             $('#btnCompleted').attr('disabled', true);
             $('#btnPending').attr('disabled', true);
-
-            //$scope.modal.show();
 
             var title = $scope.completed == true ? "Filter Options (Completed Payments)" : "Filter Options (Pending Payments)";
             var buttons = [];

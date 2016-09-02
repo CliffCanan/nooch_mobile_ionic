@@ -132,49 +132,105 @@
 
 
     $scope.ResendVerificationLink = function () {
-        $ionicLoading.show({
-            template: 'Sending ...'
+        swal({
+            title: "Resend Confirmation Link?",
+            text: "Your email address <strong>(" + $scope.Details.UserName + ")</strong> is unverified." +
+                  "<span class='show'>Would you like us to re-send a verification link now?</span>",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3fabe1",
+            confirmButtonText: "OK",
+            html: true
+        }, function (isConfirm) {
+            if (isConfirm)
+            {
+                $ionicLoading.show({
+                    template: 'Sending Verification Link...'
+                });
+
+                profileService.ResendVerificationLink()
+                   .success(function (result) {
+                       $ionicLoading.hide();
+
+                       if (result.Result == 'Success')
+                           $ionicContentBanner.show({
+                               text: ['Email Confirmation Link Sent'],
+                               autoClose: '5000',
+                               type: 'info',
+                               transition: 'vertical'
+                           });
+                       else
+                           $ionicContentBanner.show({
+                               text: ['Error: Email Confirmation Link Not Sent :-('],
+                               autoClose: '5000',
+                               type: 'error',
+                               transition: 'vertical'
+                           });
+                   }).error(function (error) {
+                       console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
+
+                       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                           CommonServices.logOut();
+                       else
+                           $ionicContentBanner.show({
+                               text: ['Error: Email Confirmation Link Not Sent :-('],
+                               autoClose: '5000',
+                               type: 'error',
+                               transition: 'vertical'
+                           });
+                   });
+            }
         });
-
-        profileService.ResendVerificationLink()
-           .success(function (result) {
-               console.log(result);
-               $ionicLoading.hide();
-
-               if (result.Result == 'Success')
-                   swal("Sent...", "Email successfully sent!", "success");
-               else
-                   swal("Not Sent...", result.Result, "error");
-           }).error(function (error) {
-               console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
-
-               if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                   CommonServices.logOut();
-           });
     }
 
 
     $scope.ResendVerificationSMS = function () {
-        $ionicLoading.show({
-            template: 'Sending Verification Text...'
+        swal({
+            title: "Resend Confirmation Link?",
+            text: "Your phone number <strong>(" + $scope.Details.ContactNumber + ")</strong> is unverified." +
+                  "<span class='show'>Would you like us to re-send a verification text message now?</span>",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3fabe1",
+            confirmButtonText: "OK",
+            html: tru
+        }, function (isConfirm) {
+            if (isConfirm)
+            {
+                $ionicLoading.show({
+                    template: 'Sending Verification Text...'
+                });
+
+                profileService.ResendVerificationSMS()
+                   .success(function (result) {
+                       console.log(result);
+                       $ionicLoading.hide();
+
+                       if (result.Result == 'Success')
+                           swal("Check Your Phone!", "We just sent an SMS message to " + $scope.Details.ContactNumber + ".", "success");
+                       else
+                           $ionicContentBanner.show({
+                               text: ['Error: Verification SMS Not Sent :-('],
+                               autoClose: '5000',
+                               type: 'error',
+                               transition: 'vertical'
+                           });
+                   }).error(function (error) {
+                       $ionicLoading.hide();
+                       console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
+
+                       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                           CommonServices.logOut();
+                       else
+                           $ionicContentBanner.show({
+                               text: ['Error: Verification SMS Not Sent :-('],
+                               autoClose: '5000',
+                               type: 'error',
+                               transition: 'vertical'
+                           });
+                   })
+            }
         });
-
-        profileService.ResendVerificationSMS()
-           .success(function (result) {
-               console.log(result);
-               $ionicLoading.hide();
-
-               if (result.Result == 'Success')
-                   swal("Check Your Phone!", "We just sent an SMS message to " + $scope.Details.ContactNumber + ".", "success");
-               else
-                   swal("Not Sent...", result.Result, "error");
-           }).error(function (error) {
-               $ionicLoading.hide();
-               console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
-
-               if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                   CommonServices.logOut();
-           })
     }
 
     // Date Picker Plugin

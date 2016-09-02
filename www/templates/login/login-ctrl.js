@@ -8,7 +8,7 @@
 
           $scope.loginData = {
               email: '',
-              pwd: 'Q123456789',
+              pwd: '',//Q123456789',
               rmmbrMe: {
                   chk: true
               }
@@ -29,9 +29,6 @@
 
           console.log($scope.loginData);
           console.log($localStorage.GLOBAL_VARIABLES);
-
-          // $localStorage.GLOBAL_VARIABLES.DeviceId = 'UDID123';
-          //  $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NOTIF123';
       });
 
 
