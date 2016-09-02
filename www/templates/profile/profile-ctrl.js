@@ -193,7 +193,7 @@
             showCancelButton: true,
             confirmButtonColor: "#3fabe1",
             confirmButtonText: "OK",
-            html: tru
+            html: true
         }, function (isConfirm) {
             if (isConfirm)
             {
