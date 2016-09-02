@@ -59,7 +59,7 @@ var URLs = {
     SaveMemberSSN: PATH + 'SaveMemberSSN',
     LoginWithFacebookGeneric: PATH + 'LoginWithFacebookGeneric',
     SaveMembersFBId: PATH + 'SaveMembersFBId',
-    //CheckIfEmailIsRegistered: PATH + 'CheckIfEmailIsRegistered', // CC (8/31/16): NOT NEEDED - CAN CHECK THE USER'S "Status" (== "Registered" means the email is NOT verified, == "Active" means it IS verified"
+    CheckIfEmailIsRegistered: PATH + 'CheckIfEmailIsRegistered',
     ResendVerificationLink: PATH + 'ResendVerificationLink',
     ResendVerificationSMS: PATH + 'ResendVerificationSMS',
     DeleteAttachedBankNode: PATH + 'DeleteAttachedBankNode',

@@ -2,71 +2,66 @@
 /******************/
 /***  SETTINGS  ***/
 /******************/
- .controller('SettingCtrl', function ($scope, $rootScope, settingsService, $state, $ionicModal, $ionicLoading, $localStorage, $sce, $ionicContentBanner, CommonServices) {
+ .controller('SettingCtrl', function ($scope, $rootScope, $timeout, $state, $ionicModal, $ionicLoading,
+                                      $localStorage, $sce, $ionicContentBanner, settingsService, CommonServices) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // On Screen Load
          $scope.deleteBank = false;
-         $scope.eBank = true;
+         $scope.editBank = true;
          $scope.shouldDisplayErrorBanner = false;
          $scope.errorBannerTextArray = [];
 
-         if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified != true)
-         {
-             $scope.isPhoneVerified = false;
-             $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
-             $scope.shouldDisplayErrorBanner = true;
-         }
-         else
-             $scope.isPhoneVerified = false;
+         $timeout(function () {
+             if ($rootScope.IsPhoneVerified === false)
+             {
+                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
+                 $scope.shouldDisplayErrorBanner = true;
+             }
 
-         if ($localStorage.GLOBAL_VARIABLES.isProfileComplete != true ||
-             $localStorage.GLOBAL_VARIABLES.Status === "Registered")
-         {
-             $scope.isProfileComplete = true;
-             $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
-             $scope.shouldDisplayErrorBanner = true;
-         }
-         else
-             $scope.isProfileComplete = false;
+             if ($rootScope.isProfileComplete === false ||
+                 $rootScope.IsPhoneVerified === false ||
+                 $rootScope.Status === "Registered")
+             {
+                 console.log("CHECKPOINT #1");
+                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
+                 $scope.shouldDisplayErrorBanner = true;
+             }
 
-         if ($localStorage.GLOBAL_VARIABLES.Status === "Suspended" ||
-             $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked")
-         {
-             $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
-             $scope.shouldDisplayErrorBanner = true;
-         }
-         if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank === true)
-         {
-             $scope.hasSynapseBank = true;
-             $scope.bankIsVerified = $localStorage.GLOBAL_VARIABLES.bankStatus === "Verified" ? true : false;
-             // CC (8/27/16): Only need to fetch bank details if the user has a Synapse Bank attached
-             $scope.checkBankDetails();
-         }
-         else
-         {
-             $scope.hasSynapseBank = false;
-             $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
-             $scope.shouldDisplayErrorBanner = true;
-         }
+             if ($rootScope.Status === "Suspended" ||
+                 $rootScope.Status === "Temporarily_Blocked")
+             {
+                 console.log("CHECKPOINT #2");
+                 $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
+                 $scope.shouldDisplayErrorBanner = true;
+             }
 
-         if ($scope.shouldDisplayErrorBanner)
-         {
-             $ionicContentBanner.show({
-                 text: $scope.errorBannerTextArray,
-                 interval: '4000',
-                 type: 'error',
-                 transition: 'vertical'
-             });
+             if ($rootScope.hasSynapseBank === true) // CC (8/27/16): Only need to fetch bank details if the user has a Synapse Bank attached
+                 $scope.checkBankDetails();
+             else if ($rootScope.hasSynapseBank === false)
+             {
+                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
+                 $scope.shouldDisplayErrorBanner = true;
+             }
 
-             $('#settings_cntnr').css('margin-top', '55px');
-         }
+             if ($scope.shouldDisplayErrorBanner)
+             {
+                 $ionicContentBanner.show({
+                     text: $scope.errorBannerTextArray,
+                     interval: '4000',
+                     type: 'error',
+                     transition: 'vertical'
+                 });
+
+                 $('#settings_cntnr').css('margin-top', '55px');
+             }
+         }, 1000);
 
 
          $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
-         //console.log($scope.trustedUrl);
      });
+
 
      // Viewing Add Bank Webview (in an Ionic Modal)
      $ionicModal.fromTemplateUrl('addBankModal.html', {
@@ -76,10 +71,12 @@
          $scope.addBankModal = modal;
      });
 
+
      $scope.editBank = function () {
          $scope.deleteBank = true;
-         $scope.eBank = false;
+         $scope.editBank = false;
      }
+
 
      $scope.delBank = function () {
          swal({
@@ -92,7 +89,8 @@
              confirmButtonText: "Ok",
              customClass: "stackedBtns"
          }, function (isConfirm) {
-             if (isConfirm) {
+             if (isConfirm)
+             {
 
 
                  settingsService.DeleteAttachedBankNode()
@@ -100,21 +98,24 @@
                         console.log(result);
                         $ionicLoading.hide();
 
-                        if (result == 'Deleted') {
+                        if (result == 'Deleted')
+                        {
 
                             swal({
                                 title: "Bank Deleted",
                                 text: "Attached bank deleted successfully",
                                 type: "success",
                                 confirmButtonColor: "#3fabe1",
-                                confirmButtonText: "Ok" 
+                                confirmButtonText: "Ok"
                             }, function (isConfirm) {
-                                if (isConfirm) {
+                                if (isConfirm)
+                                {
                                     location.reload();
                                 }
                             });
                         }
-                        else {
+                        else
+                        {
                             swal("Error", result, "error");
                         }
 
@@ -124,10 +125,11 @@
                         CommonServices.logOut();
                     });
 
-               
+
              }
          });
      }
+
 
      $scope.openAddBank = function () {
          if ($localStorage.GLOBAL_VARIABLES.Status == "Suspended" ||
@@ -191,12 +193,13 @@
                  cancelButtonText: "Cancel",
                  html: true,
              }, function (isConfirm) {
-				 if (isConfirm) $scope.addBankModal.show();
+                 if (isConfirm) $scope.addBankModal.show();
              });
          }
          else
              $scope.addBankModal.show();
      };
+
 
      $scope.closeAddBank = function () {
          $scope.addBankModal.hide();
@@ -207,6 +210,7 @@
          $scope.tosModal.remove();
          $scope.privacyModal.remove();
      });
+
 
      $scope.signOut = function () {
 

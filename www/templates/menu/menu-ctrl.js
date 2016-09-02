@@ -1,26 +1,26 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, $timeout,authenticationService,$cordovaAppRate,$ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService, $ionicPlatform, CommonServices, $state) {
+.controller('MenuCtrl', function ($scope, $timeout, authenticationService, $cordovaAppRate, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService, $ionicPlatform, CommonServices, $state) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
 
-		if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
-		{
-			CommonServices.logOut();
-		}
-		else
-		{
-	        $scope.MemberDetails();
+        if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
+        {
+            CommonServices.logOut();
+        }
+        else
+        {
+            $scope.MemberDetails();
 
-	        $scope.url = 'http://support.nooch.com/';
-	        $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
-	        // console.log($scope.trustedUrl);
-	        // Check if user has any Pending Requests
-	        $timeout($scope.pendingList, 4000);
-		}
+            $scope.url = 'http://support.nooch.com/';
+            $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
 
-	});
+            // Check if user has any Pending Requests
+            //$timeout($scope.pendingList, 4000);
+        }
+
+    });
 
 
     $scope.MemberDetails = function () {
@@ -53,9 +53,22 @@
                $localStorage.GLOBAL_VARIABLES.synUserPermission = res.synUserPermission;
                $localStorage.GLOBAL_VARIABLES.synBankAllowed = res.synBankAllowed;
 
-               $scope.PicUrl = "http://www.nooch.info/noochservice/UploadedPhotos/Photos/" + $localStorage.GLOBAL_VARIABLES.MemberId + ".png";
+               $scope.PicUrl = res.userPicture;//"http://www.nooch.info/noochservice/UploadedPhotos/Photos/" + $localStorage.GLOBAL_VARIABLES.MemberId + ".png";
+
+               // CC (9/1/16): SETTING $rootScope values so we can access directly in HTML pages w/o setting in each scope
+               $rootScope.isProfileComplete = res.isProfileComplete;
+               $rootScope.isBankVerified = res.isBankVerified;
+               $rootScope.IsPhoneVerified = res.IsPhoneVerified;
+               $rootScope.Status = res.Status;
+               $rootScope.hasSynapseBank = res.hasSynapseBank;
+               $rootScope.bankStatus = res.bankStatus;
+               $rootScope.synUserPermission = res.synUserPermission;
+               $rootScope.synBankAllowed = res.synBankAllowed;
 
                $ionicLoading.hide();
+
+               // Now check if the user has any pending transactions
+               $timeout($scope.pendingList, 2000);
 
                //console.log("--  menu-ctrl -> ABOUT TO PRINT '$localStorage'  --")
                //console.log($localStorage);
@@ -135,7 +148,7 @@
                   { text: 'Terms of Service' },
                   { text: 'Privacy Policy' }
                 ],
-                titleText: 'Contact Support',
+                titleText: 'Legal Info',
                 cancelText: 'Cancel',
                 //cancel: function () {
                 //},
@@ -226,12 +239,8 @@
                     }
                 }
             }
-
-            $ionicLoading.hide();
-
         }).error(function (data) {
-            console.log('Get History Error: [' + JSON.stringify(data) + ']');
-            $ionicLoading.hide();
+            console.log('GetTransferList Error: [' + JSON.stringify(data) + ']');
             if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                 CommonServices.logOut();
         });

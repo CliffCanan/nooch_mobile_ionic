@@ -40,7 +40,11 @@
                 type: 'error',
                 transition: 'vertical'
             });
+
+            $('#profileTopSection').addClass('p-t-35');
         }
+        else if ($('#profileTopSection').hasClass('p-t-35'))
+            $('#profileTopSection').removeClass('p-t-35');
 
         $scope.isAnythingChanged = false;
         $scope.Status = $localStorage.GLOBAL_VARIABLES.Status;
@@ -60,14 +64,14 @@
 
         profileService.GetMyDetails()
             .success(function (details) {
-                console.log('Profile Data GetMyDetails');
+                console.log('Profile Data GetMyDetails...');
                 console.log(details);
 
                 $scope.Details = details;
                 $ionicLoading.hide();
             })
             .error(function (error) {
-                console.log('Profile Error: [' + eerrorncError + ']');
+                console.log('Profile Error: [' + JSON.stringify(error) + ']');
                 $ionicLoading.hide();
 
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
@@ -80,9 +84,10 @@
 
     $scope.UpdateProfile = function () {
         console.log('Update Profile Function Touched');
+
         //if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
-            template: 'Loading ...'
+            template: 'Saving Profile...'
         });
 
         //console.log('Values from Profile.html Page...');
@@ -91,21 +96,33 @@
         profileService.MySettings($scope.Details)
             .success(function (data) {
                 console.log(data);
-                $scope.Data = data;
-                console.log('from UpdateProfile function');
+
+                $ionicLoading.hide();
+
+                if (data.Result.indexOf('successfully') > -1)
+                    $ionicContentBanner.show({
+                        text: ['Profile Updated Successfully!'],
+                        autoClose: '5000',
+                        type: 'info',
+                        transition: 'vertical'
+                    });
+                else
+                    $ionicContentBanner.show({
+                        text: ['Error: Profile NOT Updated :-('],
+                        autoClose: '5000',
+                        type: 'error',
+                        transition: 'vertical'
+                    });
 
                 if ($scope.Details.SSN != null)
                     $scope.saveSSN($scope.Details);
 
-                if ($scope.Details.DateOfBirth != null)
-                    $scope.saveDob($scope.Details.DateOfBirth);
-
-                $ionicLoading.hide();
             }
-    ).error(function (encError) {
-        console.log('came in enc error block ' + encError);
+    ).error(function (error) {
+        console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
+
         $ionicLoading.hide();
-        if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
             CommonServices.logOut();
     })
         //}
@@ -124,25 +141,22 @@
                console.log(result);
                $ionicLoading.hide();
 
-               if (result.Result == 'Success') {
-
+               if (result.Result == 'Success')
                    swal("Sent...", "Email successfully sent!", "success");
-               }
-               else {
+               else
                    swal("Not Sent...", result.Result, "error");
-               }
+           }).error(function (error) {
+               console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
 
-
-           }).error(function (encError) {
-
-               CommonServices.logOut();
+               if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                   CommonServices.logOut();
            });
     }
 
 
     $scope.ResendVerificationSMS = function () {
         $ionicLoading.show({
-            template: 'Sending ...'
+            template: 'Sending Verification Text...'
         });
 
         profileService.ResendVerificationSMS()
@@ -150,18 +164,16 @@
                console.log(result);
                $ionicLoading.hide();
 
-               if (result.Result == 'Success') {
-
-                   swal("Sent...", "Sms successfully sent!", "success");
-               }
-               else {
+               if (result.Result == 'Success')
+                   swal("Check Your Phone!", "We just sent an SMS message to " + $scope.Details.ContactNumber + ".", "success");
+               else
                    swal("Not Sent...", result.Result, "error");
-               }
+           }).error(function (error) {
+               $ionicLoading.hide();
+               console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
 
-
-           }).error(function (encError) {
-
-               CommonServices.logOut();
+               if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                   CommonServices.logOut();
            })
     }
 
@@ -177,7 +189,7 @@
             doneButtonLabel: 'DONE',
             doneButtonColor: '#3fabe1',
             cancelButtonLabel: 'CANCEL',
-            cancelButtonColor: '#111111'
+            cancelButtonColor: '#222'
         };
 
         document.addEventListener("deviceready", function () {
@@ -205,40 +217,26 @@
         });
 
         profileService.SaveDOBForMember($scope.Details.DateOfBirth)
-            .success(function (saveDobResponce) {
-                console.log(saveDobResponce);
+            .success(function (saveDobRes) {
+                console.log(saveDobRes);
                 $ionicLoading.hide();
 
-                if (saveDobResponce.Result == 'DOB saved successfully.' && $scope.Details.SSN == null)
-                    $ionicContentBanner.show({
-                        text: ['Profile Updated successfully'],
-                        autoClose: '5000',
-                        type: 'info',
-                        transition: 'vertical'
-                    });
-                else
-                    $ionicContentBanner.show({
-                        text: ['Error: Profile NOT Updated'],
-                        autoClose: '5000',
-                        type: 'error',
-                        transition: 'vertical'
-                    });
+                $scope.saveDobRes = saveDobRes;
 
-                $scope.saveDobResponce = saveDobResponce;
-            }).error(function (encError) {
-            console.log('SaveDOBForMember Rrror Block: [' + encError + ']');
-            $ionicLoading.hide();
+            }).error(function (error) {
+                console.log('SaveDOBForMember Error Block: [' + JSON.stringify(error) + ']');
+                $ionicLoading.hide();
 
-            $ionicContentBanner.show({
-                text: ['Error: Profile NOT Updated'],
-                autoClose: '5000',
-                type: 'error',
-                transition: 'vertical'
-            });
+                $ionicContentBanner.show({
+                    text: ['Error: Profile NOT Updated'],
+                    autoClose: '5000',
+                    type: 'error',
+                    transition: 'vertical'
+                });
 
-            if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                CommonServices.logOut();
-        })
+                if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            })
 
         //}
         //else
@@ -339,11 +337,18 @@
         //    swal("Oops...", "Internet not connected!", "error");
     }
 
+
     $scope.isAnythingChange = function () {
         $scope.isAnythingChanged = true;
     }
 
-	$scope.goToSettings = function () {
-		$state.go('app.settings');
-	}
+
+    $scope.goToSettings = function () {
+        $state.go('app.settings');
+    }
+
+
+    $('.content-banner *').on('click', function () {
+        $('#profileTopSection').removeClass('p-t-35');
+    });
 })

@@ -412,6 +412,27 @@ ion-header-bar, .navheader {
 .p-r-30 {
     padding-right: 30px !important;
 }
+
+.p-35 {
+    padding: 35px !important;
+}
+
+.p-t-35 {
+    padding-top: 35px !important;
+}
+
+.p-b-35 {
+    padding-bottom: 35px !important;
+}
+
+.p-l-35 {
+    padding-left: 35px !important;
+}
+
+.p-r-35 {
+    padding-right: 35px !important;
+}
+
 /** Font Weight **/
 .f-300 {
     font-weight: 300 !important;
@@ -585,10 +606,6 @@ a {
     color: #FFFFFF;
 }
 
-.btn > i {
-    margin-right: 10px;
-}
-
 .btn, .btn, .btn, .glyphicon, .fa, .alert {
     -webkit-transition: all 0.2s ease;
     -ms-transition: all 0.2s ease;
@@ -615,12 +632,24 @@ a {
 }
 
 .button i, .btn i {
-    margin-right: 8px;
+    margin-right: 9px;
 }
 
 .button.button-block, .button.button-full,
 .btn.button-block, .btn-lg {
     font-weight: 300;
+}
+
+.alertIcon {
+    background: rgb(200, 68, 66);
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    border-radius: 11px;
+    border: 1px solid #fff;
+    color: #fff;
+    box-shadow: 0 1px 8px 0px rgba(0,0,0,.5);
+    font-weight: 600;
 }
 
 /***  TABLES  ***/
@@ -847,6 +876,7 @@ form.smErrors .parsley-errors-list {
 .badge.badge-calm {
     background-color: #3fabe1;
 }
+
 /***  Misc  ***/
 .label-small {
     font-size: 18px;
@@ -972,6 +1002,10 @@ iframe {
 /***********************/
 /*** LEFT SIDE MENU  ***/
 /***********************/
+.side_menu_top {
+    min-height: 85px;
+}
+
 .menu .item a {
     text-shadow: 0px 2px 0px rgba(30,32,34,.4);
 }
@@ -994,22 +1028,37 @@ iframe {
     max-width: 62px;
 }
 
+    .menu img.user-img.notValidated {
+        border: 3px solid rgb(200, 68, 66);
+    }
+
 .menu #first-name {
     font-size: 25px;
+    max-width: 86%;
 }
 
 .menu #last-name {
     font-size: 20px;
     font-weight: 300;
+    margin: 3px 0 0;
 }
 
-.menu #settings-icon::before {
-    float: right;
-    font-size: 38px;
-    margin: 0;
+.menu #settings-cog {
     position: absolute;
     top: 20px;
     right: 10px;
+}
+
+.menu #icon::before {
+    font-size: 38px;
+    margin: 0;
+}
+
+.menu #settings-cog .alertIcon {
+    text-shadow: 0 1px 4px rgba(0,0,0,.4);
+    position: absolute;
+    top: -1px;
+    left: 0;
 }
 
 .menu .item-complex .item-content {
@@ -1054,15 +1103,28 @@ iframe {
     border-top: none;
 }
 
-#btm-section img {
-    width: 90px;
+#btm-section {
+    background: linear-gradient(#6DBEE8,#3FABE1);
+    border: none;
+    color: #fff;
+    font-size: 11px;
+    line-height: 1.5;
+    padding: 8px 10px 5px;
+    text-align: center;
+    text-shadow: 0 -2px 0 rgba(30,30,30,.2);
 }
 
-#btm-section #version {
-    display: block;
-    font-size: 11px;
-    margin-top: 6px;
-}
+    #btm-section img {
+        width: 90px;
+    }
+
+    #btm-section #version {
+        display: block;
+        font-size: 11px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        opacity: .7;
+    }
 
 .menu .item-content {
     background-color: #58595B !important;
@@ -1104,6 +1166,12 @@ div.hscroller-card {
 #settings_cntnr {
     transition: .7s all ease-out;
 }
+
+    #settings_cntnr .alertIcon {
+        box-shadow: 0 1px 4px -1px rgba(0,0,0,.2);
+        display: inline-block;
+        margin-left: 10px;
+    }
 
 #replaceBankBtn {
     border: none;
@@ -1156,11 +1224,11 @@ div.hscroller-card {
     right: 6px;
 }
 
-#editBankWrapper i {
-    position: absolute;
-    top: 19px;
-    right: 8px;
-}
+    #editBankWrapper i {
+        position: absolute;
+        top: 19px;
+        right: 8px;
+    }
 
 #sign-out-container {
     padding: 0 16px;
@@ -1173,6 +1241,10 @@ div.hscroller-card {
 /*******************/
 /***   PROFILE   ***/
 /*******************/
+#profileTopSection {
+    transition: .6s ease-in-out all;
+}
+
 .profilePicWrapper {
     margin: 0 auto;
     position: relative;
@@ -1223,7 +1295,29 @@ div.hscroller-card {
     padding: 6px 15px 5px;
 }
 
-#profileTable.list i::before {
+.btn-pull-left {
+    position: absolute;
+    left: 8px;
+}
+
+#profileTable .btn {
+    min-height: 35px;
+    min-width: 35px;
+    line-height: 1;
+}
+
+    #profileTable .btn i {
+        margin: 0;
+    }
+
+        #profileTable .btn i::before {
+            color: #333;
+            font-size: 29px;
+            line-height: .8;
+            margin: 0;
+        }
+
+#profileTable i::before {
     font-size: 20px;
     margin-right: 8px;
 }
@@ -1464,9 +1558,6 @@ div.hscroller-card {
 /*** STATISTICS ***/
 /******************/
 .IconGreeen {
-    /*background: #76C14B;
-    padding: 10px 20px;
-    border-radius: 50%;*/
     font-size: 40px;
     color: #76C14B;
     margin-right: 50px;
@@ -1474,9 +1565,6 @@ div.hscroller-card {
 }
 
 .IconBasicBlue {
-    /*background: #11C1F3;
-    padding: 10px 10px;
-    border-radius: 50%;*/
     font-size: 40px;
     color: #11C1F3;
     margin-right: 50px;
@@ -1524,6 +1612,10 @@ div.hscroller-card {
     #topFriendsTable .item-avatar > img:first-child {
         top: 12px;
     }
+
+#statsExportWrap {
+    padding-top: 5px !important;
+}
 
 /**********************/
 /***  HOW IT WORKS  ***/

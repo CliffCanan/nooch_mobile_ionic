@@ -5,7 +5,7 @@
 
             <div class="section-header m-t-20">
                 <span>Linked Banked Account</span>
-                <i class="ion-android-alert text-danger m-l-10 f-21" ng-if="hasSynapseBank != true || bankData.bankStatus == 'Not Verified'"></i>
+                <span class="alertIcon" ng-if="hasSynapseBank != true || bankData.bankStatus == 'Not Verified'">!</span>
                 <button type="button" id="replaceBankBtn" class="pull-right" ng-click="openAddBank()">
                     <i class="ion-ios-plus-circled"></i>
                 </button>
@@ -37,13 +37,13 @@
                             Status:
                             <span class="text-danger">{{bankData.bankStatus}}</span>
                         </div>
- 
+
 
                         <div id="editBankWrapper">
-                            <i ng-show="deleteBank" class=" pull-right ion-ios-close text-danger" ng-click="delBank()"></i>
-                            <a ng-if="eBank" class="btn btn-link f-15 text-danger" ng-click="editBank()" id="edit-bank">Edit</a>
+                            <i ng-show="deleteBank" class="pull-right ion-ios-close text-danger" ng-click="delBank()"></i>
+                            <a ng-if="editBank" class="btn btn-link f-15 text-danger" ng-click="editBank()" id="edit-bank">Edit</a>
                         </div>
- 
+
                     </div>
 
                 </div>
@@ -70,8 +70,9 @@
                 <a class="item item-icon-left item-icon-right" href="#/app/settings/profile">
                     <i class="icon ion-person"></i>My Profile
                     <!-- IF USER'S PROFILE IS NOT VERIFIED-->
-                    <div class="animated bounceIn" style="display:inline-block" ng-if="isProfileComplete === true">
-                        <i class="ion-android-alert text-danger m-l-10 f-21"></i>
+                    <div class="animated bounceIn" style="display:inline-block" ng-if="isProfileComplete === false">
+                        <!--<i class="ion-android-alert text-danger m-l-10 f-21"></i>-->
+                        <span class="alertIcon">!</span>
                     </div>
                     <i class="icon ion-chevron-right"></i>
                 </a>
@@ -92,8 +93,9 @@
                     </i>Social Settings
                     <i class="icon ion-chevron-right"></i>
                 </a>
-                <a class="item item-icon-left item-icon-right" href="#/app/settings/uploadID">
-                    <i class="icon ion-android-document">
+
+                <a class="item item-icon-left item-icon-right" href="#/app/settings/uploadID" ng-if="synUserPermission != 'SEND-AND-RECEIVE'">
+                    <i class="icon ion-document-text">
                     </i>Upload ID
                     <i class="icon ion-chevron-right"></i>
                 </a>

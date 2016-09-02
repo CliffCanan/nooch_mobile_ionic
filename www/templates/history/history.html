@@ -1,9 +1,9 @@
-﻿
-<ion-view view-title="History">
+﻿<ion-view view-title="History">
+
     <ion-nav-buttons side="secondary">
-		<span class="nav-btn-wrap">
-			<i class="ion-funnel" ng-click="openModal()"></i>
-		</span>
+        <button class="button button-clear" ng-click="openFilterChoices()" ng-disabled="transactionList.length == 0">
+            <i class="ion-funnel"></i>
+        </button>
     </ion-nav-buttons>
 
     <ion-content>
@@ -16,24 +16,20 @@
                 </ti-segmented-control>
             </div>
         </div>
-        <div class="list list-inset m-t-0 m-b-10">
 
+        <div class="list list-inset m-t-0 m-b-10">
             <label class="item item-input searchBarContainer">
                 <i class="icon ion-search placeholder-icon p-r-0"></i>
                 <input type="text" ng-keyup="checkList()" class="p-r-10" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">
             </label>
-
-
         </div>
-
-
 
         <ion-scroll direction="y" class="history-list" style="height: 550px !important;">
 
             <ion-list ng-show="completed">
                 <ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.TransactionStatus == 'Success' || trans.TransactionStatus == 'Cancelled' || trans.TransactionStatus == 'Rejected'  ">
 
-                <!--<ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.TransactionStatus == 'Success'   ">-->
+                    <!--<ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.TransactionStatus == 'Success'   ">-->
 
 
                     <img src={{trans.Photo}}>
@@ -106,15 +102,11 @@
                     <div class="typeDateContainer" ng-if="trans.TransactionType == 'Disputed' && trans.DisputeStatus == 'Resolved'">
                         <label class="transTypeLabel received">Dispute Resolved</label>
 
-
                         <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
                     </div>
 
 
-
-
-
-                    <div class="name" ng-if="trans.Name.length>1">{{trans.Name}}</div>
+                    <div class="name" ng-if="trans.Name.length > 1">{{trans.Name}}</div>
                     <div class="name" ng-if="trans.InvitationSentTo != null">{{trans.InvitationSentTo}}</div>
 
                     <p class="memo-container" ng-if="trans.Memo != null && trans.Memo != ''">For "<span class="memo-text">{{trans.Memo}}</span>"</p>
@@ -164,7 +156,6 @@
                     </div>
 
 
-
                     <div class="name" ng-if="trans.Name.length > 1">{{trans.Name}}</div>
                     <div class="name" ng-if="trans.Name.length <= 1">{{trans.InvitationSentTo}}</div>
 
@@ -173,7 +164,7 @@
                     <span class="item-note amount text-primary">{{ trans.Amount | currency}}</span>
 
                     <ion-option-button class="button-assertive " ui-sref-ignore ng-click="rejectPayment(trans)" ng-show="trans.MemberId == memberId && (trans.TransactionType == 'Request' )">Reject</ion-option-button>
-                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="TransferMoney(trans)" ng-show="trans.MemberId == memberId && (trans.TransactionType == 'Request' )">Accept </ion-option-button>
+                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="TransferMoney(trans)" ng-show="trans.MemberId == memberId && (trans.TransactionType == 'Request' )">Accept</ion-option-button>
                     <ion-option-button class="button button-assertive " ui-sref-ignore ng-click="cancelPayment(trans)" ng-show="trans.MemberId != memberId && (trans.TransactionType == 'Request' )">Cancel</ion-option-button>
                     <ion-option-button class="button-positive" ui-sref-ignore ng-click="remindPayment(trans)" ng-show="trans.MemberId != memberId && (trans.TransactionType == 'Request' )">Remind</ion-option-button>
 

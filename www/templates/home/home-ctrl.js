@@ -18,24 +18,24 @@
         $timeout(function () {
             //console.log($localStorage.GLOBAL_VARIABLES);
 
-            if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified == false)
+            if ($rootScope.IsPhoneVerified == false)
             {
                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
                 $scope.shouldDisplayErrorBanner = true;
             }
-            if ($localStorage.GLOBAL_VARIABLES.isProfileComplete == false ||
-                $localStorage.GLOBAL_VARIABLES.Status === "Registered")
+            if ($rootScope.isProfileComplete == false ||
+                $rootScope.Status === "Registered")
             {
                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
                 $scope.shouldDisplayErrorBanner = true;
             }
-            if ($localStorage.GLOBAL_VARIABLES.Status === "Suspended" ||
-                $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked")
+            if ($rootScope.Status === "Suspended" ||
+                $rootScope.Status === "Temporarily_Blocked")
             {
                 $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
                 $scope.shouldDisplayErrorBanner = true;
             }
-            if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
+            if ($rootScope.hasSynapseBank == false)
             {
                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
                 $scope.shouldDisplayErrorBanner = true;
@@ -60,11 +60,9 @@
                 $localStorage.GLOBAL_VARIABLES.MemberId != '')
                 $scope.FindRecentFriends();
 
-        }, 1500);
+        }, 1000);
 
         $ionicPlatform.ready(function () {
-
-            // $scope.checkUserDetails();
             // console.log($cordovaGoogleAnalytics);
             // $cordovaGoogleAnalytics.debugMode();
             // $cordovaGoogleAnalytics.startTrackerWithId('UA-XXXXXXXX-X');

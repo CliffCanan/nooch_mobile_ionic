@@ -1,13 +1,7 @@
 ﻿angular.module('noochApp.historyCtrl', ['noochApp.history-service', 'noochApp.services'])
 
-    .controller('historyCtrl', function ($scope, $filter, historyService, $ionicLoading, $localStorage, $ionicListDelegate, transferDetailsService, $rootScope, $ionicContentBanner, $state, $ionicModal, CommonServices, ValidatePin, $ionicHistory, $ionicActionSheet) {
-
-        $ionicModal.fromTemplateUrl('templates/history/modalPopUp.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.modal = modal;
-        });
+    .controller('historyCtrl', function ($scope, $filter, historyService, $ionicLoading, $localStorage, $ionicListDelegate,
+                transferDetailsService, $rootScope, $ionicContentBanner, $state, CommonServices, ValidatePin, $ionicHistory, $ionicActionSheet) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('History Page Loaded');
@@ -27,7 +21,7 @@
 
             //  if ($cordovaNetwork.isOnline()) {
 
-            $scope.transactionList = '';
+            $scope.transactionList = [];
             $scope.completed = true;
             $scope.pending = false;
             $('#btnCompleted').addClass('active');
@@ -37,8 +31,9 @@
             historyService.getTransferList().success(function (data) {
 
                 $scope.transactionList = data;
-                //console.log('getTransferList result data----- >>>>>');
-                //console.log($scope.transactionList);              
+                console.log('getTransferList result data----- >>>>>');
+                console.log($scope.transactionList);
+                console.log($scope.transactionList.length);
                 for (var i = 0; i < $scope.transactionList.length; i++)
                 {
                     $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
@@ -47,9 +42,10 @@
                 $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
 
                 $ionicLoading.hide();
-            }).error(function (data) {
-                console.log('Get History Error: [' + data + ']');
-                CommonServices.logOut();
+            }).error(function (error) {
+                console.log('History Cntrl -> GetTransferList Error: [' + JSON.stringify(error) + ']');
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
             });
 
             $scope.cancelPayment = function (trans) {
@@ -66,9 +62,8 @@
                             $ionicLoading.hide();
                             location.reload();
                         });
-
-                }).error(function (data) {
-                    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                }).error(function (error) {
+                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                         CommonServices.logOut();
                 });
             }
@@ -88,8 +83,8 @@
                         swal({ title: "Request Rejected", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
                             location.reload();
                         });
-                }).error(function (data) {
-                    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                }).error(function (error) {
+                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                         CommonServices.logOut();
                 });
             }
@@ -110,8 +105,8 @@
                     else
                         swal("Error", data.Result, "error");
 
-                }).error(function (data) {
-                    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                }).error(function (error) {
+                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                         CommonServices.logOut();
                 });
             }
@@ -196,73 +191,73 @@
         }
 
 
-        $scope.openModal = function () {
+        $scope.openFilterChoices = function () {
             $('#btnCompleted').attr('disabled', true);
             $('#btnPending').attr('disabled', true);
-            
-			//$scope.modal.show();
-			
-			var title = $scope.completed == true ? "Filter Options (Completed Payments)" : "Filter Options (Pending Payments)";
-			var buttons = [];
-			if ($scope.completed == true)
-			{
-				buttons = [
+
+            //$scope.modal.show();
+
+            var title = $scope.completed == true ? "Filter Options (Completed Payments)" : "Filter Options (Pending Payments)";
+            var buttons = [];
+            if ($scope.completed == true)
+            {
+                buttons = [
                     { text: 'Sent' },
                     { text: 'Received' },
                     { text: 'Cancelled' },
                     { text: 'Rejected' },
                     { text: 'Disputed' }
-				]
-			}
-			else
-			{
-				buttons = [
+                ]
+            }
+            else
+            {
+                buttons = [
                     { text: 'Sent' },
                     { text: 'Received' },
                     { text: 'Disputed' },
-				]
-			}
-			
+                ]
+            }
+
             var hideSheet = $ionicActionSheet.show({
                 buttons: buttons,
                 titleText: title,
                 cancelText: 'Cancel',
-				cancel: function() {
-		            $('#btnCompleted').attr('disabled', false);
-		            $('#btnPending').attr('disabled', false);
-				},
+                cancel: function () {
+                    $('#btnCompleted').attr('disabled', false);
+                    $('#btnPending').attr('disabled', false);
+                },
                 buttonClicked: function (index) {
                     if (index == 0)
                     {
-						if ($scope.completed == true)
-							$scope.press('SentC');
-						else
-							$scope.press('SentP');
+                        if ($scope.completed == true)
+                            $scope.setFilter('SentC');
+                        else
+                            $scope.setFilter('SentP');
                     }
                     else if (index == 1)
                     {
-						if ($scope.completed == true)
-							$scope.press('ReceivedC');
-						else
-							$scope.press('ReceivedP');
+                        if ($scope.completed == true)
+                            $scope.setFilter('ReceivedC');
+                        else
+                            $scope.setFilter('ReceivedP');
                     }
                     else if (index == 2)
-					{
-						if ($scope.completed == true)
-							$scope.press('Cancelled');
-						else
-							$scope.press('SentP');
-					}
+                    {
+                        if ($scope.completed == true)
+                            $scope.setFilter('Cancelled');
+                        else
+                            $scope.setFilter('SentP');
+                    }
                     else if (index == 3)
-					{
-						if ($scope.completed == true)
-							$scope.press('Rejected');
-					}
+                    {
+                        if ($scope.completed == true)
+                            $scope.setFilter('Rejected');
+                    }
                     else if (index == 4)
-					{
-						if ($scope.completed == true)
-							$scope.press('DisputedC');
-					}
+                    {
+                        if ($scope.completed == true)
+                            $scope.setFilter('DisputedC');
+                    }
 
                     return true;
                 }
@@ -270,17 +265,15 @@
         };
 
 
-        $scope.press = function (type) {
+        $scope.setFilter = function (type) {
 
-            $scope.modal.hide();
-			
             var filteredList = [];
-            
-			$scope.transactionList = $scope.transList;
-            
-			console.log($scope.transactionList);
-            
-			var length = ($scope.transactionList.length);
+
+            $scope.transactionList = $scope.transList;
+
+            console.log($scope.transactionList);
+
+            var length = ($scope.transactionList.length);
 
             for (var i = 0; i < length; i++)
             {
