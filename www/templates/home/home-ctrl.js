@@ -11,10 +11,11 @@
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl Loaded');
-        $rootScope.ip = null;
 
+        //$rootScope.UserIp = {
+        //    Ip:null           
+        //};
         $scope.deviceIp();
-        // $scope.deviceIp();
 
         if ($('#searchMoreFriends').hasClass('flipOutX'))
             $('#searchMoreFriends').removeClass('flipOutX');
@@ -279,11 +280,10 @@
             template: 'Updating IP ...'
         });
 
-        homeServices.UdateMemberIPAddress()
+        homeServices.UdateMemberIPAddress(ip)
           .success(function (data) {
               $scope.result = data;
-              console.log($scope.result);
-              console.log(data);
+              console.log($scope.result);          
               $ionicLoading.hide();
           }).error(function (data) {
               console.log('eror' + data);
