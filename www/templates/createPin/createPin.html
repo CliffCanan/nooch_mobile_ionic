@@ -16,36 +16,36 @@
                 <p id="header" class="f-30 m-b-0">Create Your PIN</p>
 
                 <p class="instructionTxt p-5 m-b-5 f-17">You'll be asked to enter this PIN anytime you send or request money.</p>
-				
-				
-				<div class="row indicatorDotWrap">
-					<div class="col">
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-				</div>
-				
-				<div class="row numPadWrap">
-					<div class="col">
-						<div ng-click="numTapped(1)">1</div>
-						<div ng-click="numTapped(4)">4</div>
-						<div ng-click="numTapped(7)">7</div>
-					</div>
-					<div class="col">
-						<div ng-click="numTapped(2)">2</div>
-						<div ng-click="numTapped(5)">5</div>
-						<div ng-click="numTapped(8)">8</div>
-						<div ng-click="numTapped(0)">0</div>
-					</div>
-					<div class="col">
-						<div ng-click="numTapped(3)">3</div>
-						<div ng-click="numTapped(6)">6</div>
-						<div ng-click="numTapped(9)">9</div>
-						<div ng-click="numTapped(10)">x</div>
-					</div>
-				</div>
+
+
+                <div class="row indicatorDotWrap animated">
+                    <div class="col">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+
+                <div class="row numPadWrap animated">
+                    <div class="col">
+                        <button ng-click="numTapped(1)">1</button>
+                        <button ng-click="numTapped(4)">4</button>
+                        <button ng-click="numTapped(7)">7</button>
+                    </div>
+                    <div class="col">
+                        <button ng-click="numTapped(2)">2</button>
+                        <button ng-click="numTapped(5)">5</button>
+                        <button ng-click="numTapped(8)">8</button>
+                        <button ng-click="numTapped(0)">0</button>
+                    </div>
+                    <div class="col">
+                        <button ng-click="numTapped(3)">3</button>
+                        <button ng-click="numTapped(6)">6</button>
+                        <button ng-click="numTapped(9)">9</button>
+                        <button ng-click="numTapped(10)">x</button>
+                    </div>
+                </div>
 
                 <!--<form id="frmCreatePin" class="smErrors m-b-10" data-parsley-validate="">
                     <div class="pin-container">

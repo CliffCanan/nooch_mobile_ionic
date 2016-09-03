@@ -1043,30 +1043,42 @@ iframe {
 /***  CREATE PIN  ***/
 /********************/
 .indicatorDotWrap .col div {
-	border: 1px solid #3fabe1;
-	border-radius: 50%;
-	display: inline-block;
-	height: 16px;
-	width: 16px;
-	margin: 0 6px 10px;
-	transition: .25s all;
-}
-
-.indicatorDotWrap .col div.filled {
-	background: #3fabe1;
-}
-
-.numPadWrap .col div {
-    color: #3fabe1;
     border: 1px solid #3fabe1;
     border-radius: 50%;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    margin: 0 6px 10px;
+    transition: .25s all;
+}
+
+    .indicatorDotWrap .col div.filled {
+        background: #3fabe1;
+    }
+
+    .indicatorDotWrap .col div.incorrect {
+        background: rgb(210,60,60);
+        border-color: rgb(210,60,60);
+    }
+
+.numPadWrap button {
+    color: #3fabe1;
+    background: #fff;
+    border: 1px solid #3fabe1;
+    border-radius: 50%;
+    font-family: 'Roboto';
+    font-size: 25px;
+    font-weight: 500;
     height: 78px;
     width: 80px;
     margin: 0 auto 20px;
-    padding: 27px 0 0;
-    font-size: 25px;
-    font-weight: 500;
+    transition: .25s all ease-out;
 }
+
+    .numPadWrap button:active {
+        background: #3fabe1;
+        color: #fff;
+    }
 
 /***********************/
 /*** LEFT SIDE MENU  ***/
@@ -2145,8 +2157,8 @@ div.hscroller-card {
  */
 
 .animated {
-    -webkit-animation-duration: 1.2s;
-    animation-duration: 1.3s;
+    -webkit-animation-duration: 1.1s;
+    animation-duration: 1.1s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }

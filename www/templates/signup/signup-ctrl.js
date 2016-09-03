@@ -244,7 +244,7 @@
 
         if ($rootScope.signUpData.Name.length > 3 &&
             $rootScope.signUpData.Email.length > 3 &&
-            $rootScope.signUpData.Password.length > 3)
+            $rootScope.signUpData.Password.length > 4)
             $('#createAccount').attr('disabled', false);
         else
             $('#createAccount').attr('disabled', true);

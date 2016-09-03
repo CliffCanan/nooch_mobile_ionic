@@ -1,28 +1,30 @@
 ﻿angular.module('noochApp.createPinCtrl', ['noochApp.createPin-service', 'noochApp.services'])
 
-    .controller('createPinCtrl', function ($scope, $state, $rootScope, createPinServices, $ionicLoading, CommonServices, authenticationService, $localStorage, $cordovaGeolocation, $cordovaSocialSharing) {
+    .controller('createPinCtrl', function ($scope, $state, $rootScope, $localStorage, $cordovaGeolocation, $cordovaSocialSharing,
+                                           $timeout, createPinServices, $ionicLoading, CommonServices, authenticationService) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('Create PIN Controller Loaded');
+
+
             console.log($rootScope.signUpData);
 
             if ($rootScope.signUpData == null)
                 $state.go('signup');
             else
-			{
-				console.log(typeof $scope.signUpData.Pin);
-
+            {
                 $("#pinTxt").focus();
-				
-				$scope.onConfirm = false;
+                $rootScope.signUpData.Pin = '';
+                $scope.firstPinEntered = '';
+                $scope.onConfirm = false;
 
-            	if ($localStorage.GLOBAL_VARIABLES.DeviceToken == '')
-                	$localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
-				else if ($localStorage.GLOBAL_VARIABLES.DeviceToken == null)
-                	$localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
-				else
-                	console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
-			}
+                if ($localStorage.GLOBAL_VARIABLES.DeviceToken == '')
+                    $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
+                else if ($localStorage.GLOBAL_VARIABLES.DeviceToken == null)
+                    $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
+                else
+                    console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
+            }
         });
 
         //console.log($rootScope.signUpData);
@@ -31,54 +33,54 @@
             console.log('signUpFn called');
 
             //if ($('#frmCreatePin').parsley().validate() == true) {
-                console.log($rootScope.signUpData);
-                //if ($cordovaNetwork.isOnline()) {
-                $ionicLoading.show({
-                    template: 'Creating PIN...'
-                });
+            console.log($rootScope.signUpData);
+            //if ($cordovaNetwork.isOnline()) {
+            $ionicLoading.show({
+                template: 'Creating PIN...'
+            });
 
-                if ($rootScope.signUpData.gotPicUrl == true && $rootScope.signUpData.isPicChanged == false)
-                {
-                    console.log('Condition matched now calling getBase64FromImageUrl');
-                    $scope.getBase64FromImageUrl($rootScope.signUpData.Photo); //Convering facebook URL -> Image -> BAse64
-                }
+            if ($rootScope.signUpData.gotPicUrl == true && $rootScope.signUpData.isPicChanged == false)
+            {
+                console.log('Condition matched now calling getBase64FromImageUrl');
+                $scope.getBase64FromImageUrl($rootScope.signUpData.Photo); //Convering facebook URL -> Image -> BAse64
+            }
 
-                CommonServices.GetEncryptedData($rootScope.signUpData.Password).success(function (data) {
-                    $rootScope.signUpData.Password = data.Status;
-                    //console.log('Pwd Encrypted-->');
-                    //console.log($rootScope.signUpData.Password);
+            CommonServices.GetEncryptedData($rootScope.signUpData.Password).success(function (data) {
+                $rootScope.signUpData.Password = data.Status;
+                //console.log('Pwd Encrypted-->');
+                //console.log($rootScope.signUpData.Password);
 
-                    createPinServices.Signup($rootScope.signUpData).success(function (data) {
-                        console.log(data);
+                createPinServices.Signup($rootScope.signUpData).success(function (data) {
+                    console.log(data);
 
-                        $ionicLoading.hide();
+                    $ionicLoading.hide();
 
-                        if (data = 'Thanks for registering! Check your email to complete activation.')
-                        {
-                            $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
-                            console.log('RunTime values ----->> DeviceId And DeviceToken');
-                            console.log($localStorage.GLOBAL_VARIABLES.DeviceId);
-                            console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
-                            $scope.SignIn();
-                        }
-                        else if (data = 'Duplicate random Nooch ID was generating')
-                        {
-                            swal("Uh Oh...", "Email is already registered with nooch", "error");
-                            $state.go('signup');
-                        }
-                        else
-                            swal("Error", "Something went wrong", "error");
+                    if (data = 'Thanks for registering! Check your email to complete activation.')
+                    {
+                        $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
+                        console.log('RunTime values ----->> DeviceId And DeviceToken');
+                        console.log($localStorage.GLOBAL_VARIABLES.DeviceId);
+                        console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
+                        $scope.SignIn();
+                    }
+                    else if (data = 'Duplicate random Nooch ID was generating')
+                    {
+                        swal("Uh Oh...", "Email is already registered with nooch", "error");
+                        $state.go('signup');
+                    }
+                    else
+                        swal("Error", "Something went wrong", "error");
 
-                    }).error(function (encError) {
-                        console.log('Signup Attempt -> Error [' + encError + ']');
-                        if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                            CommonServices.logOut();
-                    })
+                }).error(function (encError) {
+                    console.log('Signup Attempt -> Error [' + encError + ']');
+                    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                        CommonServices.logOut();
                 })
-                //}
-                //else
-                //    swal("Error", "Internet not connected!", "error");
-			//}
+            })
+            //}
+            //else
+            //    swal("Error", "Internet not connected!", "error");
+            //}
         };
 
 
@@ -99,13 +101,13 @@
                       console.log(response);
 
                       if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1)
-					  {
-						  $ionicLoading.hide();
+                      {
+                          $ionicLoading.hide();
                           swal("Error", response.Result, "error");
-					  }
+                      }
                       else if (response.Result.indexOf('Temporarily_Blocked') > -1)
                       {
-						  $ionicLoading.hide();
+                          $ionicLoading.hide();
                           swal({
                               title: "Oh No!",
                               text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
@@ -168,8 +170,8 @@
             //    swal("Oops...", "Internet not connected!", "error");
         }
 
-        
-		$scope.getBase64FromImageUrl = function (URL) {
+
+        $scope.getBase64FromImageUrl = function (URL) {
             var img = new Image();
             img.setAttribute('crossOrigin', 'anonymous');
             img.src = URL;
@@ -190,73 +192,93 @@
                 $rootScope.signUpData.Photo = (dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
             };
         }
-		
-		
-		$scope.numTapped = function (num) {
-			console.log(num);
-			var pin = $scope.signUpData.Pin;
-			console.log($scope.signUpData.Pin);
 
-			if (num < 10)
-			{
-				if (pin.length < 3)
-				{
-					console.log('PIN is less than 4... [' + pin.length + ']');
-					pin += num;
-					if (pin.length == 1)
-						$('.indicatorDotWrap .col div:first-child').addClass('filled');
-					if (pin.length == 2)
-						$('.indicatorDotWrap .col div:nth-child(2)').addClass('filled');
-					if (pin.length == 3)
-						$('.indicatorDotWrap .col div:nth-child(3)').addClass('filled');
-				}
-				else
-				{
-					console.log('4th Digit Entered');
-					// 4th Digit Entered
-					if ($scope.onConfirm == false)
-					{
-						console.log('CHECKPOINT B');
-						$('#header').text('Confirm Your PIN');
-						$('.indicatorDotWrap .col div').removeClass('filled');
-						
-						// Save the 1st PIN in new var, reset signUpData.Pin so user can Confirm by entering the PIN again
-						$scope.firstPinEntered = pin;
-						pin = '';
 
-						$scope.onConfirm = true;
-					}
-					else
-					{
-						if (pin.length == 4)
-							$('.indicatorDotWrap .col div:last-child').addClass('filled');
-						
-						// NOW CHECK IF 1ST AND 2ND ENTERED PIN MATCH
-						if ($scope.firstPinEntered != pin)
-						{
-							$('.instructionTxt').text('PIN did not match!').addClass('text-danger');
-						}
-						//$scope.signUpFn();
-					}
-				}
-			}
-			else if (num == 10)
-			{
-				if (pin.length > 0)
-				{
-					pin = pin.substring(0, pin.length -1)
-					if (pin.length == 0)
-						$('.indicatorDotWrap .col div:first-child').removeClass('filled');
-					if (pin.length == 1)
-						$('.indicatorDotWrap .col div:nth-child(2)').removeClass('filled');
-					if (pin.length == 2)
-						$('.indicatorDotWrap .col div:nth-child(3)').removeClass('filled');
-					if (pin.length == 3)
-						$('.indicatorDotWrap .col div:last-child').removeClass('filled');
-				}
-			}
-			
-			$scope.signUpData.Pin = pin;
-			console.log($scope.signUpData.Pin);
-		}
+        $scope.numTapped = function (num) {
+            console.log(num);
+            var pin = $scope.signUpData.Pin;
+            console.log($scope.signUpData.Pin);
+
+            if (num < 10)
+            {
+                if (pin.length < 3)
+                {
+                    console.log('PIN LENGTH is < 3... [' + pin.length + ']');
+                    pin += num;
+                    if (pin.length == 1)
+                        $('.indicatorDotWrap .col div:first-child').addClass('filled');
+                    if (pin.length == 2)
+                        $('.indicatorDotWrap .col div:nth-child(2)').addClass('filled');
+                    if (pin.length == 3)
+                        $('.indicatorDotWrap .col div:nth-child(3)').addClass('filled');
+                }
+                else
+                {
+                    $('.indicatorDotWrap .col div:last-child').addClass('filled');
+
+                    // 4th Digit Entered
+                    if ($scope.onConfirm == false)
+                    {
+                        console.log('FIRST TIME ENTRY');
+
+                        $('#header').text('Confirm Your PIN');
+
+                        $('.numPadWrap').addClass('bounceOutLeft');
+                        $timeout(function () {
+                            $('.numPadWrap').removeClass('bounceOutLeft').addClass('bounceInRight');
+                            $('.indicatorDotWrap .col div').removeClass('filled');
+                        }, 700);
+
+                        // Save the 1st PIN in new var, reset signUpData.Pin so user can Confirm by entering the PIN again
+                        $scope.firstPinEntered = pin;
+                        pin = '';
+
+                        $scope.onConfirm = true;
+                    }
+                    else
+                    {
+                        console.log('SECOND (CONFIRM) TIME ENTRY');
+
+                        // NOW CHECK IF 1ST AND 2ND ENTERED PIN MATCH
+                        if ($scope.firstPinEntered != pin)
+                        {
+                            $('.indicatorDotWrap .col div').addClass('incorrect');
+                            $('.indicatorDotWrap').addClass('shake');
+                            $('.instructionTxt').html('PINs did not match!<br\/>Try again...').addClass('text-danger');
+
+                            $timeout(function () {
+                                $('#header').text('Create Your PIN');
+                                $('.indicatorDotWrap').removeClass('shake');
+                                $('.indicatorDotWrap .col div').removeClass('filled incorrect');
+                                $scope.firstPinEntered = '';
+                                $scope.signUpData.Pin = '';
+                                $scope.onConfirm = false;
+                            }, 1500);
+                        }
+                        else
+                        {
+                            //$scope.signUpFn();
+                        }
+                    }
+                }
+            }
+            else if (num == 10)
+            {
+                if (pin.length > 0)
+                {
+                    pin = pin.substring(0, pin.length - 1)
+                    if (pin.length == 0)
+                        $('.indicatorDotWrap .col div:first-child').removeClass('filled');
+                    if (pin.length == 1)
+                        $('.indicatorDotWrap .col div:nth-child(2)').removeClass('filled');
+                    if (pin.length == 2)
+                        $('.indicatorDotWrap .col div:nth-child(3)').removeClass('filled');
+                    if (pin.length == 3)
+                        $('.indicatorDotWrap .col div:last-child').removeClass('filled');
+                }
+            }
+
+            $scope.signUpData.Pin = pin;
+            console.log($scope.signUpData.Pin);
+        }
     });
