@@ -11,13 +11,13 @@
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl Loaded');
- 
+
 
         //$rootScope.UserIp = {
         //    Ip:null           
         //};
         $scope.deviceIp();
- 
+
 
         if ($('#searchMoreFriends').hasClass('flipOutX'))
             $('#searchMoreFriends').removeClass('flipOutX');
@@ -28,26 +28,31 @@
         $timeout(function () {
             //console.log($localStorage.GLOBAL_VARIABLES);
 
-            if ($rootScope.IsPhoneVerified == false) {
+            if ($rootScope.IsPhoneVerified == false)
+            {
                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
                 $scope.shouldDisplayErrorBanner = true;
             }
             if ($rootScope.isProfileComplete == false ||
-                $rootScope.Status === "Registered") {
+                $rootScope.Status === "Registered")
+            {
                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
                 $scope.shouldDisplayErrorBanner = true;
             }
             if ($rootScope.Status === "Suspended" ||
-                $rootScope.Status === "Temporarily_Blocked") {
+                $rootScope.Status === "Temporarily_Blocked")
+            {
                 $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
                 $scope.shouldDisplayErrorBanner = true;
             }
-            if ($rootScope.hasSynapseBank == false) {
+            if ($rootScope.hasSynapseBank == false)
+            {
                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
                 $scope.shouldDisplayErrorBanner = true;
             }
 
-            if ($scope.shouldDisplayErrorBanner) {
+            if ($scope.shouldDisplayErrorBanner)
+            {
                 $ionicContentBanner.show({
                     text: $scope.errorBannerTextArray,
                     interval: '4000',
@@ -77,7 +82,8 @@
 
 
     $scope.$on('foundPendingReq', function (event, args) {
-        if ($scope.isBannerShowing == false) {
+        if ($scope.isBannerShowing == false)
+        {
             $ionicContentBanner.show({
                 text: ['Pending Request Waiting'],
                 type: 'info',
@@ -114,13 +120,15 @@
             bit: ''
         };
         console.log($cordovaContacts);
-         $cordovaContacts.find(options).then(onSuccess, onError);
+        $cordovaContacts.find(options).then(onSuccess, onError);
 
         function onSuccess(contacts) {
             console.log('phone' + contacts);
-            for (var i = 0; i < contacts.length; i++) {
+            for (var i = 0; i < contacts.length; i++)
+            {
                 var contact = contacts[i];
-                if (contact.name.formatted != null && contact.emails != null) {
+                if (contact.name.formatted != null && contact.emails != null)
+                {
                     $scope.readContact.FirstName = contact.name.formatted;
                     $scope.readContact.id = i;
                     $scope.readContact.bit = 'p';
@@ -144,8 +152,10 @@
 
             $scope.items = [];
 
-            for (var i = 0; i <= 4; i++) {
-                if (i < $scope.memberList.length) {
+            for (var i = 0; i <= 4; i++)
+            {
+                if (i < $scope.memberList.length)
+                {
                     if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
                         $scope.memberList[i].Photo = "./img/profile_picture.png";
 
@@ -179,17 +189,20 @@
 
             $scope.memberList = data;
             console.log(data.length);
-            if (data[0] == null || data.length < 5) {
+            if (data[0] == null || data.length < 5)
+            {
                 console.log('Got Recent Members Empty or less than 5, Loading phone contacts ..');
 
 
                 cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
                     console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
 
-                    if (authorized) {
+                    if (authorized)
+                    {
                         $scope.fetchContacts();
                     }
-                    else {
+                    else
+                    {
                         swal({
                             title: "Permissions not Granted!",
                             text: "Please click OK for allowing Nooch to read Contacts",
@@ -200,13 +213,16 @@
                             confirmButtonText: "Ok",
                             customClass: "stackedBtns"
                         }, function (isConfirm) {
-                            if (isConfirm) {
+                            if (isConfirm)
+                            {
                                 cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
-                                    if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED) {
+                                    if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
+                                    {
                                         console.log("Contacts use is authorized");
                                         $scope.fetchContacts();
                                     }
-                                    else {
+                                    else
+                                    {
                                         console.log("Contact permisison is " + status);
                                     }
                                 }, function (error) {
@@ -218,15 +234,10 @@
                 }, function (error) {
                     console.error("isContactsAuthorized Error: [" + error + "]");
                 });
-
-
-
             }
 
             console.log('GetRecentMembers()-->>');
             console.log($scope.memberList);
-
-
 
             $ionicLoading.hide();
 
@@ -248,7 +259,8 @@
 
     $scope.goToSelectRecip = function () {
         if ($rootScope.Status == "Suspended" ||
-            $rootScope.Status == "Temporarily_Blocked") {
+            $rootScope.Status == "Temporarily_Blocked")
+        {
             swal({
                 title: "Account Suspended",
                 text: "For security your account has been suspended pending a review." +
@@ -261,7 +273,8 @@
                 customClass: "smallText",
                 html: true,
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
                     // toArr, ccArr and bccArr must be an array, file can be either null, string or array
                     //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                     $cordovaSocialSharing
@@ -275,7 +288,8 @@
                 }
             });
         }
-        else if ($rootScope.Status == "Registered") {
+        else if ($rootScope.Status == "Registered")
+        {
             swal({
                 title: "Please Verify Your Email",
                 text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
@@ -284,7 +298,8 @@
                 confirmButtonText: "Ok"
             });
         }
-        else if ($rootScope.IsPhoneVerified) {
+        else if ($rootScope.IsPhoneVerified)
+        {
             swal({
                 title: "Blame The Lawyers",
                 text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
@@ -295,7 +310,8 @@
                 html: true
             });
         }
-        else if ($rootScope.isProfileComplete == false) {
+        else if ($rootScope.isProfileComplete == false)
+        {
             swal({
                 title: "Help Us Keep Nooch Safe",
                 text: "Please take 1 minute to verify your identity by completing your Nooch profile.",
@@ -309,7 +325,8 @@
                     $state.go('app.profile');
             });
         }
-        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false) {
+        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
+        {
             swal({
                 title: "Connect A Funding Source",
                 text: "Adding a bank account to fund Nooch payments is lightning quick:" +
@@ -325,7 +342,8 @@
                 $state.go('app.settings');
             });
         }
-        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false) {
+        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
+        {
             swal({
                 title: "Bank Account Un-Verified",
                 text: "Looks like we need just a bit more info to verify your bank account. This usually happens when we were unable to match the contact info listed on the bank account with your Nooch profile information." +
@@ -340,7 +358,8 @@
                 $state.go('app.settings');
             });
         }
-        else {
+        else
+        {
             $('#searchMoreFriends').addClass('flipOutX');
             $timeout(function () {
                 $state.go('app.selectRecipient');
@@ -348,24 +367,24 @@
         }
     }
 
-<<<<<<< HEAD
-=======
     $scope.deviceIp = function () {
         var json = 'http://ipv4.myexternalip.com/json';
         $http.get(json).then(function (result) {
-            //  $rootScope.Ip = result.data.ip;
-            if ($rootScope.ip == null) {
+            if ($rootScope.ip == null)
+            {
                 console.log('User Login/Signup at first time with Ip --' + result.data.ip);
                 $rootScope.ip = result.data.ip;
                 $scope.updateDeviceIp($rootScope.ip);
             }
-            else if ($rootScope.ip != result.data.ip) {
+            else if ($rootScope.ip != result.data.ip)
+            {
                 console.log('Ip Changed, new Ip is -' + result.data.ip);
                 console.log('old Ip is  -' + $rootScope.ip);
                 $rootScope.ip = result.data.ip;
                 $scope.updateDeviceIp($rootScope.ip);
             }
-            else {
+            else
+            {
                 console.log('IP is not changed ' + $rootScope.ip);
             }
             console.log(result.data.ip)
@@ -383,7 +402,7 @@
         homeServices.UdateMemberIPAddress(ip)
           .success(function (data) {
               $scope.result = data;
-              console.log($scope.result);          
+              console.log($scope.result);
               $ionicLoading.hide();
           }).error(function (data) {
               console.log('eror' + data);
@@ -396,7 +415,4 @@
         //    swal("Oops...", "Internet not connected!", "error");
         //}        
     }
-
-
->>>>>>> 3b7a4a4cb7da105f0f0dff13f249f8116c14c215
 })
