@@ -9,14 +9,20 @@
             if ($rootScope.signUpData == null)
                 $state.go('signup');
             else
-                $("#pinTxt").focus();
+			{
+				console.log(typeof $scope.signUpData.Pin);
 
-            if ($localStorage.GLOBAL_VARIABLES.DeviceToken == '')
-                $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
-            else if ($localStorage.GLOBAL_VARIABLES.DeviceToken == null)
-                $localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
-            else
-                console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
+                $("#pinTxt").focus();
+				
+				$scope.onConfirm = false;
+
+            	if ($localStorage.GLOBAL_VARIABLES.DeviceToken == '')
+                	$localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
+				else if ($localStorage.GLOBAL_VARIABLES.DeviceToken == null)
+                	$localStorage.GLOBAL_VARIABLES.DeviceToken = 'NoDevToken';
+				else
+                	console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
+			}
         });
 
         //console.log($rootScope.signUpData);
@@ -24,8 +30,7 @@
         $scope.signUpFn = function () {
             console.log('signUpFn called');
 
-            if ($('#frmCreatePin').parsley().validate() == true)
-            {
+            //if ($('#frmCreatePin').parsley().validate() == true) {
                 console.log($rootScope.signUpData);
                 //if ($cordovaNetwork.isOnline()) {
                 $ionicLoading.show({
@@ -73,7 +78,7 @@
                 //}
                 //else
                 //    swal("Error", "Internet not connected!", "error");
-            }
+			//}
         };
 
 
@@ -92,12 +97,15 @@
                       $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
 
                       console.log(response);
-                      $ionicLoading.hide();
 
                       if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1)
+					  {
+						  $ionicLoading.hide();
                           swal("Error", response.Result, "error");
+					  }
                       else if (response.Result.indexOf('Temporarily_Blocked') > -1)
                       {
+						  $ionicLoading.hide();
                           swal({
                               title: "Oh No!",
                               text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
@@ -139,9 +147,6 @@
                   });
 
             function fetchAfterLoginDetails() {
-                $ionicLoading.show({
-                    template: 'Grabbing account details...'
-                });
 
                 CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
                     $ionicLoading.hide();
@@ -151,10 +156,10 @@
                     if (data != null)
                     {
                         $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-
                         $state.go('app.home');
                     }
                 }).error(function (err) {
+                    swal("Error", err.Result, "error");
                     $ionicLoading.hide();
                 });
             }
@@ -163,7 +168,8 @@
             //    swal("Oops...", "Internet not connected!", "error");
         }
 
-        $scope.getBase64FromImageUrl = function (URL) {
+        
+		$scope.getBase64FromImageUrl = function (URL) {
             var img = new Image();
             img.setAttribute('crossOrigin', 'anonymous');
             img.src = URL;
@@ -184,4 +190,73 @@
                 $rootScope.signUpData.Photo = (dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
             };
         }
+		
+		
+		$scope.numTapped = function (num) {
+			console.log(num);
+			var pin = $scope.signUpData.Pin;
+			console.log($scope.signUpData.Pin);
+
+			if (num < 10)
+			{
+				if (pin.length < 3)
+				{
+					console.log('PIN is less than 4... [' + pin.length + ']');
+					pin += num;
+					if (pin.length == 1)
+						$('.indicatorDotWrap .col div:first-child').addClass('filled');
+					if (pin.length == 2)
+						$('.indicatorDotWrap .col div:nth-child(2)').addClass('filled');
+					if (pin.length == 3)
+						$('.indicatorDotWrap .col div:nth-child(3)').addClass('filled');
+				}
+				else
+				{
+					console.log('4th Digit Entered');
+					// 4th Digit Entered
+					if ($scope.onConfirm == false)
+					{
+						console.log('CHECKPOINT B');
+						$('#header').text('Confirm Your PIN');
+						$('.indicatorDotWrap .col div').removeClass('filled');
+						
+						// Save the 1st PIN in new var, reset signUpData.Pin so user can Confirm by entering the PIN again
+						$scope.firstPinEntered = pin;
+						pin = '';
+
+						$scope.onConfirm = true;
+					}
+					else
+					{
+						if (pin.length == 4)
+							$('.indicatorDotWrap .col div:last-child').addClass('filled');
+						
+						// NOW CHECK IF 1ST AND 2ND ENTERED PIN MATCH
+						if ($scope.firstPinEntered != pin)
+						{
+							$('.instructionTxt').text('PIN did not match!').addClass('text-danger');
+						}
+						//$scope.signUpFn();
+					}
+				}
+			}
+			else if (num == 10)
+			{
+				if (pin.length > 0)
+				{
+					pin = pin.substring(0, pin.length -1)
+					if (pin.length == 0)
+						$('.indicatorDotWrap .col div:first-child').removeClass('filled');
+					if (pin.length == 1)
+						$('.indicatorDotWrap .col div:nth-child(2)').removeClass('filled');
+					if (pin.length == 2)
+						$('.indicatorDotWrap .col div:nth-child(3)').removeClass('filled');
+					if (pin.length == 3)
+						$('.indicatorDotWrap .col div:last-child').removeClass('filled');
+				}
+			}
+			
+			$scope.signUpData.Pin = pin;
+			console.log($scope.signUpData.Pin);
+		}
     });

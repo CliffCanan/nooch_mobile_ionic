@@ -1039,6 +1039,35 @@ iframe {
 }
 
 
+/********************/
+/***  CREATE PIN  ***/
+/********************/
+.indicatorDotWrap .col div {
+	border: 1px solid #3fabe1;
+	border-radius: 50%;
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+	margin: 0 6px 10px;
+	transition: .25s all;
+}
+
+.indicatorDotWrap .col div.filled {
+	background: #3fabe1;
+}
+
+.numPadWrap .col div {
+    color: #3fabe1;
+    border: 1px solid #3fabe1;
+    border-radius: 50%;
+    height: 78px;
+    width: 80px;
+    margin: 0 auto 20px;
+    padding: 27px 0 0;
+    font-size: 25px;
+    font-weight: 500;
+}
+
 /***********************/
 /*** LEFT SIDE MENU  ***/
 /***********************/

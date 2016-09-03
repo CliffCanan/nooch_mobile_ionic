@@ -20,7 +20,7 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Signup Controller Loaded');
 
-        $scope.getLocation();
+        //$scope.getLocation();
         console.log('signUpData: [' + JSON.stringify($scope.signUpData) + ']');
     });
 
@@ -200,7 +200,8 @@
         });
     }
 
-    $scope.getLocation = function () {
+    
+	$scope.getLocation = function () {
         $cordovaGeolocation
           .getCurrentPosition()
           .then(function (position) {
