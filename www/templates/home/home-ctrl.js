@@ -11,6 +11,13 @@
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl Loaded');
+ 
+
+        //$rootScope.UserIp = {
+        //    Ip:null           
+        //};
+        $scope.deviceIp();
+ 
 
         if ($('#searchMoreFriends').hasClass('flipOutX'))
             $('#searchMoreFriends').removeClass('flipOutX');
@@ -341,4 +348,55 @@
         }
     }
 
+<<<<<<< HEAD
+=======
+    $scope.deviceIp = function () {
+        var json = 'http://ipv4.myexternalip.com/json';
+        $http.get(json).then(function (result) {
+            //  $rootScope.Ip = result.data.ip;
+            if ($rootScope.ip == null) {
+                console.log('User Login/Signup at first time with Ip --' + result.data.ip);
+                $rootScope.ip = result.data.ip;
+                $scope.updateDeviceIp($rootScope.ip);
+            }
+            else if ($rootScope.ip != result.data.ip) {
+                console.log('Ip Changed, new Ip is -' + result.data.ip);
+                console.log('old Ip is  -' + $rootScope.ip);
+                $rootScope.ip = result.data.ip;
+                $scope.updateDeviceIp($rootScope.ip);
+            }
+            else {
+                console.log('IP is not changed ' + $rootScope.ip);
+            }
+            console.log(result.data.ip)
+        }, function (err) {
+            console.log("error  " + err);
+        });
+    }
+
+    $scope.updateDeviceIp = function (ip) {
+        //if ($cordovaNetwork.isOnline()) {
+        $ionicLoading.show({
+            template: 'Updating IP ...'
+        });
+
+        homeServices.UdateMemberIPAddress(ip)
+          .success(function (data) {
+              $scope.result = data;
+              console.log($scope.result);          
+              $ionicLoading.hide();
+          }).error(function (data) {
+              console.log('eror' + data);
+              $ionicLoading.hide();
+              //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+              { CommonServices.logOut(); }
+          });
+        //  }
+        //else {
+        //    swal("Oops...", "Internet not connected!", "error");
+        //}        
+    }
+
+
+>>>>>>> 3b7a4a4cb7da105f0f0dff13f249f8116c14c215
 })
