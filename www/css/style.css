@@ -961,7 +961,11 @@ iframe {
 }
 
 .mainLogo {
-    height: 58px;
+    height: 48px;
+}
+
+.slogan {
+	font-size: 14px;
 }
 
 .instructionText {
@@ -1042,14 +1046,19 @@ iframe {
 /********************/
 /***  CREATE PIN  ***/
 /********************/
+.indicatorDotWrap {
+	padding-top: 0px;
+	margin-bottom: 8px;
+}
+
 .indicatorDotWrap .col div {
     border: 1px solid #3fabe1;
     border-radius: 50%;
     display: inline-block;
-    height: 16px;
-    width: 16px;
-    margin: 0 6px 10px;
-    transition: .25s all;
+    height: 14px;
+    width: 14px;
+    margin: 0 8px 0;
+    transition: .2s all;
 }
 
     .indicatorDotWrap .col div.filled {
@@ -1061,18 +1070,22 @@ iframe {
         border-color: rgb(210,60,60);
     }
 
+.numPadWrap {
+	padding: 0 5%;
+}
+
 .numPadWrap button {
     color: #3fabe1;
     background: #fff;
     border: 1px solid #3fabe1;
     border-radius: 50%;
     font-family: 'Roboto';
-    font-size: 25px;
-    font-weight: 500;
-    height: 78px;
-    width: 80px;
-    margin: 0 auto 20px;
-    transition: .25s all ease-out;
+    font-size: 28px;
+    font-weight: 300;
+    height: 76px;
+    width: 76px;
+    margin: 0 auto 16px;
+    transition: .22s all ease-out;
 }
 
     .numPadWrap button:active {

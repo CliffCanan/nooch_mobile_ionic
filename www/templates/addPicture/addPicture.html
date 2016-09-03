@@ -1,10 +1,10 @@
 ﻿<ion-view view-title="Add Picture">
-    <ion-content>
+    <ion-content scroll="false">
 
         <a class="button backButton animated slideInDown" href="#/signup"><i class="ion-android-arrow-dropleft-circle"></i></a>
 
-        <div class="row m-t-neg-30">
-            <div class="col p-t-0 text-center">
+        <div class="row m-t-neg-20">
+            <div class="col p-b-0 text-center">
                 <img src="./img/nooch-logo.svg" class="mainLogo" />
                 <p class="slogan purp-text m-b-5">Money Made Simple</p>
             </div>
@@ -13,7 +13,7 @@
         <div class="row text-center">
             <div class="col">
 
-                <p class="f-30 m-b-15">Hi,&nbsp;{{signUpData.FirstName}}!</p>
+                <p class="f-30 m-b-15 capitalize">Hey&nbsp;{{signUpData.FirstName}}!</p>
 
                 <div id="picWrap" ng-click="choosePhoto()">
                     <img class="m-b-20 defaultPic" src="./img/RoundLoading.png" ng-if="signUpData.Photo == null || signUpData.Photo == ''" />
