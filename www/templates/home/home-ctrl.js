@@ -5,12 +5,15 @@
 /***   HOME   ***/
 /****************/
 .controller('HomeCtrl', function ($scope, $state, $cordovaGoogleAnalytics, $ionicPlatform, $timeout,
-                                  $ionicLoading, $ionicContentBanner, $rootScope, $localStorage,
+                                  $ionicLoading, $ionicContentBanner, $rootScope, $localStorage, $cordovaSocialSharing,
                                   authenticationService, profileService, selectRecipientService, CommonServices) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl Loaded');
+		
+		if ($('#searchMoreFriends').hasClass('flipOutX'))
+			$('#searchMoreFriends').removeClass('flipOutX');
 
         $scope.shouldDisplayErrorBanner = false;
         $scope.errorBannerTextArray = [];
@@ -152,7 +155,113 @@
 
 
     $scope.goToSelectRecip = function () {
-        $state.go('app.selectRecipient');
+        if ($rootScope.Status == "Suspended" ||
+            $rootScope.Status == "Temporarily_Blocked")
+        {
+            swal({
+                title: "Account Suspended",
+                text: "For security your account has been suspended pending a review." +
+					  "<span class='show'>We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.</span>" +
+					  "<span class='show'>Please contact us at support@nooch.com if this is a mistake or for more information.",
+                type: "error",
+                confirmButtonColor: "#3fabe1",
+				confirmButtonText: "Ok",
+                cancelButtonText: "Contact Support",
+                customClass: "smallText",
+                html: true,
+            }, function (isConfirm) {
+                if (isConfirm)
+                {
+                    // toArr, ccArr and bccArr must be an array, file can be either null, string or array
+                    //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
+                    $cordovaSocialSharing
+                      .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
+                      .then(function (result) {
+                          swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                      }, function (err) {
+                          // An error occurred. Show a message to the user
+                          console.log('Error attempting to send email from social sharing: [' + err + ']');
+                      });
+                }
+            });
+        }
+        else if ($rootScope.Status == "Registered")
+        {
+            swal({
+                title: "Please Verify Your Email",
+                text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
+                type: "warning",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Ok"
+            });
+        }
+        else if ($rootScope.IsPhoneVerified)
+        {
+            swal({
+                title: "Blame The Lawyers",
+                text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
+                      "<span class='show'>If you've already added your phone number, just respond 'Go' to the text message we sent.</span>",
+                type: "warning",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Ok",
+                html: true
+            });
+        }
+        else if ($rootScope.isProfileComplete == false)
+        {
+            swal({
+                title: "Help Us Keep Nooch Safe",
+                text: "Please take 1 minute to verify your identity by completing your Nooch profile.",
+                type: "warning",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Go Now",
+                showCancelButton: true,
+                cancelButtonText: "Later",
+            }, function (isConfirm) {
+                if (isConfirm)
+                    $state.go('app.profile');
+            });
+        }
+        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
+        {
+            swal({
+                title: "Connect A Funding Source",
+                text: "Adding a bank account to fund Nooch payments is lightning quick:" +
+					  "<ul><li>No routing or account number needed</li><li>Bank-grade encryption keeps your info safe</li>" +
+					  "<span class='show'>Would you like to take care of this now?</span>",
+                type: "warning",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Go Now",
+                showCancelButton: true,
+                cancelButtonText: "Later",
+                html: true,
+            }, function (isConfirm) {
+                $state.go('app.settings');
+            });
+        }
+        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
+        {
+            swal({
+                title: "Bank Account Un-Verified",
+                text: "Looks like we need just a bit more info to verify your bank account. This usually happens when we were unable to match the contact info listed on the bank account with your Nooch profile information." +
+					  "<span class='show'>Don't worry - we can solve this quickly. Please tap 'Learn More' for what to do next.</span>",
+                type: "warning",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Go Now",
+                showCancelButton: true,
+                cancelButtonText: "Later",
+                html: true,
+            }, function (isConfirm) {
+                $state.go('app.settings');
+            });
+        }
+        else
+		{
+			$('#searchMoreFriends').addClass('flipOutX');
+			$timeout(function () {
+				$state.go('app.selectRecipient');
+			}, 1000);
+		}
     }
 
 })

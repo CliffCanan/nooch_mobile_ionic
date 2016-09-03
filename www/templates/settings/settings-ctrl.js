@@ -1,7 +1,5 @@
 ﻿angular.module('noochApp.SettingCtrl', ['noochApp.settings-service', 'noochApp.services', 'ngStorage'])
-/******************/
-/***  SETTINGS  ***/
-/******************/
+
  .controller('SettingCtrl', function ($scope, $rootScope, $timeout, $state, $ionicModal, $ionicLoading,
                                       $localStorage, $sce, $ionicContentBanner, settingsService, CommonServices) {
 
@@ -55,7 +53,6 @@
              }
          }, 1000);
 
-
          $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
      });
@@ -89,8 +86,6 @@
          }, function (isConfirm) {
              if (isConfirm)
              {
-
-
                  settingsService.DeleteAttachedBankNode()
                     .success(function (result) {
                         console.log(result);
@@ -98,7 +93,6 @@
 
                         if (result == 'Deleted')
                         {
-
                             swal({
                                 title: "Bank Deleted",
                                 text: "Attached bank deleted successfully",
@@ -113,13 +107,9 @@
                             });
                         }
                         else
-                        {
                             swal("Error", result, "error");
-                        }
-
-
-                    }).error(function (encError) {
-
+                    })
+					.error(function (encError) {
                         CommonServices.logOut();
                     });
 

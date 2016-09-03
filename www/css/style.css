@@ -2157,8 +2157,8 @@ div.hscroller-card {
  */
 
 .animated {
-    -webkit-animation-duration: 1.1s;
-    animation-duration: 1.1s;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
@@ -2184,6 +2184,11 @@ div.hscroller-card {
         -webkit-animation-delay: 2s;
         animation-delay: 2s;
     }
+	
+	.animated.fast {
+		-webkit-animation-duration: 0.8s !important;
+		animation-duration: 0.8s !important;
+	}
 
 @-webkit-keyframes bounce {
     from, 20%, 53%, 80%, to {

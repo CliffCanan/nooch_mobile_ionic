@@ -40,14 +40,18 @@
         <div class="card m-t-5" ng-if="memberList != null">
 
             <div id="referredUsersList" class="list" ng-if="memberList.length > 0">
-                <div class="item item item-avatar" ng-repeat="member in memberList">
-                    <img class=user-img src={{member.Photo}}>
-                    <h2>{{member.FirstName}}&nbsp;{{member.LastName}}</h2>
-                    <p class="item-note">{{member.DateCreated | date: 'MMM d, y'}}</p>
-                </div>
-            </div>
 
-			<div class="text-center p-20 animated slideInUp" ng-if="memberList.length < 2">
+				<ion-scroll zooming="false" direction="y" style="height: 360px">
+					<div class="item item item-avatar" ng-repeat="member in memberList">
+						<img class=user-img src={{member.Photo}}>
+						<h2>{{member.FirstName}}&nbsp;{{member.LastName}}</h2>
+                    	<p class="item-note">{{member.DateCreated | date: 'MMM d, y'}}</p>
+                	</div>
+				</ion-scroll>
+
+			</div>
+
+			<div class="text-center p-20 animated slideInUp" ng-if="memberList.length == 0">
 				<h2 class="f-300">No Referrals Yet!</h2>
 				<p class="f-300 f-20 p-l-10 p-r-10 m-0">Tap an option above to invite friends to use Nooch.</p>
 			</div>
