@@ -75,4 +75,5 @@
     <plugin name="cordova-plugin-datepicker" spec="https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git" />
     <plugin name="cordova.plugins.diagnostic" spec="~3.1.2" />
     <plugin name="cordova-plugin-apprate" spec="https://github.com/pushandplay/cordova-plugin-apprate.git" />
+    <plugin name="cordova-plugin-networkinterface" spec="~1.0.8" />
 </widget>

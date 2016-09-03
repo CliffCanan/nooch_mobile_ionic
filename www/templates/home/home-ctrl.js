@@ -6,14 +6,18 @@
 /****************/
 .controller('HomeCtrl', function ($scope, $state, $cordovaGoogleAnalytics, $ionicPlatform, $timeout,
                                   $ionicLoading, $ionicContentBanner, $rootScope, $localStorage, $cordovaSocialSharing,
-                                  authenticationService, profileService, selectRecipientService, CommonServices) {
+                                  authenticationService, profileService, selectRecipientService, CommonServices, $http, homeServices) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl Loaded');
-		
-		if ($('#searchMoreFriends').hasClass('flipOutX'))
-			$('#searchMoreFriends').removeClass('flipOutX');
+        $rootScope.ip = null;
+
+        $scope.deviceIp();
+        // $scope.deviceIp();
+
+        if ($('#searchMoreFriends').hasClass('flipOutX'))
+            $('#searchMoreFriends').removeClass('flipOutX');
 
         $scope.shouldDisplayErrorBanner = false;
         $scope.errorBannerTextArray = [];
@@ -21,31 +25,26 @@
         $timeout(function () {
             //console.log($localStorage.GLOBAL_VARIABLES);
 
-            if ($rootScope.IsPhoneVerified == false)
-            {
+            if ($rootScope.IsPhoneVerified == false) {
                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
                 $scope.shouldDisplayErrorBanner = true;
             }
             if ($rootScope.isProfileComplete == false ||
-                $rootScope.Status === "Registered")
-            {
+                $rootScope.Status === "Registered") {
                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
                 $scope.shouldDisplayErrorBanner = true;
             }
             if ($rootScope.Status === "Suspended" ||
-                $rootScope.Status === "Temporarily_Blocked")
-            {
+                $rootScope.Status === "Temporarily_Blocked") {
                 $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
                 $scope.shouldDisplayErrorBanner = true;
             }
-            if ($rootScope.hasSynapseBank == false)
-            {
+            if ($rootScope.hasSynapseBank == false) {
                 $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
                 $scope.shouldDisplayErrorBanner = true;
             }
 
-            if ($scope.shouldDisplayErrorBanner)
-            {
+            if ($scope.shouldDisplayErrorBanner) {
                 $ionicContentBanner.show({
                     text: $scope.errorBannerTextArray,
                     interval: '4000',
@@ -69,14 +68,13 @@
             // console.log($cordovaGoogleAnalytics);
             // $cordovaGoogleAnalytics.debugMode();
             // $cordovaGoogleAnalytics.startTrackerWithId('UA-XXXXXXXX-X');
-            // $cordovaGoogleAnalytics.trackView('Home Screen');
+            // $cordovaGoogleAnalytics.trackView('Home Screen');            
+
         });
     });
 
-
     $scope.$on('foundPendingReq', function (event, args) {
-        if ($scope.isBannerShowing == false)
-        {
+        if ($scope.isBannerShowing == false) {
             $ionicContentBanner.show({
                 text: ['Pending Request Waiting'],
                 type: 'info',
@@ -92,7 +90,6 @@
 
     $scope.memberList = [];
 
-
     $scope.FindRecentFriends = function () {
         //if ($cordovaNetwork.isOnline())
         //{
@@ -104,12 +101,10 @@
 
             $scope.memberList = data;
 
-            if (data[0] == null)
-            {
+            if (data[0] == null) {
                 console.log('Got Recent Members Empty, Loading phone contacts ..');
 
-                for (var i = 0; i < $rootScope.phoneContacts.length; i++)
-                {
+                for (var i = 0; i < $rootScope.phoneContacts.length; i++) {
                     $scope.memberList.push($rootScope.phoneContacts[i]);
                 }
                 console.log('Phone Contacts Are...');
@@ -121,10 +116,8 @@
 
             $scope.items = [];
 
-            for (var i = 0; i <= 4; i++)
-            {
-                if (i < $scope.memberList.length)
-                {
+            for (var i = 0; i <= 4; i++) {
+                if (i < $scope.memberList.length) {
                     if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
                         $scope.memberList[i].Photo = "./img/profile_picture.png";
 
@@ -156,8 +149,7 @@
 
     $scope.goToSelectRecip = function () {
         if ($rootScope.Status == "Suspended" ||
-            $rootScope.Status == "Temporarily_Blocked")
-        {
+            $rootScope.Status == "Temporarily_Blocked") {
             swal({
                 title: "Account Suspended",
                 text: "For security your account has been suspended pending a review." +
@@ -165,13 +157,12 @@
 					  "<span class='show'>Please contact us at support@nooch.com if this is a mistake or for more information.",
                 type: "error",
                 confirmButtonColor: "#3fabe1",
-				confirmButtonText: "Ok",
+                confirmButtonText: "Ok",
                 cancelButtonText: "Contact Support",
                 customClass: "smallText",
                 html: true,
             }, function (isConfirm) {
-                if (isConfirm)
-                {
+                if (isConfirm) {
                     // toArr, ccArr and bccArr must be an array, file can be either null, string or array
                     //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                     $cordovaSocialSharing
@@ -185,8 +176,7 @@
                 }
             });
         }
-        else if ($rootScope.Status == "Registered")
-        {
+        else if ($rootScope.Status == "Registered") {
             swal({
                 title: "Please Verify Your Email",
                 text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
@@ -195,8 +185,7 @@
                 confirmButtonText: "Ok"
             });
         }
-        else if ($rootScope.IsPhoneVerified)
-        {
+        else if ($rootScope.IsPhoneVerified) {
             swal({
                 title: "Blame The Lawyers",
                 text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
@@ -207,8 +196,7 @@
                 html: true
             });
         }
-        else if ($rootScope.isProfileComplete == false)
-        {
+        else if ($rootScope.isProfileComplete == false) {
             swal({
                 title: "Help Us Keep Nooch Safe",
                 text: "Please take 1 minute to verify your identity by completing your Nooch profile.",
@@ -222,8 +210,7 @@
                     $state.go('app.profile');
             });
         }
-        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
-        {
+        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false) {
             swal({
                 title: "Connect A Funding Source",
                 text: "Adding a bank account to fund Nooch payments is lightning quick:" +
@@ -239,8 +226,7 @@
                 $state.go('app.settings');
             });
         }
-        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
-        {
+        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false) {
             swal({
                 title: "Bank Account Un-Verified",
                 text: "Looks like we need just a bit more info to verify your bank account. This usually happens when we were unable to match the contact info listed on the bank account with your Nooch profile information." +
@@ -255,13 +241,61 @@
                 $state.go('app.settings');
             });
         }
-        else
-		{
-			$('#searchMoreFriends').addClass('flipOutX');
-			$timeout(function () {
-				$state.go('app.selectRecipient');
-			}, 1000);
-		}
+        else {
+            $('#searchMoreFriends').addClass('flipOutX');
+            $timeout(function () {
+                $state.go('app.selectRecipient');
+            }, 1000);
+        }
     }
+
+    $scope.deviceIp = function () {
+        var json = 'http://ipv4.myexternalip.com/json';
+        $http.get(json).then(function (result) {
+            //  $rootScope.Ip = result.data.ip;
+            if ($rootScope.ip == null) {
+                console.log('User Login/Signup at first time with Ip --' + result.data.ip);
+                $rootScope.ip = result.data.ip;
+                $scope.updateDeviceIp($rootScope.ip);
+            }
+            else if ($rootScope.ip != result.data.ip) {
+                console.log('Ip Changed, new Ip is -' + result.data.ip);
+                console.log('old Ip is  -' + $rootScope.ip);
+                $rootScope.ip = result.data.ip;
+                $scope.updateDeviceIp($rootScope.ip);
+            }
+            else {
+                console.log('IP is not changed ' + $rootScope.ip);
+            }
+            console.log(result.data.ip)
+        }, function (err) {
+            console.log("error  " + err);
+        });
+    }
+
+    $scope.updateDeviceIp = function (ip) {
+        //if ($cordovaNetwork.isOnline()) {
+        $ionicLoading.show({
+            template: 'Updating IP ...'
+        });
+
+        homeServices.UdateMemberIPAddress()
+          .success(function (data) {
+              $scope.result = data;
+              console.log($scope.result);
+              console.log(data);
+              $ionicLoading.hide();
+          }).error(function (data) {
+              console.log('eror' + data);
+              $ionicLoading.hide();
+              //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+              { CommonServices.logOut(); }
+          });
+        //  }
+        //else {
+        //    swal("Oops...", "Internet not connected!", "error");
+        //}        
+    }
+
 
 })
