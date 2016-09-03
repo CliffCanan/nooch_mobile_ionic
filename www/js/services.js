@@ -84,6 +84,10 @@ angular.module('noochApp.services', ['ngStorage'])
       this.getScreenWidth = function () {
           return $window.innerWidth;
       }
+
+      this.getScreenHeight = function () {
+          return $window.innerHeight;
+      }
   })
 
 

@@ -355,4 +355,13 @@
             if ($('#searchBar').val().length == 0)
                 $scope.transactionList = $scope.transList;
         });
+
+
+        $scope.historyListHeight = { 'max-height': $rootScope.screenHeight - 150 + 'px' }
+
+
+        $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 151 + 'px' }
+
+        //console.log($scope.historyListHeight);
+        //console.log($scope.firstTimeDivHeight);
     });

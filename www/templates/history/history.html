@@ -6,7 +6,7 @@
         </button>
     </ion-nav-buttons>
 
-    <ion-content>
+    <ion-content scroll="false">
 
         <div class="row">
             <div class="col p-t-0">
@@ -20,13 +20,13 @@
         <div class="list list-inset m-t-0 m-b-10">
             <label class="item item-input searchBarContainer">
                 <i class="icon ion-search placeholder-icon p-r-0"></i>
-                <input type="text" ng-keyup="checkList()" id="searchBar" ng-model="search" placeholder="Search Payment History">
+                <input type="search" ng-keyup="checkList()" id="searchBar" ng-model="search" placeholder="Search Payment History">
             </label>
         </div>
 
-        <ion-scroll direction="y" class="history-list">
+        <ion-scroll direction="y" class="history-list" ng-style="historyListHeight">
 
-            <div class="firstTimeWrap animated fadeIn">
+            <div class="firstTimeWrap animated fadeIn" ng-if="transactionList.length == 0" ng-style="firstTimeDivHeight">
                 <div class="animated slideInDown">
                     <h2>No Payments Yet...</h2>
                     <p>Once you make or receive a payment it will appear here.</p>
@@ -34,7 +34,7 @@
                 <img class="animated slideInUp" src="./../img/HistoryPending@2x.png" />
             </div>
 
-            <ion-list ng-show="completed" id="completedView">
+            <ion-list ng-show="transactionList.length > 0 && completed" id="completedView">
                 <ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.TransactionStatus == 'Success' || trans.TransactionStatus == 'Cancelled' || trans.TransactionStatus == 'Rejected'  ">
 
                     <img src={{trans.Photo}}>
@@ -125,7 +125,7 @@
                 </ion-item>
             </ion-list>
 
-            <ion-list ng-show="pending">
+            <ion-list ng-show="transactionList.length > 0 && pending">
                 <ion-item class="item item-avatar" ui-sref-active="false" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search " ng-if="trans.TransactionStatus == 'Pending'">
 
                     <img src={{trans.Photo}}>

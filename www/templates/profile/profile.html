@@ -75,7 +75,7 @@
                     </span>
                     
                     <span>
-                        <input type="text" placeholder="(XXX) XXX-XXXX" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" ng-change="isAnythingChange()">
+                        <input type="tel" placeholder="(XXX) XXX-XXXX" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" ng-change="isAnythingChange()">
                     </span>
 
                 </div>
@@ -106,13 +106,13 @@
 
                 <label class="item item-input">
                     <span class="input-label">Date of Birth</span>
-                    <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{Details.DateOfBirth}}" ng-change="isAnythingChange()">
+                    <input type="date" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{Details.DateOfBirth}}" ng-change="isAnythingChange()">
                 </label>
 
                 <div ng-show="Details.IsSsnAdded == false">
                     <label class="item item-input">
                         <span class="input-label">SSN</span>
-                        <input type="text" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" ng-change="isAnythingChange()">
+                        <input type="tel" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" ng-change="isAnythingChange()">
                     </label>
                 </div>
             </div>

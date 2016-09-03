@@ -1408,7 +1408,7 @@ div.hscroller-card {
     }
 
 .history-list {
-    min-height: 530px;
+    border-bottom: 1px solid rgba(255,255,255,1);
 }
 
     .history-list .date {
@@ -1505,7 +1505,7 @@ div.hscroller-card {
     box-shadow: 0 1px 45px -1px rgba(63,64,65,.16) inset;
     background-color: #eee;
     padding: 28px 20px 0;
-    min-height: 530px;
+    /*min-height: 530px;*/
     text-align: center;
     text-shadow: 0 2px 0 rgba(250,251,252,.8);
 }

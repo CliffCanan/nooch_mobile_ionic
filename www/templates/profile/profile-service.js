@@ -7,7 +7,7 @@ angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
 
       var data;
 
-      this.MySettings = function (Details) {
+      this.UpdateProfile = function (Details) {
 
           //console.log('from profile service page');
           //console.log(Details);
@@ -23,15 +23,16 @@ angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
                   UserName: Details.UserName,
                   FirstName: Details.FirstName,
                   LastName: Details.LastName,
-                  Password: $localStorage.GLOBAL_VARIABLES.Pwd,
                   ContactNumber: Details.ContactNumber,
                   Address: Details.Address,
                   Address2: Details.Address2,
                   State: Details.State,
                   City: Details.City,
-                  Zipcode: Details.Zip,
+                  Zipcode: Details.Zipcode,
                   Country: Details.Country,
-                  Photo: Details.Photos
+                  DateOfBirth: Details.DateOfBirth,
+                  Photo: Details.Photos,
+                  Password: $localStorage.GLOBAL_VARIABLES.Pwd
               }
           };
           return $http(reqForMySettings);

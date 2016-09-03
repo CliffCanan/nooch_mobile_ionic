@@ -54,6 +54,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
       // Get Screen Width and save in $rootScope for use anywhere
       $rootScope.screenWidth = CommonServices.getScreenWidth();
+      $rootScope.screenHeight = CommonServices.getScreenHeight();
 
       $ionicPlatform.ready(function () {
           // Enable to debug issues.

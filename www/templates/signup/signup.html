@@ -39,7 +39,7 @@
 
                         <label class="item item-input">
                             <span class="input-label calm">Email</span>
-                            <input type="text" ng-blur="checkIfEmailAlreadyRegistered()" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" id="email" ng-keyup="keyEntered(2)" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                            <input type="email" ng-blur="checkIfEmailAlreadyRegistered()" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" id="email" ng-keyup="keyEntered(2)" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
                         </label>
 
                         <label class="item item-input">
@@ -60,7 +60,7 @@
 
                     </div>
 
-                    <button id="createAccount"type="button" ng-click="signUpClick()" class="button btn-success button-block" value="validate" disabled><i class="ion-person-add"></i>Create Account</button>
+                    <button id="createAccount" type="button" ng-click="signUpClick()" class="button btn-success button-block" value="validate" disabled><i class="ion-person-add"></i>Create Account</button>
 
                 </form>
 

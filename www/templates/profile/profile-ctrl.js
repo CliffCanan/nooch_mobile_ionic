@@ -6,6 +6,7 @@
         // handle event
         console.log('Profile Page Loadad');
 
+        $scope.shouldGoToSettings = false;
         $scope.shouldDisplayErrorBanner = false;
         $scope.errorBannerTextArray = [];
 
@@ -82,6 +83,7 @@
         //    swal("Oops...", "Internet not connected!", "error");
     }
 
+
     $scope.UpdateProfile = function () {
         console.log('Update Profile Function Touched');
 
@@ -93,19 +95,29 @@
         //console.log('Values from Profile.html Page...');
         console.log($scope.Details);
 
-        profileService.MySettings($scope.Details)
+        profileService.UpdateProfile($scope.Details)
             .success(function (data) {
                 console.log(data);
 
                 $ionicLoading.hide();
 
                 if (data.Result.indexOf('successfully') > -1)
+                {
                     $ionicContentBanner.show({
                         text: ['Profile Updated Successfully!'],
                         autoClose: '5000',
                         type: 'info',
                         transition: 'vertical'
                     });
+
+                    if ($scope.Details.SSN != null)
+                        $scope.saveSSN($scope.Details);
+
+                    $scope.isAnythingChanged = false;
+
+                    if ($scope.shouldGoToSettings)
+                        $state.go('app.settings');
+                }
                 else
                     $ionicContentBanner.show({
                         text: ['Error: Profile NOT Updated :-('],
@@ -113,18 +125,14 @@
                         type: 'error',
                         transition: 'vertical'
                     });
+            })
+            .error(function (error) {
+                console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
 
-                if ($scope.Details.SSN != null)
-                    $scope.saveSSN($scope.Details);
-
-            }
-    ).error(function (error) {
-        console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
-
-        $ionicLoading.hide();
-        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-            CommonServices.logOut();
-    })
+                $ionicLoading.hide();
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            })
         //}
         //else
         //    swal("Oops...", "Internet not connected!", "error");
@@ -400,7 +408,28 @@
 
 
     $scope.goToSettings = function () {
-        $state.go('app.settings');
+        if ($scope.isAnythingChanged == true)
+        {
+            swal({
+                title: "Save Changes?",
+                text: "Would you like to save the changes to your profile?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "NO",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "OK"
+            }, function (isConfirm) {
+                if (isConfirm)
+                {
+                    $scope.shouldGoToSettings = true;
+                    $scope.UpdateProfile()
+                }
+                else
+                    $state.go('app.settings');
+            });
+        }
+        else
+            $state.go('app.settings');
     }
 
 
