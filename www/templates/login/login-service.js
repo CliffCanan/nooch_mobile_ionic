@@ -17,7 +17,6 @@ angular.module('noochApp.login-service', ['noochApp.services'])
           return $http.post(URLs.ForgotPassword, data);
       }
 
-
       this.LoginWithFacebookGeneric = function (userEmail, FBId, remmberMe, lat, lng, deviceId, deviceToken) {
           return $http.get(URLs.LoginWithFacebookGeneric + '?userEmail=' + userEmail + '&FBId=' + FBId + '&rememberMeEnabled=' + remmberMe + '&lat=' + lat + '&lng=' + lng + '&udid=' + deviceId + '&devicetoken=' + deviceToken);
       };

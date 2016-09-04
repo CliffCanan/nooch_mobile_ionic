@@ -160,7 +160,7 @@
                     template: 'Sending Verification Link...'
                 });
 
-                profileService.ResendVerificationLink()
+                CommonServices.ResendVerificationLink()
                    .success(function (result) {
                        $ionicLoading.hide();
 
@@ -178,7 +178,8 @@
                                type: 'error',
                                transition: 'vertical'
                            });
-                   }).error(function (error) {
+                   })
+				   .error(function (error) {
                        console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
 
                        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
@@ -191,9 +192,9 @@
                                transition: 'vertical'
                            });
                    });
-            }
-        });
-    }
+			   }
+		   });
+	   }
 
 
     $scope.ResendVerificationSMS = function () {
@@ -213,7 +214,7 @@
                     template: 'Sending Verification Text...'
                 });
 
-                profileService.ResendVerificationSMS()
+                CommonServices.ResendVerificationSMS()
                    .success(function (result) {
                        console.log(result);
                        $ionicLoading.hide();
@@ -227,7 +228,8 @@
                                type: 'error',
                                transition: 'vertical'
                            });
-                   }).error(function (error) {
+                   })
+				   .error(function (error) {
                        $ionicLoading.hide();
                        console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
 

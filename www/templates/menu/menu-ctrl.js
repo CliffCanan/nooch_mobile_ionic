@@ -55,6 +55,7 @@
 
                // CC (9/1/16): SETTING $rootScope values so we can access directly in HTML pages w/o setting in each scope
                $rootScope.memberId = res.memberId;
+			   $rootScope.emailAddress = res.email;
                $rootScope.isProfileComplete = res.isProfileComplete;
                $rootScope.isBankVerified = res.isBankVerified;
                $rootScope.IsPhoneVerified = res.isVerifiedPhone;

@@ -89,6 +89,14 @@ angular.module('noochApp.services', ['ngStorage'])
       this.getScreenHeight = function () {
           return $window.innerHeight;
       }
+
+      this.ResendVerificationLink = function () {
+          return $http.get(URLs.ResendVerificationLink + '?UserName=' + $localStorage.GLOBAL_VARIABLES.UserName);
+      };
+
+      this.ResendVerificationSMS = function () {
+          return $http.get(URLs.ResendVerificationSMS + '?UserName=' + $localStorage.GLOBAL_VARIABLES.UserName);
+      };
   })
 
 

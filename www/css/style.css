@@ -1397,19 +1397,19 @@ div.hscroller-card {
     left: 8px;
 }
 
-#profileTable .btn {
+#profileTable button {
     min-height: 35px;
     min-width: 35px;
     line-height: 1;
 }
 
-    #profileTable .btn i {
+    #profileTable button i {
         margin: 0;
     }
 
         #profileTable .btn i::before {
-            color: #333;
-            font-size: 29px;
+            color: #6b46e5;
+            font-size: 24px;
             line-height: .8;
             margin: 0;
         }

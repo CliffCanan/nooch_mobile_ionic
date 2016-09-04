@@ -92,6 +92,7 @@
           CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
 
               console.log($localStorage.GLOBAL_VARIABLES);
+			  $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = $scope.loginData.rmmbrMe.chk;
 
               authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
                 $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken, $localStorage.GLOBAL_VARIABLES.DeviceOS)
@@ -374,20 +375,18 @@
               template: 'Signing in...'
           });
 
-          CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-              $ionicLoading.hide();
+          CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName)
+			  .success(function (data) {
+	              $ionicLoading.hide();
 
-              if (data != null)
-              {
-                  $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-
-                  //console.log($localStorage.GLOBAL_VARIABLES);
-
-                  $state.go('app.home');
-              }
-          }).error(function (err) {
-              $ionicLoading.hide();
-          });
+	              if (data.Result != null)
+	              {
+	                  $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+	                  $state.go('app.home');
+	              }
+	          }).error(function (err) {
+	              $ionicLoading.hide();
+	          });
       }
 
 

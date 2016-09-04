@@ -17,7 +17,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           console.log("App.js -> Run -> GLOBAL_VARs did not exist, creating defaults now");
           $localStorage.GLOBAL_VARIABLES = {
               IsDemoDone: false, // for displaying tutorial screens to user - if any
-              IsRemeberMeEnabled: false, // for remembering user
+              IsRemeberMeEnabled: true, // for remembering user
 
               IsUserLocationSharedWithNooch: false, // to keep track of location sharing
               UserCurrentLatitude: '0',  // user current lat if shared location
