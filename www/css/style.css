@@ -964,8 +964,8 @@ iframe {
 }
 
 .slogan {
-	font-size: 14px;
-	margin-bottom: 0;
+    font-size: 14px;
+    margin-bottom: 0;
 }
 
 .instructionText {
@@ -1020,8 +1020,8 @@ iframe {
     padding: 0;
     min-height: 10px;
     text-decoration: none;
-	position: relative;
-	top: -4px;
+    position: relative;
+    top: -4px;
 }
 
 #loginScrn .toggle {
@@ -1048,51 +1048,51 @@ iframe {
 /***  CREATE PIN  ***/
 /********************/
 .indicatorDotWrap {
-	padding-top: 0px;
-	margin-bottom: 8px;
+    padding-top: 0px;
+    margin-bottom: 8px;
 }
 
-.indicatorDotWrap .col div {
-    border: 1px solid #3fabe1;
-    border-radius: 50%;
-    display: inline-block;
-    height: 14px;
-    width: 14px;
-    margin: 0 8px 0;
-    transition: .2s all;
-}
-
-    .indicatorDotWrap .col div.filled {
-        background: #3fabe1;
+    .indicatorDotWrap .col div {
+        border: 1px solid #3fabe1;
+        border-radius: 50%;
+        display: inline-block;
+        height: 14px;
+        width: 14px;
+        margin: 0 8px 0;
+        transition: .2s all;
     }
 
-    .indicatorDotWrap .col div.incorrect {
-        background: rgb(210,60,60);
-        border-color: rgb(210,60,60);
-    }
+        .indicatorDotWrap .col div.filled {
+            background: #3fabe1;
+        }
+
+        .indicatorDotWrap .col div.incorrect {
+            background: rgb(210,60,60);
+            border-color: rgb(210,60,60);
+        }
 
 .numPadWrap {
-	padding: 0 5%;
+    padding: 0 5%;
 }
 
-.numPadWrap button {
-    color: #3fabe1;
-    background: #fff;
-    border: 1px solid #3fabe1;
-    border-radius: 50%;
-    font-family: 'Roboto';
-    font-size: 28px;
-    font-weight: 300;
-    height: 76px;
-    width: 76px;
-    margin: 0 auto 16px;
-    transition: .22s all ease-out;
-}
-
-    .numPadWrap button:active {
-        background: #3fabe1;
-        color: #fff;
+    .numPadWrap button {
+        color: #3fabe1;
+        background: #fff;
+        border: 1px solid #3fabe1;
+        border-radius: 50%;
+        font-family: 'Roboto';
+        font-size: 28px;
+        font-weight: 300;
+        height: 76px;
+        width: 76px;
+        margin: 0 auto 16px;
+        transition: .22s all ease-out;
     }
+
+        .numPadWrap button:active {
+            background: #3fabe1;
+            color: #fff;
+        }
 
 /***********************/
 /*** LEFT SIDE MENU  ***/
@@ -1320,7 +1320,7 @@ div.hscroller-card {
 }
 
     #editBankWrapper i {
-		font-size: 28px;
+        font-size: 28px;
     }
 
 #sign-out-container {
@@ -1424,20 +1424,18 @@ div.hscroller-card {
 /***  CHANGE PIN  ***/
 /********************/
 #resetPinScrn .instructionTxt {
-	height: 5px;
-	font-weight: 500;
-	margin-top: -8px;
-	opacity: 0;
-	transition: opacity .2s ease,
-				margin .35s ease,
-				height .4s ease;
+    height: 5px;
+    font-weight: 500;
+    margin-top: -8px;
+    opacity: 0;
+    transition: opacity .2s ease, margin .35s ease, height .4s ease;
 }
 
-#resetPinScrn .instructionTxt.expanded {
-	height: 20px;
-	margin-top: 0;
-	opacity: 1;
-}
+    #resetPinScrn .instructionTxt.expanded {
+        height: 20px;
+        margin-top: 0;
+        opacity: 1;
+    }
 
 /*****************/
 /***  HISTORY  ***/
@@ -2215,11 +2213,11 @@ div.hscroller-card {
         -webkit-animation-delay: 2s;
         animation-delay: 2s;
     }
-	
-	.animated.fast {
-		-webkit-animation-duration: 0.8s !important;
-		animation-duration: 0.8s !important;
-	}
+
+    .animated.fast {
+        -webkit-animation-duration: 0.8s !important;
+        animation-duration: 0.8s !important;
+    }
 
 @-webkit-keyframes bounce {
     from, 20%, 53%, 80%, to {

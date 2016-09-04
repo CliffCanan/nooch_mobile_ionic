@@ -32,12 +32,9 @@ var URLs = {
     GetSynapseBankAndUserDetails: PATH + 'GetUsersBankInfoForMobile', // CC (8/28/16) Updated this to call a new server method specifically for sending only the data needed for the mobile app (i.e. no OAuth key or bank OID stuff)
     getTransferList: PATH + 'GetTransactionsList',
     GetUserDetails: PATH + 'GetUserDetailsForApp',
-
     Login: PATH + 'LoginRequest',
     LoginWithFacebookGeneric: PATH + 'LoginWithFacebookGeneric',
     LogOutRequest: PATH + 'LogOutRequest',
-
-    // Common methods
     IsDuplicateMember: PATH + 'IsDuplicateMember',
     MemberEmailNotificationSettings: PATH + 'MemberEmailNotificationSettings',
     MemberPrivacySettings: PATH + 'MemberPrivacySettings',
@@ -47,7 +44,7 @@ var URLs = {
     RemindPayment: PATH + 'SendTransactionReminderEmail',
     RequestMoney: PATH + 'RequestMoney',
     RequestMoneyToNonNoochUserUsingSynapse: PATH + 'RequestMoneyToNonNoochUserUsingSynapse',
-    RequestMoneyToNonNoochUserThroughPhoneUsingSynapse: PATH +'RequestMoneyToNonNoochUserThroughPhoneUsingSynapse',
+    RequestMoneyToNonNoochUserThroughPhoneUsingSynapse: PATH + 'RequestMoneyToNonNoochUserThroughPhoneUsingSynapse',
     ResendVerificationLink: PATH + 'ResendVerificationLink',
     ResendVerificationSMS: PATH + 'ResendVerificationSMS',
     ResetPassword: PATH + 'ResetPassword',

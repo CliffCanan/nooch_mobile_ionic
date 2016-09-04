@@ -69,9 +69,9 @@
                 console.log(details);
 
                 $scope.Details = details;
-				
-				if (details.DateOfBirth != null && details.DateOfBirth.length > 0)
-					$scope.DobAsDateObj = new Date(details.DateOfBirth);
+
+                if (details.DateOfBirth != null && details.DateOfBirth.length > 0)
+                    $scope.DobAsDateObj = new Date(details.DateOfBirth);
 
                 $ionicLoading.hide();
             })
@@ -320,7 +320,7 @@
 
         //$ionicLoading.show({
         //    template: 'Saving...'
-		//});
+        //});
 
         profileService.SaveMemberSSN($scope.Details)
             .success(function (details) {
@@ -346,18 +346,18 @@
                 $ionicLoading.hide();
             })
 			.error(function (encError) {
-            	console.log('came in enc error block ' + encError);
-				$ionicLoading.hide();
+			    console.log('came in enc error block ' + encError);
+			    $ionicLoading.hide();
 
-				$ionicContentBanner.show({
-                	text: ['Error: Profile NOT Updated'],
-					autoClose: '5000',
-					type: 'error',
-					transition: 'vertical'
-				});
+			    $ionicContentBanner.show({
+			        text: ['Error: Profile NOT Updated'],
+			        autoClose: '5000',
+			        type: 'error',
+			        transition: 'vertical'
+			    });
 
-				if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-					CommonServices.logOut();
+			    if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+			        CommonServices.logOut();
 			})
         //}
         //else

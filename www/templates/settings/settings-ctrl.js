@@ -68,7 +68,7 @@
 
      $scope.editBankTapped = function () {
          $scope.editBank = true;
-		 //$('#editBnkBtn').addClass('hide');
+         //$('#editBnkBtn').addClass('hide');
      }
 
 
@@ -99,18 +99,18 @@
                                 type: "success",
                                 confirmButtonColor: "#3fabe1",
                                 confirmButtonText: "Ok",
-								html: true
+                                html: true
                             }, function (isConfirm) {
                                 if (isConfirm)
-									$scope.checkBankDetails();
+                                    $scope.checkBankDetails();
                             });
                         }
                         else
                             swal("Error", result, "error");
                     })
 					.error(function (encError) {
-                        CommonServices.logOut();
-                    });
+					    CommonServices.logOut();
+					});
              }
          });
      }

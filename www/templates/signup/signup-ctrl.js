@@ -15,7 +15,7 @@
         },
         FBId: '',
         gotPicUrl: false,
-        isPicChanged:true
+        isPicChanged: true
     };
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -120,7 +120,7 @@
         }
         else
         {
-			console.log("ABOUT TO LEAVE SIGN UP SCRN");
+            console.log("ABOUT TO LEAVE SIGN UP SCRN");
             console.log($rootScope.signUpData);
 
             $state.go('addPicture');
@@ -186,7 +186,7 @@
                 $rootScope.signUpData.Photo = _.get(success, 'picture.data.url');
                 $rootScope.signUpData.FBId = _.get(success, 'id');
 
-                if($rootScope.signUpData.Photo != null)
+                if ($rootScope.signUpData.Photo != null)
                 {
                     $rootScope.signUpData.gotPicUrl = true;
                 }
@@ -197,12 +197,12 @@
                 console.log(error);
             });
 
-           
+
         });
     }
 
-    
-	$scope.getLocation = function () {
+
+    $scope.getLocation = function () {
         $cordovaGeolocation
           .getCurrentPosition()
           .then(function (position) {
@@ -291,12 +291,12 @@
             });
         }
     }
-	
-	$scope.goToLogin = function() {
-		$('#toLoginBtn').addClass('bounceOutRight');
-		
-		$timeout(function () {
-			$state.go('login');
-		}, 450);
-	}
+
+    $scope.goToLogin = function () {
+        $('#toLoginBtn').addClass('bounceOutRight');
+
+        $timeout(function () {
+            $state.go('login');
+        }, 450);
+    }
 })

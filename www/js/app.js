@@ -30,7 +30,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               IsPhoneVerified: false,
 
               AccessToken: '',
-			  ip: '',
+              ip: '',
 
               IsNotificationPermissionGiven: false,// will store here about push notification permission from user
               DeviceId: '',// this would be unique device id,
@@ -79,7 +79,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               storeAppURL: {
                   ios: 'https://itunes.apple.com/us/app/nooch/id917955306?mt=8',
                   android: 'market://details?id=<com.soundcloud.android>',
-                  windows: 'ms-windows-store://pdp/?ProductId=<the apps Store ID>'                 
+                  windows: 'ms-windows-store://pdp/?ProductId=<the apps Store ID>'
               },
               customLocale: {
                   title: "Rate Nooch",

@@ -1,48 +1,48 @@
 ﻿<ion-view view-title="Reset PIN">
     <ion-content scroll="false">
-	
-	    <div id="resetPinScrn" class="row text-center">
-	        <div class="col">
 
-	            <p id="header" class="f-23 f-500 m-10">
-					<span ng-if="enteringPin == null || enteringPin == 'current'">Enter Your <span class='text-primary'>Current</span> PIN</span>
-					<span ng-if="enteringPin == 'new'">Choose A <span class='text-primary'>New</span> PIN</span>
-					<span ng-if="enteringPin == 'confirm'">Confirm Your <span class='text-primary'>New</span> PIN</span>
-				</p>
+        <div id="resetPinScrn" class="row text-center">
+            <div class="col">
 
-	            <p class="instructionTxt text-danger p-l-5 p-r-5"></p>
+                <p id="header" class="f-23 f-500 m-10">
+                    <span ng-if="enteringPin == null || enteringPin == 'current'">Enter Your <span class='text-primary'>Current</span> PIN</span>
+                    <span ng-if="enteringPin == 'new'">Choose A <span class='text-primary'>New</span> PIN</span>
+                    <span ng-if="enteringPin == 'confirm'">Confirm Your <span class='text-primary'>New</span> PIN</span>
+                </p>
 
-	            <div class="row indicatorDotWrap animated">
-	                <div class="col">
-	                    <div></div>
-	                    <div></div>
-	                    <div></div>
-	                    <div></div>
-	                </div>
-	            </div>
+                <p class="instructionTxt text-danger p-l-5 p-r-5"></p>
 
-	            <div class="row numPadWrap animated">
-	                <div class="col">
-	                    <button ng-click="numTapped(1)">1</button>
-	                    <button ng-click="numTapped(4)">4</button>
-	                    <button ng-click="numTapped(7)">7</button>
-	                </div>
-	                <div class="col">
-	                    <button ng-click="numTapped(2)">2</button>
-	                    <button ng-click="numTapped(5)">5</button>
-	                    <button ng-click="numTapped(8)">8</button>
-	                    <button ng-click="numTapped(0)">0</button>
-	                </div>
-	                <div class="col">
-	                    <button ng-click="numTapped(3)">3</button>
-	                    <button ng-click="numTapped(6)">6</button>
-	                    <button ng-click="numTapped(9)">9</button>
-	                    <button ng-click="numTapped(10)">x</button>
-	                </div>
-	            </div>
+                <div class="row indicatorDotWrap animated">
+                    <div class="col">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
 
-	        </div>
-	    </div>
+                <div class="row numPadWrap animated">
+                    <div class="col">
+                        <button ng-click="numTapped(1)">1</button>
+                        <button ng-click="numTapped(4)">4</button>
+                        <button ng-click="numTapped(7)">7</button>
+                    </div>
+                    <div class="col">
+                        <button ng-click="numTapped(2)">2</button>
+                        <button ng-click="numTapped(5)">5</button>
+                        <button ng-click="numTapped(8)">8</button>
+                        <button ng-click="numTapped(0)">0</button>
+                    </div>
+                    <div class="col">
+                        <button ng-click="numTapped(3)">3</button>
+                        <button ng-click="numTapped(6)">6</button>
+                        <button ng-click="numTapped(9)">9</button>
+                        <button ng-click="numTapped(10)">x</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </ion-content>
 </ion-view>

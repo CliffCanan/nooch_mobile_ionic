@@ -21,11 +21,11 @@
         //if ($cordovaNetwork.isOnline()) {
         //$ionicLoading.show({
         //    template: 'Loading ...'
-		//});
+        //});
 
         console.log($scope.SecSettings.RequireImmediately, $scope.SecSettings.ShowInSearch);
-        
-		MemberPrivacy.UpdateSecuritySettings($scope.SecSettings) //.RequirePin, $scope.SecSettings.ShowInSearch
+
+        MemberPrivacy.UpdateSecuritySettings($scope.SecSettings) //.RequirePin, $scope.SecSettings.ShowInSearch
           .success(function (data) {
               $localStorage.GLOBAL_VARIABLES.EnterPinImmediately = $scope.SecSettings.RequireImmediately;
               $scope.Data = data;
@@ -33,11 +33,11 @@
               //$ionicLoading.hide();
           })
 		  .error(function (error) {
-              console.log('MemberPrivacySettings Error: [' + JSON.stringify(error) + ']');
-              //$ionicLoading.hide();
-              if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-				  CommonServices.logOut();
-          });
+		      console.log('MemberPrivacySettings Error: [' + JSON.stringify(error) + ']');
+		      //$ionicLoading.hide();
+		      if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+		          CommonServices.logOut();
+		  });
         //}
         //else
         //    swal("Error", "Internet not connected!", "error");
@@ -50,20 +50,20 @@
         //if ($cordovaNetwork.isOnline()) {
         //$ionicLoading.show({
         //    template: 'Loading ...'
-		//});
+        //});
 
         MemberPrivacy.GetMemberPrivacySettings()
               .success(function (data) {
-				  console.log(data);
+                  console.log(data);
                   $scope.SecSettings = data;
                   //$ionicLoading.hide();
               })
 			  .error(function (error) {
-                  console.log('GetMemberPrivacySettings Error: [' + JSON.stringify(error) + ']');
-                  //$ionicLoading.hide();
-                  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-					  CommonServices.logOut();
-              });
+			      console.log('GetMemberPrivacySettings Error: [' + JSON.stringify(error) + ']');
+			      //$ionicLoading.hide();
+			      if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+			          CommonServices.logOut();
+			  });
         //}
         //else
         //    swal("Error", "Internet not connected!", "error");

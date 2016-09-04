@@ -10,7 +10,7 @@
             if ($rootScope.signUpData == null)
                 $state.go('signup');
         });
-		
+
 
         $scope.choosePhoto = function () {
             $ionicPlatform.ready(function () {
