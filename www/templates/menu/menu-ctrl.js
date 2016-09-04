@@ -26,9 +26,9 @@
         //console.log('GetMemberDetails Fired');
 
         //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading...'
-        });
+        //$ionicLoading.show({
+        //    template: 'Loading...'
+		//});
 
         menuService.GetUserDetails()
            .success(function (res) {
@@ -57,13 +57,15 @@
                $rootScope.memberId = res.memberId;
                $rootScope.isProfileComplete = res.isProfileComplete;
                $rootScope.isBankVerified = res.isBankVerified;
-               $rootScope.IsPhoneVerified = res.IsPhoneVerified;
-               $rootScope.Status = res.Status;
+               $rootScope.IsPhoneVerified = res.isVerifiedPhone;
+               $rootScope.Status = res.status;
+			   $rootScope.isRequiredImmediately = res.isRequiredImmediately;
                $rootScope.hasSynapseUserAccount = res.hasSynapseUserAccount;
                $rootScope.hasSynapseBank = res.hasSynapseBank;
                $rootScope.bankStatus = res.bankStatus;
                $rootScope.synUserPermission = res.synUserPermission;
                $rootScope.synBankAllowed = res.synBankAllowed;
+			   $rootScope.pinEnc = res.pin;
 
                $ionicLoading.hide();
 
@@ -222,28 +224,30 @@
 
 
     $scope.pendingList = function () {
-        historyService.getTransferList().success(function (data) {
-            $scope.Data = data;
+        historyService.getTransferList()
+			.success(function (data) {
+	            $scope.Data = data;
 
-            var hasPendingPayments = false;
+	            var hasPendingPayments = false;
 
-            for (var i = 0; i <= data.length; i++)
-            {
-                if (data[i] != null && data[i].TransactionStatus == 'Pending')
-                {
-                    //console.log(data[i]);
-                    if (!hasPendingPayments)
-                    {
-                        $rootScope.$broadcast('foundPendingReq');
-                        hasPendingPayments = true;
-                    }
-                }
-            }
-        }).error(function (data) {
-            console.log('GetTransferList Error: [' + JSON.stringify(data) + ']');
-            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                CommonServices.logOut();
-        });
+	            for (var i = 0; i <= data.length; i++)
+	            {
+	                if (data[i] != null && data[i].TransactionStatus == 'Pending')
+	                {
+	                    //console.log(data[i]);
+	                    if (!hasPendingPayments)
+	                    {
+	                        $rootScope.$broadcast('foundPendingReq');
+	                        hasPendingPayments = true;
+	                    }
+	                }
+	            }
+	        })
+			.error(function (data) {
+	            console.log('GetTransferList Error: [' + JSON.stringify(data) + ']');
+	            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+	                CommonServices.logOut();
+	        });
     }
 
 

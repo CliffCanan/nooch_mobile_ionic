@@ -4,20 +4,13 @@
 /****************/
 /***   HOME   ***/
 /****************/
-.controller('HomeCtrl', function ($scope, $state, $cordovaGoogleAnalytics, $ionicPlatform, $timeout,
-                                  $ionicLoading, $ionicContentBanner, $rootScope, $localStorage, $cordovaSocialSharing,
-                                  authenticationService, profileService, selectRecipientService, CommonServices, $cordovaContacts) {
+.controller('HomeCtrl', function ($scope, $rootScope, $state, $ionicPlatform, $cordovaGoogleAnalytics, $timeout, $http,
+                                  $ionicLoading, $ionicContentBanner, $localStorage, $cordovaContacts, $cordovaSocialSharing,
+                                  authenticationService, profileService, selectRecipientService, CommonServices, homeServices) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
         console.log('Home Ctrl Loaded');
-
-
-        //$rootScope.UserIp = {
-        //    Ip:null           
-        //};
-        $scope.deviceIp();
-
 
         if ($('#searchMoreFriends').hasClass('flipOutX'))
             $('#searchMoreFriends').removeClass('flipOutX');
@@ -28,29 +21,31 @@
         $timeout(function () {
             //console.log($localStorage.GLOBAL_VARIABLES);
 
-            if ($rootScope.IsPhoneVerified == false)
-            {
-                $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
-                $scope.shouldDisplayErrorBanner = true;
-            }
-            if ($rootScope.isProfileComplete == false ||
-                $rootScope.Status === "Registered")
-            {
-                $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
-                $scope.shouldDisplayErrorBanner = true;
-            }
             if ($rootScope.Status === "Suspended" ||
                 $rootScope.Status === "Temporarily_Blocked")
             {
                 $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
                 $scope.shouldDisplayErrorBanner = true;
             }
-            if ($rootScope.hasSynapseBank == false)
-            {
-                $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
-                $scope.shouldDisplayErrorBanner = true;
-            }
-
+			else
+			{
+				if ($rootScope.IsPhoneVerified == false)
+	            {
+	                $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
+	                $scope.shouldDisplayErrorBanner = true;
+	            }
+	            if ($rootScope.isProfileComplete == false ||
+	                $rootScope.Status == "Registered")
+	            {
+	                $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
+	                $scope.shouldDisplayErrorBanner = true;
+	            }
+	            if ($rootScope.hasSynapseBank == false)
+	            {
+	                $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
+	                $scope.shouldDisplayErrorBanner = true;
+	            }
+			}
             if ($scope.shouldDisplayErrorBanner)
             {
                 $ionicContentBanner.show({
@@ -68,7 +63,10 @@
 
             if ($localStorage.GLOBAL_VARIABLES.MemberId != null &&
                 $localStorage.GLOBAL_VARIABLES.MemberId != '')
-                $scope.FindRecentFriends();
+			{
+				$scope.FindRecentFriends();
+				$scope.deviceIp();
+			}
 
         }, 1000);
 
@@ -100,16 +98,81 @@
     $scope.memberList = [];
     $scope.phoneContacts = [];
 
-    $scope.fetchContacts = function () {
 
+	$scope.FindRecentFriends = function () {
+        //if ($cordovaNetwork.isOnline())
+        //{
         $ionicLoading.show({
             template: 'Loading...'
         });
 
+        selectRecipientService.GetRecentMembers()
+			.success(function (data) {
+				$scope.memberList = data;
+				console.log('GetRecentMembers() -->');
+				console.log(data.length);
+				
+				$ionicLoading.hide();
+				
+				if ((data[0] == null || data.length < 5) && window.cordova)
+				{
+                	console.log('Got Recent Members Empty or less than 5, Loading phone contacts ..');
+
+					cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
+                    	console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
+
+						if (authorized)
+						{
+	                        $scope.fetchContacts();
+	                    }
+						else
+						{
+	                        swal({
+	                            title: "Permissions not Granted!",
+	                            text: "Please click OK to allow Nooch to read Contacts",
+	                            type: "warning",
+	                            showCancelButton: true,
+	                            cancelButtonText: "Cancel",
+	                            confirmButtonColor: "#3fabe1",
+	                            confirmButtonText: "Ok"
+	                        }, function (isConfirm) {
+	                            if (isConfirm)
+	                            {
+	                                cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
+	                                    if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
+	                                    {
+	                                        console.log("Contacts use is authorized");
+	                                        $scope.fetchContacts();
+	                                    }
+	                                    else
+	                                        console.log("Contact permisison is " + status);
+	                                }, function (error) {
+	                                    console.error(error);
+	                                });
+	                            }
+	                        });
+	                    }
+					}, function (error) {
+						console.error("isContactsAuthorized Error: [" + error + "]");
+					});
+				}
+				else
+					$scope.setFavoritesForDisplay();
+			})
+			.error(function (data) {
+				$ionicLoading.hide();
+				console.log(JSON.stringify(data));
+				if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+					CommonServices.logOut();
+			})
+    }
+	
+	
+    $scope.fetchContacts = function () {
+
         var options = {
             multiple: true
         };
-
 
         $scope.readContact = {
             FirstName: '',
@@ -119,8 +182,9 @@
             id: '',
             bit: ''
         };
-        console.log($cordovaContacts);
-        $cordovaContacts.find(options).then(onSuccess, onError);
+		
+		console.log($cordovaContacts);
+		$cordovaContacts.find(options).then(onSuccess, onError);
 
         function onSuccess(contacts) {
             console.log('phone' + contacts);
@@ -149,133 +213,70 @@
                     };
                 }
             }
-
-            $scope.items = [];
-
-            for (var i = 0; i <= 4; i++)
-            {
-                if (i < $scope.memberList.length)
-                {
-                    if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
-                        $scope.memberList[i].Photo = "./img/profile_picture.png";
-
-                    var tmp = [
-                      { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
-                    ];
-
-                    $scope.items = $scope.items.concat(tmp);
-                }
-            };
+			
+			$scope.setFavoritesForDisplay();
 
             // console.log($rootScope.phoneContacts);
             $ionicLoading.hide();
         };
 
-        function onError(contactError) {
-            console.log('errror');
-            console.log(contactError);
+        function onError(error) {
+            console.log('fetchContacts Error: [' + JSON.stringify(error) + ']');
             $ionicLoading.hide();
         };
     }
 
-    $scope.FindRecentFriends = function () {
-        //if ($cordovaNetwork.isOnline())
-        //{
-        $ionicLoading.show({
-            template: 'Loading...'
-        });
+    
+	$scope.setFavoritesForDisplay = function () {
+		console.log('setFavoritesForDisplay Fired');
+		console.log($scope.memberList);
 
-        selectRecipientService.GetRecentMembers().success(function (data) {
+        $scope.FavoritesToDisplay = [];
 
-            $scope.memberList = data;
-            console.log(data.length);
-            if (data[0] == null || data.length < 5)
+        for (var i = 0; i <= 4; i++)
+        {
+            if (i < $scope.memberList.length)
             {
-                console.log('Got Recent Members Empty or less than 5, Loading phone contacts ..');
+                if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
+                    $scope.memberList[i].Photo = "./img/profile_picture.png";
 
+                var tmp = [
+                  { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
+                ];
 
-                cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
-                    console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
-
-                    if (authorized)
-                    {
-                        $scope.fetchContacts();
-                    }
-                    else
-                    {
-                        swal({
-                            title: "Permissions not Granted!",
-                            text: "Please click OK for allowing Nooch to read Contacts",
-                            type: "warning",
-                            showCancelButton: true,
-                            cancelButtonText: "Cancel",
-                            confirmButtonColor: "#3fabe1",
-                            confirmButtonText: "Ok",
-                            customClass: "stackedBtns"
-                        }, function (isConfirm) {
-                            if (isConfirm)
-                            {
-                                cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
-                                    if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
-                                    {
-                                        console.log("Contacts use is authorized");
-                                        $scope.fetchContacts();
-                                    }
-                                    else
-                                    {
-                                        console.log("Contact permisison is " + status);
-                                    }
-                                }, function (error) {
-                                    console.error(error);
-                                });
-                            }
-                        });
-                    }
-                }, function (error) {
-                    console.error("isContactsAuthorized Error: [" + error + "]");
-                });
+                $scope.FavoritesToDisplay = $scope.FavoritesToDisplay.concat(tmp);
             }
-
-            console.log('GetRecentMembers()-->>');
-            console.log($scope.memberList);
-
-            $ionicLoading.hide();
-
-        }).error(function (data) {
-            console.log(data);
-            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                CommonServices.logOut();
-        })
-
-        //.finally(function () {   will be used when ll be dealing with pull to refresh
-        //    // Stop the ion-refresher from spinning
-        //    $scope.$broadcast('scroll.refreshComplete');
-        //});
-        //}
-        //else
-        //    swal("Oops...", "Internet not connected!", "error");
-    }
+        };
+	}
 
 
     $scope.goToSelectRecip = function () {
         if ($rootScope.Status == "Suspended" ||
             $rootScope.Status == "Temporarily_Blocked")
         {
+			var showCancelButton = false;
+			var bodyTxt = "For security your account has been suspended pending a review." +
+						  "<span class='show'>We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.</span>";
+		
+			if (window.cordova)
+			{
+				showCancelButton = true;
+				bodyTxt += "<span class='show'>Please contact us at support@nooch.com if this is a mistake or for more information."
+			}
+        
             swal({
                 title: "Account Suspended",
-                text: "For security your account has been suspended pending a review." +
-					  "<span class='show'>We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.</span>" +
-					  "<span class='show'>Please contact us at support@nooch.com if this is a mistake or for more information.",
+                text:  bodyTxt,
                 type: "error",
                 confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Ok",
+				showCancelButton: showCancelButton,
                 cancelButtonText: "Contact Support",
                 customClass: "smallText",
                 html: true,
             }, function (isConfirm) {
-                if (isConfirm)
+                if (!isConfirm)
                 {
-                    // toArr, ccArr and bccArr must be an array, file can be either null, string or array
                     //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                     $cordovaSocialSharing
                       .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
@@ -298,7 +299,7 @@
                 confirmButtonText: "Ok"
             });
         }
-        else if ($rootScope.IsPhoneVerified)
+        else if ($rootScope.IsPhoneVerified == false)
         {
             swal({
                 title: "Blame The Lawyers",
@@ -367,52 +368,44 @@
         }
     }
 
-    $scope.deviceIp = function () {
-        var json = 'http://ipv4.myexternalip.com/json';
-        $http.get(json).then(function (result) {
-            if ($rootScope.ip == null)
+    
+	$scope.deviceIp = function () {
+        var url = 'http://ipv4.myexternalip.com/json';
+        
+		//console.log("Home Cntrlr -> DeviceIP -> $localStorage.GLOBAL_VARIABLES.ip: [" + $localStorage.GLOBAL_VARIABLES.ip + "]");
+		
+		$http.get(url).then(function (result) {
+            if ($localStorage.GLOBAL_VARIABLES.ip == null || $localStorage.GLOBAL_VARIABLES.ip == '')
             {
-                console.log('User Login/Signup at first time with Ip --' + result.data.ip);
-                $rootScope.ip = result.data.ip;
-                $scope.updateDeviceIp($rootScope.ip);
+                console.log('Local IP was NULL, saving: [' + result.data.ip + ']');
+                $scope.updateDeviceIp(result.data.ip);
             }
-            else if ($rootScope.ip != result.data.ip)
+            else if ($localStorage.GLOBAL_VARIABLES.ip != result.data.ip)
             {
-                console.log('Ip Changed, new Ip is -' + result.data.ip);
-                console.log('old Ip is  -' + $rootScope.ip);
-                $rootScope.ip = result.data.ip;
-                $scope.updateDeviceIp($rootScope.ip);
+                console.log('IP Changed, NEW IP is [' + result.data.ip + ']');
+                console.log('OLD IP was:' + $localStorage.GLOBAL_VARIABLES.ip + ']');
+                $scope.updateDeviceIp(result.data.ip);
             }
-            else
-            {
-                console.log('IP is not changed ' + $rootScope.ip);
-            }
-            console.log(result.data.ip)
-        }, function (err) {
-            console.log("error  " + err);
+            //else
+            //    console.log('IP is not changed: [' + $localStorage.GLOBAL_VARIABLES.ip + ']');
+        }, function (error) {
+            console.log('DeviceIP Error: [' + JSON.stringify(error) + ']');
         });
     }
 
-    $scope.updateDeviceIp = function (ip) {
+    
+	$scope.updateDeviceIp = function (ip) {
         //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Updating IP ...'
-        });
-
-        homeServices.UdateMemberIPAddress(ip)
+        homeServices.SaveIpAddress(ip)
           .success(function (data) {
-              $scope.result = data;
-              console.log($scope.result);
-              $ionicLoading.hide();
-          }).error(function (data) {
-              console.log('eror' + data);
-              $ionicLoading.hide();
-              //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-              { CommonServices.logOut(); }
+              console.log(data);
+			  $localStorage.GLOBAL_VARIABLES.ip = ip;
+          })
+		  .error(function (error) {
+              console.log('UdateMemberIPAddress Error: [' + JSON.stringify(error) + ']');
           });
         //  }
-        //else {
-        //    swal("Oops...", "Internet not connected!", "error");
-        //}        
+        //else
+        //    swal("Error", "Internet not connected!", "error");
     }
 })

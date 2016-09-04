@@ -69,6 +69,10 @@
                 console.log(details);
 
                 $scope.Details = details;
+				
+				if (details.DateOfBirth != null && details.DateOfBirth.length > 0)
+					$scope.DobAsDateObj = new Date(details.DateOfBirth);
+
                 $ionicLoading.hide();
             })
             .error(function (error) {
@@ -261,50 +265,9 @@
             $cordovaDatePicker.show(options).then(function (date) {
                 $scope.Details.DateOfBirth = date;
                 if ($scope.Details.DateOfBirth != null)
-                {
-                    // $scope.saveDob($scope.Details.DateOfBirth);
-                    console.log('from showdate function');
-                    console.log($scope.Details.DateOfBirth);
-                }
+                    console.log('From DatePicker: [' + $scope.Details.DateOfBirth + ']');
             });
         }, false);
-    }
-
-
-    $scope.saveDob = function (DateOfBirth) {
-        console.log('saveDob Function Touched');
-        console.log($scope.Details.DateOfBirth);
-        //if ($cordovaNetwork.isOnline()) {
-
-        $ionicLoading.show({
-            template: 'Loading Profile...'
-        });
-
-        profileService.SaveDOBForMember($scope.Details.DateOfBirth)
-            .success(function (saveDobRes) {
-                console.log(saveDobRes);
-                $ionicLoading.hide();
-
-                $scope.saveDobRes = saveDobRes;
-
-            }).error(function (error) {
-                console.log('SaveDOBForMember Error Block: [' + JSON.stringify(error) + ']');
-                $ionicLoading.hide();
-
-                $ionicContentBanner.show({
-                    text: ['Error: Profile NOT Updated'],
-                    autoClose: '5000',
-                    type: 'error',
-                    transition: 'vertical'
-                });
-
-                if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-            })
-
-        //}
-        //else
-        //    swal("Oops...", "Internet not connected!", "error");
     }
 
 
@@ -355,9 +318,9 @@
         console.log($scope.Details.SSN);
         //if ($cordovaNetwork.isOnline()) {
 
-        $ionicLoading.show({
-            template: 'Saving...'
-        });
+        //$ionicLoading.show({
+        //    template: 'Saving...'
+		//});
 
         profileService.SaveMemberSSN($scope.Details)
             .success(function (details) {
@@ -381,21 +344,21 @@
                 $scope.Details = details;
 
                 $ionicLoading.hide();
-            }
-        ).error(function (encError) {
-            console.log('came in enc error block ' + encError);
-            $ionicLoading.hide();
+            })
+			.error(function (encError) {
+            	console.log('came in enc error block ' + encError);
+				$ionicLoading.hide();
 
-            $ionicContentBanner.show({
-                text: ['Error: Profile NOT Updated'],
-                autoClose: '5000',
-                type: 'error',
-                transition: 'vertical'
-            });
+				$ionicContentBanner.show({
+                	text: ['Error: Profile NOT Updated'],
+					autoClose: '5000',
+					type: 'error',
+					transition: 'vertical'
+				});
 
-            if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                CommonServices.logOut();
-        })
+				if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+					CommonServices.logOut();
+			})
         //}
         //else
         //    swal("Oops...", "Internet not connected!", "error");

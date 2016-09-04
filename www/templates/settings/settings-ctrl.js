@@ -5,8 +5,7 @@
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // On Screen Load
-         $scope.deleteBank = false;
-         $scope.editBank = true;
+         $scope.editBank = false;
          $scope.shouldDisplayErrorBanner = false;
          $scope.errorBannerTextArray = [];
 
@@ -67,22 +66,22 @@
      });
 
 
-     $scope.editBank = function () {
-         $scope.deleteBank = true;
-         $scope.editBank = false;
+     $scope.editBankTapped = function () {
+         $scope.editBank = true;
+		 //$('#editBnkBtn').addClass('hide');
      }
 
 
      $scope.delBank = function () {
          swal({
-             title: "Delete bank!",
-             text: "Are you sure you want to delete this bank",
+             title: "Remove Bank?",
+             text: "Are you sure you want to remove this bank account?<span class='show f-600'>" + $scope.bankData.bankName +
+			 	   "</span><span class='show f-500 m-b-15'>This cannot be undone.</span>",
              type: "warning",
              showCancelButton: true,
-             cancelButtonText: "Cancel",
-             confirmButtonColor: "#3fabe1",
-             confirmButtonText: "Ok",
-             customClass: "stackedBtns"
+             confirmButtonColor: "red",
+             confirmButtonText: "Yes - Delete",
+             html: true
          }, function (isConfirm) {
              if (isConfirm)
              {
@@ -95,15 +94,15 @@
                         {
                             swal({
                                 title: "Bank Deleted",
-                                text: "Attached bank deleted successfully",
+                                text: "The following bank account was successfully removed from your account:" +
+									  "<span class='show m-b-15'>" + $scope.bankData.bankName + "</span>",
                                 type: "success",
                                 confirmButtonColor: "#3fabe1",
-                                confirmButtonText: "Ok"
+                                confirmButtonText: "Ok",
+								html: true
                             }, function (isConfirm) {
                                 if (isConfirm)
-                                {
-                                    location.reload();
-                                }
+									$scope.checkBankDetails();
                             });
                         }
                         else
@@ -112,16 +111,14 @@
 					.error(function (encError) {
                         CommonServices.logOut();
                     });
-
-
              }
          });
      }
 
 
      $scope.openAddBank = function () {
-         if ($localStorage.GLOBAL_VARIABLES.Status == "Suspended" ||
-             $localStorage.GLOBAL_VARIABLES.Status == "Temporarily_Blocked")
+         if ($rootScope.Status == "Suspended" ||
+             $rootScope.Status == "Temporarily_Blocked")
          {
              swal({
                  title: "Account Suspended",
@@ -131,7 +128,7 @@
                  confirmButtonText: "Ok"
              });
          }
-         else if ($localStorage.GLOBAL_VARIABLES.Status == "Registered")
+         else if ($rootScope.Status == "Registered")
          {
              swal({
                  title: "Please Verify Your Email",
@@ -141,7 +138,7 @@
                  confirmButtonText: "Ok"
              });
          }
-         else if ($localStorage.GLOBAL_VARIABLES.IsPhoneVerified == false)
+         else if ($rootScope.IsPhoneVerified == false)
          {
              swal({
                  title: "Blame The Lawyers",

@@ -1,9 +1,7 @@
 ﻿angular.module('noochApp.securitySetting-service', ['noochApp.services'])
   .service('MemberPrivacy', function ($http, $localStorage) {
 
-
-      this.MemberPrivacySettings = function (ChkBox) {
-
+      this.UpdateSecuritySettings = function (ChkBox) {
 
           var reqForMemberSettings = {
               method: 'POST',
@@ -23,9 +21,7 @@
       }
 
 
-
       this.GetMemberPrivacySettings = function () {
           return $http.get(URLs.GetMemberPrivacySettings + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
-
       };
   })

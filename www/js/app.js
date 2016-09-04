@@ -30,6 +30,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               IsPhoneVerified: false,
 
               AccessToken: '',
+			  ip: '',
 
               IsNotificationPermissionGiven: false,// will store here about push notification permission from user
               DeviceId: '',// this would be unique device id,
@@ -72,7 +73,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
           AppRate.preferences = {
               openStoreInApp: true,
-              displayAppName: 'nooch',
+              displayAppName: 'Nooch',
               usesUntilPrompt: 5,
               promptAgainForEachNewVersion: false,
               storeAppURL: {
@@ -81,11 +82,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   windows: 'ms-windows-store://pdp/?ProductId=<the apps Store ID>'                 
               },
               customLocale: {
-                  title: "Rate nooch",
-                  message: "If you enjoy using nooch, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!",
-                  cancelButtonLabel: "No, Thanks",
+                  title: "Rate Nooch",
+                  message: "If you enjoy using Nooch, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!",
+                  cancelButtonLabel: "No Thanks",
                   laterButtonLabel: "Remind Me Later",
-                  rateButtonLabel: "Rate It Now"
+                  rateButtonLabel: "Ok, Sure"
               }
           };
 
@@ -115,7 +116,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               console.log('came in pause state');
           }, false);
 
-          //console.log(window);
+
           if (window.cordova)
           {
               // Get device info... used for handling notifications
@@ -123,10 +124,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               //console.log(device);
 
               $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform == "Android" ? "A" : "I";
-
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
 
-              console.log('device operating system is: [' + device.platform + ']');
+              console.log('Device OS is: [' + device.platform + '], UUID: [' + device.uuid + ']');
 
 
               var notificationOpenedCallback = function (jsonData) {
@@ -186,6 +186,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           if (window.StatusBar)
               StatusBar.styleDefault();
       });
+
   })
 
   .config(function ($stateProvider, $urlRouterProvider, $cordovaFacebookProvider) {

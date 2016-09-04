@@ -1,6 +1,7 @@
 ﻿angular.module('noochApp.SignupCtrl', ['noochApp.services', 'noochApp.signup-service'])
 
-.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, MemberRegistration, $state, CommonServices, $rootScope, $localStorage, authenticationService) {
+.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, $timeout, MemberRegistration,
+									$state, CommonServices, $rootScope, $localStorage, authenticationService) {
 
     $rootScope.signUpData = {
         FirstName: '',
@@ -290,4 +291,12 @@
             });
         }
     }
+	
+	$scope.goToLogin = function() {
+		$('#toLoginBtn').addClass('bounceOutRight');
+		
+		$timeout(function () {
+			$state.go('login');
+		}, 450);
+	}
 })

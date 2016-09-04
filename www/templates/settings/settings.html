@@ -38,10 +38,11 @@
                             <span class="text-danger">{{bankData.bankStatus}}</span>
                         </div>
 
-
                         <div id="editBankWrapper">
-                            <i ng-show="deleteBank" class="pull-right ion-ios-close text-danger" ng-click="delBank()"></i>
-                            <a ng-if="editBank" class="btn btn-link f-15 text-danger" ng-click="editBank()" id="edit-bank">Edit</a>
+                            <div id="editBnkBtn" class="btn btn-link f-15 text-danger">
+								<span ng-show="editBank == false" ng-click="editBankTapped()">Edit</span>
+								<i ng-show="editBank == true" class="pull-right ion-ios-trash text-danger animated bounceIn" ng-click="delBank()"></i>
+							</div>
                         </div>
 
                     </div>
@@ -71,7 +72,6 @@
                     <i class="icon ion-person"></i>My Profile
                     <!-- IF USER'S PROFILE IS NOT VERIFIED-->
                     <div class="animated bounceIn" style="display:inline-block" ng-if="isProfileComplete === false">
-                        <!--<i class="ion-android-alert text-danger m-l-10 f-21"></i>-->
                         <span class="alertIcon">!</span>
                     </div>
                     <i class="icon ion-chevron-right"></i>

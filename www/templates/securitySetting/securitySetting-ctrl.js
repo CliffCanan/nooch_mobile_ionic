@@ -10,42 +10,37 @@
         $scope.GetMemberPrivacyFn();
     });
 
-    $scope.ChkBox = {
+    $scope.SecSettings = {
         RequireImmediately: true,
         ShowInSearch: true
     };
 
 
-    //$scope.ShowInSearch.isCheck = false;
     $scope.MemberPrivacyFn = function () {
 
         //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading ...'
-        });
+        //$ionicLoading.show({
+        //    template: 'Loading ...'
+		//});
 
-        //console.log($scope.ShowInSearch.isCheck);
-        //console.log($scope.ShowInSearch.isCheck = ($scope.ShowInSearch.isCheck == false ? true : false)); //to check toggel Button Values 
-        //console.log($scope.ShowInSearch.isCheck);
-
-        console.log($scope.ChkBox.RequireImmediately, $scope.ChkBox.ShowInSearch);
-        MemberPrivacy.MemberPrivacySettings($scope.ChkBox) //.RequirePin, $scope.ChkBox.ShowInSearch
+        console.log($scope.SecSettings.RequireImmediately, $scope.SecSettings.ShowInSearch);
+        
+		MemberPrivacy.UpdateSecuritySettings($scope.SecSettings) //.RequirePin, $scope.SecSettings.ShowInSearch
           .success(function (data) {
-              $localStorage.GLOBAL_VARIABLES.EnterPinImmediately = $scope.ChkBox.RequireImmediately;
-              console.log($localStorage.GLOBAL_VARIABLES.EnterPinImmediately);
+              $localStorage.GLOBAL_VARIABLES.EnterPinImmediately = $scope.SecSettings.RequireImmediately;
               $scope.Data = data;
               console.log($scope.Data);
-              $ionicLoading.hide();
-          }).error(function (data) {
-              console.log('eror' + data);
-              $ionicLoading.hide();
-              // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-              { CommonServices.logOut(); }
+              //$ionicLoading.hide();
+          })
+		  .error(function (error) {
+              console.log('MemberPrivacySettings Error: [' + JSON.stringify(error) + ']');
+              //$ionicLoading.hide();
+              if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+				  CommonServices.logOut();
           });
         //}
-        //else {
-        //    swal("Oops...", "Internet not connected!", "error");
-        //}
+        //else
+        //    swal("Error", "Internet not connected!", "error");
     }
 
 
@@ -53,25 +48,25 @@
     $scope.GetMemberPrivacyFn = function () {      //For getting Privacy status of user
         console.log("from GetMemberPrivacyFn");
         //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading ...'
-        });
+        //$ionicLoading.show({
+        //    template: 'Loading ...'
+		//});
 
         MemberPrivacy.GetMemberPrivacySettings()
               .success(function (data) {
-                  $scope.ChkBox = data;
-                  console.log($scope.ChkBox);
-                  $ionicLoading.hide();
-              }).error(function (data) {
-                  console.log('eror' + data);
-                  $ionicLoading.hide();
-                  //   if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                  { CommonServices.logOut(); }
+				  console.log(data);
+                  $scope.SecSettings = data;
+                  //$ionicLoading.hide();
+              })
+			  .error(function (error) {
+                  console.log('GetMemberPrivacySettings Error: [' + JSON.stringify(error) + ']');
+                  //$ionicLoading.hide();
+                  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+					  CommonServices.logOut();
               });
         //}
-        //else {
-        //    swal("Oops...", "Internet not connected!", "error");
-        //}
+        //else
+        //    swal("Error", "Internet not connected!", "error");
 
     }
 })

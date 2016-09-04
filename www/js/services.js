@@ -8,7 +8,9 @@ angular.module('noochApp.services', ['ngStorage'])
       }
 
       this.GetDecryptedData = function (dataToDecrypt) {
-          return $http.get(URLs.GetDecryptedData + '?sourceData=' + dataToDecrypt);
+		  var url = URLs.GetDecryptedData + '?sourceData=' + dataToDecrypt;
+		  console.log(url);
+          return $http.get(url);
       }
 
       this.GetMemberIdByUsername = function (userName) {

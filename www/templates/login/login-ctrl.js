@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.LoginCtrl', ['noochApp.login-service', 'noochApp.services', 'ngStorage'])
 
-  .controller('LoginCtrl', function ($scope, authenticationService, $state, $ionicLoading, $localStorage, CommonHelper,
-                                     $cordovaGeolocation, $cordovaDevice, CommonServices, $cordovaNetwork, $ionicPlatform, $cordovaSocialSharing, $timeout) {
+  .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicPlatform, $ionicLoading, $localStorage, $cordovaGeolocation, $cordovaDevice,
+	  								 $cordovaNetwork, $cordovaSocialSharing, $timeout, CommonHelper, authenticationService, CommonServices) {
 
       $scope.$on("$ionicView.enter", function (event, data) {
           console.log('Login Controller Loaded');
@@ -39,7 +39,7 @@
           Photo: '',
           Pin: '',
           rmmbrMe: {
-              chk: true
+              chk: $rootScope.isRequiredImmediately == false ? false : true
           },
           FBId: '',
           fbStatus: ''
@@ -98,6 +98,7 @@
                 .success(function (response) {
 
                     $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
+					$rootScope.isRequiredImmediately = $scope.loginData.rmmbrMe.chk;
 
                     console.log(response);
 
@@ -113,19 +114,20 @@
                         $ionicLoading.hide();
                         swal("This is Awkward", "That doesn't appear to be the correct password. Please try again or contact us for further help.");
                     }
-                    else if (response.Result.indexOf('Temporarily_Blocked') > -1)
+                    else if (response.Result.indexOf('Temporarily_Blocked') > -1 || response.Result.indexOf('Suspended') > -1)
                     {
                         $ionicLoading.hide();
                         swal({
-                            title: "Account Temporarily Suspended",
-                            text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
+                            title: "Account Suspended",
+                            text: "Your account has been temporarily suspended because you entered an incorrect passwod too many times." +
+								  "<span class='show'>In most cases your account will be automatically un-suspended in 24 hours.</span>" +
+								  "<span class='show'>We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.</span>",
                             type: "error",
                             showCancelButton: true,
                             cancelButtonText: "Ok",
                             confirmButtonColor: "#3fabe1",
                             confirmButtonText: "Contact Support",
-                            customClass: "stackedBtns",
-                            html: true,
+                            html: true
                         }, function (isConfirm) {
                             if (isConfirm)
                             {
@@ -152,7 +154,8 @@
                         //if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
                         //$state.go('app.home');
                     }
-                }).error(function (res) {
+                })
+				.error(function (res) {
                     $ionicLoading.hide();
                     console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
 
@@ -175,13 +178,13 @@
                               .then(function (result) {
                                   swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
                               }, function (err) {
-                                  // An error occurred. Show a message to the user
                                   console.log('Error attempting to send email from social sharing: [' + err + ']');
                               });
                         }
                     });
                 });
-          }).error(function (encError) {
+          })
+		  .error(function (encError) {
               $ionicLoading.hide();
               console.log('GetEncryptedData Error: [' + encError + ']');
           });

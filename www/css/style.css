@@ -51,7 +51,7 @@ ion-header-bar, .navheader {
 .red-text,
 .negative-amount,
 .text-danger, .text-danger:before {
-    color: rgb(169, 68, 66) !important;
+    color: rgb(200, 68, 66) !important;
 }
 
 .orange-text {
@@ -703,7 +703,6 @@ a {
     padding: 9px 8px !important;
 }
 
-
 .table-style-2 .input-label {
     color: #3fabe1;
     text-align: right;
@@ -715,7 +714,7 @@ a {
     }
 
     .table-style-2 .input-label i.text-danger::before {
-        color: rgb(169, 68, 66) !important;
+        color: rgb(200, 68, 66) !important;
     }
 
 /*** SCREEN HEADER ***/
@@ -943,7 +942,7 @@ iframe {
 
     .signupFlow .list {
         border-radius: 6px;
-        margin: 10px 0;
+        margin: 0 0 10px;
     }
 
     .signupFlow .toggle {
@@ -966,6 +965,7 @@ iframe {
 
 .slogan {
 	font-size: 14px;
+	margin-bottom: 0;
 }
 
 .instructionText {
@@ -1017,10 +1017,11 @@ iframe {
 #loginScrn .btn-link {
     color: #313233;
     font-size: 14px;
-    line-height: 1;
     padding: 0;
     min-height: 10px;
     text-decoration: none;
+	position: relative;
+	top: -4px;
 }
 
 #loginScrn .toggle {
@@ -1314,14 +1315,12 @@ div.hscroller-card {
 
 #editBankWrapper {
     position: absolute;
-    top: 16px;
-    right: 6px;
+    top: 17px;
+    right: 5px;
 }
 
     #editBankWrapper i {
-        position: absolute;
-        top: 19px;
-        right: 8px;
+		font-size: 28px;
     }
 
 #sign-out-container {
@@ -1420,6 +1419,25 @@ div.hscroller-card {
     margin-right: 8px;
 }
 
+
+/********************/
+/***  CHANGE PIN  ***/
+/********************/
+#resetPinScrn .instructionTxt {
+	height: 5px;
+	font-weight: 500;
+	margin-top: -8px;
+	opacity: 0;
+	transition: opacity .2s ease,
+				margin .35s ease,
+				height .4s ease;
+}
+
+#resetPinScrn .instructionTxt.expanded {
+	height: 20px;
+	margin-top: 0;
+	opacity: 1;
+}
 
 /*****************/
 /***  HISTORY  ***/
@@ -2141,9 +2159,9 @@ div.hscroller-card {
     top: 27px;
 }
 
-/*************************/
-/*** Enter PIN ***********/
-/*************************/
+/*******************/
+/***  Enter PIN  ***/
+/*******************/
 
 .header-item-green {
     background-color: #72BF44;

@@ -1,6 +1,6 @@
 ﻿
 <ion-view view-title="Security Settings">
-    <ion-content class="b-gray">
+    <ion-content class="b-gray" scroll="false">
 
         <div class="section-header m-t-20">PIN</div>
 
@@ -14,7 +14,7 @@
             <div class="item item-toggle">
                 Require PIN Immediately
                 <label class="toggle toggle-calm">
-                    <input type="checkbox" ng-model="ChkBox.RequireImmediately" ng-click="MemberPrivacyFn()" ng-checked="ChkBox.RequireImmediately" />
+                    <input type="checkbox" ng-model="isRequiredImmediately" ng-click="MemberPrivacyFn()" ng-checked="isRequiredImmediately" />
                     <div class="track">
                         <div class="handle"></div>
                     </div>
@@ -26,7 +26,7 @@
         <div class="section-note">Require your PIN to enter the app.</div>
 
 
-        <div class="section-header m-t-30">Password</div>
+        <div class="section-header m-t-25">Password</div>
 
         <div class="list" ng-click="goo()">
             <a href="#/app/settings/securitySetting/ResetPwd" class="item item-icon-right">
@@ -42,7 +42,7 @@
             <div class="item item-toggle">
                 Show In Search
                 <label class="toggle toggle-calm">
-                    <input type="checkbox" ng-model="ChkBox.ShowInSearch" ng-click="MemberPrivacyFn()" ng-checked="ChkBox.ShowInSearch">
+                    <input type="checkbox" ng-model="SecSettings.ShowInSearch" ng-click="MemberPrivacyFn()" ng-checked="SecSettings.ShowInSearch">
                     <div class="track">
                         <div class="handle"></div>
                     </div>

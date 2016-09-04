@@ -256,9 +256,7 @@
                             }, 1500);
                         }
                         else
-                        {
-                            //$scope.signUpFn();
-                        }
+                            $scope.signUpFn();
                     }
                 }
             }
