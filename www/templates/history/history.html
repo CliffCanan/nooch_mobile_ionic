@@ -26,12 +26,12 @@
 
         <ion-scroll direction="y" class="history-list" ng-style="historyListHeight">
 
-            <div class="firstTimeWrap animated fadeIn" ng-if="isFinishedLoading && transactionList.length == 0" ng-style="firstTimeDivHeight">
+            <div class="firstTimeWrap" ng-if="isFinishedLoading && transactionList.length == 0" ng-style="firstTimeDivHeight">
                 <div class="animated slideInDown">
                     <h2>No Payments Yet...</h2>
                     <p>Once you make or receive a payment it will appear here.</p>
                 </div>
-                <img class="animated slideInUp" src="././img/HistoryPending.png" />
+                <img class="animated bounceInUp" src="././img/HistoryPending.png" />
             </div>
 
             <ion-list ng-show="transactionList.length > 0 && completed" id="completedView">
