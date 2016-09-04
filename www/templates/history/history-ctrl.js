@@ -5,6 +5,7 @@
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('History Page Loaded');
+			$scope.isFinishedLoading = false;
 
             $ionicLoading.show({
                 template: 'Loading Payment History...'
@@ -28,26 +29,29 @@
             $('#btnPending').removeClass('active');
 
 
-            historyService.getTransferList().success(function (data) {
+            historyService.getTransferList()
+				.success(function (data) {
+					$scope.isFinishedLoading = true;
 
-                $scope.transactionList = data;
-                console.log('GetTransferList Result Data >>>>>');
-                console.log($scope.transactionList);
+	                $scope.transactionList = data;
+	                console.log('GetTransferList Result Data >>>>>');
+	                console.log($scope.transactionList);
 
-                for (var i = 0; i < $scope.transactionList.length; i++)
-                {
-                    $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
-                }
-                $scope.transList = $scope.transactionList;
-                $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+	                for (var i = 0; i < $scope.transactionList.length; i++)
+	                {
+	                    $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
+	                }
+	                $scope.transList = $scope.transactionList;
+	                $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
 
-                $ionicLoading.hide();
-            }).error(function (error) {
-                console.log('History Cntrl -> GetTransferList Error: [' + JSON.stringify(error) + ']');
-                $ionicLoading.hide();
-                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-            });
+	                $ionicLoading.hide();
+	            }).error(function (error) {
+					$scope.isFinishedLoading = true;
+	                console.log('History Cntrl -> GetTransferList Error: [' + JSON.stringify(error) + ']');
+	                $ionicLoading.hide();
+	                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+	                    CommonServices.logOut();
+	            });
             //}
             //else
             //  swal("Oops...", "Internet not connected!", "error");
