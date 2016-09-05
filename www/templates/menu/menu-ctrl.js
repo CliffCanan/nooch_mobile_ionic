@@ -118,9 +118,9 @@
                         $cordovaSocialSharing
                           .shareViaEmail('Hi Nooch, I found a bug and wanted to tell you!', 'Found a Nooch Bug!', 'bugs@nooch.com', null, null, null)
                           .then(function (result) {
-                              // Success!                              
+                              // Success!
                           }, function (err) {
-                              // An error occurred. Show a message to the user                            
+                              // An error occurred. Show a message to the user
                               console.log('from social sharing fail');
                           });
                     }
@@ -131,9 +131,9 @@
                         $cordovaSocialSharing
                           .shareViaEmail('Hi Nooch - Please help me!', 'Nooch Support Request', 'support@nooch.com', null, null, null)
                           .then(function (result) {
-                              // Success!                              
+                              // Success!
                           }, function (err) {
-                              // An error occurred. Show a message to the user                            
+                              // An error occurred. Show a message to the user
                               console.log('from social sharing fail');
                           });
                     }
@@ -259,9 +259,33 @@
 
     $scope.rateNooch = function () {
         document.addEventListener("deviceready", function () {
+
+
+          AppRate.preferences = {
+            openStoreInApp: true,
+            displayAppName: 'Nooch',
+            usesUntilPrompt: 5,
+            promptAgainForEachNewVersion: false,
+            storeAppURL: {
+              ios: '917955306',
+              android: 'market://details?id=com.soundcloud.android'
+
+            },
+            customLocale: {
+              title: "Rate Nooch",
+              message: "If you enjoy using Nooch, would you mind taking a moment to rate it? It won’t take more than a minute. Thanks for your support!",
+              cancelButtonLabel: "No, Thanks",
+              laterButtonLabel: "Remind Me Later",
+              rateButtonLabel: "Rate It Now"
+            }
+          };
+
+
+          AppRate.promptForRating(false);
+
             $cordovaAppRate.promptForRating(true).then(function (result) {
                 // success
-                console.log(result);
+                console.log('came in rate nooch ok');
             });
         }, false);
 
@@ -269,7 +293,7 @@
 
             $cordovaAppRate.navigateToAppStore().then(function (result) {
                 // success
-                console.log(result);
+              console.log('navigated to nooch store');
             });
         }, false);
     }
