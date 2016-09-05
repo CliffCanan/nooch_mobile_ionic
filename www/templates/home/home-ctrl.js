@@ -188,9 +188,12 @@
 
         function onSuccess(contacts) {
             console.log('phone' + contacts);
+            
             for (var i = 0; i < contacts.length; i++)
             {
-                var contact = contacts[i];
+                var randomNumber = Math.floor(Math.random() * contacts.length) + 1;
+                
+                var contact = contacts[randomNumber];
                 if (contact.name.formatted != null && contact.emails != null)
                 {
                     $scope.readContact.FirstName = contact.name.formatted;
