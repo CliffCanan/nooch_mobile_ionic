@@ -1407,12 +1407,12 @@ div.hscroller-card {
         margin: 0;
     }
 
-        #profileTable .btn i::before {
-            color: #6b46e5;
-            font-size: 24px;
-            line-height: .8;
-            margin: 0;
-        }
+#profileTable .btn i::before {
+    color: #6b46e5;
+    font-size: 24px;
+    line-height: .8;
+    margin: 0;
+}
 
 #profileTable i::before {
     font-size: 20px;

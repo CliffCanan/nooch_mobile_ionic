@@ -92,14 +92,14 @@
           CommonServices.GetEncryptedData($scope.loginData.pwd).success(function (data) {
 
               console.log($localStorage.GLOBAL_VARIABLES);
-			  $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = $scope.loginData.rmmbrMe.chk;
+              $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = $scope.loginData.rmmbrMe.chk;
 
               authenticationService.Login($scope.loginData.email, data.Status, $scope.loginData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
                 $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken, $localStorage.GLOBAL_VARIABLES.DeviceOS)
                 .success(function (response) {
 
                     $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
-					$rootScope.isRequiredImmediately = $scope.loginData.rmmbrMe.chk;
+                    $rootScope.isRequiredImmediately = $scope.loginData.rmmbrMe.chk;
 
                     console.log(response);
 
@@ -137,7 +137,8 @@
                                 $cordovaSocialSharing
                                   .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
                                   .then(function (result) {
-                                      swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                                      if (result.Completed)
+                                          swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
                                   }, function (err) {
                                       // An error occurred. Show a message to the user
                                       console.log('Error attempting to send email from social sharing: [' + err + ']');
@@ -152,43 +153,42 @@
                         $localStorage.GLOBAL_VARIABLES.Pwd = data.Status;
 
                         $scope.fetchAfterLoginDetails();
-                        //if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
-                        //$state.go('app.home');
                     }
                 })
 				.error(function (res) {
-                    $ionicLoading.hide();
-                    console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
+				    $ionicLoading.hide();
+				    console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
 
-                    swal({
-                        title: "Oh no",
-                        text: "Terribly sorry, but we're having trouble logging you in! Please try again or contact us for futher help.",
-                        type: "error",
-                        showCancelButton: true,
-                        cancelButtonText: "Ok",
-                        confirmButtonColor: "#3fabe1",
-                        confirmButtonText: "Contact Support",
-                        customClass: "stackedBtns"
-                    }, function (isConfirm) {
-                        if (isConfirm)
-                        {
-                            // toArr, ccArr and bccArr must be an array, file can be either null, string or array
-                            //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
-                            $cordovaSocialSharing
+				    swal({
+				        title: "Oh no",
+				        text: "Terribly sorry, but we're having trouble logging you in! Please try again or contact us for futher help.",
+				        type: "error",
+				        showCancelButton: true,
+				        cancelButtonText: "Ok",
+				        confirmButtonColor: "#3fabe1",
+				        confirmButtonText: "Contact Support",
+				        customClass: "stackedBtns"
+				    }, function (isConfirm) {
+				        if (isConfirm)
+				        {
+				            // toArr, ccArr and bccArr must be an array, file can be either null, string or array
+				            //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
+				            $cordovaSocialSharing
                               .shareViaEmail('', 'Nooch Support Request - Login Trouble', 'support@nooch.com', null, null, null)
                               .then(function (result) {
-                                  swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                                  if (result.Completed)
+                                      swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
                               }, function (err) {
                                   console.log('Error attempting to send email from social sharing: [' + err + ']');
                               });
-                        }
-                    });
-                });
+				        }
+				    });
+				});
           })
 		  .error(function (encError) {
-              $ionicLoading.hide();
-              console.log('GetEncryptedData Error: [' + encError + ']');
-          });
+		      $ionicLoading.hide();
+		      console.log('GetEncryptedData Error: [' + encError + ']');
+		  });
       }
 
 
@@ -377,16 +377,16 @@
 
           CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName)
 			  .success(function (data) {
-	              $ionicLoading.hide();
+			      $ionicLoading.hide();
 
-	              if (data.Result != null)
-	              {
-	                  $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-	                  $state.go('app.home');
-	              }
-	          }).error(function (err) {
-	              $ionicLoading.hide();
-	          });
+			      if (data.Result != null)
+			      {
+			          $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+			          $state.go('app.home');
+			      }
+			  }).error(function (err) {
+			      $ionicLoading.hide();
+			  });
       }
 
 
@@ -396,8 +396,8 @@
           var pw = $scope.loginData.pwd;
 
           if (em.length > 4 && em.indexOf('@') > 0 && em.indexOf('.') && pw.length > 3)
-			  $('#loginBtn').attr('disabled', false);
+              $('#loginBtn').attr('disabled', false);
           else
-			  $('#loginBtn').attr('disabled', true);
+              $('#loginBtn').attr('disabled', true);
       }
   })

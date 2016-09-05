@@ -49,7 +49,6 @@ var URLs = {
     ResendVerificationSMS: PATH + 'ResendVerificationSMS',
     ResetPassword: PATH + 'ResetPassword',
     ResetPin: PATH + 'ResetPin',
-    SaveDOBForMember: PATH + 'SaveDOBForMember',
     SaveMembersFBId: PATH + 'SaveMembersFBId',
     SaveMemberSSN: PATH + 'SaveMemberSSN',
     sendTransactionInCSV: PATH + 'sendTransactionInCSV',

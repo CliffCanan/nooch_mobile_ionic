@@ -67,12 +67,12 @@
 
          if (type == "sms")
          {
-             var msg = "Hey! You should check out Nooch, a great new free app for paying me back. Use my invite code: \"" + $scope.inviteCode + "\" - download here: http://bit.ly/1xdG2le";
+             var msg = "Hey! You should check out Nooch, a great free app for paying me back. Use my invite code: \"" + $scope.inviteCode + "\" - download here: http://bit.ly/1xdG2le";
 
              $ionicPlatform.ready(function () {
                  // access multiple numbers in a string like: '0612345678,0687654321'
                  $cordovaSocialSharing
-                   .shareViaSMS(msg, "6108041572") // Cliff's # JUST FOR TESTING
+                   .shareViaSMS(msg, "")
                    .then(function (result) {
                        // Success!
                    }, function (err) {

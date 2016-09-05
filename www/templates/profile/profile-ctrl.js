@@ -180,21 +180,21 @@
                            });
                    })
 				   .error(function (error) {
-                       console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
+				       console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
 
-                       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                           CommonServices.logOut();
-                       else
-                           $ionicContentBanner.show({
-                               text: ['Error: Email Confirmation Link Not Sent :-('],
-                               autoClose: '5000',
-                               type: 'error',
-                               transition: 'vertical'
-                           });
-                   });
-			   }
-		   });
-	   }
+				       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+				           CommonServices.logOut();
+				       else
+				           $ionicContentBanner.show({
+				               text: ['Error: Email Confirmation Link Not Sent :-('],
+				               autoClose: '5000',
+				               type: 'error',
+				               transition: 'vertical'
+				           });
+				   });
+            }
+        });
+    }
 
 
     $scope.ResendVerificationSMS = function () {
@@ -230,19 +230,19 @@
                            });
                    })
 				   .error(function (error) {
-                       $ionicLoading.hide();
-                       console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
+				       $ionicLoading.hide();
+				       console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
 
-                       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                           CommonServices.logOut();
-                       else
-                           $ionicContentBanner.show({
-                               text: ['Error: Verification SMS Not Sent :-('],
-                               autoClose: '5000',
-                               type: 'error',
-                               transition: 'vertical'
-                           });
-                   })
+				       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+				           CommonServices.logOut();
+				       else
+				           $ionicContentBanner.show({
+				               text: ['Error: Verification SMS Not Sent :-('],
+				               autoClose: '5000',
+				               type: 'error',
+				               transition: 'vertical'
+				           });
+				   })
             }
         });
     }

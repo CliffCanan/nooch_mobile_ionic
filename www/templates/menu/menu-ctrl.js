@@ -55,7 +55,7 @@
 
                // CC (9/1/16): SETTING $rootScope values so we can access directly in HTML pages w/o setting in each scope
                $rootScope.memberId = res.memberId;
-			   $rootScope.emailAddress = res.email;
+               $rootScope.emailAddress = res.email;
                $rootScope.isProfileComplete = res.isProfileComplete;
                $rootScope.isBankVerified = res.isBankVerified;
                $rootScope.IsPhoneVerified = res.isVerifiedPhone;
@@ -73,7 +73,7 @@
                // Now check if the user has any pending transactions
                $timeout($scope.pendingList, 2000);
 
-               //console.log("--  menu-ctrl -> ABOUT TO PRINT '$localStorage'  --")
+               //console.log("Menu-ctrl -> $localStorage...")
                //console.log($localStorage);
 
                //if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
@@ -84,8 +84,8 @@
 
                //if ($scope.Res.status === "Registered" || $scope.Res.isProfileComplete === false)
                //    $rootScope.$broadcast('IsValidProfileFalse');
-
-           }).error(function (encError) {
+           })
+            .error(function (encError) {
                console.log('GetMemberDetails Error Block: [' + JSON.stringify(encError) + ']');
                $ionicLoading.hide();
 

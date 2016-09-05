@@ -22,7 +22,7 @@
         };
 
         $scope.enteringPin = 'current';
-		$scope.currentPinEncr = '';
+        $scope.currentPinEncr = '';
 
         if ($('.instructionTxt').hasClass('expanded'))
             $('.instructionTxt').removeClass('expanded');
@@ -126,46 +126,46 @@
 
         CommonServices.GetEncryptedData($scope.ResetPinData.newPin)
 			.success(function (data) {
-				var encryptedNewPin = data.Status;
+			    var encryptedNewPin = data.Status;
 
-	            resetPasswordService.ResetPin(encryptedNewPin, $scope.currentPinEncr)
+			    resetPasswordService.ResetPin(encryptedNewPin, $scope.currentPinEncr)
 					.success(function (data) {
-	                    //console.log(data);
+					    //console.log(data);
 
-	                    $ionicLoading.hide();
+					    $ionicLoading.hide();
 
-	                    if (data.Result == 'Pin changed successfully.')
-	                    {
-	                        swal({
-	                            title: "PIN Updated",
-	                            text: "Your PIN has been changed successfully.",
-	                            type: "success",
-	                            confirmButtonColor: "#3fabe1",
-	                        });
+					    if (data.Result == 'Pin changed successfully.')
+					    {
+					        swal({
+					            title: "PIN Updated",
+					            text: "Your PIN has been changed successfully.",
+					            type: "success",
+					            confirmButtonColor: "#3fabe1",
+					        });
 
-							$state.go('app.settings');
-	                    }
-	                    else if (data.Result.indexOf('Incorrect') > -1)
-	                    {
-							$scope.applyError('current');
-	                        swal({
-	                            title: "Incorrect PIN",
-	                            text: "Please try again!",
-	                            type: "error",
-	                            confirmButtonColor: "#3fabe1",
-	                            confirmButtonText: "Ok"
-	                        });
-	                    }
-						else if (data.Result.indexOf('oAuth') > -1)
-	                        CommonServices.logOut();
-	                })
+					        $state.go('app.settings');
+					    }
+					    else if (data.Result.indexOf('Incorrect') > -1)
+					    {
+					        $scope.applyError('current');
+					        swal({
+					            title: "Incorrect PIN",
+					            text: "Please try again!",
+					            type: "error",
+					            confirmButtonColor: "#3fabe1",
+					            confirmButtonText: "Ok"
+					        });
+					    }
+					    else if (data.Result.indexOf('oAuth') > -1)
+					        CommonServices.logOut();
+					})
 					.error(function (error) {
 					    console.log('ResetPin Error: [' + JSON.stringify(error) + ']');
 					    $ionicLoading.hide();
 					    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 					        CommonServices.logOut();
 					});
-	        })
+			})
 			.error(function (error) {
 			    console.log('Reset PIN -> GetEncryptedData Error: [' + JSON.stringify(error) + ']');
 			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
@@ -195,20 +195,20 @@
 
         if (num < 10)
         {
-			pin += num;
+            pin += num;
 
-	        switch ($scope.enteringPin)
-	        {
-	            case 'current':
-	                $scope.ResetPinData.currentPin = pin;
-	                break;
-	            case 'new':
-	                $scope.ResetPinData.newPin = pin;
-	                break;
-	            case 'confirm':
-	                $scope.ResetPinData.confirmPin = pin;
-	                break;
-	        }
+            switch ($scope.enteringPin)
+            {
+                case 'current':
+                    $scope.ResetPinData.currentPin = pin;
+                    break;
+                case 'new':
+                    $scope.ResetPinData.newPin = pin;
+                    break;
+                case 'confirm':
+                    $scope.ResetPinData.confirmPin = pin;
+                    break;
+            }
 
 
             if (pin.length < 4)
@@ -227,12 +227,12 @@
                 // Check if Current PIN was correct
                 if ($scope.enteringPin == 'current')
                 {
-		            CommonServices.GetEncryptedData(pin)
+                    CommonServices.GetEncryptedData(pin)
 						.success(function (data) {
 
-			                $scope.currentPinEncr = data.Status;
+						    $scope.currentPinEncr = data.Status;
 
-		                    resetPasswordService.validateCurrentPin($scope.currentPinEncr)
+						    resetPasswordService.validateCurrentPin($scope.currentPinEncr)
 					            .success(function (response) {
 					                console.log(response);
 
@@ -240,8 +240,8 @@
 					                {
 					                    $scope.enteringPin = 'new';
 
-								        if ($('.instructionTxt').hasClass('expanded'))
-								            $('.instructionTxt').removeClass('expanded');
+					                    if ($('.instructionTxt').hasClass('expanded'))
+					                        $('.instructionTxt').removeClass('expanded');
 
 					                    $('.numPadWrap').addClass('bounceOutLeft');
 					                    $timeout(function () {
@@ -249,19 +249,19 @@
 					                        $('.indicatorDotWrap .col div').removeClass('filled');
 					                    }, 600);
 					                }
-									else if (response.Result != null && response.Result.indexOf('will be suspended') > -1)
-									{
-										$scope.applyError('current');
+					                else if (response.Result != null && response.Result.indexOf('will be suspended') > -1)
+					                {
+					                    $scope.applyError('current');
 					                    swal({
 					                        title: "Careful...",
 					                        text: "To keep Nooch safe your account will be suspended if you enter another incorrect PIN.",
 					                        type: "warning",
 					                        confirmButtonColor: "#3fabe1"
 					                    });
-									}
+					                }
 					                else if (response.Result != null && response.Result.indexOf('suspended') > -1)
 					                {
-										$scope.applyError('current');
+					                    $scope.applyError('current');
 					                    swal({
 					                        title: "Account Suspended",
 					                        text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect PIN too many times." +
@@ -277,11 +277,11 @@
 					                        {
 					                            $cordovaSocialSharing.shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
 													.then(function (result) {
-														if (result.completed)
-														{
-														    swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
-														    $state.go('app.home');
-														}
+													    if (result.completed)
+													    {
+													        swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+													        $state.go('app.home');
+													    }
 													}, function (err) {
 													    swal("Message Not Sent", "Your email was not sent - please try again!", "error");
 													    console.log('Error attempting to send email from social sharing: [' + err + ']');
@@ -302,18 +302,18 @@
 								    else
 								        $scope.applyError('current');
 								});
-			            })
+						})
 						.error(function (error) {
-			                console.log('NumTapped -> GetEncryptedData Error: [' + error + ']');
-			            });
-				}
+						    console.log('NumTapped -> GetEncryptedData Error: [' + error + ']');
+						});
+                }
                 else if ($scope.enteringPin == 'new')
                 {
                     $scope.ResetPinData.newPin = pin;
                     $scope.enteringPin = 'confirm';
 
-			        if ($('.instructionTxt').hasClass('expanded'))
-			            $('.instructionTxt').removeClass('expanded');
+                    if ($('.instructionTxt').hasClass('expanded'))
+                        $('.instructionTxt').removeClass('expanded');
 
                     $('.numPadWrap').addClass('bounceOutLeft');
                     $timeout(function () {
@@ -348,19 +348,19 @@
                     $('.indicatorDotWrap .col div:last-child').removeClass('filled');
             }
 
-	        switch ($scope.enteringPin)
-	        {
-	            case 'current':
-	                $scope.ResetPinData.currentPin = pin;
-	                break;
-	            case 'new':
-	                $scope.ResetPinData.newPin = pin;
-	                break;
-	            case 'confirm':
-	                $scope.ResetPinData.confirmPin = pin;
-	                break;
-	        }
-		}
+            switch ($scope.enteringPin)
+            {
+                case 'current':
+                    $scope.ResetPinData.currentPin = pin;
+                    break;
+                case 'new':
+                    $scope.ResetPinData.newPin = pin;
+                    break;
+                case 'confirm':
+                    $scope.ResetPinData.confirmPin = pin;
+                    break;
+            }
+        }
         console.log("FINISHING numTapped... " + JSON.stringify($scope.ResetPinData));
     }
 
@@ -375,8 +375,8 @@
 
         $scope.ResetPinData.newPin = '';
         $scope.ResetPinData.confirmPin = '';
-		if (type == 'current')
-			$scope.ResetPinData.currentPin = '';
+        if (type == 'current')
+            $scope.ResetPinData.currentPin = '';
 
         $timeout(function () {
             $('.indicatorDotWrap').removeClass('shake');

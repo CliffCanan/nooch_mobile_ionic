@@ -1,11 +1,11 @@
 ﻿angular.module('noochApp.home-service', ['noochApp.services'])
-  .service('homeServices', function ($http, $localStorage,$rootScope) {
+  .service('homeServices', function ($http, $localStorage, $rootScope) {
 
       this.SaveIpAddress = function (ip) {
           //console.log(ip);
           var reqForUdateMemberIPAddress = {
               method: 'POST',
-              url: URLs.UdateMemberIPAddress ,
+              url: URLs.UdateMemberIPAddress,
               headers: {
                   'Content-Type': 'application/json'
               },
