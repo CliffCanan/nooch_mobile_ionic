@@ -169,7 +169,9 @@
 
 
     $scope.fetchContacts = function () {
-
+        $ionicLoading.show({
+            template: 'Loading Contacts...'
+        });
         var options = {
             multiple: true
         };
@@ -191,9 +193,8 @@
             
             for (var i = 0; i < contacts.length; i++)
             {
-                var randomNumber = Math.floor(Math.random() * contacts.length) + 1;
                 
-                var contact = contacts[randomNumber];
+                var contact = contacts[i];
                 if (contact.name.formatted != null && contact.emails != null)
                 {
                     $scope.readContact.FirstName = contact.name.formatted;
@@ -212,7 +213,8 @@
                         UserName: '',
                         ContactNumber: '',
                         Photo: '',
-                        id: ''
+                        id: '',
+                        bit: ''
                     };
                 }
             }
@@ -242,11 +244,19 @@
             {
                 if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
                     $scope.memberList[i].Photo = "./img/profile_picture.png";
-
-                var tmp = [
-                  { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
-                ];
-
+                if ($scope.memberList[i].bit != 'p') {
+                    var tmp = [
+                      { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
+                    ];
+                }
+                else {
+                    var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
+                    if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
+                        $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
+                    var tmp = [
+                      { desc: $scope.memberList[randomNumber].FirstName, image: $scope.memberList[randomNumber].Photo }
+                    ];
+                }
                 $scope.FavoritesToDisplay = $scope.FavoritesToDisplay.concat(tmp);
             }
         };
