@@ -131,39 +131,39 @@
          else if ($rootScope.Status == "Registered")
          {
              swal({
-                title: "Please Verify Your Email",
-                text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
-                type: "warning",
-                confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Ok",
-                showCancelButton: true,
-                cancelButtonText: "Resend Email"
-            }, function (isConfirm) {
-                if (!isConfirm)
-                {
-                    $ionicLoading.show({
-                        template: 'Sending Verification Link...'
-                    });
+                 title: "Please Verify Your Email",
+                 text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
+                 type: "warning",
+                 confirmButtonColor: "#3fabe1",
+                 confirmButtonText: "Ok",
+                 showCancelButton: true,
+                 cancelButtonText: "Resend Email"
+             }, function (isConfirm) {
+                 if (!isConfirm)
+                 {
+                     $ionicLoading.show({
+                         template: 'Sending Verification Link...'
+                     });
 
-                    CommonServices.ResendVerificationLink()
-	                   .success(function (result) {
-	                       $ionicLoading.hide();
+                     CommonServices.ResendVerificationLink()
+                        .success(function (result) {
+                            $ionicLoading.hide();
 
-	                       if (result.Result == 'Success')
-	                           swal("Check Your Email", "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.", "success");
-	                       else
-	                           swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
-	                   })
-					   .error(function (error) {
-					       console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
+                            if (result.Result == 'Success')
+                                swal("Check Your Email", "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.", "success");
+                            else
+                                swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
+                        })
+                        .error(function (error) {
+                            console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
 
-					       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-					           CommonServices.logOut();
-					       else
-					           swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
-					   });
-                }
-            });
+                            if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                CommonServices.logOut();
+                            else
+                                swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
+                        });
+                 }
+             });
          }
          else if ($rootScope.IsPhoneVerified == false)
          {
