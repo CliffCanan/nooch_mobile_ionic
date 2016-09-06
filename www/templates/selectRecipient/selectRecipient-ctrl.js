@@ -98,7 +98,7 @@
         }
         
 
-        if (member.otherEmails.length == 0 || member.otherEmails == null || member.otherEmails=='undefined') {
+        if (member.otherEmails.length == 1 || member.otherEmails == null || member.otherEmails=='undefined') {
             $state.go('app.howMuch', { recip: member });
         }
         else {

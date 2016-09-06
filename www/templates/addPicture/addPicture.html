@@ -17,7 +17,7 @@
 
                 <div id="picWrap" ng-click="choosePhoto()">
                     <img class="m-b-20 defaultPic" src="./img/RoundLoading.png" ng-if="signUpData.Photo == null || signUpData.Photo == ''" />
-                    <img class="m-b-20" src="{{signUpData.Photo}}" value="{{imgURI}}" ng-if="signUpData.Photo != null && signUpData.Photo.length > 10" />
+                    <img class="m-b-20" src="{{signUpData.Photo}}"  ng-if="signUpData.Photo != null && signUpData.Photo.length > 10" />
                 </div>
 
                 <div class="p-l-5 p-r-5">

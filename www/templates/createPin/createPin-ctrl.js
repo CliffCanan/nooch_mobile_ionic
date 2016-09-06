@@ -33,7 +33,8 @@
             console.log('signUpFn called');
 
             //if ($('#frmCreatePin').parsley().validate() == true) {
-            console.log($rootScope.signUpData);
+            console.log($rootScope.signUpData);       
+
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
                 template: 'Creating PIN...'
@@ -43,6 +44,11 @@
             {
                 console.log('Condition matched now calling getBase64FromImageUrl');
                 $scope.getBase64FromImageUrl($rootScope.signUpData.Photo); //Convering facebook URL -> Image -> BAse64
+            }
+            else {
+                //console.log('Before replacing value' + $rootScope.imgURI);
+                $rootScope.signUpData.Photo = $rootScope.imgURI;
+                //console.log('After replacing values' + $rootScope.signUpData.Photo);
             }
 
             CommonServices.GetEncryptedData($rootScope.signUpData.Password).success(function (data) {

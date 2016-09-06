@@ -285,7 +285,7 @@
         }
 
 
-        if (member.bit!='p') {
+        if (member.bit != 'p' || member.otherEmails.length==1) {
             $state.go('app.howMuch', { recip: member });
         }
         else {

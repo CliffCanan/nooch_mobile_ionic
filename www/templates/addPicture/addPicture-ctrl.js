@@ -47,9 +47,8 @@
 
                 $cordovaCamera.getPicture(options).then(function (imageData) {
                  
-                    $scope.imgURI = "data:image/jpeg;base64," + imageData;                  
-
-                    $rootScope.signUpData.Photo = imageData;
+                    $rootScope.imgURI = imageData;
+                    $rootScope.signUpData.Photo = "data:image/jpeg;base64," + imageData;
 
                     if ($rootScope.signUpData.Photo != null)
                         $state.go('createPin');
@@ -79,16 +78,10 @@
                     };
 
                     $cordovaCamera.getPicture(options).then(function (imageData) {
-                        console.log(imageData);
-                        $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                        $rootScope.signUpData.Photo = imageData;
-                        //var binary_string = window.atob(imageData);
-                        //var len = binary_string.length;
-                        //var bytes = new Uint8Array(len);
-                        //for (var i = 0; i < len; i++) {
-                        //    bytes[i] = binary_string.charCodeAt(i);
-                        //}                        
-                        //console.log(bytes);
+                       // console.log(imageData);
+                        $rootScope.imgURI = imageData;
+                        $rootScope.signUpData.Photo = "data:image/jpeg;base64,"+ imageData;
+                 
                     }, function (err) {
                         // An error occured. Show a message to the user
                     });
