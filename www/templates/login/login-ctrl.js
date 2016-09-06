@@ -24,7 +24,12 @@
               {
                   $scope.loginData.rmmbrMe.chk = $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled == false ? false : true;
                   $scope.loginData.email = $localStorage.GLOBAL_VARIABLES.UserName;
-              }
+				  
+				  if ($('#toLoginBtn').hasClass('bounceOutRight')){
+					console.log('CHECKPOINT LOGIN 1');
+			  		$('#toLoginBtn').removeClass('bounceOutRight');
+            	  }
+		  	}
           }
 
           console.log($scope.loginData);

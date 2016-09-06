@@ -20,11 +20,9 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Signup Controller Loaded');
-
-        //$scope.getLocation();
-        console.log('signUpData: [' + JSON.stringify($scope.signUpData) + ']');
+        console.log('signUpData: [' + JSON.stringify($rootScope.signUpData) + ']');
     });
-
+	
 
     $scope.signUpClick = function () {
 
@@ -166,6 +164,7 @@
         $scope.tosModal.remove();
     });
 
+
     $scope.SignUpWithFB = function () {
 
         console.log('came in sign in with fb');
@@ -187,42 +186,15 @@
                 $rootScope.signUpData.FBId = _.get(success, 'id');
 
                 if ($rootScope.signUpData.Photo != null)
-                {
                     $rootScope.signUpData.gotPicUrl = true;
-                }
+
                 $scope.$apply();
                 console.log('signUpData: ' + JSON.stringify($rootScope.signUpData));
             }, function (error) {
-                // error
                 console.log(error);
             });
-
-
         });
     }
-
-
-    $scope.getLocation = function () {
-        $cordovaGeolocation
-          .getCurrentPosition()
-          .then(function (position) {
-              var lat = position.coords.latitude
-              var long = position.coords.longitude
-              $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
-              $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
-              console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
-
-              $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
-
-          }, function (err) {
-              // error
-              console.log('$cordovaGeolocation error ' + JSON.stringify(err));
-              //Static Loaction in case user denied
-              $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
-              $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
-              $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-          });
-    };
 
 
     $scope.keyEntered = function (btn) {
@@ -292,11 +264,16 @@
         }
     }
 
+
     $scope.goToLogin = function () {
         $('#toLoginBtn').addClass('bounceOutRight');
 
         $timeout(function () {
             $state.go('login');
-        }, 450);
+			
+	        $timeout(function () {
+				$('#toLoginBtn').removeClass('bounceOutRight');
+	        }, 500);
+        }, 400);
     }
 })

@@ -27,12 +27,9 @@
             }
         });
 
-        //console.log($rootScope.signUpData);
 
         $scope.signUpFn = function () {
-            console.log('signUpFn called');
-
-            //if ($('#frmCreatePin').parsley().validate() == true) {
+            console.log('signUpFn Fired');
             console.log($rootScope.signUpData);       
 
             //if ($cordovaNetwork.isOnline()) {
@@ -43,50 +40,48 @@
             if ($rootScope.signUpData.gotPicUrl == true && $rootScope.signUpData.isPicChanged == false)
             {
                 console.log('Condition matched now calling getBase64FromImageUrl');
-                $scope.getBase64FromImageUrl($rootScope.signUpData.Photo); //Convering facebook URL -> Image -> BAse64
+                $scope.getBase64FromImageUrl($rootScope.signUpData.Photo); // Converting Image URL -> Image -> BAse64
             }
-            else {
-                //console.log('Before replacing value' + $rootScope.imgURI);
+            else
+            {
                 $rootScope.signUpData.Photo = $rootScope.imgURI;
-                //console.log('After replacing values' + $rootScope.signUpData.Photo);
             }
 
-            CommonServices.GetEncryptedData($rootScope.signUpData.Password).success(function (data) {
-                $rootScope.signUpData.Password = data.Status;
-                //console.log('Pwd Encrypted-->');
-                //console.log($rootScope.signUpData.Password);
+            CommonServices.GetEncryptedData($rootScope.signUpData.Password)
+				.success(function (data) {
+	                $rootScope.signUpData.Password = data.Status;
 
-                createPinServices.Signup($rootScope.signUpData).success(function (data) {
-                    console.log(data);
+	                createPinServices.Signup($rootScope.signUpData)
+						.success(function (data) {
+		                    console.log(data);
 
-                    $ionicLoading.hide();
+		                    $ionicLoading.hide();
 
-                    if (data = 'Thanks for registering! Check your email to complete activation.')
-                    {
-                        $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
-                        console.log('RunTime values ----->> DeviceId And DeviceToken');
-                        console.log($localStorage.GLOBAL_VARIABLES.DeviceId);
-                        console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
-                        $scope.SignIn();
-                    }
-                    else if (data = 'Duplicate random Nooch ID was generating')
-                    {
-                        swal("Uh Oh...", "Email is already registered with nooch", "error");
-                        $state.go('signup');
-                    }
-                    else
-                        swal("Error", "Something went wrong", "error");
-
-                }).error(function (encError) {
-                    console.log('Signup Attempt -> Error [' + encError + ']');
-                    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                        CommonServices.logOut();
-                })
+		                    if (data = 'Thanks for registering! Check your email to complete activation.')
+		                    {
+		                        $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
+		                        //console.log('RunTime values ----->> DeviceId And DeviceToken');
+		                        //console.log($localStorage.GLOBAL_VARIABLES.DeviceId);
+		                        //console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
+		                        $scope.SignIn();
+		                    }
+		                    else if (data = 'Duplicate random Nooch ID was generating')
+		                    {
+		                        swal("Uh Oh...", "Looks like that email is already registered!", "error");
+		                        $state.go('login');
+		                    }
+		                    else
+		                        swal("Error", "Something went wrong", "error");
+		                })
+						.error(function (encError) {
+							$ionicLoading.hide();
+		                    console.log('Signup Attempt -> Error [' + encError + ']');
+		                    $state.go('signup');
+		                })
             })
             //}
             //else
             //    swal("Error", "Internet not connected!", "error");
-            //}
         };
 
 
@@ -100,76 +95,79 @@
 
             authenticationService.Login($rootScope.signUpData.Email, $rootScope.signUpData.Password, $rootScope.signUpData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude,
                   $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken, $localStorage.GLOBAL_VARIABLES.DeviceOS)
-                  .success(function (response) {
+	                  .success(function (response) {
 
-                      $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
+	                      $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
 
-                      console.log(response);
+	                      console.log(response);
 
-                      if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1)
-                      {
-                          $ionicLoading.hide();
-                          swal("Error", response.Result, "error");
-                      }
-                      else if (response.Result.indexOf('Temporarily_Blocked') > -1)
-                      {
-                          $ionicLoading.hide();
-                          swal({
-                              title: "Oh No!",
-                              text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
-                              type: "error",
-                              showCancelButton: true,
-                              cancelButtonText: "Ok",
-                              confirmButtonColor: "#3fabe1",
-                              confirmButtonText: "Contact Support",
-                              customClass: "stackedBtns",
-                              html: true,
-                          }, function (isConfirm) {
-                              if (isConfirm)
-                              {
-                                  // toArr, ccArr and bccArr must be an array, file can be either null, string or array
-                                  //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
-                                  $cordovaSocialSharing
-                                    .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
-                                    .then(function (result) {
-                                        swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
-                                    }, function (err) {
-                                        // An error occurred. Show a message to the user
-                                        console.log('Error attempting to send email from social sharing: [' + err + ']');
-                                    });
-                              }
-                          });
-                      }
-                      else
-                      {
-                          $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
-                          $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
-                          $localStorage.GLOBAL_VARIABLES.Pwd = $rootScope.signUpData.Password;
+	                      if (response.Result.indexOf('Invalid') > -1 || response.Result.indexOf('incorrect') > -1)
+	                      {
+	                          $ionicLoading.hide();
+	                          swal("Error", response.Result, "error");
+	                      }
+	                      else if (response.Result.indexOf('Temporarily_Blocked') > -1)
+	                      {
+	                          $ionicLoading.hide();
+	                          swal({
+	                              title: "Oh No!",
+	                              text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
+	                              type: "error",
+	                              showCancelButton: true,
+	                              cancelButtonText: "Ok",
+	                              confirmButtonColor: "#3fabe1",
+	                              confirmButtonText: "Contact Support",
+	                              customClass: "stackedBtns",
+	                              html: true,
+	                          }, function (isConfirm) {
+	                              if (isConfirm)
+	                              {
+	                                  // toArr, ccArr and bccArr must be an array, file can be either null, string or array
+	                                  //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
+	                                  $cordovaSocialSharing
+	                                    .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
+	                                    .then(function (result) {
+	                                        swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+	                                    }, function (err) {
+	                                        // An error occurred. Show a message to the user
+	                                        console.log('Error attempting to send email from social sharing: [' + err + ']');
+	                                    });
+	                              }
+	                          });
+	                      }
+	                      else
+	                      {
+	                          $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
+	                          $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
+	                          $localStorage.GLOBAL_VARIABLES.Pwd = $rootScope.signUpData.Password;
 
-                          console.log($localStorage.GLOBAL_VARIABLES);
+	                          console.log($localStorage.GLOBAL_VARIABLES);
 
-                          fetchAfterLoginDetails();
-                      }
-                  }).error(function (res) {
-                      console.log('Login Attempt Error: [' + res + ']');
-                  });
+	                          fetchAfterLoginDetails();
+	                      }
+	                  })
+					  .error(function (res) {
+	                      console.log('Login Attempt Error: [' + res + ']');
+	                  });
 
             function fetchAfterLoginDetails() {
 
-                CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName).success(function (data) {
-                    $ionicLoading.hide();
+                CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName)
+					.success(function (data) {
+	                    $ionicLoading.hide();
 
-                    console.log(data);
+	                    console.log(data);
 
-                    if (data != null)
-                    {
-                        $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-                        $state.go('app.home');
-                    }
-                }).error(function (err) {
-                    swal("Error", err.Result, "error");
-                    $ionicLoading.hide();
-                });
+	                    if (data != null)
+	                    {
+	                        $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+	                        $state.go('app.welcome');
+	                    }
+	                })
+					.error(function (err) {
+	                    $ionicLoading.hide();
+	                    swal("Error", err.Result, "error");
+	                });
             }
             //}
             //else
@@ -225,8 +223,6 @@
                     // 4th Digit Entered
                     if ($scope.onConfirm == false)
                     {
-                        console.log('FIRST TIME ENTRY');
-
                         $('#header').text('Confirm Your PIN');
 
                         $('.numPadWrap').addClass('bounceOutLeft');
@@ -243,8 +239,6 @@
                     }
                     else
                     {
-                        console.log('SECOND (CONFIRM) TIME ENTRY');
-
                         // NOW CHECK IF 1ST AND 2ND ENTERED PIN MATCH
                         if ($scope.firstPinEntered != pin)
                         {

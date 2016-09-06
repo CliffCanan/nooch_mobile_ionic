@@ -3,11 +3,13 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl', 'noochApp.historyCtrl',
-  'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl', 'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl',
-  'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl', 'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl',
-  'noochApp.transferDetailsCtrl', 'noochApp.referAfriendCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.uploadIDCtrl', 'noochApp.services',
-  'noochApp.addPicture', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl', 'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards', 'ngMap'])
+angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl',
+  'noochApp.historyCtrl', 'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl',
+  'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl', 'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl',
+  'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.transferDetailsCtrl',
+  'noochApp.referAfriendCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.uploadIDCtrl', 'noochApp.services',
+  'noochApp.addPicture', 'noochApp.welcome', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl',
+  'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards', 'ngMap'])
 
 
   .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices) {
@@ -320,7 +322,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
-      .state('app.uploadID', {
+        .state('app.uploadID', {
           url: '/settings/uploadID',
           views: {
               'menuContent': {
@@ -329,7 +331,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               }
           }
       })
-     .state('app.notificationSetting', {
+        .state('app.notificationSetting', {
          url: '/settings/notificationSetting',
          views: {
              'menuContent': {
@@ -338,7 +340,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
              }
          }
      })
-     .state('app.addBank', {
+        .state('app.addBank', {
          url: '/settings/addBank',
          views: {
              'menuContent': {
@@ -390,12 +392,16 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             templateUrl: 'templates/createPin/createPin.html',
             controller: 'createPinCtrl'
         })
+        .state('welcome', {
+            url: '/welcome',
+            templateUrl: 'templates/welcome/welcome.html',
+            controller: 'welcomeCtrl'
+        })
         .state('enterPinForeground', {
             url: '/enterPinForeground',
             templateUrl: 'templates/enterPinForeground/enterPinForeground.html',
             controller: 'enterPinForegroundCtrl'
         })
-
         .state('app.map', {
             url: '/map',
             views: {
@@ -406,6 +412,5 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             }
         })
 
-      // $urlRouterProvider.otherwise('app/home');
-      $urlRouterProvider.otherwise('/login');
+		$urlRouterProvider.otherwise('/login');
   });
