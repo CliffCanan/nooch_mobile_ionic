@@ -3,11 +3,11 @@
 /************************/
 /*** SELECT RECIPIENT ***/
 /************************/
-.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform, $rootScope, CommonServices) {
+.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform, $rootScope, CommonServices, $ionicActionSheet) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
-
+       // $scope.openFilterChoices();
         $scope.memberList = new Array();
 
         $scope.FindRecent();
@@ -32,7 +32,9 @@
             ContactNumber: '',
             Photo: '',
             id: '',
-            bit: ''
+            bit: '',
+            otherEmails: [],
+            otherPhoneNumbers:[]
         };
 
         $cordovaContacts.find(options).then(onSuccess, onError);
@@ -47,26 +49,37 @@
                 $scope.readContact.id = i;
                 $scope.readContact.bit = 'p';
 
-                if (contact.emails != null)
+                if (contact.emails != null) {
                     $scope.readContact.UserName = contact.emails[0].value;
-                if (contact.phoneNumbers != null)
+            
+                        $scope.readContact.otherEmails = contact.emails;
+                } 
+                if (contact.phoneNumbers != null) {
                     $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
+        
+                        $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
+                }
                 if (contact.photos != null)
                     $scope.readContact.Photo = contact.photos[0].value;
 
                 //$scope.phoneContacts.push(readContact);
+                
                 $scope.memberList.push($scope.readContact);
 
+              
                 $scope.readContact = {
                     FirstName: '',
                     UserName: '',
                     ContactNumber: '',
                     Photo: '',
-                    id: ''
+                    id: '',
+                    bit: '',
+                    otherEmails: [],
+                    otherPhoneNumbers: []
                 };
             }
 
-            // console.log($rootScope.phoneContacts);
+            console.log($scope.memberList);
             $ionicLoading.hide();
         };
 
@@ -76,6 +89,48 @@
         };
     }
 
+    $scope.openFilterChoices = function (member) {
+        
+        console.log(member);
+        $scope.buttonValues = {
+            id:'',
+            text:''
+        }
+        
+
+        if (member.otherEmails.length == 0 || member.otherEmails == null || member.otherEmails=='undefined') {
+            $state.go('app.howMuch', { recip: member });
+        }
+        else {
+            var buttons = [];
+            for (var i = 0; i < member.otherEmails.length; i++) {
+                console.log(member.otherEmails[i].value);
+                $scope.buttonValues.id = i;
+                $scope.buttonValues.text = member.otherEmails[i].value;
+                buttons.push($scope.buttonValues);
+                $scope.buttonValues = {
+                    id: '',
+                    text: ''
+                }
+            }
+
+            var title = "Choose Email  ";
+            
+             var hideSheet = $ionicActionSheet.show({
+                buttons: buttons,
+                titleText: title,
+                cancelText: 'Cancel',
+                cancel: function () {
+
+                },
+                buttonClicked: function (index) {
+                    member.UserName = member.otherEmails[index].value;
+                    $state.go('app.howMuch', { recip: member });
+                    return true;
+                }
+            });
+        }
+    };
 
     $scope.showSearch = function (member) {
         console.log($scope.search);

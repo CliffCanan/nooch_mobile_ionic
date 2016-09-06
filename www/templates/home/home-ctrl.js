@@ -6,7 +6,7 @@
 /****************/
 .controller('HomeCtrl', function ($scope, $rootScope, $state, $ionicPlatform, $cordovaGoogleAnalytics, $timeout, $http,
                                   $ionicLoading, $ionicContentBanner, $localStorage, $cordovaContacts, $cordovaSocialSharing,
-                                  authenticationService, profileService, selectRecipientService, CommonServices, homeServices) {
+                                  authenticationService, profileService, selectRecipientService, CommonServices, homeServices, $ionicActionSheet) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
@@ -182,7 +182,8 @@
             ContactNumber: '',
             Photo: '',
             id: '',
-            bit: ''
+            bit: '',
+            otherEmails: []
         };
 
         console.log($cordovaContacts);
@@ -200,7 +201,11 @@
                     $scope.readContact.FirstName = contact.name.formatted;
                     $scope.readContact.id = i;
                     $scope.readContact.bit = 'p';
-                    $scope.readContact.UserName = contact.emails[0].value;
+                    if (contact.emails != null) {
+                        $scope.readContact.UserName = contact.emails[0].value;
+
+                        $scope.readContact.otherEmails = contact.emails;
+                    }
                     if (contact.phoneNumbers != null)
                         $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
                     if (contact.photos != null)
@@ -237,6 +242,7 @@
         console.log($scope.memberList);
 
         $scope.FavoritesToDisplay = [];
+        var tmp = [];
 
         for (var i = 0; i <= 4; i++)
         {
@@ -245,24 +251,66 @@
                 if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
                     $scope.memberList[i].Photo = "./img/profile_picture.png";
                 if ($scope.memberList[i].bit != 'p') {
-                    var tmp = [
-                      { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
-                    ];
+                    //var tmp = [
+                    //  { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
+                    //];
+                   tmp.push( $scope.memberList[i]);
                 }
                 else {
                     var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
                     if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
                         $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
-                    var tmp = [
-                      { desc: $scope.memberList[randomNumber].FirstName, image: $scope.memberList[randomNumber].Photo }
-                    ];
+                    tmp.push($scope.memberList[i]);
                 }
-                $scope.FavoritesToDisplay = $scope.FavoritesToDisplay.concat(tmp);
+             
             }
         };
+        $scope.FavoritesToDisplay = tmp;
     }
 
 
+    $scope.openFilterChoices = function (member) {
+
+        console.log(member);
+        $scope.buttonValues = {
+            id: '',
+            text: ''
+        }
+
+
+        if (member.bit!='p') {
+            $state.go('app.howMuch', { recip: member });
+        }
+        else {
+            var buttons = [];
+            for (var i = 0; i < member.otherEmails.length; i++) {
+                console.log(member.otherEmails[i].value);
+                $scope.buttonValues.id = i;
+                $scope.buttonValues.text = member.otherEmails[i].value;
+                buttons.push($scope.buttonValues);
+                $scope.buttonValues = {
+                    id: '',
+                    text: ''
+                }
+            }
+
+            var title = "Choose Email  ";
+
+            var hideSheet = $ionicActionSheet.show({
+                buttons: buttons,
+                titleText: title,
+                cancelText: 'Cancel',
+                cancel: function () {
+
+                },
+                buttonClicked: function (index) {
+                    member.UserName = member.otherEmails[index].value;
+                    $state.go('app.howMuch', { recip: member });
+                    return true;
+                }
+            });
+        }
+    };
     $scope.goToSelectRecip = function () {
         if ($rootScope.Status == "Suspended" ||
             $rootScope.Status == "Temporarily_Blocked")
