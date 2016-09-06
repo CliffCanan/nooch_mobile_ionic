@@ -123,7 +123,10 @@
 
 			            if (authorized)
 			            {
-			                $scope.fetchContacts();
+			                $ionicPlatform.ready(function () {
+
+			                    $scope.fetchContacts();
+			                });
 			            }
 			            else
 			            {
@@ -142,6 +145,7 @@
 			                            if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
 			                            {
 			                                console.log("Contacts use is authorized");
+
 			                                $scope.fetchContacts();
 			                            }
 			                            else
@@ -169,6 +173,7 @@
 
 
     $scope.fetchContacts = function () {
+        
         $ionicLoading.show({
             template: 'Loading Contacts...'
         });
@@ -195,9 +200,8 @@
             for (var i = 0; i < contacts.length; i++)
             {
  
-                var randomNumber = Math.floor(Math.random() * contacts.length) + 1;
-
-                var contact = contacts[randomNumber];
+             
+                var contact = contacts[i];
  
                 if (contact.name.formatted != null && contact.emails != null)
                 {
@@ -263,7 +267,7 @@
                     var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
                     if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
                         $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
-                    tmp.push($scope.memberList[i]);
+                    tmp.push($scope.memberList[randomNumber]);
                 }
              
             }
