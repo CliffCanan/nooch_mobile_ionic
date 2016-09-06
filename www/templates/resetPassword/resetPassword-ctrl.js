@@ -36,12 +36,11 @@
         if ($('#frmResetPwd').parsley().validate() == true)
         {
             $ionicLoading.show({
-                template: 'Submitting...'
+                template: 'Resetting Password...'
             });
 
             CommonServices.GetEncryptedData($scope.ResetPwd.currentPwd).success(function (data) {
                 console.log(data.Status);
-                //console.log($localStorage.GLOBAL_VARIABLES.Pwd);
 
                 if ($localStorage.GLOBAL_VARIABLES.Pwd == data.Status)
                 {
@@ -51,45 +50,45 @@
                         resetPasswordService.ResetPassword(data.Status, true).success(function (data) {
                             console.log(data);
 
+                            $scope.ResetPwd.newPwd = '';
+                            $scope.ResetPwd.currentPwd = '';
+                            $scope.ResetPwd.confirmPwd = '';
+
                             $ionicLoading.hide();
 
                             if (data.Result == true)
                             {
                                 swal({
-                                    title: "Password Changed!",
-                                    text: "Your Nooch password has been changed.",
+                                    title: "Password Changed",
+                                    text: "Your Nooch password has been updated successfully.",
                                     type: "success",
                                     confirmButtonColor: "#3fabe1",
                                     confirmButtonText: "Ok",
-                                    customClass: "stackedBtns",
                                     html: true,
+                                }, function () {
+                                    $state.go('app.securitySetting');
                                 });
-
-                                $scope.ResetPwd.newPwd = '';
-                                $scope.ResetPwd.currentPwd = '';
-                                $scope.ResetPwd.confirmPwd = '';
                             }
                             else
                             {
                                 swal({
-                                    title: "Oppss...!",
+                                    title: "Error",
                                     text: "Something went wrong",
                                     type: "error",
                                     confirmButtonColor: "#3fabe1",
                                     confirmButtonText: "Ok",
-                                    customClass: "stackedBtns",
                                     html: true,
                                 });
-                                $scope.ResetPwd.newPwd = '';
-                                $scope.ResetPwd.currentPwd = '';
-                                $scope.ResetPwd.confirmPwd = '';
                             }
-                        }).error(function (encError) {
+                        })
+                        .error(function (encError) {
                             console.log('ResetPassword Error: [' + encError + ']');
                             $ionicLoading.hide();
                         });
-                    }).error(function (encError) {
+                    })
+                    .error(function (encError) {
                         console.log('GetEncryptedData Error: [' + encError + ']');
+                        $ionicLoading.hide();
                         if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
                             CommonServices.logOut();
                     });
@@ -98,15 +97,15 @@
                 {
                     $ionicLoading.hide();
                     swal({
-                        title: "Incorrect Password!",
-                        text: "Current Password is incorrect.",
+                        title: "Incorrect Password",
+                        text: "Please try again!",
                         type: "error",
                         confirmButtonColor: "#3fabe1",
-                        confirmButtonText: "Ok",
-                        customClass: "stackedBtns"
+                        confirmButtonText: "Ok"
                     });
                 }
-            }).error(function (data) {
+            })
+            .error(function (data) {
                 if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
             });
@@ -141,9 +140,9 @@
 					            text: "Your PIN has been changed successfully.",
 					            type: "success",
 					            confirmButtonColor: "#3fabe1",
+					        }, function () {
+					            $state.go('app.securitySetting');
 					        });
-
-					        $state.go('app.settings');
 					    }
 					    else if (data.Result.indexOf('Incorrect') > -1)
 					    {

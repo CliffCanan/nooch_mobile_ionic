@@ -31,67 +31,69 @@
         //});
 
         menuService.GetUserDetails()
-           .success(function (res) {
-               console.log("GetUserDetails - Menu Cntrlr -->");
-               console.log(res);
+            .success(function (res) {
+                console.log("GetUserDetails - Menu Cntrlr -->");
+                console.log(res);
 
-               $scope.Res = res;
+                $scope.Res = res;
 
-               $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.userPicture;
-               $localStorage.GLOBAL_VARIABLES.Status = res.status;
-               $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.isVerifiedPhone;
-               $localStorage.GLOBAL_VARIABLES.firstName = res.firstName;
-               $localStorage.GLOBAL_VARIABLES.lastName = res.lastName;
-               $localStorage.GLOBAL_VARIABLES.isProfileComplete = res.isProfileComplete;
-               $localStorage.GLOBAL_VARIABLES.isRequiredImmediately = res.isRequiredImmediately;
-               $localStorage.GLOBAL_VARIABLES.hasSynapseUserAccount = res.hasSynapseUserAccount;
-               $localStorage.GLOBAL_VARIABLES.hasSynapseBank = res.hasSynapseBank;
-               $localStorage.GLOBAL_VARIABLES.isBankVerified = res.isBankVerified;
-               $localStorage.GLOBAL_VARIABLES.bankStatus = res.bankStatus;
-               $localStorage.GLOBAL_VARIABLES.synUserPermission = res.synUserPermission;
-               $localStorage.GLOBAL_VARIABLES.synBankAllowed = res.synBankAllowed;
+                $localStorage.GLOBAL_VARIABLES.PhotoUrl = res.userPicture;
+                $localStorage.GLOBAL_VARIABLES.Status = res.status;
+                $localStorage.GLOBAL_VARIABLES.IsPhoneVerified = res.isVerifiedPhone;
+                $localStorage.GLOBAL_VARIABLES.firstName = res.firstName;
+                $localStorage.GLOBAL_VARIABLES.lastName = res.lastName;
+                $localStorage.GLOBAL_VARIABLES.isProfileComplete = res.isProfileComplete;
+                $localStorage.GLOBAL_VARIABLES.isRequiredImmediately = res.isRequiredImmediately;
+                $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = res.rememberMe;
+                $localStorage.GLOBAL_VARIABLES.hasSynapseUserAccount = res.hasSynapseUserAccount;
+                $localStorage.GLOBAL_VARIABLES.hasSynapseBank = res.hasSynapseBank;
+                $localStorage.GLOBAL_VARIABLES.isBankVerified = res.isBankVerified;
+                $localStorage.GLOBAL_VARIABLES.bankStatus = res.bankStatus;
+                $localStorage.GLOBAL_VARIABLES.synUserPermission = res.synUserPermission;
+                $localStorage.GLOBAL_VARIABLES.synBankAllowed = res.synBankAllowed;
 
-               $scope.PicUrl = res.userPicture;//"http://www.nooch.info/noochservice/UploadedPhotos/Photos/" + $localStorage.GLOBAL_VARIABLES.MemberId + ".png";
+                $scope.PicUrl = res.userPicture;//"http://www.nooch.info/noochservice/UploadedPhotos/Photos/" + $localStorage.GLOBAL_VARIABLES.MemberId + ".png";
 
-               // CC (9/1/16): SETTING $rootScope values so we can access directly in HTML pages w/o setting in each scope
-               $rootScope.memberId = res.memberId;
-               $rootScope.emailAddress = res.email;
-               $rootScope.isProfileComplete = res.isProfileComplete;
-               $rootScope.isBankVerified = res.isBankVerified;
-               $rootScope.IsPhoneVerified = res.isVerifiedPhone;
-               $rootScope.Status = res.status;
-               $rootScope.isRequiredImmediately = res.isRequiredImmediately;
-               $rootScope.hasSynapseUserAccount = res.hasSynapseUserAccount;
-               $rootScope.hasSynapseBank = res.hasSynapseBank;
-               $rootScope.bankStatus = res.bankStatus;
-               $rootScope.synUserPermission = res.synUserPermission;
-               $rootScope.synBankAllowed = res.synBankAllowed;
-               $rootScope.pinEnc = res.pin;
+                // CC (9/1/16): SETTING $rootScope values so we can access directly in HTML pages w/o setting in each scope
+                $rootScope.memberId = res.memberId;
+                $rootScope.emailAddress = res.email;
+                $rootScope.contactNumber = res.contactNumber;
+                $rootScope.isProfileComplete = res.isProfileComplete;
+                $rootScope.isBankVerified = res.isBankVerified;
+                $rootScope.IsPhoneVerified = res.isVerifiedPhone;
+                $rootScope.Status = res.status;
+                $rootScope.isRequiredImmediately = res.isRequiredImmediately;
+                $rootScope.hasSynapseUserAccount = res.hasSynapseUserAccount;
+                $rootScope.hasSynapseBank = res.hasSynapseBank;
+                $rootScope.bankStatus = res.bankStatus;
+                $rootScope.synUserPermission = res.synUserPermission;
+                $rootScope.synBankAllowed = res.synBankAllowed;
+                $rootScope.pinEnc = res.pin;
 
-               $ionicLoading.hide();
+                $ionicLoading.hide();
 
-               // Now check if the user has any pending transactions
-               $timeout($scope.pendingList, 2000);
+                // Now check if the user has any pending transactions
+                $timeout($scope.pendingList, 2000);
 
-               //console.log("Menu-ctrl -> $localStorage...")
-               //console.log($localStorage);
+                //console.log("Menu-ctrl -> $localStorage...")
+                //console.log($localStorage);
 
-               //if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
-               //    $rootScope.$broadcast('isSuspended');
+                //if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
+                //    $rootScope.$broadcast('isSuspended');
 
-               //if ($scope.Res.isVerifiedPhone === false)
-               //    $rootScope.$broadcast('IsVerifiedPhoneFalse');
+                //if ($scope.Res.isVerifiedPhone === false)
+                //    $rootScope.$broadcast('IsVerifiedPhoneFalse');
 
-               //if ($scope.Res.status === "Registered" || $scope.Res.isProfileComplete === false)
-               //    $rootScope.$broadcast('IsValidProfileFalse');
-           })
-            .error(function (encError) {
-               console.log('GetMemberDetails Error Block: [' + JSON.stringify(encError) + ']');
-               $ionicLoading.hide();
+                //if ($scope.Res.status === "Registered" || $scope.Res.isProfileComplete === false)
+                //    $rootScope.$broadcast('IsValidProfileFalse');
+            })
+            .error(function (error) {
+                console.log('GetMemberDetails Error Block: [' + JSON.stringify(error) + ']');
+                $ionicLoading.hide();
 
-               if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                   CommonServices.logOut();
-           })
+                if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            })
         //}
         //else swal("Oops...", "Internet not connected!", "error");
     }
@@ -261,27 +263,27 @@
         document.addEventListener("deviceready", function () {
 
 
-          AppRate.preferences = {
-            openStoreInApp: true,
-            displayAppName: 'Nooch',
-            usesUntilPrompt: 5,
-            promptAgainForEachNewVersion: false,
-            storeAppURL: {
-              ios: '917955306',
-              android: 'market://details?id=com.soundcloud.android'
+            AppRate.preferences = {
+                openStoreInApp: true,
+                displayAppName: 'Nooch',
+                usesUntilPrompt: 5,
+                promptAgainForEachNewVersion: false,
+                storeAppURL: {
+                    ios: '917955306',
+                    android: 'market://details?id=com.soundcloud.android'
 
-            },
-            customLocale: {
-              title: "Rate Nooch",
-              message: "If you enjoy using Nooch, would you mind taking a moment to rate it? It won’t take more than a minute. Thanks for your support!",
-              cancelButtonLabel: "No, Thanks",
-              laterButtonLabel: "Remind Me Later",
-              rateButtonLabel: "Rate It Now"
-            }
-          };
+                },
+                customLocale: {
+                    title: "Rate Nooch",
+                    message: "If you enjoy using Nooch, would you mind taking a moment to rate it? It won’t take more than a minute. Thanks for your support!",
+                    cancelButtonLabel: "No, Thanks",
+                    laterButtonLabel: "Remind Me Later",
+                    rateButtonLabel: "Rate It Now"
+                }
+            };
 
 
-          AppRate.promptForRating(false);
+            AppRate.promptForRating(false);
 
             $cordovaAppRate.promptForRating(true).then(function (result) {
                 // success
@@ -293,7 +295,7 @@
 
             $cordovaAppRate.navigateToAppStore().then(function (result) {
                 // success
-              console.log('navigated to nooch store');
+                console.log('navigated to nooch store');
             });
         }, false);
     }

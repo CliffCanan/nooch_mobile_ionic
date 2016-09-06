@@ -1,6 +1,6 @@
 ﻿<ion-view view-title="Select Recipient">
 
-    <ion-content ion-sticky scroll="false">
+    <ion-content ion-sticky scroll="true">
 
         <div class="row">
             <div class="col p-t-0">
@@ -26,18 +26,19 @@
 
             <ion-list class="selectRecipList">
                 <ion-item ng-repeat="member in memberList | filter:search" class="list" id="recents-table">
+                   
+                    <a class="item item-avatar" ng-if="member.otherEmails!=null" ng-click="openFilterChoices(member)" nav-transition="ios" nav-direction="forward">
 
-                    <a class="item item-avatar" ui-sref="app.howMuch({recip:member})" nav-transition="ios" nav-direction="forward">
                         <img src="{{member.Photo}}" class="userPic">
                         <h2 class="username">{{member.FirstName}} <span class="f-400">{{member.LastName}}</span></h2>
-                        <p class="usersubtitle">{{member.UserName}}</p>
+                        <p class="usersubtitle">   {{member.UserName}}</p>
                         <p class="usersubtitle">{{member.ContactNumber}}  </p>
                         <h3 ng-if="member.Miles">{{member.Miles}}Miles </h3>
 
                         <img src="./../img/n_icon_46x54.png" class="n-icon" ng-if="member.bit!='p'" />
                     </a>
 
-                </ion-item>
+</ion-item>
             </ion-list>
 
             <div ng-show="show" id="dvSendTo">

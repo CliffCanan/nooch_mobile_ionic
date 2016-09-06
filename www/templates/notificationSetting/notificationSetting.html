@@ -1,61 +1,49 @@
 ﻿<ion-view view-title="Notification Settings">
-    <ion-content class="b-gray">
+    <ion-content class="b-gray" id="notifScrn">
 
-        <div class="row">
+        <div class="row icon-row">
             <div class="col col-60">
-                <div class="list">
-                    <div><i class="ion-email" style="float:right"></i></div>
-                </div>
             </div>
-            <div class="col">
-                <div class="list">
-                    <div><i class="ion-iphone" style="float:right"></i></div>
-                </div>
+            <div class="col col-20">
+                <i class="ion-email" ng-click="toggleAll('email')"></i>
+            </div>
+            <div class="col col-20">
+                <i class="ion-iphone" ng-click="toggleAll('sms')"></i>
             </div>
         </div>
 
         <div class="row">
-            <div class="col col-60">
+            <div class="col col-60">Transfer Received</div>
 
-                <div class="item item-toggle">
-                    Transfer Received
-                    <label class="toggle toggle-calm">
-                        <input type="checkbox" ng-model="ChkBox.EmailTransferReceived" ng-click="SetNotificationFn()" ng-checked="ChkBox.EmailTransferReceived">
-
-                        <div class="track">
-                            <div class="handle"></div>
-                        </div>
-                    </label>
-                </div>
-
+            <div class="col col-20">
+                <label class="toggle toggle-calm">
+                    <input type="checkbox" ng-model="ChkBox.EmailTransferReceived" ng-click="SetNotificationFn()" ng-checked="ChkBox.EmailTransferReceived">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
             </div>
 
-            <div class="col">
-
-                <div class="item item-toggle">
-                    &nbsp;
-                    <label class="toggle toggle-calm">
-                        <input type="checkbox" ng-model="ChkBox.TransferReceived" ng-click="SetNotificationFn()" ng-checked="ChkBox.TransferReceived">
-
-                        <div class="track">
-                            <div class="handle"></div>
-                        </div>
-                    </label>
-                </div>
+            <div class="col col-20">
+                <label class="toggle toggle-green">
+                    <input type="checkbox" ng-model="ChkBox.TransferReceived" ng-click="SetNotificationFn()" ng-checked="ChkBox.TransferReceived">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
             </div>
         </div>
 
         <div class="row">
-            <div class="col col-60">
-                <div class="item item-toggle">
-                    Transfer Sent
-                    <label class="toggle toggle-calm">
-                        <input type="checkbox" ng-model="ChkBox.EmailTransferSent" ng-click="SetNotificationFn()" ng-checked="ChkBox.EmailTransferSent">
-                        <div class="track">
-                            <div class="handle"></div>
-                        </div>
-                    </label>
-                </div>
+            <div class="col col-60">Transfer Sent</div>
+
+            <div class="col col-20">
+                <label class="toggle toggle-calm">
+                    <input type="checkbox" ng-model="ChkBox.EmailTransferSent" ng-click="SetNotificationFn()" ng-checked="ChkBox.EmailTransferSent">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
             </div>
         </div>
 

@@ -21,7 +21,7 @@
 
         <div id="fav-container">
             <hscroller>
-                <hcard ng-repeat="item in FavoritesToDisplay" index="{{$index}}" desc="{{item.desc}}" image="{{item.image}}"></hcard>
+                <hcard ng-repeat="item in FavoritesToDisplay" ng-click="openFilterChoices(item)" index="{{$index}}" desc="{{item.FirstName}}" image="{{item.Photo}}"></hcard>
             </hscroller>
         </div>
 

@@ -50,7 +50,7 @@
 
                  $('#settings_cntnr').css('margin-top', '55px');
              }
-         }, 1000);
+         }, 500);
 
          $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
@@ -135,19 +135,95 @@
                  text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
                  type: "warning",
                  confirmButtonColor: "#3fabe1",
-                 confirmButtonText: "Ok"
+                 confirmButtonText: "Ok",
+                 showCancelButton: true,
+                 cancelButtonText: "Resend Email"
+             }, function (isConfirm) {
+                 if (!isConfirm)
+                 {
+                     $ionicLoading.show({
+                         template: 'Sending Verification Link...'
+                     });
+
+                     CommonServices.ResendVerificationLink()
+                        .success(function (result) {
+                            $ionicLoading.hide();
+
+                            if (result.Result == 'Success')
+                                swal("Check Your Email", "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.", "success");
+                            else
+                                swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
+                        })
+                        .error(function (error) {
+                            console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
+
+                            if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                CommonServices.logOut();
+                            else
+                                swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
+                        });
+                 }
              });
          }
          else if ($rootScope.IsPhoneVerified == false)
          {
+             var isPhoneAdded = false;
+             var bodyTxt = "Would you like to add a number now?";
+             var confirmBtnTxt = "Add Now";
+
+             if ($rootScope.ContactNumber != null && $rootScope.contactNumber != "")
+             {
+                 isPhoneAdded = true;
+                 bodyTxt = "You should have received a text message from us. Just respond 'Go' to confirm your number.";
+                 confirmBtnTxt = "Resend SMS";
+             }
+
              swal({
                  title: "Blame The Lawyers",
                  text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
-                       "<span class='show'>If you've already added your phone number, just respond 'Go' to the text message we sent.</span>",
+                       "<span class='show'></span>",
                  type: "warning",
                  confirmButtonColor: "#3fabe1",
-                 confirmButtonText: "Ok",
-                 html: true
+                 confirmButtonText: confirmBtnTxt,
+                 showCancelButton: true,
+                 cancelButtonText: "Ok",
+                 html: true,
+             }, function (isConfirm) {
+                 if (isConfirm)
+                 {
+                     if (isPhoneAdded)
+                     {
+
+                         $ionicLoading.show({
+                             template: 'Sending SMS...'
+                         });
+
+                         CommonServices.ResendVerificationSMS()
+                            .success(function (result) {
+                                $ionicLoading.hide();
+                                console.log(result);
+
+                                if (result.Result == 'Success')
+                                    swal("Check Your Phone!", "We just sent you an SMS message. Reply with 'Go' to verify your phone number.", "success");
+                                else
+                                    swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
+                            })
+                            .error(function (error) {
+                                console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
+
+                                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                    CommonServices.logOut();
+                                else
+                                    swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
+                            });
+                     }
+                     else
+                     {
+                         $timeout(function () {
+                             $state.go('app.profile');
+                         }, 500);
+                     }
+                 }
              });
          }
          else if ($localStorage.GLOBAL_VARIABLES.isProfileComplete == false)
@@ -247,18 +323,19 @@
          });
 
          settingsService.GetSynapseBankAndUserDetails()
-           .success(function (data) {
-               $scope.bankData = data;
+             .success(function (data) {
+                 $scope.bankData = data;
 
-               console.log($scope.bankData);
+                 console.log($scope.bankData);
 
-               $ionicLoading.hide();
-           }).error(function (data) {
-               console.log('GetSynapseBankAndUserDetails Error: [' + data + ']');
-               $ionicLoading.hide();
-               if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                   CommonServices.logOut();
-           });
+                 $ionicLoading.hide();
+             })
+             .error(function (data) {
+                 console.log('GetSynapseBankAndUserDetails Error: [' + data + ']');
+                 $ionicLoading.hide();
+                 if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                     CommonServices.logOut();
+             });
          //  }
          //else
          //  swal("Oops...", "Internet not connected!", "error");

@@ -6,7 +6,7 @@
 /****************/
 .controller('HomeCtrl', function ($scope, $rootScope, $state, $ionicPlatform, $cordovaGoogleAnalytics, $timeout, $http,
                                   $ionicLoading, $ionicContentBanner, $localStorage, $cordovaContacts, $cordovaSocialSharing,
-                                  authenticationService, profileService, selectRecipientService, CommonServices, homeServices) {
+                                  authenticationService, profileService, selectRecipientService, CommonServices, homeServices, $ionicActionSheet) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
@@ -169,7 +169,9 @@
 
 
     $scope.fetchContacts = function () {
-
+        $ionicLoading.show({
+            template: 'Loading Contacts...'
+        });
         var options = {
             multiple: true
         };
@@ -180,7 +182,8 @@
             ContactNumber: '',
             Photo: '',
             id: '',
-            bit: ''
+            bit: '',
+            otherEmails: []
         };
 
         console.log($cordovaContacts);
@@ -188,18 +191,24 @@
 
         function onSuccess(contacts) {
             console.log('phone' + contacts);
-            
+
             for (var i = 0; i < contacts.length; i++)
             {
+ 
                 var randomNumber = Math.floor(Math.random() * contacts.length) + 1;
-                
+
                 var contact = contacts[randomNumber];
+ 
                 if (contact.name.formatted != null && contact.emails != null)
                 {
                     $scope.readContact.FirstName = contact.name.formatted;
                     $scope.readContact.id = i;
                     $scope.readContact.bit = 'p';
-                    $scope.readContact.UserName = contact.emails[0].value;
+                    if (contact.emails != null) {
+                        $scope.readContact.UserName = contact.emails[0].value;
+
+                        $scope.readContact.otherEmails = contact.emails;
+                    }
                     if (contact.phoneNumbers != null)
                         $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
                     if (contact.photos != null)
@@ -212,7 +221,8 @@
                         UserName: '',
                         ContactNumber: '',
                         Photo: '',
-                        id: ''
+                        id: '',
+                        bit: ''
                     };
                 }
             }
@@ -235,6 +245,7 @@
         console.log($scope.memberList);
 
         $scope.FavoritesToDisplay = [];
+        var tmp = [];
 
         for (var i = 0; i <= 4; i++)
         {
@@ -242,17 +253,67 @@
             {
                 if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
                     $scope.memberList[i].Photo = "./img/profile_picture.png";
-
-                var tmp = [
-                  { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
-                ];
-
-                $scope.FavoritesToDisplay = $scope.FavoritesToDisplay.concat(tmp);
+                if ($scope.memberList[i].bit != 'p') {
+                    //var tmp = [
+                    //  { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
+                    //];
+                   tmp.push( $scope.memberList[i]);
+                }
+                else {
+                    var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
+                    if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
+                        $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
+                    tmp.push($scope.memberList[i]);
+                }
+             
             }
         };
+        $scope.FavoritesToDisplay = tmp;
     }
 
 
+    $scope.openFilterChoices = function (member) {
+
+        console.log(member);
+        $scope.buttonValues = {
+            id: '',
+            text: ''
+        }
+
+
+        if (member.bit!='p') {
+            $state.go('app.howMuch', { recip: member });
+        }
+        else {
+            var buttons = [];
+            for (var i = 0; i < member.otherEmails.length; i++) {
+                console.log(member.otherEmails[i].value);
+                $scope.buttonValues.id = i;
+                $scope.buttonValues.text = member.otherEmails[i].value;
+                buttons.push($scope.buttonValues);
+                $scope.buttonValues = {
+                    id: '',
+                    text: ''
+                }
+            }
+
+            var title = "Choose Email  ";
+
+            var hideSheet = $ionicActionSheet.show({
+                buttons: buttons,
+                titleText: title,
+                cancelText: 'Cancel',
+                cancel: function () {
+
+                },
+                buttonClicked: function (index) {
+                    member.UserName = member.otherEmails[index].value;
+                    $state.go('app.howMuch', { recip: member });
+                    return true;
+                }
+            });
+        }
+    };
     $scope.goToSelectRecip = function () {
         if ($rootScope.Status == "Suspended" ||
             $rootScope.Status == "Temporarily_Blocked")
@@ -333,44 +394,58 @@
         }
         else if ($rootScope.IsPhoneVerified == false)
         {
-            // CC (9/4/16) - NEED TO UPDATE SERVER TO SEND CONTACT NUMBER IN GetUserDetailsForMobileApp SO WE CAN 
-            //				 CHECK IF IT EXISTS HERE. IF IT DOES NOT, THEN INSTEAD OF "Resend SMS" the btn should say
-            //				 "Add Phone" and take the user to the Profile screen.
+            var isPhoneAdded = false;
+            var bodyTxt = "Would you like to add a number now?";
+            var confirmBtnTxt = "Add Now";
+
+            if ($rootScope.ContactNumber != null && $rootScope.contactNumber != "")
+            {
+                isPhoneAdded = true;
+                bodyTxt = "You should have received a text message from us. Just respond 'Go' to confirm your number.";
+                confirmBtnTxt = "Resend SMS";
+            }
+
             swal({
                 title: "Blame The Lawyers",
                 text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
-                      "<span class='show'>If you've already added your phone number, just respond 'Go' to the text message we sent.</span>",
+                      "<span class='show'></span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Ok",
+                confirmButtonText: confirmBtnTxt,
                 showCancelButton: true,
-                cancelButtonText: "Resend SMS",
+                cancelButtonText: "Ok",
                 html: true,
             }, function (isConfirm) {
-                if (!isConfirm)
+                if (isConfirm)
                 {
-                    $ionicLoading.show({
-                        template: 'Sending SMS...'
-                    });
+                    if (isPhoneAdded)
+                    {
 
-                    CommonServices.ResendVerificationSMS()
-	                   .success(function (result) {
-	                       $ionicLoading.hide();
-	                       console.log(result);
+                        $ionicLoading.show({
+                            template: 'Sending SMS...'
+                        });
 
-	                       if (result.Result == 'Success')
-	                           swal("Check Your Phone!", "We just sent you an SMS message. Reply with 'Go' to verify your phone number.", "success");
-	                       else
-	                           swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
-	                   })
-					   .error(function (error) {
-					       console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
+                        CommonServices.ResendVerificationSMS()
+                           .success(function (result) {
+                               $ionicLoading.hide();
+                               console.log(result);
 
-					       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-					           CommonServices.logOut();
-					       else
-					           swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
-					   });
+                               if (result.Result == 'Success')
+                                   swal("Check Your Phone!", "We just sent you an SMS message. Reply with 'Go' to verify your phone number.", "success");
+                               else
+                                   swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
+                           })
+                           .error(function (error) {
+                               console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
+
+                               if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   CommonServices.logOut();
+                               else
+                                   swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
+                           });
+                    }
+                    else
+                        $state.go('app.profile');
                 }
             });
         }

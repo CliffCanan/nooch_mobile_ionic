@@ -719,8 +719,8 @@ a {
 
 /*** SCREEN HEADER ***/
 .bar .title {
-    font-size: 18px;
-    text-shadow: 0px -1px 0px rgba(19,32,38,.3);
+    font-weight: 400;
+    text-shadow: 0px -1px 0px rgba(19,32,38,.24);
 }
 
 .bar .button, .bar button {
@@ -730,6 +730,12 @@ a {
 
 .bar-header .ion-chevron-left {
     font-size: 18px;
+}
+
+.bar-stable .button.button-clear {
+    font-size: 16px;
+    text-shadow: 0px -1px 0px rgba(19,32,38,.2);
+    opacity: .9;
 }
 
 /***  Cards  ***/
@@ -802,8 +808,8 @@ a {
 .content-banner {
     border-width: 1px;
     border-radius: 4px;
-    height: 40px;
-    opacity: .9;
+    height: 38px;
+    opacity: .94;
 }
 
     .content-banner.info {
@@ -816,8 +822,17 @@ a {
         background: linear-gradient(#D61915,#C41713);
     }
 
+    .content-banner.success {
+        background: -webkit-linear-gradient(top, #7fd034,#6ab029);
+        background: linear-gradient(#7fd034,#6ab029);
+    }
+
     .content-banner .content-banner-text {
-        padding: 6px 5px;
+        font-size: 13.5px;
+        letter-spacing: .25px;
+        left: 20px;
+        right: 20px;
+        padding: 4px 5px 0;
     }
 
     .content-banner .content-banner-close {
@@ -825,10 +840,6 @@ a {
         padding: 0;
     }
 
-    .content-banner .content-banner-text {
-        left: 20px;
-        right: 20px;
-    }
 
 /***  TI-SEGMENTED-CONTROL  ***/
 .ti-segmented-control a.button {
@@ -886,6 +897,16 @@ form.smErrors .parsley-errors-list {
 /***  Misc  ***/
 .label-small {
     font-size: 18px;
+}
+
+.toggle.toggle-calm input:checked + .track {
+    background-color: #3fabe1;
+    border-color: #3fabe1;
+}
+
+.toggle.toggle-green input:checked + .track {
+    background-color: #72bf44;
+    border-color: #72bf44;
 }
 
 .toggle-small input:checked + .track {
@@ -1121,7 +1142,7 @@ iframe {
     box-shadow: 0 1px 10px -1px rgba(0,0,0,.7);
     max-height: 65px;
     max-width: 65px;
-	top: 22px;
+    top: 22px;
 }
 
     .menu img.user-img.notValidated {
@@ -1234,20 +1255,31 @@ iframe {
 /******************/
 /***    HOME    ***/
 /******************/
+div.hscroller {
+    overflow-y: visible;
+}
+
 div.hscroller-card {
     background: transparent;
     color: #333;
+    margin: 0 5px;
+    padding-top: 5px;
 }
 
     div.hscroller-card img {
         border-radius: 50%;
+        box-shadow: 0 7px 14px -4px rgba(0,0,0,.3);
+        display: block;
+        height: auto;
+        width: 100px;
+        margin: 0 auto;
     }
 
     div.hscroller-card div.hscroller-label {
         color: #444;
-        font-size: 18px;
+        font-size: 17px;
         text-align: center;
-        margin-top: 8px;
+        margin-top: 10px;
     }
 
 #fav-container {
@@ -1309,10 +1341,10 @@ div.hscroller-card {
 
 #bank-name {
     font-size: 18px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-	width: 72%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 72%;
 }
 
 #bank-nickname, #bank-status {
@@ -1425,6 +1457,24 @@ div.hscroller-card {
     margin-right: 8px;
 }
 
+
+/***********************/
+/***  NOTIFICATIONS  ***/
+/***********************/
+#notifScrn .icon-row .col {
+    text-align: center;
+}
+
+#notifScrn i {
+    color: #5a538d;
+    font-size: 25px;
+}
+
+#notifScrn .row .col:first-child {
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10px 0 0 3%;
+}
 
 /********************/
 /***  CHANGE PIN  ***/

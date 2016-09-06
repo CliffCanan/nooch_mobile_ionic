@@ -22,16 +22,19 @@
         //    $scope.shouldDisplayErrorBanner = true;
         //}
         if ($localStorage.GLOBAL_VARIABLES.Status === "Suspended" ||
-            $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked") {
+            $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked")
+        {
             $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
             $scope.shouldDisplayErrorBanner = true;
         }
-        if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank != true) {
+        if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank != true)
+        {
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
             $scope.shouldDisplayErrorBanner = true;
         }
 
-        if ($scope.shouldDisplayErrorBanner) {
+        if ($scope.shouldDisplayErrorBanner)
+        {
             $ionicContentBanner.show({
                 text: $scope.errorBannerTextArray,
                 interval: '4000',
@@ -102,11 +105,12 @@
 
                 $ionicLoading.hide();
 
-                if (data.Result.indexOf('successfully') > -1) {
+                if (data.Result.indexOf('successfully') > -1)
+                {
                     $ionicContentBanner.show({
                         text: ['Profile Updated Successfully!'],
                         autoClose: '5000',
-                        type: 'info',
+                        type: 'success',
                         transition: 'vertical'
                     });
 
@@ -130,8 +134,16 @@
                 console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
 
                 $ionicLoading.hide();
+
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
+                else
+                    $ionicContentBanner.show({
+                        text: ['Error Saving Profile Changes :-('],
+                        autoClose: '5000',
+                        type: 'error',
+                        transition: 'vertical'
+                    });
             })
         //}
         //else
@@ -150,7 +162,8 @@
             confirmButtonText: "OK",
             html: true
         }, function (isConfirm) {
-            if (isConfirm) {
+            if (isConfirm)
+            {
                 $ionicLoading.show({
                     template: 'Sending Verification Link...'
                 });
@@ -163,7 +176,7 @@
                            $ionicContentBanner.show({
                                text: ['Email Confirmation Link Sent'],
                                autoClose: '5000',
-                               type: 'info',
+                               type: 'success',
                                transition: 'vertical'
                            });
                        else
@@ -203,7 +216,8 @@
             confirmButtonText: "OK",
             html: true
         }, function (isConfirm) {
-            if (isConfirm) {
+            if (isConfirm)
+            {
                 $ionicLoading.show({
                     template: 'Sending Verification Text...'
                 });
@@ -241,6 +255,7 @@
         });
     }
 
+
     // Date Picker Plugin
     $scope.showdate = function () {
 
@@ -266,6 +281,7 @@
         }, false);
     }
 
+
     $scope.changePic = function () {
         var hideSheet = $ionicActionSheet.show({
             buttons: [
@@ -275,16 +291,19 @@
             titleText: 'How You want to change your picture ?',
             cancelText: 'Cancel',
             buttonClicked: function (index) {
-                if (index == 0) {
+                if (index == 0)
+                {
                     $scope.choosePhoto();
                 }
-                else if (index == 1) {
+                else if (index == 1)
+                {
                     $scope.takePhoto();
                 }
                 return true;
             }
         });
     }
+
 
     $scope.takePhoto = function () {
         $ionicPlatform.ready(function () {
@@ -306,7 +325,8 @@
                 var binary_string = window.atob(imageData);
                 var len = binary_string.length;
                 var bytes = new Uint8Array(len);
-                for (var i = 0; i < len; i++) {
+                for (var i = 0; i < len; i++)
+                {
                     bytes[i] = binary_string.charCodeAt(i);
                 }
                 $scope.picture = imageData;
@@ -354,45 +374,31 @@
         console.log($scope.Details.SSN);
         //if ($cordovaNetwork.isOnline()) {
 
-        //$ionicLoading.show({
-        //    template: 'Saving...'
-        //});
-
         profileService.SaveMemberSSN($scope.Details)
             .success(function (details) {
                 console.log(details);
 
-                if (details.Result == 'SSN saved successfully.' && $scope.Details != null)
+                if (details == null || details.Result == 'SSN saved successfully.')
                     $ionicContentBanner.show({
-                        text: ['Profile Updated Successfully'],
-                        autoClose: '5000',
-                        type: 'info',
-                        transition: 'vertical'
-                    });
-                else
-                    $ionicContentBanner.show({
-                        text: ['Error: Profile NOT Updated'],
+                        text: ['Error Saving Profile Changes'],
                         autoClose: '5000',
                         type: 'error',
                         transition: 'vertical'
                     });
 
-                $scope.Details = details;
-
-                $ionicLoading.hide();
+                //$scope.Details = details;
             })
-			.error(function (encError) {
-			    console.log('came in enc error block ' + encError);
-			    $ionicLoading.hide();
+			.error(function (error) {
+			    console.log('SaveMemberSSN Error: [' + JSON.stringify(error) + ']');
 
 			    $ionicContentBanner.show({
-			        text: ['Error: Profile NOT Updated'],
+			        text: ['Error Saving Profile Changes'],
 			        autoClose: '5000',
 			        type: 'error',
 			        transition: 'vertical'
 			    });
 
-			    if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 			        CommonServices.logOut();
 			})
         //}
@@ -407,7 +413,8 @@
 
 
     $scope.goToSettings = function () {
-        if ($scope.isAnythingChanged == true) {
+        if ($scope.isAnythingChanged == true)
+        {
             swal({
                 title: "Save Changes?",
                 text: "Would you like to save the changes to your profile?",
@@ -417,7 +424,8 @@
                 confirmButtonColor: "#3fabe1",
                 confirmButtonText: "OK"
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
                     $scope.shouldGoToSettings = true;
                     $scope.UpdateProfile()
                 }

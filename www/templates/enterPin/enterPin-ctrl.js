@@ -68,7 +68,7 @@
                        $ionicLoading.hide();
 
                        if (data.Result == 'Success') {
-                           console.log(data);
+                          
                            //code to transfer Money
 
                            if ($scope.returnUrl == 'app.home')
@@ -78,6 +78,7 @@
                                template: 'Submitting Payment...'
                            });
 
+						   console.log(JSON.stringify($scope.Details));
                            if ($scope.comingFrom == 'Transfer') {
 
                                if ($scope.Details.MemberId != $scope.Details.RecepientId && $scope.Details.RecepientId != null && $scope.Details.RecepientId != undefined) {
