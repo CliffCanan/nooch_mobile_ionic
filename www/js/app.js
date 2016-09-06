@@ -71,26 +71,26 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               bit: ''
           };
 
-          AppRate.preferences = {
-              openStoreInApp: true,
-              displayAppName: 'Nooch',
-              usesUntilPrompt: 5,
-              promptAgainForEachNewVersion: false,
-              storeAppURL: {
-                  ios: 'https://itunes.apple.com/us/app/nooch/id917955306?mt=8',
-                  android: 'market://details?id=<com.soundcloud.android>',
-                  windows: 'ms-windows-store://pdp/?ProductId=<the apps Store ID>'
-              },
-              customLocale: {
-                  title: "Rate Nooch",
-                  message: "If you enjoy using Nooch, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!",
-                  cancelButtonLabel: "No Thanks",
-                  laterButtonLabel: "Remind Me Later",
-                  rateButtonLabel: "Ok, Sure"
-              }
-          };
+          // AppRate.preferences = {
+          //     openStoreInApp: true,
+          //     displayAppName: 'Nooch',
+          //     usesUntilPrompt: 5,
+          //     promptAgainForEachNewVersion: false,
+          //     storeAppURL: {
+          //         ios: 'com.money.nooch',
+          //         android: 'market://details?id=com.soundcloud.android',
+          //         windows: 'ms-windows-store://pdp/?ProductId=com.nooch.nooch'
+          //     },
+          //     customLocale: {
+          //         title: "Rate Nooch",
+          //         message: "If you enjoy using Nooch, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!",
+          //         cancelButtonLabel: "No Thanks",
+          //         laterButtonLabel: "Remind Me Later",
+          //         rateButtonLabel: "Ok, Sure"
+          //     }
+          // };
 
-          AppRate.promptForRating(false);
+          // AppRate.promptForRating(false);
 
 
           // Fired when the app enters the foreground

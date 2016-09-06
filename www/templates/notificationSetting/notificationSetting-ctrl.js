@@ -1,76 +1,97 @@
-﻿angular.module('noochApp.notificationSettingCtrl', ['noochApp.services','noochApp.notificationSetting-service'])
+﻿angular.module('noochApp.notificationSettingCtrl', ['noochApp.services', 'noochApp.notificationSetting-service'])
 
-.controller('notificationSettingCtrl', function ($scope,CommonServices, $state, notificationServices, $ionicLoading) {
-
-    $scope.ChkBox = {
-        EmailTransferReceived: '',
-        EmailTransferSent: '',
-        TransferReceived: '',
-    };
+.controller('notificationSettingCtrl', function ($scope, $rootScope, $ionicLoading, $state, CommonServices, notificationServices) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        // handle event
-        console.log('Notification Controller loaded');
+        console.log("CHECKPOINT NOTIF 11");
+        if ($rootScope.ChkBox == null)
+        {
+            console.log("CHECKPOINT NOTIF 22");
+            $rootScope.ChkBox = {
+                EmailTransferReceived: '',
+                EmailTransferSent: '',
+                TransferReceived: '',
+            };
+        }
+
         $scope.GetNotificationFn();
     })
-       
+
 
     $scope.GetNotificationFn = function () {
         //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading ...'
-        });     
+        //$ionicLoading.show({
+        //    template: 'Loading Settings...'
+        //});
 
-        notificationServices.GetMemberNotificationSettings() 
-          .success(function (data) {
-              $scope.ChkBox = data;
-
-              //$scope.ChkBox.TransRec = $scope.Data.EmailTransferReceived;
-              //$scope.ChkBox.TransSent = $scope.Data.EmailTransferSent;
-              //$scope.ChkBox.TransRecMob = $scope.Data.TransferReceived;
-              console.log('Ctrl Data recieved from Server');
-              console.log($scope.ChkBox);
-              $ionicLoading.hide();
-          }).error(function (data) {
-              console.log('eror' + data);
-              $ionicLoading.hide();
-            //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-              { CommonServices.logOut(); }
-          });
-      //  }
-        //else {
-        //    swal("Oops...", "Internet not connected!", "error");
-        //}        
+        notificationServices.GetMemberNotificationSettings()
+            .success(function (data) {
+                console.log(data);
+                $rootScope.ChkBox = data;
+                //$ionicLoading.hide();
+            })
+            .error(function (error) {
+                console.log('GetMemberNotificationSettings Error: [' + error + ']');
+                //$ionicLoading.hide();
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            });
+        //  }
+        //else
+        //    swal("Error", "Internet not connected!", "error");     
     }
 
 
     $scope.SetNotificationFn = function () {
         //if ($cordovaNetwork.isOnline()) {
 
-        $ionicLoading.show({
-            template: 'Loading ...'
-        });
-        console.log('From Controller -> Values in check boxes');        
-        console.log($scope.ChkBox.EmailTransferReceived);
-        console.log($scope.ChkBox.EmailTransferSent);
-        console.log($scope.ChkBox.TransferReceived);
-
-        notificationServices.MemberEmailNotificationSettings($scope.ChkBox)
-          .success(function (data) {
-              $scope.Data = data;
-              console.log($scope.Data);
-              $ionicLoading.hide();
-          }).error(function (data) {
-              console.log('eror' + data);
-              $ionicLoading.hide();
-            //  if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-              { CommonServices.logOut(); }
-          });
+        notificationServices.MemberEmailNotificationSettings($rootScope.ChkBox)
+            .success(function (data) {
+                console.log(data);
+            })
+            .error(function (data) {
+                console.log('MemberEmailNotificationSettings Error: [' + JSON.stringify(data) + ']');
+                $ionicLoading.hide();
+                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            });
         //  }
-        //else {
+        //else
         //    swal("Oops...", "Internet not connected!", "error");
-        //}        
     }
 
 
+    $scope.toggleAll = function (type) {
+
+        if (type == 'email')
+        {
+            if ($rootScope.ChkBox.EmailTransferReceived == true)
+            {
+                // Set all Email FALSE
+                $rootScope.ChkBox.EmailTransferReceived = false;
+                $rootScope.ChkBox.EmailTransferSent = false;
+            }
+            else
+            {
+                // Set all Email TRUE
+                $rootScope.ChkBox.EmailTransferReceived = true;
+                $rootScope.ChkBox.EmailTransferSent = true;
+            }
+        }
+        else
+        {
+            if ($rootScope.ChkBox.TransferReceived == true)
+            {
+                // Set all SMS FALSE
+                $rootScope.ChkBox.TransferReceived = false;
+            }
+            else
+            {
+                // Set all SMS TRUE
+                $rootScope.ChkBox.TransferReceived = true;
+            }
+        }
+
+        $scope.SetNotificationFn();
+    }
 })

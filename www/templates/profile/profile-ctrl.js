@@ -1,5 +1,5 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
-.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner, $rootScope) {
+.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner, $rootScope, $ionicActionSheet) {
 
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -110,7 +110,7 @@
                     $ionicContentBanner.show({
                         text: ['Profile Updated Successfully!'],
                         autoClose: '5000',
-                        type: 'info',
+                        type: 'success',
                         transition: 'vertical'
                     });
 
@@ -134,8 +134,16 @@
                 console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
 
                 $ionicLoading.hide();
+
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
+                else
+                    $ionicContentBanner.show({
+                        text: ['Error Saving Profile Changes :-('],
+                        autoClose: '5000',
+                        type: 'error',
+                        transition: 'vertical'
+                    });
             })
         //}
         //else
@@ -168,7 +176,7 @@
                            $ionicContentBanner.show({
                                text: ['Email Confirmation Link Sent'],
                                autoClose: '5000',
-                               type: 'info',
+                               type: 'success',
                                transition: 'vertical'
                            });
                        else
@@ -247,6 +255,7 @@
         });
     }
 
+
     // Date Picker Plugin
     $scope.showdate = function () {
 
@@ -273,6 +282,62 @@
     }
 
 
+    $scope.changePic = function () {
+        var hideSheet = $ionicActionSheet.show({
+            buttons: [
+              { text: 'Gallery' },
+              { text: 'Camera' }
+            ],
+            titleText: 'How You want to change your picture ?',
+            cancelText: 'Cancel',
+            buttonClicked: function (index) {
+                if (index == 0)
+                {
+                    $scope.choosePhoto();
+                }
+                else if (index == 1)
+                {
+                    $scope.takePhoto();
+                }
+                return true;
+            }
+        });
+    }
+
+
+    $scope.takePhoto = function () {
+        $ionicPlatform.ready(function () {
+            var options = {
+                quality: 75,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 300,
+                targetHeight: 300,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false
+            };
+
+            $cordovaCamera.getPicture(options).then(function (imageData) {
+                console.log(imageData);
+                $scope.imgURI = "data:image/jpeg;base64," + imageData;
+                var binary_string = window.atob(imageData);
+                var len = binary_string.length;
+                var bytes = new Uint8Array(len);
+                for (var i = 0; i < len; i++)
+                {
+                    bytes[i] = binary_string.charCodeAt(i);
+                }
+                $scope.picture = imageData;
+                console.log(bytes);
+
+            }, function (err) {
+                // An error occured. Show a message to the user
+            });
+        });
+    }
+
     $scope.choosePhoto = function () {
         $ionicPlatform.ready(function () {
             var options = {
@@ -294,17 +359,6 @@
                 console.log('after converting base 64 imgURL');
                 console.log($scope.imgURI);
 
-                //var binary_string = window.atob(imageData);
-                //var len = binary_string.length;
-                //var bytes = new Uint8Array(len);
-                //for (var i = 0; i < len; i++)
-                //{
-                //    bytes[i] = binary_string.charCodeAt(i);
-                //}
-
-                //console.log(bytes);
-                //$scope.Details.picture = bytes;
-
                 $scope.Details.Photos = imageData;
                 // $scope.Details.Photo = imageData;
 
@@ -320,45 +374,31 @@
         console.log($scope.Details.SSN);
         //if ($cordovaNetwork.isOnline()) {
 
-        //$ionicLoading.show({
-        //    template: 'Saving...'
-        //});
-
         profileService.SaveMemberSSN($scope.Details)
             .success(function (details) {
                 console.log(details);
 
-                if (details.Result == 'SSN saved successfully.' && $scope.Details != null)
+                if (details == null || details.Result == 'SSN saved successfully.')
                     $ionicContentBanner.show({
-                        text: ['Profile Updated Successfully'],
-                        autoClose: '5000',
-                        type: 'info',
-                        transition: 'vertical'
-                    });
-                else
-                    $ionicContentBanner.show({
-                        text: ['Error: Profile NOT Updated'],
+                        text: ['Error Saving Profile Changes'],
                         autoClose: '5000',
                         type: 'error',
                         transition: 'vertical'
                     });
 
-                $scope.Details = details;
-
-                $ionicLoading.hide();
+                //$scope.Details = details;
             })
-			.error(function (encError) {
-			    console.log('came in enc error block ' + encError);
-			    $ionicLoading.hide();
+			.error(function (error) {
+			    console.log('SaveMemberSSN Error: [' + JSON.stringify(error) + ']');
 
 			    $ionicContentBanner.show({
-			        text: ['Error: Profile NOT Updated'],
+			        text: ['Error Saving Profile Changes'],
 			        autoClose: '5000',
 			        type: 'error',
 			        transition: 'vertical'
 			    });
 
-			    if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 			        CommonServices.logOut();
 			})
         //}

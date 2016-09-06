@@ -191,11 +191,14 @@
 
         function onSuccess(contacts) {
             console.log('phone' + contacts);
-            
+
             for (var i = 0; i < contacts.length; i++)
             {
-                
-                var contact = contacts[i];
+ 
+                var randomNumber = Math.floor(Math.random() * contacts.length) + 1;
+
+                var contact = contacts[randomNumber];
+ 
                 if (contact.name.formatted != null && contact.emails != null)
                 {
                     $scope.readContact.FirstName = contact.name.formatted;
@@ -391,44 +394,58 @@
         }
         else if ($rootScope.IsPhoneVerified == false)
         {
-            // CC (9/4/16) - NEED TO UPDATE SERVER TO SEND CONTACT NUMBER IN GetUserDetailsForMobileApp SO WE CAN 
-            //				 CHECK IF IT EXISTS HERE. IF IT DOES NOT, THEN INSTEAD OF "Resend SMS" the btn should say
-            //				 "Add Phone" and take the user to the Profile screen.
+            var isPhoneAdded = false;
+            var bodyTxt = "Would you like to add a number now?";
+            var confirmBtnTxt = "Add Now";
+
+            if ($rootScope.ContactNumber != null && $rootScope.contactNumber != "")
+            {
+                isPhoneAdded = true;
+                bodyTxt = "You should have received a text message from us. Just respond 'Go' to confirm your number.";
+                confirmBtnTxt = "Resend SMS";
+            }
+
             swal({
                 title: "Blame The Lawyers",
                 text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
-                      "<span class='show'>If you've already added your phone number, just respond 'Go' to the text message we sent.</span>",
+                      "<span class='show'></span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Ok",
+                confirmButtonText: confirmBtnTxt,
                 showCancelButton: true,
-                cancelButtonText: "Resend SMS",
+                cancelButtonText: "Ok",
                 html: true,
             }, function (isConfirm) {
-                if (!isConfirm)
+                if (isConfirm)
                 {
-                    $ionicLoading.show({
-                        template: 'Sending SMS...'
-                    });
+                    if (isPhoneAdded)
+                    {
 
-                    CommonServices.ResendVerificationSMS()
-	                   .success(function (result) {
-	                       $ionicLoading.hide();
-	                       console.log(result);
+                        $ionicLoading.show({
+                            template: 'Sending SMS...'
+                        });
 
-	                       if (result.Result == 'Success')
-	                           swal("Check Your Phone!", "We just sent you an SMS message. Reply with 'Go' to verify your phone number.", "success");
-	                       else
-	                           swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
-	                   })
-					   .error(function (error) {
-					       console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
+                        CommonServices.ResendVerificationSMS()
+                           .success(function (result) {
+                               $ionicLoading.hide();
+                               console.log(result);
 
-					       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-					           CommonServices.logOut();
-					       else
-					           swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
-					   });
+                               if (result.Result == 'Success')
+                                   swal("Check Your Phone!", "We just sent you an SMS message. Reply with 'Go' to verify your phone number.", "success");
+                               else
+                                   swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
+                           })
+                           .error(function (error) {
+                               console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
+
+                               if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                   CommonServices.logOut();
+                               else
+                                   swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
+                           });
+                    }
+                    else
+                        $state.go('app.profile');
                 }
             });
         }
