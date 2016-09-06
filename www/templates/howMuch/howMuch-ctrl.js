@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.howMuchCtrl', ['ngCordova', 'noochApp.howMuch-service', 'noochApp.services'])
 
-.controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading, $ionicContentBanner, $cordovaCamera, $cordovaImagePicker) {
+.controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading, $ionicContentBanner, $cordovaCamera, $cordovaImagePicker, $ionicActionSheet) {
 
     var type = '';
 
@@ -294,6 +294,26 @@
     };
 
 
+    $scope.changePic = function () {
+        var hideSheet = $ionicActionSheet.show({
+            buttons: [
+              { text: 'Gallery' },
+              { text: 'Camera' }
+            ],
+            titleText: 'How You want to change your picture ?',
+            cancelText: 'Cancel',
+            buttonClicked: function (index) {
+                if (index == 0) {
+                    $scope.choosePhoto();
+                }
+                else if (index == 1) {
+                    $scope.takePhoto();
+                }
+                return true;
+            }
+        });
+    }
+
     $scope.takePhoto = function () {
         console.log($cordovaCamera);
       cordova.plugins.diagnostic.isCameraAuthorized(function(authorized){
@@ -360,7 +380,6 @@
       });
     }
 
-
     $scope.choosePhoto = function () {
         $ionicPlatform.ready(function () {
             var options = {
@@ -382,7 +401,6 @@
             });
         });
     }
-
 
     $scope.GoBack = function () {
         $ionicHistory.goBack();

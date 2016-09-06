@@ -15,7 +15,7 @@
 
                 <p class="f-30 m-b-15 capitalize">Hey&nbsp;{{signUpData.FirstName}}!</p>
 
-                <div id="picWrap" ng-click="choosePhoto()">
+                <div id="picWrap" ng-click="changePic()">
                     <img class="m-b-20 defaultPic" src="./img/RoundLoading.png" ng-if="signUpData.Photo == null || signUpData.Photo == ''" />
                     <img class="m-b-20" src="{{signUpData.Photo}}" ng-if="signUpData.Photo != null && signUpData.Photo.length > 10" />
                 </div>
