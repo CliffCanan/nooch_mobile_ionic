@@ -771,14 +771,16 @@ a {
     padding: 4px 16px 12px;
 }
 
-.sweet-alert.hasImage {
-	top: 25%;
-	padding: 2px 10px; 10px;
-}
+    .sweet-alert.hasImage {
+        top: 25%;
+        padding: 2px 10px;
+        10px;
+    }
 
-.sweet-alert.hasImage img {
-	width: 100%;
-}
+        .sweet-alert.hasImage img {
+            width: 100%;
+        }
+
     .sweet-alert p {
         color: #444;
         font-size: 17px;
@@ -1082,37 +1084,37 @@ iframe {
 /*****************/
 
 #welcomeBox ul {
-	padding: 10px 5% 0 10%;
+    padding: 10px 5% 0 10%;
 }
 
 #welcomeBox li {
-	font-size: 17px;
-	line-height: 1.4;
-	margin-bottom: 10px;
+    font-size: 17px;
+    line-height: 1.4;
+    margin-bottom: 10px;
 }
 
-#welcomeBox li i {
-	margin-right: 6px;
+    #welcomeBox li i {
+        margin-right: 6px;
+    }
+
+    #welcomeBox li span {
+        display: block;
+        font-size: 15px;
+        font-weight: 300;
+        margin-top: 2px;
+        padding-left: 24px;
+    }
+
+#welcomeBox .btn-link {
+    color: #888;
+    font-size: 16px;
 }
 
-#welcomeBox li span {
+#tellMore {
     display: block;
     font-size: 15px;
     font-weight: 300;
     margin-top: 2px;
-	padding-left: 24px;
-}
-
-#welcomeBox .btn-link {
-	color: #888;
-	font-size: 16px;
-}
-
-#tellMore {
-	display: block;
-	font-size: 15px;
-	font-weight: 300;
-	margin-top: 2px;
 }
 
 

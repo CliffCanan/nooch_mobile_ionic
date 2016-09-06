@@ -8,18 +8,17 @@
 
             console.log($rootScope.signUpData);
 
-            //if ($rootScope.signUpData == null)
-                //$state.go('signup');
+            if ($rootScope.signUpData == null)
+                $state.go('signup');
         });
 
 
-		$scope.go = function(destination)
-		{
-			if (destination == 'profile')
-				$state.go('app.profile');
-			else
-				$state.go('app.home');
-		}
+        $scope.go = function (destination) {
+            if (destination == 'profile')
+                $state.go('app.profile');
+            else
+                $state.go('app.home');
+        }
 
 
         $scope.tellMeMore = function () {
@@ -32,7 +31,7 @@
                 cancelButtonText: "Close",
                 confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Complete Now",
-				customClass: 'hasImage',
+                customClass: 'hasImage',
                 html: true,
             }, function (isConfirm) {
                 if (isConfirm)

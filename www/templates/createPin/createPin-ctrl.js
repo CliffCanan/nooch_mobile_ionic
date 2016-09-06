@@ -30,7 +30,7 @@
 
         $scope.signUpFn = function () {
             console.log('signUpFn Fired');
-            console.log($rootScope.signUpData);       
+            console.log($rootScope.signUpData);
 
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
@@ -49,36 +49,36 @@
 
             CommonServices.GetEncryptedData($rootScope.signUpData.Password)
 				.success(function (data) {
-	                $rootScope.signUpData.Password = data.Status;
+				    $rootScope.signUpData.Password = data.Status;
 
-	                createPinServices.Signup($rootScope.signUpData)
+				    createPinServices.Signup($rootScope.signUpData)
 						.success(function (data) {
-		                    console.log(data);
+						    console.log(data);
 
-		                    $ionicLoading.hide();
+						    $ionicLoading.hide();
 
-		                    if (data = 'Thanks for registering! Check your email to complete activation.')
-		                    {
-		                        $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
-		                        //console.log('RunTime values ----->> DeviceId And DeviceToken');
-		                        //console.log($localStorage.GLOBAL_VARIABLES.DeviceId);
-		                        //console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
-		                        $scope.SignIn();
-		                    }
-		                    else if (data = 'Duplicate random Nooch ID was generating')
-		                    {
-		                        swal("Uh Oh...", "Looks like that email is already registered!", "error");
-		                        $state.go('login');
-		                    }
-		                    else
-		                        swal("Error", "Something went wrong", "error");
-		                })
+						    if (data = 'Thanks for registering! Check your email to complete activation.')
+						    {
+						        $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
+						        //console.log('RunTime values ----->> DeviceId And DeviceToken');
+						        //console.log($localStorage.GLOBAL_VARIABLES.DeviceId);
+						        //console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
+						        $scope.SignIn();
+						    }
+						    else if (data = 'Duplicate random Nooch ID was generating')
+						    {
+						        swal("Uh Oh...", "Looks like that email is already registered!", "error");
+						        $state.go('login');
+						    }
+						    else
+						        swal("Error", "Something went wrong", "error");
+						})
 						.error(function (encError) {
-							$ionicLoading.hide();
-		                    console.log('Signup Attempt -> Error [' + encError + ']');
-		                    $state.go('signup');
-		                })
-            })
+						    $ionicLoading.hide();
+						    console.log('Signup Attempt -> Error [' + encError + ']');
+						    $state.go('signup');
+						})
+				})
             //}
             //else
             //    swal("Error", "Internet not connected!", "error");
@@ -147,27 +147,27 @@
 	                      }
 	                  })
 					  .error(function (res) {
-	                      console.log('Login Attempt Error: [' + res + ']');
-	                  });
+					      console.log('Login Attempt Error: [' + res + ']');
+					  });
 
             function fetchAfterLoginDetails() {
 
                 CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName)
 					.success(function (data) {
-	                    $ionicLoading.hide();
+					    $ionicLoading.hide();
 
-	                    console.log(data);
+					    console.log(data);
 
-	                    if (data != null)
-	                    {
-	                        $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-	                        $state.go('app.welcome');
-	                    }
-	                })
+					    if (data != null)
+					    {
+					        $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
+					        $state.go('app.welcome');
+					    }
+					})
 					.error(function (err) {
-	                    $ionicLoading.hide();
-	                    swal("Error", err.Result, "error");
-	                });
+					    $ionicLoading.hide();
+					    swal("Error", err.Result, "error");
+					});
             }
             //}
             //else
