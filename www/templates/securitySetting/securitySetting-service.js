@@ -22,6 +22,8 @@
 
 
       this.GetMemberPrivacySettings = function () {
-          return $http.get(URLs.GetMemberPrivacySettings + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+          var url = URLs.GetMemberPrivacySettings + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken;
+          console.log(url);
+          return $http.get(url);
       };
   })

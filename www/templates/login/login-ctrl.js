@@ -75,7 +75,6 @@
                           }
                       }, function (error) {
                           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                          console.log($localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch);
                           console.error("The following error occurred: " + error);
                       });
                   }
@@ -99,11 +98,8 @@
                 .success(function (response) {
 
                     $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
-                    $rootScope.isRequiredImmediately = $scope.loginData.rmmbrMe.chk;
 
                     console.log(response);
-
-                    $ionicLoading.hide();
 
                     if (response.Result.indexOf('Invalid user id') > -1)
                     {
@@ -311,12 +307,17 @@
               facebookConnectPlugin.browserInit("198279616971457");
 
           facebookConnectPlugin.login(['email', 'public_profile'], function (response) {
-              console.log('login response from fb ' + JSON.stringify(response));
+              console.log('facebookConnectPlugin Resonse: ' + JSON.stringify(response));
               $scope.loginWithFbData.fbStatus = _.get(response, 'status');
-              console.log('Face book Status--> ' + $scope.loginWithFbData.fbStatus);
+              console.log('Facebook Status--> ' + $scope.loginWithFbData.fbStatus);
 
               facebookConnectPlugin.api("/me?fields=name,email,picture.type(large)", ['email'], function (success) {
                   // success
+
+                  $ionicLoading.show({
+                      template: 'Signing in...'
+                  });
+
                   console.log('got this from fb ' + JSON.stringify(success));
                   $scope.loginWithFbData.Email = _.get(success, 'email');
                   $scope.loginWithFbData.Name = _.get(success, 'name');
@@ -325,40 +326,35 @@
 
                   if ($scope.loginWithFbData.fbStatus == 'connected')
                       $scope.fbStatus = 'YES';
-                  //$scope.em = _.get(success, 'email');
-                  //$scope.na = _.get(success, 'name');
-                  // $scope.$apply();
+
                   $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginWithFbData.Email;
                   console.log('Printing from local Storage-->>' + $localStorage.GLOBAL_VARIABLES.UserName);
-                  console.log('Here is my  scope object' + JSON.stringify($scope.loginWithFbData));
-                  $ionicLoading.show({
-                      template: 'Loading...'
-                  });
+                  console.log('$scope.loginWithFbData: [' + JSON.stringify($scope.loginWithFbData) + ']');
 
                   authenticationService.LoginWithFacebookGeneric($localStorage.GLOBAL_VARIABLES.UserName, $scope.loginWithFbData.FBId, $scope.loginWithFbData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude, $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
-                        .success(function (response) {
-                            console.log(response);
+                      .success(function (response) {
+                          console.log(response);
 
-                            //  $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
-                            $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
+                          //  $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
+                          $localStorage.GLOBAL_VARIABLES.AccessToken = response.Result;
 
-                            $ionicLoading.hide();
-                            $scope.fetchAfterLoginDetails();
+                          $ionicLoading.hide();
+                          $scope.fetchAfterLoginDetails();
 
-                            authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.loginWithFbData.FBId, $scope.fbStatus)
-                                .success(function (response) {
-                                    $ionicLoading.hide();
-                                    $state.go('app.home');
-                                }).error(function (response) {
-                                    console.log('saveMemberFBId Error: [' + response + ']');
-                                })
+                          authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.loginWithFbData.FBId, $scope.fbStatus)
+                              .success(function (response) {
+                                  $state.go('app.home');
+                              })
+                              .error(function (response) {
+                                  console.log('saveMemberFBId Error: [' + response + ']');
+                              })
 
-                        }).error(function (res) {
-                            $ionicLoading.hide();
-                            console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
-                        })
+                      })
+                      .error(function (res) {
+                          $ionicLoading.hide();
+                          console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
+                      })
               }, function (error) {
-                  // error
                   console.log(error);
               })
           },
@@ -371,9 +367,6 @@
 
 
       $scope.fetchAfterLoginDetails = function () {
-          $ionicLoading.show({
-              template: 'Signing in...'
-          });
 
           CommonServices.GetMemberIdByUsername($localStorage.GLOBAL_VARIABLES.UserName)
 			  .success(function (data) {
@@ -384,9 +377,10 @@
 			          $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
 			          $state.go('app.home');
 			      }
-			  }).error(function (err) {
-			      $ionicLoading.hide();
-			  });
+			  })
+              .error(function (err) {
+                  $ionicLoading.hide();
+              });
       }
 
 

@@ -19,15 +19,12 @@
     $scope.MemberPrivacyFn = function () {
 
         //if ($cordovaNetwork.isOnline()) {
-        //$ionicLoading.show({
-        //    template: 'Loading ...'
-        //});
 
         console.log($scope.SecSettings.RequireImmediately, $scope.SecSettings.ShowInSearch);
 
         MemberPrivacy.UpdateSecuritySettings($scope.SecSettings) //.RequirePin, $scope.SecSettings.ShowInSearch
           .success(function (data) {
-              $localStorage.GLOBAL_VARIABLES.EnterPinImmediately = $scope.SecSettings.RequireImmediately;
+              $localStorage.GLOBAL_VARIABLES.isRequiredImmediately = $scope.SecSettings.RequireImmediately;
               $scope.Data = data;
               console.log($scope.Data);
               //$ionicLoading.hide();

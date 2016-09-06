@@ -110,7 +110,7 @@
                     $ionicContentBanner.show({
                         text: ['Profile Updated Successfully!'],
                         autoClose: '5000',
-                        type: 'info',
+                        type: 'success',
                         transition: 'vertical'
                     });
 
@@ -134,8 +134,16 @@
                 console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
 
                 $ionicLoading.hide();
+
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
+                else
+                    $ionicContentBanner.show({
+                        text: ['Error Saving Profile Changes :-('],
+                        autoClose: '5000',
+                        type: 'error',
+                        transition: 'vertical'
+                    });
             })
         //}
         //else
@@ -168,7 +176,7 @@
                            $ionicContentBanner.show({
                                text: ['Email Confirmation Link Sent'],
                                autoClose: '5000',
-                               type: 'info',
+                               type: 'success',
                                transition: 'vertical'
                            });
                        else
@@ -320,45 +328,31 @@
         console.log($scope.Details.SSN);
         //if ($cordovaNetwork.isOnline()) {
 
-        //$ionicLoading.show({
-        //    template: 'Saving...'
-        //});
-
         profileService.SaveMemberSSN($scope.Details)
             .success(function (details) {
                 console.log(details);
 
-                if (details.Result == 'SSN saved successfully.' && $scope.Details != null)
+                if (details == null || details.Result == 'SSN saved successfully.')
                     $ionicContentBanner.show({
-                        text: ['Profile Updated Successfully'],
-                        autoClose: '5000',
-                        type: 'info',
-                        transition: 'vertical'
-                    });
-                else
-                    $ionicContentBanner.show({
-                        text: ['Error: Profile NOT Updated'],
+                        text: ['Error Saving Profile Changes'],
                         autoClose: '5000',
                         type: 'error',
                         transition: 'vertical'
                     });
 
-                $scope.Details = details;
-
-                $ionicLoading.hide();
+                //$scope.Details = details;
             })
-			.error(function (encError) {
-			    console.log('came in enc error block ' + encError);
-			    $ionicLoading.hide();
+			.error(function (error) {
+			    console.log('SaveMemberSSN Error: [' + JSON.stringify(error) + ']');
 
 			    $ionicContentBanner.show({
-			        text: ['Error: Profile NOT Updated'],
+			        text: ['Error Saving Profile Changes'],
 			        autoClose: '5000',
 			        type: 'error',
 			        transition: 'vertical'
 			    });
 
-			    if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 			        CommonServices.logOut();
 			})
         //}
