@@ -1,5 +1,5 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
-.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner, $rootScope) {
+.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner, $rootScope, $ionicActionSheet) {
 
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -22,19 +22,16 @@
         //    $scope.shouldDisplayErrorBanner = true;
         //}
         if ($localStorage.GLOBAL_VARIABLES.Status === "Suspended" ||
-            $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked")
-        {
+            $localStorage.GLOBAL_VARIABLES.Status === "Temporarily_Blocked") {
             $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
             $scope.shouldDisplayErrorBanner = true;
         }
-        if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank != true)
-        {
+        if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank != true) {
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
             $scope.shouldDisplayErrorBanner = true;
         }
 
-        if ($scope.shouldDisplayErrorBanner)
-        {
+        if ($scope.shouldDisplayErrorBanner) {
             $ionicContentBanner.show({
                 text: $scope.errorBannerTextArray,
                 interval: '4000',
@@ -105,8 +102,7 @@
 
                 $ionicLoading.hide();
 
-                if (data.Result.indexOf('successfully') > -1)
-                {
+                if (data.Result.indexOf('successfully') > -1) {
                     $ionicContentBanner.show({
                         text: ['Profile Updated Successfully!'],
                         autoClose: '5000',
@@ -162,8 +158,7 @@
             confirmButtonText: "OK",
             html: true
         }, function (isConfirm) {
-            if (isConfirm)
-            {
+            if (isConfirm) {
                 $ionicLoading.show({
                     template: 'Sending Verification Link...'
                 });
@@ -216,8 +211,7 @@
             confirmButtonText: "OK",
             html: true
         }, function (isConfirm) {
-            if (isConfirm)
-            {
+            if (isConfirm) {
                 $ionicLoading.show({
                     template: 'Sending Verification Text...'
                 });
@@ -280,6 +274,57 @@
         }, false);
     }
 
+    $scope.changePic = function () {
+        var hideSheet = $ionicActionSheet.show({
+            buttons: [
+              { text: 'Gallery' },
+              { text: 'Camera' }
+            ],
+            titleText: 'How You want to change your picture ?',
+            cancelText: 'Cancel',
+            buttonClicked: function (index) {
+                if (index == 0) {
+                    $scope.choosePhoto();
+                }
+                else if (index == 1) {
+                    $scope.takePhoto();
+                }
+                return true;
+            }
+        });
+    }
+
+    $scope.takePhoto = function () {
+        $ionicPlatform.ready(function () {
+            var options = {
+                quality: 75,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 300,
+                targetHeight: 300,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false
+            };
+
+            $cordovaCamera.getPicture(options).then(function (imageData) {
+                console.log(imageData);
+                $scope.imgURI = "data:image/jpeg;base64," + imageData;
+                var binary_string = window.atob(imageData);
+                var len = binary_string.length;
+                var bytes = new Uint8Array(len);
+                for (var i = 0; i < len; i++) {
+                    bytes[i] = binary_string.charCodeAt(i);
+                }
+                $scope.picture = imageData;
+                console.log(bytes);
+
+            }, function (err) {
+                // An error occured. Show a message to the user
+            });
+        });
+    }
 
     $scope.choosePhoto = function () {
         $ionicPlatform.ready(function () {
@@ -301,17 +346,6 @@
                 $scope.imgURI = "data:image/jpeg;base64," + imageData;
                 console.log('after converting base 64 imgURL');
                 console.log($scope.imgURI);
-
-                //var binary_string = window.atob(imageData);
-                //var len = binary_string.length;
-                //var bytes = new Uint8Array(len);
-                //for (var i = 0; i < len; i++)
-                //{
-                //    bytes[i] = binary_string.charCodeAt(i);
-                //}
-
-                //console.log(bytes);
-                //$scope.Details.picture = bytes;
 
                 $scope.Details.Photos = imageData;
                 // $scope.Details.Photo = imageData;
@@ -367,8 +401,7 @@
 
 
     $scope.goToSettings = function () {
-        if ($scope.isAnythingChanged == true)
-        {
+        if ($scope.isAnythingChanged == true) {
             swal({
                 title: "Save Changes?",
                 text: "Would you like to save the changes to your profile?",
@@ -378,8 +411,7 @@
                 confirmButtonColor: "#3fabe1",
                 confirmButtonText: "OK"
             }, function (isConfirm) {
-                if (isConfirm)
-                {
+                if (isConfirm) {
                     $scope.shouldGoToSettings = true;
                     $scope.UpdateProfile()
                 }
