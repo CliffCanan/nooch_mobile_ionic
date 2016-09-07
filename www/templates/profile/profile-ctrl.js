@@ -315,7 +315,7 @@
                     $cordovaCamera.getPicture(options).then(function (imageData) {
                         console.log(imageData);
                         $scope.imgURI = "data:image/jpeg;base64," + imageData;
-
+                        $scope.Details.Photo = "data:image/jpeg;base64," + imageData;
                         var binary_string = window.atob(imageData);
                         var len = binary_string.length;
                         var bytes = new Uint8Array(len);
@@ -325,7 +325,7 @@
                             bytes[i] = binary_string.charCodeAt(i);
                         }
 
-                        $scope.picture = imageData;
+                        $scope.Details.Photos = imageData;
                         console.log(bytes);
                     }, function (err) {
                         // An error occured. Show a message to the user
@@ -376,6 +376,7 @@
 
             $cordovaCamera.getPicture(options).then(function (imageData) {
                 $scope.imgURI = "data:image/jpeg;base64," + imageData;
+                $scope.Details.Photo = "data:image/jpeg;base64," + imageData;
                 //console.log('after converting base 64 imgURL');
                 //console.log($scope.imgURI);
 
