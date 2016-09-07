@@ -97,58 +97,70 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           }, false);
 
 
+        document.addEventListener("deviceready", onDeviceReadyApp, false);
+
+        function onDeviceReadyApp() {
+          console.log('index ready fired from app js device ready');
+
           if (window.cordova)
           {
-              // Get device info... used for handling notifications
-              var device = $cordovaDevice.getDevice();
-              console.log(device);
+            // Get device info... used for handling notifications
+            var device = $cordovaDevice.getDevice();
+            console.log(device);
 
-              $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform == "Android" ? "A" : "I";
-              $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
+            $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform == "Android" ? "A" : "I";
+            $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
 
-              console.log('Device OS is: [' + device.platform + '], UUID: [' + device.uuid + ']');
+            console.log('Device OS is: [' + device.platform + '], UUID: [' + device.uuid + ']');
 
 
-              var notificationOpenedCallback = function (jsonData) {
-                  console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
-              };
+            var notificationOpenedCallback = function (jsonData) {
+              console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+            };
 
-              window.plugins.OneSignal.init("fec1f882-0524-49e5-a8f4-1dc0f84cbb00",
-                { googleProjectNumber: "104707683579" },
-                notificationOpenedCallback);
+            window.plugins.OneSignal.init("fec1f882-0524-49e5-a8f4-1dc0f84cbb00",
+              { googleProjectNumber: "104707683579" },
+              notificationOpenedCallback);
 
-              // Show an alert box if a notification comes in when the user is in your app.
-              window.plugins.OneSignal.enableInAppAlertNotification(true);
+            // Show an alert box if a notification comes in when the user is in your app.
+            window.plugins.OneSignal.enableInAppAlertNotification(true);
 
-              // Get device notification token for One Signal (Push Notifications)
-              window.plugins.OneSignal.getIds(function (ids) {                 
-                  $localStorage.GLOBAL_VARIABLES.DeviceToken = ids.pushToken;
+            // Get device notification token for One Signal (Push Notifications)
+            window.plugins.OneSignal.getIds(function (ids) {
 
-                  // console.log("OneSignalUserId UserId: " + ids.userId);
-                  // console.log("OneSignalPushToken PushToken: " + ids.pushToken);
-                  // console.log('getIds: ' + JSON.stringify(ids));
-              });
+              $localStorage.GLOBAL_VARIABLES.DeviceToken = ids.pushToken;
 
-              var isOnline = $cordovaNetwork.isOnline();
-              if (isOnline == true)
-                  $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = true;
+              // console.log("OneSignalUserId UserId: " + ids.userId);
+              // console.log("OneSignalPushToken PushToken: " + ids.pushToken);
+              // console.log('getIds: ' + JSON.stringify(ids));
+            });
 
-              var isOffline = $cordovaNetwork.isOffline();
-              if (isOffline == true)
-                  $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = false;
+            var isOnline = $cordovaNetwork.isOnline();
+            if (isOnline == true)
+              $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = true;
 
-              // listen for Online event
-              $rootScope.$on('$cordovaNetwork:online', function (event, networkState) {
-                  var onlineState = networkState;
-                  console.log('Network is ONLINE - ' + JSON.stringify(networkState));
-              })
+            var isOffline = $cordovaNetwork.isOffline();
+            if (isOffline == true)
+              $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = false;
 
-              // listen for Offline event
-              $rootScope.$on('$cordovaNetwork:offline', function (event, networkState) {
-                  var offlineState = networkState;
-                  console.log('Network is OFFLINE - ' + JSON.stringify(networkState));
-              })
+            // listen for Online event
+            $rootScope.$on('$cordovaNetwork:online', function (event, networkState) {
+              var onlineState = networkState;
+              console.log('Network is ONLINE - ' + JSON.stringify(networkState));
+            })
+
+            // listen for Offline event
+            $rootScope.$on('$cordovaNetwork:offline', function (event, networkState) {
+              var offlineState = networkState;
+              console.log('Network is OFFLINE - ' + JSON.stringify(networkState));
+            })
           }
+        }
+
+
+
+
+
 
           if (window.cordova && window.cordova.plugins.Keyboard)
           {

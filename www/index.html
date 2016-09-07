@@ -102,7 +102,7 @@
 
 <body ng-app="noochApp">
     <div id="fb-root"></div>
-    <script src="libs/facebookConnectPlugin.js"></script>
+    <!--<script src="libs/facebookConnectPlugin.js"></script>-->
 
     <ion-nav-view> </ion-nav-view>
 
@@ -111,7 +111,10 @@
         document.addEventListener("deviceready", onDeviceReady, false);
 
         function onDeviceReady() {
-            console.log('index ready fired');
+            console.log('index ready fired from html');
+          var tag = document.createElement("script");
+          tag.src = "libs/facebookConnectPlugin.js";
+          document.getElementsByTagName("body")[0].appendChild(tag);
         }
     </script>
 
