@@ -2,6 +2,7 @@
 
     .controller('addPictureCtrl', function ($scope, $state, CommonServices, profileService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $rootScope, $ionicActionSheet) {
 
+
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('Add Picture Controller Loaded');
 
@@ -9,6 +10,8 @@
 
             if ($rootScope.signUpData == null)
                 $state.go('signup');
+
+			$scope.showContinueBtn = false;
         });
 
 
@@ -54,9 +57,7 @@
                     $rootScope.imgURI = imageData;
                     $rootScope.signUpData.Photo = "data:image/jpeg;base64," + imageData;
 
-                    if ($rootScope.signUpData.Photo != null)
-                        $state.go('createPin');
-
+					$scope.showContinueBtn = true;
                 }, function (err) {
                     // An error occured. Show a message to the user
                 });
@@ -88,6 +89,7 @@
                         $rootScope.imgURI = imageData;
                         $rootScope.signUpData.Photo = "data:image/jpeg;base64," + imageData;
 
+						$scope.showContinueBtn = true;
                     }, function (err) {
                         // An error occured. Show a message to the user
                     });
@@ -125,4 +127,9 @@
             if ($rootScope.signUpData.gotPicUrl == true)
                 $rootScope.signUpData.isPicChanged = false;
         }
+
+
+		$scope.continue = function() {
+			$state.go('createPin');
+		}
     });

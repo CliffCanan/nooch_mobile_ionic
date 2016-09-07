@@ -174,9 +174,10 @@
 
     $scope.fetchContacts = function () {
         
-        $ionicLoading.show({
-            template: 'Loading Contacts...'
-        });
+        //$ionicLoading.show({
+        //    template: 'Loading Contacts...'
+        //});
+
         var options = {
             multiple: true
         };

@@ -554,12 +554,12 @@ a {
     border-radius: 6px;
     border-color: transparent;
     display: inline-block;
-    font-size: 18px;
+    font-size: 19px;
     line-height: 42px;
     margin: 0;
     min-width: 52px;
     min-height: 48px;
-    padding: 0 12px;
+    padding: 4px 12px
     position: relative;
     vertical-align: top;
     text-align: center;
@@ -653,10 +653,10 @@ a {
 
 .alertIcon {
     background: rgb(200, 68, 66);
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     text-align: center;
-    border-radius: 11px;
+    border-radius: 10px;
     border: 1px solid #fff;
     color: #fff;
     box-shadow: 0 1px 8px 0px rgba(0,0,0,.5);
@@ -1082,7 +1082,8 @@ iframe {
 #picWrap img {
     border: 5px solid #acacac;
     border-radius: 50%;
-    box-shadow: 0 3px 9px -2px rgba(0,0,0,.25);
+    box-shadow: 0 3px 9px -1px rgba(0,0,0,.25);
+	max-width: 150px;
 }
 
 
