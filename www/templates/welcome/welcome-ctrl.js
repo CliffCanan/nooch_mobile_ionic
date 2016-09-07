@@ -22,8 +22,6 @@
 
 
         $scope.tellMeMore = function () {
-            console.log('tellMeMore Fired');
-
             swal({
                 title: "Connect Your Bank",
                 text: "<img src='./img/bank_info.png' class='animated fadeIn'/>",

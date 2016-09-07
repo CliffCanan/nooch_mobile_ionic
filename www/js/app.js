@@ -229,6 +229,12 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 }
             }
         })
+        .state('enterPin', {
+            url: '/enterPin',
+            params: { myParam: null, type: null, returnUrl: null, returnPage: null, comingFrom: null },
+            templateUrl: 'templates/enterPin/enterPin.html',
+            controller: 'enterPinCtrl'
+        })
         .state('app.statistics', {
             url: '/statistics',
             views: {
@@ -312,14 +318,14 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             }
         })
         .state('app.uploadID', {
-          url: '/settings/uploadID',
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/uploadID/uploadID.html',
-                  controller: 'uploadIDCtrl'
-              }
-          }
-      })
+			url: '/settings/uploadID',
+			views: {
+				'menuContent': {
+					templateUrl: 'templates/uploadID/uploadID.html',
+					controller: 'uploadIDCtrl'
+				}
+			}
+		})
         .state('app.notificationSetting', {
          url: '/settings/notificationSetting',
          views: {
@@ -364,12 +370,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                     controller: 'referAfriendCtrl'
                 }
             }
-        })
-        .state('enterPin', {
-            url: '/enterPin',
-            params: { myParam: null, type: null, returnUrl: null, returnPage: null, comingFrom: null },
-            templateUrl: 'templates/enterPin/enterPin.html',
-            controller: 'enterPinCtrl'
         })
         .state('addPicture', {
             url: '/addPicture',

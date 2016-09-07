@@ -5,7 +5,8 @@
     var type = '';
 
     $scope.recipientDetail = {};
-    $scope.requestData = {
+    
+	$scope.requestData = {
         "PinNumber": "",
         "MemberId": "",
         "SenderId": "",
@@ -95,18 +96,19 @@
         "contactNumber": null
     }
 
+
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('HowMuchCntrl Fired');
 
-        $ionicModal.fromTemplateUrl('templates/howMuch/modalPin.html', {
+        /*$ionicModal.fromTemplateUrl('templates/howMuch/modalPin.html', {
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function (modal) {
             $scope.modal = modal;
-        });
+        });*/
 
         console.log($stateParams);
-
+		
         if (typeof $stateParams.recip == 'object')
         {
             if ($stateParams.recip == null)
@@ -114,18 +116,27 @@
 
             $scope.recipientDetail = $stateParams.recip;
         }
-        else if (isNaN($stateParams.recip)) //'mail'
+        else if (isNaN($stateParams.recip)) // email
+		{
             $scope.recipientDetail.UserName = $stateParams.recip;
+			$scope.recipientDetail.Photo = "././img/profile_picture.png";
+		}
         else if (!isNaN($stateParams.recip))
+		{
             $scope.recipientDetail.ContactNumber = $stateParams.recip;
+			$scope.recipientDetail.Photo = "././img/profile_picture.png";
+		}
+
+        console.log($stateParams.recip);
 
         $('#howMuchForm').parsley();
 
         $(".amount-container input").focus();
     });
 
-    $(".amount-container input").focusout(function () {
-		//console.log($scope.recipientDetail.Amount);
+
+	$(".amount-container input").focusout(function () {
+		console.log($scope.recipientDetail.Amount);
 
         var enteredAmnt = $scope.recipientDetail.Amount;
 
@@ -170,8 +181,14 @@
             $scope.requestData.MemberId = $localStorage.GLOBAL_VARIABLES.MemberId;
             $scope.requestData.Amount = $scope.recipientDetail.Amount;
             $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
-            if ($scope.recipientDetail.FirstName != undefined)
-                $scope.requestData.Name = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
+            if ($scope.recipientDetail.FirstName != undefined && $scope.recipientDetail.FirstName != "")
+			{
+                $scope.requestData.Name = $scope.recipientDetail.FirstName
+				if ($scope.recipientDetail.LastName != undefined && $scope.recipientDetail.LastName != "")
+					$scope.requestData.Name += ' ' + $scope.recipientDetail.LastName;
+			}
+            else
+                $scope.requestData.Name = "";
             $scope.requestData.RecepientName = $scope.requestData.Name;
             $scope.requestData.Memo = $scope.recipientDetail.Memo;
             $scope.requestData.Picture = $scope.picture;
@@ -181,6 +198,7 @@
                 $scope.requestData.RecepientName = $scope.requestData.MoneySenderEmailId ? $scope.requestData.MoneySenderEmailId
                                                                                          : $scope.requestData.contactNumber;
 
+			console.log($scope.requestData);
             CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
 
             $state.go('enterPin');
@@ -201,21 +219,26 @@
             $scope.sendData.Amount = $scope.recipientDetail.Amount;
             $scope.sendData.RecepientId = $scope.recipientDetail.MemberId;
             if ($scope.recipientDetail.FirstName != undefined && $scope.recipientDetail.FirstName != "")
-                $scope.sendData.RecepientName = $scope.recipientDetail.FirstName + ' ' + $scope.recipientDetail.LastName;
+			{
+                $scope.sendData.Name = $scope.recipientDetail.FirstName
+				if ($scope.recipientDetail.LastName != undefined && $scope.recipientDetail.LastName != "")
+					$scope.sendData.Name += ' ' + $scope.recipientDetail.LastName;
+			}
             else
-                $scope.sendData.RecepientName = "";
+                $scope.sendData.Name = "";
+            $scope.sendData.RecepientName = $scope.sendData.Name;
             $scope.sendData.Memo = $scope.recipientDetail.Memo;
             $scope.sendData.Picture = $scope.picture;
             $scope.sendData.Photo = $scope.recipientDetail.Photo;
-
             $scope.sendData.UserName = $scope.recipientDetail.UserName;
             $scope.sendData.InvitationSentTo = $scope.recipientDetail.UserName;
             $scope.sendData.PhoneNumberInvited = $scope.recipientDetail.ContactNumber;
-            console.log($scope.sendData);
 
             if ($scope.sendData.RecepientName.replace(/\s/g, "") == "")
                 $scope.sendData.RecepientName = $scope.sendData.UserName ? $scope.sendData.UserName
                                                                          : $scope.sendData.PhoneNumberInvited;
+
+			console.log($scope.sendData);
 
             CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
 
@@ -259,26 +282,13 @@
 
         $ionicPlatform.ready(function () {
 
-            //window.imagePicker.getPictures(function (results) {
-            //    for (var i = 0; i < results.length; i++)
-            //    {
-            //        console.log('Image URI: ' + results[i]);
-            //    }
-            //}, function (error) {
-            //    console.log('Error: ' + error);
-            //}, {
-            //    maximumImagesCount: 1,
-            //    width: 800
-            //}
-            //);
-
             var options = {
                 maximumImagesCount: 10,
                 width: 800,
                 height: 800,
                 quality: 80
             };
-            console.log($cordovaImagePicker);
+
             $cordovaImagePicker.getPictures(options)
               .then(function (results) {
                   for (var i = 0; i < results.length; i++)
@@ -297,16 +307,18 @@
     $scope.changePic = function () {
         var hideSheet = $ionicActionSheet.show({
             buttons: [
-              { text: 'Gallery' },
-              { text: 'Camera' }
+              { text: 'From Device Photos' },
+              { text: 'Use Camera' }
             ],
-            titleText: 'How You want to change your picture ?',
+            titleText: 'Attach a picture',
             cancelText: 'Cancel',
             buttonClicked: function (index) {
-                if (index == 0) {
+                if (index == 0)
+				{
                     $scope.choosePhoto();
                 }
-                else if (index == 1) {
+                else if (index == 1)
+				{
                     $scope.takePhoto();
                 }
                 return true;
@@ -314,71 +326,72 @@
         });
     }
 
-    $scope.takePhoto = function () {
-        console.log($cordovaCamera);
-      cordova.plugins.diagnostic.isCameraAuthorized(function(authorized){
-        console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
 
-        if(authorized)
-        {
-          var options = {
-            quality: 75,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: true,
-            encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 300,
-            targetHeight: 300,
-            popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false
-          };
+	$scope.takePhoto = function () {
+		console.log($cordovaCamera);
 
-          $cordovaCamera.getPicture(options).then(function (imageData) {
-            console.log(imageData);
-            $scope.imgURI = "data:image/jpeg;base64," + imageData;
-            var binary_string = window.atob(imageData);
-            var len = binary_string.length;
-            var bytes = new Uint8Array(len);
-            for (var i = 0; i < len; i++)
-            {
-              bytes[i] = binary_string.charCodeAt(i);
-            }
-            $scope.picture = imageData;
-            console.log(bytes);
-          }, function (err) {
-            // An error occured. Show a message to the user
-          });
-        }
-        else
-        {
-            swal({
-                title: "Permissions not Granted!",
-                text: "Please click OK for allowing Nooch to access camera",
-                type: "warning",
-                showCancelButton: true,
-                cancelButtonText: "Cancel",
-                confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Ok",
-                customClass: "stackedBtns"
-            }, function (isConfirm) {
-                if (isConfirm) {
-                    cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
-                        console.log("Authorization request for camera use was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
-                        if (status)
-                        {
-                            $scope.takePhoto();
-                        }
+		cordova.plugins.diagnostic.isCameraAuthorized(function(authorized) {
 
-                    }, function (error) {
-                        console.error(error);
-                    });
-                }
-            });
-        }
-      }, function(error){
-        console.error("The following error occurred: "+error);
-      });
-    }
+	        console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
+
+	        if (authorized)
+	        {
+				var options = {
+					quality: 75,
+					destinationType: Camera.DestinationType.DATA_URL,
+					sourceType: Camera.PictureSourceType.CAMERA,
+					allowEdit: true,
+					encodingType: Camera.EncodingType.JPEG,
+					targetWidth: 300,
+					targetHeight: 300,
+					popoverOptions: CameraPopoverOptions,
+					saveToPhotoAlbum: false
+				};
+
+				$cordovaCamera.getPicture(options).then(function (imageData) {
+					console.log(imageData);
+					$scope.imgURI = "data:image/jpeg;base64," + imageData;
+					var binary_string = window.atob(imageData);
+					var len = binary_string.length;
+					var bytes = new Uint8Array(len);
+					for (var i = 0; i < len; i++)
+					{
+						bytes[i] = binary_string.charCodeAt(i);
+					}
+					$scope.picture = imageData;
+					console.log(bytes);
+				}, function (err) {
+					// An error occured. Show a message to the user
+				});
+			}
+			else
+			{
+	            swal({
+	                title: "Allow Camera Access",
+	                text: "Do you want to take a picture to attach to this payment?",
+	                type: "info",
+	                confirmButtonText: "Yes",
+	                confirmButtonColor: "#3fabe1",
+	                showCancelButton: true,
+	                cancelButtonText: "Not Now"
+	            }, function (isConfirm) {
+	                if (isConfirm)
+	                {
+	                    cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
+	                        console.log("Authorization request for camera use was: [" + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted]" : "denied]"));
+	                        if (status)
+	                            $scope.takePhoto();
+	                    }, function (error) {
+	                        console.error(error);
+	                    });
+					}
+				});
+			}
+		}, function(error) {
+			console.error("The following error occurred: "+error);
+		});
+	}
+
 
     $scope.choosePhoto = function () {
         $ionicPlatform.ready(function () {
@@ -404,6 +417,5 @@
 
     $scope.GoBack = function () {
         $ionicHistory.goBack();
-        //$state.go('app.selectRecipient');
     }
 })

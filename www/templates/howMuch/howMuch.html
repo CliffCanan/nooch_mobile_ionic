@@ -1,27 +1,33 @@
 ﻿<ion-view view-title="How Much">
-    <ion-content>
+    <ion-content scroll="false">
 
         <div id="howMuchBox" class="card m-t-10">
 
             <form id="howMuchForm">
 
                 <div class="header-item barBackground">
-                    To: <span id="recipName" ng-if="recipientDetail.FirstName || recipientDetail.LastName">&nbsp;{{recipientDetail.FirstName}}&nbsp;{{recipientDetail.LastName}}</span>
-                    <span id="recipName" ng-if="!recipientDetail.FirstName && !recipientDetail.LastName">{{recipientDetail.UserName}}</span>
-                    <span id="contactNum" ng-if="recipientDetail.ContactNumber">{{recipientDetail.ContactNumber}}</span>
+                    To:&nbsp;
+					<span id="recipName">
+						<span ng-if="recipientDetail.FirstName">{{recipientDetail.FirstName}}</span>
+						<span ng-if="recipientDetail.LastName">&nbsp;{{recipientDetail.LastName}}</span>
+						<span ng-if="!recipientDetail.FirstName && !recipientDetail.LastName && recipientDetail.UserName">{{recipientDetail.UserName}}</span>
+						<span id="contactNum" ng-if="!recipientDetail.FirstName && !recipientDetail.LastName && recipientDetail.ContactNumber">{{recipientDetail.ContactNumber}}</span>
+					</span>
 
                     <a href=""><i class="ion-plus-circled pull-right f-19"></i></a>
                 </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col col-25">
                         <img class="recip-pic" src="{{recipientDetail.Photo}}">
                     </div>
 
-                    <div class="col amount-container">
-                        <i id="dollarSign" class="ion-social-usd"></i>
-                        <input type="text" ng-model="recipientDetail.Amount" placeholder="00.00" ng-keyup="checkAmount()" maxlength="7" data-parsley-required data-parsley-required-message="Please enter an amount to continue." data-parsley-error-message="Please enter a valid amount!" />
-						<!--<input type="number" ng-model="recipientDetail.Amount" placeholder="00.00" maxlength="7" pattern="\d*\.*\d+" min="1" max="5000" data-parsley-required data-parsley-required-message="Please enter an amount to continue." data-parsley-range-message="Amount must be between $0-$5,000" data-parsley-error-message="Please enter a valid amount!" />-->
+                    <div class="col">
+						<div class="amount-container">
+	                        <i id="dollarSign" class="ion-social-usd"></i>
+	                        <input type="text" ng-model="recipientDetail.Amount" placeholder="00.00" ng-keyup="checkAmount()" maxlength="7" data-parsley-required data-parsley-required-message="Please enter an amount to continue." data-parsley-error-message="Please enter a valid amount!" />
+							<!--<input type="number" ng-model="recipientDetail.Amount" placeholder="00.00" maxlength="7" pattern="\d*\.*\d+" min="1" max="5000" data-parsley-required data-parsley-required-message="Please enter an amount to continue." data-parsley-range-message="Amount must be between $0-$5,000" data-parsley-error-message="Please enter a valid amount!" />-->
+						</div>
                     </div>
                 </div>
 

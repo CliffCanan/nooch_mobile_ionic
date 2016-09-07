@@ -22,20 +22,20 @@
 
         <ion-scroll direction="y" style="min-height: 530px">
 
-            <img src="./../img/SelectRecip_Empty@2x.png" ng-show="recentCount === 0 && memberList.length === 0" class="emptyTableImg" />
+            <img src="././img/SelectRecip_Empty@2x.png" ng-show="recentCount === 0 && memberList.length === 0" class="emptyTableImg" />
 
             <ion-list class="selectRecipList">
                 <ion-item ng-repeat="member in memberList | filter:search" class="list" id="recents-table">
                    
-                    <a class="item item-avatar" ng-if="member.otherEmails!=null" ng-click="openFilterChoices(member)" nav-transition="ios" nav-direction="forward">
+                    <a class="item item-avatar" ng-if="member.otherEmails != null" ng-click="openFilterChoices(member)" nav-transition="ios" nav-direction="forward">
 
                         <img src="{{member.Photo}}" class="userPic">
                         <h2 class="username">{{member.FirstName}} <span class="f-400">{{member.LastName}}</span></h2>
-                        <p class="usersubtitle">   {{member.UserName}}</p>
-                        <p class="usersubtitle">{{member.ContactNumber}}  </p>
-                        <h3 ng-if="member.Miles">{{member.Miles}}Miles </h3>
+                        <p class="usersubtitle">{{member.UserName}}</p>
+                        <p class="usersubtitle">{{member.ContactNumber}}</p>
+                        <h3 ng-if="member.Miles">{{member.Miles}}Miles</h3>
 
-                        <img src="./../img/n_icon_46x54.png" class="n-icon" ng-if="member.bit!='p'" />
+                        <img src="././img/n_icon_46x54.png" class="n-icon" ng-if="member.bit!='p'" />
                     </a>
 
 </ion-item>
@@ -45,7 +45,7 @@
                 <a class="" ui-sref="app.howMuch({recip:search})">
                     <span class="sendTo">Send to: <i ng-if="sendTo == 'Email Address'" class="fa fa-envelope"></i></span>
                     <span class="enteredTxt">{{search}}</span>
-                    <img class="defaultImg" src="./../img/profile_picture.png" />
+                    <img class="defaultImg" src="././img/profile_picture.png" />
                 </a>
             </div>
 

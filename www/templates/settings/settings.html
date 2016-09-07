@@ -27,21 +27,22 @@
                 <div class="bank-info row">
 
                     <div class="col col-20 p-l-0">
-                        <img class="bank-logo pull-left m-r-10" src="{{bankData.bankLogoUrl}}" />
+                        <img class="bank-logo pull-left" src="{{bankData.bankLogoUrl}}" />
                     </div>
 
                     <div class="col p-l-10">
-                        <div id="bank-name"><i class="ion-android-lock text-success m-r-10"></i>{{bankData.bankName}}</div>
+                        <div id="bank-name"><i class="ion-android-lock" ng-class="{'text-success': bankData.bankStatus == 'Verified', 'text-danger': bankData.bankStatus == 'Not Verified'}"></i>{{bankData.bankName}}</div>
                         <div id="bank-nickname">{{bankData.bankNickname}}</div>
                         <div id="bank-status">
                             Status:
-                            <span class="text-danger">{{bankData.bankStatus}}</span>
+                            <span ng-if="bankData.bankStatus == 'Not Verified'" class="text-danger"  ng-click="showBankNotVerifiedModal()">{{bankData.bankStatus}}</span>
+                            <span ng-if="bankData.bankStatus == 'Verified'" class="text-success">{{bankData.bankStatus}}</span>
                         </div>
 
                         <div id="editBankWrapper">
                             <div id="editBnkBtn" class="btn btn-link f-15 text-danger">
                                 <span ng-show="editBank == false" ng-click="editBankTapped()">Edit</span>
-                                <i ng-show="editBank == true" class="pull-right ion-ios-trash text-danger animated bounceIn" ng-click="delBank()"></i>
+                                <i ng-show="editBank == true" class="pull-right ion-ios-trash text-danger" ng-click="delBank()"></i>
                             </div>
                         </div>
 
@@ -52,7 +53,8 @@
                 <div ng-if="bankData.bankStatus === 'Not Verified'">
                     <!-- WHEN BANK IS LINKED, BUT NOT VERIFIED -->
                     <div class="section-note">
-                        As an extra security measure, your bank must be verified. &nbsp;Learn more &nbsp;<i class="ion-ios-help text-primary"></i>
+                        As an extra security measure, your bank must be verified.
+						<span ng-click="showBankNotVerifiedModal()">&nbsp;Learn more &nbsp;<i class="ion-help-circled text-primary"></i></span>
                     </div>
                 </div>
 

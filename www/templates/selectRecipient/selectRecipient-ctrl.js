@@ -7,7 +7,7 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
-        // $scope.openFilterChoices();
+
         $scope.memberList = new Array();
 
         $scope.FindRecent();
@@ -15,7 +15,8 @@
         $scope.recentCount = null;
     });
 
-    $scope.fetchContacts = function () {
+
+	$scope.fetchContacts = function () {
 
         $ionicLoading.show({
             template: 'Loading...'
@@ -25,12 +26,11 @@
             multiple: true
         };
 
-
         $scope.readContact = {
             FirstName: '',
             UserName: '',
             ContactNumber: '',
-            Photo: '',
+            Photo: '././img/profile_picture.png',
             id: '',
             bit: '',
             otherEmails: [],
@@ -52,28 +52,36 @@
                 if (contact.emails != null)
                 {
                     $scope.readContact.UserName = contact.emails[0].value;
-
-                    $scope.readContact.otherEmails = contact.emails;
+					if (contact.emails.length > 1)
+					{
+			            for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
+			            {
+							if (ValidateEmail(contact.emails[n].value))
+							{
+								$scope.readContact.otherEmails[n-1].value = contact.emails[n].value;
+								$scope.readContact.otherEmails[n-1].type = contact.emails[n].type;
+							}
+						}
+					}
+                    //$scope.readContact.otherEmails = contact.emails;
                 }
+				
                 if (contact.phoneNumbers != null)
                 {
                     $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
-
                     $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
                 }
+
                 if (contact.photos != null)
                     $scope.readContact.Photo = contact.photos[0].value;
 
-                //$scope.phoneContacts.push(readContact);
-
                 $scope.memberList.push($scope.readContact);
-
 
                 $scope.readContact = {
                     FirstName: '',
                     UserName: '',
                     ContactNumber: '',
-                    Photo: '',
+                    Photo: '././img/profile_picture.png',
                     id: '',
                     bit: '',
                     otherEmails: [],
@@ -85,8 +93,8 @@
             $ionicLoading.hide();
         };
 
-        function onError(contactError) {
-            console.log(contactError);
+        function onError(error) {
+            console.log(error);
             $ionicLoading.hide();
         };
     }
@@ -99,7 +107,7 @@
             text: ''
         }
 
-        if (member.otherEmails.length == 1 || member.otherEmails == null || member.otherEmails == 'undefined')
+        if (member.otherEmails == null || member.otherEmails.length < 2 || member.otherEmails == 'undefined')
         {
             $state.go('app.howMuch', { recip: member });
         }
@@ -108,26 +116,26 @@
             var buttons = [];
             for (var i = 0; i < member.otherEmails.length; i++)
             {
-                console.log(member.otherEmails[i].value);
+				if (i < 4)
+				{
+					if (ValidateEmail(member.otherEmails[i].value))
+					{
+		                $scope.buttonValues.id = i;
+		                $scope.buttonValues.text = member.otherEmails[i].value;
+		                buttons.push($scope.buttonValues);
 
-                $scope.buttonValues.id = i;
-                $scope.buttonValues.text = member.otherEmails[i].value;
-                buttons.push($scope.buttonValues);
-
-                $scope.buttonValues = {
-                    id: '',
-                    text: ''
-                }
+		                $scope.buttonValues = {
+		                    id: '',
+		                    text: ''
+		                }
+					}
+				}
             }
-
-            var title = "Which Email Address?";
 
             var hideSheet = $ionicActionSheet.show({
                 buttons: buttons,
-                titleText: title,
+                titleText: "Which Email Address?",
                 cancelText: 'Cancel',
-                cancel: function () {
-                },
                 buttonClicked: function (index) {
                     member.UserName = member.otherEmails[index].value;
                     $state.go('app.howMuch', { recip: member });
@@ -211,9 +219,7 @@
                                         $scope.fetchContacts();
                                     }
                                     else
-                                    {
                                         console.log("Contact permisison is " + status);
-                                    }
                                 }, function (error) {
                                     console.error(error);
                                 });
@@ -235,7 +241,7 @@
 
 
     $scope.$watch('search', function (val) {
-        console.log($filter('filter')($scope.items2, val));
+        //console.log($filter('filter')($scope.items2, val));
 
         $scope.memberList = $filter('filter')($scope.items2, val);
 
@@ -273,7 +279,7 @@
         if ($('#searchBar').val() == '')
         {
             $scope.show = false;
-            $('#dvSendTo').style('display', 'none');
+            $('#dvSendTo').css('display', 'none');
         }
 
         if ($('#recents-table').html() == undefined)
@@ -297,8 +303,8 @@
     }
 
 
-    function ValidateEmail(mail) {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)*.+$/.test(mail))
+    function ValidateEmail(email) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)*.+$/.test(email))
             return (true)
         else
             return (false)

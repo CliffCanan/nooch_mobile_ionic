@@ -110,7 +110,6 @@
 			.success(function (data) {
 			    $scope.memberList = data;
 			    console.log('GetRecentMembers() -->');
-			    console.log(data.length);
 
 			    $ionicLoading.hide();
 
@@ -130,31 +129,31 @@
 			            }
 			            else
 			            {
-			                swal({
-			                    title: "Permissions not Granted!",
-			                    text: "Please click OK to allow Nooch to read Contacts",
-			                    type: "warning",
-			                    showCancelButton: true,
-			                    cancelButtonText: "Cancel",
-			                    confirmButtonColor: "#3fabe1",
-			                    confirmButtonText: "Ok"
-			                }, function (isConfirm) {
-			                    if (isConfirm)
-			                    {
-			                        cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
-			                            if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
-			                            {
-			                                console.log("Contacts use is authorized");
-
-			                                $scope.fetchContacts();
-			                            }
-			                            else
-			                                console.log("Contact permisison is " + status);
-			                        }, function (error) {
-			                            console.error(error);
-			                        });
-			                    }
-			                });
+	                        swal({
+	                            title: "Use Address Book?",
+	                            text: "Sending money to friends is simple when you have them in your phone's address book." +
+	                                  "Otherwise you'll have to manually type their email address or phone number.",
+	                            type: "info",
+	                            showCancelButton: true,
+	                            cancelButtonText: "Not Now",
+	                            confirmButtonColor: "#3fabe1",
+	                            confirmButtonText: "Authorize",
+	                        }, function (isConfirm) {
+	                            if (isConfirm)
+	                            {
+	                                cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
+	                                    if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
+	                                    {
+	                                        console.log("Contacts use is authorized");
+	                                        $scope.fetchContacts();
+	                                    }
+	                                    else
+	                                        console.log("Contact permisison is " + status);
+	                                }, function (error) {
+	                                    console.error(error);
+	                                });
+	                            }
+	                        });
 			            }
 			        }, function (error) {
 			            console.error("isContactsAuthorized Error: [" + error + "]");
@@ -163,20 +162,16 @@
 			    else
 			        $scope.setFavoritesForDisplay();
 			})
-			.error(function (data) {
+			.error(function (error) {
 			    $ionicLoading.hide();
-			    console.log(JSON.stringify(data));
-			    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+			    console.log(JSON.stringifyerror);
+			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 			        CommonServices.logOut();
 			})
     }
 
 
     $scope.fetchContacts = function () {
-        
-        //$ionicLoading.show({
-        //    template: 'Loading Contacts...'
-        //});
 
         var options = {
             multiple: true
@@ -192,16 +187,15 @@
             otherEmails: []
         };
 
-        console.log($cordovaContacts);
+        //console.log($cordovaContacts);
         $cordovaContacts.find(options).then(onSuccess, onError);
 
         function onSuccess(contacts) {
-            console.log('phone' + contacts);
+            console.log('Phone Contacts...');
+			console.log(contacts);
 
             for (var i = 0; i < contacts.length; i++)
             {
- 
-             
                 var contact = contacts[i];
  
                 if (contact.name.formatted != null && contact.emails != null)
@@ -209,13 +203,16 @@
                     $scope.readContact.FirstName = contact.name.formatted;
                     $scope.readContact.id = i;
                     $scope.readContact.bit = 'p';
-                    if (contact.emails != null) {
-                        $scope.readContact.UserName = contact.emails[0].value;
 
+                    if (contact.emails != null)
+					{
+                        $scope.readContact.UserName = contact.emails[0].value;
                         $scope.readContact.otherEmails = contact.emails;
                     }
+
                     if (contact.phoneNumbers != null)
                         $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
+
                     if (contact.photos != null)
                         $scope.readContact.Photo = contact.photos[0].value;
 
@@ -258,21 +255,36 @@
             {
                 if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
                     $scope.memberList[i].Photo = "./img/profile_picture.png";
-                if ($scope.memberList[i].bit != 'p') {
-                    //var tmp = [
-                    //  { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
-                    //];
-                   tmp.push( $scope.memberList[i]);
-                }
-                else {
+
+                if ($scope.memberList[i].bit != 'p')
+                   tmp.push($scope.memberList[i]);
+
+                else
+				{
                     var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
-                    if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
-                        $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
-                    tmp.push($scope.memberList[randomNumber]);
+					
+					// Check to make sure the randomly selected contact isn't already in the list to avoid duplicates
+					var isDuplicate = false
+					for (var d = 0; i < tmp.length; d++)
+					{
+						if (tmp[d].UserName == $scope.memberList[randomNumber].UserName)
+						{
+							isDuplicate = true;
+							console.log("Got a DUPLICATE  -->  tmp[d].UserName: [" + tmp[d].UserName + "], $scope.memberList[randomNumber]: [" + $scope.memberList[randomNumber].UserName + "]")
+						}
+					}
+					
+					if (!isDuplicate)
+					{
+                    	if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
+                        	$scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
+
+						tmp.push($scope.memberList[randomNumber]);
+					}
                 }
-             
             }
         };
+
         $scope.FavoritesToDisplay = tmp;
     }
 
@@ -285,32 +297,34 @@
             text: ''
         }
 
-
-        if (member.bit != 'p' || member.otherEmails.length==1) {
+        if (member.bit != 'p' || member.otherEmails == null || member.otherEmails.length < 2)
+		{
             $state.go('app.howMuch', { recip: member });
         }
-        else {
+        else
+		{
             var buttons = [];
-            for (var i = 0; i < member.otherEmails.length; i++) {
-                console.log(member.otherEmails[i].value);
-                $scope.buttonValues.id = i;
-                $scope.buttonValues.text = member.otherEmails[i].value;
-                buttons.push($scope.buttonValues);
-                $scope.buttonValues = {
-                    id: '',
-                    text: ''
-                }
+            for (var i = 0; i < member.otherEmails.length; i++)
+			{                
+				if (i < 4)
+				{
+					if (ValidateEmail(member.otherEmails[i].value))
+					{
+						$scope.buttonValues.id = i;
+		                $scope.buttonValues.text = member.otherEmails[i].value;
+		                buttons.push($scope.buttonValues);
+		                $scope.buttonValues = {
+		                    id: '',
+		                    text: ''
+		                }
+					}
+				}
             }
-
-            var title = "Choose Email  ";
 
             var hideSheet = $ionicActionSheet.show({
                 buttons: buttons,
-                titleText: title,
-                cancelText: 'Cancel',
-                cancel: function () {
-
-                },
+                titleText: "Which Email Address?",
+                cancelText: "Cancel",
                 buttonClicked: function (index) {
                     member.UserName = member.otherEmails[index].value;
                     $state.go('app.howMuch', { recip: member });
@@ -319,6 +333,8 @@
             });
         }
     };
+
+
     $scope.goToSelectRecip = function () {
         if ($rootScope.Status == "Suspended" ||
             $rootScope.Status == "Temporarily_Blocked")
@@ -469,7 +485,7 @@
                     $state.go('app.profile');
             });
         }
-        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
+        else if ($rootScope.hasSynapseBank == false)
         {
             swal({
                 title: "Connect A Funding Source",
@@ -486,7 +502,7 @@
                 $state.go('app.settings');
             });
         }
-        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false)
+        else if ($rootScope.bankStatus == false)
         {
             swal({
                 title: "Bank Account Un-Verified",
@@ -494,9 +510,9 @@
 					  "<span class='show'>Don't worry - we can solve this quickly. Please tap 'Learn More' for what to do next.</span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Go Now",
+                confirmButtonText: "Learn More",
                 showCancelButton: true,
-                cancelButtonText: "Later",
+                cancelButtonText: "Not Now",
                 html: true,
             }, function (isConfirm) {
                 $state.go('app.settings');
@@ -507,15 +523,13 @@
             $('#searchMoreFriends').addClass('flipOutX');
             $timeout(function () {
                 $state.go('app.selectRecipient');
-            }, 1000);
+            }, 800);
         }
     }
 
 
     $scope.deviceIp = function () {
         var url = 'http://ipv4.myexternalip.com/json';
-
-        //console.log("Home Cntrlr -> DeviceIP -> $localStorage.GLOBAL_VARIABLES.ip: [" + $localStorage.GLOBAL_VARIABLES.ip + "]");
 
         $http.get(url).then(function (result) {
             if ($localStorage.GLOBAL_VARIABLES.ip == null || $localStorage.GLOBAL_VARIABLES.ip == '')
@@ -549,5 +563,13 @@
         //  }
         //else
         //    swal("Error", "Internet not connected!", "error");
+    }
+
+	
+    function ValidateEmail(email) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)*.+$/.test(email))
+            return (true)
+        else
+            return (false)
     }
 })

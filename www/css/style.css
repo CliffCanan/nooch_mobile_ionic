@@ -34,7 +34,7 @@ ion-header-bar, .navheader {
 
 .section-note {
     color: #414042;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 300;
     padding: 5px 20px;
     text-align: center;
@@ -647,7 +647,7 @@ a {
 }
 
 .button i, .btn i {
-    margin-right: 9px;
+    margin-right: 10px;
 }
 
 .button.button-block, .button.button-full,
@@ -657,14 +657,15 @@ a {
 
 .alertIcon {
     background: rgb(200, 68, 66);
+    border-radius: 10px;
+    border: 1px solid #fff;
+    box-shadow: 0 1px 8px 0px rgba(0,0,0,.5);
+    color: #fff;
+	font-size: 15px;
+    font-weight: 600;
     width: 20px;
     height: 20px;
     text-align: center;
-    border-radius: 10px;
-    border: 1px solid #fff;
-    color: #fff;
-    box-shadow: 0 1px 8px 0px rgba(0,0,0,.5);
-    font-weight: 600;
 }
 
 /***  TABLES  ***/
@@ -783,6 +784,10 @@ a {
         .sweet-alert.hasImage img {
             width: 100%;
         }
+		
+	.sweet-alert.text-left p{
+		text-align: left;
+	}
 
     .sweet-alert p {
         color: #444;
@@ -799,6 +804,12 @@ a {
         color: #444;
         margin: 22px 0 12px;
     }
+	
+	.sweet-alert ul {
+	    list-style-type: disc;
+	    padding-left: 35px;
+		margin: 5px 0 15px;
+	}
 
     .sweet-alert button {
         margin: 8px 6px 5px;
@@ -1309,9 +1320,8 @@ iframe {
     #btm-section #version {
         display: block;
         font-size: 11px;
-        font-weight: 300;
-        letter-spacing: 1px;
-        opacity: .7;
+        font-weight: 300;;
+        opacity: .92;
     }
 
 .menu .item-content {
@@ -1411,14 +1421,22 @@ div.hscroller-card {
 
 #bank-name {
     font-size: 18px;
+	font-weight: 500;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     width: 72%;
 }
 
+#bank-name i {
+    margin-right: 6px;
+    font-size: 15px;
+    position: relative;
+    top: -1px;
+}
+
 #bank-nickname, #bank-status {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 #editBankWrapper {
@@ -2158,18 +2176,21 @@ div.hscroller-card {
     margin: 15px 0 5px;
 }
 
-    .instructionTextPin span {
+    .instructionTextPin span:last-child {
         margin-top: 3px;
         text-transform: uppercase;
     }
 
 .pin-container {
+	margin-bottom: 10px;
 }
 
     .pin-container input {
-        font-size: 50px;
+        font-size: 40px;
         letter-spacing: 20px;
         text-align: center;
+		height: 60px;
+		padding: 0;
         width: 100%;
     }
 
@@ -2203,7 +2224,7 @@ div.hscroller-card {
         color: #fff;
         border-radius: 6px 6px 0 0;
         font-size: 20px;
-        padding: 8px 5px 8px 30px;
+        padding: 8px 5px 8px 40px;
         position: absolute;
         top: 0;
         left: 0;
@@ -2224,9 +2245,16 @@ div.hscroller-card {
     }
 
     .recipient-box .memo-text {
+		color: #444;
         font-size: 18px;
         font-weight: 300;
-        padding: 5px 5px 5px 30px;
+        padding: 5px 5px 8px 40px;
+		position: absolute;
+		bottom: 0px;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
     }
 
 

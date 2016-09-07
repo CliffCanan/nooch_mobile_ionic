@@ -10,23 +10,21 @@
             $scope.Details = '';
             $scope.returnUrl = '';
             $scope.returnPage = '';
-            $scope.comingFrom = '';
 
             $scope.Details.enterPin = '';
-            $scope.Details = CommonServices.getPinValidationScreenData().myParam;
+            $scope.Details = obj.myParam;
 
             console.log($scope.Details);
 
-            $scope.returnUrl = CommonServices.getPinValidationScreenData().returnUrl;
-            $scope.returnPage = CommonServices.getPinValidationScreenData().returnPage;
-            $scope.comingFrom = CommonServices.getPinValidationScreenData().comingFrom;
-
-            console.log($scope.comingFrom);
+            $scope.returnUrl = obj.returnUrl;
+            $scope.returnPage = obj.returnPage;
+			$scope.type = obj.type;
 
             $("#pin").focus();
         });
 
-        $scope.GoBack = function () {
+        
+		$scope.GoBack = function () {
             if ($scope.returnUrl == 'app.howMuch') {
                 console.log($scope.Details);
                 $state.go($scope.returnUrl, { recip: $scope.Details });
@@ -43,7 +41,8 @@
             $ionicHistory.clearCache().then(function () { $state.go($scope.returnUrl); });
         };
 
-        $scope.getTransaction = function () {
+        
+		$scope.getTransaction = function () {
             $scope.Details.Latitude = $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude;
             $scope.Details.Longitude = $localStorage.GLOBAL_VARIABLES.UserCurrentLongi;
             console.log($scope.Details);
@@ -54,7 +53,7 @@
 
                 //if ($cordovaNetwork.isOnline()) {
                 $ionicLoading.show({
-                    template: 'Loading ...'
+                    template: 'Submitting Payment...'
                 });
 
                 CommonServices.GetEncryptedData(Pin).success(function (data) {
@@ -62,7 +61,6 @@
                     $scope.Details.PinNumber = data.Status;
                     ValidatePin.ValidatePinNumberToEnterForEnterForeground(data.Status)
                    .success(function (data) {
-                       // $scope.Data = data;
                        console.log(data);
 
                        $ionicLoading.hide();
@@ -79,140 +77,183 @@
                            });
 
 						   console.log(JSON.stringify($scope.Details));
-                           if ($scope.comingFrom == 'Transfer') {
+                           if ($scope.type == 'transfer') {
 
-                               if ($scope.Details.MemberId != $scope.Details.RecepientId && $scope.Details.RecepientId != null && $scope.Details.RecepientId != undefined) {
+                               if ($scope.Details.MemberId != $scope.Details.RecepientId &&
+								   $scope.Details.RecepientId != null &&
+								   $scope.Details.RecepientId != undefined)
+							   {
+                                   enterPinService.TransferMoney($scope.Details)
+									   .success(function (data) {
+	                                       $ionicLoading.hide();
 
-                                   enterPinService.TransferMoney($scope.Details).success(function (data) {
-                                       $ionicLoading.hide();
-
-                                       if (data.Result && data.Result.indexOf('Successfully') > -1) {
-                                           //swal({ title: "Transferred...", text: data.Result, type: "success" }
-										   //, function () {
-										   //    $scope.Details = '';
-										   //    $ionicHistory.clearCache().then(function () { $state.go($scope.returnUrl); });
-										   //    //$state.go($scope.returnUrl);
-                                           //});
-                                           swal({
-                                               title: "Transferred...",
-                                               text: data.Result,
-                                               type: "success",
-                                               showCancelButton: true,
-                                               confirmButtonColor: "#DD6B55",
-                                               confirmButtonText: "View Details",
-                                               cancelButtonText: "Okay",
-                                               closeOnConfirm: true,
-                                               closeOnCancel: true
-                                           }, function (isConfirm) {
-                                               if (isConfirm) {
-                                                   $state.go('app.transferDetails');
-                                               } else {
-                                                   $scope.Details = '';
-                                                   $ionicHistory.clearCache().then(function () {
-                                                       $state.go($scope.returnUrl);
-                                                   });
-                                                   //$state.go($scope.returnUrl);
-                                               }
-                                           });
-                                       }
-                                       else
-                                           swal("Error", data.Result, "error");
-                                   }).error(function () { $ionicLoading.hide(); });
+	                                       if (data.Result && data.Result.indexOf('Successfully') > -1)
+										   {
+	                                           swal({
+	                                               title: "Transferred...",
+	                                               text: data.Result,
+	                                               type: "success",
+	                                               showCancelButton: true,
+	                                               confirmButtonColor: "#DD6B55",
+	                                               confirmButtonText: "View Details",
+	                                               cancelButtonText: "Okay",
+	                                               closeOnConfirm: true,
+	                                               closeOnCancel: true
+	                                           }, function (isConfirm) {
+	                                               if (isConfirm) {
+	                                                   $state.go('app.transferDetails');
+	                                               }
+												   else 
+												   {
+	                                                   $scope.Details = '';
+	                                                   $ionicHistory.clearCache().then(function () {
+	                                                       $state.go($scope.returnUrl);
+	                                                   });
+	                                               }
+	                                           });
+	                                       }
+	                                       else
+	                                           swal("Error", data.Result, "error");
+	                                   })
+									   .error(function () { $ionicLoading.hide(); });
                                }
-                               else if (($scope.Details.MemberId == $scope.Details.RecepientId || $scope.Details.RecepientId == null || $scope.Details.RecepientId == undefined) && $scope.Details.InvitationSentTo != undefined) {
+                               else if (($scope.Details.MemberId == $scope.Details.RecepientId ||
+								   		 $scope.Details.RecepientId == null ||
+								   		 $scope.Details.RecepientId == undefined) &&
+								   		 $scope.Details.InvitationSentTo != undefined)
+								   {
+									   enterPinService.TransferMoneyToNonNoochUserUsingSynapse($scope.Details)
+									   	.success(function (data) {
+	                                       $ionicLoading.hide();
 
-                                   enterPinService.TransferMoneyToNonNoochUserUsingSynapse($scope.Details).success(function (data) {
-                                       $ionicLoading.hide();
-
-                                       if (data.Result && data.Result.indexOf('Successfully') > -1) {
-                                           //swal({ title: "Transferred...", text: data.Result, type: "success" }
-                                           //   , function () {
-                                           //       $scope.Details = '';
-                                           //       $ionicHistory.clearCache().then(function () { $state.go($scope.returnUrl); });
-                                           //       //$state.go($scope.returnUrl);
-                                           //   });
-                                           swal({
-                                               title: "Transferred...",
-                                               text: data.Result,
-                                               type: "success",
-                                               showCancelButton: true,
-                                               confirmButtonColor: "#DD6B55",
-                                               confirmButtonText: "View Details",
-                                               cancelButtonText: "Okay",
-                                               closeOnConfirm: true,
-                                               closeOnCancel: true
-                                           }, function (isConfirm) {
-                                               if (isConfirm) {
-                                                   $state.go('app.transferDetails');
-                                               } else {
-                                                   $scope.Details = '';
-                                                   $ionicHistory.clearCache().then(function () {
-                                                       $state.go($scope.returnUrl);
-                                                   });
-                                                   //$state.go($scope.returnUrl);
-                                               }
-                                           });
-                                       }
-                                       else
-                                           swal("Error", data.Result, "error");
-                                   }).error(function () { $ionicLoading.hide(); });
+	                                       if (data.Result && data.Result.indexOf('Successfully') > -1)
+										   {
+	                                           swal({
+	                                               title: "Transferred...",
+	                                               text: data.Result,
+	                                               type: "success",
+	                                               showCancelButton: true,
+	                                               confirmButtonColor: "#DD6B55",
+	                                               confirmButtonText: "View Details",
+	                                               cancelButtonText: "Okay",
+	                                               closeOnConfirm: true,
+	                                               closeOnCancel: true
+	                                           }, function (isConfirm) {
+	                                               if (isConfirm)
+	                                                   $state.go('app.transferDetails');
+												   else
+												   {
+	                                                   $scope.Details = '';
+	                                                   $ionicHistory.clearCache().then(function () {
+	                                                       $state.go($scope.returnUrl);
+	                                                   });
+	                                               }
+	                                           });
+	                                       }
+	                                       else
+	                                           swal("Error", data.Result, "error");
+	                                    })
+									    .error(function () { $ionicLoading.hide(); });
                                }
-                               else if (($scope.Details.MemberId == $scope.Details.RecepientId || $scope.Details.RecepientId == null || $scope.Details.RecepientId == undefined) && $scope.Details.PhoneNumberInvited != undefined) {
+                               else if (($scope.Details.MemberId == $scope.Details.RecepientId ||
+								   		 $scope.Details.RecepientId == null ||
+								   		 $scope.Details.RecepientId == undefined) &&
+								   		 $scope.Details.PhoneNumberInvited != undefined)
+								   {
+									   enterPinService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse($scope.Details)
+									   .success(function (data) {
+	                                       $ionicLoading.hide();
 
-                                   enterPinService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse($scope.Details).success(function (data) {
-                                       $ionicLoading.hide();
-
-                                       if (data.Result && data.Result.indexOf('Successfully') > -1) {
-                                           //swal({ title: "Transferred...", text: data.Result, type: "success" }
-                                           //   , function () {
-                                           //       $scope.Details = '';
-                                           //       $ionicHistory.clearCache().then(function () { $state.go($scope.returnUrl); });
-                                           //   });
-                                           swal({
-                                               title: "Transferred...",
-                                               text: data.Result,
-                                               type: "success",
-                                               showCancelButton: true,
-                                               confirmButtonColor: "#DD6B55",
-                                               confirmButtonText: "View Details",
-                                               cancelButtonText: "Okay",
-                                               closeOnConfirm: true,
-                                               closeOnCancel: true
-                                           }, function (isConfirm) {
-                                               if (isConfirm) {
-                                                   $state.go('app.transferDetails');
-                                               } else {
-                                                   $scope.Details = '';
-                                                   $ionicHistory.clearCache().then(function () {
-                                                       $state.go($scope.returnUrl);
-                                                   });
-                                                   //$state.go($scope.returnUrl);
-                                               }
-                                           });
-                                       }
-                                       else
-                                           swal("Error...", data.Result, "error");
-                                   }).error(function () { $ionicLoading.hide(); });
+	                                       if (data.Result && data.Result.indexOf('Successfully') > -1)
+										   {
+	                                           swal({
+	                                               title: "Transferred...",
+	                                               text: data.Result,
+	                                               type: "success",
+	                                               showCancelButton: true,
+	                                               confirmButtonColor: "#DD6B55",
+	                                               confirmButtonText: "View Details",
+	                                               cancelButtonText: "Okay",
+	                                               closeOnConfirm: true,
+	                                               closeOnCancel: true
+	                                           }, function (isConfirm) {
+	                                               if (isConfirm)
+	                                                   $state.go('app.transferDetails');
+												   else
+												   {
+	                                                   $scope.Details = '';
+	                                                   $ionicHistory.clearCache().then(function () {
+	                                                       $state.go($scope.returnUrl);
+	                                                   });
+	                                               }
+	                                           });
+	                                       }
+	                                       else
+	                                           swal("Error...", data.Result, "error");
+	                                   })
+									   .error(function () { $ionicLoading.hide(); });
                                }
                            }
-                           else if ($scope.comingFrom == 'Request') {
+                           else if ($scope.type == 'request') {
 
                                if ($scope.Details.SenderId != null) {
                                    console.log($scope.Details);
 
-                                   enterPinService.RequestMoney($scope.Details).success(function (data) {
-                                       $ionicLoading.hide();
+                                   enterPinService.RequestMoney($scope.Details)
+								   	.success(function (data) {
+	                                       $ionicLoading.hide();
 
-                                       if (data.Result.indexOf('successfully') > -1) {
+	                                       if (data.Result.indexOf('successfully') > -1) {
+	                                           $scope.Details.Amount = "";
+	                                           $scope.Details.Memo = "";
+	                                           $scope.Details = '';
+
+	                                           swal({
+	                                               title: "Transferred...",
+	                                               text: data.Result,
+	                                               type: "success",
+	                                               showCancelButton: true,
+	                                               confirmButtonColor: "#DD6B55",
+	                                               confirmButtonText: "View Details",
+	                                               cancelButtonText: "Okay",
+	                                               closeOnConfirm: true,
+	                                               closeOnCancel: true
+	                                           }, function (isConfirm) {
+	                                               if (isConfirm)
+	                                                   $state.go('app.transferDetails');
+												   else
+												   {
+	                                                   $scope.Details = '';
+	                                                   $ionicHistory.clearCache().then(function () {
+	                                                       $state.go($scope.returnUrl);
+	                                                   });
+	                                               }
+	                                           });
+	                                       }
+	                                       else
+	                                           swal("Error", data.Result, "error");
+	                                   })
+									   .error(function (data) {
+	                                       $ionicLoading.hide();
+
+	                                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+	                                           CommonServices.logOut();
+	                                   });
+                               }
+                               else if (($scope.Details.SenderId == null || $scope.Details.SenderId == undefined) &&
+							   			 $scope.Details.MoneySenderEmailId != null &&
+							   			 $scope.Details.ContactNumber == null)
+							   {
+								   enterPinService.RequestMoneyToNonNoochUserUsingSynapse($scope.Details)
+								   .success(function (data) {
+
+                                       if (data.Result.indexOf('successfully') > -1)
+									   {
+                                           $ionicLoading.hide();
                                            $scope.Details.Amount = "";
                                            $scope.Details.Memo = "";
                                            $scope.Details = '';
-                                           //swal({ title: "Transferred...", text: data.Result, type: "success" }
-                                           //      , function () {
-                                           //          $scope.Details = '';
-                                           //          $ionicHistory.clearCache().then(function () { $state.go($scope.returnUrl); });
-                                           //          //$state.go($scope.returnUrl);
-                                           //      });
+
                                            swal({
                                                title: "Transferred...",
                                                text: data.Result,
@@ -224,119 +265,71 @@
                                                closeOnConfirm: true,
                                                closeOnCancel: true
                                            }, function (isConfirm) {
-                                               if (isConfirm) {
+                                               if (isConfirm)
                                                    $state.go('app.transferDetails');
-                                               } else {
+											   else
+											   {
                                                    $scope.Details = '';
                                                    $ionicHistory.clearCache().then(function () {
                                                        $state.go($scope.returnUrl);
                                                    });
-                                                   //$state.go($scope.returnUrl);
                                                }
                                            });
-                                           // $state.go($scope.returnUrl);
+                                       }
+                                       else 
+									   {
+                                           $ionicLoading.hide();
+                                           swal("Error", data.Result, "error");
+                                       }
+                                   })
+								   .error(function (data) {
+                                       $ionicLoading.hide();
+
+                                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                           CommonServices.logOut();
+                                   });
+                               }
+                               else if ($scope.Details.SenderId == null && $scope.Details.contactNumber != null)
+							   {
+                                   console.log('sending request from mobile number');
+                                   enterPinService.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse($scope.Details, $scope.Details.contactNumber)
+								   .success(function (data) {
+                                       $ionicLoading.hide();
+
+                                       if (data.Result.indexOf('successfully') > -1)
+									   {
+                                           $scope.Details.Amount = "";
+                                           $scope.Details.Memo = "";
+                                           $scope.Details = '';
+
+                                           swal({
+                                               title: "Transferred...",
+                                               text: data.Result,
+                                               type: "success",
+                                               showCancelButton: true,
+                                               confirmButtonColor: "#DD6B55",
+                                               confirmButtonText: "View Details",
+                                               cancelButtonText: "Okay",
+                                               closeOnConfirm: true,
+                                               closeOnCancel: true
+                                           }, function (isConfirm) {
+                                               if (isConfirm)
+                                                   $state.go('app.transferDetails');
+											   else {
+                                                   $scope.Details = '';
+                                                   $ionicHistory.clearCache().then(function () {
+                                                       $state.go($scope.returnUrl);
+                                                   });
+                                               }
+                                           });
                                        }
                                        else
                                            swal("Error", data.Result, "error");
-                                   }).error(function (data) {
-                                       $ionicLoading.hide();
-
-                                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                                           CommonServices.logOut();
-                                   });
-                               }
-                               else if (($scope.Details.SenderId == null || $scope.Details.SenderId == undefined) && ($scope.Details.MoneySenderEmailId != null) && ($scope.Details.ContactNumber == null)) {
-
-                                   enterPinService.RequestMoneyToNonNoochUserUsingSynapse($scope.Details).success(function (data) {
-
-                                       if (data.Result.indexOf('successfully') > -1) {
-                                           $ionicLoading.hide();
-                                           $scope.Details.Amount = "";
-                                           $scope.Details.Memo = "";
-                                           $scope.Details = '';
-                                           //swal({ title: "Transferred...", text: data.Result, type: "success" }
-                                           //      , function () {
-                                           //          $scope.Details = '';
-                                           //          $ionicHistory.clearCache().then(function () { $state.go($scope.returnUrl); });
-                                           //          //$state.go($scope.returnUrl);
-                                           //      });
-                                           swal({
-                                               title: "Transferred...",
-                                               text: data.Result,
-                                               type: "success",
-                                               showCancelButton: true,
-                                               confirmButtonColor: "#DD6B55",
-                                               confirmButtonText: "View Details",
-                                               cancelButtonText: "Okay",
-                                               closeOnConfirm: true,
-                                               closeOnCancel: true
-                                           }, function (isConfirm) {
-                                               if (isConfirm) {
-                                                   $state.go('app.transferDetails');
-                                               } else {
-                                                   $scope.Details = '';
-                                                   $ionicHistory.clearCache().then(function () {
-                                                       $state.go($scope.returnUrl);
-                                                   });
-                                                   //$state.go($scope.returnUrl);
-                                               }
-                                           });
-                                       }
-                                       else {
-                                           $ionicLoading.hide();
-                                           swal("Error...", data.Result, "error");
-                                       }
-                                   }).error(function (data) {
-                                       $ionicLoading.hide();
-
-                                       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                                           CommonServices.logOut();
-                                   });
-                               }
-                               else if (($scope.Details.SenderId == null) && ($scope.Details.contactNumber != null)) {
-                                   console.log('sending request from mobile number');
-                                   enterPinService.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse($scope.Details, $scope.Details.contactNumber).success(function (data) {
-                                       $ionicLoading.hide();
-
-                                       if (data.Result.indexOf('successfully') > -1) {
-                                           $scope.Details.Amount = "";
-                                           $scope.Details.Memo = "";
-                                           $scope.Details = '';
-
-                                           //swal({ title: "Transferred...", text: data.Result, type: "success" }
-                                           //      , function () {
-                                           //          $scope.Details = '';
-                                           //          $ionicHistory.clearCache().then(function () { $state.go($scope.returnUrl); });
-                                           //          //$state.go($scope.returnUrl);
-                                           //      });
-                                           swal({
-                                               title: "Transferred...",
-                                               text: data.Result,
-                                               type: "success",
-                                               showCancelButton: true,
-                                               confirmButtonColor: "#DD6B55",
-                                               confirmButtonText: "View Details",
-                                               cancelButtonText: "Okay",
-                                               closeOnConfirm: true,
-                                               closeOnCancel: true
-                                           }, function (isConfirm) {
-                                               if (isConfirm) {
-                                                   $state.go('app.transferDetails');
-                                               } else {
-                                                   $scope.Details = '';
-                                                   $ionicHistory.clearCache().then(function () {
-                                                       $state.go($scope.returnUrl);
-                                                   });
-                                                   //$state.go($scope.returnUrl);
-                                               }
-                                           });
-                                       }
-                                       else
-                                           swal("Error...", data.Result, "error");
-                                   }).error(function (data) {
+                                   })
+								   .error(function (data) {
                                        $ionicLoading.hide();
                                        $scope.modal.hide();
-                                       swal("Error...", data.Result, "error");
+                                       swal("Error", data.Result, "error");
                                        if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                                            CommonServices.logOut();
                                    });
@@ -345,26 +338,27 @@
                        }
                        else if (data.Result == 'Invalid Pin') {
                            swal({
-                               title: "Oops!",
-                               text: "Incorrect Pin .",
-                               type: "warning",
+                               title: "Incorrect PIN",
+                               text: "Looks like your PIN wasn't quite right! Please try again.",
+                               type: "error",
                                confirmButtonColor: "#DD6B55",
                                confirmButtonText: "Ok",
-                           }, function (isConfirm) {
-                               if (isConfirm)
-                                   $scope.Details.enterPin = '';
+                           }, function () {
+							   $scope.Details.enterPin = '';
                            });
                        }
                        else if (data.Message == 'An error has occurred.')
                            swal("Error", "Something went wrong !", "error");
-                   }).error(function (data) {
+                   })
+				   .error(function (data) {
                        console.log('eror' + data);
                        $ionicLoading.hide();
 
                        if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                            CommonServices.logOut();
                    });
-                }).error(function (data) {
+                })
+				.error(function (data) {
                     $ionicLoading.hide();
 
                     if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
@@ -373,7 +367,7 @@
 
                 //}
                 //else
-                //    swal("Oops...", "Internet not connected!", "error");
+                //    swal("Error", "Internet not connected!", "error");
             }
         }
     });
