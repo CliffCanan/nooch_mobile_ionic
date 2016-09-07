@@ -22,7 +22,7 @@
 
                 <div class="p-l-5 p-r-5">
                     <p class="m-0 f-17" ng-show="showContinueBtn != true">Add a picture so people will be able to identify you better when sending you money.</p>
-                    <p class="m-0 f-17" ng-show="showContinueBtn == true">Great Pic! If you're happy with it, tap "Continue".</p>
+                    <p class="m-0 f-17" ng-show="showContinueBtn == true">Great pic! If you're happy with it, tap "Continue".</p>
 
                     <button class="button btn-primary button-block m-t-25" ng-click="choosePhoto()">
 						<i class="ion-android-camera m-r-15"></i>
@@ -30,9 +30,9 @@
 						<span ng-if="showContinueBtn == true">Change Picture</span>
 					</button>
 
-                    <button ng-if="showContinueBtn == true" class="button btn-success button-block m-t-5 animated bounceIn" ng-click="continue()">
+                    <button ng-if="showContinueBtn == true" id="continueBtn" class="button btn-success button-block m-t-5 animated bounceIn" ng-click="continue()">
 						Continue
-						<i class="ion-play m-l-15"></i>
+						<i class="ion-arrow-right-b m-l-15"></i>
 					</button>
 
                 </div>
