@@ -121,8 +121,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               window.plugins.OneSignal.enableInAppAlertNotification(true);
 
               // Get device notification token for One Signal (Push Notifications)
-              window.plugins.OneSignal.getIds(function (ids) {
-
+              window.plugins.OneSignal.getIds(function (ids) {                 
                   $localStorage.GLOBAL_VARIABLES.DeviceToken = ids.pushToken;
 
                   // console.log("OneSignalUserId UserId: " + ids.userId);

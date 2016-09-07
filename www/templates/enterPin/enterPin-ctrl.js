@@ -139,8 +139,8 @@
                                                confirmButtonColor: "#DD6B55",
                                                confirmButtonText: "View Details",
                                                cancelButtonText: "Okay",
-                                               closeOnConfirm: false,
-                                               closeOnCancel: false
+                                               closeOnConfirm: true,
+                                               closeOnCancel: true
                                            }, function (isConfirm) {
                                                if (isConfirm) {
                                                    $state.go('app.transferDetails');
@@ -176,8 +176,8 @@
                                                confirmButtonColor: "#DD6B55",
                                                confirmButtonText: "View Details",
                                                cancelButtonText: "Okay",
-                                               closeOnConfirm: false,
-                                               closeOnCancel: false
+                                               closeOnConfirm: true,
+                                               closeOnCancel: true
                                            }, function (isConfirm) {
                                                if (isConfirm) {
                                                    $state.go('app.transferDetails');
@@ -221,8 +221,8 @@
                                                confirmButtonColor: "#DD6B55",
                                                confirmButtonText: "View Details",
                                                cancelButtonText: "Okay",
-                                               closeOnConfirm: false,
-                                               closeOnCancel: false
+                                               closeOnConfirm: true,
+                                               closeOnCancel: true
                                            }, function (isConfirm) {
                                                if (isConfirm) {
                                                    $state.go('app.transferDetails');
@@ -268,8 +268,8 @@
                                                confirmButtonColor: "#DD6B55",
                                                confirmButtonText: "View Details",
                                                cancelButtonText: "Okay",
-                                               closeOnConfirm: false,
-                                               closeOnCancel: false
+                                               closeOnConfirm: true,
+                                               closeOnCancel: true
                                            }, function (isConfirm) {
                                                if (isConfirm) {
                                                    $state.go('app.transferDetails');
@@ -317,8 +317,8 @@
                                                confirmButtonColor: "#DD6B55",
                                                confirmButtonText: "View Details",
                                                cancelButtonText: "Okay",
-                                               closeOnConfirm: false,
-                                               closeOnCancel: false
+                                               closeOnConfirm: true,
+                                               closeOnCancel: true
                                            }, function (isConfirm) {
                                                if (isConfirm) {
                                                    $state.go('app.transferDetails');
