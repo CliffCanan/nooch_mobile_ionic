@@ -7,14 +7,10 @@
         console.log('How It Works Controller Loadad');
     })
 
-    $scope.GoBack = function () {
-        $ionicHistory.goBack();
-    }
-
     $scope.slideOptions = {
         loop: false,
         effect: 'slide',
-        speed: 500,
+        speed: 600,
     }
 
     $scope.$on("$ionicSlides.sliderInitialized", function (event, data) {
@@ -27,9 +23,17 @@
         $scope.previousIndex = data.slider.previousIndex;
     });
 
-    $scope.$on("$ionicSlides.slideChangeEnd", function (event, data) {
+    //$scope.$on("$ionicSlides.slideChangeEnd", function (event, data) {
         // note: the indexes are 0-based
-    });
+    //});
+
+    $scope.GoBack = function () {
+        $ionicHistory.goBack();
+    }
+
+    $scope.endTour = function () {
+        $state.go('app.home');
+    }
 })
 
 

@@ -772,7 +772,7 @@ a {
 }
 
     .sweet-alert.hasImage {
-        top: 25%;
+        top: 20%;
         padding: 2px 10px;
         10px;
     }
@@ -965,6 +965,14 @@ iframe {
         .searchBarContainer i.ion-search::before {
             margin: 0;
         }
+
+
+.list .item-note.text-success i:before {
+    color: #72bf44;
+    font-size: 18px;
+    line-height: .7;
+    margin-right: 10px;
+}
 
 /**********************/
 /****   REGISTER   ****/
@@ -1217,7 +1225,7 @@ iframe {
 
 .menu #settings-cog {
     position: absolute;
-    top: 20px;
+    top: 24px;
     right: 10px;
 }
 
@@ -1254,7 +1262,7 @@ iframe {
 }
 
 .menu .item-divider {
-    background: linear-gradient(#6DBEE8,#3FABE1);
+    background: linear-gradient(#50b2e4,#3FABE1);
     box-shadow: 0 1px 1px rgba(46,47,48,.25), 0 -1px 1px rgba(46,47,48,.25);
     border: none;
     color: #fff;
@@ -1492,7 +1500,10 @@ div.hscroller-card {
 #profileTable button {
     min-height: 35px;
     min-width: 35px;
-    line-height: 1;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    padding: 4px 4px 0;
 }
 
     #profileTable button i {
@@ -1500,9 +1511,8 @@ div.hscroller-card {
     }
 
 #profileTable .btn i::before {
-    color: #6b46e5;
-    font-size: 24px;
-    line-height: .8;
+    color: #5a538d;
+    font-size: 22px;
     margin: 0;
 }
 
@@ -1656,7 +1666,6 @@ div.hscroller-card {
     box-shadow: 0 1px 45px -1px rgba(63,64,65,.16) inset;
     background-color: #eee;
     padding: 28px 20px 0;
-    /*min-height: 530px;*/
     text-align: center;
     text-shadow: 0 2px 0 rgba(250,251,252,.8);
 }
@@ -1931,7 +1940,8 @@ div.hscroller-card {
     color: #ddd;
     text-decoration: none;
     float: right;
-    margin: 20px 16px 0 0;
+    margin: 40px 16px 0 0;
+    padding: 5px 15px;
 }
 
 

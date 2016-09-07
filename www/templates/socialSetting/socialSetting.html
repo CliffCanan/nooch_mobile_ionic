@@ -1,36 +1,46 @@
 ﻿<ion-view view-title="Social Settings">
     <ion-content class="b-gray">
 
-        <div class="section-header m-t-20 m-b-0">Linked Accounts</div>
+        <div class="section-header m-t-20">Linked Accounts</div>
 
-        <div class="row p-t-0">
-            <div class="col p-10">
+        <div class="list m-b-5">
 
-                <div ng-if='Res.FacebookAccountLogin == "" || Res.FacebookAccountLogin == null'>
+            <a class="item item-icon-left" ng-click="connectFb()">
+                <i class="icon ion-social-facebook"></i>
+                Facebook
+                <span class="item-note" ng-if="socialSetting.fbid == null || socialSetting.fbid == 'not connected'">
+                    Not Connected
+                </span>
+                <span class="item-note text-success" ng-if="socialSetting.fbid != null && socialSetting.fbid != 'not connected'">
+                    <i class="ion-ios-checkmark-outline"></i>Connected
+                </span>
+            </a>
 
-                    <button class="button btn-primary button-block m-0 m-b-5" ng-click="connectFb()">
-                        <i class="ion-social-facebook"></i>
-                        Connect To Facebook
-                    </button>
+            <a class="item item-icon-left" ng-click="connectTwitter()" ng-if="false">
+                <i class="icon ion-social-twitter"></i>
+                Twitter
+                <span class="item-note" ng-if="socialSetting.tw == null || socialSetting.tw == 'not connected'">
+                    Not Connected
+                </span>
+                <span class="item-note text-success" ng-if="socialSetting.tw != null && socialSetting.tw != 'not connected'">
+                    <i class="ion-ios-checkmark-outline"></i>Connected
+                </span>
+            </a>
 
-                    <div class="section-note p-5">Connect your Facebook account to Nooch to allow quicker login and to share payments with friends</div>
+            <a class="item item-icon-left" ng-click="connectGoogle()" ng-if="false">
+                <i class="icon ion-social-google"></i>
+                Google
+                <span class="item-note" ng-if="socialSetting.goog == null || socialSetting.goog == 'not connected'">
+                    Not Connected
+                </span>
+                <span class="item-note text-success" ng-if="socialSetting.goog != null && socialSetting.goog != 'not connected'">
+                    <i class="ion-ios-checkmark-outline"></i>Connected
+                </span>
+            </a>
 
-                </div>
-
-                <div ng-if='Res.FacebookAccountLogin != null && Res.FacebookAccountLogin != ""'>
-
-                    <div class="col col-10">
-                        <i class="ion-social-facebook" style="font-size:70px"></i>
-                    </div>
-                    <div class="col">
-                        <div class="item item-avatar side_menu_top">
-                            <img class="user-img" src="{{Res.PhotoUrl}}">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
+
+        <div class="section-note p-5">Connect your Facebook account to Nooch to allow quicker login and to share payments with friends.</div>
 
     </ion-content>
 </ion-view>

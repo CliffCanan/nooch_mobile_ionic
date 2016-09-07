@@ -52,7 +52,7 @@
                     <span class="input-label">
                         <span style="display:inline-block" class="animated bounceIn">
                             <i class="ion-ios-checkmark-outline text-success" ng-if="Status == 'Active' || Status == 'Accepted' || Details.IsVerifiedEmail == true"></i>
-                            <i class="ion-ios-close text-danger" ng-if="Status == 'Registered' || (Details.IsVerifiedEmail == false && Status != 'Active')"></i>
+                            <i class="ion-close-circled text-danger" ng-if="Status == 'Registered' || (Details.IsVerifiedEmail == false && Status != 'Active')"></i>
                         </span>
                         Email
                     </span>
@@ -62,13 +62,13 @@
 
                 <div class="item item-input">
                     <button class="btn btn-link" ng-click="ResendVerificationSMS()" ng-if="Details.IsVerifiedPhone == false && Details.ContactNumber != null && Details.ContactNumber.length > 9">
-                        <i class="ion-ios-refresh-outline"></i>
+                        <i class="ion-android-refresh"></i>
                     </button>
 
                     <span class="input-label">
                         <span style="display:inline-block" class="animated bounceIn">
                             <i class="ion-ios-checkmark-outline text-success" ng-if="IsPhoneVerified == true"></i>
-                            <i class="ion-ios-close text-danger" ng-if="IsPhoneVerified == false"></i>
+                            <i class="ion-close-circled text-danger" ng-if="IsPhoneVerified == false"></i>
                         </span>Phone
                     </span>
 

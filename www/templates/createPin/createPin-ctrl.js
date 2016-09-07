@@ -161,7 +161,7 @@
 					    if (data != null)
 					    {
 					        $localStorage.GLOBAL_VARIABLES.MemberId = data.Result;
-					        $state.go('app.welcome');
+					        $state.go('welcome');
 					    }
 					})
 					.error(function (err) {

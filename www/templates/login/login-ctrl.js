@@ -50,6 +50,8 @@
           fbStatus: ''
       };
 
+      $scope.isConnect = false;
+
       $scope.SignIn = function () {
 
           //if ($cordovaNetwork.isOnline())
@@ -313,8 +315,8 @@
 
           facebookConnectPlugin.login(['email', 'public_profile'], function (response) {
               console.log('facebookConnectPlugin Resonse: ' + JSON.stringify(response));
-              $scope.loginWithFbData.fbStatus = _.get(response, 'status');
-              console.log('Facebook Status--> ' + $scope.loginWithFbData.fbStatus);
+              $scope.fbStatus = _.get(response, 'status');
+              console.log('Facebook Status: [' + $scope.loginWithFbData.fbStatus + ']');
 
               facebookConnectPlugin.api("/me?fields=name,email,picture.type(large)", ['email'], function (success) {
                   // success
@@ -323,14 +325,14 @@
                       template: 'Signing in...'
                   });
 
-                  console.log('got this from fb ' + JSON.stringify(success));
+                  console.log('FB Login Result: ' + JSON.stringify(success));
                   $scope.loginWithFbData.Email = _.get(success, 'email');
                   $scope.loginWithFbData.Name = _.get(success, 'name');
                   $scope.loginWithFbData.Photo = _.get(success, 'picture.data.url');
                   $scope.loginWithFbData.FBId = _.get(success, 'id');
 
                   if ($scope.loginWithFbData.fbStatus == 'connected')
-                      $scope.fbStatus = 'YES';
+                      $scope.isConnect = true;
 
                   $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginWithFbData.Email;
                   console.log('Printing from local Storage-->>' + $localStorage.GLOBAL_VARIABLES.UserName);
@@ -346,7 +348,7 @@
                           $ionicLoading.hide();
                           $scope.fetchAfterLoginDetails();
 
-                          authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.loginWithFbData.FBId, $scope.fbStatus)
+                          authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.loginWithFbData.FBId, $scope.isConnect)
                               .success(function (response) {
                                   $state.go('app.home');
                               })
@@ -355,18 +357,17 @@
                               })
 
                       })
-                      .error(function (res) {
+                      .error(function (error) {
                           $ionicLoading.hide();
-                          console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
+                          console.log('LoginWithFacebookGeneric Attempt Error: [' + JSON.stringify(error) + ']');
                       })
               }, function (error) {
                   console.log(error);
               })
           },
-          function (response) {
-              console.log('error res');
+          function (error) {
+              console.log('facebookConnectPlugin Error response: [' + JSON.stringify(error));
               $ionicLoading.hide();
-              //alert(JSON.stringify(response))
           });
       }
 

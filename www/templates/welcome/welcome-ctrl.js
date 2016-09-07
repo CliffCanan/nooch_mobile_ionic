@@ -26,7 +26,7 @@
 
             swal({
                 title: "Connect Your Bank",
-                text: "<img src='./img/bank_info.png' />",
+                text: "<img src='./img/bank_info.png' class='animated fadeIn'/>",
                 showCancelButton: true,
                 cancelButtonText: "Close",
                 confirmButtonColor: "#3fabe1",

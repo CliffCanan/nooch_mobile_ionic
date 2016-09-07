@@ -69,14 +69,13 @@
                 $rootScope.synUserPermission = res.synUserPermission;
                 $rootScope.synBankAllowed = res.synBankAllowed;
                 $rootScope.pinEnc = res.pin;
+                $rootScope.fbid = res.fbUserId;
 
                 $ionicLoading.hide();
 
                 // Now check if the user has any pending transactions
-                $timeout($scope.pendingList, 2000);
+                // $timeout($scope.pendingList, 2000);
 
-                //console.log("Menu-ctrl -> $localStorage...")
-                //console.log($localStorage);
 
                 //if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
                 //    $rootScope.$broadcast('isSuspended');
@@ -91,7 +90,7 @@
                 console.log('GetMemberDetails Error Block: [' + JSON.stringify(error) + ']');
                 $ionicLoading.hide();
 
-                if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                if (error != null && (error.ExceptionMessage == 'Invalid OAuth 2 Access' || error.ExceptionMessage == 'Server Error'))
                     CommonServices.logOut();
             })
         //}

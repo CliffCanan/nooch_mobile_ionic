@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.socialSettingCtrl', ['noochApp.services'])
 
-.controller('socialSettingCtrl', function ($scope, authenticationService, $state, $ionicHistory, $localStorage) {
+.controller('socialSettingCtrl', function ($scope, $rootScope, $state, $ionicHistory, $localStorage, authenticationService) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         // handle event
@@ -9,24 +9,25 @@
         $scope.socialSetting = {
             Name: '',
             Email: '',
-            Password: '',
             Photo: '',
-            Pin: '',
-            rmmbrMe: {
-                chk: true
-            },
-            FBId: ''
+            fbid: $rootScope.fbid != null ? $rootScope.fbid : 'not connected',
+            fbStatus: ''
         };
+
+        $scope.isConnect = false;
+
+        console.log($scope.socialSetting.fbid);
     })
+
     $scope.connectFb = function () {
-        console.log('came in sign in with fb Social Setting page');
-        if (!window.cordova) {
+        console.log('connectFb Fired');
+
+        if (!window.cordova)
             facebookConnectPlugin.browserInit("198279616971457");
-        }
 
         facebookConnectPlugin.login(['email', 'public_profile'], function (response) {
 
-            console.log('login response from fb ' + JSON.stringify(response));
+            console.log('FB Login response: [' + JSON.stringify(response) + ']');
             $scope.fbStatus = _.get(response, 'status');
 
             facebookConnectPlugin.api("/me?fields=name,email,picture.type(large)", ['email'], function (success) {
@@ -36,30 +37,28 @@
                 $scope.socialSetting.Email = _.get(success, 'email');
                 $scope.socialSetting.Name = _.get(success, 'name');
                 $scope.socialSetting.Photo = _.get(success, 'picture.data.url');
-                $scope.socialSetting.FBId = _.get(success, 'id');
+                $scope.socialSetting.fbid = _.get(success, 'id');
 
                 //$scope.$apply();
 
                 if ($scope.fbStatus == 'connected')
-                    $scope.fbStatus = 'YES';
+                    $scope.isConnect = true;
 
-                authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.socialSetting.FBId, $scope.fbStatus)
-                                  .success(function (responce) {
-                                      console.log('SaveMembersFBId got success responce');
-                                      console.log(responce);
-                                      if (responce.Result == "Success")
-                                          swal("Success", "Facebook Connected Successfully", "success");
-                                  }).error(function (responce) {
-                                      console.log('Got an error while saveMemberFBId');
-                                      console.log(responce);
-                                      swal("Oops..", "Something went wrong", "error");
-                                  })
-
+                authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.socialSetting.fbid, $scope.isConnect)
+                    .success(function (res) {
+                        console.log('SaveMembersFBId got success res');
+                        console.log(res);
+                        if (res.Result == "Success")
+                            swal("Success", "Facebook Connected Successfully", "success");
+                    })
+                    .error(function (error) {
+                        console.log('SaveMembersFBId Error...');
+                        console.log(error);
+                        swal("Error", "Something went wrong - please try again or contact Nooch Support to report a bug!", "error");
+                    })
             }, function (error) {
-                // error
                 console.log(error);
             });
         });
     }
 })
-
