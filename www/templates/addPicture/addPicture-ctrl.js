@@ -11,19 +11,22 @@
                 $state.go('signup');
         });
 
+
         $scope.choosePhoto = function () {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
-                  { text: 'Gallery' },
-                  { text: 'Camera' }
+                    { text: 'From Device Library' },
+                    { text: 'Use Camera' }
                 ],
-                titleText: 'How You want to change your picture ?',
+                titleText: 'Add Your Picture',
                 cancelText: 'Cancel',
                 buttonClicked: function (index) {
-                    if (index == 0) {
-                        $scope.choosePhotofn();
+                    if (index == 0)
+                    {
+                        $scope.choosePhotoFromDevice();
                     }
-                    else if (index == 1) {
+                    else if (index == 1)
+                    {
                         $scope.takePhoto();
                     }
                     return true;
@@ -31,7 +34,8 @@
             });
         }
 
-        $scope.choosePhotofn = function () {
+
+        $scope.choosePhotoFromDevice = function () {
             $ionicPlatform.ready(function () {
                 var options = {
                     quality: 75,
@@ -46,7 +50,7 @@
                 };
 
                 $cordovaCamera.getPicture(options).then(function (imageData) {
-                 
+
                     $rootScope.imgURI = imageData;
                     $rootScope.signUpData.Photo = "data:image/jpeg;base64," + imageData;
 
@@ -59,12 +63,14 @@
             });
         }
 
+
         $scope.takePhoto = function () {
             console.log($cordovaCamera);
             cordova.plugins.diagnostic.isCameraAuthorized(function (authorized) {
                 console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
 
-                if (authorized) {
+                if (authorized)
+                {
                     var options = {
                         quality: 75,
                         destinationType: Camera.DestinationType.DATA_URL,
@@ -78,32 +84,31 @@
                     };
 
                     $cordovaCamera.getPicture(options).then(function (imageData) {
-                       // console.log(imageData);
+                        // console.log(imageData);
                         $rootScope.imgURI = imageData;
-                        $rootScope.signUpData.Photo = "data:image/jpeg;base64,"+ imageData;
-                 
+                        $rootScope.signUpData.Photo = "data:image/jpeg;base64," + imageData;
+
                     }, function (err) {
                         // An error occured. Show a message to the user
                     });
                 }
-                else {
+                else
+                {
                     swal({
-                        title: "Permissions not Granted!",
-                        text: "Please click OK for allowing Nooch to access camera",
-                        type: "warning",
-                        showCancelButton: true,
-                        cancelButtonText: "Cancel",
+                        title: "Allow Camera Access",
+                        text: "This lets you take a picture to use for your profile.",
+                        type: "info",
+                        confirmButtonText: "Give Access",
                         confirmButtonColor: "#3fabe1",
-                        confirmButtonText: "Ok",
-                        customClass: "stackedBtns"
+                        showCancelButton: true,
+                        cancelButtonText: "Not Now"
                     }, function (isConfirm) {
-                        if (isConfirm) {
+                        if (isConfirm)
+                        {
                             cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
-                                console.log("Authorization request for camera use was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
-                                if (status) {
+                                console.log("Authorization request for camera use was: [" + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted]" : "denied]"));
+                                if (status)
                                     $scope.takePhoto();
-                                }
-
                             }, function (error) {
                                 console.error(error);
                             });
@@ -111,7 +116,7 @@
                     });
                 }
             }, function (error) {
-                console.error("The following error occurred: " + error);
+                console.error("isCameraAuthorized Error: [" + error + ']');
             });
         }
 

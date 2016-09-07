@@ -17,7 +17,8 @@
             $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
 
             // Check if user has any Pending Requests
-            //$timeout($scope.pendingList, 4000);
+            if ($rootScope.hasSynapseUserAccount && $rootScope.hasSynapseBank == true)
+                $timeout($scope.pendingList, 4000);
         }
     });
 
@@ -265,22 +266,20 @@
             AppRate.preferences = {
                 openStoreInApp: true,
                 displayAppName: 'Nooch',
-                usesUntilPrompt: 5,
+                usesUntilPrompt: 8,
                 promptAgainForEachNewVersion: false,
                 storeAppURL: {
                     ios: '917955306',
                     android: 'market://details?id=com.soundcloud.android'
-
                 },
                 customLocale: {
                     title: "Rate Nooch",
-                    message: "If you enjoy using Nooch, would you mind taking a moment to rate it? It won’t take more than a minute. Thanks for your support!",
-                    cancelButtonLabel: "No, Thanks",
+                    message: "If you enjoy using Nooch or are just in a good mood, we'd LOVE you forever if you take a quick minute to leave us a review!",
+                    cancelButtonLabel: "Not Now",
                     laterButtonLabel: "Remind Me Later",
-                    rateButtonLabel: "Rate It Now"
+                    rateButtonLabel: "Sure, Let's Go"
                 }
             };
-
 
             AppRate.promptForRating(false);
 

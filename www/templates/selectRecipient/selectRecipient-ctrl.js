@@ -7,7 +7,7 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
-       // $scope.openFilterChoices();
+        // $scope.openFilterChoices();
         $scope.memberList = new Array();
 
         $scope.FindRecent();
@@ -34,7 +34,7 @@
             id: '',
             bit: '',
             otherEmails: [],
-            otherPhoneNumbers:[]
+            otherPhoneNumbers: []
         };
 
         $cordovaContacts.find(options).then(onSuccess, onError);
@@ -49,24 +49,26 @@
                 $scope.readContact.id = i;
                 $scope.readContact.bit = 'p';
 
-                if (contact.emails != null) {
+                if (contact.emails != null)
+                {
                     $scope.readContact.UserName = contact.emails[0].value;
-            
-                        $scope.readContact.otherEmails = contact.emails;
-                } 
-                if (contact.phoneNumbers != null) {
+
+                    $scope.readContact.otherEmails = contact.emails;
+                }
+                if (contact.phoneNumbers != null)
+                {
                     $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
-        
-                        $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
+
+                    $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
                 }
                 if (contact.photos != null)
                     $scope.readContact.Photo = contact.photos[0].value;
 
                 //$scope.phoneContacts.push(readContact);
-                
+
                 $scope.memberList.push($scope.readContact);
 
-              
+
                 $scope.readContact = {
                     FirstName: '',
                     UserName: '',
@@ -90,38 +92,41 @@
     }
 
     $scope.openFilterChoices = function (member) {
-        
+
         console.log(member);
         $scope.buttonValues = {
-            id:'',
-            text:''
+            id: '',
+            text: ''
         }
-        
 
-        if (member.otherEmails.length == 1 || member.otherEmails == null || member.otherEmails=='undefined') {
+        if (member.otherEmails.length == 1 || member.otherEmails == null || member.otherEmails == 'undefined')
+        {
             $state.go('app.howMuch', { recip: member });
         }
-        else {
+        else
+        {
             var buttons = [];
-            for (var i = 0; i < member.otherEmails.length; i++) {
+            for (var i = 0; i < member.otherEmails.length; i++)
+            {
                 console.log(member.otherEmails[i].value);
+
                 $scope.buttonValues.id = i;
                 $scope.buttonValues.text = member.otherEmails[i].value;
                 buttons.push($scope.buttonValues);
+
                 $scope.buttonValues = {
                     id: '',
                     text: ''
                 }
             }
 
-            var title = "Choose Email  ";
-            
-             var hideSheet = $ionicActionSheet.show({
+            var title = "Which Email Address?";
+
+            var hideSheet = $ionicActionSheet.show({
                 buttons: buttons,
                 titleText: title,
                 cancelText: 'Cancel',
                 cancel: function () {
-
                 },
                 buttonClicked: function (index) {
                     member.UserName = member.otherEmails[index].value;
@@ -131,6 +136,7 @@
             });
         }
     };
+
 
     $scope.showSearch = function (member) {
         console.log($scope.search);
@@ -165,64 +171,66 @@
 
         $('#searchBar').val('');
 
-        selectRecipientService.GetRecentMembers().success(function (data) {
+        selectRecipientService.GetRecentMembers()
+            .success(function (data) {
 
-            $scope.memberList = data;
+                $scope.memberList = data;
 
-            $scope.recentCount = $scope.memberList.length;
+                $scope.recentCount = $scope.memberList.length;
 
-            // read contacts from device and push them in memberList object
+                // read contacts from device and push them in memberList object
 
-            $scope.item2 = data;
-            $ionicLoading.hide();
+                $scope.item2 = data;
+                $ionicLoading.hide();
 
-            cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
-                console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
+                cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
+                    console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
 
-                if (authorized)
-                {
-                    $scope.fetchContacts();
-                }
-                else
-                {
-                    swal({
-                        title: "Permissions not Granted!",
-                        text: "Please click OK for allowing Nooch to read Contacts",
-                        type: "warning",
-                        showCancelButton: true,
-                        cancelButtonText: "Cancel",
-                        confirmButtonColor: "#3fabe1",
-                        confirmButtonText: "Ok",
-                        customClass: "stackedBtns"
-                    }, function (isConfirm) {
-                        if (isConfirm)
-                        {
-                            cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
-                                if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
-                                {
-                                    console.log("Contacts use is authorized");
-                                    $scope.fetchContacts();
-                                }
-                                else
-                                {
-                                    console.log("Contact permisison is " + status);
-                                }
-                            }, function (error) {
-                                console.error(error);
-                            });
-                        }
-                    });
-                }
-            }, function (error) {
-                console.error("isContactsAuthorized Error: [" + error + "]");
+                    if (authorized)
+                    {
+                        $scope.fetchContacts();
+                    }
+                    else
+                    {
+                        swal({
+                            title: "Use Address Book?",
+                            text: "Sending money to friends is simple when you have them in your phone's address book." +
+                                  "Otherwise you'll have to manually type their email address or phone number.",
+                            type: "info",
+                            showCancelButton: true,
+                            cancelButtonText: "Not Now",
+                            confirmButtonColor: "#3fabe1",
+                            confirmButtonText: "Authorize",
+                        }, function (isConfirm) {
+                            if (isConfirm)
+                            {
+                                cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
+                                    if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
+                                    {
+                                        console.log("Contacts use is authorized");
+                                        $scope.fetchContacts();
+                                    }
+                                    else
+                                    {
+                                        console.log("Contact permisison is " + status);
+                                    }
+                                }, function (error) {
+                                    console.error(error);
+                                });
+                            }
+                        });
+                    }
+                }, function (error) {
+                    console.error("isContactsAuthorized Error: [" + error + "]");
+                });
+            })
+            .error(function (data) {
+                console.log(data);
+                $ionicLoading.hide();
+
+                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
             });
-        }).error(function (data) {
-            console.log(data);
-            $ionicLoading.hide();
-
-            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                CommonServices.logOut();
-        });
     }
 
 
@@ -246,16 +254,18 @@
 
         $('#searchBar').val('');
 
-        selectRecipientService.GetLocationSearch().success(function (data) {
-            $scope.memberList = data;
-            $ionicLoading.hide();
-        }).error(function (data) {
-            console.log(data);
-            $ionicLoading.hide();
+        selectRecipientService.GetLocationSearch()
+            .success(function (data) {
+                $scope.memberList = data;
+                $ionicLoading.hide();
+            })
+            .error(function (data) {
+                console.log(data);
+                $ionicLoading.hide();
 
-            if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                CommonServices.logOut();
-        });
+                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            });
     }
 
 
@@ -265,8 +275,6 @@
             $scope.show = false;
             $('#dvSendTo').style('display', 'none');
         }
-
-        //console.log($('#recents-table').html());
 
         if ($('#recents-table').html() == undefined)
         {
