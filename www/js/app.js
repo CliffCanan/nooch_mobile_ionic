@@ -73,31 +73,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               bit: ''
           };
 
-          // AppRate.preferences = {
-          //     openStoreInApp: true,
-          //     displayAppName: 'Nooch',
-          //     usesUntilPrompt: 5,
-          //     promptAgainForEachNewVersion: false,
-          //     storeAppURL: {
-          //         ios: 'com.money.nooch',
-          //         android: 'market://details?id=com.soundcloud.android',
-          //         windows: 'ms-windows-store://pdp/?ProductId=com.nooch.nooch'
-          //     },
-          //     customLocale: {
-          //         title: "Rate Nooch",
-          //         message: "If you enjoy using Nooch, would you mind taking a moment to rate it? It won't take more than a minute. Thanks for your support!",
-          //         cancelButtonLabel: "No Thanks",
-          //         laterButtonLabel: "Remind Me Later",
-          //         rateButtonLabel: "Ok, Sure"
-          //     }
-          // };
-
-          // AppRate.promptForRating(false);
-
-
           // Fired when the app enters the foreground
           document.addEventListener("resume", function () {
-              console.log('came in resume state');
+              console.log("App RESUMED");
               console.log($localStorage.GLOBAL_VARIABLES.EnterPinImmediately);
 
               if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
@@ -115,7 +93,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
           // this function gets fired when app goes to background
           document.addEventListener("pause", function () {
-              console.log('came in pause state');
+              console.log("App PAUSED");
           }, false);
 
 
@@ -123,7 +101,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           {
               // Get device info... used for handling notifications
               var device = $cordovaDevice.getDevice();
-              //console.log(device);
+              console.log(device);
 
               $localStorage.GLOBAL_VARIABLES.DeviceOS = device.platform == "Android" ? "A" : "I";
               $localStorage.GLOBAL_VARIABLES.DeviceId = device.uuid;
