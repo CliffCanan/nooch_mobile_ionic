@@ -5,8 +5,8 @@
     var type = '';
 
     $scope.recipientDetail = {};
-    
-	$scope.requestData = {
+
+    $scope.requestData = {
         "PinNumber": "",
         "MemberId": "",
         "SenderId": "",
@@ -108,7 +108,7 @@
         });*/
 
         console.log($stateParams);
-		
+
         if (typeof $stateParams.recip == 'object')
         {
             if ($stateParams.recip == null)
@@ -117,15 +117,15 @@
             $scope.recipientDetail = $stateParams.recip;
         }
         else if (isNaN($stateParams.recip)) // email
-		{
+        {
             $scope.recipientDetail.UserName = $stateParams.recip;
-			$scope.recipientDetail.Photo = "././img/profile_picture.png";
-		}
+            $scope.recipientDetail.Photo = "././img/profile_picture.png";
+        }
         else if (!isNaN($stateParams.recip))
-		{
+        {
             $scope.recipientDetail.ContactNumber = $stateParams.recip;
-			$scope.recipientDetail.Photo = "././img/profile_picture.png";
-		}
+            $scope.recipientDetail.Photo = "././img/profile_picture.png";
+        }
 
         console.log($stateParams.recip);
 
@@ -135,33 +135,33 @@
     });
 
 
-	$(".amount-container input").focusout(function () {
-		console.log($scope.recipientDetail.Amount);
+    $(".amount-container input").focusout(function () {
+        console.log($scope.recipientDetail.Amount);
 
         var enteredAmnt = $scope.recipientDetail.Amount;
 
         if (enteredAmnt.length > 0)
         {
-			console.log("enteredAmnt > 0");
+            console.log("enteredAmnt > 0");
 
             //if ($('#howMuchForm').parsley().validate() != true){
-			//	console.log("howMuchForm NOT VALID");
+            //	console.log("howMuchForm NOT VALID");
             //    $(this).focus();
-			//}
+            //}
             //else
             //{
-				//console.log("howMuchForm VALID");
-                if (enteredAmnt.indexOf(".") == -1)
-				{
-					console.log(". was missing");
-                    $scope.recipientDetail.Amount = enteredAmnt + ".00";
-				}
-                else if (enteredAmnt.indexOf(".") > enteredAmnt.length - 3)
-				{
-					console.log("2nd one");
-                    $scope.recipientDetail.Amount = enteredAmnt + "0";
-				}
-				//}
+            //console.log("howMuchForm VALID");
+            if (enteredAmnt.indexOf(".") == -1)
+            {
+                console.log(". was missing");
+                $scope.recipientDetail.Amount = enteredAmnt + ".00";
+            }
+            else if (enteredAmnt.indexOf(".") > enteredAmnt.length - 3)
+            {
+                console.log("2nd one");
+                $scope.recipientDetail.Amount = enteredAmnt + "0";
+            }
+            //}
         }
 
         console.log($('#howMuchForm').parsley().validate());
@@ -182,11 +182,11 @@
             $scope.requestData.Amount = $scope.recipientDetail.Amount;
             $scope.requestData.SenderId = $scope.recipientDetail.MemberId;
             if ($scope.recipientDetail.FirstName != undefined && $scope.recipientDetail.FirstName != "")
-			{
+            {
                 $scope.requestData.Name = $scope.recipientDetail.FirstName
-				if ($scope.recipientDetail.LastName != undefined && $scope.recipientDetail.LastName != "")
-					$scope.requestData.Name += ' ' + $scope.recipientDetail.LastName;
-			}
+                if ($scope.recipientDetail.LastName != undefined && $scope.recipientDetail.LastName != "")
+                    $scope.requestData.Name += ' ' + $scope.recipientDetail.LastName;
+            }
             else
                 $scope.requestData.Name = "";
             $scope.requestData.RecepientName = $scope.requestData.Name;
@@ -198,7 +198,7 @@
                 $scope.requestData.RecepientName = $scope.requestData.MoneySenderEmailId ? $scope.requestData.MoneySenderEmailId
                                                                                          : $scope.requestData.contactNumber;
 
-			console.log($scope.requestData);
+            console.log($scope.requestData);
             CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
 
             $state.go('enterPin');
@@ -209,7 +209,7 @@
     $scope.submitSend = function () {
         type = 'send';
 
-		console.log('SubmitSend() Fired -> Amount: ' + $scope.recipientDetail.Amount);
+        console.log('SubmitSend() Fired -> Amount: ' + $scope.recipientDetail.Amount);
 
         if ($scope.recipientDetail.Amount < 5000)
         {
@@ -219,11 +219,11 @@
             $scope.sendData.Amount = $scope.recipientDetail.Amount;
             $scope.sendData.RecepientId = $scope.recipientDetail.MemberId;
             if ($scope.recipientDetail.FirstName != undefined && $scope.recipientDetail.FirstName != "")
-			{
+            {
                 $scope.sendData.Name = $scope.recipientDetail.FirstName
-				if ($scope.recipientDetail.LastName != undefined && $scope.recipientDetail.LastName != "")
-					$scope.sendData.Name += ' ' + $scope.recipientDetail.LastName;
-			}
+                if ($scope.recipientDetail.LastName != undefined && $scope.recipientDetail.LastName != "")
+                    $scope.sendData.Name += ' ' + $scope.recipientDetail.LastName;
+            }
             else
                 $scope.sendData.Name = "";
             $scope.sendData.RecepientName = $scope.sendData.Name;
@@ -238,7 +238,7 @@
                 $scope.sendData.RecepientName = $scope.sendData.UserName ? $scope.sendData.UserName
                                                                          : $scope.sendData.PhoneNumberInvited;
 
-			console.log($scope.sendData);
+            console.log($scope.sendData);
 
             CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
 
@@ -247,35 +247,35 @@
     }
 
 
-	$scope.checkAmount = function() {
-		console.log(typeof $scope.recipientDetail.Amount);
-		console.log($scope.recipientDetail.Amount);
+    $scope.checkAmount = function () {
+        console.log(typeof $scope.recipientDetail.Amount);
+        console.log($scope.recipientDetail.Amount);
 
-		var currentVal = $scope.recipientDetail.Amount;
+        var currentVal = $scope.recipientDetail.Amount;
 
-		if (currentVal > 5000)
-		{
-			$scope.recipientDetail.Amount = 5000;
+        if (currentVal > 5000)
+        {
+            $scope.recipientDetail.Amount = 5000;
 
-			$ionicContentBanner.show({
-				text: ['The max transfer amount is currently $5,000.'],
-				autoClose: 4000,
-				type: 'error',
-				transition: 'vertical'
-			});
-		}
-		// if (currentVal < 5)
-// 		{
-// 			//$scope.recipientDetail.Amount = 5000;
-//
-//             $ionicContentBanner.show({
-//                 text: ['The minimum transfer amount is currently $5.'],
-// 				autoClose: 4000,
-//                 type: 'error',
-//                 transition: 'vertical'
-//             });
-// 		}
-	}
+            $ionicContentBanner.show({
+                text: ['The max transfer amount is currently $5,000.'],
+                autoClose: 4000,
+                type: 'error',
+                transition: 'vertical'
+            });
+        }
+        // if (currentVal < 5)
+        // 		{
+        // 			//$scope.recipientDetail.Amount = 5000;
+        //
+        //             $ionicContentBanner.show({
+        //                 text: ['The minimum transfer amount is currently $5.'],
+        // 				autoClose: 4000,
+        //                 type: 'error',
+        //                 transition: 'vertical'
+        //             });
+        // 		}
+    }
 
 
     $scope.addImage = function () {
@@ -314,11 +314,11 @@
             cancelText: 'Cancel',
             buttonClicked: function (index) {
                 if (index == 0)
-				{
+                {
                     $scope.choosePhoto();
                 }
                 else if (index == 1)
-				{
+                {
                     $scope.takePhoto();
                 }
                 return true;
@@ -327,70 +327,70 @@
     }
 
 
-	$scope.takePhoto = function () {
-		console.log($cordovaCamera);
+    $scope.takePhoto = function () {
+        console.log($cordovaCamera);
 
-		cordova.plugins.diagnostic.isCameraAuthorized(function(authorized) {
+        cordova.plugins.diagnostic.isCameraAuthorized(function (authorized) {
 
-	        console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
+            console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
 
-	        if (authorized)
-	        {
-				var options = {
-					quality: 75,
-					destinationType: Camera.DestinationType.DATA_URL,
-					sourceType: Camera.PictureSourceType.CAMERA,
-					allowEdit: true,
-					encodingType: Camera.EncodingType.JPEG,
-					targetWidth: 300,
-					targetHeight: 300,
-					popoverOptions: CameraPopoverOptions,
-					saveToPhotoAlbum: false
-				};
+            if (authorized)
+            {
+                var options = {
+                    quality: 75,
+                    destinationType: Camera.DestinationType.DATA_URL,
+                    sourceType: Camera.PictureSourceType.CAMERA,
+                    allowEdit: true,
+                    encodingType: Camera.EncodingType.JPEG,
+                    targetWidth: 300,
+                    targetHeight: 300,
+                    popoverOptions: CameraPopoverOptions,
+                    saveToPhotoAlbum: false
+                };
 
-				$cordovaCamera.getPicture(options).then(function (imageData) {
-					console.log(imageData);
-					$scope.imgURI = "data:image/jpeg;base64," + imageData;
-					var binary_string = window.atob(imageData);
-					var len = binary_string.length;
-					var bytes = new Uint8Array(len);
-					for (var i = 0; i < len; i++)
-					{
-						bytes[i] = binary_string.charCodeAt(i);
-					}
-					$scope.picture = imageData;
-					console.log(bytes);
-				}, function (err) {
-					// An error occured. Show a message to the user
-				});
-			}
-			else
-			{
-	            swal({
-	                title: "Allow Camera Access",
-	                text: "Do you want to take a picture to attach to this payment?",
-	                type: "info",
-	                confirmButtonText: "Yes",
-	                confirmButtonColor: "#3fabe1",
-	                showCancelButton: true,
-	                cancelButtonText: "Not Now"
-	            }, function (isConfirm) {
-	                if (isConfirm)
-	                {
-	                    cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
-	                        console.log("Authorization request for camera use was: [" + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted]" : "denied]"));
-	                        if (status)
-	                            $scope.takePhoto();
-	                    }, function (error) {
-	                        console.error(error);
-	                    });
-					}
-				});
-			}
-		}, function(error) {
-			console.error("The following error occurred: "+error);
-		});
-	}
+                $cordovaCamera.getPicture(options).then(function (imageData) {
+                    console.log(imageData);
+                    $scope.imgURI = "data:image/jpeg;base64," + imageData;
+                    var binary_string = window.atob(imageData);
+                    var len = binary_string.length;
+                    var bytes = new Uint8Array(len);
+                    for (var i = 0; i < len; i++)
+                    {
+                        bytes[i] = binary_string.charCodeAt(i);
+                    }
+                    $scope.picture = imageData;
+                    console.log(bytes);
+                }, function (err) {
+                    // An error occured. Show a message to the user
+                });
+            }
+            else
+            {
+                swal({
+                    title: "Allow Camera Access",
+                    text: "Do you want to take a picture to attach to this payment?",
+                    type: "info",
+                    confirmButtonText: "Yes",
+                    confirmButtonColor: "#3fabe1",
+                    showCancelButton: true,
+                    cancelButtonText: "Not Now"
+                }, function (isConfirm) {
+                    if (isConfirm)
+                    {
+                        cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
+                            console.log("Authorization request for camera use was: [" + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted]" : "denied]"));
+                            if (status)
+                                $scope.takePhoto();
+                        }, function (error) {
+                            console.error(error);
+                        });
+                    }
+                });
+            }
+        }, function (error) {
+            console.error("The following error occurred: " + error);
+        });
+    }
 
 
     $scope.choosePhoto = function () {
@@ -404,7 +404,8 @@
                 targetWidth: 300,
                 targetHeight: 300,
                 popoverOptions: CameraPopoverOptions,
-                saveToPhotoAlbum: false            };
+                saveToPhotoAlbum: false
+            };
 
             $cordovaCamera.getPicture(options).then(function (imageData) {
                 console.log(imageData);

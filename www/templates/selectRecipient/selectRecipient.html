@@ -26,7 +26,7 @@
 
             <ion-list class="selectRecipList">
                 <ion-item ng-repeat="member in memberList | filter:search" class="list" id="recents-table">
-                   
+
                     <a class="item item-avatar" ng-if="member.otherEmails != null" ng-click="openFilterChoices(member)" nav-transition="ios" nav-direction="forward">
 
                         <img src="{{member.Photo}}" class="userPic">
@@ -38,7 +38,7 @@
                         <img src="././img/n_icon_46x54.png" class="n-icon" ng-if="member.bit!='p'" />
                     </a>
 
-</ion-item>
+                </ion-item>
             </ion-list>
 
             <div ng-show="show" id="dvSendTo">

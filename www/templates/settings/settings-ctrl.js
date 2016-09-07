@@ -5,7 +5,7 @@
 
      $scope.$on("$ionicView.enter", function (event, data) {
          // On Screen Load
-		 console.log("$scope.editBank is: " + $scope.editBank);
+         console.log("$scope.editBank is: " + $scope.editBank);
          $scope.editBank = false;
          $scope.shouldDisplayErrorBanner = false;
          $scope.errorBannerTextArray = [];
@@ -68,12 +68,12 @@
 
 
      $scope.editBankTapped = function () {
-		 $('#editBnkBtn i').addClass('animated bounceIn');
+         $('#editBnkBtn i').addClass('animated bounceIn');
          $scope.editBank = true;
-		 
-		 $timeout(function () {
-		 	$('#editBnkBtn i').removeClass('animated bounceIn');
-		 }, 1000);
+
+         $timeout(function () {
+             $('#editBnkBtn i').removeClass('animated bounceIn');
+         }, 1000);
      }
 
 
@@ -97,7 +97,7 @@
 
                         if (result == 'Deleted')
                         {
-							$scope.editBank = false;
+                            $scope.editBank = false;
                             swal({
                                 title: "Bank Deleted",
                                 text: "The following bank account was successfully removed from your account:" +
@@ -123,7 +123,7 @@
 
 
      $scope.openAddBank = function () {
-		 $scope.editBank = false;
+         $scope.editBank = false;
 
          if ($rootScope.Status == "Suspended" ||
              $rootScope.Status == "Temporarily_Blocked")
@@ -201,7 +201,6 @@
                  {
                      if (isPhoneAdded)
                      {
-
                          $ionicLoading.show({
                              template: 'Sending SMS...'
                          });
@@ -348,25 +347,25 @@
          //else
          //  swal("Oops...", "Internet not connected!", "error");
      }
-	 
-	 
+
+
      $scope.showBankNotVerifiedModal = function () {
-		 
-		 var bodyTxt = "Your bank account needs additional verification because either:" +
+
+         var bodyTxt = "Your bank account needs additional verification because either:" +
 				       "<ul><li>we were unable to match the profile information you entered with the info listed on this bank account</li>" +
 				       "<li>you added the bank with a routing & account #, so we need to verify that you own the account.</li></ul>" +
 				 	   "<span class='show f-18 f-600 text-primary'>What To Do Now</span>" +
 		 			   "<span class='show m-t-5'>Submit a picture of any valid photo ID. &nbsp;Email it to <span class='f-500'>support@nooch.com</span>, or tap <span class='f-500'>\"Submit ID\"</span> below.</span>";
-		
-		 var confirmBtnTxt = "Submit ID";
 
-		 if ($scope.bankData.isBankAddedManually == true)
-		 {
-			 bodyTxt = "Before you can send funds with this account, we are required to verify that you are the account owner. &nbsp;We will make 2 'microdeposits' ($0.00 - $0.99) to your account." +
+         var confirmBtnTxt = "Submit ID";
+
+         if ($scope.bankData.isBankAddedManually == true)
+         {
+             bodyTxt = "Before you can send funds with this account, we are required to verify that you are the account owner. &nbsp;We will make 2 'microdeposits' ($0.00 - $0.99) to your account." +
 			 			"<span class='show f-18 f-600 text-primary'>What To Do Now</span>" +
 			 			"<span class='show'>Just check your bank statement and then verify your account by clicking the link we emailed you and entering the 2 microdeposit amounts.</span>";
-			 confirmBtnTxt = "Verify Now";
-		 }
+             confirmBtnTxt = "Verify Now";
+         }
 
          swal({
              title: "Verify Your Bank",
@@ -376,24 +375,20 @@
              confirmButtonColor: "#3fabe1",
              confirmButtonText: confirmBtnTxt,
              html: true,
-			 customClass: "text-left"
+             customClass: "text-left"
          }, function (isConfirm) {
              if (isConfirm)
-			 {
-				 if ($scope.bankData.isBankAddedManually == true)
-				 {
-					$state.go('app.uploadID');
-				 }
-				 else
-				 {
-					$state.go('app.uploadID');
-				 }
-			 }
+             {
+                 if ($scope.bankData.isBankAddedManually == true)
+                     $state.go('app.uploadID'); // CC (9/7/16): Need to add a simple screen for entering Micro-Deposit Verification Amounts
+                 else
+                     $state.go('app.uploadID');
+             }
          });
      };
 
 
-	 $scope.$on('$ionicView.leave', function() {
-		 $scope.editBank = false;
-	 });
+     $scope.$on('$ionicView.leave', function () {
+         $scope.editBank = false;
+     });
  })

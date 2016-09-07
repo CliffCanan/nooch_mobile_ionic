@@ -563,8 +563,7 @@ a {
     margin: 0;
     min-width: 52px;
     min-height: 48px;
-    padding: 4px 12px
-    position: relative;
+    padding: 4px 12px position: relative;
     vertical-align: top;
     text-align: center;
     text-overflow: ellipsis;
@@ -661,7 +660,7 @@ a {
     border: 1px solid #fff;
     box-shadow: 0 1px 8px 0px rgba(0,0,0,.5);
     color: #fff;
-	font-size: 15px;
+    font-size: 15px;
     font-weight: 600;
     width: 20px;
     height: 20px;
@@ -784,10 +783,10 @@ a {
         .sweet-alert.hasImage img {
             width: 100%;
         }
-		
-	.sweet-alert.text-left p{
-		text-align: left;
-	}
+
+    .sweet-alert.text-left p {
+        text-align: left;
+    }
 
     .sweet-alert p {
         color: #444;
@@ -804,12 +803,12 @@ a {
         color: #444;
         margin: 22px 0 12px;
     }
-	
-	.sweet-alert ul {
-	    list-style-type: disc;
-	    padding-left: 35px;
-		margin: 5px 0 15px;
-	}
+
+    .sweet-alert ul {
+        list-style-type: disc;
+        padding-left: 35px;
+        margin: 5px 0 15px;
+    }
 
     .sweet-alert button {
         margin: 8px 6px 5px;
@@ -1098,11 +1097,10 @@ iframe {
     border: 2px solid #acacac;
     border-radius: 50%;
     box-shadow: 0 3px 9px -1px rgba(0,0,0,.25);
-	max-width: 180px;
+    max-width: 180px;
 }
 
 #continueBtn i {
-	
 }
 
 /*****************/
@@ -1110,7 +1108,7 @@ iframe {
 /*****************/
 
 #welcomeBox ul {
-	margin-bottom: 30px;
+    margin-bottom: 30px;
     padding: 10px 5% 10px 10%;
 }
 
@@ -1320,7 +1318,8 @@ iframe {
     #btm-section #version {
         display: block;
         font-size: 11px;
-        font-weight: 300;;
+        font-weight: 300;
+        ;
         opacity: .92;
     }
 
@@ -1421,19 +1420,19 @@ div.hscroller-card {
 
 #bank-name {
     font-size: 18px;
-	font-weight: 500;
+    font-weight: 500;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     width: 72%;
 }
 
-#bank-name i {
-    margin-right: 6px;
-    font-size: 15px;
-    position: relative;
-    top: -1px;
-}
+    #bank-name i {
+        margin-right: 6px;
+        font-size: 15px;
+        position: relative;
+        top: -1px;
+    }
 
 #bank-nickname, #bank-status {
     font-size: 15px;
@@ -2182,15 +2181,15 @@ div.hscroller-card {
     }
 
 .pin-container {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
     .pin-container input {
         font-size: 40px;
         letter-spacing: 20px;
         text-align: center;
-		height: 60px;
-		padding: 0;
+        height: 60px;
+        padding: 0;
         width: 100%;
     }
 
@@ -2245,16 +2244,16 @@ div.hscroller-card {
     }
 
     .recipient-box .memo-text {
-		color: #444;
+        color: #444;
         font-size: 18px;
         font-weight: 300;
         padding: 5px 5px 8px 40px;
-		position: absolute;
-		bottom: 0px;
-		width: 100%;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
 

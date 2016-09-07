@@ -129,31 +129,31 @@
 			            }
 			            else
 			            {
-	                        swal({
-	                            title: "Use Address Book?",
-	                            text: "Sending money to friends is simple when you have them in your phone's address book." +
+			                swal({
+			                    title: "Use Address Book?",
+			                    text: "Sending money to friends is simple when you have them in your phone's address book." +
 	                                  "Otherwise you'll have to manually type their email address or phone number.",
-	                            type: "info",
-	                            showCancelButton: true,
-	                            cancelButtonText: "Not Now",
-	                            confirmButtonColor: "#3fabe1",
-	                            confirmButtonText: "Authorize",
-	                        }, function (isConfirm) {
-	                            if (isConfirm)
-	                            {
-	                                cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
-	                                    if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
-	                                    {
-	                                        console.log("Contacts use is authorized");
-	                                        $scope.fetchContacts();
-	                                    }
-	                                    else
-	                                        console.log("Contact permisison is " + status);
-	                                }, function (error) {
-	                                    console.error(error);
-	                                });
-	                            }
-	                        });
+			                    type: "info",
+			                    showCancelButton: true,
+			                    cancelButtonText: "Not Now",
+			                    confirmButtonColor: "#3fabe1",
+			                    confirmButtonText: "Authorize",
+			                }, function (isConfirm) {
+			                    if (isConfirm)
+			                    {
+			                        cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
+			                            if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
+			                            {
+			                                console.log("Contacts use is authorized");
+			                                $scope.fetchContacts();
+			                            }
+			                            else
+			                                console.log("Contact permisison is " + status);
+			                        }, function (error) {
+			                            console.error(error);
+			                        });
+			                    }
+			                });
 			            }
 			        }, function (error) {
 			            console.error("isContactsAuthorized Error: [" + error + "]");
@@ -192,12 +192,12 @@
 
         function onSuccess(contacts) {
             console.log('Phone Contacts...');
-			console.log(contacts);
+            console.log(contacts);
 
             for (var i = 0; i < contacts.length; i++)
             {
                 var contact = contacts[i];
- 
+
                 if (contact.name.formatted != null && contact.emails != null)
                 {
                     $scope.readContact.FirstName = contact.name.formatted;
@@ -205,7 +205,7 @@
                     $scope.readContact.bit = 'p';
 
                     if (contact.emails != null)
-					{
+                    {
                         $scope.readContact.UserName = contact.emails[0].value;
                         $scope.readContact.otherEmails = contact.emails;
                     }
@@ -257,30 +257,30 @@
                     $scope.memberList[i].Photo = "./img/profile_picture.png";
 
                 if ($scope.memberList[i].bit != 'p')
-                   tmp.push($scope.memberList[i]);
+                    tmp.push($scope.memberList[i]);
 
                 else
-				{
+                {
                     var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
-					
-					// Check to make sure the randomly selected contact isn't already in the list to avoid duplicates
-					var isDuplicate = false
-					for (var d = 0; i < tmp.length; d++)
-					{
-						if (tmp[d].UserName == $scope.memberList[randomNumber].UserName)
-						{
-							isDuplicate = true;
-							console.log("Got a DUPLICATE  -->  tmp[d].UserName: [" + tmp[d].UserName + "], $scope.memberList[randomNumber]: [" + $scope.memberList[randomNumber].UserName + "]")
-						}
-					}
-					
-					if (!isDuplicate)
-					{
-                    	if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
-                        	$scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
 
-						tmp.push($scope.memberList[randomNumber]);
-					}
+                    // Check to make sure the randomly selected contact isn't already in the list to avoid duplicates
+                    var isDuplicate = false
+                    for (var d = 0; i < tmp.length; d++)
+                    {
+                        if (tmp[d].UserName == $scope.memberList[randomNumber].UserName)
+                        {
+                            isDuplicate = true;
+                            console.log("Got a DUPLICATE  -->  tmp[d].UserName: [" + tmp[d].UserName + "], $scope.memberList[randomNumber]: [" + $scope.memberList[randomNumber].UserName + "]")
+                        }
+                    }
+
+                    if (!isDuplicate)
+                    {
+                        if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
+                            $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
+
+                        tmp.push($scope.memberList[randomNumber]);
+                    }
                 }
             }
         };
@@ -298,27 +298,27 @@
         }
 
         if (member.bit != 'p' || member.otherEmails == null || member.otherEmails.length < 2)
-		{
+        {
             $state.go('app.howMuch', { recip: member });
         }
         else
-		{
+        {
             var buttons = [];
             for (var i = 0; i < member.otherEmails.length; i++)
-			{                
-				if (i < 4)
-				{
-					if (ValidateEmail(member.otherEmails[i].value))
-					{
-						$scope.buttonValues.id = i;
-		                $scope.buttonValues.text = member.otherEmails[i].value;
-		                buttons.push($scope.buttonValues);
-		                $scope.buttonValues = {
-		                    id: '',
-		                    text: ''
-		                }
-					}
-				}
+            {
+                if (i < 4)
+                {
+                    if (ValidateEmail(member.otherEmails[i].value))
+                    {
+                        $scope.buttonValues.id = i;
+                        $scope.buttonValues.text = member.otherEmails[i].value;
+                        buttons.push($scope.buttonValues);
+                        $scope.buttonValues = {
+                            id: '',
+                            text: ''
+                        }
+                    }
+                }
             }
 
             var hideSheet = $ionicActionSheet.show({
@@ -565,7 +565,7 @@
         //    swal("Error", "Internet not connected!", "error");
     }
 
-	
+
     function ValidateEmail(email) {
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)*.+$/.test(email))
             return (true)

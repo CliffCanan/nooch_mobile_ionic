@@ -35,7 +35,7 @@
                         <div id="bank-nickname">{{bankData.bankNickname}}</div>
                         <div id="bank-status">
                             Status:
-                            <span ng-if="bankData.bankStatus == 'Not Verified'" class="text-danger"  ng-click="showBankNotVerifiedModal()">{{bankData.bankStatus}}</span>
+                            <span ng-if="bankData.bankStatus == 'Not Verified'" class="text-danger" ng-click="showBankNotVerifiedModal()">{{bankData.bankStatus}}</span>
                             <span ng-if="bankData.bankStatus == 'Verified'" class="text-success">{{bankData.bankStatus}}</span>
                         </div>
 
@@ -54,7 +54,7 @@
                     <!-- WHEN BANK IS LINKED, BUT NOT VERIFIED -->
                     <div class="section-note">
                         As an extra security measure, your bank must be verified.
-						<span ng-click="showBankNotVerifiedModal()">&nbsp;Learn more &nbsp;<i class="ion-help-circled text-primary"></i></span>
+                        <span ng-click="showBankNotVerifiedModal()">&nbsp;Learn more &nbsp;<i class="ion-help-circled text-primary"></i></span>
                     </div>
                 </div>
 

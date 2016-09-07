@@ -16,7 +16,7 @@
     });
 
 
-	$scope.fetchContacts = function () {
+    $scope.fetchContacts = function () {
 
         $ionicLoading.show({
             template: 'Loading...'
@@ -52,20 +52,20 @@
                 if (contact.emails != null)
                 {
                     $scope.readContact.UserName = contact.emails[0].value;
-					if (contact.emails.length > 1)
-					{
-			            for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
-			            {
-							if (ValidateEmail(contact.emails[n].value))
-							{
-								$scope.readContact.otherEmails[n-1].value = contact.emails[n].value;
-								$scope.readContact.otherEmails[n-1].type = contact.emails[n].type;
-							}
-						}
-					}
+                    if (contact.emails.length > 1)
+                    {
+                        for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
+                        {
+                            if (ValidateEmail(contact.emails[n].value))
+                            {
+                                $scope.readContact.otherEmails[n - 1].value = contact.emails[n].value;
+                                $scope.readContact.otherEmails[n - 1].type = contact.emails[n].type;
+                            }
+                        }
+                    }
                     //$scope.readContact.otherEmails = contact.emails;
                 }
-				
+
                 if (contact.phoneNumbers != null)
                 {
                     $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
@@ -116,20 +116,20 @@
             var buttons = [];
             for (var i = 0; i < member.otherEmails.length; i++)
             {
-				if (i < 4)
-				{
-					if (ValidateEmail(member.otherEmails[i].value))
-					{
-		                $scope.buttonValues.id = i;
-		                $scope.buttonValues.text = member.otherEmails[i].value;
-		                buttons.push($scope.buttonValues);
+                if (i < 4)
+                {
+                    if (ValidateEmail(member.otherEmails[i].value))
+                    {
+                        $scope.buttonValues.id = i;
+                        $scope.buttonValues.text = member.otherEmails[i].value;
+                        buttons.push($scope.buttonValues);
 
-		                $scope.buttonValues = {
-		                    id: '',
-		                    text: ''
-		                }
-					}
-				}
+                        $scope.buttonValues = {
+                            id: '',
+                            text: ''
+                        }
+                    }
+                }
             }
 
             var hideSheet = $ionicActionSheet.show({
