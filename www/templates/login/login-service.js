@@ -22,6 +22,6 @@ angular.module('noochApp.login-service', ['noochApp.services'])
       };
 
       this.SaveMembersFBId = function (MemberId, MemberfaceBookId, IsConnect) {
-          return $http.get(URLs.SaveMembersFBId + '?MemberId=' + MemberId + '&MemberfaceBookId=' + MemberfaceBookId + '&IsConnect=' + IsConnect);
+          return $http.get(URLs.SaveMembersFBId + '?memberId=' + MemberId + '&fbid=' + MemberfaceBookId + '&IsConnect=' + IsConnect);
       };
   })

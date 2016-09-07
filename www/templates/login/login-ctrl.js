@@ -24,12 +24,10 @@
               {
                   $scope.loginData.rmmbrMe.chk = $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled == false ? false : true;
                   $scope.loginData.email = $localStorage.GLOBAL_VARIABLES.UserName;
-				  
-				  if ($('#toLoginBtn').hasClass('bounceOutRight')){
-					console.log('CHECKPOINT LOGIN 1');
-			  		$('#toLoginBtn').removeClass('bounceOutRight');
-            	  }
-		  	}
+
+                  if ($('#toLoginBtn').hasClass('bounceOutRight'))
+                      $('#toLoginBtn').removeClass('bounceOutRight');
+              }
           }
 
           console.log($scope.loginData);
@@ -149,6 +147,10 @@
                             }
                         });
                     }
+                    else if (response.Result.indexOf('Object reference not set') > -1)
+                    {
+                        $scope.genericLoginError();
+                    }
                     else
                     {
                         $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginData.email;
@@ -159,44 +161,48 @@
                     }
                 })
 				.error(function (res) {
-				    $ionicLoading.hide();
 				    console.log('Login Attempt Error: [' + JSON.stringify(res) + ']');
-
-				    swal({
-				        title: "Oh no",
-				        text: "Terribly sorry, but we're having trouble logging you in! Please try again or contact us for futher help.",
-				        type: "error",
-				        showCancelButton: true,
-				        cancelButtonText: "Ok",
-				        confirmButtonColor: "#3fabe1",
-				        confirmButtonText: "Contact Support",
-				        customClass: "stackedBtns"
-				    }, function (isConfirm) {
-				        if (isConfirm)
-				        {
-				            // toArr, ccArr and bccArr must be an array, file can be either null, string or array
-				            //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
-				            $cordovaSocialSharing
-                              .shareViaEmail('', 'Nooch Support Request - Login Trouble', 'support@nooch.com', null, null, null)
-                              .then(function (result) {
-                                  if (result.Completed)
-                                      swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
-                              }, function (err) {
-                                  console.log('Error attempting to send email from social sharing: [' + err + ']');
-                              });
-				        }
-				    });
+				    $ionicLoading.hide();
+				    $scope.genericLoginError();
 				});
           })
 		  .error(function (encError) {
-		      $ionicLoading.hide();
 		      console.log('GetEncryptedData Error: [' + encError + ']');
+		      $ionicLoading.hide();
+		      $scope.genericLoginError();
 		  });
       }
 
 
+      $scope.genericLoginError = function () {
+          swal({
+              title: "Oh no",
+              text: "Terribly sorry, but we're having trouble logging you in! Please try again or contact us for futher help.",
+              type: "error",
+              showCancelButton: true,
+              cancelButtonText: "Ok",
+              confirmButtonColor: "#3fabe1",
+              confirmButtonText: "Contact Support",
+          }, function (isConfirm) {
+              if (isConfirm)
+              {
+                  // toArr, ccArr and bccArr must be an array, file can be either null, string or array
+                  //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
+                  $cordovaSocialSharing
+                    .shareViaEmail('', 'Nooch Support Request - Login Trouble', 'support@nooch.com', null, null, null)
+                    .then(function (result) {
+                        if (result.Completed)
+                            swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                    }, function (err) {
+                        console.log('Error attempting to send email from social sharing: [' + err + ']');
+                    });
+              }
+          });
+      }
+
+
       $scope.forgotPw = function (type) {
-          var msgTxt = type == 1 ? "Please enter your email and we will send you a reset link." : "Please make sure you entered a valid email address.";
+          var msgTxt = type == 1 ? "Enter your email address below and we will send you a reset link." : "Please make sure you entered a valid email address.";
           swal({
               title: "Forgot Password",
               text: msgTxt,
