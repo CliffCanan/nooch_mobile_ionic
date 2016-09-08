@@ -334,7 +334,7 @@
                  $scope.bankData = data;
                  console.log("Data for MicroDeposit");
                  $rootScope.bank_node = $scope.bankData.bank_node_id;
-                // console.log("This is node ID=>>" + $rootScope.bank_node);
+                 // console.log("This is node ID=>>" + $rootScope.bank_node);
                  console.log($scope.bankData);
                  $ionicLoading.hide();
              })
@@ -381,7 +381,7 @@
              if (isConfirm)
              {
                  if ($scope.bankData.isBankAddedManually == true)
-                     $state.go('app.uploadID'); // CC (9/7/16): Need to add a simple screen for entering Micro-Deposit Verification Amounts
+                     $state.go('app.microDeposit');
                  else
                      $state.go('app.uploadID');
              }
