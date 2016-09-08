@@ -18,9 +18,7 @@
 
     $scope.fetchContacts = function () {
 
-        $ionicLoading.show({
-            template: 'Loading...'
-        });
+         
 
         var options = {
             multiple: true

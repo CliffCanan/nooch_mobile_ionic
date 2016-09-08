@@ -22,32 +22,26 @@
             //console.log($localStorage.GLOBAL_VARIABLES);
 
             if ($rootScope.Status === "Suspended" ||
-                $rootScope.Status === "Temporarily_Blocked")
-            {
+                $rootScope.Status === "Temporarily_Blocked") {
                 $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
                 $scope.shouldDisplayErrorBanner = true;
             }
-            else
-            {
-                if ($rootScope.IsPhoneVerified == false)
-                {
+            else {
+                if ($rootScope.IsPhoneVerified == false) {
                     $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
                     $scope.shouldDisplayErrorBanner = true;
                 }
                 if ($rootScope.isProfileComplete == false ||
-	                $rootScope.Status == "Registered")
-                {
+	                $rootScope.Status == "Registered") {
                     $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
                     $scope.shouldDisplayErrorBanner = true;
                 }
-                if ($rootScope.hasSynapseBank == false)
-                {
+                if ($rootScope.hasSynapseBank == false) {
                     $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
                     $scope.shouldDisplayErrorBanner = true;
                 }
             }
-            if ($scope.shouldDisplayErrorBanner)
-            {
+            if ($scope.shouldDisplayErrorBanner) {
                 $ionicContentBanner.show({
                     text: $scope.errorBannerTextArray,
                     interval: '4000',
@@ -62,8 +56,7 @@
                 $scope.isBannerShowing == false;
 
             if ($localStorage.GLOBAL_VARIABLES.MemberId != null &&
-                $localStorage.GLOBAL_VARIABLES.MemberId != '')
-            {
+                $localStorage.GLOBAL_VARIABLES.MemberId != '') {
                 $scope.FindRecentFriends();
                 $scope.deviceIp();
             }
@@ -80,8 +73,7 @@
 
 
     $scope.$on('foundPendingReq', function (event, args) {
-        if ($scope.isBannerShowing == false)
-        {
+        if ($scope.isBannerShowing == false) {
             $ionicContentBanner.show({
                 text: ['Pending Request Waiting'],
                 type: 'info',
@@ -110,41 +102,37 @@
 			.success(function (data) {
 			    $scope.memberList = data;
 			    console.log('GetRecentMembers() -->');
+			    console.log(data.length);
 
 			    $ionicLoading.hide();
 
-			    if ((data[0] == null || data.length < 5) && window.cordova)
-			    {
+			    if ((data[0] == null || data.length < 5) && window.cordova) {
 			        console.log('Got Recent Members Empty or less than 5, Loading phone contacts ..');
 
 			        cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
 			            console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
 
-			            if (authorized)
-			            {
+			            if (authorized) {
 			                $ionicPlatform.ready(function () {
 
 			                    $scope.fetchContacts();
 			                });
 			            }
-			            else
-			            {
+			            else {
 			                swal({
-			                    title: "Use Address Book?",
-			                    text: "Sending money to friends is simple when you have them in your phone's address book." +
-	                                  "Otherwise you'll have to manually type their email address or phone number.",
-			                    type: "info",
+			                    title: "Permissions not Granted!",
+			                    text: "Please click OK to allow Nooch to read Contacts",
+			                    type: "warning",
 			                    showCancelButton: true,
-			                    cancelButtonText: "Not Now",
+			                    cancelButtonText: "Cancel",
 			                    confirmButtonColor: "#3fabe1",
-			                    confirmButtonText: "Authorize",
+			                    confirmButtonText: "Ok"
 			                }, function (isConfirm) {
-			                    if (isConfirm)
-			                    {
+			                    if (isConfirm) {
 			                        cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
-			                            if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
-			                            {
+			                            if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED) {
 			                                console.log("Contacts use is authorized");
+
 			                                $scope.fetchContacts();
 			                            }
 			                            else
@@ -162,10 +150,10 @@
 			    else
 			        $scope.setFavoritesForDisplay();
 			})
-			.error(function (error) {
+			.error(function (data) {
 			    $ionicLoading.hide();
-			    console.log(JSON.stringifyerror);
-			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+			    console.log(JSON.stringify(data));
+			    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
 			        CommonServices.logOut();
 			})
     }
@@ -173,6 +161,9 @@
 
     $scope.fetchContacts = function () {
 
+        $ionicLoading.show({
+            template: 'Loading Contacts...'
+        });
         var options = {
             multiple: true
         };
@@ -187,32 +178,28 @@
             otherEmails: []
         };
 
-        //console.log($cordovaContacts);
+        console.log($cordovaContacts);
         $cordovaContacts.find(options).then(onSuccess, onError);
 
         function onSuccess(contacts) {
-            console.log('Phone Contacts...');
-            console.log(contacts);
+            console.log('phone' + contacts);
 
-            for (var i = 0; i < contacts.length; i++)
-            {
+            for (var i = 0; i < contacts.length; i++) {
+
+
                 var contact = contacts[i];
 
-                if (contact.name.formatted != null && contact.emails != null)
-                {
+                if (contact.name.formatted != null && contact.emails != null) {
                     $scope.readContact.FirstName = contact.name.formatted;
                     $scope.readContact.id = i;
                     $scope.readContact.bit = 'p';
-
-                    if (contact.emails != null)
-                    {
+                    if (contact.emails != null) {
                         $scope.readContact.UserName = contact.emails[0].value;
+
                         $scope.readContact.otherEmails = contact.emails;
                     }
-
                     if (contact.phoneNumbers != null)
                         $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
-
                     if (contact.photos != null)
                         $scope.readContact.Photo = contact.photos[0].value;
 
@@ -249,45 +236,43 @@
         $scope.FavoritesToDisplay = [];
         var tmp = [];
 
-        for (var i = 0; i <= 4; i++)
-        {
-            if (i < $scope.memberList.length)
-            {
+        for (var i = 0; i <= 4; i++) {
+            if (i < $scope.memberList.length) {
                 if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
                     $scope.memberList[i].Photo = "./img/profile_picture.png";
-
-                if ($scope.memberList[i].bit != 'p')
+                if ($scope.memberList[i].bit != 'p') {
+                    //var tmp = [
+                    //  { desc: $scope.memberList[i].FirstName, image: $scope.memberList[i].Photo }
+                    //];
                     tmp.push($scope.memberList[i]);
-
-                else
-                {
-                    var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
-
-                    // Check to make sure the randomly selected contact isn't already in the list to avoid duplicates
-                    var isDuplicate = false
-                    for (var d = 0; i < tmp.length; d++)
-                    {
-                        if (tmp[d].UserName == $scope.memberList[randomNumber].UserName)
-                        {
-                            isDuplicate = true;
-                            console.log("Got a DUPLICATE  -->  tmp[d].UserName: [" + tmp[d].UserName + "], $scope.memberList[randomNumber]: [" + $scope.memberList[randomNumber].UserName + "]")
-                        }
-                    }
-
-                    if (!isDuplicate)
-                    {
-                        if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
-                            $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
-
-                        tmp.push($scope.memberList[randomNumber]);
-                    }
                 }
+                else {
+                    var randomNumber = $scope.GenerateRandom();
+                    if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
+                        $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
+                    tmp.push($scope.memberList[randomNumber]);
+                }
+
             }
         };
-
         $scope.FavoritesToDisplay = tmp;
     }
 
+    var arr = [];
+    $scope.GenerateRandom = function () {
+
+        var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
+        for (var i = 0; i < arr.length; i++) {
+
+            if (arr[i] == randomNumber) {
+                $scope.GenerateRandom();
+            }
+
+
+        }
+        arr.push(randomNumber);
+        return randomNumber;
+    }
 
     $scope.openFilterChoices = function (member) {
 
@@ -297,34 +282,32 @@
             text: ''
         }
 
-        if (member.bit != 'p' || member.otherEmails == null || member.otherEmails.length < 2)
-        {
+
+        if (member.bit != 'p') {
             $state.go('app.howMuch', { recip: member });
         }
-        else
-        {
+        else {
             var buttons = [];
-            for (var i = 0; i < member.otherEmails.length; i++)
-            {
-                if (i < 4)
-                {
-                    if (ValidateEmail(member.otherEmails[i].value))
-                    {
-                        $scope.buttonValues.id = i;
-                        $scope.buttonValues.text = member.otherEmails[i].value;
-                        buttons.push($scope.buttonValues);
-                        $scope.buttonValues = {
-                            id: '',
-                            text: ''
-                        }
-                    }
+            for (var i = 0; i < member.otherEmails.length; i++) {
+                console.log(member.otherEmails[i].value);
+                $scope.buttonValues.id = i;
+                $scope.buttonValues.text = member.otherEmails[i].value;
+                buttons.push($scope.buttonValues);
+                $scope.buttonValues = {
+                    id: '',
+                    text: ''
                 }
             }
 
+            var title = "Choose Email  ";
+
             var hideSheet = $ionicActionSheet.show({
                 buttons: buttons,
-                titleText: "Which Email Address?",
-                cancelText: "Cancel",
+                titleText: title,
+                cancelText: 'Cancel',
+                cancel: function () {
+
+                },
                 buttonClicked: function (index) {
                     member.UserName = member.otherEmails[index].value;
                     $state.go('app.howMuch', { recip: member });
@@ -333,18 +316,14 @@
             });
         }
     };
-
-
     $scope.goToSelectRecip = function () {
         if ($rootScope.Status == "Suspended" ||
-            $rootScope.Status == "Temporarily_Blocked")
-        {
+            $rootScope.Status == "Temporarily_Blocked") {
             var showCancelButton = false;
             var bodyTxt = "For security your account has been suspended pending a review." +
 						  "<span class='show'>We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.</span>";
 
-            if (window.cordova)
-            {
+            if (window.cordova) {
                 showCancelButton = true;
                 bodyTxt += "<span class='show'>Please contact us at support@nooch.com if this is a mistake or for more information."
             }
@@ -360,8 +339,7 @@
                 customClass: "smallText",
                 html: true,
             }, function (isConfirm) {
-                if (!isConfirm)
-                {
+                if (!isConfirm) {
                     //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                     $cordovaSocialSharing
                       .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
@@ -376,8 +354,7 @@
                 }
             });
         }
-        else if ($rootScope.Status == "Registered")
-        {
+        else if ($rootScope.Status == "Registered") {
             swal({
                 title: "Please Verify Your Email",
                 text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
@@ -387,8 +364,7 @@
                 showCancelButton: true,
                 cancelButtonText: "Resend Email"
             }, function (isConfirm) {
-                if (!isConfirm)
-                {
+                if (!isConfirm) {
                     $ionicLoading.show({
                         template: 'Sending Verification Link...'
                     });
@@ -413,14 +389,12 @@
                 }
             });
         }
-        else if ($rootScope.IsPhoneVerified == false)
-        {
+        else if ($rootScope.IsPhoneVerified == false) {
             var isPhoneAdded = false;
             var bodyTxt = "Would you like to add a number now?";
             var confirmBtnTxt = "Add Now";
 
-            if ($rootScope.ContactNumber != null && $rootScope.contactNumber != "")
-            {
+            if ($rootScope.ContactNumber != null && $rootScope.contactNumber != "") {
                 isPhoneAdded = true;
                 bodyTxt = "You should have received a text message from us. Just respond 'Go' to confirm your number.";
                 confirmBtnTxt = "Resend SMS";
@@ -437,10 +411,8 @@
                 cancelButtonText: "Ok",
                 html: true,
             }, function (isConfirm) {
-                if (isConfirm)
-                {
-                    if (isPhoneAdded)
-                    {
+                if (isConfirm) {
+                    if (isPhoneAdded) {
 
                         $ionicLoading.show({
                             template: 'Sending SMS...'
@@ -470,8 +442,7 @@
                 }
             });
         }
-        else if ($rootScope.isProfileComplete == false)
-        {
+        else if ($rootScope.isProfileComplete == false) {
             swal({
                 title: "Help Us Keep Nooch Safe",
                 text: "Please take 1 minute to verify your identity by completing your Nooch profile.",
@@ -485,8 +456,7 @@
                     $state.go('app.profile');
             });
         }
-        else if ($rootScope.hasSynapseBank == false)
-        {
+        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false) {
             swal({
                 title: "Connect A Funding Source",
                 text: "Adding a bank account to fund Nooch payments is lightning quick:" +
@@ -502,28 +472,26 @@
                 $state.go('app.settings');
             });
         }
-        else if ($rootScope.bankStatus == false)
-        {
+        else if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank == false) {
             swal({
                 title: "Bank Account Un-Verified",
                 text: "Looks like we need just a bit more info to verify your bank account. This usually happens when we were unable to match the contact info listed on the bank account with your Nooch profile information." +
 					  "<span class='show'>Don't worry - we can solve this quickly. Please tap 'Learn More' for what to do next.</span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Learn More",
+                confirmButtonText: "Go Now",
                 showCancelButton: true,
-                cancelButtonText: "Not Now",
+                cancelButtonText: "Later",
                 html: true,
             }, function (isConfirm) {
                 $state.go('app.settings');
             });
         }
-        else
-        {
+        else {
             $('#searchMoreFriends').addClass('flipOutX');
             $timeout(function () {
                 $state.go('app.selectRecipient');
-            }, 800);
+            }, 1000);
         }
     }
 
@@ -531,14 +499,14 @@
     $scope.deviceIp = function () {
         var url = 'http://ipv4.myexternalip.com/json';
 
+        //console.log("Home Cntrlr -> DeviceIP -> $localStorage.GLOBAL_VARIABLES.ip: [" + $localStorage.GLOBAL_VARIABLES.ip + "]");
+
         $http.get(url).then(function (result) {
-            if ($localStorage.GLOBAL_VARIABLES.ip == null || $localStorage.GLOBAL_VARIABLES.ip == '')
-            {
+            if ($localStorage.GLOBAL_VARIABLES.ip == null || $localStorage.GLOBAL_VARIABLES.ip == '') {
                 console.log('Local IP was NULL, saving: [' + result.data.ip + ']');
                 $scope.updateDeviceIp(result.data.ip);
             }
-            else if ($localStorage.GLOBAL_VARIABLES.ip != result.data.ip)
-            {
+            else if ($localStorage.GLOBAL_VARIABLES.ip != result.data.ip) {
                 console.log('IP Changed, NEW IP is [' + result.data.ip + '], OLD IP was:' + $localStorage.GLOBAL_VARIABLES.ip + ']');
                 $scope.updateDeviceIp(result.data.ip);
             }
@@ -563,13 +531,5 @@
         //  }
         //else
         //    swal("Error", "Internet not connected!", "error");
-    }
-
-
-    function ValidateEmail(email) {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)*.+$/.test(email))
-            return (true)
-        else
-            return (false)
     }
 })

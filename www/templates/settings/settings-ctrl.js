@@ -332,9 +332,10 @@
          settingsService.GetSynapseBankAndUserDetails()
              .success(function (data) {
                  $scope.bankData = data;
-
+                 console.log("Data for MicroDeposit");
+                 $rootScope.bank_node = $scope.bankData.bank_node_id;
+                // console.log("This is node ID=>>" + $rootScope.bank_node);
                  console.log($scope.bankData);
-
                  $ionicLoading.hide();
              })
              .error(function (data) {
