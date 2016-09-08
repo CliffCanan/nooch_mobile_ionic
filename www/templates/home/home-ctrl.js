@@ -259,33 +259,56 @@
                 if ($scope.memberList[i].bit != 'p')
                     tmp.push($scope.memberList[i]);
 
-                else
-                {
-                    var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
+                //else
+                //{
+                //    var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
 
-                    // Check to make sure the randomly selected contact isn't already in the list to avoid duplicates
-                    var isDuplicate = false
-                    for (var d = 0; i < tmp.length; d++)
-                    {
-                        if (tmp[d].UserName == $scope.memberList[randomNumber].UserName)
-                        {
-                            isDuplicate = true;
-                            console.log("Got a DUPLICATE  -->  tmp[d].UserName: [" + tmp[d].UserName + "], $scope.memberList[randomNumber]: [" + $scope.memberList[randomNumber].UserName + "]")
-                        }
+                //    // Check to make sure the randomly selected contact isn't already in the list to avoid duplicates
+                //    var isDuplicate = false
+                //    for (var d = 0; i < tmp.length; d++)
+                //    {
+                //        if (tmp[d].UserName == $scope.memberList[randomNumber].UserName)
+                //        {
+                //            isDuplicate = true;
+                //            console.log("Got a DUPLICATE  -->  tmp[d].UserName: [" + tmp[d].UserName + "], $scope.memberList[randomNumber]: [" + $scope.memberList[randomNumber].UserName + "]")
+                //        }
+                //    }
+
+                //    if (!isDuplicate)
+                //    {
+                //        if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
+                //            $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
+
+                //        tmp.push($scope.memberList[randomNumber]);
+                //    }
+                //}
+
+            else {
+                    var randomNumber = $scope.GenerateRandom();
+                     if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
+                         $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
+                     tmp.push($scope.memberList[randomNumber]);
                     }
-
-                    if (!isDuplicate)
-                    {
-                        if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
-                            $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
-
-                        tmp.push($scope.memberList[randomNumber]);
-                    }
-                }
             }
         };
 
         $scope.FavoritesToDisplay = tmp;
+    }
+
+    var arr = [];
+    $scope.GenerateRandom = function () {
+
+        var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
+        for (var i = 0; i < arr.length; i++) {
+
+            if (arr[i] == randomNumber) {
+                $scope.GenerateRandom();
+            }
+
+
+        }
+        arr.push(randomNumber);
+        return randomNumber;
     }
 
 
