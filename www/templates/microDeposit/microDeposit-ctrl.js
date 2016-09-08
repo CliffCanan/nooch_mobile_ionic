@@ -13,6 +13,9 @@
             swal("Opss..", "You are not allowed to verify MicroDeposit", "error");
         }
         else {
+          $ionicLoading.show({
+            template: 'Loading ...'
+          });
             $scope.microDeposit();
         }
     }
@@ -20,11 +23,10 @@
 
     $scope.microDeposit = function () {
         //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading ...'
-        });
 
-        $scope.url = ' https://noochme.com/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node;
+
+       // $scope.url = ' https://noochme.com/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node;
+      $scope.url = ' http://nooch.info/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node;
         //console.log($scope.url);
         $scope.microDepositUrl = $sce.trustAsResourceUrl($scope.url);
         console.log($scope.microDepositUrl);
@@ -34,7 +36,7 @@
         //  }
         //else {
         //    swal("Oops...", "Internet not connected!", "error");
-        //}        
+        //}
     }
 
 })
