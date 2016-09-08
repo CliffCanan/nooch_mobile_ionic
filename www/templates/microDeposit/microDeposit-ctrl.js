@@ -1,42 +1,32 @@
-﻿angular.module('noochApp.microDepositCtrl', ['noochApp.services', 'noochApp.microDeposit-service'])
+﻿angular.module('noochApp.microDepositCtrl', ['noochApp.services'])
 
 .controller('microDepositCtrl', function ($scope, $state, $ionicLoading, $localStorage, $cordovaNetwork, $sce, $rootScope) {
 
-    $scope.$on("$ionicView.enter", function (event, data) {
-        console.log("microDepost ctrl Lodaded");
-
-        $scope.isNodeIdFound();
+	$scope.$on('$ionicView.beforeEnter', function(){
+        if ($rootScope.bank_node == null)
+			$state.go('app.settings');
+		else
+		{
+          $ionicLoading.show({
+            template: 'Loading...'
+          });
+          
+		  $scope.microDeposit();
+		}
+	});
+	
+    $scope.$on("$ionicView.afterEnter", function (event, data) {
+		$ionicLoading.hide();
     })
 
-    $scope.isNodeIdFound = function () {
-        if ($rootScope.bank_node == null) {
-            swal("Opss..", "You are not allowed to verify MicroDeposit", "error");
-        }
-        else {
-          $ionicLoading.show({
-            template: 'Loading ...'
-          });
-            $scope.microDeposit();
-        }
-    }
-
-
     $scope.microDeposit = function () {
-        //if ($cordovaNetwork.isOnline()) {
+		//if ($cordovaNetwork.isOnline()) {
+		// $scope.url = ' https://noochme.com/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node;
+		$scope.url = ' http://nooch.info/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node + '&from=mobileapp';
 
+		$scope.microDepositUrl = $sce.trustAsResourceUrl($scope.url);
 
-       // $scope.url = ' https://noochme.com/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node;
-      $scope.url = ' http://nooch.info/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node;
-        //console.log($scope.url);
-        $scope.microDepositUrl = $sce.trustAsResourceUrl($scope.url);
-        console.log($scope.microDepositUrl);
-
-        $ionicLoading.hide();
-
-        //  }
-        //else {
-        //    swal("Oops...", "Internet not connected!", "error");
-        //}
+        //  } else
+        //    swal("Error", "Internet not connected!", "error");
     }
-
 })

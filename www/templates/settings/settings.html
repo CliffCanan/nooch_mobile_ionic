@@ -7,11 +7,11 @@
                 <span>Linked Banked Account</span>
                 <span class="alertIcon" ng-if="hasSynapseBank != true || bankData.bankStatus == 'Not Verified'">!</span>
                 <button type="button" id="replaceBankBtn" class="pull-right" ng-click="openAddBank()">
-                    <i class="ion-ios-plus-circled"></i>
+                    <i class="ion-android-add-circle"></i>
                 </button>
             </div>
 
-            <div ng-if="hasSynapseBank != true">
+            <div ng-if="hasSynapseBank == false">
                 <!-- WHEN BANK IS NOT LINKED -->
                 <div id="bankIntro">
                     <p>Attach a bank account to send or receive payments. Just select your bank, login to your online banking, and you're done.</p>
@@ -53,18 +53,11 @@
                 <div ng-if="bankData.bankStatus === 'Not Verified'">
                     <!-- WHEN BANK IS LINKED, BUT NOT VERIFIED -->
                     <div class="section-note">
-                        As an extra security measure, your bank must be verified.
-                        <span ng-click="showBankNotVerifiedModal()">&nbsp;Learn more &nbsp;<i class="ion-help-circled text-primary"></i></span>
+                        As an extra security measure, your bank must be verified.&nbsp;
+                        <span ng-click="showBankNotVerifiedModal()"><span class='link-underline'>Learn more</span><i class="ion-help-circled text-primary m-l-10"></i></span>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col">
-                        <button class="btn button-block btn-primary" ng-click="openAddBank()">
-                            <i class="ion-plus-circled m-r-15"></i>Link New Account
-                        </button>
-                    </div>
-                </div>
             </div>
 
 

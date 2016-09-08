@@ -9,7 +9,7 @@ p {
     line-height: 1.35;
 }
 
-ion-header-bar, .navheader {
+ion-header-bar, .navheader, .bar.bar-header {
     background: #3fabe1 !important;
 }
 
@@ -30,6 +30,7 @@ ion-header-bar, .navheader {
     font-size: 17px;
     margin: 0px 0px 10px 16px;
     height: 22px;
+	position: relative;
 }
 
 .section-note {
@@ -668,6 +669,11 @@ a {
     text-align: center;
 }
 
+.link-underline {
+	text-decoration: underline;
+	color: #3fabe1;
+}
+
 /***  TABLES  ***/
 .list .item {
     color: #313233;
@@ -851,7 +857,6 @@ a {
     }
 
     .content-banner.success {
-        background: -webkit-linear-gradient(top, #7fd034,#6ab029);
         background: linear-gradient(#7fd034,#6ab029);
     }
 
@@ -1386,11 +1391,12 @@ div.hscroller-card {
     border: none;
     background: transparent;
     color: #3FABE1;
-    font-size: 20px;
-    padding: 4px 8px;
-    position: relative;
-    top: -5px;
-    left: -5px;
+    font-size: 24px;
+    padding: 0px 8px;
+    position: absolute;
+    top: -7px;
+    right: 2%;
+	text-shadow: 0 1px 3px rgba(0,0,0,.15);
 }
 
 #bankIntro {
@@ -1899,8 +1905,8 @@ div.hscroller-card {
         top: 12px;
     }
 
-#statsExportWrap {
-    padding-top: 5px !important;
+#statsExportWrap .btn {
+	line-height: 1;
 }
 
 /**********************/
@@ -2237,7 +2243,6 @@ div.hscroller-card {
     }
 
     .recipient-box .namebar-request {
-        background: linear-gradient(#7fd034,#6ab029);
         text-shadow: 0px 1px rgba(19, 32, 38, 0.25);
         background: -webkit-linear-gradient(#6dbee8, #3FABE1);
         background: -webkit-gradient(#6dbee8, #3FABE1);
@@ -2264,10 +2269,10 @@ div.hscroller-card {
 
 #referral-code {
     color: #3fabe1;
-    font-size: 48px;
+    font-size: 50px;
     font-weight: 700;
     letter-spacing: 2px;
-    line-height: 1.4;
+    line-height: 1.2;
     text-transform: uppercase;
 }
 
@@ -2287,7 +2292,7 @@ div.hscroller-card {
 
     .refer-icons-container .label {
         color: #6d6e71;
-        font-size: 14px;
+        font-size: 14.5px;
     }
 
 #referredUsersList img {
@@ -2304,8 +2309,9 @@ div.hscroller-card {
 }
 
 #referredUsersList .item-note {
+    color: #999;
     font-size: 15px;
-    color: #3fabe1;
+	font-weight: 500;
     position: absolute;
     right: 10px;
     top: 27px;

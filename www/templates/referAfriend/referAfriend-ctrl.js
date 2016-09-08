@@ -1,11 +1,15 @@
 ﻿angular.module('noochApp.referAfriendCtrl', ['noochApp.services', 'noochApp.referAfriend-service'])
 
- .controller('referAfriendCtrl', function ($scope, authenticationService, $ionicPlatform, $cordovaSocialSharing, $cordovaNetwork, $ionicLoading, ReferralCodeService) {
+ .controller('referAfriendCtrl', function ($scope, authenticationService, $ionicPlatform, $cordovaSocialSharing,
+	 									   $cordovaNetwork, $ionicLoading, ReferralCodeService, CommonServices) {
 
      $ionicPlatform.ready(function () {
          //window.plugins.spinnerDialog.show("title", "message", true);
      });
-
+	 
+	 $scope.$on("$ionicView.beforeEnter", function (event, data) {
+		 $scope.referredUsersCount = 0;
+	 });
      $scope.$on("$ionicView.enter", function (event, data) {
          console.log("Refer a friend Controller Loaded");
 
@@ -27,12 +31,12 @@
              .error(function (error) {
                  console.log('GetReferralCode Error: [' + JSON.stringify(error) + ']');
                  $ionicLoading.hide();
-                 if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
+                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                      CommonServices.logOut();
              })
          //}
          //else
-         //    swal("Oops...", "Internet not connected!", "error");
+         //    swal("Error", "Internet not connected!", "error");
      }
 
      $scope.getReferredUsersList = function () {
@@ -42,21 +46,26 @@
                $scope.memberList = data;
                console.log('Referred Users List -->');
                console.log($scope.memberList);
+			   
+			   if ($scope.memberList != null && $scope.memberList.length > 0)
+			   {
+				   $scope.referredUsersCount = $scope.memberList.length;
 
-               if ($scope.memberList[0].Photo == "")
-                   $scope.memberList[0].Photo = "./img/profile_picture.png";
+	               if ($scope.memberList[0].Photo == "")
+	                   $scope.memberList[0].Photo = "./img/profile_picture.png";
+			   }
 
                $ionicLoading.hide();
            })
-		   .error(function (data) {
-		       console.log('getInvitedMemberList Error: [' + JSON.stringify(data) + ']');
+		   .error(function (error) {
+		       console.log('getInvitedMemberList Error: [' + JSON.stringify(error) + ']');
 		       $ionicLoading.hide();
-		       if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+		       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 		           CommonServices.logOut();
 		   });
          //  }
          //else
-         //    swal("Oops...", "Internet not connected!", "error");
+         //    swal("Error", "Internet not connected!", "error");
      }
 
      $scope.sendReferralCode = function (type) {
