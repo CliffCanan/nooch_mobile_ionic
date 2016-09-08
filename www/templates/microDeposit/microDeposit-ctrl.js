@@ -5,8 +5,18 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log("microDepost ctrl Lodaded");
 
-        $scope.microDeposit();
+        $scope.isNodeIdFound();
     })
+
+    $scope.isNodeIdFound = function () {
+        if ($rootScope.bank_node == null) {
+            swal("Opss..", "You are not allowed to verify MicroDeposit", "error");
+        }
+        else {
+            $scope.microDeposit();
+        }
+    }
+
 
     $scope.microDeposit = function () {
         //if ($cordovaNetwork.isOnline()) {
