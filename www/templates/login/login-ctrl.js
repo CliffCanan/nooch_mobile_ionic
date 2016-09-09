@@ -251,8 +251,8 @@
                     var lat = position.coords.latitude
                     var long = position.coords.longitude
 
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.latitude
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.longitude
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.longitude
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude =  position.coords.latitude
 
                     console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
 
