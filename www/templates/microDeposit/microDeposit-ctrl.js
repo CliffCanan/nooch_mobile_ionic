@@ -2,29 +2,29 @@
 
 .controller('microDepositCtrl', function ($scope, $state, $ionicLoading, $localStorage, $cordovaNetwork, $sce, $rootScope) {
 
-	$scope.$on('$ionicView.beforeEnter', function(){
+    $scope.$on('$ionicView.beforeEnter', function () {
         if ($rootScope.bank_node == null)
-			$state.go('app.settings');
-		else
-		{
-          $ionicLoading.show({
-            template: 'Loading...'
-          });
-          
-		  $scope.microDeposit();
-		}
-	});
-	
+            $state.go('app.settings');
+        else
+        {
+            $ionicLoading.show({
+                template: 'Loading...'
+            });
+
+            $scope.microDeposit();
+        }
+    });
+
     $scope.$on("$ionicView.afterEnter", function (event, data) {
-		$ionicLoading.hide();
+        $ionicLoading.hide();
     })
 
     $scope.microDeposit = function () {
-		//if ($cordovaNetwork.isOnline()) {
-		// $scope.url = ' https://noochme.com/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node;
-		$scope.url = ' http://nooch.info/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node + '&from=mobileapp';
+        //if ($cordovaNetwork.isOnline()) {
+        // $scope.url = ' https://noochme.com/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node;
+        $scope.url = ' http://nooch.info/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node + '&from=mobileapp';
 
-		$scope.microDepositUrl = $sce.trustAsResourceUrl($scope.url);
+        $scope.microDepositUrl = $sce.trustAsResourceUrl($scope.url);
 
         //  } else
         //    swal("Error", "Internet not connected!", "error");

@@ -3,13 +3,10 @@
  .controller('referAfriendCtrl', function ($scope, authenticationService, $ionicPlatform, $cordovaSocialSharing,
 	 									   $cordovaNetwork, $ionicLoading, ReferralCodeService, CommonServices) {
 
-     $ionicPlatform.ready(function () {
-         //window.plugins.spinnerDialog.show("title", "message", true);
+     $scope.$on("$ionicView.beforeEnter", function (event, data) {
+         $scope.referredUsersCount = 0;
      });
-	 
-	 $scope.$on("$ionicView.beforeEnter", function (event, data) {
-		 $scope.referredUsersCount = 0;
-	 });
+
      $scope.$on("$ionicView.enter", function (event, data) {
          console.log("Refer a friend Controller Loaded");
 
@@ -46,14 +43,14 @@
                $scope.memberList = data;
                console.log('Referred Users List -->');
                console.log($scope.memberList);
-			   
-			   if ($scope.memberList != null && $scope.memberList.length > 0)
-			   {
-				   $scope.referredUsersCount = $scope.memberList.length;
 
-	               if ($scope.memberList[0].Photo == "")
-	                   $scope.memberList[0].Photo = "./img/profile_picture.png";
-			   }
+               if ($scope.memberList != null && $scope.memberList.length > 0)
+               {
+                   $scope.referredUsersCount = $scope.memberList.length;
+
+                   if ($scope.memberList[0].Photo == "")
+                       $scope.memberList[0].Photo = "./img/profile_picture.png";
+               }
 
                $ionicLoading.hide();
            })
