@@ -1,4 +1,4 @@
-﻿<ion-view view-title="Home">
+﻿<ion-view view-title="Home" cache-view="false">
     <ion-content scroll="false">
         <!--<div ng-if="Details.IsValidProfile == false">
             <div class="assertive-bg text-center" style="color:#fff">
@@ -21,7 +21,7 @@
 
         <div id="fav-container">
             <hscroller>
-                <hcard ng-repeat="item in FavoritesToDisplay" ng-click="openFilterChoices(item)" index="{{$index}}" desc="{{item.FirstName}}" image="{{item.Photo}}"></hcard>
+                <hcard ng-repeat="item in FavoritesToDisplay track by $index" ng-click="openFilterChoices(item)" index="{{$index}}" desc="{{item.FirstName}}" image="{{item.Photo}}"></hcard>
             </hscroller>
         </div>
 

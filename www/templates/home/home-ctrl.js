@@ -8,8 +8,13 @@
                                   $ionicLoading, $ionicContentBanner, $localStorage, $cordovaContacts, $cordovaSocialSharing,
                                   authenticationService, profileService, selectRecipientService, CommonServices, homeServices, $ionicActionSheet) {
 
+
+  $scope.memberList = [];
+  $scope.phoneContacts = [];
     $scope.$on("$ionicView.enter", function (event, data) {
 
+      $scope.memberList = [];
+      $scope.phoneContacts = [];
         console.log('Home Ctrl Loaded');
 
         if ($('#searchMoreFriends').hasClass('flipOutX'))
@@ -87,8 +92,7 @@
     });
 
 
-    $scope.memberList = [];
-    $scope.phoneContacts = [];
+
 
 
     $scope.FindRecentFriends = function () {
@@ -101,7 +105,7 @@
         selectRecipientService.GetRecentMembers()
 			.success(function (data) {
 			    $scope.memberList = data;
-			    console.log('GetRecentMembers() -->');
+
 
 			    $ionicLoading.hide();
 
@@ -200,7 +204,7 @@
                     if (contact.photos != null)
                         $scope.readContact.Photo = contact.photos[0].value;
 
-                    $scope.memberList.push($scope.readContact);
+                    $scope.phoneContacts.push($scope.readContact);
 
                     $scope.readContact = {
                         FirstName: '',
@@ -227,71 +231,82 @@
 
 
     $scope.setFavoritesForDisplay = function () {
-        console.log('setFavoritesForDisplay Fired');
-        console.log($scope.memberList);
+
 
         $scope.FavoritesToDisplay = [];
-        var tmp = [];
 
-        for (var i = 0; i <= 4; i++) {
-            if (i < $scope.memberList.length) {
-                if ($scope.memberList[i].Photo == null || $scope.memberList[i].Photo == "")
-                    $scope.memberList[i].Photo = "./img/profile_picture.png";
 
-                if ($scope.memberList[i].bit != 'p')
-                    tmp.push($scope.memberList[i]);
 
-                    //else
-                    //{
-                    //    var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
+      for(var j=0; j < $scope.memberList.length;j++)
+      {
+        if ($scope.memberList[j].Photo == null || $scope.memberList[j].Photo == "")
+          $scope.memberList[j].Photo = "./img/profile_picture.png";
 
-                    //    // Check to make sure the randomly selected contact isn't already in the list to avoid duplicates
-                    //    var isDuplicate = false
-                    //    for (var d = 0; i < tmp.length; d++)
-                    //    {
-                    //        if (tmp[d].UserName == $scope.memberList[randomNumber].UserName)
-                    //        {
-                    //            isDuplicate = true;
-                    //            console.log("Got a DUPLICATE  -->  tmp[d].UserName: [" + tmp[d].UserName + "], $scope.memberList[randomNumber]: [" + $scope.memberList[randomNumber].UserName + "]")
-                    //        }
-                    //    }
+        $scope.FavoritesToDisplay.push($scope.memberList[j] );
 
-                    //    if (!isDuplicate)
-                    //    {
-                    //        if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
-                    //            $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
+      }
 
-                    //        tmp.push($scope.memberList[randomNumber]);
-                    //    }
-                    //}
 
-                else {
-                    var randomNumber = $scope.GenerateRandom();
-                    if ($scope.memberList[randomNumber].Photo == null || $scope.memberList[randomNumber].Photo == "")
-                        $scope.memberList[randomNumber].Photo = "./img/profile_picture.png";
-                    tmp.push($scope.memberList[randomNumber]);
-                }
-            }
-        };
+      if($scope.phoneContacts.length > 5)
+      {
 
-        $scope.FavoritesToDisplay = tmp;
-    }
 
-    var arr = [];
-    $scope.GenerateRandom = function () {
 
-        var randomNumber = Math.floor(Math.random() * $scope.memberList.length) + 1;
-        for (var i = 0; i < arr.length; i++) {
+        $scope.phoneContacts = shuffle($scope.phoneContacts );
 
-            if (arr[i] == randomNumber) {
-                $scope.GenerateRandom();
-            }
+        var lenToRun = 5 - $scope.memberList.length;
 
+
+        for (var i = 0; i < lenToRun; i++) {
+
+
+              if ($scope.phoneContacts[i].Photo == null || $scope.phoneContacts[i].Photo == "")
+                $scope.phoneContacts[i].Photo = "./img/profile_picture.png";
+          $scope.FavoritesToDisplay.push($scope.phoneContacts[i]);
+
+          }
+        }
+        else{
+        for(var j=0; j < 5;j++)
+        {
+          console.log('current val of j '+j + ' favo length '+ $scope.FavoritesToDisplay.length + ' contacts length '+$scope.phoneContacts.length);
+          if($scope.FavoritesToDisplay.length>=5 || j>=$scope.phoneContacts.length)
+            break;
+
+
+
+          if ($scope.phoneContacts[j].Photo == null || $scope.phoneContacts[j].Photo == "")
+            $scope.phoneContacts[j].Photo = "./img/profile_picture.png";
+
+          $scope.FavoritesToDisplay.push($scope.phoneContacts[j] );
 
         }
-        arr.push(randomNumber);
-        return randomNumber;
+      }
+
+      $scope.FavoritesToDisplay = shuffle($scope.FavoritesToDisplay);
     }
+
+
+  function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+
 
 
     $scope.openFilterChoices = function (member) {
