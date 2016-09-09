@@ -77,66 +77,73 @@
 
     $scope.UpdateProfile = function () {
         console.log('Update Profile Function Touched');
+        if ($('#profileForm').parsley().validate() == true) {
 
-        //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Saving Profile...'
-        });
+            //if ($cordovaNetwork.isOnline()) {
+            $ionicLoading.show({
+                template: 'Saving Profile...'
+            });
 
-        //console.log('Values from Profile.html Page...');
-        console.log($scope.Details);
+            console.log('Values in Profile Field...------>>>');
+            console.log($scope.Details);
 
-        profileService.UpdateProfile($scope.Details)
-            .success(function (data) {
-                console.log(data);
+            profileService.UpdateProfile($scope.Details)
+                .success(function (data) {
+                    console.log(data);
 
-                $ionicLoading.hide();
+                    $ionicLoading.hide();
 
-                if (data.Result.indexOf('successfully') > -1)
-                {
-                    $ionicContentBanner.show({
-                        text: ['Profile Updated Successfully!'],
-                        autoClose: '5000',
-                        type: 'success',
-                        transition: 'vertical'
-                    });
+                    if (data.Result.indexOf('successfully') > -1) {
+                        $ionicContentBanner.show({
+                            text: ['Profile Updated Successfully!'],
+                            autoClose: '5000',
+                            type: 'success',
+                            transition: 'vertical'
+                        });                    
+                        if ($scope.Details.SSN != null)
+                            $scope.saveSSN($scope.Details);
 
-                    if ($scope.Details.SSN != null)
-                        $scope.saveSSN($scope.Details);
+                        $scope.isAnythingChanged = false;
 
-                    $scope.isAnythingChanged = false;
+                        if ($scope.shouldGoToSettings)
+                            $state.go('app.settings');
+                    }
+                   else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1) {
+                        $ionicContentBanner.show({
+                            text: ['Phone Number already registered with Nooch :-( '],
+                            autoClose: '5000',
+                            type: 'error',
+                            transition: 'vertical'
+                        });
+                    }
+                    else
+                        $ionicContentBanner.show({
+                            text: ['Error: Profile NOT Updated :-('],
+                            autoClose: '5000',
+                            type: 'error',
+                            transition: 'vertical'
+                        });
+                })
+                .error(function (error) {
+                    console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
 
-                    if ($scope.shouldGoToSettings)
-                        $state.go('app.settings');
-                }
-                else
-                    $ionicContentBanner.show({
-                        text: ['Error: Profile NOT Updated :-('],
-                        autoClose: '5000',
-                        type: 'error',
-                        transition: 'vertical'
-                    });
-            })
-            .error(function (error) {
-                console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
+                    $ionicLoading.hide();
 
-                $ionicLoading.hide();
-
-                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-                else
-                    $ionicContentBanner.show({
-                        text: ['Error Saving Profile Changes :-('],
-                        autoClose: '5000',
-                        type: 'error',
-                        transition: 'vertical'
-                    });
-            })
-        //}
-        //else
-        //    swal("Oops...", "Internet not connected!", "error");
+                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                        CommonServices.logOut();
+                    else
+                        $ionicContentBanner.show({
+                            text: ['Error Saving Profile Changes :-('],
+                            autoClose: '5000',
+                            type: 'error',
+                            transition: 'vertical'
+                        });
+                })
+            //}
+            //else
+            //    swal("Oops...", "Internet not connected!", "error");
+        }
     }
-
 
     $scope.ResendVerificationLink = function () {
         swal({

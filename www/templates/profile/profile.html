@@ -24,7 +24,7 @@
 
                 <div class="col col-20 p-0">
                     <div class="profilePicWrapper" ng-click="changePic()">
-                        <img src="{{Details.Photo}}" class="recip-pic" />
+                        <img src="{{Details.Photo}}" class="recip-pic" ng-click ="isAnythingChange()" />
                         <span id="editTxt">edit</span>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <form>
+        <form id="profileForm" class="smErrors" data-parsley-validate="">
             <div id="profileTable" class="list table-style-2">
 
                 <div class="item item-divider">CONTACT INFO</div>
@@ -104,7 +104,7 @@
 
                 <label class="item item-input">
                     <span class="input-label">Date of Birth</span>
-                    <input type="date" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{DobAsDateObj | date : 'yyyy-MM-dd' }}" ng-change="isAnythingChange()">
+                    <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{DobAsDateObj | date : 'yyyy-MM-dd' }}" ng-change="isAnythingChange()"> <!--9 sept 16, Surya : Changed to text field because datePicker was comming 3 times (HTML / plugin) -->
                 </label>
 
                 <div ng-show="Details.IsSsnAdded == false">
