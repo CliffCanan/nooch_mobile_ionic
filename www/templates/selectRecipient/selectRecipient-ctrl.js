@@ -274,24 +274,29 @@
 
 
     $scope.checkList = function () {
+       
         if ($('#searchBar').val() == '')
         {
             $scope.show = false;
-            $('#dvSendTo').css('display', 'none');
+            
         }
 
         if ($('#recents-table').html() == undefined)
         {
+          
             if (isNaN($('#searchBar').val()))
             {
+               
                 if (ValidateEmail($('#searchBar').val()))
                 {
+                    console.log('true email');
                     $scope.show = true;
                     $scope.sendTo = 'Email Address';
                 }
             }
             else
             {
+                console.log('true contact');
                 $scope.show = true;
                 $scope.sendTo = 'Contact Number';
             }
