@@ -28,7 +28,7 @@ ion-header-bar, .navheader, .bar.bar-header {
 .section-header {
     color: #939598;
     font-size: 17px;
-    margin: 0px 0px 10px 16px;
+    margin: 0px 0px 10px 18px;
     height: 22px;
     position: relative;
 }
@@ -37,7 +37,8 @@ ion-header-bar, .navheader, .bar.bar-header {
     color: #414042;
     font-size: 16px;
     font-weight: 300;
-    padding: 5px 20px;
+	line-height: 1.35;
+    padding: 5px 18px;
     text-align: center;
 }
 
@@ -755,7 +756,8 @@ a {
 
 /***  Cards  ***/
 .card {
-    border-radius: 6px;
+    border-radius: 10px;
+	line-height: 1.35;
 }
 
 
@@ -790,7 +792,10 @@ a {
         .sweet-alert.hasImage img {
             width: 100%;
         }
-
+		
+	.sweet-alert.singleBtn .sa-confirm-button-container {
+		float: none;
+	}
     .sweet-alert.text-left p {
         text-align: left;
     }
@@ -819,6 +824,7 @@ a {
 
     .sweet-alert button {
         margin: 8px 6px 5px;
+		text-transform: uppercase;
     }
 
         .sweet-alert button.cancel {
@@ -1490,8 +1496,9 @@ div.hscroller-card {
         z-index: 9;
     }
 
-    .profilePicWrapper #editTxt {
+    #editTxt {
         bottom: 0;
+		left: 0;
         color: #fff;
         font-size: 11px;
         font-weight: 300;
@@ -2336,6 +2343,73 @@ div.hscroller-card {
     top: 160px !important;
 }
 
+
+/*******************/
+/***  UPLOAD ID  ***/
+/*******************/
+#uploadIdScrn .section-note {
+	text-align: left;
+	padding-top: 0;
+}
+
+ul {
+	font-size: 16px;
+    list-style-type: disc;
+    padding-left: 35px;
+    margin: 5px 0 15px;
+}
+
+#uploadIdScrn ul li {
+	font-weight: 500;
+}
+
+.callout-left {
+    position: relative;
+    padding: 2px 15px 0 0;
+    font-size: 19px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.callout-left i {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+}
+
+.row.shadowBox {
+    border: 1px solid #e1e2e3;
+    border-radius: 10px;
+    padding: 2px 1px;
+    margin: 15px auto;
+    width: 95%;
+    background: #eee;
+    color: #444;
+}
+
+.idPicWrap {
+	text-align: center;
+	position: relative;
+}
+
+.idPicWrap img {
+	border-radius: 16px;
+	box-shadow: 0 4px 18px -4px rgba(0, 0, 0, .25);
+}
+
+.idPicWrap #editTxt {
+	font-size: 15px;
+	font-weight: 400;
+	bottom: 10px;
+}
+
+#uploadIdScrn .btn-small {
+	padding: 0 25px;
+}
+
+#uploadIdScrn .card p {
+	padding: 0 12px;
+}
 
 /*!
  * animate.css -http://daneden.me/animate

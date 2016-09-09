@@ -2,12 +2,13 @@
 
        .controller('uploadIDCtrl', function ($scope, $ionicLoading, $ionicPlatform, $cordovaCamera, $cordovaImagePicker, uploadIDService) {
 
-           $scope.$on("$ionicView.enter", function (event, data) {
-
-               console.log('uloadID Ctrl loaded');
+           $scope.$on("$ionicView.beforeEnter", function (event, data) {
+               console.log('uploadIDCtrl loaded');
+			   $scope.picSelected = false;
            })
 
-           $scope.takePhoto = function () {
+           
+		   $scope.takePhoto = function () {
                console.log($cordovaCamera);
                cordova.plugins.diagnostic.isCameraAuthorized(function (authorized) {
                    console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
@@ -41,24 +42,22 @@
                            // An error occured. Show a message to the user
                        });
                    }
-                   else {
+                   else
+				   {
                        swal({
-                           title: "Permissions not Granted!",
-                           text: "Please click OK for allowing Nooch to access camera",
+                           title: "Allow Camera Access",
+                           text: "To take a picture of your ID, please grant access to your phone's camera.",
                            type: "warning",
                            showCancelButton: true,
-                           cancelButtonText: "Cancel",
+                           cancelButtonText: "Not Now",
                            confirmButtonColor: "#3fabe1",
-                           confirmButtonText: "Ok",
-                           customClass: "stackedBtns"
+                           confirmButtonText: "Give Access",
                        }, function (isConfirm) {
                            if (isConfirm) {
                                cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
                                    console.log("Authorization request for camera use was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
-                                   if (status) {
+                                   if (status)
                                        $scope.takePhoto();
-                                   }
-
                                }, function (error) {
                                    console.error(error);
                                });
@@ -89,36 +88,47 @@
                        console.log(imageData);
                        $scope.picture = imageData;
                        $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                       $scope.sendDoc($scope.picture);
+					   $scope.picSelected = false;
                    }, function (err) {
                        // An error occured. Show a message to the user
                    });
                });
            }
 
-           $scope.sendDoc = function (picture) {
+
+           $scope.sendDoc = function () {
                console.log('sendDoc Function');
+
                //if ($cordovaNetwork.isOnline()) {
                $ionicLoading.show({
-                   template: 'Sending Doc ...'
+                   template: 'Submitting ID...'
                });
-               uploadIDService.submitDocumentToSynapseV3($scope.picture)
-                       .success(function (data) {
-                           console.log(data);
-                           $scope.Data = data.Result;
-                           $ionicLoading.hide();
-                           $scope.data = data;
-                       }
-               ).error(function (encError) {
-                   console.log('came in enc error block ' + encError);
-                   $ionicLoading.hide();
-                   //  if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                   { CommonServices.logOut(); }
-               })
-               //}
-               //else {
-               //    swal("Oops...", "Internet not connected!", "error");
-               //}
-           }
 
+               uploadIDService.submitDocumentToSynapseV3($scope.picture)
+			   		.success(function (data) {
+                           console.log(data);
+                           $ionicLoading.hide();
+                     })
+				   .error(function (error) {
+	                   console.log('submitDocumentToSynapseV3 Error: [' + encError + ']');
+	                   $ionicLoading.hide();
+	                   if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+						   CommonServices.logOut();
+	               })
+               //}
+               //else
+               //    swal("Oops...", "Internet not connected!", "error");
+           }
+		   
+		   
+		   $scope.learnMore = function () {
+               swal({
+                   title: "What Gives?",
+                   text: "To help keep Nooch secure for everyone (and to comply with a variety of state & federal laws), we have to make sure you're not a Soviet spy. &ngsp;Well, actually, any kind of spy.",
+				   type: "info",
+                   confirmButtonColor: "#3fabe1",
+                   confirmButtonText: "Oh ok",
+				   customClass: "singleBtn"
+               });
+		   }
        })
