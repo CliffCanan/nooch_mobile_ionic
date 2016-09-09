@@ -37,7 +37,7 @@ ion-header-bar, .navheader, .bar.bar-header {
     color: #414042;
     font-size: 16px;
     font-weight: 300;
-	line-height: 1.35;
+    line-height: 1.35;
     padding: 5px 18px;
     text-align: center;
 }
@@ -757,7 +757,7 @@ a {
 /***  Cards  ***/
 .card {
     border-radius: 10px;
-	line-height: 1.35;
+    line-height: 1.35;
 }
 
 
@@ -768,8 +768,8 @@ a {
 }
 
 .list .emptyView {
-	color: #999;
-	background-color: #fdfdfe;
+    color: #999;
+    background-color: #fdfdfe;
     transition: .3s all;
     text-align: center;
     padding: 16px 10px 18px;
@@ -779,12 +779,13 @@ a {
     border-radius: 10px;
     margin: 10px 5% 100px;
 }
+
 .list .item + p.emptyView {
-	opacity: 0;
-	font-size: 11px;
-	padding: 5px 10px 6px;
-	visibility: hidden;
-	margin: 0 10%;
+    opacity: 0;
+    font-size: 11px;
+    padding: 5px 10px 6px;
+    visibility: hidden;
+    margin: 0 10%;
 }
 
 /***  Forms  ***/
@@ -811,10 +812,11 @@ a {
         .sweet-alert.hasImage img {
             width: 100%;
         }
-		
-	.sweet-alert.singleBtn .sa-confirm-button-container {
-		float: none;
-	}
+
+    .sweet-alert.singleBtn .sa-confirm-button-container {
+        float: none;
+    }
+
     .sweet-alert.text-left p {
         text-align: left;
     }
@@ -843,7 +845,7 @@ a {
 
     .sweet-alert button {
         margin: 8px 6px 5px;
-		text-transform: uppercase;
+        text-transform: uppercase;
     }
 
         .sweet-alert button.cancel {
@@ -994,7 +996,7 @@ iframe {
     border-radius: 6px !important;
     background: #e7e8e9;
     padding: 0 0 3px 12px;
-	height: 40px;
+    height: 40px;
 }
 
     .searchBarContainer input {
@@ -1516,18 +1518,18 @@ div.hscroller-card {
         z-index: 9;
     }
 
-    #editTxt {
-        bottom: 0;
-		left: 0;
-        color: #fff;
-        font-size: 11px;
-        font-weight: 300;
-        position: absolute;
-        text-align: center;
-        text-shadow: 0 -1px 0 rgba(31,32,33,.6);
-        width: 100%;
-        z-index: 10;
-    }
+#editTxt {
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 300;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(31,32,33,.6);
+    width: 100%;
+    z-index: 10;
+}
 
 #bankLinkedWrap {
     padding-top: 24px;
@@ -1696,7 +1698,7 @@ div.hscroller-card {
     opacity: .9;
     padding: 2px 14px;
     text-align: center;
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
     .transTypeLabel.sent {
@@ -1711,11 +1713,12 @@ div.hscroller-card {
         background-color: #4FABE1;
     }
 
-	.history-list .item-options i::before {
-	    color: #fff;
-	    font-size: 32px;
-	    margin: 0 0px;
-	}
+.history-list .item-options i::before {
+    color: #fff;
+    font-size: 32px;
+    margin: 0 0px;
+}
+
 #export-btn {
     font-size: 16px;
     position: fixed;
@@ -2374,19 +2377,19 @@ div.hscroller-card {
 /***  UPLOAD ID  ***/
 /*******************/
 #uploadIdScrn .section-note {
-	text-align: left;
-	padding-top: 0;
+    text-align: left;
+    padding-top: 0;
 }
 
 ul {
-	font-size: 16px;
+    font-size: 16px;
     list-style-type: disc;
     padding-left: 35px;
     margin: 5px 0 15px;
 }
 
 #uploadIdScrn ul li {
-	font-weight: 500;
+    font-weight: 500;
 }
 
 .callout-left {
@@ -2397,11 +2400,11 @@ ul {
     text-align: center;
 }
 
-.callout-left i {
-    position: absolute;
-    top: 15px;
-    right: 5px;
-}
+    .callout-left i {
+        position: absolute;
+        top: 15px;
+        right: 5px;
+    }
 
 .row.shadowBox {
     border: 1px solid #e1e2e3;
@@ -2414,27 +2417,27 @@ ul {
 }
 
 .idPicWrap {
-	text-align: center;
-	position: relative;
+    text-align: center;
+    position: relative;
 }
 
-.idPicWrap img {
-	border-radius: 16px;
-	box-shadow: 0 4px 18px -4px rgba(0, 0, 0, .25);
-}
+    .idPicWrap img {
+        border-radius: 16px;
+        box-shadow: 0 4px 18px -4px rgba(0, 0, 0, .25);
+    }
 
-.idPicWrap #editTxt {
-	font-size: 15px;
-	font-weight: 400;
-	bottom: 10px;
-}
+    .idPicWrap #editTxt {
+        font-size: 15px;
+        font-weight: 400;
+        bottom: 10px;
+    }
 
 #uploadIdScrn .btn-small {
-	padding: 0 25px;
+    padding: 0 25px;
 }
 
 #uploadIdScrn .card p {
-	padding: 0 12px;
+    padding: 0 12px;
 }
 
 /*!

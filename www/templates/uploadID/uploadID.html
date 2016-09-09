@@ -5,43 +5,43 @@
 
         <div class="card p-5 p-t-10 m-t-10">
 
-			<p>
-				<span>Please upload a copy of any <span class="f-500">valid, government-issued photo ID</span> that shows your name and picture clearly.&nbsp;</span>
-				<span ng-click="learnMore()">
-					<span class='link-underline'>Why we ask</span>
-					<i class="ion-help-circled text-primary m-l-5"></i>
-				</span>
-			</p>
+            <p>
+                <span>Please upload a copy of any <span class="f-500">valid, government-issued photo ID</span> that shows your name and picture clearly.&nbsp;</span>
+                <span ng-click="learnMore()">
+                    <span class='link-underline'>Why we ask</span>
+                    <i class="ion-help-circled text-primary m-l-5"></i>
+                </span>
+            </p>
 
-			<div class="row shadowBox">
-				<div class="col">
-					<div class="callout-left">Best<br/>Options<i class="ion-play"></i></div>
-				</div>
-				<div class="col">
-					<ul class="m-b-0">
-						<li>Driver's License</li>
-						<li>Passport</li>
-					</ul>
-				</div>
-			</div>
-					
-			<div class="row m-t-10">
-				<div class="col">
-					<div class="idPicWrap" ng-click="choosePhoto()">
-						<img src="./img/profile_picture.png" ng-value="picture" ng-if="picSelected != true"/>
-						<img src="{{imgURI}}" ng-value="picture" ng-if="picSelected == true"/>
-						<span id="editTxt" ng-click="choosePhoto()">Tap To Edit</span>
-					</div>
-				</div>
-			</div>
+            <div class="row shadowBox">
+                <div class="col">
+                    <div class="callout-left">Best<br />Options<i class="ion-play"></i></div>
+                </div>
+                <div class="col">
+                    <ul class="m-b-0">
+                        <li>Driver's License</li>
+                        <li>Passport</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row m-t-10">
+                <div class="col">
+                    <div class="idPicWrap" ng-click="choosePhoto()">
+                        <img src="./img/profile_picture.png" ng-value="picture" ng-if="picSelected != true" />
+                        <img src="{{imgURI}}" ng-value="picture" ng-if="picSelected == true" />
+                        <span id="editTxt" ng-click="choosePhoto()">Tap To Edit</span>
+                    </div>
+                </div>
+            </div>
 
             <div class="row m-t-5 m-b-10">
-				<div class="col text-center">
-					<button class="btn btn-primary btn-small" ng-click="takePhoto()" ng-if="picSelected != true"> <i class="ion-camera"></i> Take Photo </button>
-					<button class="btn btn-success btn-small" ng-click="sendDoc()" ng-if="picSelected == true"> <i class="ion-checkmark-circled"></i> Submit ID </button>
-				</div>
-			</div>
-		
-		</div>
+                <div class="col text-center">
+                    <button class="btn btn-primary btn-small" ng-click="takePhoto()" ng-if="picSelected != true"> <i class="ion-camera"></i> Take Photo </button>
+                    <button class="btn btn-success btn-small" ng-click="sendDoc()" ng-if="picSelected == true"> <i class="ion-checkmark-circled"></i> Submit ID </button>
+                </div>
+            </div>
+
+        </div>
     </ion-content>
 </ion-view>

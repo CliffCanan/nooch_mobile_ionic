@@ -5,7 +5,7 @@
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('History Page Loaded');
-			$scope.isFinishedLoading = false;
+            $scope.isFinishedLoading = false;
 
             $ionicLoading.show({
                 template: 'Loading Payment History...'
@@ -31,28 +31,28 @@
 
             historyService.getTransferList()
 				.success(function (data) {
-					$scope.isFinishedLoading = true;
+				    $scope.isFinishedLoading = true;
 
-	                $scope.transactionList = data;
-	                console.log('GetTransferList Result Data >>>>>');
-	                console.log($scope.transactionList);
+				    $scope.transactionList = data;
+				    console.log('GetTransferList Result Data >>>>>');
+				    console.log($scope.transactionList);
 
-	                for (var i = 0; i < $scope.transactionList.length; i++)
-	                {
-	                    $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
-	                }
-	                $scope.transList = $scope.transactionList;
-	                $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+				    for (var i = 0; i < $scope.transactionList.length; i++)
+				    {
+				        $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
+				    }
+				    $scope.transList = $scope.transactionList;
+				    $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
 
-	                $ionicLoading.hide();
-	            })
+				    $ionicLoading.hide();
+				})
 				.error(function (error) {
-					$scope.isFinishedLoading = true;
-	                console.log('History Cntrl -> GetTransferList Error: [' + JSON.stringify(error) + ']');
-	                $ionicLoading.hide();
-	                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-	                    CommonServices.logOut();
-	            });
+				    $scope.isFinishedLoading = true;
+				    console.log('History Cntrl -> GetTransferList Error: [' + JSON.stringify(error) + ']');
+				    $ionicLoading.hide();
+				    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+				        CommonServices.logOut();
+				});
             //}
             //else
             //  swal("Oops...", "Internet not connected!", "error");
@@ -80,10 +80,10 @@
                     });
             })
 			.error(function (error) {
-                $ionicLoading.hide();
-                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-            });
+			    $ionicLoading.hide();
+			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+			        CommonServices.logOut();
+			});
         }
 
         $scope.rejectPayment = function (trans) {
@@ -109,10 +109,10 @@
                     });
             })
 			.error(function (error) {
-                $ionicLoading.hide();
-                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-            });
+			    $ionicLoading.hide();
+			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+			        CommonServices.logOut();
+			});
         }
 
         $scope.remindPayment = function (trans) {
@@ -353,7 +353,7 @@
 
 
         $scope.$watch('search', function (val) {
-			console.log("SEARCH FIRED");
+            console.log("SEARCH FIRED");
             console.log($filter('filter')($scope.transactionList, val));
 
             $scope.transactionList = $filter('filter')($scope.transactionList, val);
@@ -370,6 +370,4 @@
 
         $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 151 + 'px' }
 
-        //console.log($scope.historyListHeight);
-        //console.log($scope.firstTimeDivHeight);
     });

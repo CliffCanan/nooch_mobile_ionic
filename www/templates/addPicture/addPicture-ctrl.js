@@ -11,7 +11,7 @@
             if ($rootScope.signUpData == null)
                 $state.go('signup');
 
-			$scope.showContinueBtn = false;
+            $scope.showContinueBtn = false;
         });
 
 
@@ -57,7 +57,7 @@
                     $rootScope.imgURI = imageData;
                     $rootScope.signUpData.Photo = "data:image/jpeg;base64," + imageData;
 
-					$scope.showContinueBtn = true;
+                    $scope.showContinueBtn = true;
                 }, function (err) {
                     // An error occured. Show a message to the user
                 });
@@ -89,7 +89,7 @@
                         $rootScope.imgURI = imageData;
                         $rootScope.signUpData.Photo = "data:image/jpeg;base64," + imageData;
 
-						$scope.showContinueBtn = true;
+                        $scope.showContinueBtn = true;
                     }, function (err) {
                         // An error occured. Show a message to the user
                     });
@@ -129,7 +129,7 @@
         }
 
 
-		$scope.continue = function() {
-			$state.go('createPin');
-		}
+        $scope.continue = function () {
+            $state.go('createPin');
+        }
     });

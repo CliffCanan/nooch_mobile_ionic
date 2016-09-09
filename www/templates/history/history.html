@@ -26,7 +26,7 @@
 
         <ion-scroll direction="y" class="history-list" ng-style="historyListHeight">
 
-            <div class="firstTimeWrap" ng-if="transactionList.length == 0" ng-style="firstTimeDivHeight">
+            <div class="firstTimeWrap" ng-if="isFinishedLoading == true && transactionList.length == 0" ng-style="firstTimeDivHeight">
                 <div class="animated slideInDown">
                     <h2>No Payments Yet...</h2>
                     <p>Once you make or receive a payment it will appear here.</p>
@@ -124,7 +124,7 @@
 
                 </ion-item>
 
-				<p class="emptyView">No transactions found!</p>
+                <p class="emptyView">No transactions found!</p>
 
             </ion-list>
 
@@ -177,7 +177,7 @@
 
                 </ion-item>
 
-				<p class="emptyView">No pending transactions found!</p>
+                <p class="emptyView">No pending transactions found!</p>
 
             </ion-list>
 

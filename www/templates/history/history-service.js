@@ -5,8 +5,6 @@
           return $http.get(URLs.getTransferList +
             '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId +
             '&listType=All&pSize=100&pIndex=0&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&SubListType=');
-
       };
-
 
   })

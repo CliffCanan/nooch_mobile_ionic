@@ -4,16 +4,17 @@
 
            $scope.$on("$ionicView.beforeEnter", function (event, data) {
                console.log('uploadIDCtrl loaded');
-			   $scope.picSelected = false;
+               $scope.picSelected = false;
            })
 
-           
-		   $scope.takePhoto = function () {
+
+           $scope.takePhoto = function () {
                console.log($cordovaCamera);
                cordova.plugins.diagnostic.isCameraAuthorized(function (authorized) {
                    console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
 
-                   if (authorized) {
+                   if (authorized)
+                   {
                        var options = {
                            quality: 75,
                            destinationType: Camera.DestinationType.DATA_URL,
@@ -32,7 +33,8 @@
                            var binary_string = window.atob(imageData);
                            var len = binary_string.length;
                            var bytes = new Uint8Array(len);
-                           for (var i = 0; i < len; i++) {
+                           for (var i = 0; i < len; i++)
+                           {
                                bytes[i] = binary_string.charCodeAt(i);
                            }
                            $scope.picture = imageData;
@@ -43,7 +45,7 @@
                        });
                    }
                    else
-				   {
+                   {
                        swal({
                            title: "Allow Camera Access",
                            text: "To take a picture of your ID, please grant access to your phone's camera.",
@@ -53,7 +55,8 @@
                            confirmButtonColor: "#3fabe1",
                            confirmButtonText: "Give Access",
                        }, function (isConfirm) {
-                           if (isConfirm) {
+                           if (isConfirm)
+                           {
                                cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
                                    console.log("Authorization request for camera use was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
                                    if (status)
@@ -88,7 +91,7 @@
                        console.log(imageData);
                        $scope.picture = imageData;
                        $scope.imgURI = "data:image/jpeg;base64," + imageData;
-					   $scope.picSelected = false;
+                       $scope.picSelected = false;
                    }, function (err) {
                        // An error occured. Show a message to the user
                    });
@@ -106,29 +109,29 @@
 
                uploadIDService.submitDocumentToSynapseV3($scope.picture)
 			   		.success(function (data) {
-                           console.log(data);
-                           $ionicLoading.hide();
-                     })
+			   		    console.log(data);
+			   		    $ionicLoading.hide();
+			   		})
 				   .error(function (error) {
-	                   console.log('submitDocumentToSynapseV3 Error: [' + encError + ']');
-	                   $ionicLoading.hide();
-	                   if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-						   CommonServices.logOut();
-	               })
+				       console.log('submitDocumentToSynapseV3 Error: [' + encError + ']');
+				       $ionicLoading.hide();
+				       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+				           CommonServices.logOut();
+				   })
                //}
                //else
                //    swal("Oops...", "Internet not connected!", "error");
            }
-		   
-		   
-		   $scope.learnMore = function () {
+
+
+           $scope.learnMore = function () {
                swal({
                    title: "What Gives?",
                    text: "To help keep Nooch secure for everyone (and to comply with a variety of state & federal laws), we have to make sure you're not a Soviet spy. &ngsp;Well, actually, any kind of spy.",
-				   type: "info",
+                   type: "info",
                    confirmButtonColor: "#3fabe1",
                    confirmButtonText: "Oh ok",
-				   customClass: "singleBtn"
+                   customClass: "singleBtn"
                });
-		   }
+           }
        })
