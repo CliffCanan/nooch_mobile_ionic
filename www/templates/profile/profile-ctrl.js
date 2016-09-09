@@ -74,10 +74,11 @@
         //    swal("Oops...", "Internet not connected!", "error");
     }
 
-
+    
     $scope.UpdateProfile = function () {
-        console.log('Update Profile Function Touched');
         if ($('#profileForm').parsley().validate() == true) {
+            console.log($('#profileForm').parsley().validate());
+            console.log('Update Profile Function Touched');       
 
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
