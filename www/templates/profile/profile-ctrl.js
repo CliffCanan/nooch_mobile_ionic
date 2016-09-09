@@ -85,7 +85,7 @@
                 template: 'Saving Profile...'
             });
 
-            console.log('Values in Profile Field...------>>>');
+            //console.log('Values in Profile Field...------>>>');
             console.log($scope.Details);
 
             profileService.UpdateProfile($scope.Details)

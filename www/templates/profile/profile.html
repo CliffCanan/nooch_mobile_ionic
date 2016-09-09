@@ -110,7 +110,7 @@
                 <div ng-show="Details.IsSsnAdded == false">
                     <label class="item item-input">
                         <span class="input-label">SSN</span>
-                        <input type="tel" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" ng-change="isAnythingChange()">
+                        <input type="tel" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" data-parsley-type='digits' data-parsley-type-message='' data-parsley-minlength="9" data-parsley-minlength-message='' data-parsley-maxlength-message='' data-parsley-maxlength="9" ng-change="isAnythingChange()">
                     </label>
                 </div>
             </div>

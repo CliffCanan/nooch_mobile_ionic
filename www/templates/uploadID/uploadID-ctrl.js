@@ -109,7 +109,7 @@
 
                uploadIDService.submitDocumentToSynapseV3($scope.picture)
 			   		.success(function (data) {
-			   		    console.log(data);
+			   		    console.log(data);                        
 			   		    $ionicLoading.hide();
 			   		})
 				   .error(function (error) {
