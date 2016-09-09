@@ -45,7 +45,8 @@
 	                $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
 
 	                $ionicLoading.hide();
-	            }).error(function (error) {
+	            })
+				.error(function (error) {
 					$scope.isFinishedLoading = true;
 	                console.log('History Cntrl -> GetTransferList Error: [' + JSON.stringify(error) + ']');
 	                $ionicLoading.hide();
@@ -77,7 +78,8 @@
                         $ionicLoading.hide();
                         location.reload();
                     });
-            }).error(function (error) {
+            })
+			.error(function (error) {
                 $ionicLoading.hide();
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
@@ -105,7 +107,8 @@
                     }, function () {
                         location.reload();
                     });
-            }).error(function (error) {
+            })
+			.error(function (error) {
                 $ionicLoading.hide();
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
@@ -350,6 +353,7 @@
 
 
         $scope.$watch('search', function (val) {
+			console.log("SEARCH FIRED");
             console.log($filter('filter')($scope.transactionList, val));
 
             $scope.transactionList = $filter('filter')($scope.transactionList, val);

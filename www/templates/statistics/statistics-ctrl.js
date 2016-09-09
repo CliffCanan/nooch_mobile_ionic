@@ -2,7 +2,7 @@
 /********************/
 /***  STATISTICS  ***/
 /********************/
-.controller('StatisticsCtrl', function ($scope, statisticsService, $ionicLoading, $cordovaNetwork, $ionicContentBanner, $ionicSlideBoxDelegate) {
+.controller('StatisticsCtrl', function ($scope, statisticsService, $ionicLoading, $cordovaNetwork, $ionicContentBanner, $ionicSlideBoxDelegate, CommonServices) {
 
     $scope.stats = {};
 

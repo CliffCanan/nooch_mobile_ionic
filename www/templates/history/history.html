@@ -26,7 +26,7 @@
 
         <ion-scroll direction="y" class="history-list" ng-style="historyListHeight">
 
-            <div class="firstTimeWrap" ng-if="isFinishedLoading && transactionList.length == 0" ng-style="firstTimeDivHeight">
+            <div class="firstTimeWrap" ng-if="transactionList.length == 0" ng-style="firstTimeDivHeight">
                 <div class="animated slideInDown">
                     <h2>No Payments Yet...</h2>
                     <p>Once you make or receive a payment it will appear here.</p>
@@ -120,9 +120,12 @@
 
                     <ion-option-button class="button-positive" ui-sref-ignore ng-click="PayBack(trans)" ng-show="trans.MemberId != memberId && trans.TransactionType == 'Request' && trans.TransactionStatus == 'Success' ">Pay Back </ion-option-button>
 
-                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="showMap(trans.Latitude,trans.Longitude)">Show on map</ion-option-button>
+                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="showMap(trans.Latitude,trans.Longitude)"><i class="ion-ios-location m-10"></i></ion-option-button>
 
                 </ion-item>
+
+				<p class="emptyView">No transactions found!</p>
+
             </ion-list>
 
             <ion-list ng-show="transactionList.length > 0 && pending">
@@ -173,6 +176,9 @@
                     <ion-option-button class="button-positive" ui-sref-ignore ng-click="remindPayment(trans)" ng-show="trans.MemberId != memberId && (trans.TransactionType == 'Request' )">Remind</ion-option-button>
 
                 </ion-item>
+
+				<p class="emptyView">No pending transactions found!</p>
+
             </ion-list>
 
         </ion-scroll>

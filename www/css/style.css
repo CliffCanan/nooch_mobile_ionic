@@ -749,9 +749,9 @@ a {
 }
 
 .bar-stable .button.button-clear {
-    font-size: 16px;
+    font-size: 18px;
     text-shadow: 0px -1px 0px rgba(19,32,38,.2);
-    opacity: .9;
+    opacity: .94;
 }
 
 /***  Cards  ***/
@@ -767,6 +767,25 @@ a {
     border-bottom: 1px solid #ccc;
 }
 
+.list .emptyView {
+	color: #999;
+	background-color: #fdfdfe;
+    transition: .3s all;
+    text-align: center;
+    padding: 16px 10px 18px;
+    font-size: 19px;
+    font-weight: 300;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 10px 5% 100px;
+}
+.list .item + p.emptyView {
+	opacity: 0;
+	font-size: 11px;
+	padding: 5px 10px 6px;
+	visibility: hidden;
+	margin: 0 10%;
+}
 
 /***  Forms  ***/
 .input-label {
@@ -974,7 +993,8 @@ iframe {
 .searchBarContainer {
     border-radius: 6px !important;
     background: #e7e8e9;
-    padding: 2px 0 3px 12px;
+    padding: 0 0 3px 12px;
+	height: 40px;
 }
 
     .searchBarContainer input {
@@ -1671,11 +1691,12 @@ div.hscroller-card {
     background-color: rgba(232,233,234,1);
     border-radius: 5px;
     color: #fff;
-    font-size: 7px;
-    font-weight: 300;
+    font-size: 10px;
+    font-weight: 500;
     opacity: .9;
-    padding: 1px 16px;
+    padding: 2px 14px;
     text-align: center;
+	text-transform: uppercase;
 }
 
     .transTypeLabel.sent {
@@ -1690,6 +1711,11 @@ div.hscroller-card {
         background-color: #4FABE1;
     }
 
+	.history-list .item-options i::before {
+	    color: #fff;
+	    font-size: 32px;
+	    margin: 0 0px;
+	}
 #export-btn {
     font-size: 16px;
     position: fixed;

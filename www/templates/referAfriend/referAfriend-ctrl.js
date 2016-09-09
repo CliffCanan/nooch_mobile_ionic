@@ -41,8 +41,8 @@
          ReferralCodeService.getInvitedMemberList()
            .success(function (data) {
                $scope.memberList = data;
-               console.log('Referred Users List -->');
-               console.log($scope.memberList);
+               //console.log('Referred Users List -->');
+               //console.log($scope.memberList);
 
                if ($scope.memberList != null && $scope.memberList.length > 0)
                {
@@ -66,7 +66,7 @@
      }
 
      $scope.sendReferralCode = function (type) {
-         console.log(type + " clicked");
+         //console.log(type + " clicked");
 
          var imageURL = "http://noochme.com/noochweb/Assets/Images/noochlogosquare.png";
          var addUrl = "http://bit.ly/1xdG2le";
