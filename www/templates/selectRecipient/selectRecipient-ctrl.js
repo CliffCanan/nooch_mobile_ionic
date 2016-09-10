@@ -5,6 +5,11 @@
 /************************/
 .controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform, $rootScope, CommonServices, $ionicActionSheet) {
 
+    $scope.$on("$ionicView.beforeEnter", function (event, data) {
+        $scope.loadComplete = false;
+    });
+
+
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
 
@@ -16,9 +21,87 @@
     });
 
 
-    $scope.fetchContacts = function () {
+    $scope.FindRecent = function () {
+        console.log('FindRecent Fired');
 
-         
+        $ionicLoading.show({
+            template: 'Loading Recent Friends...'
+        });
+
+        $scope.showSearchFlag = true;
+        $scope.showEmPhDiv = false;
+
+        $('#searchBar').val('');
+
+        selectRecipientService.GetRecentMembers()
+            .success(function (data) {
+
+                $scope.memberList = data;
+
+                $scope.recentCount = $scope.memberList.length;
+
+                // read contacts from device and push them in memberList object
+
+                $scope.item2 = data;
+                $ionicLoading.hide();
+
+                if (window.cordova)
+                {
+                    cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
+                        console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
+
+                        if (authorized)
+                        {
+                            $scope.fetchContacts();
+                        }
+                        else
+                        {
+                            swal({
+                                title: "Use Address Book?",
+                                text: "Sending money to friends is simple when you have them in your phone's address book." +
+                                      "Otherwise you'll have to manually type their email address or phone number.",
+                                type: "info",
+                                showCancelButton: true,
+                                cancelButtonText: "Not Now",
+                                confirmButtonColor: "#3fabe1",
+                                confirmButtonText: "Authorize",
+                            }, function (isConfirm) {
+                                if (isConfirm)
+                                {
+                                    cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
+                                        if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
+                                        {
+                                            console.log("Contacts use is authorized");
+                                            $scope.fetchContacts();
+                                        }
+                                        else
+                                            console.log("Contact permisison is " + status);
+                                    }, function (error) {
+                                        console.error(error);
+                                    });
+                                }
+                            });
+                        }
+                    }, function (error) {
+                        $scope.loadComplete = true;
+                        console.error("isContactsAuthorized Error: [" + error + "]");
+                    });
+                }
+                else // for Browser testing
+                    $scope.loadComplete = true;
+            })
+            .error(function (data) {
+                console.log(data);
+                $ionicLoading.hide();
+                $scope.loadComplete = true;
+
+                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            });
+    }
+
+
+    $scope.fetchContacts = function () {
 
         var options = {
             multiple: true
@@ -61,7 +144,6 @@
                             }
                         }
                     }
-                    //$scope.readContact.otherEmails = contact.emails;
                 }
 
                 if (contact.phoneNumbers != null)
@@ -86,7 +168,7 @@
                     otherPhoneNumbers: []
                 };
             }
-
+            $scope.loadComplete = true;
             console.log($scope.memberList);
             $ionicLoading.hide();
         };
@@ -95,7 +177,10 @@
             console.log(error);
             $ionicLoading.hide();
         };
+
+        $scope.loadComplete = true;
     }
+
 
     $scope.openFilterChoices = function (member) {
 
@@ -165,78 +250,6 @@
     }
 
 
-    $scope.FindRecent = function () {
-        console.log('FindRecent Fired');
-
-        $ionicLoading.show({
-            template: 'Loading Recent Friends...'
-        });
-
-        $scope.showSearchFlag = true;
-        $scope.show = false;
-
-        $('#searchBar').val('');
-
-        selectRecipientService.GetRecentMembers()
-            .success(function (data) {
-
-                $scope.memberList = data;
-
-                $scope.recentCount = $scope.memberList.length;
-
-                // read contacts from device and push them in memberList object
-
-                $scope.item2 = data;
-                $ionicLoading.hide();
-
-                cordova.plugins.diagnostic.isContactsAuthorized(function (authorized) {
-                    console.log("App is " + (authorized ? "authorized" : "denied") + " access to contacts");
-
-                    if (authorized)
-                    {
-                        $scope.fetchContacts();
-                    }
-                    else
-                    {
-                        swal({
-                            title: "Use Address Book?",
-                            text: "Sending money to friends is simple when you have them in your phone's address book." +
-                                  "Otherwise you'll have to manually type their email address or phone number.",
-                            type: "info",
-                            showCancelButton: true,
-                            cancelButtonText: "Not Now",
-                            confirmButtonColor: "#3fabe1",
-                            confirmButtonText: "Authorize",
-                        }, function (isConfirm) {
-                            if (isConfirm)
-                            {
-                                cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
-                                    if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
-                                    {
-                                        console.log("Contacts use is authorized");
-                                        $scope.fetchContacts();
-                                    }
-                                    else
-                                        console.log("Contact permisison is " + status);
-                                }, function (error) {
-                                    console.error(error);
-                                });
-                            }
-                        });
-                    }
-                }, function (error) {
-                    console.error("isContactsAuthorized Error: [" + error + "]");
-                });
-            })
-            .error(function (data) {
-                console.log(data);
-                $ionicLoading.hide();
-
-                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-            });
-    }
-
 
     $scope.$watch('search', function (val) {
         //console.log($filter('filter')($scope.items2, val));
@@ -254,7 +267,7 @@
         });
 
         $scope.showSearchFlag = false;
-        $scope.show = false;
+        $scope.showEmPhDiv = false;
 
         $('#searchBar').val('');
 
@@ -274,36 +287,31 @@
 
 
     $scope.checkList = function () {
-       
+
         if ($('#searchBar').val() == '')
-        {
-            $scope.show = false;
-            
-        }
-       
+            $scope.showEmPhDiv = false;
+
 
         if ($('#recents-table').html() == undefined)
         {
-          
             if (isNaN($('#searchBar').val()))
             {
-               
                 if (ValidateEmail($('#searchBar').val()))
                 {
                     console.log('true email');
-                    $scope.show = true;
+                    $scope.showEmPhDiv = true;
                     $scope.sendTo = 'Email Address';
                 }
             }
             else
             {
                 console.log('true contact');
-                $scope.show = true;
+                $scope.showEmPhDiv = true;
                 $scope.sendTo = 'Contact Number';
             }
         }
         else
-            $scope.show = false;
+            $scope.showEmPhDiv = false;
     }
 
 

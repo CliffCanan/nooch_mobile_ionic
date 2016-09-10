@@ -768,16 +768,17 @@ a {
 }
 
 .list .emptyView {
-    color: #999;
-    background-color: #fdfdfe;
-    transition: .3s all;
-    text-align: center;
-    padding: 16px 10px 18px;
-    font-size: 19px;
-    font-weight: 300;
+    background-color: #fafafb;
     border: 1px solid #ddd;
     border-radius: 10px;
-    margin: 10px 5% 100px;
+    color: #888;
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 300;
+    margin: 10px 6% 100px;
+    padding: 16px 10px 18px;
+    transition: .3s all;
+    text-align: center;
 }
 
 .list .item + p.emptyView {
@@ -1391,13 +1392,14 @@ div.hscroller-card {
     div.hscroller-card div.hscroller-label {
         color: #444;
         font-size: 17px;
+        line-height: 1.2;
         text-align: center;
-        margin-top: 10px;
+        margin-top: 9px;
     }
 
 #fav-container {
     transition: .7s all ease-out;
-    margin-bottom: -4px;
+    height: 150px;
 }
 
 
@@ -2185,25 +2187,58 @@ div.hscroller-card {
     padding: 0px 5px;
 }
 
-#howMuchBox .button-bar button {
-    font-family: Roboto;
-    font-size: 20px;
-    height: 56px;
-    letter-spacing: 0.5px;
-    margin-bottom: -2px;
-    text-transform: uppercase;
+#howMuchBox .button-bar {
+    position: relative;
 }
 
-#howMuchBox .button-bar > .button:first-child {
-    border-radius: 0 0 0 5px;
-    margin-right: 5px;
+    #howMuchBox .button-bar button {
+        font-family: Roboto;
+        font-size: 20px;
+        height: 56px;
+        letter-spacing: 0.5px;
+        margin-bottom: -2px;
+        text-overflow: clip;
+        text-transform: uppercase;
+        transition: .5s all ease-in-out;
+    }
+
+    #howMuchBox .button-bar > .button:first-child {
+        border-radius: 0 0 0 5px;
+        margin-right: 5px;
+    }
+
+    #howMuchBox .button-bar > .button:last-child {
+        border-radius: 0 0 5px 0;
+    }
+
+    #howMuchBox .button-bar .button.shrink {
+        flex: 0 !important;
+        padding: 0 !important;
+        min-width: 0;
+    }
+
+    #howMuchBox .button-bar .button.expand {
+        border-radius: 0 0 5px 5px;
+    }
+
+    #howMuchBox .button-bar #requestBtn.expand {
+        margin-right: -2px !important;
+    }
+
+    #howMuchBox .button-bar #sendBtn.expand {
+        margin-left: -6px !important;
+    }
+
+#howMuchBox #resetBtn {
+    color: #fff;
+    right: 0;
+    bottom: 0;
+    height: 54px;
+    padding: 20px 10px;
+    position: absolute;
 }
 
-#howMuchBox .button-bar > .button:last-child {
-    border-radius: 0 0 5px 0;
-}
-
-#howMuchBox input.parsley-error {
+#howMuchBox .button-bar #howMuchBox input.parsley-error {
     background: rgba(169, 68, 66,.2);
     box-shadow: none;
 }
