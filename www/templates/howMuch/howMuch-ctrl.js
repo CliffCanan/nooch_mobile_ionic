@@ -233,7 +233,7 @@
             $scope.sendData.UserName = $scope.recipientDetail.UserName;
             $scope.sendData.InvitationSentTo = $scope.recipientDetail.UserName;
             $scope.sendData.PhoneNumberInvited = $scope.recipientDetail.ContactNumber;
-
+            $scope.sendData.contactNumber = $scope.recipientDetail.ContactNumber;
             if ($scope.sendData.RecepientName.replace(/\s/g, "") == "")
                 $scope.sendData.RecepientName = $scope.sendData.UserName ? $scope.sendData.UserName
                                                                          : $scope.sendData.PhoneNumberInvited;

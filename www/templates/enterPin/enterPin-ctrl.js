@@ -34,6 +34,10 @@
                     console.log($scope.Details);
                     $state.go($scope.returnUrl, { recip: $scope.Details.MoneySenderEmailId });
                 }
+                else if ($scope.Details.SenderId == null && $scope.Details.contactNumber != null) {
+                    console.log($scope.Details);
+                    $state.go($scope.returnUrl, { recip: $scope.Details.contactNumber });
+                }
                 else {
                     console.log($scope.Details);
                     $state.go($scope.returnUrl, { recip: $scope.Details });
