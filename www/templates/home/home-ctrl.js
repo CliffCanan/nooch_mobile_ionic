@@ -317,8 +317,11 @@
             text: ''
         }
 
-        if (member.bit != 'p' || member.otherEmails == null || member.otherEmails.length < 2) {
+        if (member.bit != 'p' ) {
             $state.go('app.howMuch', { recip: member });
+        }
+        else if (member.bit == 'p' && member.otherEmails == null || member.otherEmails.length < 2) {
+            $state.go('app.howMuch', { recip: member.UserName });
         }
         else {
             var buttons = [];
@@ -342,7 +345,7 @@
                 cancelText: "Cancel",
                 buttonClicked: function (index) {
                     member.UserName = member.otherEmails[index].value;
-                    $state.go('app.howMuch', { recip: member });
+                    $state.go('app.howMuch', { recip: member.UserName });
                     return true;
                 }
             });
