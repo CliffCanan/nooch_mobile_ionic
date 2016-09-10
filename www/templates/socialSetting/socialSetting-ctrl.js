@@ -6,17 +6,19 @@
         // handle event
         console.log('Social Setting Controller Loadad');
 
+        if ($rootScope.fbid == "")
+            $rootScope.fbid = 'not connected';  
+
         $scope.socialSetting = {
             Name: '',
             Email: '',
             Photo: '',
-            fbid: $rootScope.fbid != null ? $rootScope.fbid : 'not connected',
+            fbid: $rootScope.fbid,
             fbStatus: ''
         };
 
         $scope.isConnect = false;
-
-        console.log($scope.socialSetting.fbid);
+        console.log($scope.socialSetting.fbid);       
     })
 
     $scope.connectFb = function () {

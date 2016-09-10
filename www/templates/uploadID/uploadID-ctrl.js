@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.uploadIDCtrl', ['noochApp.uploadID-service', 'noochApp.services'])
 
-       .controller('uploadIDCtrl', function ($scope, $ionicLoading, $ionicPlatform, $cordovaCamera, $cordovaImagePicker, uploadIDService) {
+       .controller('uploadIDCtrl', function ($scope, $ionicLoading, $ionicPlatform, $cordovaCamera, $cordovaImagePicker,$ionicContentBanner, uploadIDService) {
 
            $scope.$on("$ionicView.beforeEnter", function (event, data) {
                console.log('uploadIDCtrl loaded');
@@ -37,8 +37,8 @@
                            //{
                            //    bytes[i] = binary_string.charCodeAt(i);
                            //}
-                           //$scope.picture = imageData;
-                           //console.log(bytes);
+
+                           $scope.picture = imageData;                           
                            $scope.picSelected = true;
                            $scope.sendDoc($scope.picture);
                        }, function (err) {
@@ -75,10 +75,10 @@
 
 
            $scope.choosePhoto = function () {
-               cordova.plugins.diagnostic.getCameraRollAuthorizationStatus(function(status){               
-                   console.log("Authorization request for camera roll was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
+               //cordova.plugins.diagnostic.getCameraRollAuthorizationStatus(function(status){               
+               //    console.log("Authorization request for camera roll was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
                
-                   if (status) {
+               //    if (status) {
                        $ionicPlatform.ready(function () {
                            var options = {
                                quality: 75,
@@ -97,36 +97,37 @@
                                $scope.picture = imageData;
                                $scope.imgURI = "data:image/jpeg;base64," + imageData;
                                $scope.picSelected = true;
+                               $scope.sendDoc($scope.picture);
                            }, function (err) {
                                // An error occured. Show a message to the user
                            });
                        });
-                   }
-                   else {
+                   //}
+                   //else {
 
-                       swal({
-                           title: "Allow Camera Roll Access",
-                           text: "To take a picture of your ID, please grant access to your phone's Roll.",
-                           type: "warning",
-                           showCancelButton: true,
-                           cancelButtonText: "Not Now",
-                           confirmButtonColor: "#3fabe1",
-                           confirmButtonText: "Give Access",
-                       }, function (isConfirm) {
-                           if (isConfirm) {
-                               cordova.plugins.diagnostic.requestCameraRollAuthorization(function (status) {
-                                   console.log("Authorization request for camera roll was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
-                                   if (status)
-                                       $scope.choosePhoto();
-                               }, function (error) {
-                                   console.error(error);
-                               });
-                           }
-                       });
-                   }
-               }, function (error) {
-                   console.error("The following error occurred: " + error);
-               });
+                   //    swal({
+                   //        title: "Allow Camera Roll Access",
+                   //        text: "To take a picture of your ID, please grant access to your phone's Roll.",
+                   //        type: "warning",
+                   //        showCancelButton: true,
+                   //        cancelButtonText: "Not Now",
+                   //        confirmButtonColor: "#3fabe1",
+                   //        confirmButtonText: "Give Access",
+                   //    }, function (isConfirm) {
+                   //        if (isConfirm) {
+                   //            cordova.plugins.diagnostic.requestCameraRollAuthorization(function (status) {
+                   //                console.log("Authorization request for camera roll was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
+                   //                if (status)
+                   //                    $scope.choosePhoto();
+                   //            }, function (error) {
+                   //                console.error(error);
+                   //            });
+                   //        }
+                   //    });
+                   //}
+               //}, function (error) {
+               //    console.error("The following error occurred: " + error);
+               //});
                }
                
 
@@ -140,8 +141,26 @@
 
                uploadIDService.submitDocumentToSynapseV3($scope.picture)
 			   		.success(function (data) {
-			   		    console.log(data);                        
+			   		    console.log(data);
 			   		    $ionicLoading.hide();
+
+			   		    if (data.isSuccess == true) {
+			   		        $ionicContentBanner.show({
+			   		            text: ['Your ID uploaded Successfully'],
+			   		            autoClose: '5000',
+			   		            type: 'success',
+			   		            transition: 'vertical'
+			   		        });
+			   		 }
+			   		 else {
+			   		     $ionicContentBanner.show({
+			   		         text: ['Somethig went wrong'],
+			   		         autoClose: '5000',
+			   		         type: 'error',
+			   		         transition: 'vertical'
+			   		     });
+			   		 }
+			   		   
 			   		})
 				   .error(function (error) {
 				       console.log('submitDocumentToSynapseV3 Error: [' + encError + ']');
