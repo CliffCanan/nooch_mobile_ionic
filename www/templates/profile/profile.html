@@ -87,7 +87,7 @@
 
                 <div class="item item-input">
                     <span class="input-label">Address 2</span>
-                    <input type="text" placeholder="(Optional)" ng-model="Details.Address2" value="{{Details.Address2}}" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">
+                    <input type="text" placeholder="(Optional)" ng-model="Details.Address2" value="{{Details.Address2}}" ng-change="isAnythingChange()">
                 </div>
 
                 <div class="item item-input">
@@ -104,7 +104,7 @@
 
                 <label class="item item-input">
                     <span class="input-label">Date of Birth</span>
-                    <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{DobAsDateObj | date : 'yyyy-MM-dd' }}"  data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()"> <!--9 sept 16, Surya : Changed to text field because datePicker was comming 3 times (HTML / plugin) -->
+                    <input type="date" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" value="{{DobAsDateObj | date : 'yyyy-MM-dd' }}" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">   <!--ng-click="showdate()"-->
                 </label>
 
                 <div ng-show="Details.IsSsnAdded == false">

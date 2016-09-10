@@ -271,6 +271,7 @@
             $cordovaDatePicker.show(options).then(function (date) {
                 $scope.Details.DateOfBirth = date;
                 if ($scope.Details.DateOfBirth != null)
+                    //$scope.Details.DateOfBirth = new Date($scope.Details.DateOfBirth);
                     console.log('From DatePicker: [' + $scope.Details.DateOfBirth + ']');
             });
         }, false);
