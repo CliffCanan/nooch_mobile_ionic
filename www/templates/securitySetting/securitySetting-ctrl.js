@@ -11,8 +11,8 @@
     });
 
     $scope.SecSettings = {
-        RequireImmediately: true,
-        ShowInSearch: true
+        ShowInSearch: true,
+        RequireImmediately: true
     };
 
 

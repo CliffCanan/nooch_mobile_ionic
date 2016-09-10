@@ -2,7 +2,8 @@
   .service('MemberPrivacy', function ($http, $localStorage) {
 
       this.UpdateSecuritySettings = function (ChkBox) {
-
+          console.log('Values Came form controller is ---->>>' + ChkBox);
+          console.log(ChkBox);
           var reqForMemberSettings = {
               method: 'POST',
               url: URLs.MemberPrivacySettings + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken,

@@ -30,15 +30,16 @@
                        $cordovaCamera.getPicture(options).then(function (imageData) {
                            console.log(imageData);
                            $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                           var binary_string = window.atob(imageData);
-                           var len = binary_string.length;
-                           var bytes = new Uint8Array(len);
-                           for (var i = 0; i < len; i++)
-                           {
-                               bytes[i] = binary_string.charCodeAt(i);
-                           }
-                           $scope.picture = imageData;
-                           console.log(bytes);
+                           //var binary_string = window.atob(imageData);
+                           //var len = binary_string.length;
+                           //var bytes = new Uint8Array(len);
+                           //for (var i = 0; i < len; i++)
+                           //{
+                           //    bytes[i] = binary_string.charCodeAt(i);
+                           //}
+                           //$scope.picture = imageData;
+                           //console.log(bytes);
+                           $scope.picSelected = true;
                            $scope.sendDoc($scope.picture);
                        }, function (err) {
                            // An error occured. Show a message to the user
@@ -74,30 +75,60 @@
 
 
            $scope.choosePhoto = function () {
-               $ionicPlatform.ready(function () {
-                   var options = {
-                       quality: 75,
-                       destinationType: Camera.DestinationType.DATA_URL,
-                       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                       allowEdit: true,
-                       encodingType: Camera.EncodingType.JPEG,
-                       targetWidth: 300,
-                       targetHeight: 300,
-                       popoverOptions: CameraPopoverOptions,
-                       saveToPhotoAlbum: false
-                   };
+               cordova.plugins.diagnostic.getCameraRollAuthorizationStatus(function(status){               
+                   console.log("Authorization request for camera roll was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
+               
+                   if (status) {
+                       $ionicPlatform.ready(function () {
+                           var options = {
+                               quality: 75,
+                               destinationType: Camera.DestinationType.DATA_URL,
+                               sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                               allowEdit: true,
+                               encodingType: Camera.EncodingType.JPEG,
+                               targetWidth: 300,
+                               targetHeight: 300,
+                               popoverOptions: CameraPopoverOptions,
+                               saveToPhotoAlbum: false
+                           };
 
-                   $cordovaCamera.getPicture(options).then(function (imageData) {
-                       console.log(imageData);
-                       $scope.picture = imageData;
-                       $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                       $scope.picSelected = false;
-                   }, function (err) {
-                       // An error occured. Show a message to the user
-                   });
+                           $cordovaCamera.getPicture(options).then(function (imageData) {
+                               console.log(imageData);
+                               $scope.picture = imageData;
+                               $scope.imgURI = "data:image/jpeg;base64," + imageData;
+                               $scope.picSelected = true;
+                           }, function (err) {
+                               // An error occured. Show a message to the user
+                           });
+                       });
+                   }
+                   else {
+
+                       swal({
+                           title: "Allow Camera Roll Access",
+                           text: "To take a picture of your ID, please grant access to your phone's Roll.",
+                           type: "warning",
+                           showCancelButton: true,
+                           cancelButtonText: "Not Now",
+                           confirmButtonColor: "#3fabe1",
+                           confirmButtonText: "Give Access",
+                       }, function (isConfirm) {
+                           if (isConfirm) {
+                               cordova.plugins.diagnostic.requestCameraRollAuthorization(function (status) {
+                                   console.log("Authorization request for camera roll was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
+                                   if (status)
+                                       $scope.choosePhoto();
+                               }, function (error) {
+                                   console.error(error);
+                               });
+                           }
+                       });
+                   }
+               }, function (error) {
+                   console.error("The following error occurred: " + error);
                });
-           }
-
+               }
+               
 
            $scope.sendDoc = function () {
                console.log('sendDoc Function');
@@ -109,7 +140,7 @@
 
                uploadIDService.submitDocumentToSynapseV3($scope.picture)
 			   		.success(function (data) {
-			   		    console.log(data);
+			   		    console.log(data);                        
 			   		    $ionicLoading.hide();
 			   		})
 				   .error(function (error) {

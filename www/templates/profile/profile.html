@@ -73,7 +73,7 @@
                     </span>
 
                     <span>
-                        <input type="tel" placeholder="(XXX) XXX-XXXX" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" ng-change="isAnythingChange()">
+                        <input type="tel" placeholder="(XXX) XXX-XXXX" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" data-parsley-type='digits' data-parsley-type-message='' data-parsley-minlength="10" data-parsley-minlength-message='' data-parsley-maxlength-message='' data-parsley-maxlength="10" data-parsley-required data-parsley-required-message='' ng-change="isAnythingChange()">
                     </span>
 
                 </div>
@@ -82,35 +82,35 @@
 
                 <div class="item item-input">
                     <span class="input-label">Address</span>
-                    <input type="text" placeholder="123 Nooch St" ng-model="Details.Address" value="{{Details.Address}}" ng-change="isAnythingChange()">
+                    <input type="text" placeholder="123 Nooch St" ng-model="Details.Address" value="{{Details.Address}}" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">
                 </div>
 
                 <div class="item item-input">
                     <span class="input-label">Address 2</span>
-                    <input type="text" placeholder="(Optional)" ng-model="Details.Address2" value="{{Details.Address2}}" ng-change="isAnythingChange()">
+                    <input type="text" placeholder="(Optional)" ng-model="Details.Address2" value="{{Details.Address2}}" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">
                 </div>
 
                 <div class="item item-input">
                     <span class="input-label">City</span>
-                    <input type="text" placeholder="City" ng-model="Details.City" value="{{Details.City}}" ng-change="isAnythingChange()">
+                    <input type="text" placeholder="City" ng-model="Details.City" value="{{Details.City}}" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">
                 </div>
 
                 <div class="item item-input">
                     <span class="input-label">ZIP</span>
-                    <input type="text" placeholder="90210" ng-model="Details.Zipcode" value="{{Details.Zipcode}}" ng-change="isAnythingChange()">
+                    <input type="text" placeholder="90210" ng-model="Details.Zipcode" value="{{Details.Zipcode}}" data-parsley-type='digits' data-parsley-type-message='' data-parsley-minlength="5" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">
                 </div>
 
                 <div class="item item-divider">ID VERIFICATION</div>
 
                 <label class="item item-input">
                     <span class="input-label">Date of Birth</span>
-                    <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{DobAsDateObj | date : 'yyyy-MM-dd' }}" ng-change="isAnythingChange()"> <!--9 sept 16, Surya : Changed to text field because datePicker was comming 3 times (HTML / plugin) -->
+                    <input type="text" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" ng-click="showdate()" value="{{DobAsDateObj | date : 'yyyy-MM-dd' }}"  data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()"> <!--9 sept 16, Surya : Changed to text field because datePicker was comming 3 times (HTML / plugin) -->
                 </label>
 
                 <div ng-show="Details.IsSsnAdded == false">
                     <label class="item item-input">
                         <span class="input-label">SSN</span>
-                        <input type="tel" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" ng-change="isAnythingChange()">
+                        <input type="tel" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" data-parsley-type='digits' data-parsley-type-message='' data-parsley-minlength="9" data-parsley-minlength-message='' data-parsley-maxlength-message='' data-parsley-maxlength="9" ng-change="isAnythingChange()">
                     </label>
                 </div>
             </div>
