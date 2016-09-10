@@ -280,6 +280,7 @@
             $scope.show = false;
             
         }
+       
 
         if ($('#recents-table').html() == undefined)
         {

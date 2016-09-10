@@ -27,8 +27,18 @@
         $scope.GoBack = function () {
             if ($scope.returnUrl == 'app.howMuch')
             {
-                console.log($scope.Details);
-                $state.go($scope.returnUrl, { recip: $scope.Details });
+                // handle case when request is made to email address typed
+                if (($scope.Details.SenderId == null || $scope.Details.SenderId == undefined) &&
+							   			 $scope.Details.MoneySenderEmailId != null &&
+							   			 $scope.Details.ContactNumber == null) {
+                    console.log($scope.Details);
+                    $state.go($scope.returnUrl, { recip: $scope.Details.MoneySenderEmailId });
+                }
+                else {
+                    console.log($scope.Details);
+                    $state.go($scope.returnUrl, { recip: $scope.Details });
+                }
+                 
             }
 
             if ($scope.returnUrl == 'app.transferDetails')
@@ -80,6 +90,8 @@
 
                            console.log(JSON.stringify($scope.Details));
 
+                            // transaction type transfer
+
                            if ($scope.type == 'transfer')
                            {
                                if ($scope.Details.MemberId != $scope.Details.RecepientId &&
@@ -90,7 +102,7 @@
 									   .success(function (data) {
 									       $ionicLoading.hide();
 
-									       if (data.Result && data.Result.indexOf('Successfully') > -1)
+									       if (data.Result == 'Your cash was sent successfully')
 									       {
 									           swal({
 									               title: "Transferred...",
@@ -107,10 +119,19 @@
 									                   $state.go('app.transferDetails');
 									               else
 									               {
-									                   $scope.Details = '';
-									                   $ionicHistory.clearCache().then(function () {
-									                       $state.go($scope.returnUrl);
-									                   });
+									                   if ($scope.returnUrl == 'app.howMuch') {
+									                       $scope.Details = '';
+									                       $ionicHistory.clearCache().then(function () {
+									                           $state.go('app.selectRecipient');
+									                       });
+									                   }
+
+									                   else if ($scope.returnUrl == 'app.transferDetails') {
+									                       $scope.Details = '';
+									                       $ionicHistory.clearCache().then(function () {
+									                           $state.go('app.history');
+									                       });
+									                   }
 									               }
 									           });
 									       }
@@ -128,7 +149,7 @@
                                     .success(function (data) {
                                         $ionicLoading.hide();
 
-                                        if (data.Result && data.Result.indexOf('Successfully') > -1)
+                                        if (data.Result == 'Your cash was sent successfully')
                                         {
                                             swal({
                                                 title: "Transferred...",
@@ -145,10 +166,19 @@
                                                     $state.go('app.transferDetails');
                                                 else
                                                 {
-                                                    $scope.Details = '';
-                                                    $ionicHistory.clearCache().then(function () {
-                                                        $state.go($scope.returnUrl);
-                                                    });
+                                                    if ($scope.returnUrl == 'app.howMuch') {
+                                                        $scope.Details = '';
+                                                        $ionicHistory.clearCache().then(function () {
+                                                            $state.go('app.selectRecipient');
+                                                        });
+                                                    }
+
+                                                    else if ($scope.returnUrl == 'app.transferDetails') {
+                                                        $scope.Details = '';
+                                                        $ionicHistory.clearCache().then(function () {
+                                                            $state.go('app.history');
+                                                        });
+                                                    }
                                                 }
                                             });
                                         }
@@ -166,7 +196,7 @@
                                    .success(function (data) {
                                        $ionicLoading.hide();
 
-                                       if (data.Result && data.Result.indexOf('Successfully') > -1)
+                                       if (data.Result == 'Your cash was sent successfully')
                                        {
                                            swal({
                                                title: "Transferred...",
@@ -183,10 +213,19 @@
                                                    $state.go('app.transferDetails');
                                                else
                                                {
-                                                   $scope.Details = '';
-                                                   $ionicHistory.clearCache().then(function () {
-                                                       $state.go($scope.returnUrl);
-                                                   });
+                                                   if ($scope.returnUrl == 'app.howMuch') {
+                                                       $scope.Details = '';
+                                                       $ionicHistory.clearCache().then(function () {
+                                                           $state.go('app.selectRecipient');
+                                                       });
+                                                   }
+
+                                                   else if ($scope.returnUrl == 'app.transferDetails') {
+                                                       $scope.Details = '';
+                                                       $ionicHistory.clearCache().then(function () {
+                                                           $state.go('app.history');
+                                                       });
+                                                   }
                                                }
                                            });
                                        }
@@ -196,6 +235,9 @@
                                    .error(function () { $ionicLoading.hide(); });
                                }
                            }
+
+
+                               // end region transaction type transfer
                            else if ($scope.type == 'request')
                            {
 
@@ -214,7 +256,7 @@
 								   	        $scope.Details = '';
 
 								   	        swal({
-								   	            title: "Transferred...",
+								   	            title: "Requested...",
 								   	            text: data.Result,
 								   	            type: "success",
 								   	            showCancelButton: true,
@@ -228,10 +270,22 @@
 								   	                $state.go('app.transferDetails');
 								   	            else
 								   	            {
-								   	                $scope.Details = '';
-								   	                $ionicHistory.clearCache().then(function () {
-								   	                    $state.go($scope.returnUrl);
-								   	                });
+								   	               
+
+								   	                if ($scope.returnUrl == 'app.howMuch') {
+								   	                    $scope.Details = '';
+								   	                    $ionicHistory.clearCache().then(function () {
+								   	                        $state.go('app.selectRecipient');
+								   	                    });
+								   	                }
+
+								   	               else if ($scope.returnUrl == 'app.transferDetails') {
+								   	                    $scope.Details = '';
+								   	                    $ionicHistory.clearCache().then(function () {
+								   	                        $state.go('app.history');
+								   	                    });
+								   	                }
+
 								   	            }
 								   	        });
 								   	    }
@@ -260,7 +314,7 @@
 								           $scope.Details = '';
 
 								           swal({
-								               title: "Transferred...",
+								               title: "Requested...",
 								               text: data.Result,
 								               type: "success",
 								               showCancelButton: true,
@@ -274,10 +328,19 @@
 								                   $state.go('app.transferDetails');
 								               else
 								               {
-								                   $scope.Details = '';
-								                   $ionicHistory.clearCache().then(function () {
-								                       $state.go($scope.returnUrl);
-								                   });
+								                   if ($scope.returnUrl == 'app.howMuch') {
+								                       $scope.Details = '';
+								                       $ionicHistory.clearCache().then(function () {
+								                           $state.go('app.selectRecipient');
+								                       });
+								                   }
+
+								                   else if ($scope.returnUrl == 'app.transferDetails') {
+								                       $scope.Details = '';
+								                       $ionicHistory.clearCache().then(function () {
+								                           $state.go('app.history');
+								                       });
+								                   }
 								               }
 								           });
 								       }
@@ -308,7 +371,7 @@
 								           $scope.Details = '';
 
 								           swal({
-								               title: "Transferred...",
+								               title: "Requested...",
 								               text: data.Result,
 								               type: "success",
 								               showCancelButton: true,
@@ -322,10 +385,19 @@
 								                   $state.go('app.transferDetails');
 								               else
 								               {
-								                   $scope.Details = '';
-								                   $ionicHistory.clearCache().then(function () {
-								                       $state.go($scope.returnUrl);
-								                   });
+								                   if ($scope.returnUrl == 'app.howMuch') {
+								                       $scope.Details = '';
+								                       $ionicHistory.clearCache().then(function () {
+								                           $state.go('app.selectRecipient');
+								                       });
+								                   }
+
+								                   else if ($scope.returnUrl == 'app.transferDetails') {
+								                       $scope.Details = '';
+								                       $ionicHistory.clearCache().then(function () {
+								                           $state.go('app.history');
+								                       });
+								                   }
 								               }
 								           });
 								       }

@@ -27,7 +27,7 @@
             <ion-list class="selectRecipList">
                 <ion-item ng-repeat="member in memberList | filter:search" class="list" id="recents-table">
 
-                    <a class="item item-avatar" ng-if="member.otherEmails != null" ng-click="openFilterChoices(member)" nav-transition="ios" nav-direction="forward">
+                    <a class="item item-avatar"  ng-click="openFilterChoices(member)" nav-transition="ios" nav-direction="forward">
 
                         <img src="{{member.Photo}}" class="userPic">
                         <h2 class="username">{{member.FirstName}} <span class="f-400">{{member.LastName}}</span></h2>
