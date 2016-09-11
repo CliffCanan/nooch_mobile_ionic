@@ -1912,6 +1912,7 @@ div.hscroller-card {
     font-size: 30px;
     display: block;
     margin: 0 auto;
+	padding: 0;
     text-shadow: 0px -1px 0px rgba(0,0,0,.25);
     transition: all .3s;
     height: 66px;
@@ -1945,6 +1946,10 @@ div.hscroller-card {
 
 #statsExportWrap .btn {
     line-height: 1;
+}
+
+.slider .card {
+	margin-top: 10px;
 }
 
 /**********************/
@@ -2142,18 +2147,24 @@ div.hscroller-card {
         border-radius: 6px; /*Needed for error styling*/
         color: #58595B;
         font-size: 42px;
-        height: 66px;
-        padding-right: 8px;
+        height: 70px;
+		line-height: 70px;
+        padding: 0 8px 0 0;
+		position: absolute;
         text-align: right;
+		top: 0;
+		right: 0;
         width: 190px;
     }
 
     .amount-container #dollarSign {
         color: #58595B;
         font-size: 41px;
+		line-height: 70px;
         position: absolute;
-        top: 17px;
+        top: 0px;
         left: 20px;
+		z-index: 9;
     }
 
 @media screen and (min-width: 360px) {
@@ -2459,6 +2470,7 @@ ul {
     .idPicWrap img {
         border-radius: 16px;
         box-shadow: 0 4px 18px -4px rgba(0, 0, 0, .25);
+		max-width: 80%;
     }
 
     .idPicWrap #editTxt {

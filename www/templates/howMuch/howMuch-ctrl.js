@@ -97,7 +97,7 @@
     }
 
 
-    $scope.$on("$ionicView.enter", function (event, data) {
+    $scope.$on("$ionicView.beforeEnter", function (event, data) {
         console.log('HowMuchCntrl Fired');
 
         $scope.requestSelected = false;
@@ -168,9 +168,15 @@
         $scope.sendSelected = false;
 
         console.log($('#howMuchForm').parsley().validate());
+		
+        if ($scope.requestSelected == true)
+        {
+            CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
 
-        //if ($('#howMuchForm').parsley().validate() == true)
-        if (typeof $scope.recipientDetail.Amount != "undefined" &&
+            $state.go('enterPin');
+        }
+        // else if ($('#howMuchForm').parsley().validate() == true)
+        else if (typeof $scope.recipientDetail.Amount != "undefined" &&
             $scope.recipientDetail.Amount >= 1 &&
             $scope.recipientDetail.Amount <= 5000)
         {
@@ -203,13 +209,6 @@
             $scope.requestSelected = true;
 
             console.log($scope.requestData);
-
-            if (false)
-            {
-                CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
-
-                $state.go('enterPin');
-            }
         }
     };
 
@@ -221,7 +220,13 @@
 
         console.log('SubmitSend() Fired -> Amount: ' + $scope.recipientDetail.Amount);
 
-        if ($scope.recipientDetail.Amount < 5000)
+        if ($scope.sendSelected == true)
+        {
+            CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
+
+            $state.go('enterPin');
+        }
+        else if ($scope.recipientDetail.Amount < 5000)
         {
             console.log($scope.recipientDetail);
 
@@ -251,13 +256,6 @@
             console.log($scope.sendData);
 
             $scope.sendSelected = true;
-
-            if (false)
-            {
-                CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
-
-                $state.go('enterPin');
-            }
         }
     }
 
@@ -308,9 +306,9 @@
         $ionicPlatform.ready(function () {
 
             var options = {
-                maximumImagesCount: 10,
-                width: 800,
-                height: 800,
+                maximumImagesCount: 0,
+                width: 500,
+                height: 500,
                 quality: 80
             };
 
@@ -322,7 +320,7 @@
                   }
               }, function (error) {
                   // error getting photos
-                  // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                  // if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                   CommonServices.logOut();
               });
         });
@@ -335,17 +333,12 @@
               { text: 'From Device Photos' },
               { text: 'Use Camera' }
             ],
-            titleText: 'Attach a picture',
+            titleText: 'Attach a Picture',
             cancelText: 'Cancel',
             buttonClicked: function (index) {
-                if (index == 0)
-                {
-                    $scope.choosePhoto();
-                }
-                else if (index == 1)
-                {
-                    $scope.takePhoto();
-                }
+                if (index == 0) $scope.choosePhoto();
+                else if (index == 1) $scope.takePhoto();
+
                 return true;
             }
         });
