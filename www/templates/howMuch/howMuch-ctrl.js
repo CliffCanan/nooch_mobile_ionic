@@ -97,7 +97,7 @@
     }
 
 
-    $scope.$on("$ionicView.beforeEnter", function (event, data) {
+    $scope.$on("$ionicView.enter", function (event, data) {
         console.log('HowMuchCntrl Fired');
 
         $scope.requestSelected = false;
