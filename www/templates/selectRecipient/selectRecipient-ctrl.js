@@ -250,7 +250,6 @@
     }
 
 
-
     $scope.$watch('search', function (val) {
         //console.log($filter('filter')($scope.items2, val));
 
@@ -273,7 +272,21 @@
 
         selectRecipientService.GetLocationSearch()
             .success(function (data) {
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                 
+                    if (data[i].Miles <1) {
+                         
+                        data[i].Miles = data[i].Miles * 5280;
+                        data[i].Miles = data[i].Miles + ' Feet';
+                    }
+                    else {
+                        data[i].Miles = data[i].Miles + ' Miles';
+                    }
+                }
+
                 $scope.memberList = data;
+
                 $ionicLoading.hide();
             })
             .error(function (data) {

@@ -4,8 +4,7 @@
                                       $localStorage, $sce, $ionicContentBanner, settingsService, CommonServices) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
-         // On Screen Load
-         console.log("$scope.editBank is: " + $scope.editBank);
+
          $scope.editBank = false;
          $scope.shouldDisplayErrorBanner = false;
          $scope.errorBannerTextArray = [];

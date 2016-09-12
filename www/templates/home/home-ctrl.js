@@ -69,9 +69,7 @@
 
         }, 1000);
 
-    
-
-        $ionicPlatform.ready(function () {     
+        $ionicPlatform.ready(function () {
 
             if (typeof analytics !== undefined) {
                 analytics.trackView("Home Controller");
@@ -82,9 +80,9 @@
 
             analytics.startTrackerWithId('UA-36976317-2')
             analytics.trackView('Home Screen')
-           //analytics.trackEvent('Category', 'Action', 'Label', Value)
-           //analytics.addTransaction('ID', 'Affiliation', Revenue, Tax, Shipping, 'Currency Code')
-           //analytics.addTransactionItem('ID', 'Name', 'SKU', 'Category', Price, Quantity, 'Currency Code')
+            //analytics.trackEvent('Category', 'Action', 'Label', Value)
+            //analytics.addTransaction('ID', 'Affiliation', Revenue, Tax, Shipping, 'Currency Code')
+            //analytics.addTransactionItem('ID', 'Name', 'SKU', 'Category', Price, Quantity, 'Currency Code')
             //analytics.setUserId('my-user-id')
             analytics.debugMode()
 
@@ -92,7 +90,7 @@
             //$cordovaGoogleAnalytics.debugMode();
             //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
             //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
-            //$cordovaGoogleAnalytics.trackView('Home Screen');
+            //$cordovaGoogleAnalytics.trackView('Home Screen');  
         });
     });
 
@@ -206,6 +204,7 @@
 
                 if (contact.name.formatted != null && contact.emails != null) {
                     $scope.readContact.FirstName = contact.name.formatted;
+
                     $scope.readContact.id = i;
                     $scope.readContact.bit = 'p';
 

@@ -168,7 +168,7 @@
         $scope.sendSelected = false;
 
         console.log($('#howMuchForm').parsley().validate());
-		
+
         if ($scope.requestSelected == true)
         {
             CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });

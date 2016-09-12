@@ -30,7 +30,7 @@
             $scope.Details.Longitude = $localStorage.GLOBAL_VARIABLES.UserCurrentLongi;
 
             var Pin = $scope.Details.enterPin;
-			console.log(Pin);
+            console.log(Pin);
 
             if (Pin.length == 4)
             {
@@ -38,8 +38,8 @@
                 $ionicLoading.show({
                     template: 'Submitting Payment...'
                 });
-				
-				console.log(JSON.stringify($scope.Details));
+
+                console.log(JSON.stringify($scope.Details));
 
                 CommonServices.GetEncryptedData(Pin).success(function (encrPin) {
 
@@ -64,14 +64,14 @@
 										   .success(function (data) {
 
 										       if (data.Result == 'Your cash was sent successfully')
-												   $scope.showSuccessAlert('send');
+										           $scope.showSuccessAlert('send');
 										       else
-												   $scope.showErrorAlert(data.Result);
+										           $scope.showErrorAlert(data.Result);
 										   })
 										   .error(function (error) {
-											   console.log("TransferMoney Error: [" + JSON.strigify(error) + "]");
-											   $ionicLoading.hide();
-											   swal("Error", error, "error");
+										       console.log("TransferMoney Error: [" + JSON.strigify(error) + "]");
+										       $ionicLoading.hide();
+										       swal("Error", error, "error");
 										   });
 	                               }
 	                               else if (($scope.Details.MemberId == $scope.Details.RecepientId ||
@@ -83,15 +83,15 @@
 	                                    .success(function (data) {
 
 	                                        if (data.Result == 'Your cash was sent successfully')
-												$scope.showSuccessAlert('send');
+	                                            $scope.showSuccessAlert('send');
 	                                        else
 	                                            $scope.showErrorAlert(data.Result);
 	                                    })
 	                                    .error(function (error) {
-											console.log("TransferMoneyToNonNoochUserUsingSynapse Error: [" + JSON.strigify(error) + "]");
-											$ionicLoading.hide();
-											swal("Error", error, "error");
-										});
+	                                        console.log("TransferMoneyToNonNoochUserUsingSynapse Error: [" + JSON.strigify(error) + "]");
+	                                        $ionicLoading.hide();
+	                                        swal("Error", error, "error");
+	                                    });
 	                               }
 	                               else if (($scope.Details.MemberId == $scope.Details.RecepientId ||
 									   		 $scope.Details.RecepientId == null ||
@@ -99,18 +99,18 @@
 									   		 $scope.Details.PhoneNumberInvited != undefined)
 	                               {
 	                                   enterPinService.TransferMoneyToNonNoochUserThroughPhoneUsingsynapse($scope.Details)
-	                                   .success(function (data) {
+                                           .success(function (data) {
 
-	                                       if (data.Result == 'Your cash was sent successfully')
-											   $scope.showSuccessAlert('send');
-	                                       else
-	                                           $scope.showErrorAlert(data.Result);
-	                                   })
-	                                   .error(function (error) {
-										   console.log("TransferMoneyToNonNoochUserThroughPhoneUsingsynapse Error: [" + JSON.strigify(error) + "]");
-										   $ionicLoading.hide();
-										   swal("Error", error, "error");
-									   });
+                                               if (data.Result == 'Your cash was sent successfully')
+                                                   $scope.showSuccessAlert('send');
+                                               else
+                                                   $scope.showErrorAlert(data.Result);
+                                           })
+                                           .error(function (error) {
+                                               console.log("TransferMoneyToNonNoochUserThroughPhoneUsingsynapse Error: [" + JSON.strigify(error) + "]");
+                                               $ionicLoading.hide();
+                                               swal("Error", error, "error");
+                                           });
 	                               }
 	                           }
 
@@ -121,67 +121,67 @@
 	                                   console.log($scope.Details);
 
 	                                   enterPinService.RequestMoney($scope.Details)
-									   	.success(function (data) {
+                                           .success(function (data) {
 
-									   	    if (data.Result.indexOf('successfully') > -1)
-									   	        $scope.showSuccessAlert('request');
-									   	    else
-									   	        $scope.showErrorAlert(data.Result);
-									   	})
-										   .error(function (error) {
-											   console.log("RequestMoney Error: [" + JSON.strigify(error) + "]");
-											   $ionicLoading.hide();
-											   swal("Error", error, "error");
+                                               if (data.Result.indexOf('successfully') > -1)
+                                                   $scope.showSuccessAlert('request');
+                                               else
+                                                   $scope.showErrorAlert(data.Result);
+                                           })
+                                           .error(function (error) {
+                                               console.log("RequestMoney Error: [" + JSON.strigify(error) + "]");
+                                               $ionicLoading.hide();
+                                               swal("Error", error, "error");
 
-										       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-										           CommonServices.logOut();
-										   });
+                                               if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                                   CommonServices.logOut();
+                                           });
 	                               }
 	                               else if (($scope.Details.SenderId == null || $scope.Details.SenderId == undefined) &&
 								   			 $scope.Details.MoneySenderEmailId != null &&
 								   			 $scope.Details.ContactNumber == null)
 	                               {
 	                                   enterPinService.RequestMoneyToNonNoochUserUsingSynapse($scope.Details)
-									   .success(function (data) {
+                                           .success(function (data) {
 
-									       if (data.Result.indexOf('successfully') > -1)
-									           $scope.showSuccessAlert('request');
-									       else
-											   $scope.showErrorAlert(data.Result);
-									   })
-									   .error(function (data) {
-										   console.log("RequestMoneyToNonNoochUserUsingSynapse Error: [" + JSON.strigify(error) + "]");
-										   $ionicLoading.hide();
-										   swal("Error", error, "error");
+                                               if (data.Result.indexOf('successfully') > -1)
+                                                   $scope.showSuccessAlert('request');
+                                               else
+                                                   $scope.showErrorAlert(data.Result);
+                                           })
+                                           .error(function (data) {
+                                               console.log("RequestMoneyToNonNoochUserUsingSynapse Error: [" + JSON.strigify(error) + "]");
+                                               $ionicLoading.hide();
+                                               swal("Error", error, "error");
 
-										   if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-											   CommonServices.logOut();
-									   });
+                                               if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                                   CommonServices.logOut();
+                                           });
 	                               }
 	                               else if ($scope.Details.SenderId == null && $scope.Details.contactNumber != null)
 	                               {
 	                                   enterPinService.RequestMoneyToNonNoochUserThroughPhoneUsingSynapse($scope.Details, $scope.Details.contactNumber)
-									   .success(function (data) {
+                                           .success(function (data) {
 
-									       if (data.Result.indexOf('successfully') > -1)
-									           $scope.showSuccessAlert('request');
-									       else
-									           $scope.showErrorAlert(data.Result);
-									   })
-									   .error(function (error) {
-										   console.log("RequestMoneyToNonNoochUserThroughPhoneUsingSynapse Error: [" + JSON.strigify(error) + "]");
-										   $ionicLoading.hide();
-										   swal("Error", error, "error");
+                                               if (data.Result.indexOf('successfully') > -1)
+                                                   $scope.showSuccessAlert('request');
+                                               else
+                                                   $scope.showErrorAlert(data.Result);
+                                           })
+                                           .error(function (error) {
+                                               console.log("RequestMoneyToNonNoochUserThroughPhoneUsingSynapse Error: [" + JSON.strigify(error) + "]");
+                                               $ionicLoading.hide();
+                                               swal("Error", error, "error");
 
-										   if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-											   CommonServices.logOut();
-									   });
+                                               if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                                   CommonServices.logOut();
+                                           });
 	                               }
 	                           }
 	                       }
 	                       else if (data.Result == 'Invalid Pin')
 	                       {
-							   $ionicLoading.hide();
+	                           $ionicLoading.hide();
 	                           swal({
 	                               title: "Incorrect PIN",
 	                               text: "Looks like your PIN wasn't quite right! Please try again.",
@@ -190,14 +190,14 @@
 	                               confirmButtonText: "Ok",
 	                           }, function () {
 	                               $scope.Details.enterPin = '';
-								   $("#pin").focus();
+	                               $("#pin").val('').focus();
 	                           });
 	                       }
 	                       else// if (data.Message == 'An error has occurred.')
-						   {
-							   $ionicLoading.hide();
-							   $scope.showErrorAlert('');
-						   }
+	                       {
+	                           $ionicLoading.hide();
+	                           $scope.showErrorAlert('');
+	                       }
 	                   })
 					   .error(function (error) {
 					       console.log('Enter PIN -> ValidatePinNumberToEnterForEnterForeground Error [' + JSON.strigify(error) + ']');
@@ -218,57 +218,58 @@
                 //    swal("Error", "Internet not connected!", "error");
             }
         }
-		
-		
-		$scope.showSuccessAlert = function(type) {
-			$ionicLoading.hide();
 
-   	        $scope.Details.Amount = "";
-   	        $scope.Details.Memo = "";
-   	        $scope.Details = "";
-			
-			if (type == 'request')
-			{
-				
-			}
-			else
-			{
-				
-			}
+
+        $scope.showSuccessAlert = function (type) {
+            $ionicLoading.hide();
+
+            $scope.Details.Amount = "";
+            $scope.Details.Memo = "";
+            $scope.Details = "";
+
+            var title = "";
+            var msg = "";
+
+            if (type == 'request')
+            {
+                title = "Request Sent";
+                msg = "Your payment request has been sent succesfully.";
+            }
+            else
+            {
+                title = "Payment Sent";
+                msg = "Your payment has been sent successfully.";
+            }
 
             swal({
-                title: "Transferred",
-                text: "Your cash was sent successfully!",
+                title: title,
+                text: msg,
                 type: "success",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "View Details",
                 cancelButtonText: "Ok",
             }, function (isConfirm) {
+                $scope.Details = '';
+
                 if (isConfirm)
                     $state.go('app.transferDetails');
+                else if ($scope.returnUrl == 'app.transferDetails')
+                    $ionicHistory.clearCache().then(function () {
+                        $state.go('app.history');
+                    });
                 else
-				{
-					$scope.Details = '';
-		            if ($scope.returnUrl == 'app.howMuch') {
-		                $ionicHistory.clearCache().then(function () {
-		                    $state.go('app.selectRecipient');
-		                });
-		            }
-		            else if ($scope.returnUrl == 'app.transferDetails') {
-		                $ionicHistory.clearCache().then(function () {
-		                    $state.go('app.history');
-		                });
-		            }
-				}
+                    $ionicHistory.clearCache().then(function () {
+                        $state.go('app.home');
+                    });
             });
-		}
-		
-		
-		$scope.showErrorAlert = function(msg) {
-			$ionicLoading.hide();
+        }
 
-			swal("Error", msg, "error");
+
+        $scope.showErrorAlert = function (msg) {
+            $ionicLoading.hide();
+
+            swal("Error", msg, "error");
 
             swal({
                 title: "Error :-()",
@@ -297,13 +298,13 @@
                       });
                 }
             });
-		}
+        }
 
 
         $scope.GoBack = function () {
             if ($scope.returnUrl == 'app.howMuch')
             {
-				console.log($scope.Details);
+                console.log($scope.Details);
 
                 // handle case when request is made to email address typed
                 if (($scope.Details.SenderId == null || $scope.Details.SenderId == undefined) &&
@@ -321,8 +322,8 @@
 
             $stateParams = '';
             $scope.Details = '';
-			
-			console.log("Enter PIN -> GoBack() -> Getting Here??");
+
+            console.log("Enter PIN -> GoBack() -> Getting Here??");
 
             $ionicHistory.clearCache().then(function () { $state.go($scope.returnUrl); });
         };

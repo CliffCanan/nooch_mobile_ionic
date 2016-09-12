@@ -58,7 +58,7 @@
                 $scope.Details = details;
 
                 if (details.DateOfBirth != null && details.DateOfBirth.length > 0)
-					$scope.Details.DateOfBirth = new Date(details.DateOfBirth);
+                    $scope.Details.DateOfBirth = new Date(details.DateOfBirth);
 
                 $ionicLoading.hide();
             })
@@ -74,13 +74,13 @@
         //    swal("Oops...", "Internet not connected!", "error");
     }
 
-    
+
     $scope.UpdateProfile = function () {
-        console.log('Update Profile Function Touched');       
+        console.log('Update Profile Function Touched');
         console.log($('#profileForm').parsley().validate());
 
-		if ($('#profileForm').parsley().validate() == true) 
-		{
+        if ($('#profileForm').parsley().validate() == true)
+        {
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
                 template: 'Saving Profile...'
@@ -95,7 +95,8 @@
 
                     $ionicLoading.hide();
 
-                    if (data.Result.indexOf('successfully') > -1) {
+                    if (data.Result.indexOf('successfully') > -1)
+                    {
                         $ionicContentBanner.show({
                             text: ['Profile Updated Successfully!'],
                             autoClose: '5000',
@@ -110,8 +111,9 @@
 
                         if ($scope.shouldGoToSettings)
                             $state.go('app.settings');
-					}
-					else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1) {
+                    }
+                    else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
+                    {
                         $ionicContentBanner.show({
                             text: ['Phone Number already registered with Nooch :-( '],
                             autoClose: '5000',
@@ -373,7 +375,7 @@
     }
 
 
-	$scope.choosePhoto = function () {
+    $scope.choosePhoto = function () {
         $ionicPlatform.ready(function () {
             var options = {
                 quality: 75,

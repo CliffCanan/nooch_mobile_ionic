@@ -47,11 +47,11 @@
 
                        $cordovaCamera.getPicture(options).then(function (imageData) {
                            $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                           $scope.picture = imageData;                           
+                           $scope.picture = imageData;
                            $scope.picSelected = true;
                        }, function (error) {
                            // An error occured. Show a message to the user
-						   console.log("takePhoto() --> $cordovaCamera.getPicture Error: [" + JSON.stringify(error) + "]");
+                           console.log("takePhoto() --> $cordovaCamera.getPicture Error: [" + JSON.stringify(error) + "]");
                        });
                    }
                    else
@@ -84,11 +84,11 @@
 
 
            $scope.choosePhotoFromDevice = function () {
-               cordova.plugins.diagnostic.getCameraRollAuthorizationStatus(function(status){               
+               cordova.plugins.diagnostic.getCameraRollAuthorizationStatus(function (status) {
                    console.log("Authorization request for camera roll was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
-               
+
                    if (status)
-				   {
+                   {
                        $ionicPlatform.ready(function () {
                            var options = {
                                quality: 75,
@@ -112,8 +112,8 @@
                        });
                    }
                    else
-				   {
-					   swal({
+                   {
+                       swal({
                            title: "Allow Camera Roll Access",
                            text: "To upload a picture of your ID, please grant access to your photo gallery.",
                            type: "warning",
@@ -122,7 +122,8 @@
                            confirmButtonColor: "#3fabe1",
                            confirmButtonText: "Give Access",
                        }, function (isConfirm) {
-                           if (isConfirm) {
+                           if (isConfirm)
+                           {
                                cordova.plugins.diagnostic.requestCameraRollAuthorization(function (status) {
                                    console.log("Authorization request for camera roll was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
                                    if (status)
@@ -136,8 +137,8 @@
                }, function (error) {
                    console.error("The following error occurred: " + error);
                });
-               }
-               
+           }
+
 
            $scope.sendDoc = function () {
                console.log('sendDoc Function');
@@ -153,30 +154,30 @@
 			   		    $ionicLoading.hide();
 
 			   		    if (data.isSuccess == true)
-						{
+			   		    {
 			   		        $ionicContentBanner.show({
 			   		            text: ['Your ID uploaded Successfully'],
 			   		            autoClose: '5000',
 			   		            type: 'success',
 			   		            transition: 'vertical'
 			   		        });
-				   		 }
-				   		 else 
-						 {
-				   		     $ionicContentBanner.show({
-				   		         text: ['Somethig went wrong'],
-				   		         autoClose: '5000',
-				   		         type: 'error',
-				   		         transition: 'vertical'
-				   		     });
-				   		 }
+			   		    }
+			   		    else
+			   		    {
+			   		        $ionicContentBanner.show({
+			   		            text: ['Somethig went wrong'],
+			   		            autoClose: '5000',
+			   		            type: 'error',
+			   		            transition: 'vertical'
+			   		        });
+			   		    }
 			   		})
 					.error(function (error) {
-				       console.log('submitDocumentToSynapseV3 Error: [' + JSON.stringify(error) + ']');
-				       $ionicLoading.hide();
-				       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-				           CommonServices.logOut();
-				   })
+					    console.log('submitDocumentToSynapseV3 Error: [' + JSON.stringify(error) + ']');
+					    $ionicLoading.hide();
+					    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+					        CommonServices.logOut();
+					})
                //}
                //else
                //    swal("Oops...", "Internet not connected!", "error");

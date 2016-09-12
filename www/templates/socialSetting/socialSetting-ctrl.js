@@ -7,7 +7,7 @@
         console.log('Social Setting Controller Loadad');
 
         if ($rootScope.fbid == "")
-            $rootScope.fbid = 'not connected';  
+            $rootScope.fbid = 'not connected';
 
         $scope.socialSetting = {
             Name: '',
@@ -18,14 +18,14 @@
         };
 
         $scope.isConnect = false;
-        console.log($scope.socialSetting.fbid);       
+        console.log($scope.socialSetting.fbid);
     })
 
     $scope.connectFb = function () {
         console.log('connectFb Fired');
 
         if (!window.cordova)
-           facebookConnectPlugin.browserInit("738390306293716"); //facebookConnectPlugin.browserInit("198279616971457");
+            facebookConnectPlugin.browserInit("738390306293716"); //facebookConnectPlugin.browserInit("198279616971457");
 
         facebookConnectPlugin.login(['email', 'public_profile'], function (response) {
 
