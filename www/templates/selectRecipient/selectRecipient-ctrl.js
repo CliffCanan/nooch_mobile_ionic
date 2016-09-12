@@ -273,14 +273,16 @@
         selectRecipientService.GetLocationSearch()
             .success(function (data) {
                 console.log(data);
-                for (var i = 0; i < data.length; i++) {
 
-                    if (data[i].Miles <1) {
-
+                for (var i = 0; i < data.length; i++)
+                {
+                    if (data[i].Miles < 1)
+                    {
                         data[i].Miles = data[i].Miles * 5280;
                         data[i].Miles = data[i].Miles + ' Feet';
                     }
-                    else {
+                    else
+                    {
                         data[i].Miles = data[i].Miles + ' Miles';
                     }
                 }
@@ -303,7 +305,6 @@
 
         if ($('#searchBar').val() == '')
             $scope.showEmPhDiv = false;
-
 
         if ($('#recents-table').html() == undefined)
         {
@@ -335,5 +336,5 @@
             return (false)
     }
 
-  $scope.historyListHeight = { 'max-height': $rootScope.screenHeight - 150 + 'px' }
+    $scope.selectRecipListHeight = { 'max-height': $rootScope.screenHeight - 150 + 'px' }
 })
