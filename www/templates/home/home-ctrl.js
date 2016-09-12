@@ -189,7 +189,7 @@
                 var contact = contacts[i];
 
                 if (contact.name.formatted != null && contact.emails != null) {
-                    $scope.readContact.FirstName = contact.name.formatted;
+                //    $scope.readContact.FirstName = contact.name.formatted;
                     $scope.readContact.id = i;
                     $scope.readContact.bit = 'p';
 
