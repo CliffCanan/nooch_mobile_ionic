@@ -740,6 +740,7 @@ a {
 }
 
 .bar .button, .bar button {
+	background: none;
     border: none;
     font-size: 12px;
 }
@@ -768,16 +769,17 @@ a {
 }
 
 .list .emptyView {
-    color: #999;
-    background-color: #fdfdfe;
-    transition: .3s all;
-    text-align: center;
-    padding: 16px 10px 18px;
-    font-size: 19px;
-    font-weight: 300;
+    background-color: #fafafb;
     border: 1px solid #ddd;
     border-radius: 10px;
-    margin: 10px 5% 100px;
+    color: #888;
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 300;
+    margin: 10px 6% 100px;
+    padding: 16px 10px 18px;
+    transition: .3s all;
+    text-align: center;
 }
 
 .list .item + p.emptyView {
@@ -844,7 +846,10 @@ a {
     }
 
     .sweet-alert button {
-        margin: 8px 6px 5px;
+        margin: 8px 4px 5px;
+		min-width: 88px;
+		padding: 10px 20px;
+		text-shadow: 0px -1px rgba(19, 32, 38, 0.2);
         text-transform: uppercase;
     }
 
@@ -1391,13 +1396,14 @@ div.hscroller-card {
     div.hscroller-card div.hscroller-label {
         color: #444;
         font-size: 17px;
+        line-height: 1.2;
         text-align: center;
-        margin-top: 10px;
+        margin-top: 9px;
     }
 
 #fav-container {
     transition: .7s all ease-out;
-    margin-bottom: -4px;
+    height: 150px;
 }
 
 
@@ -1910,6 +1916,7 @@ div.hscroller-card {
     font-size: 30px;
     display: block;
     margin: 0 auto;
+	padding: 0;
     text-shadow: 0px -1px 0px rgba(0,0,0,.25);
     transition: all .3s;
     height: 66px;
@@ -1943,6 +1950,10 @@ div.hscroller-card {
 
 #statsExportWrap .btn {
     line-height: 1;
+}
+
+.slider .card {
+	margin-top: 10px;
 }
 
 /**********************/
@@ -2140,18 +2151,24 @@ div.hscroller-card {
         border-radius: 6px; /*Needed for error styling*/
         color: #58595B;
         font-size: 42px;
-        height: 66px;
-        padding-right: 8px;
+        height: 70px;
+		line-height: 70px;
+        padding: 0 8px 0 0;
+		position: absolute;
         text-align: right;
+		top: 0;
+		right: 0;
         width: 190px;
     }
 
     .amount-container #dollarSign {
         color: #58595B;
         font-size: 41px;
+		line-height: 70px;
         position: absolute;
-        top: 17px;
+        top: 0px;
         left: 20px;
+		z-index: 9;
     }
 
 @media screen and (min-width: 360px) {
@@ -2185,25 +2202,58 @@ div.hscroller-card {
     padding: 0px 5px;
 }
 
-#howMuchBox .button-bar button {
-    font-family: Roboto;
-    font-size: 20px;
-    height: 56px;
-    letter-spacing: 0.5px;
-    margin-bottom: -2px;
-    text-transform: uppercase;
+#howMuchBox .button-bar {
+    position: relative;
 }
 
-#howMuchBox .button-bar > .button:first-child {
-    border-radius: 0 0 0 5px;
-    margin-right: 5px;
+    #howMuchBox .button-bar button {
+        font-family: Roboto;
+        font-size: 20px;
+        height: 56px;
+        letter-spacing: 0.5px;
+        margin-bottom: -2px;
+        text-overflow: clip;
+        text-transform: uppercase;
+        transition: .5s all ease-in-out;
+    }
+
+    #howMuchBox .button-bar > .button:first-child {
+        border-radius: 0 0 0 5px;
+        margin-right: 5px;
+    }
+
+    #howMuchBox .button-bar > .button:last-child {
+        border-radius: 0 0 5px 0;
+    }
+
+    #howMuchBox .button-bar .button.shrink {
+        flex: 0 !important;
+        padding: 0 !important;
+        min-width: 0;
+    }
+
+    #howMuchBox .button-bar .button.expand {
+        border-radius: 0 0 5px 5px;
+    }
+
+    #howMuchBox .button-bar #requestBtn.expand {
+        margin-right: -2px !important;
+    }
+
+    #howMuchBox .button-bar #sendBtn.expand {
+        margin-left: -6px !important;
+    }
+
+#howMuchBox #resetBtn {
+    color: #fff;
+    right: 0;
+    bottom: 0;
+    height: 54px;
+    padding: 20px 10px;
+    position: absolute;
 }
 
-#howMuchBox .button-bar > .button:last-child {
-    border-radius: 0 0 5px 0;
-}
-
-#howMuchBox input.parsley-error {
+#howMuchBox .button-bar #howMuchBox input.parsley-error {
     background: rgba(169, 68, 66,.2);
     box-shadow: none;
 }
@@ -2228,10 +2278,12 @@ div.hscroller-card {
 }
 
     .pin-container input {
-        font-size: 40px;
-        letter-spacing: 20px;
+        font-size: 60px;
+		font-weight: 700;
+        letter-spacing: 25px;
+		line-height: 1;
         text-align: center;
-        height: 60px;
+        height: 65px;
         padding: 0;
         width: 100%;
     }
@@ -2247,17 +2299,17 @@ div.hscroller-card {
 
 .recipient-box {
     font-family: Roboto;
-    height: 72px;
+    height: 80px;
     position: relative;
 }
 
     .recipient-box .recip-pic {
-        height: 58px;
-        width: 58px;
+        height: 60px;
+        width: 60px;
         border-radius: 50%;
         border: 1px solid #fff;
         position: absolute;
-        top: 8px;
+        top: 10px;
         left: 6px;
         z-index: 20;
     }
@@ -2266,7 +2318,7 @@ div.hscroller-card {
         color: #fff;
         border-radius: 6px 6px 0 0;
         font-size: 20px;
-        padding: 8px 5px 8px 40px;
+        padding: 7px 5px 7px 40px;
         position: absolute;
         top: 0;
         left: 0;
@@ -2424,6 +2476,7 @@ ul {
     .idPicWrap img {
         border-radius: 16px;
         box-shadow: 0 4px 18px -4px rgba(0, 0, 0, .25);
+		max-width: 80%;
     }
 
     .idPicWrap #editTxt {
@@ -5424,4 +5477,60 @@ ul {
 .slideOutUp {
     -webkit-animation-name: slideOutUp;
     animation-name: slideOutUp;
+}
+
+/*For making action sheet same as iPhone*/
+
+.platform-android .action-sheet-backdrop.active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.platform-android .action-sheet {
+    align-content: center;
+    margin: auto;
+    max-width: 96vw;
+    border-radius: 5px;
+    /*margin: 0;*/
+    margin-bottom: 10px;
+}
+
+    .platform-android .action-sheet .action-sheet-title, .platform-android .action-sheet .button {
+        text-align: left;
+        /*border-color: #e2e2e2;*/
+        font-size: 16px;
+        color: inherit;
+    }
+
+    .platform-android .action-sheet .action-sheet-title {
+        font-size: 14px;
+        padding: 16px;
+        color: #666;
+    }
+
+    .platform-android .action-sheet .button {
+        border-color: #e2e2e2;
+        padding-left: 16px;
+        color: #104e89;
+    }
+
+        .platform-android .action-sheet .button.destructive {
+            color: red;
+        }
+
+        .platform-android .action-sheet .button.active, .platform-android .action-sheet .button.activated {
+            background: #e8e8e8;
+        }
+
+.platform-android .action-sheet-group {
+    /*margin: 0;*/
+    border-radius: 0;
+    background-color: #fafafa;
+}
+
+.platform-android .action-sheet-cancel {
+    display: none;
+}
+
+.platform-android .action-sheet-has-icons .button {
+    padding-left: 56px;
 }

@@ -24,14 +24,9 @@
                 titleText: 'Add Your Picture',
                 cancelText: 'Cancel',
                 buttonClicked: function (index) {
-                    if (index == 0)
-                    {
-                        $scope.choosePhotoFromDevice();
-                    }
-                    else if (index == 1)
-                    {
-                        $scope.takePhoto();
-                    }
+                    if (index == 0) $scope.choosePhotoFromDevice();
+                    else if (index == 1) $scope.takePhoto();
+
                     return true;
                 }
             });

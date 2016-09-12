@@ -24,7 +24,7 @@
 
             <img src="././img/SelectRecip_Empty@2x.png" ng-show="recentCount === 0 && memberList.length === 0" class="emptyTableImg" />
 
-            <ion-list class="selectRecipList">
+            <ion-list class="selectRecipList" ng-if="loadComplete == true">
                 <ion-item ng-repeat="member in memberList | filter:search" class="list" id="recents-table">
 
                     <a class="item item-avatar"  ng-click="openFilterChoices(member)" nav-transition="ios" nav-direction="forward">
@@ -39,9 +39,12 @@
                     </a>
 
                 </ion-item>
+
+                <p class="emptyView">Nobody found!</p>
+
             </ion-list>
 
-            <div ng-show="show" id="dvSendTo">
+            <div ng-show="showEmPhDiv == true" id="dvSendTo">
                 <a class="" ui-sref="app.howMuch({recip:search})">
                     <span class="sendTo">Send to: <i ng-if="sendTo == 'Email Address'" class="fa fa-envelope"></i></span>
                     <span class="enteredTxt">{{search}}</span>

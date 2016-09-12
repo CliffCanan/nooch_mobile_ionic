@@ -58,12 +58,12 @@
                 $scope.Details = details;
 
                 if (details.DateOfBirth != null && details.DateOfBirth.length > 0)
-                    $scope.DobAsDateObj = new Date(details.DateOfBirth);
+					$scope.Details.DateOfBirth = new Date(details.DateOfBirth);
 
                 $ionicLoading.hide();
             })
             .error(function (error) {
-                console.log('Profile Error: [' + JSON.stringify(error) + ']');
+                console.log('GetMyDetails Error: [' + JSON.stringify(error) + ']');
                 $ionicLoading.hide();
 
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
@@ -76,10 +76,11 @@
 
     
     $scope.UpdateProfile = function () {
-        if ($('#profileForm').parsley().validate() == true) {
-            console.log($('#profileForm').parsley().validate());
-            console.log('Update Profile Function Touched');       
+        console.log('Update Profile Function Touched');       
+        console.log($('#profileForm').parsley().validate());
 
+		if ($('#profileForm').parsley().validate() == true) 
+		{
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
                 template: 'Saving Profile...'
@@ -100,7 +101,8 @@
                             autoClose: '5000',
                             type: 'success',
                             transition: 'vertical'
-                        });                    
+                        });
+
                         if ($scope.Details.SSN != null)
                             $scope.saveSSN($scope.Details);
 
@@ -108,8 +110,8 @@
 
                         if ($scope.shouldGoToSettings)
                             $state.go('app.settings');
-                    }
-                   else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1) {
+					}
+					else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1) {
                         $ionicContentBanner.show({
                             text: ['Phone Number already registered with Nooch :-( '],
                             autoClose: '5000',
@@ -145,6 +147,7 @@
             //    swal("Oops...", "Internet not connected!", "error");
         }
     }
+
 
     $scope.ResendVerificationLink = function () {
         swal({
@@ -271,6 +274,7 @@
             $cordovaDatePicker.show(options).then(function (date) {
                 $scope.Details.DateOfBirth = date;
                 if ($scope.Details.DateOfBirth != null)
+                    //$scope.Details.DateOfBirth = new Date($scope.Details.DateOfBirth);
                     console.log('From DatePicker: [' + $scope.Details.DateOfBirth + ']');
             });
         }, false);
@@ -368,7 +372,8 @@
         });
     }
 
-    $scope.choosePhoto = function () {
+
+	$scope.choosePhoto = function () {
         $ionicPlatform.ready(function () {
             var options = {
                 quality: 75,

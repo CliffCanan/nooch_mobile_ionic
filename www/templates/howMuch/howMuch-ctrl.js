@@ -100,12 +100,8 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('HowMuchCntrl Fired');
 
-        /*$ionicModal.fromTemplateUrl('templates/howMuch/modalPin.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.modal = modal;
-        });*/
+        $scope.requestSelected = false;
+        $scope.sendSelected = false;
 
         console.log($stateParams);
 
@@ -140,7 +136,7 @@
 
         var enteredAmnt = $scope.recipientDetail.Amount;
 
-        if (enteredAmnt.length > 0)
+        if (typeof enteredAmnt != "undefined" && enteredAmnt.length > 0)
         {
             console.log("enteredAmnt > 0");
 
@@ -161,19 +157,28 @@
                 console.log("2nd one");
                 $scope.recipientDetail.Amount = enteredAmnt + "0";
             }
-            //}
-        }
 
-        console.log($('#howMuchForm').parsley().validate());
+            //console.log($('#howMuchForm').parsley().validate());
+        }
     });
 
 
     $scope.submitRequest = function () {
         type = 'request';
+        $scope.sendSelected = false;
 
         console.log($('#howMuchForm').parsley().validate());
+		
+        if ($scope.requestSelected == true)
+        {
+            CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
 
-        if ($('#howMuchForm').parsley().validate() == true)
+            $state.go('enterPin');
+        }
+        // else if ($('#howMuchForm').parsley().validate() == true)
+        else if (typeof $scope.recipientDetail.Amount != "undefined" &&
+            $scope.recipientDetail.Amount >= 1 &&
+            $scope.recipientDetail.Amount <= 5000)
         {
             console.log($scope.requestData);
 
@@ -198,20 +203,30 @@
                 $scope.requestData.RecepientName = $scope.requestData.MoneySenderEmailId ? $scope.requestData.MoneySenderEmailId
                                                                                          : $scope.requestData.contactNumber;
 
-            console.log($scope.requestData);
-            CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
+            // $("#sendBtn").addClass("shrink");
+            // $("#requestBtn").addClass("expand");
 
-            $state.go('enterPin');
+            $scope.requestSelected = true;
+
+            console.log($scope.requestData);
         }
     };
 
 
     $scope.submitSend = function () {
+        $scope.requestSelected = false;
+
         type = 'send';
 
         console.log('SubmitSend() Fired -> Amount: ' + $scope.recipientDetail.Amount);
 
-        if ($scope.recipientDetail.Amount < 5000)
+        if ($scope.sendSelected == true)
+        {
+            CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
+
+            $state.go('enterPin');
+        }
+        else if ($scope.recipientDetail.Amount < 5000)
         {
             console.log($scope.recipientDetail);
 
@@ -240,41 +255,49 @@
 
             console.log($scope.sendData);
 
-            CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
-
-            $state.go('enterPin');
+            $scope.sendSelected = true;
         }
     }
 
 
+    $scope.resetBtns = function () {
+        $scope.requestSelected = false;
+        $scope.sendSelected = false;
+    }
+
+
     $scope.checkAmount = function () {
-        console.log(typeof $scope.recipientDetail.Amount);
-        console.log($scope.recipientDetail.Amount);
+        //console.log(typeof $scope.recipientDetail.Amount);
 
-        var currentVal = $scope.recipientDetail.Amount;
-
-        if (currentVal > 5000)
+        if (typeof $scope.recipientDetail.Amount != "undefined")
         {
-            $scope.recipientDetail.Amount = 5000;
+            console.log($scope.recipientDetail.Amount);
 
-            $ionicContentBanner.show({
-                text: ['The max transfer amount is currently $5,000.'],
-                autoClose: 4000,
-                type: 'error',
-                transition: 'vertical'
-            });
+            var currentVal = $scope.recipientDetail.Amount;
+
+            if (currentVal > 5000)
+            {
+                $scope.recipientDetail.Amount = 5000;
+
+                $ionicContentBanner.show({
+                    text: ['The max transfer amount is currently $5,000.'],
+                    autoClose: 4000,
+                    type: 'error',
+                    transition: 'vertical'
+                });
+            }
+            // if (currentVal < 5)
+            // 		{
+            // 			//$scope.recipientDetail.Amount = 5000;
+            //
+            //             $ionicContentBanner.show({
+            //                 text: ['The minimum transfer amount is currently $5.'],
+            // 				autoClose: 4000,
+            //                 type: 'error',
+            //                 transition: 'vertical'
+            //             });
+            // 		}
         }
-        // if (currentVal < 5)
-        // 		{
-        // 			//$scope.recipientDetail.Amount = 5000;
-        //
-        //             $ionicContentBanner.show({
-        //                 text: ['The minimum transfer amount is currently $5.'],
-        // 				autoClose: 4000,
-        //                 type: 'error',
-        //                 transition: 'vertical'
-        //             });
-        // 		}
     }
 
 
@@ -283,9 +306,9 @@
         $ionicPlatform.ready(function () {
 
             var options = {
-                maximumImagesCount: 10,
-                width: 800,
-                height: 800,
+                maximumImagesCount: 0,
+                width: 500,
+                height: 500,
                 quality: 80
             };
 
@@ -297,7 +320,7 @@
                   }
               }, function (error) {
                   // error getting photos
-                  // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                  // if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                   CommonServices.logOut();
               });
         });
@@ -310,17 +333,12 @@
               { text: 'From Device Photos' },
               { text: 'Use Camera' }
             ],
-            titleText: 'Attach a picture',
+            titleText: 'Attach a Picture',
             cancelText: 'Cancel',
             buttonClicked: function (index) {
-                if (index == 0)
-                {
-                    $scope.choosePhoto();
-                }
-                else if (index == 1)
-                {
-                    $scope.takePhoto();
-                }
+                if (index == 0) $scope.choosePhoto();
+                else if (index == 1) $scope.takePhoto();
+
                 return true;
             }
         });
