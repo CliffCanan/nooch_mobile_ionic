@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl',
+angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl',
   'noochApp.historyCtrl', 'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl',
   'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl', 'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl',
   'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.transferDetailsCtrl',
@@ -12,7 +12,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards', 'ngMap'])
 
 
-  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices) {
+  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices, $ionicPopup) {
 
       if (!$localStorage.GLOBAL_VARIABLES) {
           console.log("App.js -> Run -> GLOBAL_VARs did not exist, creating defaults now");
@@ -60,6 +60,12 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       $ionicPlatform.ready(function () {
           // Enable to debug issues.
           // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+
+          if (typeof analytics !== undefined) {
+              analytics.startTrackerWithId("UA-36976317-2");
+          } else {
+              console.log("Google Analytics Unavailable");
+          }
 
           $rootScope.phoneContacts = [];
           var readContact = {
