@@ -34,8 +34,9 @@
 				    $scope.isFinishedLoading = true;
 
 				    $scope.transactionList = data;
-				    console.log('GetTransferList Result Data >>>>>');
-				    console.log($scope.transactionList);
+
+				    // console.log('GetTransferList Result Data >>>>>');
+				    // console.log($scope.transactionList);
 
 				    for (var i = 0; i < $scope.transactionList.length; i++)
 				    {
@@ -55,7 +56,7 @@
 				});
             //}
             //else
-            //  swal("Oops...", "Internet not connected!", "error");
+            //  swal("Error", "Internet not connected!", "error");
         });
 
         $scope.cancelPayment = function (trans) {
@@ -66,25 +67,27 @@
                 template: 'Cancelling Request...'
             });
 
-            transferDetailsService.CancelRequest(trans.TransactionId).success(function (data) {
-                if (data.Result.indexOf('Successfully') > -1)
-                    swal({
-                        title: "Request Cancelled",
-                        text: data.Result,
-                        type: "success",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ok!"
-                    }, function () {
-                        $ionicLoading.hide();
-                        location.reload();
-                    });
-            })
-			.error(function (error) {
-			    $ionicLoading.hide();
-			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-			        CommonServices.logOut();
-			});
+            transferDetailsService.CancelRequest(trans.TransactionId)
+                .success(function (data) {
+                    $ionicLoading.hide();
+
+                    if (data.Result.indexOf('Successfully') > -1)
+                        swal({
+                            title: "Request Cancelled",
+                            text: data.Result,
+                            type: "success",
+                            confirmButtonColor: "#3fabe1"
+                        }, function () {
+                            $state.reload();
+                        });
+                })
+			    .error(function (error) {
+			        $ionicLoading.hide();
+			        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+			            CommonServices.logOut();
+			    });
         }
+
 
         $scope.rejectPayment = function (trans) {
 
@@ -94,25 +97,25 @@
                 template: 'Rejecting Request...'
             });
 
-            transferDetailsService.RejectPayment(trans.TransactionId).success(function (data) {
-                $ionicLoading.hide();
+            transferDetailsService.RejectPayment(trans.TransactionId)
+                .success(function (data) {
+                    $ionicLoading.hide();
 
-                if (data.Result.indexOf('Successfully') > -1)
-                    swal({
-                        title: "Request Rejected",
-                        text: data.Result,
-                        type: "success",
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ok!"
-                    }, function () {
-                        location.reload();
-                    });
-            })
-			.error(function (error) {
-			    $ionicLoading.hide();
-			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-			        CommonServices.logOut();
-			});
+                    if (data.Result.indexOf('Successfully') > -1)
+                        swal({
+                            title: "Request Rejected",
+                            text: data.Result,
+                            type: "success",
+                            confirmButtonColor: "#3fabe1"
+                        }, function () {
+                            $state.reload();
+                        });
+                })
+			    .error(function (error) {
+			        $ionicLoading.hide();
+			        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+			            CommonServices.logOut();
+			    });
         }
 
         $scope.remindPayment = function (trans) {
@@ -121,27 +124,35 @@
                 template: 'Sending Reminder...'
             });
 
-            transferDetailsService.RemindPayment(trans.TransactionId).success(function (data) {
-                $ionicLoading.hide();
+            transferDetailsService.RemindPayment(trans.TransactionId)
+                .success(function (data) {
+                    $ionicLoading.hide();
 
-                if (data.Result.indexOf('successfully') > -1)
-                    swal({ title: "Sent", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                        location.reload();
-                    });
-                else
-                    swal("Error", data.Result, "error");
-
-            }).error(function (error) {
-                $ionicLoading.hide();
-                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-            });
+                    if (data.Result.indexOf('successfully') > -1)
+                        swal({
+                            title: "Sent",
+                            text: data.Result,
+                            type: "success",
+                            confirmButtonColor: "#3fabe1"
+                        }, function () {
+                            $state.reload();
+                        });
+                    else
+                        swal("Error", data.Result, "error");
+                })
+                .error(function (error) {
+                    $ionicLoading.hide();
+                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                        CommonServices.logOut();
+                });
         }
+
 
         $scope.PayBack = function (trans) {
             console.log("Pay Back Result: [" + JSON.stringify(trans) + ']');
             $state.go('app.howMuch', { myParam: trans });
         }
+
 
         $scope.TransferMoney = function (trans) {
             transDetails = trans;
@@ -156,10 +167,11 @@
 
         $scope.showMap = function (longi, lati) {
             // if ($cordovaNetwork.isOnline()) {
+            console.log($rootScope.Location.longi);
+            console.log($rootScope.Location.lati);
+
             if (longi == 0 || lati == 0 || longi == '' || lati == '')
             {
-                console.log($rootScope.Location.longi);
-                console.log($rootScope.Location.lati);
                 $ionicContentBanner.show({
                     text: ['No Location Found'],
                     autoClose: '3000',
@@ -174,16 +186,13 @@
                 });
 
                 $state.go('app.map');
-                console.log('from the function show map');
 
-                console.log($rootScope.Location.longi);
-                console.log($rootScope.Location.lati);
                 $rootScope.Location.longi = longi;
                 $rootScope.Location.lati = lati;
             }
             //}
             //else
-            //  swal("Oops...", "Internet not connected!", "error");
+            //  swal("Error", "Internet not connected!", "error");
         }
 
 
@@ -204,8 +213,6 @@
                     $scope.pending = true;
                     $scope.completed = false;
                 }
-                console.log("ToggleView Fired - [" + view + "]");
-                //console.log($scope.transactionList);
             });
         }
 
@@ -353,12 +360,12 @@
 
 
         $scope.$watch('search', function (val) {
-            console.log("SEARCH FIRED");
-            console.log($filter('filter')($scope.transactionList, val));
+            //console.log("SEARCH FIRED");
+            //console.log($filter('filter')($scope.transactionList, val));
 
             $scope.transactionList = $filter('filter')($scope.transactionList, val);
 
-            console.log($scope.transactionList);
+            ///console.log($scope.transactionList);
 
             if ($('#searchBar').val().length == 0)
                 $scope.transactionList = $scope.transList;

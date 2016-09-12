@@ -274,6 +274,10 @@ ion-header-bar, .navheader, .bar.bar-header {
     margin-left: 50px !important;
 }
 
+.m-t-120 {
+    margin-top: 120px !important;
+}
+
 .m-t-neg-10 {
     margin-top: -10px !important;
 }
@@ -752,7 +756,6 @@ a {
 .bar-stable .button.button-clear {
     font-size: 18px;
     text-shadow: 0px -1px 0px rgba(19,32,38,.2);
-    opacity: .94;
 }
 
 /***  Cards  ***/
@@ -793,17 +796,21 @@ a {
 /***  Forms  ***/
 .input-label {
     font-size: 17px;
+    line-height: 1;
 }
 
 .item.item-input input {
     font-size: 17px;
 }
 
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
+    line-height: 1;
+}
 
 /***  SWEET ALERT  ***/
 .sweet-alert {
     top: 35%;
-    padding: 4px 16px 12px;
+    padding: 4px 12px 12px;
 }
 
     .sweet-alert.hasImage {
@@ -836,6 +843,7 @@ a {
 
     .sweet-alert h2 {
         color: #444;
+        font-size: 28px;
         margin: 22px 0 12px;
     }
 
@@ -941,7 +949,7 @@ input.parsley-error {
 }
 
 form.smErrors .parsley-errors-list {
-    font-size: 20px;
+    font-size: 18px;
     position: relative;
     top: -5px;
     left: -15px;
@@ -951,6 +959,16 @@ form.smErrors .parsley-errors-list {
     color: rgb(169, 68, 66);
     display: block;
     font-weight: 400;
+}
+
+
+/***  SLIDERS  ***/
+.swiper-container-horizontal > .swiper-pagination .swiper-pagination-bullet {
+    margin: 0 7px;
+}
+
+#howItWorksSlider .swiper-pagination-bullet {
+    background: #ddd;
 }
 
 
@@ -1140,6 +1158,8 @@ iframe {
 }
 
 #continueBtn i {
+    font-size: 16px;
+    line-height: 1;
 }
 
 /*****************/
@@ -1430,7 +1450,7 @@ div.hscroller-card {
     position: absolute;
     top: -7px;
     right: 2%;
-    text-shadow: 0 1px 3px rgba(0,0,0,.15);
+    text-shadow: 0 1px 5px rgba(0,0,0,.1);
 }
 
 #bankIntro {
@@ -1973,6 +1993,7 @@ div.hscroller-card {
     display: block;
     max-width: 85%;
     margin: 70px auto 0px;
+    opacity: 0;
 }
 
 #howItWorksSlider .slideTitle {
@@ -2019,8 +2040,9 @@ div.hscroller-card {
     color: #ddd;
     text-decoration: none;
     float: right;
-    margin: 40px 16px 0 0;
+    margin: 60px 16px 0 0;
     padding: 5px 15px;
+    opacity: 0;
 }
 
 
@@ -2179,6 +2201,10 @@ div.hscroller-card {
 
     .amount-container #dollarSign {
         font-size: 45px;
+    }
+
+    .sweet-alert {
+        padding: 4px 16px 12px;
     }
 }
 
@@ -2433,7 +2459,7 @@ div.hscroller-card {
     padding-top: 0;
 }
 
-ul {
+ul:not(.parsley-errors-list) {
     font-size: 16px;
     list-style-type: disc;
     padding-left: 35px;

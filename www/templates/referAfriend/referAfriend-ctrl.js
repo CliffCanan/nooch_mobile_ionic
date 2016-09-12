@@ -7,8 +7,9 @@
          $scope.referredUsersCount = 0;
      });
 
+
      $scope.$on("$ionicView.enter", function (event, data) {
-         console.log("Refer a friend Controller Loaded");
+         //console.log("Refer a Friend Controller Loaded");
 
          $ionicLoading.show({
              template: 'Loading...'
@@ -16,6 +17,7 @@
 
          $scope.getReferralCode();
      });
+
 
      $scope.getReferralCode = function () {
          //if ($cordovaNetwork.isOnline()) {
@@ -76,19 +78,17 @@
              var msg = "Hey! You should check out Nooch, a great free app for paying me back. Use my invite code: \"" + $scope.inviteCode + "\" - download here: http://bit.ly/1xdG2le";
 
              $ionicPlatform.ready(function () {
-                 // access multiple numbers in a string like: '0612345678,0687654321'
                  $cordovaSocialSharing
                    .shareViaSMS(msg, "")
                    .then(function (result) {
                        // Success!
                    }, function (err) {
-                       // An error occurred. Show a message to the user
                    });
              });
          }
          else if (type == "fb")
          {
-             var shareDesc = "Check out Nooch, the simplest way to pay me back (and get paid by anyone - for free)! Use my invite code to sign up: \"" + $scope.inviteCode + "\"";
+             var shareDesc = "Check out Nooch, the simple, free, and PRIVATE way to pay me back!";
 
              $ionicPlatform.ready(function () {
                  $cordovaSocialSharing
@@ -96,13 +96,12 @@
                     .then(function (result) {
                         // Success!
                     }, function (err) {
-                        // An error occurred. Show a message to the user
                     });
              });
          }
          else if (type == "twitter")
          {
-             var tweetTxt = "Check out @NoochMoney, the simplest free way to pay me back! Use my invite code to sign up: \"" + $scope.inviteCode + "\"";
+             var tweetTxt = "Check out @NoochMoney, the simple, free, & PRIVATE way to pay me back! ";
 
              $ionicPlatform.ready(function () {
                  $cordovaSocialSharing
@@ -110,17 +109,20 @@
                     .then(function (result) {
                         // Success!
                     }, function (err) {
-                        // An error occurred. Show a message to the user
                     });
              });
          }
          else if (type == "email")
          {
              var subject = "Check out Nooch - a free app to pay me back";
-             var msgBody = "Hey there,<br/><p>You should check out Nooch, a great <strong>free app</strong> that lets me pay you back anytime, anywhere.  Since I know you don't like carrying cash around either, I thought you would love using Nooch!</p><p>You can <a href=\"https://157050.measurementapi.com/serve?action=click&publisher_id=157050&site_id=91086\">download Nooch</a> from the App Store - and be sure to use my Referral Code:</p><p style=\"text-align:center;font-size:1.5em;\"><strong>" + $scope.inviteCode + "</strong></p><p>To learn more about Nooch, here's the website: <a href=\"https://www.nooch.com/overview/\">www.Nooch.com</a>.</p><p>- " + $scope.firstName + "</p>";
+             var msgBody = "Hey there,<br/><p>You should check out Nooch, a great <strong>free app</strong> that lets me pay you back anytime, anywhere.  " +
+                           "Since I know you don't like carrying cash around either, I thought you would love using Nooch!</p>" +
+                           "<p>You can <a href=\"https://157050.measurementapi.com/serve?action=click&publisher_id=157050&site_id=91086\">download Nooch</a> from the App Store - " +
+                           "and be sure to use my Referral Code:</p><p style=\"text-align:center;font-size:1.5em;\"><strong>" + $scope.inviteCode + "</strong></p>" +
+                           "<p>To learn more about Nooch, here's the website: <a href=\"https://www.nooch.com/overview/\">www.Nooch.com</a>.</p><p>- " + $localStorage.GLOBAL_VARIABLES.firstName + "</p>";
              var toArr = [""]; // Just for testing
              var ccArr = [""];
-             var bccArr = ["cliff@nooch.com"];
+             var bccArr = [""];
 
              $ionicPlatform.ready(function () {
                  // toArr, ccArr and bccArr must be an array, file can be either null, string or array

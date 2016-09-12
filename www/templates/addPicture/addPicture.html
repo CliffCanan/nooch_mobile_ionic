@@ -21,28 +21,24 @@
                 </div>
 
                 <div class="p-l-5 p-r-5">
-                    <p class="m-0 f-17" ng-show="showContinueBtn != true">Add a picture so people will be able to identify you better when sending you money.</p>
-                    <p class="m-0 f-17" ng-show="showContinueBtn == true">Great pic! If you're happy with it, tap "Continue".</p>
-
-                    <button class="button btn-primary button-block m-t-25" ng-click="choosePhoto()">
-                        <i class="ion-android-camera m-r-15"></i>
-                        <span ng-if="showContinueBtn != true">Choose Picture</span>
-                        <span ng-if="showContinueBtn == true">Change Picture</span>
-                    </button>
+                    <p class="m-b-20 f-17" ng-show="showContinueBtn != true">Add a picture so people will be able to identify you better when sending you money.</p>
+                    <p class="m-b-20 f-17" ng-show="showContinueBtn == true">Great pic! If you're happy with it, tap <span class="f-500">"Continue"</span>.</p>
 
                     <button ng-if="showContinueBtn == true" id="continueBtn" class="button btn-success button-block m-t-5 animated bounceIn" ng-click="continue()">
                         Continue
                         <i class="ion-arrow-right-b m-l-15"></i>
                     </button>
 
+                    <button class="btn btn-primary button-block m-b-15" ng-click="choosePhoto()">
+                        <i class="ion-android-camera m-r-15"></i>
+                        <span ng-if="showContinueBtn != true">Choose Picture</span>
+                        <span ng-if="showContinueBtn == true">Change Picture</span>
+                    </button>
+
                 </div>
 
-                <div ng-if="signUpData.Photo != null && signUpData.Photo != ''">
-                    <a href="#/createPin" ng-click="isUrlUpdated()" class="button button-clear button-dark p-t-15">I don't want to change my picture...</a>
-                </div>
-
-                <div ng-if="signUpData.Photo == null || signUpData.Photo == ''">
-                    <a href="#/createPin" class="button button-clear button-dark p-t-10">I don't want to add a picture now...</a>
+                <div ng-if="(signUpData.Photo == null || signUpData.Photo == '') && showContinueBtn != true">
+                    <a href="#/createPin" ng-click="isUrlUpdated()" class="button button-clear button-dark p-t-10">I don't want to add a picture now...</a>
                 </div>
 
             </div>

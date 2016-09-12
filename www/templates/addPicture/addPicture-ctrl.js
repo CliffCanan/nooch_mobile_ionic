@@ -3,10 +3,10 @@
     .controller('addPictureCtrl', function ($scope, $state, CommonServices, profileService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $rootScope, $ionicActionSheet) {
 
 
-        $scope.$on("$ionicView.enter", function (event, data) {
+        $scope.$on("$ionicView.beforeEnter", function (event, data) {
             console.log('Add Picture Controller Loaded');
 
-            console.log($rootScope.signUpData);
+            //console.log($rootScope.signUpData);
 
             if ($rootScope.signUpData == null)
                 $state.go('signup');
@@ -36,7 +36,7 @@
         $scope.choosePhotoFromDevice = function () {
             $ionicPlatform.ready(function () {
                 var options = {
-                    quality: 75,
+                    quality: 80,
                     destinationType: Camera.DestinationType.DATA_URL,
                     sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
                     allowEdit: true,

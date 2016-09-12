@@ -6,7 +6,8 @@
             <div class="section-header m-t-20">
                 <span>Linked Banked Account</span>
                 <span class="alertIcon" ng-if="hasSynapseBank != true || bankData.bankStatus == 'Not Verified'">!</span>
-                <button type="button" id="replaceBankBtn" class="pull-right" ng-click="openAddBank()">
+
+                <button type="button" id="replaceBankBtn" class="pull-right" ng-click="openAddBank()" ng-if="hasSynapseBank == true">
                     <i class="ion-android-add-circle"></i>
                 </button>
             </div>

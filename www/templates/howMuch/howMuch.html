@@ -5,7 +5,7 @@
 
             <form id="howMuchForm">
 
-                <div class="header-item barBackground">
+                <div class="header-item barBackground" ng-class="{'blue': requestSelected == true, 'green': sendSelected == true}">
                     To:&nbsp;
                     <span id="recipName">
                         <span ng-if="recipientDetail.FirstName">{{recipientDetail.FirstName}}</span>

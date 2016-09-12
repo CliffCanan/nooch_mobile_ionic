@@ -2,7 +2,7 @@
 .controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner, $rootScope, $ionicActionSheet) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('Profile Page Loadad');
+        //console.log('Profile Page Loadad');
 
         $scope.shouldGoToSettings = false;
         $scope.shouldDisplayErrorBanner = false;
@@ -35,8 +35,6 @@
             $('#profileTopSection').removeClass('p-t-35');
 
         $scope.isAnythingChanged = false;
-        $scope.Status = $localStorage.GLOBAL_VARIABLES.Status;
-        $scope.IsPhoneVerified = $localStorage.GLOBAL_VARIABLES.IsPhoneVerified;
         $scope.MemberDetails();
     })
 
@@ -52,8 +50,8 @@
 
         profileService.GetMyDetails()
             .success(function (details) {
-                console.log('Profile Data GetMyDetails...');
-                console.log(details);
+                // console.log('Profile Data GetMyDetails...');
+                // console.log(details);
 
                 $scope.Details = details;
 
@@ -86,7 +84,7 @@
                 template: 'Saving Profile...'
             });
 
-            //console.log('Values in Profile Field...------>>>');
+            // console.log('Values in Profile Field...------>>>');
             console.log($scope.Details);
 
             profileService.UpdateProfile($scope.Details)
@@ -111,6 +109,11 @@
 
                         if ($scope.shouldGoToSettings)
                             $state.go('app.settings');
+                        else
+                        {
+                            console.log("about TO RELOAD");
+                            $state.reload();
+                        }
                     }
                     else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
                     {

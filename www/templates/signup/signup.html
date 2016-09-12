@@ -33,7 +33,7 @@
 
                         <label class="item item-input">
                             <span class="input-label calm">Full Name</span>
-                            <input type="text" placeholder="Abe Licoln" ng-model="signUpData.Name" value="{{na}}" id="nameField" class="form-control capitalize" ng-keyup="keyEntered(1)" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                            <input type="text" placeholder="Abe Lincoln" ng-model="signUpData.Name" value="{{na}}" id="nameField" class="form-control capitalize" ng-keyup="keyEntered(1)" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                         </label>
 
                         <label class="item item-input">
@@ -46,12 +46,12 @@
                             <input type="password" placeholder="Password" ng-model="signUpData.Password" class="form-control" ng-keyup="keyEntered(3)" id="pwField" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                         </label>
 
-                        <div class="item item-input p-b-5">
-                            <label class="toggle toggle-small">
-                                <input type="checkbox" id="ckBox" class="form-control" data-parsley-required="" data-parsley-checkmin="1" data-parsley-required-message="*">
-                                <div class="track">
-                                    <div class="handle"></div>
-                                </div>
+                        <div class="item item-input p-b-5" ng-class="{'p-l-5': screenWidth < 340}">
+                            <label class=" toggle toggle-small">
+                            <input type="checkbox" id="ckBox" class="form-control" data-parsley-required="" data-parsley-checkmin="1" data-parsley-required-message="*">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
                             </label>
 
                             <label>I agree to <button type="button" class="btn btn-link" ng-click="openTos()">Nooch's Term of Services</button>.</label>
@@ -68,8 +68,8 @@
 
         <div class="row">
             <div class="col text-center animated bounceInUp">
-                <a ng-click="goToLogin()" id="toLoginBtn" class="animated" ng-class="{'m-t-50': screenWidth > 360}" nav-transition="ios" nav-direction="forward">
-                    Already a member? &nbsp;Sign in Here
+                <a ng-click="goToLogin()" id="toLoginBtn" class="animated" ng-class="{'m-t-50': screenWidth > 340 && screenWidth < 365, 'm-t-120': screenWidth > 365}" nav-transition="ios" nav-direction="forward">
+                    Already have an account? &nbsp;Sign in here
                     <i class="ion-android-arrow-dropright-circle text-success"></i>
                 </a>
             </div>

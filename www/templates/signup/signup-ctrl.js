@@ -80,8 +80,8 @@
         {
             swal({
                 title: "Insecure Password",
-                text: "For security reasons, etc, we ask that passwords contain at least 1 number." +
-                      "<span class='show'>We know it's annoying, but we're just looking out for you ;-) &nbsp;Keep it safe!</span>",
+                text: "To protect your account, we ask that passwords contain at least 1 number." +
+                      "<span class='show'>We know it's annoying, but you can't put a price on safety, right?</span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
                 html: true
@@ -118,8 +118,7 @@
         }
         else
         {
-            console.log("ABOUT TO LEAVE SIGN UP SCRN");
-            console.log($rootScope.signUpData);
+            //console.log($rootScope.signUpData);
 
             $state.go('addPicture');
         }

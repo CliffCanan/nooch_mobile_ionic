@@ -48,7 +48,7 @@
                      transition: 'vertical'
                  });
 
-                 $('#settings_cntnr').css('margin-top', '55px');
+                 $('#settings_cntnr').css('margin-top', '50px');
              }
          }, 500);
 
@@ -127,12 +127,40 @@
          if ($rootScope.Status == "Suspended" ||
              $rootScope.Status == "Temporarily_Blocked")
          {
+             var showCancelButton = false;
+             var bodyTxt = "For security your account has been suspended pending a review." +
+                           "<span class='show'>We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.</span>";
+
+             if (window.cordova)
+             {
+                 showCancelButton = true;
+                 bodyTxt += "<span class='show'>Please contact us at support@nooch.com if this is a mistake or for more information."
+             }
              swal({
                  title: "Account Suspended",
-                 text: "Your account has been suspended pending a review. Please email support@nooch.com if you believe this was in error and we will be glad to help.",
+                 text: bodyTxt,
                  type: "error",
                  confirmButtonColor: "#3fabe1",
-                 confirmButtonText: "Ok"
+                 confirmButtonText: "Ok",
+                 showCancelButton: showCancelButton,
+                 cancelButtonText: "Contact Support",
+                 customClass: "smallText",
+                 html: true,
+             }, function (isConfirm) {
+                 if (!isConfirm)
+                 {
+                     //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
+                     $cordovaSocialSharing
+                       .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
+                       .then(function (result) {
+                           if (result.Completed)
+                               swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                       }, function (err) {
+                           // An error occurred. Show a message to the user
+                           swal("Message Not Sent", "Your email was not sent - please try again!", "error");
+                           console.log('Error attempting to send email from social sharing: [' + err + ']');
+                       });
+                 }
              });
          }
          else if ($rootScope.Status == "Registered")
@@ -178,7 +206,7 @@
              var bodyTxt = "Would you like to add a number now?";
              var confirmBtnTxt = "Add Now";
 
-             if ($rootScope.ContactNumber != null && $rootScope.contactNumber != "")
+             if ($rootScope.contactNumber != null && $rootScope.contactNumber != "")
              {
                  isPhoneAdded = true;
                  bodyTxt = "You should have received a text message from us. Just respond 'Go' to confirm your number.";
@@ -188,13 +216,13 @@
              swal({
                  title: "Blame The Lawyers",
                  text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
-                       "<span class='show'></span>",
+                       "<span class='show'>" + bodyTxt + "</span>",
                  type: "warning",
                  confirmButtonColor: "#3fabe1",
                  confirmButtonText: confirmBtnTxt,
                  showCancelButton: true,
                  cancelButtonText: "Ok",
-                 html: true,
+                 html: true
              }, function (isConfirm) {
                  if (isConfirm)
                  {
@@ -211,10 +239,31 @@
 
                                 if (result.Result == 'Success')
                                     swal("Check Your Phone!", "We just sent you an SMS message. Reply with 'Go' to verify your phone number.", "success");
+                                else if (result.Result == 'Invalid phone number')
+                                {
+                                    swal({
+                                        title: "Invalid Phone Number",
+                                        text: "Looks like your phone number isn't valid! Please update your number and try again or contact Nooch Support.",
+                                        type: "error",
+                                        confirmButtonColor: "#3fabe1",
+                                        confirmButtonText: "Update Number",
+                                        showCancelButton: true,
+                                        cancelButtonText: "Ok",
+                                        html: true
+                                    }, function (isConfirm) {
+                                        if (isConfirm)
+                                        {
+                                            $timeout(function () {
+                                                $state.go('app.profile');
+                                            }, 500);
+                                        }
+                                    });
+                                }
                                 else
                                     swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
                             })
                             .error(function (error) {
+                                $ionicLoading.hide();
                                 console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
 
                                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')

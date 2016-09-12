@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="item item-input">
-                    <button class="btn btn-link" ng-click="ResendVerificationSMS()" ng-if="Details.IsVerifiedPhone == false && Details.ContactNumber != null && Details.ContactNumber.length > 9">
+                    <button class="btn btn-link" ng-click="ResendVerificationSMS()" ng-if="IsPhoneVerified == false && contactNumber != null && contactNumber.length > 9 && Status != 'Suspended'">
                         <i class="ion-android-refresh"></i>
                     </button>
 
@@ -73,7 +73,7 @@
                     </span>
 
                     <span>
-                        <input type="tel" placeholder="(XXX) XXX-XXXX" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" data-parsley-minlength="10" data-parsley-minlength-message='' data-parsley-required data-parsley-required-message='' ng-change="isAnythingChange()">
+                        <input type="tel" placeholder="(XXX) XXX-XXXX" ng-model="Details.ContactNumber" value="{{Details.ContactNumber}}" data-parsley-required data-parsley-required-message='' ng-change="isAnythingChange()">
                     </span>
 
                 </div>
@@ -82,7 +82,7 @@
 
                 <div class="item item-input">
                     <span class="input-label">Address</span>
-                    <input type="text" placeholder="123 Nooch St" ng-model="Details.Address" value="{{Details.Address}}" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">
+                    <input type="text" placeholder="123 Nooch St" ng-model="Details.Address" value="{{Details.Address}}" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">
                 </div>
 
                 <div class="item item-input">
@@ -97,7 +97,7 @@
 
                 <div class="item item-input">
                     <span class="input-label">ZIP</span>
-                    <input type="text" placeholder="90210" ng-model="Details.Zipcode" value="{{Details.Zipcode}}" data-parsley-type='digits' data-parsley-type-message='' data-parsley-minlength="5" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">
+                    <input type="text" placeholder="90210" ng-model="Details.Zipcode" value="{{Details.Zipcode}}" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">
                 </div>
 
                 <div class="item item-divider">ID VERIFICATION</div>
@@ -110,7 +110,7 @@
                 <div ng-show="Details.IsSsnAdded == false">
                     <label class="item item-input">
                         <span class="input-label">SSN</span>
-                        <input type="tel" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" data-parsley-type='digits' data-parsley-type-message='' data-parsley-minlength="9" data-parsley-minlength-message='' data-parsley-maxlength-message='' data-parsley-maxlength="9" ng-change="isAnythingChange()">
+                        <input type="tel" placeholder="999-99-9999" ng-model="Details.SSN" value="{{Details.SSN}}" ng-change="isAnythingChange()">
                     </label>
                 </div>
             </div>

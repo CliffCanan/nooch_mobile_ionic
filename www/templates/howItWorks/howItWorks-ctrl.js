@@ -10,7 +10,7 @@
     $scope.slideOptions = {
         loop: false,
         effect: 'slide',
-        speed: 600,
+        speed: 550,
     }
 
     $scope.$on("$ionicSlides.sliderInitialized", function (event, data) {
@@ -19,23 +19,23 @@
     });
 
     $scope.$on("$ionicSlides.slideChangeStart", function (event, data) {
-        $scope.activeIndex = data.slider.activeIndex;
-        $scope.previousIndex = data.slider.previousIndex;
+        //$scope.activeIndex = data.slider.activeIndex;
+        //$scope.previousIndex = data.slider.previousIndex;
+
+        var slideToAddAnimation = data.slider.activeIndex + 1;
+        $("#slide" + slideToAddAnimation + " .slideImage").addClass("bounceIn");
     });
 
-    //$scope.$on("$ionicSlides.slideChangeEnd", function (event, data) {
-        // note: the indexes are 0-based
-    //});
-
-    $scope.GoBack = function () {
-        $ionicHistory.goBack();
-    }
+    $scope.$on("$ionicSlides.slideChangeEnd", function (event, data) {
+        if (data.slider.activeIndex == 4)
+            $("#tourDoneBtn").css("opacity", "1").addClass("slideInDown");
+    });
 
     $scope.endTour = function () {
+        $ionicHistory.nextViewOptions({
+            disableBack: true
+        });
+
         $state.go('app.home');
     }
 })
-
-
-
-
