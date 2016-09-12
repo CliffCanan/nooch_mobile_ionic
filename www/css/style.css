@@ -740,6 +740,7 @@ a {
 }
 
 .bar .button, .bar button {
+	background: none;
     border: none;
     font-size: 12px;
 }
@@ -845,7 +846,10 @@ a {
     }
 
     .sweet-alert button {
-        margin: 8px 6px 5px;
+        margin: 8px 4px 5px;
+		min-width: 88px;
+		padding: 10px 20px;
+		text-shadow: 0px -1px rgba(19, 32, 38, 0.2);
         text-transform: uppercase;
     }
 
@@ -2274,10 +2278,12 @@ div.hscroller-card {
 }
 
     .pin-container input {
-        font-size: 40px;
-        letter-spacing: 20px;
+        font-size: 60px;
+		font-weight: 700;
+        letter-spacing: 25px;
+		line-height: 1;
         text-align: center;
-        height: 60px;
+        height: 65px;
         padding: 0;
         width: 100%;
     }
@@ -2293,17 +2299,17 @@ div.hscroller-card {
 
 .recipient-box {
     font-family: Roboto;
-    height: 72px;
+    height: 80px;
     position: relative;
 }
 
     .recipient-box .recip-pic {
-        height: 58px;
-        width: 58px;
+        height: 60px;
+        width: 60px;
         border-radius: 50%;
         border: 1px solid #fff;
         position: absolute;
-        top: 8px;
+        top: 10px;
         left: 6px;
         z-index: 20;
     }
@@ -2312,7 +2318,7 @@ div.hscroller-card {
         color: #fff;
         border-radius: 6px 6px 0 0;
         font-size: 20px;
-        padding: 8px 5px 8px 40px;
+        padding: 7px 5px 7px 40px;
         position: absolute;
         top: 0;
         left: 0;

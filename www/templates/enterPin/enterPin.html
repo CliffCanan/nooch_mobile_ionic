@@ -3,20 +3,20 @@
 
         <div class="bar bar-header bar-calm">
             <button class="button ion-chevron-left" ng-click="GoBack(returnUrl)" ng-show="returnPage != 'Home'"></button>
-            <h6 class="title">{{returnPage}}</h6>
+            <h6 class="title">Enter PIN</h6>
         </div>
 
-        <br /><br /><br />
+        <br /><br />
 
         <h2 class="instructionTextPin m-t-20">
-            <span>Enter PIN to confirm your </span>
+            <span>Enter PIN to complete your </span>
             <span class="show" ng-class="{'text-success': type == 'transfer', 'text-primary': type == 'request'}">{{type}}</span>
         </h2>
 
         <div class="row">
             <div class="col text-center">
-                <div class="pin-container m-b-20">
-                    <input ng-keyup="getTransaction()" type="password" style="-webkit-text-security:disc" id="pin" ng-model="Details.enterPin" placeholder="****">
+                <div class="pin-container">
+                    <input ng-keyup="processPin()" type="password" style="-webkit-text-security:disc" id="pin" ng-model="Details.enterPin" placeholder="****">
                 </div>
 
                 <div class="amountPin">${{Details.Amount}}</div>
