@@ -17,18 +17,18 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-contacts",
+    "cordova-plugin-geolocation",
     "cordova-plugin-compat",
+    {
+      "locator": "https://github.com/apache/cordova-plugin-device",
+      "id": "cordova-plugin-device"
+    },
+    "cordova-plugin-network-information",
+    "cordova-plugin-contacts",
+    "cordova.plugins.diagnostic",
     {
       "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
       "id": "cordova-plugin-x-socialsharing"
-    },
-    {
-      "id": "phonegap-plugin-push",
-      "locator": "phonegap-plugin-push",
-      "variables": {
-        "SENDER_ID": "104707683579"
-      }
     },
     "cordova-plugin-inappbrowser",
     {
@@ -39,11 +39,12 @@
         "APP_NAME": "Nooch"
       }
     },
+    "onesignal-cordova-plugin",
     {
       "locator": "https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git",
       "id": "cordova-plugin-datepicker"
     },
-    "cordova.plugins.diagnostic",
+    "cordova-plugin-whitelist",
     {
       "locator": "https://github.com/pushandplay/cordova-plugin-apprate.git",
       "id": "cordova-plugin-apprate"
@@ -53,8 +54,15 @@
     "cordova-plugin-networkinterface",
     "cordova-plugin-camera",
     {
-      "locator": "https://github.com/apache/cordova-plugin-device",
-      "id": "cordova-plugin-device"
+      "id": "phonegap-plugin-push",
+      "locator": "phonegap-plugin-push",
+      "variables": {
+        "SENDER_ID": "104707683579"
+      }
+    },
+    {
+      "locator": "https://github.com/danwilson/google-analytics-plugin.git",
+      "id": "cordova-plugin-google-analytics"
     }
   ],
   "cordovaPlatforms": [

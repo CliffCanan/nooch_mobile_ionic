@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4b2dfe65-996d-4a77-b3c3-796760490eaf" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/home/home-ctrl.js" afterPath="$PROJECT_DIR$/www/templates/home/home-ctrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/home/home.html" afterPath="$PROJECT_DIR$/www/templates/home/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.xml" afterPath="$PROJECT_DIR$/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/style.css" afterPath="$PROJECT_DIR$/www/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient-ctrl.js" afterPath="$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient-ctrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient.html" afterPath="$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient.html" />
     </list>
     <ignored path="nooch-ionic-demo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,21 +27,47 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/js/app.js">
+      <file leaf-file-name="selectRecipient.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2670">
-              <caret line="178" column="54" selection-start-line="178" selection-start-column="54" selection-end-line="178" selection-end-column="54" />
+            <state relative-caret-position="300">
+              <caret line="22" column="54" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="microDeposit-ctrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/templates/microDeposit/microDeposit-ctrl.js">
+      <file leaf-file-name="history.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/templates/history/history.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+            <state relative-caret-position="210">
+              <caret line="26" column="54" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="54" />
+              <folding>
+                <element signature="n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+                <element signature="n#div#1;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+                <element signature="n#div#0;n#ion-scroll#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+                <element signature="n#ion-item#0;n#ion-list#0;n#ion-scroll#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+                <element signature="n#ion-item#0;n#ion-list#1;n#ion-scroll#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="history-ctrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/templates/history/history-ctrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="566">
+              <caret line="367" column="89" selection-start-line="367" selection-start-column="7" selection-end-line="367" selection-end-column="89" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="selectRecipient-ctrl.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient-ctrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="326" column="39" selection-start-line="326" selection-start-column="39" selection-end-line="326" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -47,30 +76,20 @@
       <file leaf-file-name="home-ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/home/home-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="737">
-              <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
               <folding>
-                <element signature="e#1014#2835#0" expanded="false" />
+                <marker date="1473661237000" expanded="true" signature="22017:22348" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/www/templates/home/home.html">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="microDeposit.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/templates/microDeposit/microDeposit.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="71" selection-start-line="3" selection-start-column="71" selection-end-line="3" selection-end-column="71" />
+            <state relative-caret-position="217">
+              <caret line="2043" column="14" selection-start-line="2043" selection-start-column="14" selection-end-line="2043" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -96,7 +115,6 @@
         <option value="$PROJECT_DIR$/www/templates/login/login.html" />
         <option value="$PROJECT_DIR$/www/templates/signup/signup.html" />
         <option value="$PROJECT_DIR$/www/templates/signup/signup-ctrl.js" />
-        <option value="$PROJECT_DIR$/www/templates/history/history-ctrl.js" />
         <option value="$PROJECT_DIR$/www/templates/transferDetails/TransferDetails.html" />
         <option value="$PROJECT_DIR$/www/libs/OneSignal.js" />
         <option value="$PROJECT_DIR$/package.json" />
@@ -104,10 +122,7 @@
         <option value="$PROJECT_DIR$/www/js/services.js" />
         <option value="$PROJECT_DIR$/www/templates/login/login-ctrl.js" />
         <option value="$PROJECT_DIR$/config.xml" />
-        <option value="$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient.html" />
-        <option value="$PROJECT_DIR$/www/css/style.css" />
         <option value="$PROJECT_DIR$/www/templates/history/history.html" />
-        <option value="$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient-ctrl.js" />
         <option value="$PROJECT_DIR$/www/templates/howMuch/howMuch-ctrl.js" />
         <option value="$PROJECT_DIR$/www/templates/uploadID/uploadID-ctrl.js" />
         <option value="$PROJECT_DIR$/www/templates/howItWorks/howItWorks.html" />
@@ -118,6 +133,10 @@
         <option value="$PROJECT_DIR$/www/templates/microDeposit/microDeposit-ctrl.js" />
         <option value="$PROJECT_DIR$/www/templates/home/home-ctrl.js" />
         <option value="$PROJECT_DIR$/www/templates/home/home.html" />
+        <option value="$PROJECT_DIR$/www/css/style.css" />
+        <option value="$PROJECT_DIR$/www/templates/history/history-ctrl.js" />
+        <option value="$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient.html" />
+        <option value="$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient-ctrl.js" />
       </list>
     </option>
   </component>
@@ -231,6 +250,50 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="settings" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="selectRecipient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="microDeposit" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -253,7 +316,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="home" />
+              <option name="myItemId" value="history" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nooch-ionic-demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -354,12 +435,13 @@
       <workItem from="1472548750813" duration="7179000" />
       <workItem from="1473050587179" duration="4912000" />
       <workItem from="1473316693651" duration="2777000" />
-      <workItem from="1473395652277" duration="6598000" />
+      <workItem from="1473395652277" duration="7325000" />
+      <workItem from="1473654520913" duration="2706000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41761000" />
+    <option name="totallyTimeSpent" value="45194000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="8" y="35" width="1899" height="967" extended-state="0" />
@@ -370,19 +452,19 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14840989" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21672556" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979977" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -420,7 +502,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="80" column="52" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="52" />
-          <folding />
+          <folding>
+            <marker date="1473661237000" expanded="true" signature="3948:8595" ph="{...}" />
+            <marker date="1473661237000" expanded="true" signature="3948:8602" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -470,7 +555,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
-          <folding />
+          <folding>
+            <marker date="1473661237000" expanded="true" signature="3948:8595" ph="{...}" />
+            <marker date="1473661237000" expanded="true" signature="3948:8602" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -492,7 +580,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
-          <folding />
+          <folding>
+            <marker date="1473661237000" expanded="true" signature="3948:8595" ph="{...}" />
+            <marker date="1473661237000" expanded="true" signature="3948:8602" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -581,13 +672,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/history/history-ctrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="191" column="29" selection-start-line="191" selection-start-column="29" selection-end-line="191" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/transferDetails/transferDetails-ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -637,39 +721,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="24" column="57" selection-start-line="24" selection-start-column="57" selection-end-line="24" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="1480" column="13" selection-start-line="1480" selection-start-column="13" selection-end-line="1480" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/history/history.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="36" column="87" selection-start-line="36" selection-start-column="87" selection-end-line="36" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient-ctrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/profile/profile-ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="38" column="31" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -677,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="255" column="0" selection-start-line="255" selection-start-column="0" selection-end-line="255" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -734,8 +788,11 @@
     <entry file="file://$PROJECT_DIR$/www/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2670">
-          <caret line="178" column="54" selection-start-line="178" selection-start-column="54" selection-end-line="178" selection-end-column="54" />
-          <folding />
+          <caret line="184" column="54" selection-start-line="184" selection-start-column="54" selection-end-line="184" selection-end-column="54" />
+          <folding>
+            <marker date="1473661237000" expanded="true" signature="3948:8595" ph="{...}" />
+            <marker date="1473661237000" expanded="true" signature="3948:8602" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -755,20 +812,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/home/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/home/home-ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="737">
-          <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+        <state relative-caret-position="300">
+          <caret line="20" column="57" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
           <folding>
-            <element signature="e#1014#2835#0" expanded="false" />
+            <marker date="1473661237000" expanded="true" signature="22017:22348" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/home/home.html">
+    <entry file="file://$PROJECT_DIR$/www/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        <state relative-caret-position="217">
+          <caret line="2043" column="14" selection-start-line="2043" selection-start-column="14" selection-end-line="2043" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="22" column="54" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/history/history.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="26" column="54" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="54" />
+          <folding>
+            <element signature="n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#ion-scroll#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+            <element signature="n#ion-item#0;n#ion-list#0;n#ion-scroll#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+            <element signature="n#ion-item#0;n#ion-list#1;n#ion-scroll#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/history/history-ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="367" column="89" selection-start-line="367" selection-start-column="7" selection-end-line="367" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/selectRecipient/selectRecipient-ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="326" column="39" selection-start-line="326" selection-start-column="39" selection-end-line="326" selection-end-column="39" />
           <folding />
         </state>
       </provider>

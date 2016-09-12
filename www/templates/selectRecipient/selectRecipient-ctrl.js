@@ -274,9 +274,9 @@
             .success(function (data) {
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
-                 
+
                     if (data[i].Miles <1) {
-                         
+
                         data[i].Miles = data[i].Miles * 5280;
                         data[i].Miles = data[i].Miles + ' Feet';
                     }
@@ -334,4 +334,6 @@
         else
             return (false)
     }
+
+  $scope.historyListHeight = { 'max-height': $rootScope.screenHeight - 150 + 'px' }
 })

@@ -1,6 +1,6 @@
 ﻿<ion-view view-title="Select Recipient">
 
-    <ion-content ion-sticky scroll="true">
+    <ion-content  scroll="false">
 
         <div class="row">
             <div class="col p-t-0">
@@ -20,7 +20,7 @@
         </div>
 
 
-        <ion-scroll direction="y" style="min-height: 530px">
+        <ion-scroll direction="y" class="history-list" ng-style="historyListHeight">
 
             <img src="././img/SelectRecip_Empty@2x.png" ng-show="recentCount === 0 && memberList.length === 0" class="emptyTableImg" />
 
@@ -33,9 +33,9 @@
                         <h2 class="username">{{member.FirstName}} <span class="f-400">{{member.LastName}}</span></h2>
                         <p class="usersubtitle">{{member.UserName}}</p>
                         <p class="usersubtitle">{{member.ContactNumber}}</p>
-                        <h3 ng-if="member.Miles">{{member.Miles}}</h3>
+                      <h3 class="n-icon" ng-if="member.Miles">{{member.Miles}}</h3>
 
-                        <img src="././img/n_icon_46x54.png" class="n-icon" ng-if="member.bit!='p'" />
+                        <!--<img src="././img/n_icon_46x54.png" class="n-icon" ng-if="member.bit!='p'" />-->
                     </a>
 
                 </ion-item>
