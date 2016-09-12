@@ -198,11 +198,11 @@
             for (var i = 0; i < contacts.length; i++)
             {
                 var contact = contacts[i];
- 
+
                 if (contact.name.formatted != null && contact.emails != null)
                 {
                     $scope.readContact.FirstName = contact.name.formatted;
- 
+
                     $scope.readContact.id = i;
                     $scope.readContact.bit = 'p';
 
@@ -232,9 +232,6 @@
             }
 
             $scope.setFavoritesForDisplay();
-
-            // console.log($rootScope.phoneContacts);
-            //$ionicLoading.hide();
         };
 
         function onError(error) {
@@ -315,54 +312,69 @@
     $scope.openFilterChoices = function (member) {
 
         console.log(member);
+
         $scope.buttonValues = {
             id: '',
             text: ''
         }
 
-        if (member.bit != 'p')
+        if ($scope.checkUsersStatus() == true)
         {
-            $state.go('app.howMuch', { recip: member });
-        }
-        else if (member.bit == 'p' && member.otherEmails == null || member.otherEmails.length < 2)
-        {
-            $state.go('app.howMuch', { recip: member.UserName });
-        }
-        else
-        {
-            var buttons = [];
-            for (var i = 0; i < member.otherEmails.length; i++)
+            if (member.bit != 'p')
             {
-                if (i < 4)
+                $state.go('app.howMuch', { recip: member });
+            }
+            else if (member.bit == 'p' && member.otherEmails == null || member.otherEmails.length < 2)
+            {
+                $state.go('app.howMuch', { recip: member.UserName });
+            }
+            else
+            {
+                var buttons = [];
+                for (var i = 0; i < member.otherEmails.length; i++)
                 {
-                    if (ValidateEmail(member.otherEmails[i].value))
+                    if (i < 4)
                     {
-                        $scope.buttonValues.id = i;
-                        $scope.buttonValues.text = member.otherEmails[i].value;
-                        buttons.push($scope.buttonValues);
-                        $scope.buttonValues = {
-                            id: '',
-                            text: ''
+                        if (ValidateEmail(member.otherEmails[i].value))
+                        {
+                            $scope.buttonValues.id = i;
+                            $scope.buttonValues.text = member.otherEmails[i].value;
+                            buttons.push($scope.buttonValues);
+                            $scope.buttonValues = {
+                                id: '',
+                                text: ''
+                            }
                         }
                     }
                 }
-            }
 
-            var hideSheet = $ionicActionSheet.show({
-                buttons: buttons,
-                titleText: "Which Email Address?",
-                cancelText: "Cancel",
-                buttonClicked: function (index) {
-                    member.UserName = member.otherEmails[index].value;
-                    $state.go('app.howMuch', { recip: member.UserName });
-                    return true;
-                }
-            });
+                var hideSheet = $ionicActionSheet.show({
+                    buttons: buttons,
+                    titleText: "Which Email Address?",
+                    cancelText: "Cancel",
+                    buttonClicked: function (index) {
+                        member.UserName = member.otherEmails[index].value;
+                        $state.go('app.howMuch', { recip: member.UserName });
+                        return true;
+                    }
+                });
+            }
         }
     };
 
 
     $scope.goToSelectRecip = function () {
+        if ($scope.checkUsersStatus() == true)
+        {
+            $('#searchMoreFriends').addClass('flipOutX fast');
+            $timeout(function () {
+                $state.go('app.selectRecipient');
+            }, 800);
+        }
+    }
+
+
+    $scope.checkUsersStatus = function () {
         if ($rootScope.Status == "Suspended" ||
             $rootScope.Status == "Temporarily_Blocked")
         {
@@ -430,6 +442,7 @@
 	                           swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
 	                   })
 					   .error(function (error) {
+					       $ionicLoading.hide();
 					       console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
 
 					       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
@@ -468,7 +481,6 @@
                 {
                     if (isPhoneAdded)
                     {
-
                         $ionicLoading.show({
                             template: 'Sending SMS...'
                         });
@@ -484,6 +496,7 @@
                                    swal("Error", "We were unable to re-send the verification SMS.  Please try again or contact Nooch Support.", "error");
                            })
                            .error(function (error) {
+                               $ionicLoading.hide();
                                console.log('ResendVerificationSMS Error: [' + JSON.stringify(error) + ']');
 
                                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
@@ -546,12 +559,9 @@
             });
         }
         else
-        {
-            $('#searchMoreFriends').addClass('flipOutX fast');
-            $timeout(function () {
-                $state.go('app.selectRecipient');
-            }, 800);
-        }
+            return true;
+
+        return false;
     }
 
 
@@ -569,8 +579,6 @@
                 console.log('IP Changed, NEW IP is [' + result.data.ip + '], OLD IP was:' + $localStorage.GLOBAL_VARIABLES.ip + ']');
                 $scope.updateDeviceIp(result.data.ip);
             }
-            //else
-            //    console.log('IP is not changed: [' + $localStorage.GLOBAL_VARIABLES.ip + ']');
         }, function (error) {
             console.log('DeviceIP Error: [' + JSON.stringify(error) + ']');
         });
