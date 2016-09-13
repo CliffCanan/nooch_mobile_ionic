@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.SettingCtrl', ['noochApp.settings-service', 'noochApp.services', 'ngStorage'])
 
  .controller('SettingCtrl', function ($scope, $rootScope, $timeout, $state, $ionicModal, $ionicLoading,
-                                      $localStorage, $sce, $ionicContentBanner, settingsService, CommonServices) {
+                                      $localStorage, $sce, $ionicContentBanner, settingsService, CommonServices, $cordovaGoogleAnalytics, $ionicPlatform) {
 
      $scope.$on("$ionicView.enter", function (event, data) {
 
@@ -54,6 +54,24 @@
 
          $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
+
+         $ionicPlatform.ready(function () {
+             if (typeof analytics !== undefined) analytics.trackView("Setting Controller");
+             $scope.initEvent = function () {
+                 if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
+             }
+             analytics.startTrackerWithId('UA-36976317-2')
+             analytics.trackView('Setting Screen')
+             //analytics.trackEvent('Category', 'Action', 'Label', Value)
+             //analytics.setUserId('my-user-id')
+             analytics.debugMode()
+
+             //console.log($cordovaGoogleAnalytics);
+             //$cordovaGoogleAnalytics.debugMode();
+             //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
+             //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
+             //$cordovaGoogleAnalytics.trackView('Home Screen');
+         })
      });
 
 

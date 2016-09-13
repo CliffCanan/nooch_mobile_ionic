@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.welcome', ['noochApp.services'])
 
     .controller('welcomeCtrl', function ($scope, $state, $rootScope, $localStorage,
-                                         $timeout, $ionicLoading, CommonServices) {
+                                         $timeout, $ionicLoading, CommonServices, $cordovaGoogleAnalytics, $ionicPlatform) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('Welcome Controller Loaded');
@@ -10,6 +10,24 @@
 
             if ($rootScope.signUpData == null)
                 $state.go('signup');
+
+            $ionicPlatform.ready(function () {
+                if (typeof analytics !== undefined) analytics.trackView("welcome Controller");
+                $scope.initEvent = function () {
+                    if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
+                }
+                analytics.startTrackerWithId('UA-36976317-2')
+                analytics.trackView('welcome Screen')
+                //analytics.trackEvent('Category', 'Action', 'Label', Value)
+                //analytics.setUserId('my-user-id')
+                analytics.debugMode()
+
+                //console.log($cordovaGoogleAnalytics);
+                //$cordovaGoogleAnalytics.debugMode();
+                //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
+                //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
+                //$cordovaGoogleAnalytics.trackView('Home Screen');
+            })
         });
 
 

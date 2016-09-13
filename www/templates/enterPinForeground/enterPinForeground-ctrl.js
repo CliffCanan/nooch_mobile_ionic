@@ -1,18 +1,35 @@
 ﻿angular.module('noochApp.enterPinForegroundCtrl', ['noochApp.enterPinForeground-service', 'noochApp.services'])
 
-    .controller('enterPinForegroundCtrl', function ($scope, $state, ValidatePin, $ionicLoading,CommonServices) {
+    .controller('enterPinForegroundCtrl', function ($scope, $state, ValidatePin, $ionicLoading, CommonServices, $cordovaGoogleAnalytics, $ionicPlatform) {
 
         $scope.Value = {
             Pin: ''
         };
 
-
-
         $scope.$on("$ionicView.enter", function (event, data) {
-            console.log('Enter Pin Controller loaded');           
-        });
+            console.log('Enter Pin Controller loaded');
 
-                        
+            $ionicPlatform.ready(function () {
+
+                if (typeof analytics !== undefined) analytics.trackView("enterPinForeground Controller");
+
+                $scope.initEvent = function () {
+                    if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
+                }
+
+                analytics.startTrackerWithId('UA-36976317-2')
+                analytics.trackView('enterPinForeground Screen')
+                //analytics.trackEvent('Category', 'Action', 'Label', Value)
+                //analytics.setUserId('my-user-id')
+                analytics.debugMode()
+
+                //console.log($cordovaGoogleAnalytics);
+                //$cordovaGoogleAnalytics.debugMode();
+                //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
+                //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
+                //$cordovaGoogleAnalytics.trackView('Home Screen');
+            })
+        });                        
         
         $scope.CheckPin = function () {
             console.log('Check Pin Function called');

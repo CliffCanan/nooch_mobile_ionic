@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.LoginCtrl', ['noochApp.login-service', 'noochApp.services', 'ngStorage'])
 
   .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicPlatform, $ionicLoading, $localStorage, $cordovaGeolocation, $cordovaDevice,
-	  								 $cordovaNetwork, $cordovaSocialSharing, $timeout, CommonHelper, authenticationService, CommonServices) {
+	  								 $cordovaNetwork, $cordovaSocialSharing, $timeout, CommonHelper, authenticationService, CommonServices, $cordovaGoogleAnalytics) {
 
       $scope.$on("$ionicView.enter", function (event, data) {
           console.log('Login Controller Loaded');
@@ -32,6 +32,27 @@
 
           console.log($scope.loginData);
           console.log($localStorage.GLOBAL_VARIABLES);
+
+          $ionicPlatform.ready(function () {
+
+              if (typeof analytics !== undefined) analytics.trackView("HowMuch Controller");
+
+              $scope.initEvent = function () {
+                  if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
+              }
+
+              analytics.startTrackerWithId('UA-36976317-2')
+              analytics.trackView('HowMuch Screen')
+              //analytics.trackEvent('Category', 'Action', 'Label', Value)
+              //analytics.setUserId('my-user-id')
+              analytics.debugMode()
+
+              //console.log($cordovaGoogleAnalytics);
+              //$cordovaGoogleAnalytics.debugMode();
+              //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
+              //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
+              //$cordovaGoogleAnalytics.trackView('Home Screen');
+          })
       });
 
 

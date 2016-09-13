@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.transferDetailsCtrl', ['noochApp.enterPinForeground-service', 'noochApp.transferDetails-service', 'noochApp.services', 'ngMap'])
 
-       .controller('transferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope, $ionicPlatform, NgMap) {
+       .controller('transferDetailsCtrl', function ($scope, $stateParams, transferDetailsService, $ionicLoading, $localStorage, $state, $ionicModal, CommonServices, ValidatePin, $rootScope, $ionicPlatform, NgMap, $cordovaGoogleAnalytics) {
 
            $ionicModal.fromTemplateUrl('templates/transferDetails/modalPin.html', {
                scope: $scope,
@@ -128,6 +128,24 @@
                            $scope.mapGeoLabelTxt += ", " + $scope.transDetail.State;
                    }
                }
+
+               $ionicPlatform.ready(function () {
+                   if (typeof analytics !== undefined) analytics.trackView("transferDetails Controller");
+                   $scope.initEvent = function () {
+                       if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
+                   }
+                   analytics.startTrackerWithId('UA-36976317-2')
+                   analytics.trackView('transferDetails Screen')
+                   //analytics.trackEvent('Category', 'Action', 'Label', Value)
+                   //analytics.setUserId('my-user-id')
+                   analytics.debugMode()
+
+                   //console.log($cordovaGoogleAnalytics);
+                   //$cordovaGoogleAnalytics.debugMode();
+                   //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
+                   //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
+                   //$cordovaGoogleAnalytics.trackView('Home Screen');
+               })
            })
 
            $scope.remindPayment = function () {

@@ -36,6 +36,24 @@
 
         $scope.isAnythingChanged = false;
         $scope.MemberDetails();
+
+        $ionicPlatform.ready(function () {
+            if (typeof analytics !== undefined) analytics.trackView("profile Controller");
+            $scope.initEvent = function () {
+                if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
+            }
+            analytics.startTrackerWithId('UA-36976317-2')
+            analytics.trackView('profile Screen')
+            //analytics.trackEvent('Category', 'Action', 'Label', Value)
+            //analytics.setUserId('my-user-id')
+            analytics.debugMode()
+
+            //console.log($cordovaGoogleAnalytics);
+            //$cordovaGoogleAnalytics.debugMode();
+            //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
+            //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
+            //$cordovaGoogleAnalytics.trackView('Home Screen');
+        })
     })
 
 

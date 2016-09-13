@@ -4,7 +4,7 @@
 /***  RESET PASSWORD  ***/
 /************************/
 .controller('resetPwdCtrl', function ($scope, $rootScope, $state, $ionicLoading, $localStorage, $cordovaNetwork,
-									  $timeout, $cordovaSocialSharing, resetPasswordService, CommonServices) {
+									  $timeout, $cordovaSocialSharing, resetPasswordService, CommonServices, $cordovaGoogleAnalytics) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Reset Pwd Page Is Loaded');
@@ -26,6 +26,24 @@
 
         if ($('.instructionTxt').hasClass('expanded'))
             $('.instructionTxt').removeClass('expanded');
+
+        $ionicPlatform.ready(function () {
+            if (typeof analytics !== undefined) analytics.trackView("resetPwd Controller");
+            $scope.initEvent = function () {
+                if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
+            }
+            analytics.startTrackerWithId('UA-36976317-2')
+            analytics.trackView('resetPwd Screen')
+            //analytics.trackEvent('Category', 'Action', 'Label', Value)
+            //analytics.setUserId('my-user-id')
+            analytics.debugMode()
+
+            //console.log($cordovaGoogleAnalytics);
+            //$cordovaGoogleAnalytics.debugMode();
+            //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
+            //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
+            //$cordovaGoogleAnalytics.trackView('Home Screen');
+        })
     })
 
 

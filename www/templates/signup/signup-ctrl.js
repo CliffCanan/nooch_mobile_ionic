@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.SignupCtrl', ['noochApp.services', 'noochApp.signup-service'])
 
 .controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, $timeout, MemberRegistration,
-									$state, CommonServices, $rootScope, $localStorage, authenticationService) {
+									$state, CommonServices, $rootScope, $localStorage, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform) {
 
     $rootScope.signUpData = {
         FirstName: '',
@@ -21,6 +21,24 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Signup Controller Loaded');
         console.log('signUpData: [' + JSON.stringify($rootScope.signUpData) + ']');
+
+        $ionicPlatform.ready(function () {
+            if (typeof analytics !== undefined) analytics.trackView("Signup Controller");
+            $scope.initEvent = function () {
+                if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
+            }
+            analytics.startTrackerWithId('UA-36976317-2')
+            analytics.trackView('Signup Screen')
+            //analytics.trackEvent('Category', 'Action', 'Label', Value)
+            //analytics.setUserId('my-user-id')
+            analytics.debugMode()
+
+            //console.log($cordovaGoogleAnalytics);
+            //$cordovaGoogleAnalytics.debugMode();
+            //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
+            //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
+            //$cordovaGoogleAnalytics.trackView('Home Screen');
+        })
     });
 	
 
