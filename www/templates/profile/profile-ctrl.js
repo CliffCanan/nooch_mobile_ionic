@@ -209,9 +209,11 @@
 
 
     $scope.ResendVerificationSMS = function () {
+        $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g,'');
+       // console.log($scope.Details.ContactNumber); 
         swal({
             title: "Resend Confirmation Link?",
-            text: "Your phone number <strong>(" + $scope.Details.ContactNumber + ")</strong> is unverified." +
+            text: "Your phone number <strong>(" +$scope.Details.ContactNumber + ")</strong> is unverified." +
                   "<span class='show'>Would you like us to re-send a verification text message now?</span>",
             type: "warning",
             showCancelButton: true,
@@ -478,4 +480,35 @@
     $('.content-banner *').on('click', function () {
         $('#profileTopSection').removeClass('p-t-35');
     });
+
+    $scope.checkLength = function (value) {
+       //console.log("checkLength Called");
+       // console.log(length);
+        console.log(value);
+
+        if(value == "ZIP" )
+        {
+            console.log($scope.Details.Zipcode);
+            if ($scope.Details.Zipcode.length > 5)
+            {
+                 $scope.Details.Zipcode = $scope.Details.Zipcode.substring(0, $scope.Details.Zipcode.length - 1);    
+                
+            }
+        }
+        if(value =="ContactNumber")
+        {
+            console.log($scope.Details.ContactNumber);
+            if($scope.Details.ContactNumber.length > 10)
+            {
+                $scope.Details.ContactNumber = $scope.Details.ContactNumber.substring(0, $scope.Details.ContactNumber.length - 1);
+            }
+        }
+        if (value == "SSN") {
+            console.log($scope.Details.SSN);
+
+            if ($scope.Details.SSN.length > 9) {
+                $scope.Details.SSN = $scope.Details.SSN.substring(0, $scope.Details.SSN.length - 1);
+            }
+        }
+    }
 })
