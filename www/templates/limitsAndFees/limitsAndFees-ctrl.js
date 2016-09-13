@@ -6,7 +6,7 @@
         console.log('limtsAndFees Ctrl Loadad');
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("limitsAndFees Controller");
+            if (typeof analytics !== 'undefined') analytics.trackView("Limits And Fees");
         })
     })
 })

@@ -3,13 +3,12 @@
        .controller('uploadIDCtrl', function ($scope, $ionicLoading, $ionicPlatform, $cordovaCamera, $cordovaImagePicker, $ionicActionSheet, $ionicContentBanner, uploadIDService) {
 
            $scope.$on("$ionicView.beforeEnter", function (event, data) {
-               console.log('uploadIDCtrl loaded');
                $scope.picSelected = false;
            })
 
            $scope.$on("$ionicView.enter", function (event, data) {
                $ionicPlatform.ready(function () {
-                   if (typeof analytics !== 'undefined') analytics.trackView("uploadID Controller");
+                   if (typeof analytics !== 'undefined') analytics.trackView("Upload ID");
                })
            });
 

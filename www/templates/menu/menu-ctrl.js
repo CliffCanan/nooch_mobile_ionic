@@ -21,9 +21,11 @@
                 $timeout($scope.pendingList, 4000);
         }
 
-        $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("Menu Controller");
-        })
+        // CC (9/13/16): Since this controller is called by many screens, we should not call Google Analytics here.
+        //$ionicPlatform.ready(function () {
+        //    console.log(typeof analytics);
+        //    if (typeof analytics !== 'undefined') analytics.trackView("Menu Controller");
+        //})
     });
 
 

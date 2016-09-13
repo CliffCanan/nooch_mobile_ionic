@@ -7,7 +7,7 @@
 									  $timeout, $cordovaSocialSharing, resetPasswordService, CommonServices, $cordovaGoogleAnalytics) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('Reset Pwd Page Is Loaded');
+        //console.log('Reset Pwd Page Is Loaded');
 
         $scope.ResetPwd = {
             newPwd: '',
@@ -28,7 +28,7 @@
             $('.instructionTxt').removeClass('expanded');
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("resetPwd Controller");
+            if (typeof analytics !== 'undefined') analytics.trackView("Reset Pwd/PIN");
         })
     })
 

@@ -80,9 +80,10 @@
 
         }, 1000);
 
-      $ionicPlatform.ready(function () {
-          if (typeof analytics !== 'undefined') analytics.trackView("Home Controller");
-      })
+
+        $ionicPlatform.ready(function () {
+            if (typeof analytics !== 'undefined') analytics.trackView("Home");
+        })
     });
 
 
@@ -195,12 +196,15 @@
         function onSuccess(contacts) {
             console.log('Phone Contacts...');
             console.log(contacts);
-            if ($rootScope.homeContactLength != contacts.length) {
+            if ($rootScope.homeContactLength != contacts.length)
+            {
                 $rootScope.homeContactLength = contacts.length;
-                for (var i = 0; i < contacts.length; i++) {
+                for (var i = 0; i < contacts.length; i++)
+                {
                     var contact = contacts[i];
 
-                    if (contact.name.formatted != null && contact.emails != null) {
+                    if (contact.name.formatted != null && contact.emails != null)
+                    {
                         $scope.readContact.FirstName = contact.name.formatted;
                         $scope.readContact.id = i;
                         $scope.readContact.bit = 'p';
@@ -209,10 +213,12 @@
 
                         console.log('1.) ' + contact.name.formatted);
 
-                        if (contact.emails.length > 1) {
+                        if (contact.emails.length > 1)
+                        {
                             for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
                             {
-                                if (ValidateEmail(contact.emails[n].value)) {
+                                if (ValidateEmail(contact.emails[n].value))
+                                {
                                     console.log('4.) ' + contact.name.formatted);
                                     console.log(contact.emails[n]);
                                     console.log(contact.emails[n].value);
@@ -227,7 +233,8 @@
                             }
                         }
 
-                        if (contact.phoneNumbers != null) {
+                        if (contact.phoneNumbers != null)
+                        {
                             $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
                             $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
                         }
@@ -252,7 +259,8 @@
                         };
                     }
                 }
-            } else {
+            } else
+            {
                 $scope.phoneContacts.push.apply($scope.phoneContacts, $rootScope.homeContacts);
                 console.log($scope.phoneContacts);
             }
@@ -431,8 +439,8 @@
                     $cordovaSocialSharing
                       .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
                       .then(function (result) {
-						  console.log(result);
-						  console.log(JSON.stringify(result));
+                          console.log(result);
+                          console.log(JSON.stringify(result));
                           if (result.Completed)
                               swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
                       }, function (err) {

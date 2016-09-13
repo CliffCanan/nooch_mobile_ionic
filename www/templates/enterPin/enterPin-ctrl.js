@@ -24,7 +24,7 @@
             $("#pin").focus();
 
             $ionicPlatform.ready(function () {
-                if (typeof analytics !== undefined) analytics.trackView("enterPin Controller");
+                if (typeof analytics !== 'undefined') analytics.trackView("Enter PIN");
             })
         });
 

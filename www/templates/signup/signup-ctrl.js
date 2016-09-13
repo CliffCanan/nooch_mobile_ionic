@@ -23,10 +23,10 @@
         console.log('signUpData: [' + JSON.stringify($rootScope.signUpData) + ']');
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("Signup Controller");
+            if (typeof analytics !== 'undefined') analytics.trackView("Signup / Register");
         })
     });
-	
+
 
     $scope.signUpClick = function () {
 
@@ -273,10 +273,10 @@
 
         $timeout(function () {
             $state.go('login');
-			
-	        $timeout(function () {
-				$('#toLoginBtn').removeClass('bounceOutRight');
-	        }, 500);
+
+            $timeout(function () {
+                $('#toLoginBtn').removeClass('bounceOutRight');
+            }, 500);
         }, 400);
     }
 })

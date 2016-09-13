@@ -11,6 +11,11 @@
 
            $scope.transDetail = {};
 
+           $scope.$on("$ionicView.beforeEnter", function (event, data) {
+               // Make sure there is a transaction object available
+               if ($stateParams.trans == null) $state.go('app.history');
+           });
+
            $scope.$on("$ionicView.enter", function (event, data) {
                console.log('Transfer Details Cntrlr Fired');
 
@@ -45,13 +50,19 @@
                if ($stateParams.trans == null) $state.go('app.history');
                else
                {
+                   $ionicPlatform.ready(function () {
+                       if (typeof analytics !== 'undefined') analytics.trackView("Trans Details");
+                   })
+
                    $scope.transDetail = $stateParams.trans;
                    $scope.memId = $localStorage.GLOBAL_VARIABLES.MemberId;
 
                    //$rootScope.Location.lati = $scope.transDetail.Latitude;
                    //$rootScope.Location.longi = $scope.transDetail.Longitude;
 
-                   if (($scope.transDetail.Latitude != '' && $scope.transDetail.Longitude != '') && ($scope.transDetail.Latitude != 0 && $scope.transDetail.Longitude != 0 )){
+                   if ($scope.transDetail.Latitude != '' && $scope.transDetail.Longitude != '' &&
+                       $scope.transDetail.Latitude != 0 && $scope.transDetail.Longitude != 0)
+                   {
                        $scope.hasLatiLongi = true;
                        $rootScope.Location.lati = $scope.transDetail.Latitude;
                        $rootScope.Location.longi = $scope.transDetail.Longitude
@@ -59,7 +70,8 @@
                        console.log($rootScope.Location.longi);
                        console.log($rootScope.Location.lati);
                    }
-                   if ($scope.transDetail.Picture != null) {
+                   if ($scope.transDetail.Picture != null)
+                   {
                        $scope.hasPicture = true;
                        //console.log(" This is HasPicture --->  " + $scope.transDetail.Picture);
                    }
@@ -128,11 +140,8 @@
                            $scope.mapGeoLabelTxt += ", " + $scope.transDetail.State;
                    }
                }
-
-               $ionicPlatform.ready(function () {
-                   if (typeof analytics !== 'undefined') analytics.trackView("transferDetails Controller");
-               })
            })
+
 
            $scope.remindPayment = function () {
 
@@ -160,6 +169,7 @@
                });
            }
 
+
            $scope.cancelPayment = function () {
 
                console.log("cancel payment: [" + $scope.transDetail.TransactionId + ']');
@@ -182,6 +192,7 @@
                    { CommonServices.logOut(); }
                });
            }
+
 
            $scope.rejectPayment = function () {
 
@@ -214,15 +225,15 @@
            $scope.TransferMoney = function () {
 
                $scope.transDetail.RecepientName = $scope.transDetail.Name;
- 
+
                CommonServices.savePinValidationScreenData({ myParam: $scope.transDetail, type: 'transfer', returnUrl: 'app.transferDetails', returnPage: 'Transfer Details', comingFrom: 'Transfer' });
-               
- 
+
+
                $state.go('enterPin');
                //  $scope.modal.show();
            }
 
- 
+
 
            $scope.PayBack = function () {
                console.log("Pay Back" + JSON.stringify($scope.transDetail));

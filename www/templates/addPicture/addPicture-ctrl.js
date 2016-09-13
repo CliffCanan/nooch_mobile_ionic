@@ -14,7 +14,7 @@
             $scope.showContinueBtn = false;
 
             $ionicPlatform.ready(function () {
-                if (typeof analytics !== 'undefined') analytics.trackView("addPicture Controller");
+                if (typeof analytics !== 'undefined') analytics.trackView("Signup Flow - Add Picture");
             })
         });
 

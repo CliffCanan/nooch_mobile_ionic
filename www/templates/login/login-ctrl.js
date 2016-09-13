@@ -8,7 +8,7 @@
 
           $scope.loginData = {
               email: '',
-              pwd: '',//Q123456789',
+              pwd: '',
               rmmbrMe: {
                   chk: true
               }
@@ -31,10 +31,10 @@
           }
 
           console.log($scope.loginData);
-          console.log($localStorage.GLOBAL_VARIABLES);
+          //console.log($localStorage.GLOBAL_VARIABLES);
 
           $ionicPlatform.ready(function () {
-              if (typeof analytics !== 'undefined') analytics.trackView("Login Controller");
+              if (typeof analytics !== 'undefined') analytics.trackView("Login");
           })
       });
 
@@ -142,8 +142,8 @@
                                 $cordovaSocialSharing
                                   .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
                                   .then(function (result) {
-									  console.log(result);
-									  console.log(JSON.stringify(result));
+                                      console.log(result);
+                                      console.log(JSON.stringify(result));
                                       if (result.Completed)
                                           swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
                                   }, function (err) {
@@ -258,7 +258,7 @@
                     var long = position.coords.longitude
 
                     $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.longitude
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude =  position.coords.latitude
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.latitude
 
                     console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
 

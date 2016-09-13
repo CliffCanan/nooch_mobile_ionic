@@ -15,7 +15,7 @@
         }
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("microDeposit Controller");
+            if (typeof analytics !== 'undefined') analytics.trackView("Micro Deposit");
         })
     });
 

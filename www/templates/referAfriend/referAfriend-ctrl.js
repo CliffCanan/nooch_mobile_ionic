@@ -18,7 +18,7 @@
          $scope.getReferralCode();
 
          $ionicPlatform.ready(function () {
-             if (typeof analytics !== 'undefined') analytics.trackView("referAfriend Controller");
+             if (typeof analytics !== 'undefined') analytics.trackView("Refer A Friend");
          })
      });
 

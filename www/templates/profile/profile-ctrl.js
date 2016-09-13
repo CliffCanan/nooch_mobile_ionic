@@ -14,6 +14,7 @@
             $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
             $scope.shouldDisplayErrorBanner = true;
         }
+
         if ($localStorage.GLOBAL_VARIABLES.hasSynapseBank != true)
         {
             $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
@@ -38,7 +39,7 @@
         $scope.MemberDetails();
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("profile Controller");
+            if (typeof analytics !== 'undefined') analytics.trackView("Profile");
         })
     })
 
@@ -113,10 +114,7 @@
                         if ($scope.shouldGoToSettings)
                             $state.go('app.settings');
                         else
-                        {
-                            console.log("about TO RELOAD");
                             $state.reload();
-                        }
                     }
                     else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
                     {
@@ -212,11 +210,11 @@
 
 
     $scope.ResendVerificationSMS = function () {
-        $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g,'');
-       // console.log($scope.Details.ContactNumber); 
+        $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g, '');
+        // console.log($scope.Details.ContactNumber); 
         swal({
             title: "Resend Confirmation Link?",
-            text: "Your phone number <strong>(" +$scope.Details.ContactNumber + ")</strong> is unverified." +
+            text: "<strong style='color:#888'>" + $rootScope.contactNumber + "</strong><span class='show'>Your phone number is unverified.</span>" +
                   "<span class='show'>Would you like us to re-send a verification text message now?</span>",
             type: "warning",
             showCancelButton: true,
@@ -484,41 +482,43 @@
         $('#profileTopSection').removeClass('p-t-35');
     });
 
+
     $scope.checkLength = function (value) {
-       //console.log("checkLength Called");
-       // console.log(length);
-        console.log(value);
+        // console.log(value);
 
-        if(value == "ZIP" )
+        if (value == "zip")
         {
-            console.log($scope.Details.Zipcode);
-            if ($scope.Details.Zipcode.length > 5)
-            {
-                 $scope.Details.Zipcode = $scope.Details.Zipcode.substring(0, $scope.Details.Zipcode.length - 1);    
-                
-            }
-        }
-        if(value =="ContactNumber")
-        {
-            console.log($scope.Details.ContactNumber);
-            if($scope.Details.ContactNumber.length > 14)
-            {
-                $scope.Details.ContactNumber = $scope.Details.ContactNumber.substring(0, $scope.Details.ContactNumber.length - 1);
-            }
-            else if($scope.Details.ContactNumber.length > 3 )
-            {
-                $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/(\w{0})(\w{3})(\w{3})/, '$1($2) $3-'); //"(XXX) XXX-XXXX",
-            }
-        }
-        if (value == "SSN") {
-            console.log($scope.Details.SSN);
+            var lastCharEntered = $scope.Details.Zipcode.slice(-1);
 
-            if ($scope.Details.SSN.length > 11) {
-                $scope.Details.SSN = $scope.Details.SSN.substring(0, $scope.Details.SSN.length - 1);
-            }
-            else if ($scope.Details.SSN.length > 3) {
-                $scope.Details.SSN = $scope.Details.SSN.replace(/(\w{3})(\w{2})/, '$1-$2-'); //XXX-XX-XXXX
-            }
+            if (lastCharEntered.replace(/\D/, '').length == 0 || $scope.Details.Zipcode.length > 5)
+                $scope.Details.Zipcode = $scope.Details.Zipcode.slice(0, -1);
+        }
+        else if (value == "phone")
+        {
+            //console.log($scope.Details.ContactNumber);
+
+            var lastCharEntered = $scope.Details.ContactNumber.slice(-1);
+
+            if (lastCharEntered.replace(/\D/, '').length == 0 || $scope.Details.ContactNumber.length > 14)
+                $scope.Details.ContactNumber = $scope.Details.ContactNumber.slice(0, -1);
+            else if ($scope.Details.ContactNumber.length > 7)
+                $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/^\((\d{3})\)\s(\d{3})(\d{1})/, '($1) $2-$3'); //"(XXX) XXX-XXXX",
+            else if ($scope.Details.ContactNumber.length > 3)
+                $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/^\(?(\d{3})(\d{1})/, '($1) $2'); //"(XXX) X",
+        }
+        else if (value == "ssn")
+        {
+            //console.log($scope.Details.SSN);
+
+            var lastCharEntered = $scope.Details.SSN.slice(-1);
+
+            // If the last char entered was a non-digit, or if already at 11 chars, delete the character
+            if (lastCharEntered.replace(/\D/, '').length == 0 || $scope.Details.SSN.length > 11)
+                $scope.Details.SSN = $scope.Details.SSN.slice(0, -1);
+            else if ($scope.Details.SSN.length > 6)
+                $scope.Details.SSN = $scope.Details.SSN.replace(/^(\d{3})-(\d{2})(\d{1})/, '$1-$2-$3'); //XXX-XX-X
+            else if ($scope.Details.SSN.length > 3)
+                $scope.Details.SSN = $scope.Details.SSN.replace(/^(\d{3})(\d{1})/, '$1-$2'); //XXX-X
         }
     }
 })

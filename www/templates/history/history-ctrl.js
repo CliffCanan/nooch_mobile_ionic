@@ -1,6 +1,6 @@
 ﻿angular.module('noochApp.historyCtrl', ['noochApp.history-service', 'noochApp.services'])
 
-    .controller('historyCtrl', function ($scope, $filter, historyService, $cordovaGoogleAnalytics,$ionicPlatform, $ionicLoading, $localStorage, $ionicListDelegate,
+    .controller('historyCtrl', function ($scope, $filter, historyService, $cordovaGoogleAnalytics, $ionicPlatform, $ionicLoading, $localStorage, $ionicListDelegate,
                 transferDetailsService, $rootScope, $ionicContentBanner, $state, CommonServices, ValidatePin, $ionicHistory, $ionicActionSheet) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
@@ -59,7 +59,7 @@
             //  swal("Error", "Internet not connected!", "error");
 
             $ionicPlatform.ready(function () {
-                if (typeof analytics !== 'undefined') analytics.trackView("History Controller");
+                if (typeof analytics !== 'undefined') analytics.trackView("History Screen");
             })
         });
 

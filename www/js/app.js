@@ -3,19 +3,22 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl',
+angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers', 'noochApp.LoginCtrl', 'noochApp.SignupCtrl',
   'noochApp.historyCtrl', 'noochApp.HomeCtrl', 'noochApp.resetPwdCtrl', 'noochApp.profileCtrl', 'noochApp.MenuCtrl',
   'noochApp.howMuchCtrl', 'noochApp.notificationSettingCtrl', 'noochApp.securitySettingCtrl', 'noochApp.SelectRecipCtrl',
   'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.transferDetailsCtrl',
-  'noochApp.referAfriendCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.uploadIDCtrl', 'noochApp.microDepositCtrl', 'noochApp.services',
-  'noochApp.addPicture', 'noochApp.welcome', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl',
-  'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards', 'ngMap'])
+  'noochApp.referAfriendCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.uploadIDCtrl', 'noochApp.microDepositCtrl',
+  'noochApp.services', 'noochApp.addPicture', 'noochApp.welcome', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl',
+  'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner',
+  'ionic.contrib.ui.hscrollcards', 'ngMap'])
 
 
-  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices, $ionicPopup, $cordovaGoogleAnalytics) {
+  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state,
+                 $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices, $ionicPopup, $cordovaGoogleAnalytics) {
 
-      if (!$localStorage.GLOBAL_VARIABLES) {
-          console.log("App.js -> Run -> GLOBAL_VARs did not exist, creating defaults now");
+      if (!$localStorage.GLOBAL_VARIABLES)
+      {
+          console.log("App.js -> Run -> GLOBAL_VARs did not exist, setting defaults now");
           $localStorage.GLOBAL_VARIABLES = {
               IsDemoDone: false, // for displaying tutorial screens to user - if any
               IsRemeberMeEnabled: true, // for remembering user
@@ -44,12 +47,13 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
               shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
               HasSharedContacts: false, // if true then shouldn't ask for contact permission again
               //pinValidatorData: { myParam: '', type: '', returnUrl: '', returnPage: '', comingFrom: '' }
-              contactsLength:0,
+              contactsLength: 0,
               pinValidatorData: {}
           };
       }
 
-      if ($localStorage.GLOBAL_VARIABLES.MemberId == '') {
+      if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
+      {
           console.log("App.js -> Run -> MemberId == '' so calling LOGOUT CommonService");
           CommonServices.logOut();
       }
@@ -61,14 +65,18 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
       $rootScope.contacts = [];
       $rootScope.homeContactLength = 0;
       $rootScope.homeContacts = [];
+
       $ionicPlatform.ready(function () {
           // Enable to debug issues.
           // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-          if (typeof analytics !== undefined) {
+          if (typeof analytics !== 'undefined')
+          {
               analytics.startTrackerWithId("UA-36976317-2");
-          } else {
-              console.log("Google Analytics Unavailable");
+          }
+          else
+          {
+              console.warn("GOOGLE ANYALYTICS UNAVAILABLE");
           }
 
           $rootScope.phoneContacts = [];
@@ -86,9 +94,11 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
               console.log("App RESUMED");
               console.log($localStorage.GLOBAL_VARIABLES.EnterPinImmediately);
 
-              if ($localStorage.GLOBAL_VARIABLES.MemberId != null) {
+              if ($localStorage.GLOBAL_VARIABLES.MemberId != null)
+              {
                   //added this to not asked for PIN before login
-                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true) {
+                  if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
+                  {
                       CommonServices.savePinValidationScreenData({ myParam: {}, type: '', returnUrl: 'app.home', returnPage: 'Home', comingFrom: 'Identity' });
 
                       $state.go('enterPin');
@@ -108,7 +118,8 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
           function onDeviceReadyApp() {
               console.log('index ready fired from app js device ready');
 
-              if (window.cordova) {
+              if (window.cordova)
+              {
                   // Get device info... used for handling notifications
                   var device = $cordovaDevice.getDevice();
                   console.log(device);
@@ -162,7 +173,8 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
               }
           }
 
-          if (window.cordova && window.cordova.plugins.Keyboard) {
+          if (window.cordova && window.cordova.plugins.Keyboard)
+          {
               // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
               // for form inputs)
               //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);

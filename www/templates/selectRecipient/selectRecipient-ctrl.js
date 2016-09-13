@@ -13,15 +13,15 @@
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
 
+        $ionicPlatform.ready(function () {
+            if (typeof analytics !== 'undefined') analytics.trackView("Select Recipient");
+        })
+
         $scope.memberList = new Array();
 
         $scope.FindRecent();
 
         $scope.recentCount = null;
-
-        $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("SelectRecip Controller");
-        })
     });
 
 
@@ -128,29 +128,32 @@
             console.log(contacts.length);
             console.log($localStorage.GLOBAL_VARIABLES.contactsLength);
 
-            if (contacts.length != $rootScope.selectRecipContactLength) {
+            if (contacts.length != $rootScope.selectRecipContactLength)
+            {
                 $rootScope.selectRecipContactLength = contacts.length;
-                for (var i = 0; i < contacts.length; i++) {
+                for (var i = 0; i < contacts.length; i++)
+                {
                     var contact = contacts[i];
 
-                    if (contact.name.formatted != null && contact.emails != null) {
+                    if (contact.name.formatted != null && contact.emails != null)
+                    {
                         $scope.readContact.FirstName = contact.name.formatted;
                         $scope.readContact.id = i;
                         $scope.readContact.bit = 'p';
 
                         $scope.readContact.UserName = contact.emails[0].value;
 
-                        if (contact.emails.length > 1) {
+                        if (contact.emails.length > 1)
+                        {
                             for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
                             {
-                                if (ValidateEmail(contact.emails[n].value)) {
+                                if (ValidateEmail(contact.emails[n].value))
                                     $scope.readContact.otherEmails.push({ 'value': contact.emails[n].value }, { 'type': contact.emails[n].type })
- 
-                                }
                             }
                         }
 
-                        if (contact.phoneNumbers != null) {
+                        if (contact.phoneNumbers != null)
+                        {
                             $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
                             $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
                         }
@@ -172,22 +175,21 @@
                         };
                     }
                 }
- 
-                
-            
+
                 $scope.loadComplete = true;
                 $ionicLoading.hide();
             }
-            else {
+            else
+            {
                 console.log($scope.memberList);
-                $scope.memberList.push.apply($scope.memberList,$rootScope.contacts);
+                $scope.memberList.push.apply($scope.memberList, $rootScope.contacts);
                 console.log($scope.memberList);
             }
         };
 
         function onError(error) {
             console.log(error);
-			$scope.loadComplete = true;
+            $scope.loadComplete = true;
             $ionicLoading.hide();
         };
     }

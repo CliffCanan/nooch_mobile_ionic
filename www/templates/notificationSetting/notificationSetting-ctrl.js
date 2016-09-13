@@ -3,10 +3,8 @@
 .controller('notificationSettingCtrl', function ($scope, $rootScope, $ionicLoading, $state, CommonServices, notificationServices, $cordovaGoogleAnalytics, $ionicPlatform) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log("CHECKPOINT NOTIF 11");
         if ($rootScope.ChkBox == null)
         {
-            console.log("CHECKPOINT NOTIF 22");
             $rootScope.ChkBox = {
                 EmailTransferReceived: '',
                 EmailTransferSent: '',
@@ -17,7 +15,7 @@
         $scope.GetNotificationFn();
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("notificationSetting Controller");
+            if (typeof analytics !== 'undefined') analytics.trackView("Notification Settings");
         })
     })
 
@@ -61,7 +59,7 @@
             });
         //  }
         //else
-        //    swal("Oops...", "Internet not connected!", "error");
+        //    swal("Error", "Internet not connected!", "error");
     }
 
 

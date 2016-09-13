@@ -131,7 +131,7 @@
 
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("HowMuch Controller");
+            if (typeof analytics !== 'undefined') analytics.trackView("How Much");
         })
     });
 
@@ -180,7 +180,7 @@
 
             $state.go('enterPin');
         }
-        // else if ($('#howMuchForm').parsley().validate() == true)
+            // else if ($('#howMuchForm').parsley().validate() == true)
         else if (typeof $scope.recipientDetail.Amount != "undefined" &&
             $scope.recipientDetail.Amount >= 1 &&
             $scope.recipientDetail.Amount <= 5000)
