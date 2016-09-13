@@ -7,24 +7,7 @@
         console.log('Add bank Controller loaded');
 
         $ionicPlatform.ready(function () {
-
             if (typeof analytics !== undefined) analytics.trackView("addBank Controller");
-
-            $scope.initEvent = function () {
-                if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
-            }
-
-            analytics.startTrackerWithId('UA-36976317-2')
-            analytics.trackView('addBank Screen')
-            //analytics.trackEvent('Category', 'Action', 'Label', Value)
-            //analytics.setUserId('my-user-id')
-            analytics.debugMode()
-
-            //console.log($cordovaGoogleAnalytics);
-            //$cordovaGoogleAnalytics.debugMode();
-            //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
-            //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
-            //$cordovaGoogleAnalytics.trackView('Home Screen');
         })
 
         $scope.addBankFn();      

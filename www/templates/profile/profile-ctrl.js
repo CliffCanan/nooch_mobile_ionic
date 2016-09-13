@@ -39,23 +39,8 @@
 
         $ionicPlatform.ready(function () {
             if (typeof analytics !== undefined) analytics.trackView("profile Controller");
-            $scope.initEvent = function () {
-                if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
-            }
-            analytics.startTrackerWithId('UA-36976317-2')
-            analytics.trackView('profile Screen')
-            //analytics.trackEvent('Category', 'Action', 'Label', Value)
-            //analytics.setUserId('my-user-id')
-            analytics.debugMode()
-
-            //console.log($cordovaGoogleAnalytics);
-            //$cordovaGoogleAnalytics.debugMode();
-            //$cordovaGoogleAnalytics.startTrackerWithId('UA-36976317-2');
-            //$cordovaGoogleAnalytics.setUserId('UA-36976317-2');
-            //$cordovaGoogleAnalytics.trackView('Home Screen');
         })
     })
-
 
     $scope.MemberDetails = function () {
         console.log('MemberDetails Function Fired');
@@ -516,16 +501,23 @@
         if(value =="ContactNumber")
         {
             console.log($scope.Details.ContactNumber);
-            if($scope.Details.ContactNumber.length > 10)
+            if($scope.Details.ContactNumber.length > 14)
             {
                 $scope.Details.ContactNumber = $scope.Details.ContactNumber.substring(0, $scope.Details.ContactNumber.length - 1);
+            }
+            else if($scope.Details.ContactNumber.length > 3 )
+            {
+                $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/(\w{0})(\w{3})(\w{3})/, '$1($2) $3-'); //"(XXX) XXX-XXXX",
             }
         }
         if (value == "SSN") {
             console.log($scope.Details.SSN);
 
-            if ($scope.Details.SSN.length > 9) {
+            if ($scope.Details.SSN.length > 11) {
                 $scope.Details.SSN = $scope.Details.SSN.substring(0, $scope.Details.SSN.length - 1);
+            }
+            else if ($scope.Details.SSN.length > 3) {
+                $scope.Details.SSN = $scope.Details.SSN.replace(/(\w{3})(\w{2})/, '$1-$2-'); //XXX-XX-XXXX
             }
         }
     }
