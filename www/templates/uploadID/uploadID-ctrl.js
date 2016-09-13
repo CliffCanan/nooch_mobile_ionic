@@ -7,6 +7,11 @@
                $scope.picSelected = false;
            })
 
+           $scope.$on("$ionicView.enter", function (event, data) {
+               $ionicPlatform.ready(function () {
+                   if (typeof analytics !== undefined) analytics.trackView("uploadID Controller");
+               })
+           });
 
            $scope.choosePhoto = function () {
                var hideSheet = $ionicActionSheet.show({
@@ -24,7 +29,6 @@
                    }
                });
            }
-
 
            $scope.takePhoto = function () {
                console.log($cordovaCamera);
@@ -82,7 +86,6 @@
                });
            }
 
-
            $scope.choosePhotoFromDevice = function () {
                cordova.plugins.diagnostic.getCameraRollAuthorizationStatus(function (status) {
                    console.log("Authorization request for camera roll was " + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted" : "denied"));
@@ -139,7 +142,6 @@
                });
            }
 
-
            $scope.sendDoc = function () {
                console.log('sendDoc Function');
 
@@ -182,7 +184,6 @@
                //else
                //    swal("Oops...", "Internet not connected!", "error");
            }
-
 
            $scope.learnMore = function () {
                swal({
