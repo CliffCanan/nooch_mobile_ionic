@@ -44,6 +44,7 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
               shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
               HasSharedContacts: false, // if true then shouldn't ask for contact permission again
               //pinValidatorData: { myParam: '', type: '', returnUrl: '', returnPage: '', comingFrom: '' }
+              contactsLength:0,
               pinValidatorData: {}
           };
       }
@@ -56,7 +57,10 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
       // Get Screen Width and save in $rootScope for use anywhere
       $rootScope.screenWidth = CommonServices.getScreenWidth();
       $rootScope.screenHeight = CommonServices.getScreenHeight();
-
+      $rootScope.selectRecipContactLength = 0;
+      $rootScope.contacts = [];
+      $rootScope.homeContactLength = 0;
+      $rootScope.homeContacts = [];
       $ionicPlatform.ready(function () {
           // Enable to debug issues.
           // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});

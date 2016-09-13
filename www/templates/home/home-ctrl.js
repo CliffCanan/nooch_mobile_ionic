@@ -197,68 +197,67 @@
         function onSuccess(contacts) {
             console.log('Phone Contacts...');
             console.log(contacts);
+            if ($rootScope.homeContactLength != contacts.length) {
+                $rootScope.homeContactLength = contacts.length;
+                for (var i = 0; i < contacts.length; i++) {
+                    var contact = contacts[i];
 
-            for (var i = 0; i < contacts.length; i++)
-            {
-                var contact = contacts[i];
+                    if (contact.name.formatted != null && contact.emails != null) {
+                        $scope.readContact.FirstName = contact.name.formatted;
+                        $scope.readContact.id = i;
+                        $scope.readContact.bit = 'p';
 
-				if (contact.name.formatted != null && contact.emails != null)
-                {
-	                $scope.readContact.FirstName = contact.name.formatted;
-	                $scope.readContact.id = i;
-	                $scope.readContact.bit = 'p';
+                        $scope.readContact.UserName = contact.emails[0].value;
 
-                    $scope.readContact.UserName = contact.emails[0].value;
+                        console.log('1.) ' + contact.name.formatted);
 
-					console.log('1.) ' + contact.name.formatted);
-
-					if (contact.emails.length > 1)
-                    {
-                        for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
-                        {
-                            if (ValidateEmail(contact.emails[n].value))
+                        if (contact.emails.length > 1) {
+                            for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
                             {
-								console.log('4.) ' + contact.name.formatted);
-								console.log(contact.emails[n]);
-								console.log(contact.emails[n].value);
-								console.log(contact.emails[n].type);
-                                // $scope.readContact.otherEmails[n - 1].value = contact.emails[n].value;
-                                // $scope.readContact.otherEmails[n - 1].type = contact.emails[n].type;
-                              //$scope.readContact.otherEmails = new Array();
-                              $scope.readContact.otherEmails.push({'value': contact.emails[n].value},{'type':contact.emails[n].type})
+                                if (ValidateEmail(contact.emails[n].value)) {
+                                    console.log('4.) ' + contact.name.formatted);
+                                    console.log(contact.emails[n]);
+                                    console.log(contact.emails[n].value);
+                                    console.log(contact.emails[n].type);
+                                    // $scope.readContact.otherEmails[n - 1].value = contact.emails[n].value;
+                                    // $scope.readContact.otherEmails[n - 1].type = contact.emails[n].type;
+                                    //$scope.readContact.otherEmails = new Array();
+                                    $scope.readContact.otherEmails.push({ 'value': contact.emails[n].value }, { 'type': contact.emails[n].type })
 
 
+                                }
                             }
                         }
+
+                        if (contact.phoneNumbers != null) {
+                            $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
+                            $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
+                        }
+
+                        if (contact.photos != null)
+                            $scope.readContact.Photo = contact.photos[0].value;
+
+                        $scope.phoneContacts.push($scope.readContact);
+                        $rootScope.homeContacts.push($scope.readContact);
+                        $scope.readContact = {
+                            FirstName: '',
+                            UserName: '',
+                            ContactNumber: '',
+                            Photo: '././img/profile_picture.png',
+                            id: '',
+                            bit: '',
+                            otherEmails: [
+                        // {value: ""},
+                        // {type: ""}
+                            ],
+                            otherPhoneNumbers: []
+                        };
                     }
-
-	                if (contact.phoneNumbers != null)
-	                {
-	                    $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
-	                    $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
-	                }
-
-                    if (contact.photos != null)
-                        $scope.readContact.Photo = contact.photos[0].value;
-
-                    $scope.phoneContacts.push($scope.readContact);
-
-                    $scope.readContact = {
-                        FirstName: '',
-                        UserName: '',
-                        ContactNumber: '',
-                        Photo: '././img/profile_picture.png',
-                        id: '',
-                        bit: '',
-			            otherEmails: [
-                    // {value: ""},
-                    // {type: ""}
-			            ],
-                        otherPhoneNumbers: []
-                    };
                 }
+            } else {
+                $scope.phoneContacts.push.apply($scope.phoneContacts, $rootScope.homeContacts);
+                console.log($scope.phoneContacts);
             }
-
             console.log($scope.phoneContacts);
             $scope.setFavoritesForDisplay();
         };

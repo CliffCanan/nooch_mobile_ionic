@@ -139,58 +139,64 @@
         $cordovaContacts.find(options).then(onSuccess, onError);
 
         function onSuccess(contacts) {
+            console.log(contacts.length);
+            console.log($localStorage.GLOBAL_VARIABLES.contactsLength);
 
-            for (var i = 0; i < contacts.length; i++)
-            {
-                var contact = contacts[i];
-                
-				if (contact.name.formatted != null && contact.emails != null)
-                {
-	                $scope.readContact.FirstName = contact.name.formatted;
-	                $scope.readContact.id = i;
-	                $scope.readContact.bit = 'p';
+            if (contacts.length != $rootScope.selectRecipContactLength) {
+                $rootScope.selectRecipContactLength = contacts.length;
+                for (var i = 0; i < contacts.length; i++) {
+                    var contact = contacts[i];
 
-                    $scope.readContact.UserName = contact.emails[0].value;
+                    if (contact.name.formatted != null && contact.emails != null) {
+                        $scope.readContact.FirstName = contact.name.formatted;
+                        $scope.readContact.id = i;
+                        $scope.readContact.bit = 'p';
 
-					if (contact.emails.length > 1)
-                    {
-                        for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
-                        {
-                            if (ValidateEmail(contact.emails[n].value))
+                        $scope.readContact.UserName = contact.emails[0].value;
+
+                        if (contact.emails.length > 1) {
+                            for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
                             {
-                                $scope.readContact.otherEmails[n - 1].value = contact.emails[n].value;
-                                $scope.readContact.otherEmails[n - 1].type = contact.emails[n].type;
+                                if (ValidateEmail(contact.emails[n].value)) {
+                                    $scope.readContact.otherEmails.push({ 'value': contact.emails[n].value }, { 'type': contact.emails[n].type })
+ 
+                                }
                             }
                         }
+
+                        if (contact.phoneNumbers != null) {
+                            $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
+                            $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
+                        }
+
+                        if (contact.photos != null)
+                            $scope.readContact.Photo = contact.photos[0].value;
+
+                        $scope.memberList.push($scope.readContact);
+                        $rootScope.contacts.push($scope.readContact);
+                        $scope.readContact = {
+                            FirstName: '',
+                            UserName: '',
+                            ContactNumber: '',
+                            Photo: '././img/profile_picture.png',
+                            id: '',
+                            bit: '',
+                            otherEmails: [],
+                            otherPhoneNumbers: []
+                        };
                     }
-
-	                if (contact.phoneNumbers != null)
-	                {
-	                    $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
-	                    $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
-	                }
-
-	                if (contact.photos != null)
-	                    $scope.readContact.Photo = contact.photos[0].value;
-
-	                $scope.memberList.push($scope.readContact);
-
-	                $scope.readContact = {
-	                    FirstName: '',
-	                    UserName: '',
-	                    ContactNumber: '',
-	                    Photo: '././img/profile_picture.png',
-	                    id: '',
-	                    bit: '',
-	                    otherEmails: [],
-	                    otherPhoneNumbers: []
-	                };
-				}
+                }
+ 
+                
+            
+                $scope.loadComplete = true;
+                $ionicLoading.hide();
             }
-
-            console.log($scope.memberList);
-            $scope.loadComplete = true;
-            $ionicLoading.hide();
+            else {
+                console.log($scope.memberList);
+                $scope.memberList.push.apply($scope.memberList,$rootScope.contacts);
+                console.log($scope.memberList);
+            }
         };
 
         function onError(error) {
