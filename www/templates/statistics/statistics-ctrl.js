@@ -14,7 +14,7 @@
         $scope.GetMemberStatsFn();
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("Statistics Controller");            
+            if (typeof analytics !== 'undefined') analytics.trackView("Statistics Controller");
         })
     })
 

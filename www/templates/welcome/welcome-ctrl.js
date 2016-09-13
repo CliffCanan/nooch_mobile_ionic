@@ -12,7 +12,7 @@
                 $state.go('signup');
 
             $ionicPlatform.ready(function () {
-                if (typeof analytics !== undefined) analytics.trackView("welcome Controller");                
+                if (typeof analytics !== 'undefined') analytics.trackView("welcome Controller");
             })
         });
 

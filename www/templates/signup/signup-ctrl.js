@@ -23,7 +23,7 @@
         console.log('signUpData: [' + JSON.stringify($rootScope.signUpData) + ']');
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("Signup Controller");            
+            if (typeof analytics !== 'undefined') analytics.trackView("Signup Controller");
         })
     });
 	

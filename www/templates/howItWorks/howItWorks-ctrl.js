@@ -7,7 +7,7 @@
         console.log('How It Works Controller Loadad');
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("howItWorksCtrl");
+            if (typeof analytics !== 'undefined') analytics.trackView("howItWorksCtrl");
         })
     })
 

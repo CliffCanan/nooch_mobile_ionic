@@ -10,7 +10,7 @@
             console.log('Enter Pin Controller loaded');
 
             $ionicPlatform.ready(function () {
-                if (typeof analytics !== undefined) analytics.trackView("enterPinForeground Controller");
+                if (typeof analytics !== 'undefined') analytics.trackView("enterPinForeground Controller");
             })
         });                        
         

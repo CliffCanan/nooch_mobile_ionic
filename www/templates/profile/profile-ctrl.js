@@ -38,7 +38,7 @@
         $scope.MemberDetails();
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("profile Controller");
+            if (typeof analytics !== 'undefined') analytics.trackView("profile Controller");
         })
     })
 

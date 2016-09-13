@@ -81,7 +81,7 @@
         }, 1000);
 
       $ionicPlatform.ready(function () {
-        if (typeof analytics !== undefined) analytics.trackView("Home Controller");
+          if (typeof analytics !== 'undefined') analytics.trackView("Home Controller");
       })
     });
 

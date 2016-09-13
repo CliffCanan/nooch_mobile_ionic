@@ -9,7 +9,7 @@
 
            $scope.$on("$ionicView.enter", function (event, data) {
                $ionicPlatform.ready(function () {
-                   if (typeof analytics !== undefined) analytics.trackView("uploadID Controller");
+                   if (typeof analytics !== 'undefined') analytics.trackView("uploadID Controller");
                })
            });
 

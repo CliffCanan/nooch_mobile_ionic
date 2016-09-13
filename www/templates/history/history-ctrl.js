@@ -59,7 +59,7 @@
             //  swal("Error", "Internet not connected!", "error");
 
             $ionicPlatform.ready(function () {
-                if (typeof analytics !== undefined) analytics.trackView("History Controller");
+                if (typeof analytics !== 'undefined') analytics.trackView("History Controller");
             })
         });
 

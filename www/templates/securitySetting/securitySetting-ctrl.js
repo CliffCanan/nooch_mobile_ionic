@@ -10,7 +10,7 @@
         $scope.GetMemberPrivacyFn();
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("securitySetting Controller");            
+            if (typeof analytics !== 'undefined') analytics.trackView("securitySetting Controller");
         })
     });
 

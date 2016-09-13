@@ -21,7 +21,7 @@
         console.log($scope.socialSetting.fbid);
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("socialSetting Controller");            
+            if (typeof analytics !== 'undefined') analytics.trackView("socialSetting Controller");
         })
     })
 

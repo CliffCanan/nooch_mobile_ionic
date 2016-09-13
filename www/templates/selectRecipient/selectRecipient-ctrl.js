@@ -20,7 +20,7 @@
         $scope.recentCount = null;
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("SelectRecip Controller");            
+            if (typeof analytics !== 'undefined') analytics.trackView("SelectRecip Controller");
         })
     });
 

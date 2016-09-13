@@ -56,7 +56,7 @@
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
 
          $ionicPlatform.ready(function () {
-             if (typeof analytics !== undefined) analytics.trackView("Setting Controller");             
+             if (typeof analytics !== 'undefined') analytics.trackView("Setting Controller");
          })
      });
 

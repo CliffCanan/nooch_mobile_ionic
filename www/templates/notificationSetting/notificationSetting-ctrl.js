@@ -17,7 +17,7 @@
         $scope.GetNotificationFn();
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("notificationSetting Controller");            
+            if (typeof analytics !== 'undefined') analytics.trackView("notificationSetting Controller");
         })
     })
 

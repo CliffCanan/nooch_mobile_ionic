@@ -28,7 +28,7 @@
             $('.instructionTxt').removeClass('expanded');
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("resetPwd Controller");            
+            if (typeof analytics !== 'undefined') analytics.trackView("resetPwd Controller");
         })
     })
 

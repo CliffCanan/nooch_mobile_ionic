@@ -8,7 +8,7 @@
 
 
             $ionicPlatform.ready(function () {
-                if (typeof analytics !== undefined) analytics.trackView("createPin Controller");
+                if (typeof analytics !== 'undefined') analytics.trackView("createPin Controller");
             })
 
             console.log($rootScope.signUpData);

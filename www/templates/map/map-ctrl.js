@@ -35,8 +35,8 @@
         });
         
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("Map Controller");            
+            if (typeof analytics !== 'undefined') analytics.trackView("Map Controller");
         })
-    });
+    }); 
 });
 

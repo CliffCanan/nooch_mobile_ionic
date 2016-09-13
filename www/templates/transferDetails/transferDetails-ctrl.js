@@ -130,7 +130,7 @@
                }
 
                $ionicPlatform.ready(function () {
-                   if (typeof analytics !== undefined) analytics.trackView("transferDetails Controller");                   
+                   if (typeof analytics !== 'undefined') analytics.trackView("transferDetails Controller");
                })
            })
 

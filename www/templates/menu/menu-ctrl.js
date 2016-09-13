@@ -22,7 +22,7 @@
         }
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("Menu Controller");            
+            if (typeof analytics !== 'undefined') analytics.trackView("Menu Controller");
         })
     });
 

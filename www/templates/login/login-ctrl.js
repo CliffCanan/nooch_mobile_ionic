@@ -34,7 +34,7 @@
           console.log($localStorage.GLOBAL_VARIABLES);
 
           $ionicPlatform.ready(function () {
-              if (typeof analytics !== undefined) analytics.trackView("Login Controller");
+              if (typeof analytics !== 'undefined') analytics.trackView("Login Controller");
           })
       });
 

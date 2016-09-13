@@ -131,7 +131,7 @@
 
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("HowMuch Controller");
+            if (typeof analytics !== 'undefined') analytics.trackView("HowMuch Controller");
         })
     });
 
