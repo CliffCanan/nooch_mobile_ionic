@@ -200,13 +200,13 @@
             FirstName: '',
             UserName: '',
             ContactNumber: '',
-            Photo: '',
+            Photo: '././img/profile_picture.png',
             id: '',
             bit: '',
-            otherEmails: []
+            otherEmails: [],
+            otherPhoneNumbers: []
         };
 
-        //console.log($cordovaContacts);
         $cordovaContacts.find(options).then(onSuccess, onError);
 
         function onSuccess(contacts) {
@@ -217,21 +217,37 @@
             {
                 var contact = contacts[i];
 
-                if (contact.name.formatted != null && contact.emails != null)
+				if (contact.name.formatted != null && contact.emails != null)
                 {
-                    $scope.readContact.FirstName = contact.name.formatted;
+	                $scope.readContact.FirstName = contact.name.formatted;
+	                $scope.readContact.id = i;
+	                $scope.readContact.bit = 'p';
 
-                    $scope.readContact.id = i;
-                    $scope.readContact.bit = 'p';
+                    $scope.readContact.UserName = contact.emails[0].value;
+					
+					console.log('1.) ' + contact.name.formatted);
 
-                    if (contact.emails != null)
+					if (contact.emails.length > 1)
                     {
-                        $scope.readContact.UserName = contact.emails[0].value;
-                        $scope.readContact.otherEmails = contact.emails;
+                        for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
+                        {
+                            if (ValidateEmail(contact.emails[n].value))
+                            {
+								console.log('4.) ' + contact.name.formatted);
+								console.log(contact.emails[n]);
+								console.log(contact.emails[n].value);
+								console.log(contact.emails[n].type);
+                                $scope.readContact.otherEmails[n - 1].value = contact.emails[n].value;
+                                $scope.readContact.otherEmails[n - 1].type = contact.emails[n].type;
+                            }
+                        }
                     }
 
-                    if (contact.phoneNumbers != null)
-                        $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
+	                if (contact.phoneNumbers != null)
+	                {
+	                    $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
+	                    $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
+	                }
 
                     if (contact.photos != null)
                         $scope.readContact.Photo = contact.photos[0].value;
@@ -242,13 +258,19 @@
                         FirstName: '',
                         UserName: '',
                         ContactNumber: '',
-                        Photo: '',
+                        Photo: '././img/profile_picture.png',
                         id: '',
-                        bit: ''
+                        bit: '',
+			            otherEmails: [
+			            	value: "",
+							type: ""
+			            ],
+                        otherPhoneNumbers: []
                     };
                 }
             }
 
+            console.log($scope.phoneContacts);
             $scope.setFavoritesForDisplay();
         };
 
@@ -423,6 +445,8 @@
                     $cordovaSocialSharing
                       .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
                       .then(function (result) {
+						  console.log(result);
+						  console.log(JSON.stringify(result));
                           if (result.Completed)
                               swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
                       }, function (err) {

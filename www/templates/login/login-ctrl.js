@@ -138,6 +138,8 @@
                                 $cordovaSocialSharing
                                   .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
                                   .then(function (result) {
+									  console.log(result);
+									  console.log(JSON.stringify(result));
                                       if (result.Completed)
                                           swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
                                   }, function (err) {

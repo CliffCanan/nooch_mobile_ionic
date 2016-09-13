@@ -130,6 +130,7 @@
 
         statisticsService.GetMostFrequentFriends()
          .success(function (data) {
+            
              $scope.friendList = data;
              //console.log(data);
 
@@ -167,6 +168,7 @@
                  width: 240,
                  data: myChartData
              });
+             $('#topFriendsChart-license').addClass('hide');
 
          }).error(function (data) {
              console.log('eror: [' + data + ']');
