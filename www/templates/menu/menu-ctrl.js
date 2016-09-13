@@ -22,12 +22,12 @@
         }
 
         $ionicPlatform.ready(function () {
-            if (typeof analytics !== undefined) analytics.trackView("HowMuch Controller");
+            if (typeof analytics !== undefined) analytics.trackView("Menu Controller");
             $scope.initEvent = function () {
                 if (typeof analytics !== undefined) { analytics.trackEvent("Category", "Action", "Label", 25); }
             }
             analytics.startTrackerWithId('UA-36976317-2')
-            analytics.trackView('HowMuch Screen')
+            analytics.trackView('Menu Screen')
             //analytics.trackEvent('Category', 'Action', 'Label', Value)
             //analytics.setUserId('my-user-id')
             analytics.debugMode()
