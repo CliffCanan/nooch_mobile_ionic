@@ -12,7 +12,7 @@ angular.module('noochApp', ['ionic','ionic.service.core', 'noochApp.controllers'
   'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner', 'ionic.contrib.ui.hscrollcards', 'ngMap'])
 
 
-  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices, $ionicPopup) {
+  .run(function ($ionicPlatform, $localStorage, $cordovaDevice, CommonHelper, $cordovaPushV5, $cordovaNetwork, $state, $rootScope, $cordovaGeolocation, $cordovaContacts, CommonServices, $ionicPopup, $cordovaGoogleAnalytics) {
 
       if (!$localStorage.GLOBAL_VARIABLES) {
           console.log("App.js -> Run -> GLOBAL_VARs did not exist, creating defaults now");
