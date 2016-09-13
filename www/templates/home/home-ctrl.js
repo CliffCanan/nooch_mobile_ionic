@@ -224,7 +224,7 @@
 	                $scope.readContact.bit = 'p';
 
                     $scope.readContact.UserName = contact.emails[0].value;
-					
+
 					console.log('1.) ' + contact.name.formatted);
 
 					if (contact.emails.length > 1)
@@ -237,8 +237,12 @@
 								console.log(contact.emails[n]);
 								console.log(contact.emails[n].value);
 								console.log(contact.emails[n].type);
-                                $scope.readContact.otherEmails[n - 1].value = contact.emails[n].value;
-                                $scope.readContact.otherEmails[n - 1].type = contact.emails[n].type;
+                                // $scope.readContact.otherEmails[n - 1].value = contact.emails[n].value;
+                                // $scope.readContact.otherEmails[n - 1].type = contact.emails[n].type;
+                              //$scope.readContact.otherEmails = new Array();
+                              $scope.readContact.otherEmails.push({'value': contact.emails[n].value},{'type':contact.emails[n].type})
+
+
                             }
                         }
                     }
@@ -262,8 +266,8 @@
                         id: '',
                         bit: '',
 			            otherEmails: [
-			            	value: "",
-							type: ""
+                    // {value: ""},
+                    // {type: ""}
 			            ],
                         otherPhoneNumbers: []
                     };
