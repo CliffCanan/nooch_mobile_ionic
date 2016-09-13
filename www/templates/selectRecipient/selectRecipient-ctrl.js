@@ -125,15 +125,16 @@
             for (var i = 0; i < contacts.length; i++)
             {
                 var contact = contacts[i];
-
-                $scope.readContact.FirstName = contact.name.formatted;
-                $scope.readContact.id = i;
-                $scope.readContact.bit = 'p';
-
-                if (contact.emails != null)
+                
+				if (contact.name.formatted != null && contact.emails != null)
                 {
+	                $scope.readContact.FirstName = contact.name.formatted;
+	                $scope.readContact.id = i;
+	                $scope.readContact.bit = 'p';
+
                     $scope.readContact.UserName = contact.emails[0].value;
-                    if (contact.emails.length > 1)
+
+					if (contact.emails.length > 1)
                     {
                         for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
                         {
@@ -144,41 +145,41 @@
                             }
                         }
                     }
-                }
 
-                if (contact.phoneNumbers != null)
-                {
-                    $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
-                    $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
-                }
+	                if (contact.phoneNumbers != null)
+	                {
+	                    $scope.readContact.ContactNumber = contact.phoneNumbers[0].value;
+	                    $scope.readContact.otherPhoneNumbers = contact.phoneNumbers;
+	                }
 
-                if (contact.photos != null)
-                    $scope.readContact.Photo = contact.photos[0].value;
+	                if (contact.photos != null)
+	                    $scope.readContact.Photo = contact.photos[0].value;
 
-                $scope.memberList.push($scope.readContact);
+	                $scope.memberList.push($scope.readContact);
 
-                $scope.readContact = {
-                    FirstName: '',
-                    UserName: '',
-                    ContactNumber: '',
-                    Photo: '././img/profile_picture.png',
-                    id: '',
-                    bit: '',
-                    otherEmails: [],
-                    otherPhoneNumbers: []
-                };
+	                $scope.readContact = {
+	                    FirstName: '',
+	                    UserName: '',
+	                    ContactNumber: '',
+	                    Photo: '././img/profile_picture.png',
+	                    id: '',
+	                    bit: '',
+	                    otherEmails: [],
+	                    otherPhoneNumbers: []
+	                };
+				}
             }
-            $scope.loadComplete = true;
+
             console.log($scope.memberList);
+            $scope.loadComplete = true;
             $ionicLoading.hide();
         };
 
         function onError(error) {
             console.log(error);
+			$scope.loadComplete = true;
             $ionicLoading.hide();
         };
-
-        $scope.loadComplete = true;
     }
 
 
