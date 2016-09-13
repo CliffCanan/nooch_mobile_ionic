@@ -78,8 +78,8 @@
 
 
     $scope.UpdateProfile = function () {
-        console.log('Update Profile Function Touched');
-        console.log($('#profileForm').parsley().validate());
+        //console.log('Update Profile Function Fired');
+        //console.log($('#profileForm').parsley().validate());
 
         if ($('#profileForm').parsley().validate() == true)
         {
