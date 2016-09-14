@@ -726,20 +726,20 @@ a {
 
 .table-style-2 .input-label {
     color: #3fabe1;
-	position: relative;
+    position: relative;
     text-align: right;
     width: 33%;
 }
 
-.table-style-2 .input-label > span {
-	position: absolute;
-	top: 5px;
-	left: 25px;
-}
+    .table-style-2 .input-label > span {
+        position: absolute;
+        top: 5px;
+        left: 25px;
+    }
 
-.table-style-2 .input-label > span#em {
-	left: 34px;
-}
+        .table-style-2 .input-label > span#em {
+            left: 34px;
+        }
 
     .table-style-2 .input-label i.text-success::before {
         color: #72bf44;
@@ -749,11 +749,11 @@ a {
         color: rgb(200, 68, 66) !important;
     }
 
-	.table-style-2 .item.item-input input {
-		height: 34px;
-		padding-top: 6px;
-		padding-bottom: 5px;
-	}
+.table-style-2 .item.item-input input {
+    height: 34px;
+    padding-top: 6px;
+    padding-bottom: 5px;
+}
 
 /*** SCREEN HEADER ***/
 .bar .title {
@@ -797,11 +797,15 @@ a {
     font-size: 19px;
     font-style: italic;
     font-weight: 300;
-    margin: 10px 6% 100px;
+    margin: 10px 5% 100px;
     padding: 16px 10px 18px;
     transition: .3s all;
     text-align: center;
 }
+
+    .list .emptyView.zoomOut {
+        height: 10px;
+    }
 
 .list .item + p.emptyView {
     opacity: 0;
@@ -813,18 +817,18 @@ a {
 
 /***  Forms  ***/
 input::-webkit-input-placeholder {
-   line-height: 1;
-   padding-top: 2px;
+    line-height: 1;
+    padding-top: 2px;
 }
 
 input:-moz-placeholder { /* Firefox 18- */
-   line-height: 1;
-   padding-top: 2px;
+    line-height: 1;
+    padding-top: 2px;
 }
 
-input::-moz-placeholder {  /* Firefox 19+ */
-   line-height: 1;
-   padding-top: 2px;
+input::-moz-placeholder { /* Firefox 19+ */
+    line-height: 1;
+    padding-top: 2px;
 }
 
 .input-label {
@@ -871,10 +875,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
         line-height: 1.3;
         margin-bottom: 8px;
     }
-	
-	.sweet-alert.heavierText p {
-		font-weight: 400;
-	}
+
+    .sweet-alert.heavierText p {
+        font-weight: 400;
+    }
 
     .sweet-alert .show {
         margin-top: 10px;
@@ -1066,7 +1070,7 @@ iframe {
 
     .searchBarContainer input {
         text-align: center;
-		padding: 4px 15px 5px 0 !important;
+        padding: 4px 15px 5px 0 !important;
     }
 
     .searchBarContainer i {
@@ -2096,47 +2100,53 @@ div.hscroller-card {
     width: 100%;
 }
 
-#recents-table .item {
-	padding-bottom: 18px;
-    padding-left: 80px;
-}
-
-#recents-table .n-icon {
-    position: absolute;
-    max-width: 23px;
-    right: 15px;
-    top: 22px;
-}
-
-#recents-table .item-avatar img.userPic {
-    border: 1px solid #6D6E71;
-    left: 12px;
-    max-width: 50px;
-    max-height: 50px;
-}
-
-.selectRecipList .list {
+#selectRecipList {
     border: 0;
     margin-bottom: 0;
     padding-right: 0;
 }
 
-.selectRecipList .item .username {
-    font-size: 17px;
-    font-weight: 600;
-}
+    #selectRecipList .item {
+        padding: 18px 35px 18px 78px;
+    }
 
-.selectRecipList .item .usersubtitle {
-    color: #777;
-    font-size: 15px;
-    font-weight: 300;
-    width: 90%;
-}
+        #selectRecipList .item .username {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        #selectRecipList .item .usersubtitle {
+            color: #777;
+            font-size: 15px;
+            font-weight: 300;
+            width: 90%;
+        }
+
+    #selectRecipList .n-icon {
+        position: absolute;
+        max-width: 20px;
+        right: 5%;
+        top: 22px;
+    }
+
+    #selectRecipList .item-note {
+        font-size: 16px;
+        position: absolute;
+        right: 5%;
+        top: 18px;
+    }
+
+    #selectRecipList .item-avatar img.userPic {
+        border: 1px solid #6D6E71;
+        left: 12px;
+        max-width: 50px;
+        max-height: 50px;
+    }
 
 #dvSendTo {
     line-height: 1.2;
     text-align: center;
-    padding: 5px 10px 10px;
+    padding: 0 10px 10px;
 }
 
     #dvSendTo a {
@@ -2146,9 +2156,10 @@ div.hscroller-card {
 
     #dvSendTo .sendTo {
         color: #3fabe1;
-        font-size: 18px;
-        margin-bottom: 6px;
-		text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 7px;
+        text-transform: uppercase;
     }
 
     #dvSendTo .enteredTxt {
@@ -2159,7 +2170,7 @@ div.hscroller-card {
 
     #dvSendTo .defaultImg {
         border-radius: 50%;
-		box-shadow: 0 2px 5px -1px rgba(0,0,0,.25);
+        box-shadow: 0 2px 5px -1px rgba(0,0,0,.25);
         width: 80px;
         height: auto;
     }
@@ -2187,8 +2198,8 @@ div.hscroller-card {
     font-size: 17px;
     height: 38px;
     padding: 8px 15px;
-	text-shadow: 0 1px rgba(0,0,0,.2);
-	transition: .25s all;
+    text-shadow: 0 1px rgba(0,0,0,.2);
+    transition: .25s all;
 }
 
     .barBackground.green {
@@ -2199,20 +2210,20 @@ div.hscroller-card {
         background: linear-gradient(#40a9de, #3b9cce);
     }
 
-	.barBackground #recipName {
-		display: inline-block;
-	}
+    .barBackground #recipName {
+        display: inline-block;
+    }
 
     .barBackground a {
         color: #fff;
         text-decoration: none;
     }
-	
-	.barBackground i {
-	    position: relative;
-	    top: 1px;
-	    text-shadow: 0 1px 8px rgba(0,0,0,.2);
-	}
+
+    .barBackground i {
+        position: relative;
+        top: 1px;
+        text-shadow: 0 1px 8px rgba(0,0,0,.2);
+    }
 
 .amount-container {
     overflow: visible;

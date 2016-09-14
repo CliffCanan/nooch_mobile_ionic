@@ -8,7 +8,7 @@
                 <div class="header-item barBackground" ng-class="{'blue': requestSelected == true, 'green': sendSelected == true}">
                     To:&nbsp;
                     <span id="recipName" class="animated flipInX" ng-if="recipientDetail.FirstName || recipientDetail.UserName || recipientDetail.ContactNumber">
-                        <span ng-if="recipientDetail.FirstName">{{recipientDetail.FirstName}}</span>
+                        <span ng-if="recipientDetail.FirstName" class="capitalize">{{recipientDetail.FirstName}}</span>
                         <span ng-if="recipientDetail.LastName">&nbsp;{{recipientDetail.LastName}}</span>
 						<i class="ion-person m-l-10" ng-if="recipientDetail.FirstName"></i>
                         <span ng-if="!recipientDetail.FirstName && !recipientDetail.LastName && recipientDetail.UserName">
@@ -21,7 +21,7 @@
 						</span>
                     </span>
 
-                    <a href=""><i class="ion-plus-circled pull-right f-19"></i></a>
+                    <!--Commenting out till group request feature is ready.<a href="" ng-hide="true"><i class="ion-plus-circled pull-right f-19"></i></a>-->
                 </div>
 
                 <div class="row">

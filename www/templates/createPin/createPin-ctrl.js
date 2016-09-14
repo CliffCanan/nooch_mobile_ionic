@@ -211,7 +211,6 @@
             {
                 if (pin.length < 3)
                 {
-                 //   console.log('PIN LENGTH is < 3... [' + pin.length + ']');
                     pin += num;
 
                     if (pin.length == 1)
@@ -223,9 +222,9 @@
                 }
                 else
                 {
-                  pin += num;
+                    pin += num;
 
-                  $('.indicatorDotWrap .col div:last-child').addClass('filled');
+                    $('.indicatorDotWrap .col div:last-child').addClass('filled');
 
                     // 4th Digit Entered
                     if ($scope.onConfirm == false)

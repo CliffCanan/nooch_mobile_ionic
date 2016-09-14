@@ -43,15 +43,8 @@ angular.module('noochApp.selectRecipientService', ['ngStorage'])
       };
 
       this.GetLocationSearch = function () {
-          return $http.get(URLs.GetLocationSearch + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&Radius=100&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
+          return $http.get(URLs.GetLocationSearch + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&Radius=20&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
       };
-
-      this.isAlreadyRegistered = function () {
-          return $http.get(URLs.isAlreadyRegistered + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&Radius=100&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
-      };
-
-
-
 
       this.CheckMemberExistenceUsingEmailOrPhone = function (CheckType, StringToCheck) {
 
@@ -60,7 +53,7 @@ angular.module('noochApp.selectRecipientService', ['ngStorage'])
 
           var reqToCheckExistingUser = {
               method: 'POST',
-              url: URLs.CheckMemberExistenceUsingEmailOrPhone ,
+              url: URLs.CheckMemberExistenceUsingEmailOrPhone,
               headers: {
                   'Content-Type': 'application/json'
               },
@@ -71,6 +64,7 @@ angular.module('noochApp.selectRecipientService', ['ngStorage'])
                   AccessToken: $localStorage.GLOBAL_VARIABLES.AccessToken
               }
           };
+
           return $http(reqToCheckExistingUser);
       }
 

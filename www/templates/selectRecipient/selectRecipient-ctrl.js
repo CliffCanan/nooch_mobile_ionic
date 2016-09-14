@@ -3,7 +3,8 @@
 /************************/
 /*** SELECT RECIPIENT ***/
 /************************/
-.controller('SelectRecipCtrl', function ($scope, $state, $localStorage, $cordovaContacts, selectRecipientService, $ionicLoading, $filter, $ionicPlatform, $rootScope, CommonServices, $ionicActionSheet, $cordovaGoogleAnalytics) {
+.controller('SelectRecipCtrl', function ($scope, $rootScope, $state, $localStorage, $cordovaContacts, $ionicLoading, $filter,
+                                         $ionicPlatform, $ionicActionSheet, $cordovaGoogleAnalytics, $timeout, CommonServices, selectRecipientService) {
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
         $scope.loadComplete = false;
@@ -21,6 +22,8 @@
 
         $scope.FindRecent();
 
+        $scope.currentView = 'recent';
+        $scope.sendTo = '';
         $scope.recentCount = null;
     });
 
@@ -32,7 +35,7 @@
             template: 'Loading Recent Friends...'
         });
 
-        $scope.showSearchFlag = true;
+        $scope.currentView = 'recent';
         $scope.showEmPhDiv = false;
 
         $('#searchBar').val('');
@@ -44,9 +47,7 @@
 
                 $scope.recentCount = $scope.memberList.length;
 
-                // read contacts from device and push them in memberList object
 
-                $scope.item2 = data;
                 $ionicLoading.hide();
 
                 if (window.cordova)
@@ -56,6 +57,7 @@
 
                         if (authorized)
                         {
+                            // Read contacts from device and push them into memberList {} object
                             $scope.fetchContacts();
                         }
                         else
@@ -242,17 +244,6 @@
     };
 
 
-    $scope.showSearch = function (member) {
-        console.log($scope.search);
-        if (member.FirstName == $scope.search ||
-            member.LastName == $scope.search ||
-            member.UserName == $scope.search)
-        {
-            return member
-        }
-    };
-
-
     $scope.GoBack = function () {
         $state.go('home');
     };
@@ -278,7 +269,7 @@
             template: 'Finding Nearby Users...'
         });
 
-        $scope.showSearchFlag = false;
+        $scope.currentView = 'location';
         $scope.showEmPhDiv = false;
 
         $('#searchBar').val('');
@@ -316,13 +307,13 @@
 
     $scope.checkSearchText = function () {
 
-		var enteredText = $('#searchBar').val().trim();
+        var enteredText = $('#searchBar').val().trim();
 
         if (enteredText == '') $scope.showEmPhDiv = false;
 
         if ($('#recents-table').html() == undefined && enteredText.length > 2)
         {
-			// Check if the user has entered only numbers so far to see if it's a phone number or not
+            // Check if the user has entered only numbers so far to see if it's a phone number or not
             if (isNaN(enteredText) && !($scope.sendTo == 'Contact Number' && enteredText.length > 5))
             {
                 if (looksLikeEmail(enteredText))
@@ -330,91 +321,136 @@
                     $scope.showEmPhDiv = true;
                     $scope.sendTo = 'Email Address';
                 }
-				else
-					$scope.showEmPhDiv = false;
+                else
+                    $scope.showEmPhDiv = false;
             }
             else
             {
                 $scope.showEmPhDiv = true;
                 $scope.sendTo = 'Contact Number';
 
-				if (enteredText.length > 14)
-				{
-					enteredText = enteredText.slice(0, -1);
-				}
-	            else if (enteredText.length > 7)
-	                enteredText = enteredText.replace(/^\((\d{3})\)\s(\d{3})(\d{1})/, '($1) $2-$3'); //"(XXX) XXX-XXXX",
-	            else if (enteredText.length > 3)
-	                enteredText = enteredText.replace(/^\(?(\d{3})(\d{1})/, '($1) $2'); //"(XXX) X",
+                if (enteredText.length > 14) // Prevent additional chars since a full Phone # is already entered (10 digits + punctuation)
+                    enteredText = enteredText.slice(0, -1);
+                else if (enteredText.length > 7)
+                    enteredText = enteredText.replace(/^\((\d{3})\)\s(\d{3})(\d{1})/, '($1) $2-$3'); //"(XXX) XXX-XXXX"
+                else if (enteredText.length > 3)
+                    enteredText = enteredText.replace(/^\(?(\d{3})(\d{1})/, '($1) $2'); //"(XXX) X"
 
-				$('#searchBar').val(enteredText);
+                $('#searchBar').val(enteredText);
             }
 
-			$scope.nonUserText = enteredText;
+            $scope.nonUserText = enteredText;
         }
         else
-		{
+        {
             $scope.showEmPhDiv = false;
-			$scope.nonUserText = '';
-		}
+            $scope.nonUserText = '';
+        }
     }
-	
-	
+
+
     $scope.checkSearchTextForHowMuch = function () {
+        console.log('checkSearchTextForHowMuch FIRED');
 
         //check if phone or email is already registered with nooch i.e existing user
-        var registeredMember = {
-            'FirstName': "",
-            'LastName': "",
-            'MemberId': "",
-            'Photo': ""
-           
-        }
+
+        var loadingText = "Checking that ";
         var StringToCheck = $scope.nonUserText;
-        var type = $scope.sendTo == 'Contact Number' ? "P" : "E";
-        if (type == 'P') {
-            StringToCheck = StringToCheck.replace('-', '').replace('(', '').replace(')', '').replace(' ', '');
-        
+        var type = "";
+
+        if ($scope.sendTo == 'Contact Number')
+        {
+            // Stip out non-digits if it's a Phone Number
+            StringToCheck = StringToCheck.replace(/\D/g, '');
+
+            if (StringToCheck.length != 10)
+            {
+                swal({
+                    title: "Almost There...",
+                    text: "Please make sure you entered a valid 10-digit phone number!",
+                    type: "warning",
+                    confirmButtonColor: "#3fabe1",
+                    customClass: "heavierText"
+                }, function () {
+                    $timeout(function () {
+                        $("#searchBar").focus();
+                    }, 800);
+                });
+
+                return;
+            }
+
+            type = "phone"
+            loadingText += "phone number...";
         }
-       
+        else
+        {
+            if (!CommonServices.ValidateEmail(StringToCheck))
+            {
+                swal({
+                    title: "Almost There...",
+                    text: "Please make sure you entered a valid email address!",
+                    type: "warning",
+                    confirmButtonColor: "#3fabe1",
+                    customClass: "heavierText"
+                }, function () {
+                    $timeout(function () {
+                        $("#searchBar").focus();
+                    }, 800);
+                });
+
+                return;
+            }
+
+            type = "email"
+            loadingText += "email...";
+        }
+
+        $ionicLoading.show({
+            template: loadingText
+        });
+
         selectRecipientService.CheckMemberExistenceUsingEmailOrPhone(type, StringToCheck)
             .success(function (data) {
-                
-                if (data.IsMemberFound==true) {
-                    // member found
-                    registeredMember.FirstName = data.Name;
-                    registeredMember.MemberId = data.MemberId;
-                    registeredMember.Photo = data.UserImage;
+                $ionicLoading.hide();
 
-                    $state.go('app.howMuch', { recip: registeredMember });
+                if (data.IsMemberFound == true)
+                {
+                    // User found
+                    var existingUser = {
+                        FirstName: data.Name,
+                        //LastName: "",
+                        MemberId: data.MemberId,
+                        Photo: data.UserImage
+                    }
+
+                    $state.go('app.howMuch', { recip: existingUser });
                 }
-                else {
-                    // member not found
-                    var objForHowMuch = {
+                else
+                {
+                    // User not found
+                    var nonNoochUser = {
                         type: $scope.sendTo == 'Contact Number' ? "phone" : "email",
                         value: $scope.nonUserText,
                     }
 
-                    $state.go('app.howMuch', { recip: objForHowMuch });
+                    $state.go('app.howMuch', { recip: nonNoochUser });
                 }
             })
             .error(function (error) {
+                $ionicLoading.hide();
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
-            }
-
-            );
-
-
-	}
+            });
+    }
 
 
     function looksLikeEmail(text) {
-		// For checking the search field on keyup to see if the entered text looks like an email.
-		// NOTE: Only checks for "@" plus one char, so it's not guaranteeing a completely valid email.
-		var regex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*.?/);
-		if (regex.test(text))
-			return true;
+        // For checking the search field on keyup to see if the entered text looks like an email.
+        // NOTE: Only checks for "@" plus one char, so it's not guaranteeing a completely valid email.
+        var regex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*.?/);
+        if (regex.test(text))
+            return true;
         else
             return false;
     }
