@@ -12,7 +12,7 @@
     $scope.phoneContacts = [];
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('Home Ctrl BeforeEnter Fired');
+        //console.log('Home Ctrl BeforeEnter Fired');
         if ($('#searchMoreFriends').hasClass('flipOutX'))
             $('#searchMoreFriends').removeClass('flipOutX');
 
@@ -197,14 +197,11 @@
             console.log('Phone Contacts...');
             console.log(contacts);
 
-			console.log('[' + $rootScope.homeContactLength + '], [' + contacts.length + ']');
-
             if ($rootScope.homeContactLength != contacts.length)
-            {
-				console.log('$rootScope.homeContactLength != contacts.length');
-                
+            {                
 				$rootScope.homeContactLength = contacts.length;
-                for (var i = 0; i < contacts.length; i++)
+
+				for (var i = 0; i < contacts.length; i++)
                 {
                     var contact = contacts[i];
 
@@ -216,15 +213,12 @@
 
                         $scope.readContact.UserName = contact.emails[0].value;
 
-                        console.log('1.) ' + contact.name.formatted);
-
                         if (contact.emails.length > 1)
                         {
                             for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
                             {
-                                if (ValidateEmail(contact.emails[n].value))
+                                if (CommonServices.ValidateEmail(contact.emails[n].value))
                                 {
-                                    console.log('4.) ' + contact.name.formatted);
                                     $scope.readContact.otherEmails.push({ 'value': contact.emails[n].value }, { 'type': contact.emails[n].type })
                                 }
                             }
@@ -364,7 +358,7 @@
                 {
                     if (i < 4)
                     {
-                        if (ValidateEmail(member.otherEmails[i].value))
+                        if (CommonServices.ValidateEmail(member.otherEmails[i].value))
                         {
                             $scope.buttonValues.id = i;
                             $scope.buttonValues.text = member.otherEmails[i].value;
@@ -653,13 +647,5 @@
         //  }
         //else
         //    swal("Error", "Internet not connected!", "error");
-    }
-
-
-    function ValidateEmail(email) {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)*.+$/.test(email))
-            return (true)
-        else
-            return (false)
     }
 })

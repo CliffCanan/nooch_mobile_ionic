@@ -2146,22 +2146,20 @@ div.hscroller-card {
 
     #dvSendTo .sendTo {
         color: #3fabe1;
-        display: block;
-        font-size: 20px;
-        font-weight: 300;
+        font-size: 18px;
         margin-bottom: 6px;
+		text-transform: uppercase;
     }
 
     #dvSendTo .enteredTxt {
         color: #222;
-        display: block;
         font-size: 22px;
         font-weight: 400;
-        margin-bottom: 10px;
     }
 
     #dvSendTo .defaultImg {
         border-radius: 50%;
+		box-shadow: 0 2px 5px -1px rgba(0,0,0,.25);
         width: 80px;
         height: auto;
     }
@@ -2189,6 +2187,7 @@ div.hscroller-card {
     font-size: 17px;
     height: 38px;
     padding: 8px 15px;
+	text-shadow: 0 1px rgba(0,0,0,.2);
 	transition: .25s all;
 }
 
@@ -2200,10 +2199,20 @@ div.hscroller-card {
         background: linear-gradient(#40a9de, #3b9cce);
     }
 
+	.barBackground #recipName {
+		display: inline-block;
+	}
+
     .barBackground a {
         color: #fff;
         text-decoration: none;
     }
+	
+	.barBackground i {
+	    position: relative;
+	    top: 1px;
+	    text-shadow: 0 1px 8px rgba(0,0,0,.2);
+	}
 
 .amount-container {
     overflow: visible;

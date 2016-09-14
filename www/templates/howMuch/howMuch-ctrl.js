@@ -106,13 +106,27 @@
         $scope.sendSelected = false;
 
         console.log($stateParams.recip);
+		console.log(typeof $stateParams.recip);
 
         if (typeof $stateParams.recip == 'object')
         {
-            if ($stateParams.recip == null)
-                $state.go('app.selectRecipient');
+            if ($stateParams.recip == null) $state.go('app.selectRecipient');
 
-            $scope.recipientDetail = $stateParams.recip;
+			else if (typeof $stateParams.recip.type != "undefined")
+			{
+				if (typeof $stateParams.recip.value != "undefined")
+				{
+					console.log('CHECKPOINT #3');
+					// We know this is a non-Nooch user manually entered from the Select Recipient scrn (NOT a phone contact or from Home scrn)
+					$scope.recipientDetail.Photo = "././img/profile_picture.png";
+
+					if ($stateParams.recip.type == "phone") $scope.recipientDetail.ContactNumber = $stateParams.recip.value;
+					else $scope.recipientDetail.UserName = $stateParams.recip.value;
+				}
+				else $state.go('app.selectRecipient');
+			}
+			else // Must be an existing user
+				$scope.recipientDetail = $stateParams.recip;
         }
         else if (isNaN($stateParams.recip)) // email
         {
@@ -137,36 +151,60 @@
 	$scope.$on('$ionicView.afterEnter', function(){
 		$("#amountField").focus();
 	});
-	
-	
-    $(".amount-container input").focusout(function () {
-        console.log($scope.recipientDetail.Amount);
+
+
+    $scope.formatAmount = function () {
+        //console.log($scope.recipientDetail.Amount);
 
         var enteredAmnt = $scope.recipientDetail.Amount;
 
-        if (typeof enteredAmnt != "undefined" && enteredAmnt.length > 0)
+        if (typeof $scope.recipientDetail.Amount != "undefined" && enteredAmnt.length > 0)
         {
-            console.log("enteredAmnt > 0");
+            // Strip out all non-digits
+            enteredAmnt = enteredAmnt.replace(/\D/ig, '');
 
-            if (enteredAmnt.indexOf(".") == -1)
+            if (enteredAmnt.length > 7)
+			{
+                enteredAmnt = enteredAmnt.slice(0, -1);
+			}
+            else if (enteredAmnt.length > 5)
+			{
+                enteredAmnt = enteredAmnt.slice(0, 1) + "," + enteredAmnt.slice(1, -2) + "." + enteredAmnt.slice(-2); // "0,000.00"
+			}
+            else if (enteredAmnt.length > 2)
+			{
+                enteredAmnt = enteredAmnt.slice(0, -2) + "." + enteredAmnt.slice(-2); // "000.00"
+			}
+            else if (enteredAmnt.length == 1)
+			{
+                enteredAmnt = ".0" + enteredAmnt; // ".00"
+			}
+
+			if (enteredAmnt.slice(0, 1) == "0") enteredAmnt = enteredAmnt.slice(1);
+
+			$scope.recipientDetail.Amount = enteredAmnt;
+
+
+            if (parseFloat(enteredAmnt.replace(',','')) > 5000)
             {
-                console.log(". was missing");
-                $scope.recipientDetail.Amount = enteredAmnt + ".00";
-            }
-            else if (enteredAmnt.indexOf(".") > enteredAmnt.length - 3)
-            {
-                console.log("2nd one");
-                $scope.recipientDetail.Amount = enteredAmnt + "0";
+                $scope.recipientDetail.Amount = '5,000.00';
+
+                $ionicContentBanner.show({
+                    text: ['The max transfer amount is currently $5,000.'],
+                    autoClose: 4000,
+                    type: 'error',
+                    transition: 'vertical'
+                });
             }
         }
-    });
+    };
 
 
     $scope.submitRequest = function () {
         type = 'request';
         $scope.sendSelected = false;
-		
-		console.log($scope.recipientDetail);
+
+		// console.log($scope.recipientDetail);
 
         if ($scope.requestSelected == true)
         {
@@ -174,15 +212,15 @@
 
             $state.go('enterPin');
         }
-        else if (typeof $scope.recipientDetail.Amount == "undefined" || $scope.recipientDetail.Amount == 0)
+        else if (typeof $scope.recipientDetail.Amount == "undefined" || parseFloat($scope.recipientDetail.Amount) == 0)
 		{
 			$scope.noAmountAlert('request');
 		}
-		else if ($scope.recipientDetail.Amount < 1)
+		else if (parseFloat($scope.recipientDetail.Amount.replace(',','')) < 1)
 		{
 			$scope.underTransLimitAlert('request');
 		}
-		else if ($scope.recipientDetail.Amount > 2000)
+		else if (parseFloat($scope.recipientDetail.Amount.replace(',','')) > 2000)
 		{
 			$scope.overTransLimitAlert('request');
 		}
@@ -222,7 +260,7 @@
         type = 'send';
         $scope.requestSelected = false;
 
-        console.log('SubmitSend() Fired -> Amount: ' + $scope.recipientDetail.Amount);
+        // console.log($scope.recipientDetail);
 
         if ($scope.sendSelected == true)
         {
@@ -234,11 +272,11 @@
 		{
 			$scope.noAmountAlert('send');
 		}
-		else if ($scope.recipientDetail.Amount < 1)
+		else if (parseFloat($scope.recipientDetail.Amount.replace(',','')) < 1)
 		{
 			$scope.underTransLimitAlert('send');
 		}
-		else if ($scope.recipientDetail.Amount > 2000)
+		else if (parseFloat($scope.recipientDetail.Amount.replace(',','')) > 2000)
 		{
 			$scope.overTransLimitAlert('send');
 		}
@@ -282,52 +320,15 @@
     }
 
 
-    $scope.checkAmount = function () {
-        //console.log(typeof $scope.recipientDetail.Amount);
-
-        if (typeof $scope.recipientDetail.Amount != "undefined")
-        {
-            console.log($scope.recipientDetail.Amount);
-
-            var currentVal = $scope.recipientDetail.Amount;
-
-            if (currentVal > 5000)
-            {
-                $scope.recipientDetail.Amount = 5000;
-
-                $ionicContentBanner.show({
-                    text: ['The max transfer amount is currently $5,000.'],
-                    autoClose: 4000,
-                    type: 'error',
-                    transition: 'vertical'
-                });
-            }
-            // if (currentVal < 5)
-            // 		{
-            // 			//$scope.recipientDetail.Amount = 5000;
-            //
-            //             $ionicContentBanner.show({
-            //                 text: ['The minimum transfer amount is currently $5.'],
-            // 				autoClose: 4000,
-            //                 type: 'error',
-            //                 transition: 'vertical'
-            //             });
-            // 		}
-        }
-    }
-
-
 	$scope.noAmountAlert = function(type) {
-		console.log($scope.recipientDetail);
-		console.log($scope.recipientDetail.FirstName);
 
 		var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
 			? $scope.recipientDetail.FirstName
 			: $scope.recipientDetail.UserName;
 
 		var bodyTxt = type == "send"
-			? "Please enter a value over $0.<span class='show'>We'd love to send a $0 payment to " + firstName + ", but it's actually surprisingly tricky.</span>"
-			: "Please enter a value over $0.<span class='show'>We'd love to send a $0 request to " + firstName + ", but it would just get too confusing for everyone.</span>";
+			? "We'd love to send a $0 payment to " + firstName + ", but it's actually surprisingly tricky.<span class='show'>Please enter an amount > $1.00</span>"
+			: "We'd love to send a $0 request to " + firstName + ", but it would just get too confusing for everyone.<span class='show'>Please enter an amount > $1.00</span>";
 
 		swal({
 			title: "Non-cents!",
@@ -368,14 +369,24 @@
 		
 		var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
 			? $scope.recipientDetail.FirstName
-			: $scope.recipientDetail.UserName;
+			: "no name";
 
-		var bodyTxt = type == "send"
-			? "Please enter at least $1.<span class='show'>Surely you need to pay " + firstName + " more than that...</span>"
-			: "Please enter at least $1.<span class='show'>Surely " + firstName + " owes you more than that...</span>";
+		var bodyTxt = "";
+		if (type == "send")
+		{
+			bodyTxt = firstName === "no name"
+				? "Surely you need to send more than that!<span class='show'>Please enter an amount > $1.00.</span>"
+				: "Surely you need to pay " + firstName + " more than that!<span class='show'>Please enter an amount > $1.00.</span>";
+		}
+		else
+		{
+			bodyTxt = firstName === "no name"
+				? "Surely you need to collect more than that!<span class='show'>Please enter an amount > $1.00.</span>"
+				: "Surely " + firstName + " owes you more than that!<span class='show'>Please enter an amount > $1.00.</span>";
+		}
 
 		swal({
-			title: "Almost there...",
+			title: "Almost There...",
 			text: bodyTxt,
 			type: "warning",
 			confirmButtonColor: "#3fabe1",

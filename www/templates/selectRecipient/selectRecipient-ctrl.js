@@ -147,7 +147,7 @@
                         {
                             for (var n = 1; n < contact.emails.length; n++) // start at 2nd, we already have the 1st
                             {
-                                if (ValidateEmail(contact.emails[n].value))
+                                if (CommonServices.ValidateEmail(contact.emails[n].value))
                                     $scope.readContact.otherEmails.push({ 'value': contact.emails[n].value }, { 'type': contact.emails[n].type })
                             }
                         }
@@ -214,7 +214,7 @@
             {
                 if (i < 4)
                 {
-                    if (ValidateEmail(member.otherEmails[i].value))
+                    if (CommonServices.ValidateEmail(member.otherEmails[i].value))
                     {
                         $scope.buttonValues.id = i;
                         $scope.buttonValues.text = member.otherEmails[i].value;
@@ -314,40 +314,72 @@
     }
 
 
-    $scope.checkList = function () {
+    $scope.checkSearchText = function () {
 
-        if ($('#searchBar').val() == '')
-            $scope.showEmPhDiv = false;
+		var enteredText = $('#searchBar').val().trim();
 
-        if ($('#recents-table').html() == undefined)
+        if (enteredText == '') $scope.showEmPhDiv = false;
+
+        if ($('#recents-table').html() == undefined && enteredText.length > 2)
         {
-            if (isNaN($('#searchBar').val()))
+			// Check if the user has entered only numbers so far to see if it's a phone number or not
+            if (isNaN(enteredText) && !($scope.sendTo == 'Contact Number' && enteredText.length > 5))
             {
-                if (ValidateEmail($('#searchBar').val()))
+                if (looksLikeEmail(enteredText))
                 {
-                    console.log('true email');
                     $scope.showEmPhDiv = true;
                     $scope.sendTo = 'Email Address';
                 }
+				else
+					$scope.showEmPhDiv = false;
             }
             else
             {
-                console.log('true contact');
                 $scope.showEmPhDiv = true;
                 $scope.sendTo = 'Contact Number';
+
+				if (enteredText.length > 14)
+				{
+					enteredText = enteredText.slice(0, -1);
+				}
+	            else if (enteredText.length > 7)
+	                enteredText = enteredText.replace(/^\((\d{3})\)\s(\d{3})(\d{1})/, '($1) $2-$3'); //"(XXX) XXX-XXXX",
+	            else if (enteredText.length > 3)
+	                enteredText = enteredText.replace(/^\(?(\d{3})(\d{1})/, '($1) $2'); //"(XXX) X",
+
+				$('#searchBar').val(enteredText);
             }
+
+			$scope.nonUserText = enteredText;
         }
         else
+		{
             $scope.showEmPhDiv = false;
+			$scope.nonUserText = '';
+		}
     }
+	
+	
+	$scope.checkSearchTextForHowMuch = function() {
+        var objForHowMuch = {
+			type: $scope.sendTo == 'Contact Number' ? "phone" : "email",
+            value: $scope.nonUserText,
+        }
+
+		$state.go('app.howMuch', { recip: objForHowMuch });
+	}
 
 
-    function ValidateEmail(email) {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)*.+$/.test(email))
-            return (true)
+    function looksLikeEmail(text) {
+		// For checking the search field on keyup to see if the entered text looks like an email.
+		// NOTE: Only checks for "@" plus one char, so it's not guaranteeing a completely valid email.
+		var regex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*.?/);
+		if (regex.test(text))
+			return true;
         else
-            return (false)
+            return false;
     }
+
 
     $scope.selectRecipListHeight = { 'max-height': $rootScope.screenHeight - 150 + 'px' }
 })

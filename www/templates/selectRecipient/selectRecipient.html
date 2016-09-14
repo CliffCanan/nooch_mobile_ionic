@@ -15,7 +15,7 @@
         <div class="list list-inset m-t-0 m-b-10" ng-show="showSearchFlag">
             <label class="item item-input searchBarContainer">
                 <i class="icon ion-search placeholder-icon p-r-0"></i>
-                <input type="text" ng-keyup="checkList()" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">
+                <input type="text" ng-keyup="checkSearchText()" id="searchBar" ng-model="search" placeholder="Search by name or enter an email">
             </label>
         </div>
 
@@ -41,14 +41,18 @@
 
                 </ion-item>
 
-                <p class="emptyView">Nobody found!</p>
+                <p class="emptyView" ng-if="showEmPhDiv != true" >Nobody found!</p>
 
             </ion-list>
 
             <div ng-show="showEmPhDiv == true" id="dvSendTo">
-                <a class="" ui-sref="app.howMuch({recip:search})">
-                    <span class="sendTo">Send to: <i ng-if="sendTo == 'Email Address'" class="fa fa-envelope"></i></span>
-                    <span class="enteredTxt">{{search}}</span>
+                <a ng-click="checkSearchTextForHowMuch()">
+                    <div class="sendTo m-b-5">Send To:</div>
+                    <div class="enteredTxt m-b-5">{{nonUserText}}</div>
+					<div class="f-30 purp-text m-b-5">
+						<i ng-if="sendTo == 'Email Address'" class="ion-email"></i>
+						<i ng-if="sendTo == 'Contact Number'" class="ion-iphone"></i>
+					</div>
                     <img class="defaultImg" src="././img/profile_picture.png" />
                 </a>
             </div>

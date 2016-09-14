@@ -7,11 +7,18 @@
 
                 <div class="header-item barBackground" ng-class="{'blue': requestSelected == true, 'green': sendSelected == true}">
                     To:&nbsp;
-                    <span id="recipName">
+                    <span id="recipName" class="animated flipInX" ng-if="recipientDetail.FirstName || recipientDetail.UserName || recipientDetail.ContactNumber">
                         <span ng-if="recipientDetail.FirstName">{{recipientDetail.FirstName}}</span>
                         <span ng-if="recipientDetail.LastName">&nbsp;{{recipientDetail.LastName}}</span>
-                        <span ng-if="!recipientDetail.FirstName && !recipientDetail.LastName && recipientDetail.UserName">{{recipientDetail.UserName}}</span>
-                        <span id="contactNum" ng-if="!recipientDetail.FirstName && !recipientDetail.LastName && recipientDetail.ContactNumber">{{recipientDetail.ContactNumber}}</span>
+						<i class="ion-person m-l-10" ng-if="recipientDetail.FirstName"></i>
+                        <span ng-if="!recipientDetail.FirstName && !recipientDetail.LastName && recipientDetail.UserName">
+							{{recipientDetail.UserName}}
+							<i class="ion-email m-l-10"></i>
+						</span>
+                        <span id="contactNum" ng-if="!recipientDetail.FirstName && !recipientDetail.LastName && recipientDetail.ContactNumber">
+							{{recipientDetail.ContactNumber}}
+							<i class="ion-iphone m-l-10"></i>
+						</span>
                     </span>
 
                     <a href=""><i class="ion-plus-circled pull-right f-19"></i></a>
@@ -25,7 +32,7 @@
                     <div class="col">
                         <div class="amount-container">
                             <i id="dollarSign" class="ion-social-usd"></i>
-                            <input id="amountField" type="text" ng-model="recipientDetail.Amount" placeholder="00.00" ng-keyup="checkAmount()" maxlength="7"/>
+                            <input id="amountField" type="text" ng-model="recipientDetail.Amount" placeholder="00.00" ng-keyup="formatAmount()" maxlength="7"/>
                         </div>
                     </div>
                 </div>

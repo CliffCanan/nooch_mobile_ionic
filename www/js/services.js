@@ -97,6 +97,13 @@ angular.module('noochApp.services', ['ngStorage'])
       this.ResendVerificationSMS = function () {
           return $http.get(URLs.ResendVerificationSMS + '?UserName=' + $localStorage.GLOBAL_VARIABLES.UserName);
       };
+	  
+	  this.ValidateEmail = function(str) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w+)*.+$/.test(str))
+            return (true)
+        else
+            return (false)
+    }
   })
 
 
