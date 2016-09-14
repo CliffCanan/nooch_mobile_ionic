@@ -349,7 +349,44 @@
             }
             else if (member.bit == 'p' && member.otherEmails == null || member.otherEmails.length < 2)
             {
-                $state.go('app.howMuch', { recip: member });
+                //check if phone or email is already registered with nooch i.e existing user
+                var registeredMember = {
+                    'FirstName': "",
+                    'LastName': "",
+                    'MemberId': "",
+                    'Photo': ""
+
+                }
+               
+                var type = "E";
+ 
+
+                selectRecipientService.CheckMemberExistenceUsingEmailOrPhone(type, member.UserName)
+                    .success(function (data) {
+
+                        if (data.IsMemberFound == true) {
+                            // member found
+                            registeredMember.FirstName = data.Name;
+                            registeredMember.MemberId = data.MemberId;
+                            registeredMember.Photo = data.UserImage;
+
+                            $state.go('app.howMuch', { recip: registeredMember });
+                        }
+                        else {
+                            // member not found
+                            
+                           $state.go('app.howMuch', { recip: member });
+                        }
+                    })
+                    .error(function (error) {
+                        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                            CommonServices.logOut();
+                    }
+
+                    );
+
+
+              
             }
             else
             {
@@ -376,9 +413,49 @@
                     titleText: "Which Email Address?",
                     cancelText: "Cancel",
                     buttonClicked: function (index) {
-                        member.UserName = member.otherEmails[index].value;
-                        $state.go('app.howMuch', { recip: member.UserName });
-                        return true;
+
+
+                        //check if phone or email is already registered with nooch i.e existing user
+                        var registeredMember = {
+                            'FirstName': "",
+                            'LastName': "",
+                            'MemberId': "",
+                            'Photo': ""
+
+                        }
+
+                        var type = "E";
+
+
+                        selectRecipientService.CheckMemberExistenceUsingEmailOrPhone(type, member.otherEmails[index].value)
+                            .success(function (data) {
+
+                                if (data.IsMemberFound == true) {
+                                    // member found
+                                    registeredMember.FirstName = data.Name;
+                                    registeredMember.MemberId = data.MemberId;
+                                    registeredMember.Photo = data.UserImage;
+                                    $state.go('app.howMuch', { recip: registeredMember });
+                                    return true;
+                                }
+                                else {
+                                    // member not found
+
+                                    member.UserName = member.otherEmails[index].value;
+                                    $state.go('app.howMuch', { recip: member.UserName });
+                                    return true;
+                                }
+                            })
+                            .error(function (error) {
+                                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                    CommonServices.logOut();
+                            }
+
+                            );
+
+
+
+                        
                     }
                 });
             }
