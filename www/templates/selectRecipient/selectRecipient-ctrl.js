@@ -360,13 +360,52 @@
     }
 	
 	
-	$scope.checkSearchTextForHowMuch = function() {
-        var objForHowMuch = {
-			type: $scope.sendTo == 'Contact Number' ? "phone" : "email",
-            value: $scope.nonUserText,
-        }
+    $scope.checkSearchTextForHowMuch = function () {
 
-		$state.go('app.howMuch', { recip: objForHowMuch });
+        //check if phone or email is already registered with nooch i.e existing user
+        var registeredMember = {
+            'FirstName': "",
+            'LastName': "",
+            'MemberId': "",
+            'Photo': ""
+           
+        }
+        var StringToCheck = $scope.nonUserText;
+        var type = $scope.sendTo == 'Contact Number' ? "P" : "E";
+        if (type == 'P') {
+            StringToCheck = StringToCheck.replace('-', '').replace('(', '').replace(')', '').replace(' ', '');
+        
+        }
+       
+        selectRecipientService.CheckMemberExistenceUsingEmailOrPhone(type, StringToCheck)
+            .success(function (data) {
+                
+                if (data.IsMemberFound==true) {
+                    // member found
+                    registeredMember.FirstName = data.Name;
+                    registeredMember.MemberId = data.MemberId;
+                    registeredMember.Photo = data.UserImage;
+
+                    $state.go('app.howMuch', { recip: registeredMember });
+                }
+                else {
+                    // member not found
+                    var objForHowMuch = {
+                        type: $scope.sendTo == 'Contact Number' ? "phone" : "email",
+                        value: $scope.nonUserText,
+                    }
+
+                    $state.go('app.howMuch', { recip: objForHowMuch });
+                }
+            })
+            .error(function (error) {
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            }
+
+            );
+
+
 	}
 
 
