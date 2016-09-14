@@ -374,9 +374,15 @@
                         }
                         else {
                             // member not found
-                            
-                           $state.go('app.howMuch', { recip: member });
+                           
+                            var objForHowMuch = {
+                                type: "email",
+                                value:  member.UserName,
+                            }
+
+                            $state.go('app.howMuch', { recip: objForHowMuch });
                         }
+                         
                     })
                     .error(function (error) {
                         if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
@@ -440,9 +446,14 @@
                                 }
                                 else {
                                     // member not found
+                                  
+                                    var objForHowMuch = {
+                                        type: "email",
+                                        value: member.otherEmails[index].value,
+                                    }
 
-                                    member.UserName = member.otherEmails[index].value;
-                                    $state.go('app.howMuch', { recip: member.UserName });
+                                    $state.go('app.howMuch', { recip: objForHowMuch });
+                                 
                                     return true;
                                 }
                             })
