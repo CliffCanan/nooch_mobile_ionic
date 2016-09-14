@@ -28,7 +28,7 @@
                 <div class="bank-info row">
 
                     <div class="col col-20 p-l-0">
-                        <img class="bank-logo pull-left" src="{{bankData.bankLogoUrl}}" />
+                        <img class="bank-logo pull-left" src="{{bankData.bankLogoUrl}}" ng-if="bankData != null && bankData.bankLogoUrl != null"/>
                     </div>
 
                     <div class="col p-l-10">

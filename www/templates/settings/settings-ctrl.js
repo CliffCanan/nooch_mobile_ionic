@@ -3,6 +3,16 @@
  .controller('SettingCtrl', function ($scope, $rootScope, $timeout, $state, $ionicModal, $ionicLoading,
                                       $localStorage, $sce, $ionicContentBanner, settingsService, CommonServices, $cordovaGoogleAnalytics, $ionicPlatform) {
 
+     $scope.$on("$ionicView.beforeEnter", function (event, data) {
+		 if ($scope.bankData == null)
+		 {
+			 console.log('$scope.bankData == null');
+	         $scope.bankData = {
+	             bankLogoUrl: '././img/bank.png'
+	         };
+		 }
+	 });
+
      $scope.$on("$ionicView.enter", function (event, data) {
 
          $scope.editBank = false;
@@ -50,7 +60,7 @@
 
                  $('#settings_cntnr').css('margin-top', '50px');
              }
-         }, 500);
+         }, 400);
 
          $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
@@ -383,10 +393,9 @@
 
          settingsService.GetSynapseBankAndUserDetails()
              .success(function (data) {
-                 console.log(data);
+                 //console.log(data);
                  $scope.bankData = data;
 
-                 console.log("Data for MicroDeposit");
                  $rootScope.bank_node = $scope.bankData.bank_node_id;
 
                  console.log($scope.bankData);
@@ -401,7 +410,7 @@
              });
          //  }
          //else
-         //  swal("Oops...", "Internet not connected!", "error");
+         //  swal("Error", "Internet not connected!", "error");
      }
 
 

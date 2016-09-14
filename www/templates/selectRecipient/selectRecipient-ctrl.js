@@ -26,7 +26,7 @@
 
 
     $scope.FindRecent = function () {
-        console.log('FindRecent Fired');
+        //console.log('FindRecent Fired');
 
         $ionicLoading.show({
             template: 'Loading Recent Friends...'
@@ -68,7 +68,7 @@
                                 showCancelButton: true,
                                 cancelButtonText: "Not Now",
                                 confirmButtonColor: "#3fabe1",
-                                confirmButtonText: "Authorize",
+                                confirmButtonText: "Authorize"
                             }, function (isConfirm) {
                                 if (isConfirm)
                                 {
@@ -94,12 +94,12 @@
                 else // for Browser testing
                     $scope.loadComplete = true;
             })
-            .error(function (data) {
-                console.log(data);
+            .error(function (error) {
+                console.log(error);
                 $ionicLoading.hide();
                 $scope.loadComplete = true;
 
-                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
             });
     }
@@ -268,7 +268,7 @@
 
         $scope.memberList = $filter('filter')($scope.items2, val);
 
-        console.log($scope.memberList);
+        //console.log($scope.memberList);
     });
 
 

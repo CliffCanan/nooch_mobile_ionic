@@ -196,9 +196,14 @@
         function onSuccess(contacts) {
             console.log('Phone Contacts...');
             console.log(contacts);
+
+			console.log('[' + $rootScope.homeContactLength + '], [' + contacts.length + ']');
+
             if ($rootScope.homeContactLength != contacts.length)
             {
-                $rootScope.homeContactLength = contacts.length;
+				console.log('$rootScope.homeContactLength != contacts.length');
+                
+				$rootScope.homeContactLength = contacts.length;
                 for (var i = 0; i < contacts.length; i++)
                 {
                     var contact = contacts[i];
@@ -220,15 +225,7 @@
                                 if (ValidateEmail(contact.emails[n].value))
                                 {
                                     console.log('4.) ' + contact.name.formatted);
-                                    console.log(contact.emails[n]);
-                                    console.log(contact.emails[n].value);
-                                    console.log(contact.emails[n].type);
-                                    // $scope.readContact.otherEmails[n - 1].value = contact.emails[n].value;
-                                    // $scope.readContact.otherEmails[n - 1].type = contact.emails[n].type;
-                                    //$scope.readContact.otherEmails = new Array();
                                     $scope.readContact.otherEmails.push({ 'value': contact.emails[n].value }, { 'type': contact.emails[n].type })
-
-
                                 }
                             }
                         }
@@ -251,21 +248,21 @@
                             Photo: '././img/profile_picture.png',
                             id: '',
                             bit: '',
-                            otherEmails: [
-                        // {value: ""},
-                        // {type: ""}
-                            ],
+                            otherEmails: [],
                             otherPhoneNumbers: []
                         };
                     }
                 }
-            } else
-            {
-                $scope.phoneContacts.push.apply($scope.phoneContacts, $rootScope.homeContacts);
-                console.log($scope.phoneContacts);
             }
+			else
+            {
+				console.log('$rootScope.homeContactLength == contacts.length');
+                $scope.phoneContacts.push.apply($scope.phoneContacts, $rootScope.homeContacts);
+            }
+			
             console.log($scope.phoneContacts);
-            $scope.setFavoritesForDisplay();
+            
+			$scope.setFavoritesForDisplay();
         };
 
         function onError(error) {
@@ -305,8 +302,6 @@
         {
             for (var j = 0; j < 5; j++)
             {
-                //console.log('current val of j ' + j + ' favo length ' + $scope.FavoritesToDisplay.length + ' contacts length ' + $scope.phoneContacts.length);
-
                 if ($scope.FavoritesToDisplay.length >= 5 || j >= $scope.phoneContacts.length)
                     break;
 
@@ -360,7 +355,7 @@
             }
             else if (member.bit == 'p' && member.otherEmails == null || member.otherEmails.length < 2)
             {
-                $state.go('app.howMuch', { recip: member.UserName });
+                $state.go('app.howMuch', { recip: member });
             }
             else
             {
@@ -631,12 +626,12 @@
         $http.get(url).then(function (result) {
             if ($localStorage.GLOBAL_VARIABLES.ip == null || $localStorage.GLOBAL_VARIABLES.ip == '')
             {
-                console.log('Local IP was NULL, saving: [' + result.data.ip + ']');
+                //console.log('Local IP was NULL, saving: [' + result.data.ip + ']');
                 $scope.updateDeviceIp(result.data.ip);
             }
             else if ($localStorage.GLOBAL_VARIABLES.ip != result.data.ip)
             {
-                console.log('IP Changed, NEW IP is [' + result.data.ip + '], OLD IP was:' + $localStorage.GLOBAL_VARIABLES.ip + ']');
+                //console.log('IP Changed, NEW IP is [' + result.data.ip + '], OLD IP was:' + $localStorage.GLOBAL_VARIABLES.ip + ']');
                 $scope.updateDeviceIp(result.data.ip);
             }
         }, function (error) {

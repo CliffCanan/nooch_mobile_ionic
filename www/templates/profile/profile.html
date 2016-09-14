@@ -50,7 +50,7 @@
                     </div>
 
                     <span class="input-label">
-                        <span style="display:inline-block" class="animated bounceIn">
+                        <span class="iconWrap animated bounceIn" id="em">
                             <i class="ion-ios-checkmark-outline text-success" ng-if="Status == 'Active' || Status == 'Accepted' || Details.IsVerifiedEmail == true"></i>
                             <i class="ion-close-circled text-danger" ng-if="Status == 'Registered' || (Details.IsVerifiedEmail == false && Status != 'Active')"></i>
                         </span>
@@ -66,7 +66,7 @@
                     </button>
 
                     <span class="input-label">
-                        <span style="display:inline-block" class="animated bounceIn">
+                        <span class="iconWrap animated bounceIn">
                             <i class="ion-ios-checkmark-outline text-success" ng-if="IsPhoneVerified == true"></i>
                             <i class="ion-close-circled text-danger" ng-if="IsPhoneVerified == false"></i>
                         </span>Phone

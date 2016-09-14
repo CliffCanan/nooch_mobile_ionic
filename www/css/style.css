@@ -726,8 +726,19 @@ a {
 
 .table-style-2 .input-label {
     color: #3fabe1;
+	position: relative;
     text-align: right;
     width: 33%;
+}
+
+.table-style-2 .input-label > span {
+	position: absolute;
+	top: 5px;
+	left: 25px;
+}
+
+.table-style-2 .input-label > span#em {
+	left: 34px;
 }
 
     .table-style-2 .input-label i.text-success::before {
@@ -737,6 +748,12 @@ a {
     .table-style-2 .input-label i.text-danger::before {
         color: rgb(200, 68, 66) !important;
     }
+
+	.table-style-2 .item.item-input input {
+		height: 34px;
+		padding-top: 6px;
+		padding-bottom: 5px;
+	}
 
 /*** SCREEN HEADER ***/
 .bar .title {
@@ -795,6 +812,21 @@ a {
 }
 
 /***  Forms  ***/
+input::-webkit-input-placeholder {
+   line-height: 1;
+   padding-top: 2px;
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+   line-height: 1;
+   padding-top: 2px;
+}
+
+input::-moz-placeholder {  /* Firefox 19+ */
+   line-height: 1;
+   padding-top: 2px;
+}
+
 .input-label {
     font-size: 17px;
     line-height: 1;
@@ -839,6 +871,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
         line-height: 1.3;
         margin-bottom: 8px;
     }
+	
+	.sweet-alert.heavierText p {
+		font-weight: 400;
+	}
 
     .sweet-alert .show {
         margin-top: 10px;
@@ -1024,13 +1060,13 @@ iframe {
 .searchBarContainer {
     border-radius: 6px !important;
     background: #e7e8e9;
-    padding: 0 0 3px 12px;
+    /*padding: 0 0 3px 12px;*/
     height: 40px;
 }
 
     .searchBarContainer input {
         text-align: center;
-        padding-right: 15px !important;
+		padding: 4px 15px 5px 0 !important;
     }
 
     .searchBarContainer i {
@@ -1384,7 +1420,6 @@ iframe {
         display: block;
         font-size: 11px;
         font-weight: 300;
-        ;
         opacity: .92;
     }
 
@@ -2062,7 +2097,8 @@ div.hscroller-card {
 }
 
 #recents-table .item {
-    padding: 15px 15px 25px 80px;
+	padding-bottom: 18px;
+    padding-left: 80px;
 }
 
 #recents-table .n-icon {
@@ -2153,6 +2189,7 @@ div.hscroller-card {
     font-size: 17px;
     height: 38px;
     padding: 8px 15px;
+	transition: .25s all;
 }
 
     .barBackground.green {

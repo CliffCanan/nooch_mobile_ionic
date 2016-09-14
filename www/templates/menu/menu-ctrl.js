@@ -39,7 +39,7 @@
 
         menuService.GetUserDetails()
             .success(function (res) {
-                console.log("GetUserDetails - Menu Cntrlr -->");
+                //console.log("GetUserDetails - Menu Cntrlr -->");
                 console.log(res);
 
                 $scope.Res = res;
@@ -59,7 +59,7 @@
                 $localStorage.GLOBAL_VARIABLES.synUserPermission = res.synUserPermission;
                 $localStorage.GLOBAL_VARIABLES.synBankAllowed = res.synBankAllowed;
 
-                $scope.PicUrl = res.userPicture;//"http://www.nooch.info/noochservice/UploadedPhotos/Photos/" + $localStorage.GLOBAL_VARIABLES.MemberId + ".png";
+                $scope.PicUrl = res.userPicture;
 
                 // CC (9/1/16): SETTING $rootScope values so we can access directly in HTML pages w/o setting in each scope
                 $rootScope.memberId = res.memberId;
@@ -83,7 +83,6 @@
                 // Now check if the user has any pending transactions
                 // $timeout($scope.pendingList, 2000);
 
-
                 //if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
                 //    $rootScope.$broadcast('isSuspended');
 
@@ -101,7 +100,7 @@
                     CommonServices.logOut();
             })
         //}
-        //else swal("Oops...", "Internet not connected!", "error");
+        //else swal("Error", "Internet not connected!", "error");
     }
 
 

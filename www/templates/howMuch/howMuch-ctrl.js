@@ -1,6 +1,8 @@
 ﻿angular.module('noochApp.howMuchCtrl', ['ngCordova', 'noochApp.howMuch-service', 'noochApp.services'])
 
-.controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal, howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading, $ionicContentBanner, $cordovaCamera, $cordovaImagePicker, $ionicActionSheet, $cordovaGoogleAnalytics) {
+.controller('howMuchCtrl', function ($scope, $state, $ionicPlatform, $ionicHistory, $stateParams, $ionicModal,
+			howMuchService, $localStorage, $ionicPopup, CommonServices, ValidatePin, $ionicLoading,
+			$ionicContentBanner, $cordovaCamera, $cordovaImagePicker, $ionicActionSheet, $cordovaGoogleAnalytics, $timeout) {
 
     var type = '';
 
@@ -103,7 +105,7 @@
         $scope.requestSelected = false;
         $scope.sendSelected = false;
 
-        console.log($stateParams);
+        console.log($stateParams.recip);
 
         if (typeof $stateParams.recip == 'object')
         {
@@ -123,11 +125,7 @@
             $scope.recipientDetail.Photo = "././img/profile_picture.png";
         }
 
-        console.log($stateParams.recip);
-
-        $('#howMuchForm').parsley();
-
-        $(".amount-container input").focus();
+        console.log($scope.recipientDetail);
 
 
         $ionicPlatform.ready(function () {
@@ -136,6 +134,11 @@
     });
 
 
+	$scope.$on('$ionicView.afterEnter', function(){
+		$("#amountField").focus();
+	});
+	
+	
     $(".amount-container input").focusout(function () {
         console.log($scope.recipientDetail.Amount);
 
@@ -145,13 +148,6 @@
         {
             console.log("enteredAmnt > 0");
 
-            //if ($('#howMuchForm').parsley().validate() != true){
-            //	console.log("howMuchForm NOT VALID");
-            //    $(this).focus();
-            //}
-            //else
-            //{
-            //console.log("howMuchForm VALID");
             if (enteredAmnt.indexOf(".") == -1)
             {
                 console.log(". was missing");
@@ -162,8 +158,6 @@
                 console.log("2nd one");
                 $scope.recipientDetail.Amount = enteredAmnt + "0";
             }
-
-            //console.log($('#howMuchForm').parsley().validate());
         }
     });
 
@@ -171,8 +165,8 @@
     $scope.submitRequest = function () {
         type = 'request';
         $scope.sendSelected = false;
-
-        console.log($('#howMuchForm').parsley().validate());
+		
+		console.log($scope.recipientDetail);
 
         if ($scope.requestSelected == true)
         {
@@ -180,10 +174,19 @@
 
             $state.go('enterPin');
         }
-            // else if ($('#howMuchForm').parsley().validate() == true)
-        else if (typeof $scope.recipientDetail.Amount != "undefined" &&
-            $scope.recipientDetail.Amount >= 1 &&
-            $scope.recipientDetail.Amount <= 5000)
+        else if (typeof $scope.recipientDetail.Amount == "undefined" || $scope.recipientDetail.Amount == 0)
+		{
+			$scope.noAmountAlert('request');
+		}
+		else if ($scope.recipientDetail.Amount < 1)
+		{
+			$scope.underTransLimitAlert('request');
+		}
+		else if ($scope.recipientDetail.Amount > 2000)
+		{
+			$scope.overTransLimitAlert('request');
+		}
+		else
         {
             console.log($scope.requestData);
 
@@ -208,9 +211,6 @@
                 $scope.requestData.RecepientName = $scope.requestData.MoneySenderEmailId ? $scope.requestData.MoneySenderEmailId
                                                                                          : $scope.requestData.contactNumber;
 
-            // $("#sendBtn").addClass("shrink");
-            // $("#requestBtn").addClass("expand");
-
             $scope.requestSelected = true;
 
             console.log($scope.requestData);
@@ -219,9 +219,8 @@
 
 
     $scope.submitSend = function () {
-        $scope.requestSelected = false;
-
         type = 'send';
+        $scope.requestSelected = false;
 
         console.log('SubmitSend() Fired -> Amount: ' + $scope.recipientDetail.Amount);
 
@@ -231,7 +230,19 @@
 
             $state.go('enterPin');
         }
-        else if ($scope.recipientDetail.Amount < 5000)
+        else if (typeof $scope.recipientDetail.Amount == "undefined" || $scope.recipientDetail.Amount == 0)
+		{
+			$scope.noAmountAlert('send');
+		}
+		else if ($scope.recipientDetail.Amount < 1)
+		{
+			$scope.underTransLimitAlert('send');
+		}
+		else if ($scope.recipientDetail.Amount > 2000)
+		{
+			$scope.overTransLimitAlert('send');
+		}
+		else
         {
             console.log($scope.recipientDetail);
 
@@ -306,6 +317,78 @@
     }
 
 
+	$scope.noAmountAlert = function(type) {
+		console.log($scope.recipientDetail);
+		console.log($scope.recipientDetail.FirstName);
+
+		var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
+			? $scope.recipientDetail.FirstName
+			: $scope.recipientDetail.UserName;
+
+		var bodyTxt = type == "send"
+			? "Please enter a value over $0.<span class='show'>We'd love to send a $0 payment to " + firstName + ", but it's actually surprisingly tricky.</span>"
+			: "Please enter a value over $0.<span class='show'>We'd love to send a $0 request to " + firstName + ", but it would just get too confusing for everyone.</span>";
+
+		swal({
+			title: "Non-cents!",
+			text: bodyTxt,
+			type: "warning",
+			confirmButtonColor: "#3fabe1",
+			customClass: "heavierText",
+			html: true
+		}, function() {
+			$timeout(function () {
+				$("#amountField").focus();
+			}, 800);
+		});
+	}
+
+
+	$scope.overTransLimitAlert = function(type) {
+		
+		var bodyTxt = type == "send"
+			? "To keep Nooch safe, please don’t send more than $2,000. We hope to raise this limit very soon!"
+			: "We love your enthusiasm, but currently transfers are limited to $2,000 to minimize our risk (and yours). We're working to raise the limit soon!";
+
+		swal({
+			title: "Whoa Now",
+			text: bodyTxt,
+			type: "warning",
+			confirmButtonColor: "#3fabe1",
+			customClass: "heavierText"
+		}, function() {
+			$timeout(function () {
+				$("#amountField").focus();
+			}, 800);
+		});
+	}
+
+
+	$scope.underTransLimitAlert = function(type) {
+		
+		var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
+			? $scope.recipientDetail.FirstName
+			: $scope.recipientDetail.UserName;
+
+		var bodyTxt = type == "send"
+			? "Please enter at least $1.<span class='show'>Surely you need to pay " + firstName + " more than that...</span>"
+			: "Please enter at least $1.<span class='show'>Surely " + firstName + " owes you more than that...</span>";
+
+		swal({
+			title: "Almost there...",
+			text: bodyTxt,
+			type: "warning",
+			confirmButtonColor: "#3fabe1",
+			customClass: "heavierText",
+			html: true
+		}, function() {
+			$timeout(function () {
+				$("#amountField").focus();
+			}, 800);
+		});
+	}
+
+
     $scope.addImage = function () {
 
         $ionicPlatform.ready(function () {
@@ -325,8 +408,6 @@
                   }
               }, function (error) {
                   // error getting photos
-                  // if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                  CommonServices.logOut();
               });
         });
     };
@@ -372,17 +453,18 @@
                 };
 
                 $cordovaCamera.getPicture(options).then(function (imageData) {
-                    console.log(imageData);
+                    //console.log(imageData);
                     $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                    var binary_string = window.atob(imageData);
+                    
+					var binary_string = window.atob(imageData);
                     var len = binary_string.length;
                     var bytes = new Uint8Array(len);
-                    for (var i = 0; i < len; i++)
+                    
+					for (var i = 0; i < len; i++)
                     {
                         bytes[i] = binary_string.charCodeAt(i);
                     }
                     $scope.picture = imageData;
-                    console.log(bytes);
                 }, function (err) {
                     // An error occured. Show a message to the user
                 });
@@ -411,7 +493,7 @@
                 });
             }
         }, function (error) {
-            console.error("The following error occurred: " + error);
+            console.error("isCameraAuthorized error: [" + error + "]");
         });
     }
 

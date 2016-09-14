@@ -488,14 +488,16 @@
 
         if (value == "zip")
         {
-            var lastCharEntered = $scope.Details.Zipcode.slice(-1);
+			// Strip out all non-digits
+            $scope.Details.Zipcode = $scope.Details.Zipcode.replace(/\D/g, '');
 
-            if (lastCharEntered.replace(/\D/, '').length == 0 || $scope.Details.Zipcode.length > 5)
+            if ($scope.Details.Zipcode.length > 5)
                 $scope.Details.Zipcode = $scope.Details.Zipcode.slice(0, -1);
         }
         else if (value == "phone")
         {
-            //console.log($scope.Details.ContactNumber);
+			// Strip out any letters
+            $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[a-z]/ig, '')
 
             var lastCharEntered = $scope.Details.ContactNumber.slice(-1);
 
@@ -508,7 +510,8 @@
         }
         else if (value == "ssn")
         {
-            //console.log($scope.Details.SSN);
+            // Strip out any letters
+            $scope.Details.SSN = $scope.Details.SSN.replace(/[a-z]/ig, '')
 
             var lastCharEntered = $scope.Details.SSN.slice(-1);
 
