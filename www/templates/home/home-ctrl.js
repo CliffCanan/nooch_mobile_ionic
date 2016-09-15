@@ -377,8 +377,11 @@
                            
                             var objForHowMuch = {
                                 type: "email",
-                                value:  member.UserName,
+                                value: member.UserName,
+                                photo:member.Photo,
                             }
+                            console.log(member);
+                            console.log(objForHowMuch);
 
                             $state.go('app.howMuch', { recip: objForHowMuch });
                         }
@@ -450,6 +453,7 @@
                                     var objForHowMuch = {
                                         type: "email",
                                         value: member.otherEmails[index].value,
+                                        photo: member.Photo,
                                     }
 
                                     $state.go('app.howMuch', { recip: objForHowMuch });
