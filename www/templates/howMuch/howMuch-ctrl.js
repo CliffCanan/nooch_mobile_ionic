@@ -213,7 +213,7 @@
         if ($scope.requestSelected == true)
         {
             // 2nd Tap on Request Btn
-            CommonServices.savePinValidationScreenData({ myParam: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
+            CommonServices.savePinValidationScreenData({ transObj: $scope.requestData, type: 'request', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Request' });
 
             $state.go('enterPin');
         }
@@ -268,7 +268,7 @@
         if ($scope.sendSelected == true)
         {
             // 2nd Tap on Send Btn
-            CommonServices.savePinValidationScreenData({ myParam: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
+            CommonServices.savePinValidationScreenData({ transObj: $scope.sendData, type: 'transfer', returnUrl: 'app.howMuch', returnPage: 'How Much', comingFrom: 'Transfer' });
 
             $state.go('enterPin');
         }
@@ -528,8 +528,8 @@
             $cordovaCamera.getPicture(options).then(function (imageData) {
                 //console.log(imageData);
 
-				$scope.pictureBase64 = "data:image/jpeg;base64," + imageData; // This goes to the server
-                $scope.imgURI = imageData; // This is for displaying on the How Much screen
+				$scope.pictureBase64 = "data:image/jpeg;base64," + imageData;
+                $scope.imgURI = imageData;
 
 				$scope.isPicAttachedToTrans = true;
             }, function (err) {

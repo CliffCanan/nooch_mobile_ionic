@@ -226,7 +226,7 @@
 
                $scope.transDetail.RecepientName = $scope.transDetail.Name;
 
-               CommonServices.savePinValidationScreenData({ myParam: $scope.transDetail, type: 'transfer', returnUrl: 'app.transferDetails', returnPage: 'Transfer Details', comingFrom: 'Transfer' });
+               CommonServices.savePinValidationScreenData({ transObj: $scope.transDetail, type: 'transfer', returnUrl: 'app.transferDetails', returnPage: 'Transfer Details', comingFrom: 'Transfer' });
 
 
                $state.go('enterPin');

@@ -163,7 +163,7 @@
             transDetails.RecepientName = trans.Name;
             console.log("Transfer Money Result: [" + JSON.stringify(transDetails) + ']');
 
-            CommonServices.savePinValidationScreenData({ myParam: transDetails, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });
+            CommonServices.savePinValidationScreenData({ transObj: transDetails, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });
 
             $state.go('enterPin');
         }

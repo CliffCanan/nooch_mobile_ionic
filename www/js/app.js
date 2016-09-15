@@ -46,7 +46,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
               shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
               HasSharedContacts: false, // if true then shouldn't ask for contact permission again
-              //pinValidatorData: { myParam: '', type: '', returnUrl: '', returnPage: '', comingFrom: '' }
               contactsLength: 0,
               pinValidatorData: {}
           };
@@ -99,7 +98,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   //added this to not asked for PIN before login
                   if ($localStorage.GLOBAL_VARIABLES.EnterPinImmediately == true)
                   {
-                      CommonServices.savePinValidationScreenData({ myParam: {}, type: '', returnUrl: 'app.home', returnPage: 'Home', comingFrom: 'Identity' });
+                      CommonServices.savePinValidationScreenData({ transObj: {}, type: '', returnUrl: 'app.home', returnPage: 'Home', comingFrom: 'Identity' });
 
                       $state.go('enterPin');
                   }
@@ -242,7 +241,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
         })
         .state('enterPin', {
             url: '/enterPin',
-            params: { myParam: null, type: null, returnUrl: null, returnPage: null, comingFrom: null },
+            params: { transObj: null, type: null, returnUrl: null, returnPage: null, comingFrom: null },
             templateUrl: 'templates/enterPin/enterPin.html',
             controller: 'enterPinCtrl'
         })

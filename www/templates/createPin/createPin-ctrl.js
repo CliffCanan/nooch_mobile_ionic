@@ -197,7 +197,7 @@
                 console.log(dataURL);
                 console.log("BAse 64--->>");
                 //console.log(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-                $rootScope.signUpData.Photo = (dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+                $rootScope.signUpData.Photo = (dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
             };
         }
 

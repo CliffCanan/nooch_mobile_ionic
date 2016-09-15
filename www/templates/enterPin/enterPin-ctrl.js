@@ -3,30 +3,40 @@
     .controller('enterPinCtrl', function ($scope, $state, $stateParams, $localStorage, $ionicHistory, $ionicLoading, $cordovaSocialSharing,
 										  CommonServices, ValidatePin, transferDetailsService, howMuchService, enterPinService, $cordovaGoogleAnalytics, $ionicPlatform) {
 
-        $scope.$on("$ionicView.enter", function (event, data) {
+        $scope.$on("$ionicView.beforeEnter", function (event, data) {
             console.log('Enter Pin Controller loaded');
             var obj = CommonServices.getPinValidationScreenData();
-
-            $scope.memId = $localStorage.GLOBAL_VARIABLES.MemberId;
-            $scope.Details = '';
-            $scope.returnUrl = '';
-            $scope.returnPage = '';
-
+            
+			$scope.Details = obj.transObj;
             $scope.Details.enterPin = '';
-            $scope.Details = obj.myParam;
-
-            console.log($scope.Details);
-
+			$scope.memId = $localStorage.GLOBAL_VARIABLES.MemberId;
             $scope.returnUrl = obj.returnUrl;
             $scope.returnPage = obj.returnPage;
             $scope.type = obj.type;
 
-            $("#pin").focus();
+			$scope.attachedPicForLocalDisplay = null;
 
-            $ionicPlatform.ready(function () {
+            console.log($scope.Details);            
+
+			if ($scope.Details.Picture != null)
+			{
+				console.log('ENTER PIN --> FOUND A PICTURE');
+				// CC (9/14/16): The How Much Scrn sends the Base64 version to CommonServices.getPinValidationScreenData()...
+				// THAT version is what we display here for the Enter PIN screen...
+				// But we strip out the Base64 prefix stuff to send to the server (I think)
+				$scope.attachedPicForLocalDisplay = $scope.Details.Picture;
+				$scope.Details.Picture = ($scope.Details.Picture.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
+			}
+			
+			$ionicPlatform.ready(function () {
                 if (typeof analytics !== 'undefined') analytics.trackView("Enter PIN");
             })
         });
+
+
+		$scope.$on("$ionicView.afterEnter", function (event, data) {
+			$("#pin").focus();
+		});
 
 
         $scope.processPin = function () {

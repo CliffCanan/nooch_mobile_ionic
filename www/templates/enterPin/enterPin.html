@@ -8,12 +8,12 @@
 
         <br /><br />
 
-        <h2 class="instructionTextPin m-t-20">
-            <span>Enter PIN to complete your </span>
-            <span class="show" ng-class="{'text-success': type == 'transfer', 'text-primary': type == 'request'}">{{type}}</span>
+        <h2 class="instructionTextPin m-t-40">
+            <div class="animated slideInDown">Enter PIN to complete your</div>
+            <div class="animated slideInRight" ng-class="{'text-success': type == 'transfer', 'text-primary': type == 'request'}">{{type}}</div>
         </h2>
 
-        <div class="row">
+        <div class="row animated zoomIn">
             <div class="col text-center">
                 <div class="pin-container">
                     <input ng-keyup="processPin()" type="password" style="-webkit-text-security:disc" id="pin" ng-model="Details.enterPin" placeholder="****">
@@ -23,16 +23,18 @@
             </div>
         </div>
 
-        <div class="card text-center m-t-10 recipient-box">
+        <div class="card text-center m-t-10 recipient-box animated fadeInLeft">
             <img src="{{Details.Photo}}" class="recip-pic" />
 
             <div class="namebar" ng-class="{'namebar-send': type == 'transfer', 'namebar-request': type == 'request'}">
                 {{Details.RecepientName}}
             </div>
 
-            <div class="memo-text">
-                {{Details.Memo}}
-            </div>
+            <div class="memo-text">{{Details.Memo}}</div>
+			
+			<span id="picAttached" ng-if="attachedPicForLocalDisplay != null">
+				<img class="animated bounceIn" src="{{attachedPicForLocalDisplay}}"/>
+			</span>
         </div>
 
     </ion-content>
