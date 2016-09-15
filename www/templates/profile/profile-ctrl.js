@@ -410,7 +410,8 @@
 
 
     $scope.saveSSN = function (Details) {
-        console.log('saveSSN Function Fired');
+        console.log('saveSSN Function Fired');        
+        $scope.Details.SSN = $scope.Details.SSN.replace(/-/g, '');        
         console.log($scope.Details.SSN);
         //if ($cordovaNetwork.isOnline()) {
 
