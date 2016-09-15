@@ -81,7 +81,7 @@
                 text: bodyText,
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-				confirmButtonText: "Cancel",
+				confirmButtonText: "Yes",
 				showCancelButton: true,
             }, function (isConfirm) {
                 if (isConfirm)
@@ -119,30 +119,42 @@
 
             console.log("Reject Payment Fired: [" + trans.TransactionId + ']');
 
-            $ionicLoading.show({
-                template: 'Rejecting Request...'
-            });
+            //$ionicLoading.show({
+            //    template: 'Rejecting Request...'
+            //});
 
-            transferDetailsService.RejectPayment(trans.TransactionId)
-                .success(function (data) {
-                    $ionicLoading.hide();
+            swal({
+                title: "Reject Payment",
+                text: "Are you sure you want to Reject this Payment ?",
+                type: "warning",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Yes",
+                showCancelButton: true,
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    transferDetailsService.RejectPayment(trans.TransactionId)
+                    .success(function (data) {
+                        $ionicLoading.hide();
 
-                    if (data.Result.indexOf('Successfully') > -1)
-                        swal({
-                            title: "Request Rejected",
-                            text: data.Result,
-                            type: "success",
-                            confirmButtonColor: "#3fabe1"
-                        }, function () {
-                            $state.reload();
-                        });
-                })
+                        if (data.Result.indexOf('Successfully') > -1)
+                            swal({
+                                title: "Request Rejected",
+                                text: data.Result,
+                                type: "success",
+                                confirmButtonColor: "#3fabe1"
+                            }, function () {
+                                $state.reload();
+                            });
+                    })
 			    .error(function (error) {
 			        $ionicLoading.hide();
 			        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 			            CommonServices.logOut();
 			    });
+                }
+            })
         }
+            
 
         $scope.remindPayment = function (trans) {
 
@@ -151,7 +163,7 @@
                 text: "Do you want to send a reminder about this request?",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-				confirmButtonText: "Cancel",
+				confirmButtonText: "Yes",
 				showCancelButton: true,
             }, function (isConfirm) {
                 if (isConfirm)
@@ -185,10 +197,12 @@
 		}
 
 
-        $scope.PayBack = function (trans) {
-            console.log("Pay Back Result: [" + JSON.stringify(trans) + ']');
-            $state.go('app.howMuch', { myParam: trans });
-        }
+        $scope.PayBack = function (trans) {        
+                    console.log("Pay Back Result: [" + JSON.stringify(trans) + ']');
+                    $state.go('app.howMuch', { myParam: trans });
+                }
+           
+       
 
 
         $scope.TransferMoney = function (trans) {
