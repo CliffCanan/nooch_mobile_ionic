@@ -197,7 +197,8 @@
 		}
 
 
-        $scope.PayBack = function (trans) {        
+        $scope.PayBack = function (trans) {
+        
                     console.log("Pay Back Result: [" + JSON.stringify(trans) + ']');
                     $state.go('app.howMuch', { myParam: trans });
                 }
@@ -206,13 +207,26 @@
 
 
         $scope.TransferMoney = function (trans) {
-            transDetails = trans;
-            transDetails.RecepientName = trans.Name;
-            console.log("Transfer Money Result: [" + JSON.stringify(transDetails) + ']');
 
-            CommonServices.savePinValidationScreenData({ transObj: transDetails, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });
+            swal({
+                title: "Pay Request?",
+                text: "Are you sure you want to pay for this request ?",
+                type: "warning",
+                confirmButtonColor: "#3fabe1",
+                confirmButtonText: "Yes",
+                showCancelButton: true,
+            }, function (isConfirm) {
+                if (isConfirm) {
 
-            $state.go('enterPin');
+                    transDetails = trans;
+                    transDetails.RecepientName = trans.Name;
+                    console.log("Transfer Money Result: [" + JSON.stringify(transDetails) + ']');
+
+                    CommonServices.savePinValidationScreenData({ transObj: transDetails, type: 'transfer', returnUrl: 'app.history', returnPage: 'History', comingFrom: 'Transfer' });
+
+                    $state.go('enterPin');
+                }
+            });
         }
 
 

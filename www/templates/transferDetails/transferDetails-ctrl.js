@@ -48,7 +48,8 @@
 
                // Make sure there is a transaction object available
                if ($stateParams.trans == null) $state.go('app.history');
-               else {
+               else
+               {
                    $ionicPlatform.ready(function () {
                        if (typeof analytics !== 'undefined') analytics.trackView("Trans Details");
                    })
@@ -60,7 +61,8 @@
                    //$rootScope.Location.longi = $scope.transDetail.Longitude;
 
                    if ($scope.transDetail.Latitude != '' && $scope.transDetail.Longitude != '' &&
-                       $scope.transDetail.Latitude != 0 && $scope.transDetail.Longitude != 0) {
+                       $scope.transDetail.Latitude != 0 && $scope.transDetail.Longitude != 0)
+                   {
                        $scope.hasLatiLongi = true;
                        $rootScope.Location.lati = $scope.transDetail.Latitude;
                        $rootScope.Location.longi = $scope.transDetail.Longitude
@@ -68,7 +70,8 @@
                        console.log($rootScope.Location.longi);
                        console.log($rootScope.Location.lati);
                    }
-                   if ($scope.transDetail.Picture != null) {
+                   if ($scope.transDetail.Picture != null)
+                   {
                        $scope.hasPicture = true;
                        //console.log(" This is HasPicture --->  " + $scope.transDetail.Picture);
                    }
@@ -80,45 +83,57 @@
                    $scope.labelTypeClr = "";
 
                    if (($scope.transDetail.TransactionType == 'Transfer' ||
-                        $scope.transDetail.TransactionType == 'Invite')) {
-                       if ($scope.transDetail.MemberId == $scope.memId) {
+                        $scope.transDetail.TransactionType == 'Invite'))
+                   {
+                       if ($scope.transDetail.MemberId == $scope.memId)
+                       {
                            $scope.typeLabelTxt = "Transfer To";
                            $scope.labelTypeClr = "red";
                        }
-                       else if ($scope.transDetail.MemberId != $scope.memId) {
+                       else if ($scope.transDetail.MemberId != $scope.memId)
+                       {
                            $scope.typeLabelTxt = "Transfer From";
                            $scope.labelTypeClr = "green";
                        }
                    }
-                   else if ($scope.transDetail.TransactionType == 'Request') {
-                       if ($scope.transDetail.MemberId == $scope.memId) {
+                   else if ($scope.transDetail.TransactionType == 'Request')
+                   {
+                       if ($scope.transDetail.MemberId == $scope.memId)
+                       {
                            $scope.typeLabelTxt = "Request To";
                            $scope.labelTypeClr = "blue";
                        }
-                       else if ($scope.transDetail.MemberId != $scope.memId) {
+                       else if ($scope.transDetail.MemberId != $scope.memId)
+                       {
                            $scope.typeLabelTxt = "Request From";
                            $scope.labelTypeClr = "blue";
                        }
                    }
-                   else if ($scope.transDetail.TransactionType == 'Reward') {
-                       if ($scope.transDetail.MemberId != $scope.memId) {
+                   else if ($scope.transDetail.TransactionType == 'Reward')
+                   {
+                       if ($scope.transDetail.MemberId != $scope.memId)
+                       {
                            $scope.typeLabelTxt = "Reward From";
                            $scope.labelTypeClr = "green";
                        }
                    }
-                   else if ($scope.transDetail.TransactionType == 'Rent') {
-                       if ($scope.transDetail.MemberId == $scope.memId) {
+                   else if ($scope.transDetail.TransactionType == 'Rent')
+                   {
+                       if ($scope.transDetail.MemberId == $scope.memId)
+                       {
                            $scope.typeLabelTxt = "Rent To";
                            $scope.labelTypeClr = "red";
                        }
-                       else if ($scope.transDetail.MemberId != $scope.memId) {
+                       else if ($scope.transDetail.MemberId != $scope.memId)
+                       {
                            $scope.typeLabelTxt = "Rent From";
                            $scope.labelTypeClr = "green";
                        }
                    }
 
                    $scope.mapGeoLabelTxt = "";
-                   if ($scope.transDetail.City != null && $scope.transDetail.City.length > 0) {
+                   if ($scope.transDetail.City != null && $scope.transDetail.City.length > 0)
+                   {
                        $scope.mapGeoLabelTxt = $scope.transDetail.City;
 
                        if ($scope.transDetail.State != null && $scope.transDetail.State.length > 0)
@@ -138,9 +153,9 @@
                    showCancelButton: true,
                }, function (isConfirm) {
                    if (isConfirm) {
-                       //$ionicLoading.show({
-                       //    template: 'Sending Reminder ...'
-                       //});
+                       $ionicLoading.show({
+                           template: 'Sending Reminder ...'
+                       });
 
                        transferDetailsService.RemindPayment($scope.transDetail.TransactionId).success(function (data) {
                            if (data.Result.indexOf('successfully') > -1) {
@@ -193,7 +208,7 @@
                        });
                    }
                });
-           }
+               }
 
 
            $scope.rejectPayment = function () {
@@ -234,16 +249,24 @@
            //                  IF THE USER TAPS 'Pay Back', IT SHOULD SEND THE USER TO THE 'HOW MUCH?' SCREEN SO THEY
            //                  CAN ENTER AN AMOUNT, THEN TO 'PIN' TO COMPLETE.
            $scope.TransferMoney = function () {
-               $scope.PayBack = function () {
-                   $scope.transDetail.RecepientName = $scope.transDetail.Name;
-                   CommonServices.savePinValidationScreenData({ transObj: $scope.transDetail, type: 'transfer', returnUrl: 'app.transferDetails', returnPage: 'Transfer Details', comingFrom: 'Transfer' });
+               swal({
+                   title: "Pay Request?",
+                   text: "Are you sure you want to pay for this request ?",
+                   type: "warning",
+                   confirmButtonColor: "#3fabe1",
+                   confirmButtonText: "Yes",
+                   showCancelButton: true,
+               }, function (isConfirm) {
+                   if (isConfirm) {
 
-                   $state.go('enterPin');
-                   //  $scope.modal.show();
-               }
+                       $scope.transDetail.RecepientName = $scope.transDetail.Name;
+                       CommonServices.savePinValidationScreenData({ transObj: $scope.transDetail, type: 'transfer', returnUrl: 'app.transferDetails', returnPage: 'Transfer Details', comingFrom: 'Transfer' });
 
+                       $state.go('enterPin');
+                       //  $scope.modal.show();
+                   }
+               });
            }
-
 
            $scope.PayBack = function () {
                console.log("Pay Back" + JSON.stringify($scope.transDetail));
