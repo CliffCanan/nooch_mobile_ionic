@@ -140,7 +140,9 @@
             $scope.recipientDetail.Photo = "././img/profile_picture.png";
         }
 
-        console.log($scope.recipientDetail);
+		if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
+        
+		console.log($scope.recipientDetail);
     });
 
 
@@ -155,6 +157,8 @@
 
     $scope.formatAmount = function () {
         //console.log($scope.recipientDetail.Amount);
+		
+		if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
 
         var enteredAmnt = $scope.recipientDetail.Amount;
 
@@ -241,7 +245,7 @@
                 $scope.requestData.Name = "";
             $scope.requestData.RecepientName = $scope.requestData.Name;
             $scope.requestData.Memo = $scope.recipientDetail.Memo;
-            $scope.requestData.Picture = $scope.picture;
+            $scope.requestData.Picture = $scope.pictureBase64;
             $scope.requestData.MoneySenderEmailId = $scope.recipientDetail.UserName;
             $scope.requestData.contactNumber = $scope.recipientDetail.ContactNumber;
             if ($scope.requestData.RecepientName.replace(/\s/g, "") == "")
@@ -297,7 +301,7 @@
                 $scope.sendData.Name = "";
             $scope.sendData.RecepientName = $scope.sendData.Name;
             $scope.sendData.Memo = $scope.recipientDetail.Memo;
-            $scope.sendData.Picture = $scope.picture;
+            $scope.sendData.Picture = $scope.pictureBase64;
             $scope.sendData.Photo = $scope.recipientDetail.Photo;
             $scope.sendData.UserName = $scope.recipientDetail.UserName;
             $scope.sendData.InvitationSentTo = $scope.recipientDetail.UserName;
@@ -321,6 +325,8 @@
 
 
     $scope.noAmountAlert = function (type) {
+
+		$('#amountField').addClass('parsley-error');
 
         var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
 			? $scope.recipientDetail.FirstName
@@ -347,6 +353,8 @@
 
     $scope.overTransLimitAlert = function (type) {
 
+		$('#amountField').addClass('parsley-error');
+
         var bodyTxt = type == "send"
 			? "To keep Nooch safe, please don’t send more than $2,000. We hope to raise this limit very soon!"
 			: "We love your enthusiasm, but currently transfers are limited to $2,000 to minimize our risk (and yours). We're working to raise the limit soon!";
@@ -366,6 +374,8 @@
 
 
     $scope.underTransLimitAlert = function (type) {
+
+		$('#amountField').addClass('parsley-error');
 
         var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
 			? $scope.recipientDetail.FirstName
@@ -401,6 +411,7 @@
 
 
     $scope.changePic = function () {
+		
         var hideSheet = $ionicActionSheet.show({
             buttons: [
               { text: 'From Device Photos' },
@@ -408,12 +419,19 @@
             ],
             titleText: 'Attach a Picture',
             cancelText: 'Cancel',
+			destructiveText: $scope.isPicAttachedToTrans == true ? 'Remove Picture' : null,
             buttonClicked: function (index) {
                 if (index == 0) $scope.choosePhoto();
                 else if (index == 1) $scope.takePhoto();
 
                 return true;
-            }
+            },
+			destructiveButtonClicked: function () {
+				$scope.pictureBase64 = null;
+                $scope.imgURI = null;
+				$scope.isPicAttachedToTrans = false;
+				return true;
+			}
         });
     }
 
@@ -443,17 +461,25 @@
                     //console.log(imageData);
                     $scope.imgURI = "data:image/jpeg;base64," + imageData;
 
-                    var binary_string = window.atob(imageData);
+					// CC (9/14/16): Is this block needed? It's not on the AddPicture-ctrl, so commenting it out to test
+                    /*var binary_string = window.atob(imageData);
                     var len = binary_string.length;
                     var bytes = new Uint8Array(len);
 
                     for (var i = 0; i < len; i++)
                     {
                         bytes[i] = binary_string.charCodeAt(i);
-                    }
-                    $scope.picture = imageData;
+                    }*/
+
+					$scope.pictureBase64 = "data:image/jpeg;base64," + imageData; // This goes to the server
+	                $scope.imgURI = imageData; // This is for displaying on the How Much screen
+
+					$scope.isPicAttachedToTrans = true;
                 }, function (err) {
                     // An error occured. Show a message to the user
+					$scope.pictureBase64 = null;
+	                $scope.imgURI = null;
+					$scope.isPicAttachedToTrans = false;
                 });
             }
             else
@@ -501,9 +527,16 @@
 
             $cordovaCamera.getPicture(options).then(function (imageData) {
                 //console.log(imageData);
-                $scope.imgURI = "data:image/jpeg;base64," + imageData;
+
+				$scope.pictureBase64 = "data:image/jpeg;base64," + imageData; // This goes to the server
+                $scope.imgURI = imageData; // This is for displaying on the How Much screen
+
+				$scope.isPicAttachedToTrans = true;
             }, function (err) {
                 // An error occured. Show a message to the user
+				$scope.pictureBase64 = null;
+                $scope.imgURI = null;
+				$scope.isPicAttachedToTrans = false;
             });
         });
     }

@@ -42,11 +42,14 @@
                         <div id="memoField" class="item item-input text-center">
                             <input type="text" ng-model="recipientDetail.Memo" placeholder="Enter a Memo" maxlength="100">
 
-                            <a href="" ng-click="changePic()" id="add-img-btn">
+                            <a href="" ng-click="changePic()" id="add-img-btn" ng-if="isPicAttachedToTrans != true">
                                 <i class="ion-camera m-l-5"></i>
                             </a>
 
-                            <input type="hidden" value="{{imgURI}}">
+							<span id="picAttached" ng-click="changePic()" ng-if="isPicAttachedToTrans == true">
+								<!--<i class="ion-camera purp-text m-l-5"></i>-->
+								<img src="{{pictureBase64}}"/>
+							</span>
 
                         </div>
                     </div>

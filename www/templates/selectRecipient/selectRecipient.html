@@ -22,9 +22,9 @@
 
         <ion-scroll direction="y" class="history-list" ng-style="selectRecipListHeight">
 
-            <img src="././img/SelectRecip_Empty@2x.png" ng-show="recentCount === 0 && memberList.length === 0" class="emptyTableImg" />
+            <img src="././img/SelectRecip_Empty@2x.png" ng-show="loadComplete == true && recentCount === 0 && memberList.length === 0" class="emptyTableImg" />
 
-            <ion-list ng-if="loadComplete == true">
+            <ion-list ng-if="loadComplete == true && memberList.length > 0">
                 <ion-item ng-repeat="member in memberList | filter:search" class="list" id="selectRecipList">
 
                     <a class="item item-avatar" ng-click="openFilterChoices(member)" nav-transition="ios" nav-direction="forward">

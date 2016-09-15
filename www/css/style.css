@@ -2227,12 +2227,11 @@ div.hscroller-card {
 
 .amount-container {
     overflow: visible;
-    padding-right: 5px;
     position: relative;
 }
 
     .amount-container input {
-        border: none;
+        border: 1px solid transparent;
         border-radius: 6px; /*Needed for error styling*/
         color: #58595B;
         font-size: 42px;
@@ -2242,9 +2241,18 @@ div.hscroller-card {
         position: absolute;
         text-align: right;
         top: 0;
+		transition: .25s all;
         right: 0;
         width: 190px;
     }
+
+	.amount-container input::-webkit-input-placeholder {
+	    line-height: 70px !important;
+	}
+
+	.amount-container input.parsley-error {
+	    border-color: rgb(200, 68, 66) !important;
+	}
 
     .amount-container #dollarSign {
         color: #58595B;
@@ -2273,13 +2281,13 @@ div.hscroller-card {
 
 #memoField {
     border: 1px solid #c8c9cb;
-    border-radius: 5px;
+    border-radius: 6px;
     padding: 3px 10px;
     height: 44px;
 }
 
     #memoField input {
-        padding-right: 5px;
+        padding: 0px;
         text-overflow: ellipsis;
         word-wrap: break-word;
     }
@@ -2289,6 +2297,14 @@ div.hscroller-card {
     color: #939598;
     font-size: 24px;
     padding: 0px 5px;
+}
+
+#picAttached img {
+	max-height: 42px;
+	border-radius: 5px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
 }
 
 #howMuchBox .button-bar {

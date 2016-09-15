@@ -4,7 +4,8 @@
 /*** SELECT RECIPIENT ***/
 /************************/
 .controller('SelectRecipCtrl', function ($scope, $rootScope, $state, $localStorage, $cordovaContacts, $ionicLoading, $filter,
-                                         $ionicPlatform, $ionicActionSheet, $cordovaGoogleAnalytics, $timeout, CommonServices, selectRecipientService) {
+                                         $ionicPlatform, $ionicActionSheet, $cordovaGoogleAnalytics, $timeout, $ionicHistory,
+                                         CommonServices, selectRecipientService) {
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
         $scope.loadComplete = false;
@@ -13,23 +14,39 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
+		console.log($ionicHistory.forwardView()); // This will be NULL unless coming from How Much Screen
 
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Select Recipient");
         })
 
-        $scope.memberList = new Array();
+		if (typeof $scope.memberList == 'undefined')
+			$scope.memberList = new Array();
+		else
+			console.log($scope.memberList.length);
 
         $scope.FindRecent();
 
         $scope.currentView = 'recent';
         $scope.sendTo = '';
-        $scope.recentCount = null;
+		
+		if (typeof $scope.recentCount == 'undefined')
+        	$scope.recentCount = 0;
+    });
+
+
+    $scope.$on("$ionicView.afterEnter", function (event, data) {
+        if ($ionicHistory.forwardView() != null && $ionicHistory.forwardView().title == 'How Much')
+		{
+			console.log("SELECT RECIP CNTRLR -> afterEnter -> RELOADING THE STATE")
+			$ionicHistory.removeBackView();
+			$state.reload();
+		}
     });
 
 
     $scope.FindRecent = function () {
-        //console.log('FindRecent Fired');
+        console.log('FindRecent Fired');
 
         $ionicLoading.show({
             template: 'Loading Recent Friends...'
@@ -42,11 +59,10 @@
 
         selectRecipientService.GetRecentMembers()
             .success(function (data) {
-
+			
                 $scope.memberList = data;
-
                 $scope.recentCount = $scope.memberList.length;
-
+                $scope.item2 = data;
 
                 $ionicLoading.hide();
 
@@ -128,7 +144,7 @@
 
         function onSuccess(contacts) {
             console.log(contacts.length);
-            console.log($localStorage.GLOBAL_VARIABLES.contactsLength);
+            console.log($rootScope.selectRecipContactLength);
 
             if (contacts.length != $rootScope.selectRecipContactLength)
             {
@@ -165,6 +181,7 @@
 
                         $scope.memberList.push($scope.readContact);
                         $rootScope.contacts.push($scope.readContact);
+
                         $scope.readContact = {
                             FirstName: '',
                             UserName: '',
@@ -177,9 +194,6 @@
                         };
                     }
                 }
-
-                $scope.loadComplete = true;
-                $ionicLoading.hide();
             }
             else
             {
@@ -187,6 +201,9 @@
                 $scope.memberList.push.apply($scope.memberList, $rootScope.contacts);
                 console.log($scope.memberList);
             }
+			
+            $scope.loadComplete = true;
+            $ionicLoading.hide();
         };
 
         function onError(error) {
