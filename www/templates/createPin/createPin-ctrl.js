@@ -41,15 +41,10 @@
                 template: 'Creating PIN...'
             });
 
-            if ($rootScope.signUpData.gotPicUrl == true && $rootScope.signUpData.isPicChanged == false)
-            {
-                console.log('Condition matched now calling getBase64FromImageUrl');
-                $scope.getBase64FromImageUrl($rootScope.signUpData.Photo); // Converting Image URL -> Image -> BAse64
-            }
-            else
-            {
-                $rootScope.signUpData.Photo = $rootScope.imgURI;
-            }
+
+            if ($rootScope.signUpData.Photo != null && $rootScope.signUpData.Photo.indexOf('base64'))
+                $rootScope.signUpData.Photo = $rootScope.signUpData.Photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
+
 
             CommonServices.GetEncryptedData($rootScope.signUpData.Password)
 				.success(function (data) {
@@ -179,33 +174,10 @@
         }
 
 
-        $scope.getBase64FromImageUrl = function (URL) {
-            var img = new Image();
-            img.setAttribute('crossOrigin', 'anonymous');
-            img.src = URL;
-            img.onload = function () {
-
-                var canvas = document.createElement("canvas");
-                canvas.width = this.width;
-                canvas.height = this.height;
-
-                var ctx = canvas.getContext("2d");
-                ctx.drawImage(this, 0, 0);
-
-                var dataURL = canvas.toDataURL("image/png");
-                console.log("Data URL");
-                console.log(dataURL);
-                console.log("BAse 64--->>");
-                //console.log(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-                $rootScope.signUpData.Photo = (dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
-            };
-        }
-
-
         $scope.numTapped = function (num) {
-            console.log(num);
+            //console.log(num);
             var pin = $scope.signUpData.Pin;
-            console.log($scope.signUpData.Pin);
+            //console.log($scope.signUpData.Pin);
 
             if (num < 10)
             {
@@ -283,6 +255,5 @@
             }
 
             $scope.signUpData.Pin = pin;
-            console.log($scope.signUpData.Pin);
         }
     });

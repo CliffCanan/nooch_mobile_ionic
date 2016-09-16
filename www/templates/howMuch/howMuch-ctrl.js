@@ -109,7 +109,6 @@
 
         if (typeof $stateParams.recip == 'object')
         {
-            console.log('object');
             if ($stateParams.recip == null) $state.go('app.selectRecipient');
 
             else if (typeof $stateParams.recip.type != "undefined")
@@ -117,8 +116,10 @@
                 if (typeof $stateParams.recip.value != "undefined")
                 {
                     // We know this is a non-Nooch user manually entered from the Select Recipient scrn (NOT a phone contact or from Home scrn)
-                  
-                    $scope.recipientDetail.Photo = $stateParams.recip.photo;
+
+                    $scope.recipientDetail.Photo = (typeof $stateParams.recip.Photo != "undefined")
+                                                   ? $stateParams.recip.photo
+                                                   : "././img/profile_picture.png";;
 
                     if ($stateParams.recip.type == "phone")
                         $scope.recipientDetail.ContactNumber = $stateParams.recip.value;
@@ -142,9 +143,9 @@
             $scope.recipientDetail.Photo = "././img/profile_picture.png";
         }
 
-		if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
-        
-		console.log($scope.recipientDetail);
+        if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
+
+        console.log($scope.recipientDetail);
     });
 
 
@@ -159,8 +160,8 @@
 
     $scope.formatAmount = function () {
         //console.log($scope.recipientDetail.Amount);
-		
-		if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
+
+        if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
 
         var enteredAmnt = $scope.recipientDetail.Amount;
 
@@ -328,7 +329,7 @@
 
     $scope.noAmountAlert = function (type) {
 
-		$('#amountField').addClass('parsley-error');
+        $('#amountField').addClass('parsley-error');
 
         var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
 			? $scope.recipientDetail.FirstName
@@ -355,7 +356,7 @@
 
     $scope.overTransLimitAlert = function (type) {
 
-		$('#amountField').addClass('parsley-error');
+        $('#amountField').addClass('parsley-error');
 
         var bodyTxt = type == "send"
 			? "To keep Nooch safe, please don’t send more than $2,000. We hope to raise this limit very soon!"
@@ -377,7 +378,7 @@
 
     $scope.underTransLimitAlert = function (type) {
 
-		$('#amountField').addClass('parsley-error');
+        $('#amountField').addClass('parsley-error');
 
         var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
 			? $scope.recipientDetail.FirstName
@@ -413,27 +414,29 @@
 
 
     $scope.changePic = function () {
-		
+
         var hideSheet = $ionicActionSheet.show({
             buttons: [
-              { text: 'From Device Photos' },
+              { text: 'From Photo Library' },
               { text: 'Use Camera' }
             ],
             titleText: 'Attach a Picture',
             cancelText: 'Cancel',
-			destructiveText: $scope.isPicAttachedToTrans == true ? 'Remove Picture' : null,
+            destructiveText: $scope.isPicAttachedToTrans == true ? 'Remove Picture' : null,
             buttonClicked: function (index) {
-                if (index == 0) $scope.choosePhoto();
-                else if (index == 1) $scope.takePhoto();
+                if (index == 0)
+                    $scope.choosePhotoFromDevice();
+                else if (index == 1)
+                    $scope.takePhoto();
 
                 return true;
             },
-			destructiveButtonClicked: function () {
-				$scope.pictureBase64 = null;
+            destructiveButtonClicked: function () {
+                $scope.pictureBase64 = null;
                 $scope.imgURI = null;
-				$scope.isPicAttachedToTrans = false;
-				return true;
-			}
+                $scope.isPicAttachedToTrans = false;
+                return true;
+            }
         });
     }
 
@@ -448,7 +451,7 @@
             if (authorized)
             {
                 var options = {
-                    quality: 75,
+                    quality: 80,
                     destinationType: Camera.DestinationType.DATA_URL,
                     sourceType: Camera.PictureSourceType.CAMERA,
                     allowEdit: true,
@@ -460,28 +463,15 @@
                 };
 
                 $cordovaCamera.getPicture(options).then(function (imageData) {
-                    //console.log(imageData);
-                    $scope.imgURI = "data:image/jpeg;base64," + imageData;
-
-					// CC (9/14/16): Is this block needed? It's not on the AddPicture-ctrl, so commenting it out to test
-                    /*var binary_string = window.atob(imageData);
-                    var len = binary_string.length;
-                    var bytes = new Uint8Array(len);
-
-                    for (var i = 0; i < len; i++)
-                    {
-                        bytes[i] = binary_string.charCodeAt(i);
-                    }*/
-
-					$scope.pictureBase64 = "data:image/jpeg;base64," + imageData; // This goes to the server
-	                $scope.imgURI = imageData; // This is for displaying on the How Much screen
-
-					$scope.isPicAttachedToTrans = true;
+                    $scope.pictureBase64 = "data:image/jpeg;base64," + imageData; // This is for displaying on the How Much screen
+                    $scope.imgURI = imageData; // This goes to the server
+                    $scope.isPicAttachedToTrans = true;
                 }, function (err) {
-                    // An error occured. Show a message to the user
-					$scope.pictureBase64 = null;
-	                $scope.imgURI = null;
-					$scope.isPicAttachedToTrans = false;
+                    $scope.pictureBase64 = null;
+                    $scope.imgURI = null;
+                    $scope.isPicAttachedToTrans = false;
+
+                    $scope.showErrorBanner('camera');
                 });
             }
             else
@@ -503,43 +493,50 @@
                                 $scope.takePhoto();
                         }, function (error) {
                             console.error(error);
+                            $scope.showErrorBanner('camera');
                         });
                     }
                 });
             }
         }, function (error) {
             console.error("isCameraAuthorized error: [" + error + "]");
+            $scope.showErrorBanner('camera');
         });
     }
 
 
-    $scope.choosePhoto = function () {
+    $scope.choosePhotoFromDevice = function () {
+        // CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
+
         $ionicPlatform.ready(function () {
-            var options = {
-                quality: 75,
-                destinationType: Camera.DestinationType.DATA_URL,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                allowEdit: true,
-                encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 300,
-                targetHeight: 300,
-                popoverOptions: CameraPopoverOptions,
-                saveToPhotoAlbum: false
-            };
+            CommonServices.openPhotoGallery('howMuch', function (result) {
+                if (result != null && result != 'failed')
+                {
+                    $scope.pictureBase64 = "data:image/jpeg;base64," + result;
+                    $scope.imgURI = result;
 
-            $cordovaCamera.getPicture(options).then(function (imageData) {
-                //console.log(imageData);
+                    $scope.isPicAttachedToTrans = true;
+                }
+                else
+                {
+                    console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
+                    $scope.pictureBase64 = null;
+                    $scope.imgURI = null;
+                    $scope.isPicAttachedToTrans = false;
 
-				$scope.pictureBase64 = "data:image/jpeg;base64," + imageData;
-                $scope.imgURI = imageData;
-
-				$scope.isPicAttachedToTrans = true;
-            }, function (err) {
-                // An error occured. Show a message to the user
-				$scope.pictureBase64 = null;
-                $scope.imgURI = null;
-				$scope.isPicAttachedToTrans = false;
+                    $scope.showErrorBanner('photo gallery');
+                }
             });
+        });
+    }
+
+
+    $scope.showErrorBanner = function (id) {
+        $ionicContentBanner.show({
+            text: ['Error - Unable to get picture from the ' + id + ' :-('],
+            autoClose: 4000,
+            type: 'error',
+            transition: 'vertical'
         });
     }
 
@@ -548,28 +545,4 @@
         $ionicHistory.goBack();
     }
 
-
-    // CC (9/13/16): Don't think this function is used at all...
-    /*$scope.addImage = function () {
-
-    $ionicPlatform.ready(function () {
-
-        var options = {
-            maximumImagesCount: 0,
-            width: 500,
-            height: 500,
-            quality: 80
-        };
-
-        $cordovaImagePicker.getPictures(options)
-          .then(function (results) {
-              for (var i = 0; i < results.length; i++)
-              {
-                  console.log('Image URI: ' + results[i]);
-              }
-          }, function (error) {
-              // error getting photos
-          });
-    });
-};*/
 })

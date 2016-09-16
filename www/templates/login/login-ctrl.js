@@ -52,7 +52,9 @@
           fbStatus: ''
       };
 
-      $scope.isConnect = false;
+
+      $scope.isConnectedToFb = false;
+
 
       $scope.SignIn = function () {
 
@@ -344,7 +346,7 @@
                   $scope.loginWithFbData.FBId = _.get(success, 'id');
 
                   if ($scope.loginWithFbData.fbStatus == 'connected')
-                      $scope.isConnect = true;
+                      $scope.isConnectedToFb = true;
 
                   $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginWithFbData.Email;
                   console.log('Printing from local Storage-->>' + $localStorage.GLOBAL_VARIABLES.UserName);
@@ -360,14 +362,13 @@
                           $ionicLoading.hide();
                           $scope.fetchAfterLoginDetails();
 
-                          authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.loginWithFbData.FBId, $scope.isConnect)
+                          authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.loginWithFbData.FBId, $scope.isConnectedToFb)
                               .success(function (response) {
-                                  $state.go('app.home');
+                                  //$state.go('app.home');
                               })
                               .error(function (response) {
                                   console.log('saveMemberFBId Error: [' + response + ']');
                               })
-
                       })
                       .error(function (error) {
                           $ionicLoading.hide();
@@ -376,8 +377,7 @@
               }, function (error) {
                   console.log(error);
               })
-          },
-          function (error) {
+          }, function (error) {
               console.log('facebookConnectPlugin Error response: [' + JSON.stringify(error));
               $ionicLoading.hide();
           });

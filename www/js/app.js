@@ -79,14 +79,14 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           }
 
           $rootScope.phoneContacts = [];
-          var readContact = {
+          /*var readContact = {
               FirstName: '',
               UserName: '',
               ContactNumber: '',
               Photo: '',
               id: '',
               bit: ''
-          };
+          };*/
 
           // Fired when the app enters the foreground
           document.addEventListener("resume", function () {
@@ -105,6 +105,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   // $state.go('enterPinForeground');
               }
           }, false);
+
 
           // this function gets fired when app goes to background
           document.addEventListener("pause", function () {
@@ -129,25 +130,29 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                   console.log('Device OS is: [' + device.platform + '], UUID: [' + device.uuid + ']');
 
 
+                  // Called when the user taps on a notification
                   var notificationOpenedCallback = function (jsonData) {
                       console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
                   };
 
                   window.plugins.OneSignal.init("fec1f882-0524-49e5-a8f4-1dc0f84cbb00",
-                    { googleProjectNumber: "104707683579" },
-                    notificationOpenedCallback);
+                                                {
+                                                    googleProjectNumber: "104707683579",
+                                                    autoRegister: false
+                                                },
+                                                notificationOpenedCallback);
 
                   // Show an alert box if a notification comes in when the user is in your app.
                   window.plugins.OneSignal.enableInAppAlertNotification(true);
 
                   // Get device notification token for One Signal (Push Notifications)
                   window.plugins.OneSignal.getIds(function (ids) {
+                      console.log('App.js --> OneSignal.getIds: [' + JSON.stringify(ids) + ']');
 
                       $localStorage.GLOBAL_VARIABLES.DeviceToken = ids.pushToken;
 
                       // console.log("OneSignalUserId UserId: " + ids.userId);
                       // console.log("OneSignalPushToken PushToken: " + ids.pushToken);
-                      // console.log('getIds: ' + JSON.stringify(ids));
                   });
 
                   var isOnline = $cordovaNetwork.isOnline();

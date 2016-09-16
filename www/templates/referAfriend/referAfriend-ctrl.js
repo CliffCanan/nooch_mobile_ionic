@@ -1,7 +1,8 @@
 ﻿angular.module('noochApp.referAfriendCtrl', ['noochApp.services', 'noochApp.referAfriend-service'])
 
  .controller('referAfriendCtrl', function ($scope, authenticationService, $ionicPlatform, $cordovaSocialSharing,
-	 									   $cordovaNetwork, $ionicLoading, ReferralCodeService, CommonServices, $cordovaGoogleAnalytics) {
+                                           $cordovaNetwork, $ionicLoading, $localStorage, $cordovaGoogleAnalytics,
+                                           $ionicContentBanner, ReferralCodeService, CommonServices) {
 
      $scope.$on("$ionicView.beforeEnter", function (event, data) {
          $scope.referredUsersCount = 0;
@@ -74,71 +75,89 @@
      $scope.sendReferralCode = function (type) {
          //console.log(type + " clicked");
 
-         var imageURL = "http://noochme.com/noochweb/Assets/Images/noochlogosquare.png";
-         var addUrl = "http://bit.ly/1xdG2le";
-
-         if (type == "sms")
+         if (window.cordova)
          {
-             var msg = "Hey! You should check out Nooch, a great free app for paying me back. Use my invite code: \"" + $scope.inviteCode + "\" - download here: http://bit.ly/1xdG2le";
+             var imageURL = "http://noochme.com/noochweb/Assets/Images/noochlogosquare.png";
+             var addUrl = "http://bit.ly/1xdG2le";
 
-             $ionicPlatform.ready(function () {
-                 $cordovaSocialSharing
-                   .shareViaSMS(msg, "")
-                   .then(function (result) {
-                       // Success!
-                   }, function (err) {
-                   });
-             });
-         }
-         else if (type == "fb")
-         {
-             var shareDesc = "Check out Nooch, the simple, free, and PRIVATE way to pay me back!";
+             if (type == "sms")
+             {
+                 var msg = "Hey! You should check out Nooch, a great free app for paying me back. Use my invite code: \"" + $scope.inviteCode + "\" - download here: http://bit.ly/1xdG2le";
 
-             $ionicPlatform.ready(function () {
-                 $cordovaSocialSharing
-                    .shareViaFacebook(shareDesc, imageURL, addUrl)
-                    .then(function (result) {
-                        // Success!
-                    }, function (err) {
-                    });
-             });
-         }
-         else if (type == "twitter")
-         {
-             var tweetTxt = "Check out @NoochMoney, the simple, free, & PRIVATE way to pay me back! ";
+                 $ionicPlatform.ready(function () {
+                     $cordovaSocialSharing
+                       .shareViaSMS(msg, "")
+                       .then(function (result) {
+                           // Success!
+                       }, function (err) {
+                           showErrorBanner(' text message');
+                       });
+                 });
+             }
+             else if (type == "fb")
+             {
+                 var shareDesc = "Check out Nooch, the simple, free, and PRIVATE way to pay me back!";
 
-             $ionicPlatform.ready(function () {
-                 $cordovaSocialSharing
-                    .shareViaTwitter(tweetTxt, imageURL, addUrl)
-                    .then(function (result) {
-                        // Success!
-                    }, function (err) {
-                    });
-             });
-         }
-         else if (type == "email")
-         {
-             var subject = "Check out Nooch - a free app to pay me back";
-             var msgBody = "Hey there,<br/><p>You should check out Nooch, a great <strong>free app</strong> that lets me pay you back anytime, anywhere.  " +
-                           "Since I know you don't like carrying cash around either, I thought you would love using Nooch!</p>" +
-                           "<p>You can <a href=\"https://157050.measurementapi.com/serve?action=click&publisher_id=157050&site_id=91086\">download Nooch</a> from the App Store - " +
-                           "and be sure to use my Referral Code:</p><p style=\"text-align:center;font-size:1.5em;\"><strong>" + $scope.inviteCode + "</strong></p>" +
-                           "<p>To learn more about Nooch, here's the website: <a href=\"https://www.nooch.com/overview/\">www.Nooch.com</a>.</p><p>- " + $localStorage.GLOBAL_VARIABLES.firstName + "</p>";
-             var toArr = [""]; // Just for testing
-             var ccArr = [""];
-             var bccArr = [""];
+                 $ionicPlatform.ready(function () {
+                     $cordovaSocialSharing
+                        .shareViaFacebook(shareDesc, imageURL, addUrl)
+                        .then(function (result) {
+                            // Success!
+                        }, function (err) {
+                            showErrorBanner(' message');
+                        });
+                 });
+             }
+             else if (type == "twitter")
+             {
+                 var tweetTxt = "Check out @NoochMoney, the simple, free, & PRIVATE way to pay me back! ";
 
-             $ionicPlatform.ready(function () {
-                 // toArr, ccArr and bccArr must be an array, file can be either null, string or array
-                 $cordovaSocialSharing
-                   .shareViaEmail(msgBody, subject, toArr, ccArr, bccArr, null)
-                   .then(function (result) {
-                       // Success!
-                   }, function (err) {
-                       // An error occurred. Show a message to the user
-                   });
-             });
+                 $ionicPlatform.ready(function () {
+                     $cordovaSocialSharing
+                        .shareViaTwitter(tweetTxt, imageURL, addUrl)
+                        .then(function (result) {
+                            // Success!
+                        }, function (err) {
+                            showErrorBanner(' tweet');
+                        });
+                 });
+             }
+             else if (type == "email")
+             {
+                 var subject = "Check out Nooch - a free app to pay me back";
+                 var msgBody = "Hey there,<br/><p>You should check out Nooch, a great <strong>free app</strong> that lets me pay you back anytime, anywhere.  " +
+                               "Since I know you don't like carrying cash around either, I thought you would love using Nooch!</p>" +
+                               "<p>You can <a href=\"https://157050.measurementapi.com/serve?action=click&publisher_id=157050&site_id=91086\">download Nooch</a> from the App Store - " +
+                               "and be sure to use my Referral Code:</p><p style=\"text-align:center;font-size:1.5em;\"><strong>" + $scope.inviteCode + "</strong></p>" +
+                               "<p>To learn more about Nooch, here's the website: <a href=\"https://www.nooch.com/overview/\">www.Nooch.com</a>.</p><p>- " + $localStorage.GLOBAL_VARIABLES.firstName + "</p>";
+                 var toArr = [""];
+                 var ccArr = [""];
+                 var bccArr = [""];
+
+                 $ionicPlatform.ready(function () {
+                     // toArr, ccArr and bccArr must be an array, file can be either null, string or array
+                     $cordovaSocialSharing
+                       .shareViaEmail(msgBody, subject, toArr, ccArr, bccArr, null)
+                       .then(function (result) {
+                           // Success!
+                       }, function (err) {
+                           showErrorBanner('n email');
+                       });
+                 });
+             }
          }
+         else
+             showErrorBanner(' message');
+     }
+
+
+     function showErrorBanner(str) {
+         $ionicContentBanner.show({
+             text: ['Oh no! Unable to send a' + str + ' right now.'],
+             autoClose: 5000,
+             type: 'error',
+             transition: 'vertical'
+         });
      }
 
  })
