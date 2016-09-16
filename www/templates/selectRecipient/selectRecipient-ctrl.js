@@ -332,7 +332,10 @@
         {
             console.log($('#recents-table').html());
             // Check if the user has entered only numbers so far to see if it's a phone number or not
-            if (isNaN(enteredText) && (enteredText.length > 5))
+             
+            var stringToCheck = enteredText.replace('(', '').replace(')', '').replace('-', '').replace(' ', '');
+            console.log(stringToCheck);
+            if (isNaN(stringToCheck) && (enteredText.length > 5))
             {
                 if (looksLikeEmail(enteredText))
                 {
@@ -342,7 +345,7 @@
                 else
                     $scope.showEmPhDiv = false;
             }
-            else if (!isNaN(enteredText))
+            else if (!isNaN(stringToCheck))
             {
                 console.log('contact');
                 $scope.showEmPhDiv = true;
