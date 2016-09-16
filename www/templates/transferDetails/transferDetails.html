@@ -13,7 +13,10 @@
                         <img class="transDetails-userImg" src="{{transDetail.Photo}}">
                     </div>
                     <div class="col">
-                        <h2 class="transDetails-userName">{{transDetail.Name}}</h2>
+                     
+
+                        <h2 class="transDetails-userName" ng-if="transDetail.Name.length > 1 && transDetail.InvitationSentTo.length==null">{{transDetail.Name}}</h2>
+                        <h2 class="transDetails-userName" ng-if="transDetail.InvitationSentTo.length>=1">{{transDetail.InvitationSentTo}}</h2>
                         <div class="transDetails-amount">{{transDetail.Amount | currency}}</div>
                     </div>
                 </div>

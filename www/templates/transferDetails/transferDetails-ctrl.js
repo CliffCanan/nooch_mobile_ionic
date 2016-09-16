@@ -98,14 +98,14 @@
                    }
                    else if ($scope.transDetail.TransactionType == 'Request')
                    {
-                       if ($scope.transDetail.MemberId == $scope.memId)
-                       {
-                           $scope.typeLabelTxt = "Request To";
-                           $scope.labelTypeClr = "blue";
-                       }
-                       else if ($scope.transDetail.MemberId != $scope.memId)
+                       if ($scope.transDetail.MemberId == $scope.memId && $scope.transDetail.MemberId != $scope.transDetail.RecepientId)
                        {
                            $scope.typeLabelTxt = "Request From";
+                           $scope.labelTypeClr = "blue";
+                       }
+                       else if ($scope.transDetail.MemberId != $scope.memId || ($scope.transDetail.MemberId == $scope.memId && $scope.transDetail.MemberId == $scope.transDetail.RecepientId))
+                       {
+                           $scope.typeLabelTxt = "Request To";
                            $scope.labelTypeClr = "blue";
                        }
                    }
