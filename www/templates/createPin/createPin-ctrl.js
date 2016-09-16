@@ -179,78 +179,83 @@
             var pin = $scope.signUpData.Pin;
             //console.log($scope.signUpData.Pin);
 
-            if (num < 10)
+            if ($scope.pauseForError != true)
             {
-                if (pin.length < 3)
+                if (num < 10)
                 {
-                    pin += num;
-
-                    if (pin.length == 1)
-                        $('.indicatorDotWrap .col div:first-child').addClass('filled');
-                    if (pin.length == 2)
-                        $('.indicatorDotWrap .col div:nth-child(2)').addClass('filled');
-                    if (pin.length == 3)
-                        $('.indicatorDotWrap .col div:nth-child(3)').addClass('filled');
-                }
-                else
-                {
-                    pin += num;
-
-                    $('.indicatorDotWrap .col div:last-child').addClass('filled');
-
-                    // 4th Digit Entered
-                    if ($scope.onConfirm == false)
+                    if (pin.length < 3)
                     {
-                        $('#header').text('Confirm Your PIN');
+                        pin += num;
 
-                        $('.numPadWrap').addClass('bounceOutLeft');
-                        $timeout(function () {
-                            $('.numPadWrap').removeClass('bounceOutLeft').addClass('bounceInRight');
-                            $('.indicatorDotWrap .col div').removeClass('filled');
-                        }, 700);
-
-                        // Save the 1st PIN in new var, reset signUpData.Pin so user can Confirm by entering the PIN again
-                        $scope.firstPinEntered = pin;
-                        pin = '';
-
-                        $scope.onConfirm = true;
+                        if (pin.length == 1)
+                            $('.indicatorDotWrap .col div:first-child').addClass('filled');
+                        if (pin.length == 2)
+                            $('.indicatorDotWrap .col div:nth-child(2)').addClass('filled');
+                        if (pin.length == 3)
+                            $('.indicatorDotWrap .col div:nth-child(3)').addClass('filled');
                     }
                     else
                     {
-                        // NOW CHECK IF 1ST AND 2ND ENTERED PIN MATCH
-                        if ($scope.firstPinEntered != pin)
-                        {
-                            $('.indicatorDotWrap .col div').addClass('incorrect');
-                            $('.indicatorDotWrap').addClass('shake');
-                            $('.instructionTxt').html('PINs did not match!<br\/>Try again...').addClass('text-danger');
+                        pin += num;
 
+                        $('.indicatorDotWrap .col div:last-child').addClass('filled');
+
+                        // 4th Digit Entered
+                        if ($scope.onConfirm == false)
+                        {
+                            $('#header').text('Confirm Your PIN');
+
+                            $('.numPadWrap').addClass('bounceOutLeft');
                             $timeout(function () {
-                                $('#header').text('Create Your PIN');
-                                $('.indicatorDotWrap').removeClass('shake');
-                                $('.indicatorDotWrap .col div').removeClass('filled incorrect');
-                                $scope.firstPinEntered = '';
-                                $scope.signUpData.Pin = '';
-                                $scope.onConfirm = false;
-                            }, 1500);
+                                $('.numPadWrap').removeClass('bounceOutLeft').addClass('bounceInRight');
+                                $('.indicatorDotWrap .col div').removeClass('filled');
+                            }, 700);
+
+                            // Save the 1st PIN in new var, reset signUpData.Pin so user can Confirm by entering the PIN again
+                            $scope.firstPinEntered = pin;
+                            pin = '';
+
+                            $scope.onConfirm = true;
                         }
                         else
-                            $scope.signUpFn();
+                        {
+                            // NOW CHECK IF 1ST AND 2ND ENTERED PIN MATCH
+                            if ($scope.firstPinEntered != pin)
+                            {
+                                $scope.pauseForError = true;
+                                $('.indicatorDotWrap .col div').addClass('incorrect');
+                                $('.indicatorDotWrap').addClass('shake');
+                                $('.instructionTxt').html('PINs did not match!<br\/>Try again...').addClass('text-danger');
+
+                                $timeout(function () {
+                                    $('#header').text('Create Your PIN');
+                                    $('.indicatorDotWrap').removeClass('shake');
+                                    $('.indicatorDotWrap .col div').removeClass('filled incorrect');
+                                    $scope.firstPinEntered = '';
+                                    $scope.signUpData.Pin = '';
+                                    $scope.onConfirm = false;
+                                    $scope.pauseForError = false;
+                                }, 1200);
+                            }
+                            else
+                                $scope.signUpFn();
+                        }
                     }
                 }
-            }
-            else if (num == 10)
-            {
-                if (pin.length > 0)
+                else if (num == 10)
                 {
-                    pin = pin.substring(0, pin.length - 1)
-                    if (pin.length == 0)
-                        $('.indicatorDotWrap .col div:first-child').removeClass('filled');
-                    if (pin.length == 1)
-                        $('.indicatorDotWrap .col div:nth-child(2)').removeClass('filled');
-                    if (pin.length == 2)
-                        $('.indicatorDotWrap .col div:nth-child(3)').removeClass('filled');
-                    if (pin.length == 3)
-                        $('.indicatorDotWrap .col div:last-child').removeClass('filled');
+                    if (pin.length > 0)
+                    {
+                        pin = pin.substring(0, pin.length - 1)
+                        if (pin.length == 0)
+                            $('.indicatorDotWrap .col div:first-child').removeClass('filled');
+                        if (pin.length == 1)
+                            $('.indicatorDotWrap .col div:nth-child(2)').removeClass('filled');
+                        if (pin.length == 2)
+                            $('.indicatorDotWrap .col div:nth-child(3)').removeClass('filled');
+                        if (pin.length == 3)
+                            $('.indicatorDotWrap .col div:last-child').removeClass('filled');
+                    }
                 }
             }
 
