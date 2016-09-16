@@ -898,9 +898,9 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     }
 
     .sweet-alert button {
-        margin: 8px 4px 5px;
+        margin: 8px 3px 5px;
         min-width: 88px;
-        padding: 10px 20px;
+        padding: 10px 14px;
         text-shadow: 0px -1px rgba(19, 32, 38, 0.15);
         text-transform: uppercase;
     }
@@ -2273,6 +2273,14 @@ div.hscroller-card {
     .sweet-alert {
         padding: 4px 16px 12px;
     }
+
+	.sweet-alert button {
+	    margin: 10px 4px 5px;
+	    padding: 10px 20px;
+	}
+}
+
+@media screen and (min-width: 360px) {
 }
 
 #memoField {

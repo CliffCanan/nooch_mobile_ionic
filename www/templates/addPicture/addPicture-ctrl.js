@@ -41,7 +41,7 @@
 
 
         $scope.choosePhotoFromDevice = function () {
-			// CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to add a check to see which platform the user is on.
+			// CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
 			
 			$ionicPlatform.ready(function () {
 				CommonServices.openPhotoGallery('addPicture', function (result) {
