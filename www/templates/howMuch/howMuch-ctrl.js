@@ -109,7 +109,6 @@
 
         if (typeof $stateParams.recip == 'object')
         {
-            console.log('object');
             if ($stateParams.recip == null) $state.go('app.selectRecipient');
 
             else if (typeof $stateParams.recip.type != "undefined")
@@ -118,7 +117,9 @@
                 {
                     // We know this is a non-Nooch user manually entered from the Select Recipient scrn (NOT a phone contact or from Home scrn)
 
-                    $scope.recipientDetail.Photo = $stateParams.recip.photo;
+                    $scope.recipientDetail.Photo = (typeof $stateParams.recip.Photo != "undefined")
+                                                   ? $stateParams.recip.photo
+                                                   : "././img/profile_picture.png";;
 
                     if ($stateParams.recip.type == "phone")
                         $scope.recipientDetail.ContactNumber = $stateParams.recip.value;

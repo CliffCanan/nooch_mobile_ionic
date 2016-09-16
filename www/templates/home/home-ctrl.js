@@ -90,7 +90,7 @@
     $scope.$on("$ionicView.afterEnter", function (event, data) {
         if (window.cordova)
         {
-            if ($rootScope.isProfileComplete == true)
+            if ($rootScope.isProfileComplete == true && $localStorage.GLOBAL_VARIABLES.DeviceToken == '')
                 window.plugins.OneSignal.registerForPushNotifications();
         }
     });
