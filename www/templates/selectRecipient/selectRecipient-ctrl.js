@@ -329,6 +329,7 @@
 
         if ($('#recents-table').html() == undefined && enteredText.length > 2)
         {
+            console.log($('#recents-table').html());
             // Check if the user has entered only numbers so far to see if it's a phone number or not
             if (isNaN(enteredText) && !($scope.sendTo == 'Contact Number' && enteredText.length > 5))
             {

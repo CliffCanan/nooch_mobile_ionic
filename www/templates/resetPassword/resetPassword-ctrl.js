@@ -48,47 +48,46 @@
 
                 if ($localStorage.GLOBAL_VARIABLES.Pwd == data.Status)
                 {
-                    CommonServices.GetEncryptedData($scope.ResetPwd.newPwd).success(function (data) {
-                        console.log(data);
+                    CommonServices.GetEncryptedData($scope.ResetPwd.newPwd).success(function (pwData) {
+                        console.log(pwData);
 
-                        resetPasswordService.ResetPassword(data.Status, true).success(function (data) {
-                            console.log(data);
+                        resetPasswordService.ResetPassword(pwData.Status, true)
+                            .success(function (data) {
+                                console.log(data);
 
-                            $scope.ResetPwd.newPwd = '';
-                            $scope.ResetPwd.currentPwd = '';
-                            $scope.ResetPwd.confirmPwd = '';
+                                $scope.ResetPwd.newPwd = '';
+                                $scope.ResetPwd.currentPwd = '';
+                                $scope.ResetPwd.confirmPwd = '';
 
-                            $ionicLoading.hide();
+                                $ionicLoading.hide();
 
-                            if (data.Result == true)
-                            {
-                                swal({
-                                    title: "Password Changed",
-                                    text: "Your Nooch password has been updated successfully.",
-                                    type: "success",
-                                    confirmButtonColor: "#3fabe1",
-                                    confirmButtonText: "Ok",
-                                    html: true,
-                                }, function () {
-                                    $state.go('app.securitySetting');
-                                });
-                            }
-                            else
-                            {
-                                swal({
-                                    title: "Error",
-                                    text: "Something went wrong",
-                                    type: "error",
-                                    confirmButtonColor: "#3fabe1",
-                                    confirmButtonText: "Ok",
-                                    html: true,
-                                });
-                            }
-                        })
-                        .error(function (encError) {
-                            console.log('ResetPassword Error: [' + encError + ']');
-                            $ionicLoading.hide();
-                        });
+                                if (data.Result == true)
+                                {
+                                    swal({
+                                        title: "Password Updated",
+                                        text: "Your password was changed successfully.",
+                                        type: "success",
+                                        confirmButtonColor: "#3fabe1",
+                                        html: true,
+                                    }, function () {
+                                        $state.go('app.securitySetting');
+                                    });
+                                }
+                                else
+                                {
+                                    swal({
+                                        title: "Error",
+                                        text: "Something went wrong :-(",
+                                        type: "error",
+                                        confirmButtonColor: "#3fabe1",
+                                        html: true,
+                                    });
+                                }
+                            })
+                            .error(function (encError) {
+                                console.log('ResetPassword Error: [' + encError + ']');
+                                $ionicLoading.hide();
+                            });
                     })
                     .error(function (encError) {
                         console.log('GetEncryptedData Error: [' + encError + ']');
@@ -104,8 +103,7 @@
                         title: "Incorrect Password",
                         text: "Please try again!",
                         type: "error",
-                        confirmButtonColor: "#3fabe1",
-                        confirmButtonText: "Ok"
+                        confirmButtonColor: "#3fabe1"
                     });
                 }
             })
@@ -116,7 +114,7 @@
         }
         //}
         //else
-        //  swal("Oops...", "Internet not connected!", "error");
+        //  swal("Error", "Internet not connected!", "error");
     }
 
 
@@ -141,7 +139,7 @@
 					    {
 					        swal({
 					            title: "PIN Updated",
-					            text: "Your PIN has been changed successfully.",
+					            text: "Your PIN was changed successfully.",
 					            type: "success",
 					            confirmButtonColor: "#3fabe1",
 					        }, function () {
@@ -176,200 +174,205 @@
 			});
         //}
         //else
-        //  swal("Oops...", "Internet not connected!", "error");
+        //  swal("Error", "Internet not connected!", "error");
     }
 
 
     $scope.numTapped = function (num) {
         //console.log('Entering: [' + $scope.enteringPin + ']  -  New Digit: [' + num + ']');
 
-        switch ($scope.enteringPin)
+        if ($scope.pauseForError != true)
         {
-            case 'current':
-                var pin = $scope.ResetPinData.currentPin;
-                break;
-            case 'new':
-                var pin = $scope.ResetPinData.newPin;
-                break;
-            case 'confirm':
-                var pin = $scope.ResetPinData.confirmPin;
-                break;
-        }
-
-        if (num < 10)
-        {
-            pin += num;
-
             switch ($scope.enteringPin)
             {
                 case 'current':
-                    $scope.ResetPinData.currentPin = pin;
+                    var pin = $scope.ResetPinData.currentPin;
                     break;
                 case 'new':
-                    $scope.ResetPinData.newPin = pin;
+                    var pin = $scope.ResetPinData.newPin;
                     break;
                 case 'confirm':
-                    $scope.ResetPinData.confirmPin = pin;
+                    var pin = $scope.ResetPinData.confirmPin;
                     break;
             }
 
-
-            if (pin.length < 4)
+            if (num < 10)
             {
-                if (pin.length == 1)
-                    $('.indicatorDotWrap .col div:first-child').addClass('filled');
-                if (pin.length == 2)
-                    $('.indicatorDotWrap .col div:nth-child(2)').addClass('filled');
-                if (pin.length == 3)
-                    $('.indicatorDotWrap .col div:nth-child(3)').addClass('filled');
+                pin += num;
+
+                switch ($scope.enteringPin)
+                {
+                    case 'current':
+                        $scope.ResetPinData.currentPin = pin;
+                        break;
+                    case 'new':
+                        $scope.ResetPinData.newPin = pin;
+                        break;
+                    case 'confirm':
+                        $scope.ResetPinData.confirmPin = pin;
+                        break;
+                }
+
+                if (pin.length < 4)
+                {
+                    if (pin.length == 1)
+                        $('.indicatorDotWrap .col div:first-child').addClass('filled');
+                    if (pin.length == 2)
+                        $('.indicatorDotWrap .col div:nth-child(2)').addClass('filled');
+                    if (pin.length == 3)
+                        $('.indicatorDotWrap .col div:nth-child(3)').addClass('filled');
+                }
+                else
+                {
+                    $('.indicatorDotWrap .col div:last-child').addClass('filled');
+
+                    // Check if Current PIN was correct
+                    if ($scope.enteringPin == 'current')
+                    {
+                        CommonServices.GetEncryptedData(pin)
+                            .success(function (data) {
+
+                                $scope.currentPinEncr = data.Status;
+
+                                resetPasswordService.validateCurrentPin($scope.currentPinEncr)
+                                    .success(function (response) {
+                                        console.log(response);
+
+                                        if (response.Result == "Success")
+                                        {
+                                            $scope.enteringPin = 'new';
+
+                                            if ($('.instructionTxt').hasClass('expanded'))
+                                                $('.instructionTxt').removeClass('expanded');
+
+                                            $('.numPadWrap').addClass('bounceOutLeft');
+                                            $timeout(function () {
+                                                $('.numPadWrap').removeClass('bounceOutLeft').addClass('bounceInRight');
+                                                $('.indicatorDotWrap .col div').removeClass('filled');
+                                            }, 600);
+                                        }
+                                        else if (response.Result != null && response.Result.indexOf('will be suspended') > -1)
+                                        {
+                                            $scope.applyError('current');
+                                            swal({
+                                                title: "Careful...",
+                                                text: "To keep Nooch safe your account will be suspended if you enter another incorrect PIN.",
+                                                type: "warning",
+                                                confirmButtonColor: "#3fabe1"
+                                            });
+                                        }
+                                        else if (response.Result != null && response.Result.indexOf('suspended') > -1)
+                                        {
+                                            $scope.applyError('current');
+                                            swal({
+                                                title: "Account Suspended",
+                                                text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect PIN too many times." +
+                                                      "<span class='show'>In most cases your account will be automatically un-suspended in 24 hours.</span>",
+                                                type: "error",
+                                                showCancelButton: true,
+                                                cancelButtonText: "Ok",
+                                                confirmButtonColor: "#3fabe1",
+                                                confirmButtonText: "Contact Support",
+                                                html: true
+                                            }, function (isConfirm) {
+                                                if (isConfirm)
+                                                {
+                                                    $cordovaSocialSharing.shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
+                                                        .then(function (result) {
+                                                            if (result.completed)
+                                                            {
+                                                                swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                                                                $state.go('app.home');
+                                                            }
+                                                        }, function (err) {
+                                                            swal("Message Not Sent", "Your email was not sent - please try again!", "error");
+                                                            console.log('Error attempting to send email from social sharing: [' + err + ']');
+                                                        });
+                                                }
+                                                else
+                                                    $state.go('app.home');
+                                            });
+                                        }
+                                        else if (response.Result != "Success")
+                                            $scope.applyError('current');
+                                    })
+                                    .error(function (error) {
+                                        console.log('validateCurrentPin Error: [' + JSON.stringify(error) + ']');
+
+                                        if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                            CommonServices.logOut();
+                                        else
+                                            $scope.applyError('current');
+                                    });
+                            })
+                            .error(function (error) {
+                                console.log('NumTapped -> GetEncryptedData Error: [' + error + ']');
+                            });
+                    }
+                    else if ($scope.enteringPin == 'new')
+                    {
+                        $scope.ResetPinData.newPin = pin;
+                        $scope.enteringPin = 'confirm';
+
+                        if ($('.instructionTxt').hasClass('expanded'))
+                            $('.instructionTxt').removeClass('expanded');
+
+                        $('.numPadWrap').addClass('bounceOutLeft');
+                        $timeout(function () {
+                            $('.numPadWrap').removeClass('bounceOutLeft').addClass('bounceInRight');
+                            $('.indicatorDotWrap .col div').removeClass('filled');
+                        }, 600);
+
+                        //pin = '';
+                    }
+                    else if ($scope.enteringPin == 'confirm')
+                    {
+                        // NOW CHECK IF NEW AND CONFIRM PIN MATCH
+                        if ($scope.ResetPinData.newPin != pin)
+                            $scope.applyError('new');
+                        else
+                            $scope.ResetPin();
+                    }
+                }
             }
-            else
+            else if (num == 10)
             {
-                $('.indicatorDotWrap .col div:last-child').addClass('filled');
-
-                // Check if Current PIN was correct
-                if ($scope.enteringPin == 'current')
+                if (pin.length > 0)
                 {
-                    CommonServices.GetEncryptedData(pin)
-						.success(function (data) {
-
-						    $scope.currentPinEncr = data.Status;
-
-						    resetPasswordService.validateCurrentPin($scope.currentPinEncr)
-					            .success(function (response) {
-					                console.log(response);
-
-					                if (response.Result == "Success")
-					                {
-					                    $scope.enteringPin = 'new';
-
-					                    if ($('.instructionTxt').hasClass('expanded'))
-					                        $('.instructionTxt').removeClass('expanded');
-
-					                    $('.numPadWrap').addClass('bounceOutLeft');
-					                    $timeout(function () {
-					                        $('.numPadWrap').removeClass('bounceOutLeft').addClass('bounceInRight');
-					                        $('.indicatorDotWrap .col div').removeClass('filled');
-					                    }, 600);
-					                }
-					                else if (response.Result != null && response.Result.indexOf('will be suspended') > -1)
-					                {
-					                    $scope.applyError('current');
-					                    swal({
-					                        title: "Careful...",
-					                        text: "To keep Nooch safe your account will be suspended if you enter another incorrect PIN.",
-					                        type: "warning",
-					                        confirmButtonColor: "#3fabe1"
-					                    });
-					                }
-					                else if (response.Result != null && response.Result.indexOf('suspended') > -1)
-					                {
-					                    $scope.applyError('current');
-					                    swal({
-					                        title: "Account Suspended",
-					                        text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect PIN too many times." +
-												  "<span class='show'>In most cases your account will be automatically un-suspended in 24 hours.</span>",
-					                        type: "error",
-					                        showCancelButton: true,
-					                        cancelButtonText: "Ok",
-					                        confirmButtonColor: "#3fabe1",
-					                        confirmButtonText: "Contact Support",
-					                        html: true
-					                    }, function (isConfirm) {
-					                        if (isConfirm)
-					                        {
-					                            $cordovaSocialSharing.shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
-													.then(function (result) {
-													    if (result.completed)
-													    {
-													        swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
-													        $state.go('app.home');
-													    }
-													}, function (err) {
-													    swal("Message Not Sent", "Your email was not sent - please try again!", "error");
-													    console.log('Error attempting to send email from social sharing: [' + err + ']');
-													});
-					                        }
-					                        else
-					                            $state.go('app.home');
-					                    });
-					                }
-					                else if (response.Result != "Success")
-					                    $scope.applyError('current');
-					            })
-								.error(function (error) {
-								    console.log('validateCurrentPin Error: [' + JSON.stringify(error) + ']');
-
-								    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-								        CommonServices.logOut();
-								    else
-								        $scope.applyError('current');
-								});
-						})
-						.error(function (error) {
-						    console.log('NumTapped -> GetEncryptedData Error: [' + error + ']');
-						});
+                    pin = pin.substring(0, pin.length - 1)
+                    if (pin.length == 0)
+                        $('.indicatorDotWrap .col div:first-child').removeClass('filled');
+                    if (pin.length == 1)
+                        $('.indicatorDotWrap .col div:nth-child(2)').removeClass('filled');
+                    if (pin.length == 2)
+                        $('.indicatorDotWrap .col div:nth-child(3)').removeClass('filled');
+                    if (pin.length == 3)
+                        $('.indicatorDotWrap .col div:last-child').removeClass('filled');
                 }
-                else if ($scope.enteringPin == 'new')
+
+                switch ($scope.enteringPin)
                 {
-                    $scope.ResetPinData.newPin = pin;
-                    $scope.enteringPin = 'confirm';
-
-                    if ($('.instructionTxt').hasClass('expanded'))
-                        $('.instructionTxt').removeClass('expanded');
-
-                    $('.numPadWrap').addClass('bounceOutLeft');
-                    $timeout(function () {
-                        $('.numPadWrap').removeClass('bounceOutLeft').addClass('bounceInRight');
-                        $('.indicatorDotWrap .col div').removeClass('filled');
-                    }, 600);
-
-                    //pin = '';
-                }
-                else if ($scope.enteringPin == 'confirm')
-                {
-                    // NOW CHECK IF NEW AND CONFIRM PIN MATCH
-                    if ($scope.ResetPinData.newPin != pin)
-                        $scope.applyError('new');
-                    else
-                        $scope.ResetPin();
+                    case 'current':
+                        $scope.ResetPinData.currentPin = pin;
+                        break;
+                    case 'new':
+                        $scope.ResetPinData.newPin = pin;
+                        break;
+                    case 'confirm':
+                        $scope.ResetPinData.confirmPin = pin;
+                        break;
                 }
             }
         }
-        else if (num == 10)
-        {
-            if (pin.length > 0)
-            {
-                pin = pin.substring(0, pin.length - 1)
-                if (pin.length == 0)
-                    $('.indicatorDotWrap .col div:first-child').removeClass('filled');
-                if (pin.length == 1)
-                    $('.indicatorDotWrap .col div:nth-child(2)').removeClass('filled');
-                if (pin.length == 2)
-                    $('.indicatorDotWrap .col div:nth-child(3)').removeClass('filled');
-                if (pin.length == 3)
-                    $('.indicatorDotWrap .col div:last-child').removeClass('filled');
-            }
 
-            switch ($scope.enteringPin)
-            {
-                case 'current':
-                    $scope.ResetPinData.currentPin = pin;
-                    break;
-                case 'new':
-                    $scope.ResetPinData.newPin = pin;
-                    break;
-                case 'confirm':
-                    $scope.ResetPinData.confirmPin = pin;
-                    break;
-            }
-        }
-        console.log("FINISHING numTapped... " + JSON.stringify($scope.ResetPinData));
+        //console.log("FINISHING numTapped... " + JSON.stringify($scope.ResetPinData));
     }
 
 
     $scope.applyError = function (type) {
+        $scope.pauseForError = true;
         var errorTxt = type == 'new' ? "PINs did not match! &nbsp;Try again..." : "Incorrect PIN! &nbsp;Try again...";
+
         $('.indicatorDotWrap .col div').addClass('incorrect');
         $('.indicatorDotWrap').addClass('shake');
         $('.instructionTxt').html(errorTxt).addClass('expanded');
@@ -384,6 +387,7 @@
         $timeout(function () {
             $('.indicatorDotWrap').removeClass('shake');
             $('.indicatorDotWrap .col div').removeClass('filled incorrect');
-        }, 1500);
+            $scope.pauseForError = false;
+        }, 1200);
     }
 })

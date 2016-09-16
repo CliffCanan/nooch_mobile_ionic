@@ -53,7 +53,7 @@
 
                     <h3 class="text-center m-t-15">Profile Stats</h3>
 
-                    <div class="list">
+                    <div class="list" id="statsProfile">
 
                         <div class="item">Friends Invited<span class="badge badge-calm">{{stats.Total_Friends_Invited}}</span></div>
 
@@ -71,10 +71,10 @@
                             <span class="badge badge-calm">{{stats.Total_Posts_To_FB}}</span>
                         </div>
 
-                        <a class="item" href="#/app/referAfriend">
-                            <i class="ion-person-add text-success"></i>
+                        <a class="item text-center" href="#/app/referAfriend">
+                            <i class="ion-person-add lt-gray-text"></i>
                             Refer More Friends
-                            <i class="ion-ios-arrow-thin-right text-success"></i>
+                            <i class="ion-arrow-right-b lt-gray-text"></i>
                         </a>
 
                     </div>
@@ -84,14 +84,21 @@
             </ion-slide>
 
             <ion-slide>
-                <div align="center"
-                    <zingchart id="topFriendsChart" zc-json="myJson" zc-height=200 zc-width=200></zingchart>
+
+                <div id="statsEmptyDiv" ng-show="friendList == null || friendList.length == 0">
+                    <p class="f-19 m-b-20">Once you make or receive some payments, your top friends will show up here.</p>
+
+                    <img src="../../img/StatsCircled@2x.png" class="animated" />
                 </div>
 
-                <ion-scroll>
+                <div ng-show="friendList != null && friendList.length > 5">
+                    <div align="center">
+                        <zingchart id="topFriendsChart" zc-height=200 zc-width=200></zingchart>
+                    </div>
+
                     <div id="topFriendsTable" class="card">
                         <ion-scroll>
-                            <h3 class="text-center m-t-0">Top 5 Friends</h3>
+                            <h3 class="text-center m-t-0">Top {{friendList.length}} Friends</h3>
 
                             <div class="list icon-right">
 
@@ -105,6 +112,7 @@
 
                         </ion-scroll>
                     </div>
+                </div>
 
             </ion-slide>
         </ion-slide-box>

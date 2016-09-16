@@ -66,33 +66,33 @@
         $scope.cancelPayment = function (trans) {
 
             console.log("Cancel Payment: [" + trans.TransactionId + ']');
-			console.log(trans);
+            console.log(trans);
 
-			var bodyText = "Are you sure you want to cancel this request";
-			// CC (9/15/16): still need to add a check to see if we have the recipient's name (i.e. a request to an existing user
-			// or not).  If yes, then add the name to the end of bodyText...
-				// if (IS TO EXISTING USER)
-				// bodyText += " " + EXISTING USER'S FULL NAME;
-				// else
-				bodyText += "?";
+            var bodyText = "Are you sure you want to cancel this request";
+            // CC (9/15/16): still need to add a check to see if we have the recipient's name (i.e. a request to an existing user
+            // or not).  If yes, then add the name to the end of bodyText...
+            // if (IS TO EXISTING USER)
+            // bodyText += " " + EXISTING USER'S FULL NAME;
+            // else
+            bodyText += "?";
 
             swal({
                 title: "Cancelled Request?",
                 text: bodyText,
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-				confirmButtonText: "Yes",
-				showCancelButton: true,
+                confirmButtonText: "Yes",
+                showCancelButton: true,
             }, function (isConfirm) {
                 if (isConfirm)
-				{
-		            $ionicLoading.show({
-		                template: 'Cancelling Request...'
-		            });
+                {
+                    $ionicLoading.show({
+                        template: 'Cancelling Request...'
+                    });
 
-		            transferDetailsService.CancelRequest(trans.TransactionId)
+                    transferDetailsService.CancelRequest(trans.TransactionId)
 		                .success(function (data) {
-							console.log(data);
+		                    console.log(data);
 		                    $ionicLoading.hide();
 
 		                    if (data.Result.indexOf('Successfully') > -1)
@@ -110,7 +110,7 @@
 					        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 					            CommonServices.logOut();
 					    });
-				}
+                }
             });
         }
 
@@ -131,7 +131,8 @@
                 confirmButtonText: "Yes",
                 showCancelButton: true,
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
                     transferDetailsService.RejectPayment(trans.TransactionId)
                     .success(function (data) {
                         $ionicLoading.hide();
@@ -154,7 +155,7 @@
                 }
             })
         }
-            
+
 
         $scope.remindPayment = function (trans) {
 
@@ -163,18 +164,18 @@
                 text: "Do you want to send a reminder about this request?",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-				confirmButtonText: "Yes",
-				showCancelButton: true,
+                confirmButtonText: "Yes",
+                showCancelButton: true,
             }, function (isConfirm) {
                 if (isConfirm)
-				{
-		            $ionicLoading.show({
-		                template: 'Sending Reminder...'
-		            });
+                {
+                    $ionicLoading.show({
+                        template: 'Sending Reminder...'
+                    });
 
-		            transferDetailsService.RemindPayment(trans.TransactionId)
+                    transferDetailsService.RemindPayment(trans.TransactionId)
 		                .success(function (data) {
-							console.log(data);
+		                    console.log(data);
 		                    $ionicLoading.hide();
 
 		                    if (data.Result.indexOf('successfully') > -1)
@@ -192,18 +193,18 @@
 		                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 		                        CommonServices.logOut();
 		                });
-				}
-			});
-		}
+                }
+            });
+        }
 
 
         $scope.PayBack = function (trans) {
-        
-                    console.log("Pay Back Result: [" + JSON.stringify(trans) + ']');
-                    $state.go('app.howMuch', { myParam: trans });
-                }
-           
-       
+
+            console.log("Pay Back Result: [" + JSON.stringify(trans) + ']');
+            $state.go('app.howMuch', { myParam: trans });
+        }
+
+
 
 
         $scope.TransferMoney = function (trans) {
@@ -216,7 +217,8 @@
                 confirmButtonText: "Yes",
                 showCancelButton: true,
             }, function (isConfirm) {
-                if (isConfirm) {
+                if (isConfirm)
+                {
 
                     transDetails = trans;
                     transDetails.RecepientName = trans.Name;

@@ -42,7 +42,7 @@ ion-header-bar, .navheader, .bar.bar-header {
     text-align: center;
 }
 
-.lt-gray-text {
+.lt-gray-text, .lt-gray-text::before {
     color: #bcbec0 !important;
 }
 
@@ -925,7 +925,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 /***  BANNER ALERTS  ***/
 .content-banner {
     border-width: 1px;
-    border-radius: 4px;
+    border-radius: 0 0 4px 4px;
     height: 38px;
     opacity: .94;
 }
@@ -1021,6 +1021,10 @@ form.smErrors .parsley-errors-list {
 /***  BADGES  ***/
 .badge.badge-calm {
     background-color: #3fabe1;
+}
+
+.item .badge {
+    right: 15px;
 }
 
 /***  Misc  ***/
@@ -1995,6 +1999,28 @@ div.hscroller-card {
     top: 22px;
 }
 
+.list#statsProfile .item:last-child i:last-child:before {
+    font-size: 16px;
+    top: 0;
+    left: 3px;
+}
+
+#statsEmptyDiv {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+}
+
+    #statsEmptyDiv img {
+        max-width: 84%;
+        opacity: 0;
+        transition: opacity .5s;
+    }
+
+        #statsEmptyDiv img.slideInUp {
+            opacity: 1;
+        }
+
 #topFriendsTable .item {
     padding-bottom: 12px;
     padding-top: 12px;
@@ -2278,10 +2304,12 @@ div.hscroller-card {
             margin: 10px 4px 5px;
             padding: 10px 20px;
         }
+
+    .item .badge {
+        right: 20px;
+    }
 }
 
-@media screen and (min-width: 360px) {
-}
 
 #memoField {
     border: 1px solid #c8c9cb;

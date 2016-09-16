@@ -142,8 +142,8 @@
                     </div>
 
                     <div class="typeDateContainer" ng-if="trans.TransactionType == 'Request'">
-                        <label class="transTypeLabel pending" ng-if="trans.MemberId == memberId">Request From</label>
-                        <label class="transTypeLabel pending" ng-if="trans.MemberId != memberId">Request Sent To</label>
+                        <label class="transTypeLabel pending" ng-if="trans.MemberId == memberId && trans.MemberId!=trans.RecepientId ">Request From</label>
+                        <label class="transTypeLabel pending" ng-if="trans.MemberId != memberId || (trans.MemberId == memberId && trans.MemberId==trans.RecepientId)">Request Sent To</label>
                         <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date :  "mediumDate"}}</h5>
                     </div>
 
@@ -165,10 +165,11 @@
                     </div>
 
 
-                    <div class="name" ng-if="trans.Name.length > 1">{{trans.Name}}</div>
+                    <div class="name" ng-if="trans.Name.length > 1 && trans.InvitationSentTo.length==null">{{trans.Name}}</div>
  
-                    <div class="name" ng-if="trans.Name.length <= 1">{{trans.InvitationSentTo}}</div>
- 
+                    <!--<div class="name" ng-if="trans.Name.length <= 1">{{trans.InvitationSentTo}}</div>-->
+                    <div class="name" ng-if="trans.InvitationSentTo.length>=1">{{trans.InvitationSentTo}}</div>
+
 
                     <p class="memo-container" ng-if="trans.Memo != null && trans.Memo != ''">For "<span class="memo-text">{{trans.Memo}}</span>"</p>
 
