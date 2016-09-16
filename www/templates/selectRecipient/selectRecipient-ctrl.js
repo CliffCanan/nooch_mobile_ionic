@@ -14,7 +14,7 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
-
+        
         if (typeof $scope.memberList == 'undefined')
             $scope.memberList = new Array();
         else
@@ -323,6 +323,7 @@
 
     $scope.checkSearchText = function () {
 
+        console.log($('#searchBar').val().trim());
         var enteredText = $('#searchBar').val().trim();
 
         if (enteredText == '') $scope.showEmPhDiv = false;
@@ -343,6 +344,7 @@
             }
             else
             {
+                console.log('contact');
                 $scope.showEmPhDiv = true;
                 $scope.sendTo = 'Contact Number';
 

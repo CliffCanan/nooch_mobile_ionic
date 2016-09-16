@@ -86,19 +86,19 @@
 
 
         <div class="row text-center m-t-15" ng-if="transDetail.TransactionStatus == 'Pending'">
-            <div class="col" ng-if="transDetail.MemberId != memId && transDetail.TransactionType == 'Request'">
+            <div class="col" ng-if="(transDetail.MemberId != memId) || (transDetail.MemberId == memId && transDetail.MemberId==transDetail.RecepientId) && transDetail.TransactionType == 'Request'">
                 <button class="button btn-primary button-block" ng-click="remindPayment()">Remind</button>
             </div>
 
-            <div class="col" ng-if="transDetail.MemberId != memId && transDetail.TransactionType == 'Request'">
+            <div class="col" ng-if="(transDetail.MemberId != memId) || (transDetail.MemberId == memId && transDetail.MemberId==transDetail.RecepientId) && transDetail.TransactionType == 'Request'">
                 <button class="button btn-danger button-block" ng-click="cancelPayment()">Cancel</button>
             </div>
 
-            <div class="col" ng-if="transDetail.MemberId == memId && (transDetail.TransactionType == 'Request' || transDetail.TransactionType == 'Rent')">
+            <div class="col" ng-if="transDetail.MemberId == memId && transDetail.MemberId!=transDetail.RecepientId && (transDetail.TransactionType == 'Request' || transDetail.TransactionType == 'Rent')">
                 <button class=" btn btn-danger button-block" ng-click="rejectPayment()">Reject</button>
             </div>
 
-            <div class="col" ng-if="transDetail.MemberId == memId && (transDetail.TransactionType == 'Request' || transDetail.TransactionType == 'Rent')">
+            <div class="col" ng-if="transDetail.MemberId == memId && transDetail.MemberId!=transDetail.RecepientId && (transDetail.TransactionType == 'Request' || transDetail.TransactionType == 'Rent')">
                 <button class="btn btn-success button-block" ng-click="TransferMoney()">Pay</button>
             </div>
 
