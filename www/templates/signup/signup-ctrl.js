@@ -14,8 +14,7 @@
             chk: true
         },
         FBId: '',
-        gotPicUrl: false,
-        isPicChanged: true
+		FbPicUrl: ''
     };
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -185,11 +184,8 @@
 
                 $rootScope.signUpData.Email = _.get(success, 'email');
                 $rootScope.signUpData.Name = _.get(success, 'name');
-                $rootScope.signUpData.Photo = _.get(success, 'picture.data.url');
+                $rootScope.signUpData.FbPicUrl = _.get(success, 'picture.data.url');
                 $rootScope.signUpData.FBId = _.get(success, 'id');
-
-                if ($rootScope.signUpData.Photo != null)
-                    $rootScope.signUpData.gotPicUrl = true;
 
                 $scope.$apply();
                 console.log('signUpData: ' + JSON.stringify($rootScope.signUpData));
@@ -278,5 +274,26 @@
                 $('#toLoginBtn').removeClass('bounceOutRight');
             }, 500);
         }, 400);
+    }
+	
+	
+    $scope.getBase64FromImgUrl = function (URL) {
+        var img = new Image();
+        img.setAttribute('crossOrigin', 'anonymous');
+        img.src = URL;
+        img.onload = function () {
+
+            var canvas = document.createElement("canvas");
+            canvas.width = this.width;
+            canvas.height = this.height;
+
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(this, 0, 0);
+
+            var dataURL = canvas.toDataURL("image/png");
+            //console.log("Data URL...");
+            //console.log(dataURL);
+            $rootScope.signUpData.Photo = (dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""));
+        };
     }
 })

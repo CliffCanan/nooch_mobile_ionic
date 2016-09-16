@@ -1119,7 +1119,7 @@ iframe {
 }
 
 .mainLogo {
-    height: 48px;
+    height: 44px;
 }
 
 .slogan {
@@ -1212,28 +1212,27 @@ iframe {
 /***  WELCOME  ***/
 /*****************/
 
-#welcomeBox ul {
-    margin-bottom: 30px;
-    padding: 10px 5% 10px 10%;
+#welcomeBox .customList {
+	font-size: 19px;
+    line-height: 1.35;
 }
 
-#welcomeBox li {
-    font-size: 17px;
-    line-height: 1.4;
-    margin-bottom: 14px;
+.customList > div {
+    margin-bottom: 10px;
 }
 
-    #welcomeBox li i {
-        margin-right: 8px;
-    }
+#welcomeBox .customList > div > i {
+	color: #3fabe1;
+	display: block;
+	font-size: 36px;
+	line-height: 1.2;
+}
 
-    #welcomeBox li span {
-        display: block;
-        font-size: 16px;
-        font-weight: 300;
-        margin-top: 4px;
-        padding-left: 25px;
-    }
+#welcomeBox img {
+	display: block;
+	margin: 14px auto 6px;
+	width: 48px;
+}
 
 #welcomeBox .btn-link {
     color: #888;
@@ -1241,9 +1240,6 @@ iframe {
 }
 
 #tellMore {
-    display: block;
-    font-size: 16px;
-    font-weight: 300;
     margin-top: 4px;
 }
 
@@ -1264,7 +1260,7 @@ iframe {
         height: 14px;
         width: 14px;
         margin: 0 8px 0;
-        transition: .2s all;
+        transition: .15s all;
     }
 
         .indicatorDotWrap .col div.filled {
@@ -1307,12 +1303,12 @@ iframe {
 }
 
 .menu .item a {
-    text-shadow: 0px 2px 0px rgba(30,32,34,.4);
+    text-shadow: 0px 1px 0px rgba(30,31,32,.4);
 }
 
 .menu h2, .menu h3, .menu h4 {
     color: #fff;
-    text-shadow: 0 2px 0px rgba(0,0,0,.8);
+    text-shadow: 0 1px 0px rgba(0,0,0,.75);
 }
 
 .menu .item-avatar {
@@ -1324,8 +1320,8 @@ iframe {
 .menu img.user-img {
     border: 2px solid #fff;
     box-shadow: 0 1px 10px -1px rgba(0,0,0,.7);
-    max-height: 65px;
-    max-width: 65px;
+    max-height: 66px;
+    max-width: 66px;
     top: 22px;
 }
 
@@ -1388,12 +1384,11 @@ iframe {
     box-shadow: 0 1px 1px rgba(46,47,48,.25), 0 -1px 1px rgba(46,47,48,.25);
     border: none;
     color: #fff;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: .5px;
-    line-height: 14px;
-    padding: 10px 16px 7px;
-    text-shadow: 0 -2px 0 rgba(30,30,30,.2);
+    font-size: 15px;
+    letter-spacing: .4px;
+    line-height: 1;
+    padding: 10px 16px 8px;
+    text-shadow: 0 -1px 0 rgba(31,32,33,.18);
     z-index: 3;
 }
 
@@ -2036,25 +2031,24 @@ div.hscroller-card {
 
 #howItWorksSlider .slideImage {
     display: block;
-    max-width: 85%;
-    margin: 70px auto 0px;
+    max-width: 82%;
+    margin: 80px auto 0px;
     opacity: 0;
 }
 
 #howItWorksSlider .slideTitle {
     color: #fff;
     font-size: 28px;
-    font-weight: 400;
-    text-shadow: 0 1px 0px rgba(30,30,30,.5);
+    text-shadow: 0 1px 0px rgba(31,32,33,.4 	);
 }
 
 #howItWorksSlider .slideCaption {
     color: #fff;
     font-size: 18px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.35;
-    text-shadow: 0 1px 0px rgba(30,30,30,.5);
-    padding: 2px 14px;
+    text-shadow: 0 1px 0px rgba(31,32,33,.4);
+    padding: 2px 13px;
 }
 
 #howItWorksSlider #slide1 {
@@ -2070,7 +2064,7 @@ div.hscroller-card {
 }
 
     #howItWorksSlider #slide3 img {
-        margin-top: 156px;
+        margin-top: 180px;
     }
 
 #howItWorksSlider #slide4 {

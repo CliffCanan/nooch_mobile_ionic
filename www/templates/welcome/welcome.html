@@ -11,49 +11,53 @@
         <div class="row text-center">
             <div class="col">
 
-                <p id="header" class="f-26 m-t-5">Congratulations!</p>
+                <p id="header" class="f-30" ng-if="screenHeight > 570">Congratulations!</p>
 
-                <p class="animated bounceIn gray-text-dark f-21 m-b-0">Account Created Successfully</p>
+                <p class="animated bounceIn gray-text-dark f-22 m-b-0">Account Created Successfully</p>
 
             </div>
         </div>
 
-        <div id="welcomeBox" class="row m-t-5">
-            <div class="col p-10">
+        <div id="welcomeBox" class="row">
+            <div class="col p-10 text-center">
 
-                <div class="f-22 f-500 m-b-5 text-center">What's Next?</div>
+                <div class="f-22 f-500 m-b-5">Now What?</div>
 
-                <ul>
-                    <li>
-                        <i class="ion-ios-circle-outline"></i>
-                        Confirm your email address
-                        <span class="show f-16 f-300">(we sent a link - check your email)</span>
-                    </li>
+                <div class="customList">
 
-                    <li>
-                        <i class="ion-ios-circle-outline"></i>
-                        Verify your phoe number
-                    </li>
+                    <div id="item-1">
+						<i class="ion-email-unread"></i>
+                        1. &nbsp;Confirm your email address
+                        <div class="show f-17 f-300">(we sent a link - check your email)</div>
+					</div>
 
-                    <li>
-                        <i class="ion-ios-circle-outline"></i>
-                        Link your bank account
-                        <span id="tellMore" ng-click="tellMeMore()">
-                            <i class="ion-help-circled purp-text" style="margin-left: 10%;"></i>
+                    <div id="item-2">
+						<i class="ion-person"></i>
+						2. &nbsp;Complete your profile
+					</div>
+
+                    <div id="item-3">
+						<img src="././img/bank.png" class="bank-icon" />
+                        3. &nbsp;Link your bank account
+                        <div id="tellMore" class="f-17 f-300" ng-click="tellMeMore()">
+                            <i class="ion-help-circled purp-text"></i>
                             Tell me more
-                        </span>
-                    </li>
-                </ul>
+                        </div>
+					</div>
 
-                <div class="p-5">
-                    <button class="button btn-success button-block" ng-click="go('profile')">
+                </div>
+
+                <div class="p-5" ng-class="{'m-t-25 m-b-5': screenHeight > 570}">
+                    <button class="btn btn-success button-block" ng-click="go('profile')">
                         <i class="ion-person m-r-10"></i>
                         Complete Profile Now
-                        </a>
+					</button>
                 </div>
 
                 <div class="text-center">
-                    <button class="button btn-link" ng-click="go('home')">I'll do this later...</button>
+                    <button class="button btn-link" ng-click="go('home')">
+						I'll do this later...
+					</button>
                 </div>
 
             </div>

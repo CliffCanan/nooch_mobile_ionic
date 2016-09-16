@@ -133,7 +133,7 @@
 
 			                swal({
 			                    title: "Use Address Book?",
-			                    text: "Sending money to friends is simple when you have them in your phone's address book." +
+			                    text: "Sending money to friends is simple when you have them in your phone's address book. " +
 	                                  "Otherwise you'll have to manually type their email address or phone number.",
 			                    type: "info",
 			                    showCancelButton: true,

@@ -18,22 +18,6 @@
         })
     })
 
-    $scope.$on('IsValidProfileFalse', function (event, args) {
-        console.log('IsValidProfileFalse');
-        //$scope.valid = false;
-        $scope.showProfileNotValidatedBanner();
-    });
-
-    $scope.showProfileNotValidatedBanner = function () {
-        $ionicContentBanner.show({
-            text: ['Profile Not Validated'],
-            interval: '20',
-            autoClose: '8000',
-            type: 'error',
-            transition: 'vertical'
-        });
-    }
-
     $scope.slideOptions = {
         loop: false,
         effect: 'slide',

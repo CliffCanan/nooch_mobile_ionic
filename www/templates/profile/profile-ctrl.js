@@ -73,7 +73,7 @@
             })
         //}
         //else
-        //    swal("Oops...", "Internet not connected!", "error");
+        //    swal("Error", "Internet not connected!", "error");
     }
 
 
@@ -88,7 +88,6 @@
                 template: 'Saving Profile...'
             });
 
-            // console.log('Values in Profile Field...------>>>');
             console.log($scope.Details);
 
             profileService.UpdateProfile($scope.Details)
@@ -269,6 +268,7 @@
             date: new Date(),
             mode: 'date', // or 'time'
             minDate: 0,
+			maxDate: new Date('01/01/1990'),
             allowOldDates: true,
             allowFutureDates: false,
             doneButtonLabel: 'DONE',
@@ -292,23 +292,40 @@
     $scope.changePic = function () {
         var hideSheet = $ionicActionSheet.show({
             buttons: [
-                  { text: 'From Device Library' },
+                  { text: 'From Photo Library' },
                   { text: 'Use Camera' }
             ],
             titleText: 'Update Your Profile Picture',
             cancelText: 'Cancel',
             buttonClicked: function (index) {
                 if (index == 0)
-                {
-                    $scope.choosePhoto();
-                }
+                    $scope.choosePhotoFromDevice();
                 else if (index == 1)
-                {
                     $scope.takePhoto();
-                }
                 return true;
             }
         });
+    }
+
+
+    $scope.choosePhotoFromDevice = function () {
+		// CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to add a check to see which platform the user is on.
+		
+		$ionicPlatform.ready(function () {
+			CommonServices.openPhotoGallery('profile', function (result) {
+				if (result != null && result != 'failed')
+				{
+	                $scope.Details.Photo = "data:image/jpeg;base64," + result;
+					$scope.Details.Photos = result;
+	            }
+				else
+				{
+					$scope.pictureBase64 = null;
+					$scope.isPicAttachedToTrans = false;
+					$scope.showErrorBanner('camera');
+				}
+			});
+		});
     }
 
 
@@ -334,21 +351,13 @@
 
                     $cordovaCamera.getPicture(options).then(function (imageData) {
                         console.log(imageData);
-                        $scope.imgURI = "data:image/jpeg;base64," + imageData;
                         $scope.Details.Photo = "data:image/jpeg;base64," + imageData;
-                        var binary_string = window.atob(imageData);
-                        var len = binary_string.length;
-                        var bytes = new Uint8Array(len);
-
-                        for (var i = 0; i < len; i++)
-                        {
-                            bytes[i] = binary_string.charCodeAt(i);
-                        }
 
                         $scope.Details.Photos = imageData;
                         console.log(bytes);
-                    }, function (err) {
+                    }, function (error) {
                         // An error occured. Show a message to the user
+						$scope.showErrorBanner('camera');
                     });
                 }
                 else
@@ -370,43 +379,18 @@
                                     $scope.takePhoto();
                             }, function (error) {
                                 console.error(error);
+								$scope.showErrorBanner('camera');
                             });
                         }
                     });
                 }
             }, function (error) {
                 console.error("isCameraAuthorized Error: [" + error + ']');
+				$scope.showErrorBanner('camera');
             });
         });
     }
 
-
-    $scope.choosePhoto = function () {
-        $ionicPlatform.ready(function () {
-            var options = {
-                quality: 75,
-                destinationType: Camera.DestinationType.DATA_URL,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                allowEdit: true,
-                encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 300,
-                targetHeight: 300,
-                popoverOptions: CameraPopoverOptions,
-                saveToPhotoAlbum: false
-            };
-
-            $cordovaCamera.getPicture(options).then(function (imageData) {
-                $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                $scope.Details.Photo = "data:image/jpeg;base64," + imageData;
-                //console.log('after converting base 64 imgURL');
-                //console.log($scope.imgURI);
-
-                $scope.Details.Photos = imageData;
-            }, function (err) {
-                // An error occured. Show a message to the user
-            });
-        });
-    }
 
 
     $scope.saveSSN = function (Details) {
@@ -525,4 +509,15 @@
                 $scope.Details.SSN = $scope.Details.SSN.replace(/^(\d{3})(\d{1})/, '$1-$2'); //XXX-X
         }
     }
+
+
+	$scope.showErrorBanner = function(id) {
+        $ionicContentBanner.show({
+            text: ['Error - Unable to get picture from the ' + id + ' :-('],
+            autoClose: 4000,
+            type: 'error',
+            transition: 'vertical'
+        });
+	}
+
 })

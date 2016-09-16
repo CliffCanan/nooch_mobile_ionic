@@ -1,6 +1,7 @@
 ﻿angular.module('noochApp.addPicture', ['noochApp.services'])
 
-    .controller('addPictureCtrl', function ($scope, $state, CommonServices, profileService, $ionicLoading, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $rootScope, $ionicActionSheet, $cordovaGoogleAnalytics) {
+    .controller('addPictureCtrl', function ($scope, $state, $ionicLoading, $localStorage, $cordovaImagePicker, $ionicPlatform, $cordovaCamera,
+											$rootScope, $ionicActionSheet, $cordovaGoogleAnalytics, CommonServices, profileService) {
 
 
         $scope.$on("$ionicView.beforeEnter", function (event, data) {
@@ -11,7 +12,7 @@
             if ($rootScope.signUpData == null)
                 $state.go('signup');
 
-            $scope.showContinueBtn = false;
+            if ($scope.showContinueBtn == null) $scope.showContinueBtn = false;
 
             $ionicPlatform.ready(function () {
                 if (typeof analytics !== 'undefined') analytics.trackView("Signup Flow - Add Picture");
@@ -22,14 +23,16 @@
         $scope.choosePhoto = function () {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
-                    { text: 'From Device Library' },
+                    { text: 'From Photo Library' },
                     { text: 'Use Camera' }
                 ],
                 titleText: 'Add Your Picture',
                 cancelText: 'Cancel',
                 buttonClicked: function (index) {
-                    if (index == 0) $scope.choosePhotoFromDevice();
-                    else if (index == 1) $scope.takePhoto();
+                    if (index == 0)
+						$scope.choosePhotoFromDevice();
+                    else if (index == 1)
+						$scope.takePhoto();
 
                     return true;
                 }
@@ -38,35 +41,32 @@
 
 
         $scope.choosePhotoFromDevice = function () {
-            $ionicPlatform.ready(function () {
-                var options = {
-                    quality: 80,
-                    destinationType: Camera.DestinationType.DATA_URL,
-                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                    allowEdit: true,
-                    encodingType: Camera.EncodingType.JPEG,
-                    targetWidth: 300,
-                    targetHeight: 300,
-                    popoverOptions: CameraPopoverOptions,
-                    saveToPhotoAlbum: false
-                };
+			// CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to add a check to see which platform the user is on.
+			
+			$ionicPlatform.ready(function () {
+				CommonServices.openPhotoGallery('addPicture', function (result) {
+					if (result != null && result != 'failed')
+					{
+						console.log("ADD - PICTURE - SUCCESS FROM COMMONSERVICES")
+		                $rootScope.signUpData.Photo = "data:image/jpeg;base64," + result;
 
-                $cordovaCamera.getPicture(options).then(function (imageData) {
-
-                    $rootScope.imgURI = imageData;
-                    $rootScope.signUpData.Photo = "data:image/jpeg;base64," + imageData;
-
-                    $scope.showContinueBtn = true;
-                }, function (err) {
-                    // An error occured. Show a message to the user
-                });
-            });
+		                $scope.showContinueBtn = true;
+					}
+					else
+					{
+						console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
+		                $scope.showErrorBanner('photo gallery');
+					}
+				});
+			});
         }
 
 
+
         $scope.takePhoto = function () {
-            console.log($cordovaCamera);
+
             cordova.plugins.diagnostic.isCameraAuthorized(function (authorized) {
+				console.log(authorized);
                 console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
 
                 if (authorized)
@@ -84,13 +84,12 @@
                     };
 
                     $cordovaCamera.getPicture(options).then(function (imageData) {
-                        // console.log(imageData);
-                        $rootScope.imgURI = imageData;
                         $rootScope.signUpData.Photo = "data:image/jpeg;base64," + imageData;
 
                         $scope.showContinueBtn = true;
-                    }, function (err) {
-                        // An error occured. Show a message to the user
+                    }, function (error) {
+						console.log(error);
+						$scope.showErrorBanner('camera');
                     });
                 }
                 else
@@ -112,19 +111,31 @@
                                     $scope.takePhoto();
                             }, function (error) {
                                 console.error(error);
+								$scope.showErrorBanner('camera');
                             });
                         }
                     });
                 }
             }, function (error) {
                 console.error("isCameraAuthorized Error: [" + error + ']');
+				$scope.showErrorBanner('camera');
             });
         }
 
 
-        $scope.isUrlUpdated = function () {
-            if ($rootScope.signUpData.gotPicUrl == true)
-                $rootScope.signUpData.isPicChanged = false;
+		$scope.showErrorBanner = function(id) {
+	        $ionicContentBanner.show({
+	            text: ['Error - Unable to get picture from the ' + id + ' :-('],
+	            autoClose: 4000,
+	            type: 'error',
+	            transition: 'vertical'
+	        });
+		}
+
+
+        $scope.resetPicData = function () {
+			$rootScope.signUpData.FbPicUrl = null;
+            $rootScope.signUpData.Photo = null;
         }
 
 
