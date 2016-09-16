@@ -14,35 +14,34 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
-		console.log($ionicHistory.forwardView()); // This will be NULL unless coming from How Much Screen
 
-        $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("Select Recipient");
-        })
-
-		if (typeof $scope.memberList == 'undefined')
-			$scope.memberList = new Array();
-		else
-			console.log($scope.memberList.length);
+        if (typeof $scope.memberList == 'undefined')
+            $scope.memberList = new Array();
+        else
+            console.log($scope.memberList.length);
 
         $scope.FindRecent();
 
         $scope.currentView = 'recent';
         $scope.sendTo = '';
-		
-		if (typeof $scope.recentCount == 'undefined')
-        	$scope.recentCount = 0;
+
+        if (typeof $scope.recentCount == 'undefined')
+            $scope.recentCount = 0;
+
+        $ionicPlatform.ready(function () {
+            if (typeof analytics !== 'undefined') analytics.trackView("Select Recipient");
+        })
     });
 
 
-    $scope.$on("$ionicView.afterEnter", function (event, data) {
-        if ($ionicHistory.forwardView() != null && $ionicHistory.forwardView().title == 'How Much')
-		{
-			console.log("SELECT RECIP CNTRLR -> afterEnter -> RELOADING THE STATE")
-			$ionicHistory.removeBackView();
-			$state.reload();
-		}
-    });
+    //$scope.$on("$ionicView.afterEnter", function (event, data) {
+    //    if ($ionicHistory.forwardView() != null && $ionicHistory.forwardView().title == 'How Much')
+    //    {
+    //        console.log("SELECT RECIP CNTRLR -> afterEnter -> RELOADING THE STATE")
+    //        $ionicHistory.removeBackView();
+    //        $state.reload();
+    //    }
+    //});
 
 
     $scope.FindRecent = function () {
@@ -59,7 +58,7 @@
 
         selectRecipientService.GetRecentMembers()
             .success(function (data) {
-			
+
                 $scope.memberList = data;
                 $scope.recentCount = $scope.memberList.length;
                 $scope.item2 = data;
@@ -201,7 +200,7 @@
                 $scope.memberList.push.apply($scope.memberList, $rootScope.contacts);
                 console.log($scope.memberList);
             }
-			
+
             $scope.loadComplete = true;
             $ionicLoading.hide();
         };

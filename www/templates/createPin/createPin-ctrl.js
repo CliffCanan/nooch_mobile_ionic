@@ -42,8 +42,8 @@
             });
 
 
-			if ($rootScope.signUpData.Photo != null && $rootScope.signUpData.Photo.indexOf('base64'))
-				$rootScope.signUpData.Photo = $rootScope.signUpData.Photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
+            if ($rootScope.signUpData.Photo != null && $rootScope.signUpData.Photo.indexOf('base64'))
+                $rootScope.signUpData.Photo = $rootScope.signUpData.Photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
 
 
             CommonServices.GetEncryptedData($rootScope.signUpData.Password)

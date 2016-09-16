@@ -14,7 +14,7 @@
             chk: true
         },
         FBId: '',
-		FbPicUrl: ''
+        FbPicUrl: ''
     };
 
     $scope.$on("$ionicView.enter", function (event, data) {
@@ -275,8 +275,8 @@
             }, 500);
         }, 400);
     }
-	
-	
+
+
     $scope.getBase64FromImgUrl = function (URL) {
         var img = new Image();
         img.setAttribute('crossOrigin', 'anonymous');

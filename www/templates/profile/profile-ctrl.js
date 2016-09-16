@@ -262,14 +262,14 @@
 
 
     // Date Picker Plugin
-	// CC (9/15/16): Don't think this is used.
+    // CC (9/15/16): Don't think this is used.
     $scope.showdate = function () {
 
         var options = {
             date: new Date(),
             mode: 'date', // or 'time'
             minDate: 0,
-			maxDate: new Date('01/01/1990'),
+            maxDate: new Date('01/01/1990'),
             allowOldDates: true,
             allowFutureDates: false,
             doneButtonLabel: 'DONE',
@@ -310,23 +310,23 @@
 
 
     $scope.choosePhotoFromDevice = function () {
-		// CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
-		
-		$ionicPlatform.ready(function () {
-			CommonServices.openPhotoGallery('profile', function (result) {
-				if (result != null && result != 'failed')
-				{
-	                $scope.Details.Photo = "data:image/jpeg;base64," + result;
-					$scope.Details.Photos = result;
-	            }
-				else
-				{
-					$scope.pictureBase64 = null;
-					$scope.isPicAttachedToTrans = false;
-					$scope.showErrorBanner('camera');
-				}
-			});
-		});
+        // CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
+
+        $ionicPlatform.ready(function () {
+            CommonServices.openPhotoGallery('profile', function (result) {
+                if (result != null && result != 'failed')
+                {
+                    $scope.Details.Photo = "data:image/jpeg;base64," + result;
+                    $scope.Details.Photos = result;
+                }
+                else
+                {
+                    $scope.pictureBase64 = null;
+                    $scope.isPicAttachedToTrans = false;
+                    $scope.showErrorBanner('camera');
+                }
+            });
+        });
     }
 
 
@@ -358,7 +358,7 @@
                         console.log(bytes);
                     }, function (error) {
                         // An error occured. Show a message to the user
-						$scope.showErrorBanner('camera');
+                        $scope.showErrorBanner('camera');
                     });
                 }
                 else
@@ -380,22 +380,22 @@
                                     $scope.takePhoto();
                             }, function (error) {
                                 console.error(error);
-								$scope.showErrorBanner('camera');
+                                $scope.showErrorBanner('camera');
                             });
                         }
                     });
                 }
             }, function (error) {
                 console.error("isCameraAuthorized Error: [" + error + ']');
-				$scope.showErrorBanner('camera');
+                $scope.showErrorBanner('camera');
             });
         });
     }
 
 
     $scope.saveSSN = function (Details) {
-        console.log('saveSSN Function Fired');        
-        $scope.Details.SSN = $scope.Details.SSN.replace(/-/g, '');        
+        console.log('saveSSN Function Fired');
+        $scope.Details.SSN = $scope.Details.SSN.replace(/-/g, '');
         console.log($scope.Details.SSN);
         //if ($cordovaNetwork.isOnline()) {
 
@@ -473,7 +473,7 @@
 
         if (value == "zip")
         {
-			// Strip out all non-digits
+            // Strip out all non-digits
             $scope.Details.Zipcode = $scope.Details.Zipcode.replace(/\D/g, '');
 
             if ($scope.Details.Zipcode.length > 5)
@@ -481,7 +481,7 @@
         }
         else if (value == "phone")
         {
-			// Strip out any letters
+            // Strip out any letters
             $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[a-z]/ig, '')
 
             var lastCharEntered = $scope.Details.ContactNumber.slice(-1);
@@ -511,13 +511,13 @@
     }
 
 
-	$scope.showErrorBanner = function(id) {
+    $scope.showErrorBanner = function (id) {
         $ionicContentBanner.show({
             text: ['Error - Unable to get picture from the ' + id + ' :-('],
             autoClose: 4000,
             type: 'error',
             transition: 'vertical'
         });
-	}
+    }
 
 })

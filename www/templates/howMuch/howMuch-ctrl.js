@@ -117,7 +117,7 @@
                 if (typeof $stateParams.recip.value != "undefined")
                 {
                     // We know this is a non-Nooch user manually entered from the Select Recipient scrn (NOT a phone contact or from Home scrn)
-                  
+
                     $scope.recipientDetail.Photo = $stateParams.recip.photo;
 
                     if ($stateParams.recip.type == "phone")
@@ -142,9 +142,9 @@
             $scope.recipientDetail.Photo = "././img/profile_picture.png";
         }
 
-		if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
-        
-		console.log($scope.recipientDetail);
+        if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
+
+        console.log($scope.recipientDetail);
     });
 
 
@@ -159,8 +159,8 @@
 
     $scope.formatAmount = function () {
         //console.log($scope.recipientDetail.Amount);
-		
-		if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
+
+        if ($('#amountField').hasClass('parsley-error')) $('#amountField').removeClass('parsley-error');
 
         var enteredAmnt = $scope.recipientDetail.Amount;
 
@@ -328,7 +328,7 @@
 
     $scope.noAmountAlert = function (type) {
 
-		$('#amountField').addClass('parsley-error');
+        $('#amountField').addClass('parsley-error');
 
         var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
 			? $scope.recipientDetail.FirstName
@@ -355,7 +355,7 @@
 
     $scope.overTransLimitAlert = function (type) {
 
-		$('#amountField').addClass('parsley-error');
+        $('#amountField').addClass('parsley-error');
 
         var bodyTxt = type == "send"
 			? "To keep Nooch safe, please don’t send more than $2,000. We hope to raise this limit very soon!"
@@ -377,7 +377,7 @@
 
     $scope.underTransLimitAlert = function (type) {
 
-		$('#amountField').addClass('parsley-error');
+        $('#amountField').addClass('parsley-error');
 
         var firstName = typeof $scope.recipientDetail.FirstName != "undefined"
 			? $scope.recipientDetail.FirstName
@@ -421,21 +421,21 @@
             ],
             titleText: 'Attach a Picture',
             cancelText: 'Cancel',
-			destructiveText: $scope.isPicAttachedToTrans == true ? 'Remove Picture' : null,
+            destructiveText: $scope.isPicAttachedToTrans == true ? 'Remove Picture' : null,
             buttonClicked: function (index) {
                 if (index == 0)
-					$scope.choosePhotoFromDevice();
+                    $scope.choosePhotoFromDevice();
                 else if (index == 1)
-					$scope.takePhoto();
+                    $scope.takePhoto();
 
                 return true;
             },
-			destructiveButtonClicked: function () {
-				$scope.pictureBase64 = null;
+            destructiveButtonClicked: function () {
+                $scope.pictureBase64 = null;
                 $scope.imgURI = null;
-				$scope.isPicAttachedToTrans = false;
-				return true;
-			}
+                $scope.isPicAttachedToTrans = false;
+                return true;
+            }
         });
     }
 
@@ -462,15 +462,15 @@
                 };
 
                 $cordovaCamera.getPicture(options).then(function (imageData) {
-					$scope.pictureBase64 = "data:image/jpeg;base64," + imageData; // This is for displaying on the How Much screen
-	                $scope.imgURI = imageData; // This goes to the server
-					$scope.isPicAttachedToTrans = true;
+                    $scope.pictureBase64 = "data:image/jpeg;base64," + imageData; // This is for displaying on the How Much screen
+                    $scope.imgURI = imageData; // This goes to the server
+                    $scope.isPicAttachedToTrans = true;
                 }, function (err) {
-					$scope.pictureBase64 = null;
-	                $scope.imgURI = null;
-					$scope.isPicAttachedToTrans = false;
+                    $scope.pictureBase64 = null;
+                    $scope.imgURI = null;
+                    $scope.isPicAttachedToTrans = false;
 
-	                $scope.showErrorBanner('camera');
+                    $scope.showErrorBanner('camera');
                 });
             }
             else
@@ -492,52 +492,52 @@
                                 $scope.takePhoto();
                         }, function (error) {
                             console.error(error);
-			                $scope.showErrorBanner('camera');
+                            $scope.showErrorBanner('camera');
                         });
                     }
                 });
             }
         }, function (error) {
             console.error("isCameraAuthorized error: [" + error + "]");
-			$scope.showErrorBanner('camera');
+            $scope.showErrorBanner('camera');
         });
     }
-    
-	
-	$scope.choosePhotoFromDevice = function () {
-		// CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
-		
-		$ionicPlatform.ready(function () {
-			CommonServices.openPhotoGallery('howMuch', function (result) {
-				if (result != null && result != 'failed')
-				{
-					$scope.pictureBase64 = "data:image/jpeg;base64," + result;
-	                $scope.imgURI = result;
-
-					$scope.isPicAttachedToTrans = true;
-	            }
-				else
-				{
-					console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
-					$scope.pictureBase64 = null;
-	                $scope.imgURI = null;
-					$scope.isPicAttachedToTrans = false;
-
-					$scope.showErrorBanner('photo gallery');
-				}
-			});
-		});
-	}
 
 
-	$scope.showErrorBanner = function(id) {
+    $scope.choosePhotoFromDevice = function () {
+        // CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
+
+        $ionicPlatform.ready(function () {
+            CommonServices.openPhotoGallery('howMuch', function (result) {
+                if (result != null && result != 'failed')
+                {
+                    $scope.pictureBase64 = "data:image/jpeg;base64," + result;
+                    $scope.imgURI = result;
+
+                    $scope.isPicAttachedToTrans = true;
+                }
+                else
+                {
+                    console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
+                    $scope.pictureBase64 = null;
+                    $scope.imgURI = null;
+                    $scope.isPicAttachedToTrans = false;
+
+                    $scope.showErrorBanner('photo gallery');
+                }
+            });
+        });
+    }
+
+
+    $scope.showErrorBanner = function (id) {
         $ionicContentBanner.show({
             text: ['Error - Unable to get picture from the ' + id + ' :-('],
             autoClose: 4000,
             type: 'error',
             transition: 'vertical'
         });
-	}
+    }
 
 
     $scope.GoBack = function () {

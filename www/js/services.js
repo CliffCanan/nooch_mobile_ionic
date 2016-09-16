@@ -104,98 +104,98 @@ angular.module('noochApp.services', ['ngStorage'])
           else
               return (false)
       }
-	  
-	  this.openPhotoGallery = function (from, callback) {
-		  console.log("CommonServices -> openPhotoGallery - From: [" + from + "]");
-		  
-		  var targetWidthHeight = 300;
-		  var alertBodyText = "";
 
-		  if (from == 'addPicture' || from == 'profile')
-		  {
-			  alertBodyText = "To add a profile picture from your photo gallery, please grant Nooch access to your photos.";
-		  }
-		  else if (from == 'howMuch')
-		  {
-			  // CC (9/15/16): For transactions, the image could be more meaningful (to the user), so let's capture a slightly larger image
-			  targetWidthHeight = 400;
-			  alertBodyText = "To attach a picture from your photo gallery, please grant Nooch access to your photos.";
-		  }
+      this.openPhotoGallery = function (from, callback) {
+          console.log("CommonServices -> openPhotoGallery - From: [" + from + "]");
 
-		  var options = {
-			  quality: 80,
-			  destinationType: Camera.DestinationType.DATA_URL,
-			  sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-			  allowEdit: true,
-			  encodingType: Camera.EncodingType.JPEG,
-			  targetWidth: targetWidthHeight,
-			  targetHeight: targetWidthHeight,
-			  popoverOptions: CameraPopoverOptions,
-			  saveToPhotoAlbum: false
-		  };
+          var targetWidthHeight = 300;
+          var alertBodyText = "";
 
-		  if ($localStorage.GLOBAL_VARIABLES.DeviceOS == "I") // iOS
-		  {
-			  cordova.plugins.diagnostic.isCameraRollAuthorized(function (authorized) {
-				  console.log("App is " + (authorized ? "authorized" : "denied") + " access to the Photo Gallery");
+          if (from == 'addPicture' || from == 'profile')
+          {
+              alertBodyText = "To add a profile picture from your photo gallery, please grant Nooch access to your photos.";
+          }
+          else if (from == 'howMuch')
+          {
+              // CC (9/15/16): For transactions, the image could be more meaningful (to the user), so let's capture a slightly larger image
+              targetWidthHeight = 400;
+              alertBodyText = "To attach a picture from your photo gallery, please grant Nooch access to your photos.";
+          }
 
-				  if (authorized) 
-				  {
-					  $cordovaCamera.getPicture(options).then(function (imgData) {
-						  console.log('Got picture successfully (was already authorized)');
-						  callback(imgData);
-					  }, function (err) {
-						  console.log(err);
-						  callback('failed');
-					  });
-				  }
-				  else
-				  {
-					  swal({
-						  title: "Allow Access To Photos",
-						  text: alertBodyText,
-						  type: "info",
-						  confirmButtonText: "Give Access",
-						  confirmButtonColor: "#3fabe1",
-						  showCancelButton: true,
-						  cancelButtonText: "Not Now"
-					  }, function (isConfirm) {
-						  if (isConfirm)
-						  {
-							  cordova.plugins.diagnostic.requestCameraRollAuthorization(function (status) {
-								  console.log("Authorization request for camera use was: [" + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted]" : "denied]"));
-								  if (status) 
-								  {
-									  $cordovaCamera.getPicture(options).then(function (imgData) {
-										  console.log('Got picture successfully (was NOT previously authorized)');
-										  callback(imgData);
-									  }, function (err) {
-										  console.log(err);
-										  callback('failed');
-									  });
-								  }
-							  }, function (error) {
-								  console.error(error);
-								  callback('failed');
-							  });
-						  }
-					  });
-				  }
-			  });
-		}
-		// If Android
-		else if ($localStorage.GLOBAL_VARIABLES.DeviceOS == "A")
-		{
-			// CC (9/15/16) Apparently there is no Android method equivalent to isCameraRollAuthorized()... so just skip the Nooch alert and open the Gallery. (https://www.npmjs.com/package/cordova.plugins.diagnostic)
+          var options = {
+              quality: 80,
+              destinationType: Camera.DestinationType.DATA_URL,
+              sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+              allowEdit: true,
+              encodingType: Camera.EncodingType.JPEG,
+              targetWidth: targetWidthHeight,
+              targetHeight: targetWidthHeight,
+              popoverOptions: CameraPopoverOptions,
+              saveToPhotoAlbum: false
+          };
 
-            $cordovaCamera.getPicture(options).then(function (imgData) {
-                callback(imgData);
-            }, function (err) {
-				console.log(err);
-				callback('failed');
-            });
-		}
-	  }
+          if ($localStorage.GLOBAL_VARIABLES.DeviceOS == "I") // iOS
+          {
+              cordova.plugins.diagnostic.isCameraRollAuthorized(function (authorized) {
+                  console.log("App is " + (authorized ? "authorized" : "denied") + " access to the Photo Gallery");
+
+                  if (authorized)
+                  {
+                      $cordovaCamera.getPicture(options).then(function (imgData) {
+                          console.log('Got picture successfully (was already authorized)');
+                          callback(imgData);
+                      }, function (err) {
+                          console.log(err);
+                          callback('failed');
+                      });
+                  }
+                  else
+                  {
+                      swal({
+                          title: "Allow Access To Photos",
+                          text: alertBodyText,
+                          type: "info",
+                          confirmButtonText: "Give Access",
+                          confirmButtonColor: "#3fabe1",
+                          showCancelButton: true,
+                          cancelButtonText: "Not Now"
+                      }, function (isConfirm) {
+                          if (isConfirm)
+                          {
+                              cordova.plugins.diagnostic.requestCameraRollAuthorization(function (status) {
+                                  console.log("Authorization request for camera use was: [" + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted]" : "denied]"));
+                                  if (status)
+                                  {
+                                      $cordovaCamera.getPicture(options).then(function (imgData) {
+                                          console.log('Got picture successfully (was NOT previously authorized)');
+                                          callback(imgData);
+                                      }, function (err) {
+                                          console.log(err);
+                                          callback('failed');
+                                      });
+                                  }
+                              }, function (error) {
+                                  console.error(error);
+                                  callback('failed');
+                              });
+                          }
+                      });
+                  }
+              });
+          }
+              // If Android
+          else if ($localStorage.GLOBAL_VARIABLES.DeviceOS == "A")
+          {
+              // CC (9/15/16) Apparently there is no Android method equivalent to isCameraRollAuthorized()... so just skip the Nooch alert and open the Gallery. (https://www.npmjs.com/package/cordova.plugins.diagnostic)
+
+              $cordovaCamera.getPicture(options).then(function (imgData) {
+                  callback(imgData);
+              }, function (err) {
+                  console.log(err);
+                  callback('failed');
+              });
+          }
+      }
 
   })
 

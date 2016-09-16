@@ -198,10 +198,10 @@
             console.log(contacts);
 
             if ($rootScope.homeContactLength != contacts.length)
-            {                
-				$rootScope.homeContactLength = contacts.length;
+            {
+                $rootScope.homeContactLength = contacts.length;
 
-				for (var i = 0; i < contacts.length; i++)
+                for (var i = 0; i < contacts.length; i++)
                 {
                     var contact = contacts[i];
 
@@ -248,15 +248,15 @@
                     }
                 }
             }
-			else
+            else
             {
-				console.log('$rootScope.homeContactLength == contacts.length');
+                console.log('$rootScope.homeContactLength == contacts.length');
                 $scope.phoneContacts.push.apply($scope.phoneContacts, $rootScope.homeContacts);
             }
-			
+
             console.log($scope.phoneContacts);
-            
-			$scope.setFavoritesForDisplay();
+
+            $scope.setFavoritesForDisplay();
         };
 
         function onError(error) {
@@ -355,49 +355,41 @@
                     'LastName': "",
                     'MemberId': "",
                     'Photo': ""
-
                 }
-               
+
                 var type = "E";
- 
 
                 selectRecipientService.CheckMemberExistenceUsingEmailOrPhone(type, member.UserName)
                     .success(function (data) {
 
-                        if (data.IsMemberFound == true) {
-                            // member found
+                        if (data.IsMemberFound == true)
+                        {
                             registeredMember.FirstName = data.Name;
                             registeredMember.MemberId = data.MemberId;
                             registeredMember.Photo = data.UserImage;
 
                             $state.go('app.howMuch', { recip: registeredMember });
                         }
-                        else {
+                        else
+                        {
                             // member not found
-                           
                             var objForHowMuch = {
                                 type: "email",
                                 value: member.UserName,
-                                photo:member.Photo,
+                                photo: member.Photo,
                             }
                             console.log(member);
                             console.log(objForHowMuch);
 
                             $state.go('app.howMuch', { recip: objForHowMuch });
                         }
-                         
                     })
                     .error(function (error) {
                         if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                             CommonServices.logOut();
-                    }
-
-                    );
-
-
-              
+                    });
             }
-            else
+            else // Phone contact w/ multiple emails
             {
                 var buttons = [];
                 for (var i = 0; i < member.otherEmails.length; i++)
@@ -422,34 +414,30 @@
                     titleText: "Which Email Address?",
                     cancelText: "Cancel",
                     buttonClicked: function (index) {
-
-
                         //check if phone or email is already registered with nooch i.e existing user
                         var registeredMember = {
                             'FirstName': "",
                             'LastName': "",
                             'MemberId': "",
                             'Photo': ""
-
                         }
 
                         var type = "E";
 
-
                         selectRecipientService.CheckMemberExistenceUsingEmailOrPhone(type, member.otherEmails[index].value)
                             .success(function (data) {
 
-                                if (data.IsMemberFound == true) {
-                                    // member found
+                                if (data.IsMemberFound == true)
+                                {
                                     registeredMember.FirstName = data.Name;
                                     registeredMember.MemberId = data.MemberId;
                                     registeredMember.Photo = data.UserImage;
                                     $state.go('app.howMuch', { recip: registeredMember });
                                     return true;
                                 }
-                                else {
+                                else
+                                {
                                     // member not found
-                                  
                                     var objForHowMuch = {
                                         type: "email",
                                         value: member.otherEmails[index].value,
@@ -457,20 +445,14 @@
                                     }
 
                                     $state.go('app.howMuch', { recip: objForHowMuch });
-                                 
+
                                     return true;
                                 }
                             })
                             .error(function (error) {
                                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                                     CommonServices.logOut();
-                            }
-
-                            );
-
-
-
-                        
+                            });
                     }
                 });
             }

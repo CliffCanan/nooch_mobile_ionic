@@ -124,7 +124,7 @@
                            "<p>You can <a href=\"https://157050.measurementapi.com/serve?action=click&publisher_id=157050&site_id=91086\">download Nooch</a> from the App Store - " +
                            "and be sure to use my Referral Code:</p><p style=\"text-align:center;font-size:1.5em;\"><strong>" + $scope.inviteCode + "</strong></p>" +
                            "<p>To learn more about Nooch, here's the website: <a href=\"https://www.nooch.com/overview/\">www.Nooch.com</a>.</p><p>- " + $localStorage.GLOBAL_VARIABLES.firstName + "</p>";
-             var toArr = [""]; // Just for testing
+             var toArr = [""];
              var ccArr = [""];
              var bccArr = [""];
 

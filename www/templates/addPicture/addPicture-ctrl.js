@@ -30,9 +30,9 @@
                 cancelText: 'Cancel',
                 buttonClicked: function (index) {
                     if (index == 0)
-						$scope.choosePhotoFromDevice();
+                        $scope.choosePhotoFromDevice();
                     else if (index == 1)
-						$scope.takePhoto();
+                        $scope.takePhoto();
 
                     return true;
                 }
@@ -41,24 +41,24 @@
 
 
         $scope.choosePhotoFromDevice = function () {
-			// CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
-			
-			$ionicPlatform.ready(function () {
-				CommonServices.openPhotoGallery('addPicture', function (result) {
-					if (result != null && result != 'failed')
-					{
-						console.log("ADD - PICTURE - SUCCESS FROM COMMONSERVICES")
-		                $rootScope.signUpData.Photo = "data:image/jpeg;base64," + result;
+            // CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
 
-		                $scope.showContinueBtn = true;
-					}
-					else
-					{
-						console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
-		                $scope.showErrorBanner('photo gallery');
-					}
-				});
-			});
+            $ionicPlatform.ready(function () {
+                CommonServices.openPhotoGallery('addPicture', function (result) {
+                    if (result != null && result != 'failed')
+                    {
+                        console.log("ADD - PICTURE - SUCCESS FROM COMMONSERVICES")
+                        $rootScope.signUpData.Photo = "data:image/jpeg;base64," + result;
+
+                        $scope.showContinueBtn = true;
+                    }
+                    else
+                    {
+                        console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
+                        $scope.showErrorBanner('photo gallery');
+                    }
+                });
+            });
         }
 
 
@@ -66,7 +66,7 @@
         $scope.takePhoto = function () {
 
             cordova.plugins.diagnostic.isCameraAuthorized(function (authorized) {
-				console.log(authorized);
+                console.log(authorized);
                 console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
 
                 if (authorized)
@@ -88,8 +88,8 @@
 
                         $scope.showContinueBtn = true;
                     }, function (error) {
-						console.log(error);
-						$scope.showErrorBanner('camera');
+                        console.log(error);
+                        $scope.showErrorBanner('camera');
                     });
                 }
                 else
@@ -111,30 +111,30 @@
                                     $scope.takePhoto();
                             }, function (error) {
                                 console.error(error);
-								$scope.showErrorBanner('camera');
+                                $scope.showErrorBanner('camera');
                             });
                         }
                     });
                 }
             }, function (error) {
                 console.error("isCameraAuthorized Error: [" + error + ']');
-				$scope.showErrorBanner('camera');
+                $scope.showErrorBanner('camera');
             });
         }
 
 
-		$scope.showErrorBanner = function(id) {
-	        $ionicContentBanner.show({
-	            text: ['Error - Unable to get picture from the ' + id + ' :-('],
-	            autoClose: 4000,
-	            type: 'error',
-	            transition: 'vertical'
-	        });
-		}
+        $scope.showErrorBanner = function (id) {
+            $ionicContentBanner.show({
+                text: ['Error - Unable to get picture from the ' + id + ' :-('],
+                autoClose: 4000,
+                type: 'error',
+                transition: 'vertical'
+            });
+        }
 
 
         $scope.resetPicData = function () {
-			$rootScope.signUpData.FbPicUrl = null;
+            $rootScope.signUpData.FbPicUrl = null;
             $rootScope.signUpData.Photo = null;
         }
 
