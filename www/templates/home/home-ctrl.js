@@ -87,6 +87,15 @@
     });
 
 
+    $scope.$on("$ionicView.afterEnter", function (event, data) {
+        if (window.cordova)
+        {
+            if ($rootScope.isProfileComplete == true)
+                window.plugins.OneSignal.registerForPushNotifications();
+        }
+    });
+
+
     $scope.$on('foundPendingReq', function (event, args) {
         if ($scope.isBannerShowing == false)
         {

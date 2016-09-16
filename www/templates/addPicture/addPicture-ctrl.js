@@ -126,7 +126,7 @@
         $scope.showErrorBanner = function (id) {
             $ionicContentBanner.show({
                 text: ['Error - Unable to get picture from the ' + id + ' :-('],
-                autoClose: 4000,
+                autoClose: 5000,
                 type: 'error',
                 transition: 'vertical'
             });
