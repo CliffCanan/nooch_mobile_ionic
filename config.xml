@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.nooch" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>nooch</name>
+<widget id="com.money.nooch" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Nooch</name>
     <description>
-        An Ionic Framework and Cordova project.
+      Seamlessly, securely connect your bank account with your mobile phone and send money to anyone using just an email address or phone number - with no transaction fees. Ever.
     </description>
-    <author email="cliff@nooch.com" href="https://nooch.com/">
-      Cliff Canan
+    <author email="info@nooch.com" href="https://nooch.com/">
+      Nooch
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -69,7 +69,7 @@
     <icon src="resources/ios/icon/icon-small@3x.png" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.4.0" />
     <plugin name="cordova-plugin-facebook4" spec="~1.7.1">
-        <variable name="APP_ID" value="494453537413420" />
+        <variable name="APP_ID" value="198279616971457" />
         <variable name="APP_NAME" value="Nooch" />
     </plugin>
     <plugin name="cordova-plugin-datepicker" spec="https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git" />
@@ -78,4 +78,5 @@
     <plugin name="cordova-plugin-networkinterface" spec="~1.0.8" />
     <plugin name="cordova-plugin-camera" spec="~2.2.0" />
     <plugin name="cordova-plugin-google-analytics" spec="https://github.com/danwilson/google-analytics-plugin.git" />
+    <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
 </widget>
