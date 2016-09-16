@@ -191,6 +191,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
           if (window.StatusBar)
               StatusBar.styleDefault();
+
+
+        setTimeout(function() {
+          navigator.splashscreen.hide();
+        }, 100);
       });
 
   })
