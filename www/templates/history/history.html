@@ -35,7 +35,7 @@
             </div>
 
             <ion-list ng-show="transactionList.length > 0 && completed" id="completedView">
-                <ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.Name.length <=2">
+                <ion-item class="item item-avatar" ui-sref="app.transferDetails({trans:trans})" ng-repeat="trans in transactionList | filter:search" ng-if="trans.TransactionStatus == 'Success' || trans.TransactionStatus == 'Cancelled' || trans.TransactionStatus == 'Rejected'  ">
 
                     <img src={{trans.Photo}}>
 
@@ -111,7 +111,10 @@
                     </div>
 
 
-                    <div class="name">{{trans.TransactionId}}</div>
+ 
+                    <div class="name" ng-if="trans.Name.length > 1">{{trans.Name}}</div>
+                    <div class="name" ng-if="trans.InvitationSentTo != null">{{trans.InvitationSentTo}}</div>
+ 
 
                     <p class="memo-container" ng-if="trans.Memo != null && trans.Memo != ''">For "<span class="memo-text">{{trans.Memo}}</span>"</p>
 
@@ -163,7 +166,9 @@
 
 
                     <div class="name" ng-if="trans.Name.length > 1">{{trans.Name}}</div>
-                    <div class="name">{{trans.InvitationSentTo}}</div>
+ 
+                    <div class="name" ng-if="trans.Name.length <= 1">{{trans.InvitationSentTo}}</div>
+ 
 
                     <p class="memo-container" ng-if="trans.Memo != null && trans.Memo != ''">For "<span class="memo-text">{{trans.Memo}}</span>"</p>
 
