@@ -39,82 +39,55 @@
 
                     <img src={{trans.Photo}}>
 
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Transfer'">
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Transfer To</label>
-                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Transfer From</label>
+                    <div class="typeDateContainer">
+                        <label class="transTypeLabel sent" ng-if="trans.TransactionType == 'Transfer' && trans.MemberId == memberId">Transfer To</label>
+                        <label class="transTypeLabel received" ng-if="trans.TransactionType == 'Transfer' && trans.MemberId != memberId">Transfer From</label>
 
-                        <h5 class="date">
-                            <i class="ion-android-time m-r-5"></i>
-                            {{trans.TransactionDate | date : "mediumDate"}}
-                        </h5>
-                    </div>
+                        <span ng-if="trans.TransactionType == 'Request' && trans.TransactionStatus == 'Success'">
+                            <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId">Paid by</label>
+                            <label class="transTypeLabel received" ng-if="trans.MemberId == memberId">Paid To</label>
+                        </span>
 
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Request' && trans.TransactionStatus == 'Success'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId == memberId">Paid To</label>
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId">Paid by</label>
+                        <span ng-if="trans.TransactionType == 'Request' && trans.TransactionStatus == 'Cancelled'">
+                            <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId || (trans.MemberId == memberId && trans.MemberId == trans.RecepientId)">Cancelled request to</label>
+                            <label class="transTypeLabel received" ng-if="trans.MemberId == memberId && trans.MemberId != trans.RecepientId">Cancelled request by </label>
+                        </span>
 
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
-                    </div>
+                        <span ng-if="trans.TransactionType == 'Request' && trans.TransactionStatus == 'Rejected'">
+                            <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId || (trans.MemberId == memberId && trans.MemberId == trans.RecepientId)">  Rejected request by</label>
+                            <label class="transTypeLabel received" ng-if="trans.MemberId == memberId && trans.MemberId != trans.RecepientId">Rejected request from </label>
+                        </span>
 
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Request' && trans.TransactionStatus == 'Cancelled'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId == memberId  && trans.MemberId!=trans.RecepientId">Cancelled request by </label>
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId || (trans.MemberId == memberId && trans.MemberId==trans.RecepientId)">Cancelled request to</label>
+                        <span ng-if="trans.TransactionType == 'Transfer'">
+                            <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Payment To</label>
+                            <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Payment From</label>
+                        </span>
 
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
-                    </div>
+                        <span ng-if="trans.TransactionType == 'Invite'">
+                            <label class="transTypeLabel sent" ng-if="trans.TransactionStatus == 'Success' && trans.MemberId == memberId">Invite to</label>
+                            <label class="transTypeLabel sent" ng-if="trans.TransactionStatus == 'Cancelled' && trans.MemberId != memberId">Invitation To (Cancelled)</label>
+                        </span>
 
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Request' && trans.TransactionStatus == 'Rejected'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId == memberId && trans.MemberId!=trans.RecepientId">Rejected request from </label>
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId || (trans.MemberId == memberId && trans.MemberId==trans.RecepientId)">  Rejected request by</label>
+                        <span ng-if="trans.TransactionType == 'Reward'">
+                            <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Reward From</label>
+                        </span>
 
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
-                    </div>
+                        <span ng-if="trans.TransactionType == 'Rent'">
+                            <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Rent From</label>
+                            <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Rent to</label>
+                        </span>
 
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Invite' && trans.TransactionStatus == 'Success'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Invite From</label>
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Invite to</label>
-
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
-                    </div>
-
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Invite' && trans.TransactionStatus == 'Cancelled'">
-
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId != memberId">Invitation To (Cancelled)</label>
-
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
-                    </div>
-
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Invite' && trans.TransactionStatus == 'Rejected'">
-
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Invitation From (Rejected)</label>
-
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
-                    </div>
-
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Reward'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Reward From</label>
-
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
-                    </div>
-
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Rent'">
-                        <label class="transTypeLabel received" ng-if="trans.MemberId != memberId">Rent From</label>
-                        <label class="transTypeLabel sent" ng-if="trans.MemberId == memberId">Rent to</label>
-
-                        <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
-                    </div>
-
-                    <div class="typeDateContainer" ng-if="trans.TransactionType == 'Disputed' && trans.DisputeStatus == 'Resolved'">
-                        <label class="transTypeLabel received">Dispute Resolved</label>
+                        <span ng-if="trans.TransactionType == 'Disputed' && trans.DisputeStatus == 'Resolved'">
+                            <label class="transTypeLabel received">Dispute Resolved</label>
+                        </span>
 
                         <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
                     </div>
 
 
- 
                     <div class="name" ng-if="trans.Name.length > 1 && trans.InvitationSentTo == null">{{trans.Name}}</div>
                     <div class="name" ng-if="trans.InvitationSentTo != null">{{trans.InvitationSentTo}}</div>
- 
+
 
                     <p class="memo-container" ng-if="trans.Memo != null && trans.Memo != ''">For "<span class="memo-text">{{trans.Memo}}</span>"</p>
 
@@ -165,10 +138,9 @@
                     </div>
 
 
-                    <div class="name" ng-if="trans.Name.length > 1 && trans.InvitationSentTo.length==null">{{trans.Name}}</div>
- 
-                    <!--<div class="name" ng-if="trans.Name.length <= 1">{{trans.InvitationSentTo}}</div>-->
-                    <div class="name" ng-if="trans.InvitationSentTo.length>=1">{{trans.InvitationSentTo}}</div>
+                    <div class="name" ng-if="trans.Name.length > 1 && trans.InvitationSentTo.length == null">{{trans.Name}}</div>
+
+                    <div class="name" ng-if="trans.InvitationSentTo.length >= 1">{{trans.InvitationSentTo}}</div>
 
 
                     <p class="memo-container" ng-if="trans.Memo != null && trans.Memo != ''">For "<span class="memo-text">{{trans.Memo}}</span>"</p>

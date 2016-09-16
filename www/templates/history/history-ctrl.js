@@ -1,34 +1,48 @@
 ﻿angular.module('noochApp.historyCtrl', ['noochApp.history-service', 'noochApp.services'])
 
-    .controller('historyCtrl', function ($scope, $filter, historyService, $cordovaGoogleAnalytics, $ionicPlatform, $ionicLoading, $localStorage, $ionicListDelegate,
-                transferDetailsService, $rootScope, $ionicContentBanner, $state, CommonServices, ValidatePin, $ionicHistory, $ionicActionSheet) {
+    .controller('historyCtrl', function ($scope, $filter, historyService, $cordovaGoogleAnalytics, $ionicPlatform, $ionicLoading, $localStorage,
+                                         $ionicListDelegate, $rootScope, $ionicContentBanner, $state, $ionicHistory, $ionicActionSheet,
+                                         transferDetailsService, CommonServices, ValidatePin) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('History Page Loaded');
-            $scope.isFinishedLoading = false;
+
+            console.log();
 
             $ionicLoading.show({
                 template: 'Loading Payment History...'
             });
 
+            $scope.historyListHeight = { 'max-height': $rootScope.screenHeight - 150 + 'px' }
+            $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 151 + 'px' }
+            $scope.transDetailsForPin = {};
             var transDetails = {};
 
-            $scope.transDetailsForPin = {};
 
-            $rootScope.Location = {
-                longi: '',
-                lati: ''
+            if (typeof $scope.transactionList == 'undefined')
+            {
+                $scope.isFinishedLoading = false;
+                $scope.transactionList = [];
+                $scope.completed = true;
+                $scope.pending = false;
+                $('#btnCompleted').addClass('active');
+                $('#btnPending').removeClass('active');
+
+                $scope.getTransactions();
             }
 
-            //  if ($cordovaNetwork.isOnline()) {
+            //$rootScope.Location = {
+            //    longi: '',
+            //    lati: ''
+            //}
 
-            $scope.transactionList = [];
-            $scope.completed = true;
-            $scope.pending = false;
-            $('#btnCompleted').addClass('active');
-            $('#btnPending').removeClass('active');
+            $ionicPlatform.ready(function () {
+                if (typeof analytics !== 'undefined') analytics.trackView("History Screen");
+            })
+        });
 
 
+        $scope.getTransactions = function () {
             historyService.getTransferList()
 				.success(function (data) {
 				    $scope.isFinishedLoading = true;
@@ -45,23 +59,19 @@
 				    $scope.transList = $scope.transactionList;
 				    $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
 
-				    $ionicLoading.hide();
+				    //$ionicLoading.hide();
 				})
 				.error(function (error) {
 				    $scope.isFinishedLoading = true;
 				    console.log('History Cntrl -> GetTransferList Error: [' + JSON.stringify(error) + ']');
+
 				    $ionicLoading.hide();
+
 				    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 				        CommonServices.logOut();
 				});
-            //}
-            //else
-            //  swal("Error", "Internet not connected!", "error");
+        }
 
-            $ionicPlatform.ready(function () {
-                if (typeof analytics !== 'undefined') analytics.trackView("History Screen");
-            })
-        });
 
         $scope.cancelPayment = function (trans) {
 
@@ -90,41 +100,42 @@
                         template: 'Cancelling Request...'
                     });
 
-                    if (trans.MemberId == trans.RecepientId) {
-                        transferDetailsService.CancelMoneyRequestForNonNoochUser(trans.TransactionId).success(function (data) {
-                            if (data.Result.indexOf('Successfully') > -1) {
-                                swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                                    $ionicLoading.hide();
-                                    $state.reload();
-                                });
-
-                            }
-
-                        }).error(function (data) {
-                            $ionicLoading.hide();
-                            // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                            { CommonServices.logOut(); }
-                        });
-                    } else {
-
-                        transferDetailsService.CancelMoneyRequestForExistingNoochUser(trans.TransactionId).success(function (data) {
-                            if (data.Result.indexOf('Successfully') > -1) {
-                                swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                                    $ionicLoading.hide();
-                                    $state.reload();
-                                });
-
-                            }
-
-                        }).error(function (data) {
-                            $ionicLoading.hide();
-                            // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                            { CommonServices.logOut(); }
-                        });
+                    if (trans.MemberId == trans.RecepientId)
+                    {
+                        transferDetailsService.CancelMoneyRequestForNonNoochUser(trans.TransactionId)
+                            .success(function (data) {
+                                if (data.Result.indexOf('Successfully') > -1)
+                                {
+                                    swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                                        $ionicLoading.hide();
+                                        $state.reload();
+                                    });
+                                }
+                            })
+                            .error(function (data) {
+                                $ionicLoading.hide();
+                                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                    CommonServices.logOut();
+                            });
                     }
-
-
-                  
+                    else
+                    {
+                        transferDetailsService.CancelMoneyRequestForExistingNoochUser(trans.TransactionId)
+                            .success(function (data) {
+                                if (data.Result.indexOf('Successfully') > -1)
+                                {
+                                    swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                                        $ionicLoading.hide();
+                                        $state.reload();
+                                    });
+                                }
+                            })
+                            .error(function (data) {
+                                $ionicLoading.hide();
+                                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                    CommonServices.logOut();
+                            });
+                    }
                 }
             });
         }
@@ -149,24 +160,24 @@
                 if (isConfirm)
                 {
                     transferDetailsService.RejectPayment(trans.TransactionId)
-                    .success(function (data) {
-                        $ionicLoading.hide();
+                        .success(function (data) {
+                            $ionicLoading.hide();
 
-                        if (data.Result.indexOf('Successfully') > -1)
-                            swal({
-                                title: "Request Rejected",
-                                text: data.Result,
-                                type: "success",
-                                confirmButtonColor: "#3fabe1"
-                            }, function () {
-                                $state.reload();
-                            });
-                    })
-			    .error(function (error) {
-			        $ionicLoading.hide();
-			        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-			            CommonServices.logOut();
-			    });
+                            if (data.Result.indexOf('Successfully') > -1)
+                                swal({
+                                    title: "Request Rejected",
+                                    text: data.Result,
+                                    type: "success",
+                                    confirmButtonColor: "#3fabe1"
+                                }, function () {
+                                    $state.reload();
+                                });
+                        })
+                        .error(function (error) {
+                            $ionicLoading.hide();
+                            if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                CommonServices.logOut();
+                        });
                 }
             })
         }
@@ -218,8 +229,6 @@
             console.log("Pay Back Result: [" + JSON.stringify(trans) + ']');
             $state.go('app.howMuch', { myParam: trans });
         }
-
-
 
 
         $scope.TransferMoney = function (trans) {
@@ -452,11 +461,5 @@
             if ($('#searchBar').val().length == 0)
                 $scope.transactionList = $scope.transList;
         });
-
-
-        $scope.historyListHeight = { 'max-height': $rootScope.screenHeight - 150 + 'px' }
-
-
-        $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 151 + 'px' }
 
     });

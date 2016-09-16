@@ -175,6 +175,10 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                       console.log('Network is OFFLINE - ' + JSON.stringify(networkState));
                   })
               }
+
+              setTimeout(function () {
+                  navigator.splashscreen.hide();
+              }, 100);
           }
 
           if (window.cordova && window.cordova.plugins.Keyboard)
@@ -192,10 +196,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           if (window.StatusBar)
               StatusBar.styleDefault();
 
-
-        setTimeout(function() {
-          navigator.splashscreen.hide();
-        }, 100);
       });
 
   })

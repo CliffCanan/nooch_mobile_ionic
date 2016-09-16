@@ -33,9 +33,6 @@
         //console.log('GetMemberDetails Fired');
 
         //if ($cordovaNetwork.isOnline()) {
-        //$ionicLoading.show({
-        //    template: 'Loading...'
-        //});
 
         menuService.GetUserDetails()
             .success(function (res) {
@@ -77,8 +74,6 @@
                 $rootScope.synBankAllowed = res.synBankAllowed;
                 $rootScope.pinEnc = res.pin;
                 $rootScope.fbid = res.fbUserId;
-
-                $ionicLoading.hide();
 
                 // Now check if the user has any pending transactions
                 // $timeout($scope.pendingList, 2000);

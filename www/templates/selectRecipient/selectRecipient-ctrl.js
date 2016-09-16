@@ -14,7 +14,7 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('SelectRecipCtrl Fired');
-        
+
         if (typeof $scope.memberList == 'undefined')
             $scope.memberList = new Array();
         else
@@ -323,19 +323,20 @@
 
     $scope.checkSearchText = function () {
 
-        console.log($('#searchBar').val().trim());
         var enteredText = $('#searchBar').val().trim();
+        console.log(enteredText);
 
-        if (enteredText == '') $scope.showEmPhDiv = false;
+        //if (enteredText == '') $scope.showEmPhDiv = false;
 
         if ($('#recents-table').html() == undefined && enteredText.length > 2)
         {
-            console.log($('#recents-table').html());
             // Check if the user has entered only numbers so far to see if it's a phone number or not
-             
-            var stringToCheck = enteredText.replace('(', '').replace(')', '').replace('-', '').replace(' ', '');
+
+            var stringToCheck = enteredText.replace(/[()-\s]/g, '');
+
             console.log(stringToCheck);
-            if (isNaN(stringToCheck) && (enteredText.length > 5))
+
+            if (isNaN(stringToCheck) && enteredText.length > 5)
             {
                 if (looksLikeEmail(enteredText))
                 {
@@ -347,7 +348,6 @@
             }
             else if (!isNaN(stringToCheck))
             {
-                console.log('contact');
                 $scope.showEmPhDiv = true;
                 $scope.sendTo = 'Contact Number';
 
@@ -355,7 +355,9 @@
                     enteredText = enteredText.slice(0, -1);
                 else if (enteredText.length > 7)
                     enteredText = enteredText.replace(/^\((\d{3})\)\s(\d{3})(\d{1})/, '($1) $2-$3'); //"(XXX) XXX-XXXX"
-                else if (enteredText.length > 3)
+                else if (enteredText.length < $scope.nonUserText.length) // Last key entered was the 'Delete'
+                    enteredText = stringToCheck;
+                else if (enteredText.length > 5)
                     enteredText = enteredText.replace(/^\(?(\d{3})(\d{1})/, '($1) $2'); //"(XXX) X"
 
                 $('#searchBar').val(enteredText);
