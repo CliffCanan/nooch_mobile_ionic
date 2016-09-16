@@ -12,7 +12,8 @@ var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
 //var PATH = 'http://localhost:40972/api/NoochServices/';
 
 var URLs = {
-    CancelRequest: PATH + 'CancelMoneyRequestForExistingNoochUser',
+    CancelMoneyRequestForExistingNoochUser: PATH + 'CancelMoneyRequestForExistingNoochUser',
+    CancelMoneyRequestForNonNoochUser: PATH + 'CancelMoneyRequestForNonNoochUser',
     CheckIfEmailIsRegistered: PATH + 'CheckIfEmailIsRegistered',
     DeleteAttachedBankNode: PATH + 'DeleteAttachedBankNode',
     ForgotPassword: PATH + 'ForgotPassword',

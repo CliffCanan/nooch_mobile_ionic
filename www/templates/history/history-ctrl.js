@@ -90,26 +90,41 @@
                         template: 'Cancelling Request...'
                     });
 
-                    transferDetailsService.CancelRequest(trans.TransactionId)
-		                .success(function (data) {
-		                    console.log(data);
-		                    $ionicLoading.hide();
+                    if (trans.MemberId == trans.RecepientId) {
+                        transferDetailsService.CancelMoneyRequestForNonNoochUser(trans.TransactionId).success(function (data) {
+                            if (data.Result.indexOf('Successfully') > -1) {
+                                swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                                    $ionicLoading.hide();
+                                    $state.reload();
+                                });
 
-		                    if (data.Result.indexOf('Successfully') > -1)
-		                        swal({
-		                            title: "Request Cancelled",
-		                            text: "You got it. That request has been cancelled successfully.",
-		                            type: "success",
-		                            confirmButtonColor: "#3fabe1"
-		                        }, function () {
-		                            $state.reload();
-		                        });
-		                })
-					    .error(function (error) {
-					        $ionicLoading.hide();
-					        if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-					            CommonServices.logOut();
-					    });
+                            }
+
+                        }).error(function (data) {
+                            $ionicLoading.hide();
+                            // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                            { CommonServices.logOut(); }
+                        });
+                    } else {
+
+                        transferDetailsService.CancelMoneyRequestForExistingNoochUser(trans.TransactionId).success(function (data) {
+                            if (data.Result.indexOf('Successfully') > -1) {
+                                swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                                    $ionicLoading.hide();
+                                    $state.reload();
+                                });
+
+                            }
+
+                        }).error(function (data) {
+                            $ionicLoading.hide();
+                            // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                            { CommonServices.logOut(); }
+                        });
+                    }
+
+
+                  
                 }
             });
         }

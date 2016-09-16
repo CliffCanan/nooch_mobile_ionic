@@ -188,24 +188,44 @@
                }, function (isConfirm) {
                    if (isConfirm) {
 
-                       console.log("cancel payment: [" + $scope.transDetail.TransactionId + ']');
+                       console.log("cancel payment: [" + $scope.transDetail + ']');
                        $ionicLoading.show({
                            template: 'Cancelling Request...'
-                       });
-                       transferDetailsService.CancelRequest($scope.transDetail.TransactionId).success(function (data) {
-                           if (data.Result.indexOf('Successfully') > -1) {
-                               swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                                   $ionicLoading.hide();
-                                   $state.go('app.history');
-                               });
+                       }); 
 
-                           }
+                       if ($scope.transDetail.MemberId == $scope.transDetail.RecepientId) {
+                           transferDetailsService.CancelMoneyRequestForNonNoochUser($scope.transDetail.TransactionId).success(function (data) {
+                               if (data.Result.indexOf('Successfully') > -1) {
+                                   swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                                       $ionicLoading.hide();
+                                       $state.go('app.history');
+                                   });
 
-                       }).error(function (data) {
-                           $ionicLoading.hide();
-                           // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                           { CommonServices.logOut(); }
-                       });
+                               }
+
+                           }).error(function (data) {
+                               $ionicLoading.hide();
+                               // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                               { CommonServices.logOut(); }
+                           });
+                       } else {
+
+                           transferDetailsService.CancelMoneyRequestForExistingNoochUser($scope.transDetail.TransactionId).success(function (data) {
+                               if (data.Result.indexOf('Successfully') > -1) {
+                                   swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
+                                       $ionicLoading.hide();
+                                       $state.go('app.history');
+                                   });
+
+                               }
+
+                           }).error(function (data) {
+                               $ionicLoading.hide();
+                               // if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                               { CommonServices.logOut(); }
+                           });
+                       }
+
                    }
                });
                }
