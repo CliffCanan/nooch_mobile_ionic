@@ -48,7 +48,7 @@
 				    $scope.isFinishedLoading = true;
 
 				    $scope.transactionList = data;
-
+				    $scope.filterFlag = data;
 				    // console.log('GetTransferList Result Data >>>>>');
 				    // console.log($scope.transactionList);
 
