@@ -148,10 +148,10 @@
 
                     <span class="item-note amount text-primary">{{ trans.Amount | currency}}</span>
 
-                    <ion-option-button class="button-assertive " ui-sref-ignore ng-click="rejectPayment(trans)" ng-show="trans.MemberId == memberId   && trans.MemberId!=trans.RecepientId && (trans.TransactionType == 'Request' )">Reject</ion-option-button>
-                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="TransferMoney(trans)" ng-show="trans.MemberId == memberId  && trans.MemberId!=trans.RecepientId && (trans.TransactionType == 'Request' )">Accept</ion-option-button>
-                    <ion-option-button class="button button-assertive " ui-sref-ignore ng-click="cancelPayment(trans)" ng-show="(trans.MemberId != memberId) || (trans.MemberId == memberId && trans.MemberId==trans.RecepientId) && (trans.TransactionType == 'Request' )">Cancel</ion-option-button>
-                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="remindPayment(trans)" ng-show="(trans.MemberId != memberId) || (trans.MemberId == memberId && trans.MemberId==trans.RecepientId) && (trans.TransactionType == 'Request' )">Remind</ion-option-button>
+                    <ion-option-button class="button-assertive " ui-sref-ignore ng-click="rejectPayment(trans)" ng-show="(trans.MemberId == memberId   && trans.MemberId!=trans.RecepientId && (trans.TransactionType == 'Request' )) || (trans.MemberId != memberId && trans.TransactionType == 'Invite')">Reject</ion-option-button>
+                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="TransferMoney(trans)" ng-show="(trans.MemberId == memberId   && trans.MemberId!=trans.RecepientId && (trans.TransactionType == 'Request' )) || (trans.MemberId != memberId && trans.TransactionType == 'Invite')">Accept</ion-option-button>
+                    <ion-option-button class="button button-assertive " ui-sref-ignore ng-click="cancelPayment(trans)" ng-show="((trans.MemberId != memberId) || (trans.MemberId == memberId && trans.MemberId==trans.RecepientId) && (trans.TransactionType == 'Request' ))||(trans.TransactionType == 'Invite' && trans.MemberId == memberId  )">Cancel</ion-option-button>
+                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="remindPayment(trans)" ng-show="((trans.MemberId != memberId) || (trans.MemberId == memberId && trans.MemberId==trans.RecepientId) && (trans.TransactionType == 'Request' ))||(trans.TransactionType == 'Invite' && trans.MemberId == memberId  )">Remind</ion-option-button>
 
                 </ion-item>
 
