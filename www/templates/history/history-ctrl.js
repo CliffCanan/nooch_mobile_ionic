@@ -11,9 +11,10 @@
 
             $scope.historyListHeight = { 'height': $rootScope.screenHeight - 158 + 'px' }
             $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 154 + 'px' }
+
             $scope.transDetailsForPin = {};
             var transDetails = {};
-
+            console.log($scope.transactionList);
 
             if (typeof $scope.transactionList == 'undefined')
             {
@@ -44,6 +45,7 @@
             });
 
             historyService.getTransferList(type)
+
 				.success(function (data) {
 				    $scope.isFinishedLoading = true;
 
