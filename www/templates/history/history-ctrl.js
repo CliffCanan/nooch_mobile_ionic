@@ -9,15 +9,13 @@
 
             console.log();
 
-            $ionicLoading.show({
-                template: 'Loading Payment History...'
-            });
+           
 
             $scope.historyListHeight = { 'height': $rootScope.screenHeight - 155 + 'px' }
             $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 151 + 'px' }
             $scope.transDetailsForPin = {};
             var transDetails = {};
-
+            console.log($scope.transactionList);
 
             if (typeof $scope.transactionList == 'undefined')
             {
@@ -43,6 +41,9 @@
 
 
         $scope.getTransactions = function () {
+            $ionicLoading.show({
+                template: 'Loading Payment History...'
+            });
             historyService.getTransferList('')
 				.success(function (data) {
 				    $scope.isFinishedLoading = true;
