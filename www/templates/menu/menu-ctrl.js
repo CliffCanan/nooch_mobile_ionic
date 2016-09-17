@@ -219,32 +219,7 @@
     });
 
 
-    $scope.pendingList = function () {
-        historyService.getTransferList()
-			.success(function (data) {
-			    $scope.Data = data;
-
-			    var hasPendingPayments = false;
-
-			    for (var i = 0; i <= data.length; i++)
-			    {
-			        if (data[i] != null && data[i].TransactionStatus == 'Pending')
-			        {
-			            //console.log(data[i]);
-			            if (!hasPendingPayments)
-			            {
-			                $rootScope.$broadcast('foundPendingReq');
-			                hasPendingPayments = true;
-			            }
-			        }
-			    }
-			})
-			.error(function (data) {
-			    console.log('GetTransferList Error: [' + JSON.stringify(data) + ']');
-			    if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-			        CommonServices.logOut();
-			});
-    }
+ 
 
 
     $scope.goProfile = function () {

@@ -121,8 +121,9 @@
                     </div>
 
                     <div class="typeDateContainer" ng-if="trans.TransactionType == 'Invite'">
+                        <label class="transTypeLabel pending" ng-if="trans.MemberId == memberId">Invite To</label>
                         <label class="transTypeLabel pending" ng-if="trans.MemberId != memberId">Invite From</label>
-                        <label class="transTypeLabel pending" ng-if="trans.MemberId == memberId">Invite Sent To</label>
+
                         <h5 class="date"><i class="ion-android-time m-r-5"></i>{{trans.TransactionDate | date : "mediumDate"}}</h5>
                     </div>
 

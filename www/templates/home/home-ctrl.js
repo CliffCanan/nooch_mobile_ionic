@@ -6,7 +6,7 @@
 /****************/
 .controller('HomeCtrl', function ($scope, $rootScope, $state, $ionicPlatform, $cordovaGoogleAnalytics, $timeout, $http,
                                   $ionicLoading, $ionicContentBanner, $localStorage, $cordovaContacts, $cordovaSocialSharing,
-                                  authenticationService, profileService, selectRecipientService, CommonServices, homeServices, $ionicActionSheet) {
+                                  authenticationService, profileService, selectRecipientService, CommonServices, homeServices, $ionicActionSheet, historyService) {
 
     $scope.memberList = [];
     $scope.phoneContacts = [];
@@ -25,7 +25,7 @@
 
         $scope.memberList = [];
         $scope.phoneContacts = [];
-
+        $scope.pendingList();
         console.log('Home Ctrl Enter Fired');
 
         $timeout(function () {
@@ -80,12 +80,35 @@
 
         }, 1000);
 
+        
 
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Home");
         })
     });
 
+    $scope.pendingList = function () {
+        
+        historyService.getTransferList('Pending')
+            .success(function (data) {
+
+                if (data.length > 0)
+                {
+                    $ionicContentBanner.show({
+                        text: ['Pending Request Waiting'],
+                        type: 'info',
+                        transition: 'vertical'
+                    });
+                }
+
+              
+            })
+            .error(function (data) {
+                console.log('GetTransferList Error: [' + JSON.stringify(data) + ']');
+                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+            });
+    }
 
     $scope.$on("$ionicView.afterEnter", function (event, data) {
         if (window.cordova)
@@ -96,20 +119,6 @@
     });
 
 
-    $scope.$on('foundPendingReq', function (event, args) {
-        if ($scope.isBannerShowing == false)
-        {
-            $ionicContentBanner.show({
-                text: ['Pending Request Waiting'],
-                type: 'info',
-                transition: 'vertical'
-            });
-
-            $scope.isBannerShowing = true;
-
-            $('#fav-container').css('margin-top', '40px');
-        }
-    });
 
 
     $scope.FindRecentFriends = function () {

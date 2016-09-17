@@ -43,7 +43,7 @@
 
 
         $scope.getTransactions = function () {
-            historyService.getTransferList()
+            historyService.getTransferList('')
 				.success(function (data) {
 				    $scope.isFinishedLoading = true;
 
