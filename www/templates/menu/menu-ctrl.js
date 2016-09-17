@@ -63,6 +63,7 @@
                 $rootScope.IsPhoneVerified = res.isVerifiedPhone;
                 $rootScope.Status = res.status;
                 $rootScope.isRequiredImmediately = res.isRequiredImmediately;
+                $rootScope.showInSearch = res.showInSearch;
                 $rootScope.hasSynapseUserAccount = res.hasSynapseUserAccount;
                 $rootScope.hasSynapseBank = res.hasSynapseBank;
                 $rootScope.bankStatus = res.bankStatus;

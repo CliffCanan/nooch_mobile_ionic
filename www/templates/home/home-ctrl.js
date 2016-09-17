@@ -85,37 +85,6 @@
         })
     });
 
-    $scope.pendingList = function () {
-
-        historyService.getTransferList('Pending')
-            .success(function (data) {
-
-                if (data.length > 0)
-                {
-                    console.log(data.length);
-                    $rootScope.pendingTransfersCount = data.length;
-
-                    var text = $rootScope.pendingTransfersCount > 1
-                    ? $rootScope.pendingTransfersCount + ' Pending Requests Waiting'
-                    : '1 Pending Request Waiting';
-
-                    $ionicContentBanner.show({
-                        text: [text],
-                        type: 'info',
-                        transition: 'vertical'
-                    });
-                    $scope.isBannerShowing = true;
-                }
-                else
-                    $scope.isBannerShowing = false;
-            })
-            .error(function (data) {
-                console.log('GetTransferList Error: [' + JSON.stringify(data) + ']');
-                $scope.isBannerShowing = false;
-                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-            });
-    }
 
     $scope.$on("$ionicView.afterEnter", function (event, data) {
         if (window.cordova)
@@ -124,8 +93,6 @@
                 window.plugins.OneSignal.registerForPushNotifications();
         }
     });
-
-
 
 
     $scope.FindRecentFriends = function () {
@@ -275,7 +242,6 @@
             }
             else
             {
-                console.log('$rootScope.homeContactLength == contacts.length');
                 $scope.phoneContacts.push.apply($scope.phoneContacts, $rootScope.homeContacts);
             }
 
@@ -354,6 +320,41 @@
         }
 
         return array;
+    }
+
+
+    $scope.pendingList = function () {
+
+        historyService.getTransferList('Pending')
+            .success(function (data) {
+
+                if (data.length > 0)
+                {
+                    console.log(data.length);
+                    $rootScope.pendingTransfersCount = data.length;
+
+                    var text = $rootScope.pendingTransfersCount > 1
+                    ? $rootScope.pendingTransfersCount + ' Pending Requests Waiting'
+                    : '1 Pending Request Waiting';
+
+                    $ionicContentBanner.show({
+                        text: [text],
+                        type: 'info',
+                        transition: 'vertical'
+                    });
+                    $scope.isBannerShowing = true;
+                }
+                else
+                    $scope.isBannerShowing = false;
+            })
+            .error(function (data) {
+                console.log('GetTransferList Error: [' + JSON.stringify(data) + ']');
+                $scope.isBannerShowing = false;
+                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                    CommonServices.logOut();
+                else
+                    CommonServices.DisplayError('Unexpected issue - sorry about that!');
+            });
     }
 
 
@@ -734,7 +735,6 @@
 
 
     $scope.updateDeviceIp = function (ip) {
-        //if ($cordovaNetwork.isOnline()) {
         homeServices.SaveIpAddress(ip)
           .success(function (data) {
               console.log(data);
@@ -743,8 +743,5 @@
 		  .error(function (error) {
 		      console.log('UdateMemberIPAddress Error: [' + JSON.stringify(error) + ']');
 		  });
-        //  }
-        //else
-        //    swal("Error", "Internet not connected!", "error");
     }
 })

@@ -2,62 +2,78 @@
 /***************************/
 /***  SECURITY SETTINGS  ***/
 /***************************/
-.controller('securitySettingCtrl', function ($scope, MemberPrivacy, $state, $ionicHistory, $cordovaNetwork, CommonServices, $localStorage, $cordovaGoogleAnalytics, $cordovaGoogleAnalytics, $ionicPlatform) {
+.controller('securitySettingCtrl', function ($scope, $rootScope, $state, $ionicHistory, $cordovaNetwork,
+                                             $localStorage, $cordovaGoogleAnalytics, $cordovaGoogleAnalytics,
+                                             $ionicPlatform, $ionicContentBanner, $timeout, CommonServices, MemberPrivacy) {
+
+    $scope.$on("$ionicView.beforeEnter", function (event, data) {
+        console.log('Security Settings Screen Loaded');
+        console.log('beforeEnter: isRequiredImmediately ROOTSCOPE: [' + $rootScope.isRequiredImmediately + '], showInSearch: [' + $rootScope.showInSearch + ']');
+
+        $scope.SecSettings = {
+            isRequiredImmediately: $rootScope.isRequiredImmediately != null ? $rootScope.isRequiredImmediately : true,
+            showInSearch: $rootScope.showInSearch != null ? $rootScope.showInSearch : true
+        }
+    });
+
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        //console.log('Security Settings Screen Loaded');
-
-        $scope.GetMemberPrivacyFn();
+        console.log('Enter: isRequiredImmediately ROOTSCOPE: [' + $rootScope.isRequiredImmediately + '], showInSearch: [' + $rootScope.showInSearch + ']');
 
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Security Settings");
         })
     });
 
-    $scope.SecSettings = {
-        ShowInSearch: true,
-        RequireImmediately: true
-    };
+
+    $scope.$on("$ionicView.afterEnter", function (event, data) {
+
+        // CC (9/17/16): Adding this for the case where the user re-opens the app directly to this screen
+        // and the $rootScope values don't get set in Menu-Ctrl quick enough for them to be applied above in .beforeEnter()
+        $timeout(function () {
+            if ($rootScope.isRequiredImmediately != $scope.SecSettings.isRequiredImmediately)
+            {
+                console.log('REQUIRE IMMEDIATELY DIDNT MATCH');
+                $scope.SecSettings.isRequiredImmediately = $rootScope.isRequiredImmediately;
+            }
+            if ($rootScope.showInSearch != $scope.SecSettings.showInSearch)
+            {
+                console.log('SHOW IN SEARCH DIDNT MATCH');
+                $scope.SecSettings.showInSearch = $rootScope.showInSearch;
+            }
+        }, 700);
+    });
 
 
     $scope.MemberPrivacyFn = function () {
 
-        //if ($cordovaNetwork.isOnline()) {
+        console.log('isRequiredImmediately ROOTSCOPE: [' + $rootScope.isRequiredImmediately + '], showInSearch: [' + $rootScope.showInSearch + ']');
+        console.log('isRequiredImmediately SECSETTINGS: [' + $scope.SecSettings.isRequiredImmediately + '], showInSearch: [' + $scope.SecSettings.showInSearch + ']');
 
-        console.log($scope.SecSettings.RequireImmediately, $scope.SecSettings.ShowInSearch);
-
-        MemberPrivacy.UpdateSecuritySettings($scope.SecSettings) //.RequirePin, $scope.SecSettings.ShowInSearch
+        MemberPrivacy.UpdateSecuritySettings($scope.SecSettings)
             .success(function (data) {
-                $localStorage.GLOBAL_VARIABLES.isRequiredImmediately = $scope.SecSettings.RequireImmediately;
-                $scope.Data = data;
-                //console.log($scope.Data);
+                console.log(data);
+
+                if (data != null && data.Result != null && data.Result.indexOf('success') > -1)
+                {
+                    $localStorage.GLOBAL_VARIABLES.isRequiredImmediately = $scope.SecSettings.isRequiredImmediately;
+                    $rootScope.isRequiredImmediately = $scope.SecSettings.isRequiredImmediately;
+                    $rootScope.showInSearch = $scope.SecSettings.showInSearch;
+
+                    $ionicContentBanner.show({
+                        text: ['Settings Updated Successfully!'],
+                        autoClose: '4000',
+                        type: 'success',
+                        transition: 'vertical'
+                    });
+                }
             })
             .error(function (error) {
                 console.log('MemberPrivacySettings Error: [' + JSON.stringify(error) + ']');
-                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
+                else if (error != null)
+                    CommonServices.DisplayError('Unable to update settings right now :-(');
             });
-        //}
-        //else
-        //    swal("Error", "Internet not connected!", "error");
-    }
-
-
-    //For getting Privacy status of user
-    $scope.GetMemberPrivacyFn = function () {
-
-        MemberPrivacy.GetMemberPrivacySettings()
-            .success(function (data) {
-                console.log(data);
-                $scope.SecSettings = data;
-            })
-            .error(function (error) {
-                console.log('GetMemberPrivacySettings Error: [' + JSON.stringify(error) + ']');
-                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-            });
-        //}
-        //else
-        //    swal("Error", "Internet not connected!", "error");
     }
 })

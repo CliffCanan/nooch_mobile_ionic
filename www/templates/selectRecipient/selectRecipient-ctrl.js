@@ -92,6 +92,7 @@
                                         //    console.log("Contact permisison is " + status);
                                     }, function (error) {
                                         console.error(error);
+                                        CommonServices.DisplayError('Unable to access phone contacts :-(');
                                     });
                                 }
                             });
@@ -99,6 +100,7 @@
                     }, function (error) {
                         $scope.loadComplete = true;
                         console.error("isContactsAuthorized Error: [" + error + "]");
+                        CommonServices.DisplayError('Unable to access phone contacts :-(');
                     });
                 }
                 else // for Browser testing
@@ -111,6 +113,8 @@
 
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
+                else if (error != null)
+                    CommonServices.DisplayError('Unable to access phone contacts :-(');
             });
     }
 
@@ -315,7 +319,7 @@
                                 $scope.getNearbyUsers();
                             }, function (err) {
                                 console.log('$cordovaGeolocation error: [' + JSON.stringify(err) + ']');
-
+                                CommonServices.DisplayError('Unable to get current location');
                                 $scope.getNearbyUsers();
                             });
                     }
@@ -393,11 +397,14 @@
             })
             .error(function (error) {
                 console.log(error);
+
                 $scope.loadComplete = true;
                 $ionicLoading.hide();
 
-                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
+                else if (error != null)
+                    CommonServices.DisplayError('Unable to find nearby users :-(');
             });
     }
 
@@ -543,8 +550,10 @@
             })
             .error(function (error) {
                 $ionicLoading.hide();
-                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
+                else if (error != null)
+                    CommonServices.DisplayError('Unable to complete your request :-(');
             });
     }
 

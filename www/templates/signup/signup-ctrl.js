@@ -36,6 +36,7 @@
                 text: "For security, we ask all Nooch users to sign up with a full name (first and last).",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
+                customClass: "singleBtn"
             }, function () {
                 $('#nameField').focus();
             });
@@ -49,7 +50,8 @@
                       "<span class='show'>Or if your name actually does contain a number, our bad... please contact support@nooch.com and we'll create an account for you.</span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-                html: true
+                html: true,
+                customClass: "singleBtn"
             }, function () {
                 $('#nameField').focus();
             });
@@ -63,7 +65,8 @@
                       "<span class='show'>Or if your name actually does contain a symbol, our apologies... please contact support@nooch.com and we'll create an account for you.</span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-                html: true
+                html: true,
+                customClass: "singleBtn"
             }, function () {
                 $('#nameField').focus();
             });
@@ -75,6 +78,7 @@
                 text: "Please double check that you entered a valid email address!",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
+                customClass: "singleBtn"
             }, function () {
                 $('#email').focus();
             });
@@ -87,18 +91,20 @@
                       "<span class='show'>We know it's annoying, but you can't put a price on safety, right?</span>",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
-                html: true
+                html: true,
+                customClass: "singleBtn"
             }, function () {
                 $('#pwField').focus();
             });
         }
-        else if ($rootScope.signUpData.Password.match(/[A-Za-z]+/) == null)
+        else if ($rootScope.signUpData.Password.match(/[A-Z]+/ig) == null)
         {
             swal({
                 title: "Insecure Password",
                 text: "Regrettably, your Nooch password must contain 1 actual letter!",
                 type: "warning",
-                confirmButtonColor: "#3fabe1"
+                confirmButtonColor: "#3fabe1",
+                customClass: "singleBtn"
             }, function () {
                 $('#pwField').focus();
             });
@@ -191,6 +197,7 @@
                 console.log('signUpData: ' + JSON.stringify($rootScope.signUpData));
             }, function (error) {
                 console.log(error);
+                CommonServices.DisplayError('Unable to connect with Facebook :-(');
             });
         });
     }

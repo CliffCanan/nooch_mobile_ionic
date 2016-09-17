@@ -430,5 +430,5 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
             }
         })
 
-      $urlRouterProvider.otherwise('/login');
+      $urlRouterProvider.otherwise('/signup');
   });

@@ -5,74 +5,78 @@
 
     <ion-content id="registerScrn" class="signupFlow" scroll="false">
 
-        <div class="row">
-            <div class="col text-center">
-                <img src="./img/nooch-logo.svg" class="mainLogo m-t-15" />
-                <p ng-if="false" class="instructionText m-b-5">Sign Up With</p>
+        <div class="p-l-5 p-r-5">
+
+            <div class="row">
+                <div class="col text-center">
+                    <img src="./img/nooch-logo.svg" class="mainLogo m-t-15" />
+                    <p ng-if="false" class="instructionText m-b-5">Sign Up With</p>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col text-center">
-                <button class="button btn-primary button-block fb-signup" ng-click="SignUpWithFB()"><i class="ion-social-facebook f-21"></i> Sign Up With Facebook</button>
+            <div class="row">
+                <div class="col text-center">
+                    <button class="button btn-primary button-block fb-signup" ng-click="SignUpWithFB()"><i class="ion-social-facebook f-21"></i> Sign Up With Facebook</button>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col text-center label-small">
-                Or...
+            <div class="row">
+                <div class="col text-center label-small">
+                    Or...
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col">
+            <div class="row">
+                <div class="col">
 
-                <form id="submitForm" class="smErrors" data-parsley-validate="">
+                    <form id="submitForm" class="smErrors" data-parsley-validate="">
 
-                    <div class="list list-inset noDivider primary raised-view">
+                        <div class="list list-inset noDivider primary raised-view">
 
-                        <label class="item item-input">
-                            <span class="input-label calm">Full Name</span>
-                            <input type="text" placeholder="Abe Lincoln" ng-model="signUpData.Name" value="{{na}}" id="nameField" class="form-control capitalize" ng-keyup="keyEntered(1)" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
-                        </label>
-
-                        <label class="item item-input">
-                            <span class="input-label calm">Email</span>
-                            <input type="email" ng-blur="checkIfEmailAlreadyRegistered()" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" id="email" ng-keyup="keyEntered(2)" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
-                        </label>
-
-                        <label class="item item-input">
-                            <span class="input-label calm">Password</span>
-                            <input type="password" placeholder="Password" ng-model="signUpData.Password" class="form-control" ng-keyup="keyEntered(3)" id="pwField" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
-                        </label>
-
-                        <div class="item item-input p-b-5" ng-class="{'p-l-5': screenWidth < 340}">
-                            <label class="toggle toggle-green toggle-small">
-                                <input type="checkbox" id="ckBox" class="form-control" data-parsley-required="" data-parsley-checkmin="1" data-parsley-required-message="*">
-                                <div class="track">
-                                    <div class="handle"></div>
-                                </div>
+                            <label class="item item-input">
+                                <span class="input-label calm">Full Name</span>
+                                <input type="text" placeholder="Abe Lincoln" ng-model="signUpData.Name" value="{{na}}" id="nameField" class="form-control capitalize" ng-keyup="keyEntered(1)" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                             </label>
 
-                            <label>I agree to <button type="button" class="btn btn-link" ng-click="openTos()">Nooch's Term of Services</button>.</label>
+                            <label class="item item-input">
+                                <span class="input-label calm">Email</span>
+                                <input type="email" ng-blur="checkIfEmailAlreadyRegistered()" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" id="email" ng-keyup="keyEntered(2)" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                            </label>
+
+                            <label class="item item-input">
+                                <span class="input-label calm">Password</span>
+                                <input type="password" placeholder="Password" ng-model="signUpData.Password" class="form-control" ng-keyup="keyEntered(3)" id="pwField" data-parsley-minlength="6" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                            </label>
+
+                            <div class="item item-input p-b-5" ng-class="{'p-l-5': screenWidth < 340}">
+                                <label class="toggle toggle-green toggle-small">
+                                    <input type="checkbox" id="ckBox" class="form-control" data-parsley-required="" data-parsley-checkmin="1" data-parsley-required-message="*">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+
+                                <label>I agree to <button type="button" class="btn btn-link" ng-click="openTos()">Nooch's Term of Services</button>.</label>
+                            </div>
+
                         </div>
 
-                    </div>
+                        <button id="createAccount" type="button" ng-click="signUpClick()" class="button btn-success button-block" value="validate" disabled><i class="ion-person-add"></i>Create Account</button>
 
-                    <button id="createAccount" type="button" ng-click="signUpClick()" class="button btn-success button-block" value="validate" disabled><i class="ion-person-add"></i>Create Account</button>
+                    </form>
 
-                </form>
-
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col text-center animated bounceInUp">
-                <a ng-click="goToLogin()" id="toLoginBtn" class="animated" ng-class="{'m-t-50': screenWidth > 340 && screenWidth < 365, 'm-t-120': screenWidth > 365}" nav-transition="ios" nav-direction="forward">
-                    Already have an account? &nbsp;Sign in here
-                    <i class="ion-android-arrow-dropright-circle text-success"></i>
-                </a>
+            <div class="row">
+                <div class="col text-center animated bounceInUp">
+                    <a ng-click="goToLogin()" id="toLoginBtn" class="animated" ng-class="{'m-t-50': screenWidth > 340 && screenWidth < 365, 'm-t-120': screenWidth > 365}" nav-transition="ios" nav-direction="forward">
+                        Already have an account? &nbsp;Sign in here
+                        <i class="ion-android-arrow-dropright-circle text-success"></i>
+                    </a>
+                </div>
             </div>
+
         </div>
 
     </ion-content>

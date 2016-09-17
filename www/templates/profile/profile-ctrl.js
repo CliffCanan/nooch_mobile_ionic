@@ -71,6 +71,8 @@
 
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
+                else
+                    CommonServices.DisplayError('Unable to get profile details :-(');
             })
         //}
         //else
@@ -118,20 +120,10 @@
                     }
                     else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
                     {
-                        $ionicContentBanner.show({
-                            text: ['Phone Number already registered with Nooch'],
-                            autoClose: '5000',
-                            type: 'error',
-                            transition: 'vertical'
-                        });
+                        CommonServices.DisplayError('Phone # already registered to another user!');
                     }
                     else
-                        $ionicContentBanner.show({
-                            text: ['Error: Profile NOT Updated :-('],
-                            autoClose: '5000',
-                            type: 'error',
-                            transition: 'vertical'
-                        });
+                        CommonServices.DisplayError('Profile not updated :-(');
                 })
                 .error(function (error) {
                     console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
@@ -141,12 +133,7 @@
                     if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                         CommonServices.logOut();
                     else
-                        $ionicContentBanner.show({
-                            text: ['Error Saving Profile Changes :-('],
-                            autoClose: '5000',
-                            type: 'error',
-                            transition: 'vertical'
-                        });
+                        CommonServices.DisplayError('Unable to save profile changes :-(');
                 })
             //}
             //else
@@ -184,12 +171,7 @@
                                transition: 'vertical'
                            });
                        else
-                           $ionicContentBanner.show({
-                               text: ['Error: Email Confirmation Link Not Sent :-('],
-                               autoClose: '5000',
-                               type: 'error',
-                               transition: 'vertical'
-                           });
+                           CommonServices.DisplayError('Email verification link not sent :-(');
                    })
 				   .error(function (error) {
 				       console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
@@ -197,12 +179,7 @@
 				       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 				           CommonServices.logOut();
 				       else
-				           $ionicContentBanner.show({
-				               text: ['Error: Email Confirmation Link Not Sent :-('],
-				               autoClose: '5000',
-				               type: 'error',
-				               transition: 'vertical'
-				           });
+				           CommonServices.DisplayError('Email verification link not sent :-(');
 				   });
             }
         });
@@ -236,12 +213,7 @@
                        if (result.Result == 'Success')
                            swal("Check Your Phone!", "We just sent an SMS message to " + $scope.Details.ContactNumber + ".", "success");
                        else
-                           $ionicContentBanner.show({
-                               text: ['Error: Verification SMS Not Sent :-('],
-                               autoClose: '5000',
-                               type: 'error',
-                               transition: 'vertical'
-                           });
+                           CommonServices.DisplayError('Verification SMS Not Sent :-(');
                    })
 				   .error(function (error) {
 				       $ionicLoading.hide();
@@ -250,12 +222,7 @@
 				       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 				           CommonServices.logOut();
 				       else
-				           $ionicContentBanner.show({
-				               text: ['Error: Verification SMS Not Sent :-('],
-				               autoClose: '5000',
-				               type: 'error',
-				               transition: 'vertical'
-				           });
+				           CommonServices.DisplayError('Verification SMS Not Sent :-(');
 				   })
             }
         });
@@ -324,7 +291,8 @@
                 {
                     $scope.pictureBase64 = null;
                     $scope.isPicAttachedToTrans = false;
-                    $scope.showErrorBanner('camera');
+                    if (result != null && result == 'failed')
+                        CommonServices.DisplayError('Unable to access photo gallery :-(');
                 }
             });
         });
@@ -352,14 +320,12 @@
                     };
 
                     $cordovaCamera.getPicture(options).then(function (imageData) {
-                        console.log(imageData);
+                        //console.log(imageData);
                         $scope.Details.Photo = "data:image/jpeg;base64," + imageData;
-
                         $scope.Details.Photos = imageData;
-                        console.log(bytes);
                     }, function (error) {
                         // An error occured. Show a message to the user
-                        $scope.showErrorBanner('camera');
+                        CommonServices.DisplayError('Unable to access the camera :-(');
                     });
                 }
                 else
@@ -381,14 +347,14 @@
                                     $scope.takePhoto();
                             }, function (error) {
                                 console.error(error);
-                                $scope.showErrorBanner('camera');
+                                CommonServices.DisplayError('Unable to access the camera :-(');
                             });
                         }
                     });
                 }
             }, function (error) {
                 console.error("isCameraAuthorized Error: [" + error + ']');
-                $scope.showErrorBanner('camera');
+                CommonServices.DisplayError('Unable to access the camera :-(');
             });
         });
     }
@@ -404,32 +370,20 @@
             .success(function (details) {
                 console.log(details);
 
-                if (details == null || details.Result == 'SSN saved successfully.')
-                    $ionicContentBanner.show({
-                        text: ['Error Saving Profile Changes'],
-                        autoClose: '5000',
-                        type: 'error',
-                        transition: 'vertical'
-                    });
-
-                //$scope.Details = details;
+                if (details == null || details.Result != 'SSN saved successfully.')
+                    CommonServices.DisplayError('Unable to save SSN :-(');
             })
 			.error(function (error) {
 			    console.log('SaveMemberSSN Error: [' + JSON.stringify(error) + ']');
 
-			    $ionicContentBanner.show({
-			        text: ['Error Saving Profile Changes'],
-			        autoClose: '5000',
-			        type: 'error',
-			        transition: 'vertical'
-			    });
-
 			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
 			        CommonServices.logOut();
+			    else
+			        CommonServices.DisplayError('Unable to save SSN :-(');
 			})
         //}
         //else
-        //    swal("Oops...", "Internet not connected!", "error");
+        //    swal("Error", "Internet not connected!", "error");
     }
 
 
@@ -509,16 +463,6 @@
             else if ($scope.Details.SSN.length > 3)
                 $scope.Details.SSN = $scope.Details.SSN.replace(/^(\d{3})(\d{1})/, '$1-$2'); //XXX-X
         }
-    }
-
-
-    $scope.showErrorBanner = function (id) {
-        $ionicContentBanner.show({
-            text: ['Error - Unable to get picture from the ' + id + ' :-('],
-            autoClose: 4000,
-            type: 'error',
-            transition: 'vertical'
-        });
     }
 
 })

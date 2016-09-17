@@ -196,6 +196,7 @@
                             }
                         })
                         .error(function (error) {
+                            CommonServices.DisplayError('Request Not Rejected');
                             $ionicLoading.hide();
                             if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                                 CommonServices.logOut();
@@ -277,7 +278,6 @@
 
 
         $scope.showMap = function (longi, lati) {
-            // if ($cordovaNetwork.isOnline()) {
             //console.log($rootScope.Location.longi);
             //console.log($rootScope.Location.lati);
 
@@ -303,9 +303,6 @@
                 $state.go('app.map');
                 $ionicLoading.hide();
             }
-            //}
-            //else
-            //  swal("Error", "Internet not connected!", "error");
         }
 
 

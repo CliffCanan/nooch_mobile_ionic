@@ -2,7 +2,7 @@ angular.module('noochApp.services', ['ngStorage'])
 
 
 // Adding some common usefull services in here like enc, dec etc.
-  .service('CommonServices', function ($http, $localStorage, $state, $window, $ionicLoading, $cordovaCamera) {
+  .service('CommonServices', function ($http, $localStorage, $state, $window, $ionicLoading, $cordovaCamera, $ionicContentBanner) {
       this.GetEncryptedData = function (dataToEncrypt) {
           return $http.get(URLs.GetEncryptedData + '?data=' + btoa(dataToEncrypt));   // btoa DOES THE BASE 64 ENCRYPTION FOR GIVEN INPUT
       }
@@ -54,7 +54,11 @@ angular.module('noochApp.services', ['ngStorage'])
 
           console.log($localStorage.GLOBAL_VARIABLES);
 
-          $state.go('login');
+          var destination = 'signup';
+          if ($localStorage.GLOBAL_VARIABLES.UserName != '')
+              destination = 'login';
+
+          $state.go(destination);
       }
 
       this.IsDuplicateMember = function (userName) {
@@ -197,6 +201,14 @@ angular.module('noochApp.services', ['ngStorage'])
           }
       }
 
+      this.DisplayError = function (text) {
+          $ionicContentBanner.show({
+              text: ['Error: ' + text],
+              autoClose: '5000',
+              type: 'error',
+              transition: 'vertical'
+          });
+      }
   })
 
 

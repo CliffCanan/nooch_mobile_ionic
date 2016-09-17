@@ -4,7 +4,8 @@
 /***  RESET PASSWORD  ***/
 /************************/
 .controller('resetPwdCtrl', function ($scope, $rootScope, $state, $ionicLoading, $localStorage, $cordovaNetwork,
-									  $timeout, $cordovaSocialSharing, resetPasswordService, CommonServices, $cordovaGoogleAnalytics) {
+									  $ionicPlatform, $timeout, $cordovaSocialSharing, $cordovaGoogleAnalytics,
+                                      CommonServices, resetPasswordService) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         //console.log('Reset Pwd Page Is Loaded');
@@ -44,57 +45,61 @@
             });
 
             CommonServices.GetEncryptedData($scope.ResetPwd.currentPwd).success(function (data) {
-                console.log(data.Status);
+                //console.log(data.Status);
 
                 if ($localStorage.GLOBAL_VARIABLES.Pwd == data.Status)
                 {
-                    CommonServices.GetEncryptedData($scope.ResetPwd.newPwd).success(function (pwData) {
-                        console.log(pwData);
+                    CommonServices.GetEncryptedData($scope.ResetPwd.newPwd)
+                        .success(function (pwData) {
+                            //console.log(pwData);
 
-                        resetPasswordService.ResetPassword(pwData.Status, true)
-                            .success(function (data) {
-                                console.log(data);
+                            resetPasswordService.ResetPassword(pwData.Status, true)
+                                .success(function (data) {
+                                    console.log(data);
 
-                                $scope.ResetPwd.newPwd = '';
-                                $scope.ResetPwd.currentPwd = '';
-                                $scope.ResetPwd.confirmPwd = '';
+                                    $scope.ResetPwd.newPwd = '';
+                                    $scope.ResetPwd.currentPwd = '';
+                                    $scope.ResetPwd.confirmPwd = '';
 
-                                $ionicLoading.hide();
+                                    $ionicLoading.hide();
 
-                                if (data.Result == true)
-                                {
-                                    swal({
-                                        title: "Password Updated",
-                                        text: "Your password was changed successfully.",
-                                        type: "success",
-                                        confirmButtonColor: "#3fabe1",
-                                        html: true,
-                                    }, function () {
-                                        $state.go('app.securitySetting');
-                                    });
-                                }
-                                else
-                                {
-                                    swal({
-                                        title: "Error",
-                                        text: "Something went wrong :-(",
-                                        type: "error",
-                                        confirmButtonColor: "#3fabe1",
-                                        html: true,
-                                    });
-                                }
-                            })
-                            .error(function (encError) {
-                                console.log('ResetPassword Error: [' + encError + ']');
-                                $ionicLoading.hide();
-                            });
-                    })
-                    .error(function (encError) {
-                        console.log('GetEncryptedData Error: [' + encError + ']');
-                        $ionicLoading.hide();
-                        if (encError.ExceptionMessage == 'Invalid OAuth 2 Access')
-                            CommonServices.logOut();
-                    });
+                                    if (data.Result == true)
+                                    {
+                                        swal({
+                                            title: "Password Updated",
+                                            text: "Your password was changed successfully.",
+                                            type: "success",
+                                            confirmButtonColor: "#3fabe1",
+                                            html: true,
+                                        }, function () {
+                                            $state.go('app.securitySetting');
+                                        });
+                                    }
+                                    else
+                                    {
+                                        swal({
+                                            title: "Error",
+                                            text: "Something went wrong :-(",
+                                            type: "error",
+                                            confirmButtonColor: "#3fabe1",
+                                            html: true,
+                                        });
+                                    }
+                                })
+                                .error(function (encError) {
+                                    console.log('ResetPassword Error: [' + encError + ']');
+                                    $ionicLoading.hide();
+                                    CommonServices.DisplayError('Unable to reset password right now.');
+                                });
+                        })
+                        .error(function (error) {
+                            console.log('GetEncryptedData Error: [' + JSON.stringify(error) + ']');
+                            $ionicLoading.hide();
+                            if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                CommonServices.logOut();
+                            else
+                                CommonServices.DisplayError('Unable to reset password right now.');
+                        });
                 }
                 else
                 {
@@ -107,9 +112,11 @@
                     });
                 }
             })
-            .error(function (data) {
-                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+            .error(function (error) {
+                if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
+                else if (error != null)
+                    CommonServices.DisplayError('Unable to reset password right now.');
             });
         }
         //}
@@ -163,14 +170,18 @@
 					.error(function (error) {
 					    console.log('ResetPin Error: [' + JSON.stringify(error) + ']');
 					    $ionicLoading.hide();
-					    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+					    if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
 					        CommonServices.logOut();
+					    else if (error != null)
+					        CommonServices.DisplayError('Unable to reset PIN right now.');
 					});
 			})
 			.error(function (error) {
 			    console.log('Reset PIN -> GetEncryptedData Error: [' + JSON.stringify(error) + ']');
-			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+			    if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
 			        CommonServices.logOut();
+			    else if (error != null)
+			        CommonServices.DisplayError('Unable to reset PIN right now.');
 			});
         //}
         //else
@@ -299,13 +310,17 @@
                                     .error(function (error) {
                                         console.log('validateCurrentPin Error: [' + JSON.stringify(error) + ']');
 
-                                        if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                                        if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
                                             CommonServices.logOut();
                                         else
+                                        {
+                                            CommonServices.DisplayError('Unable to reset PIN right now.');
                                             $scope.applyError('current');
+                                        }
                                     });
                             })
                             .error(function (error) {
+                                CommonServices.DisplayError('Unable to reset PIN right now.');
                                 console.log('NumTapped -> GetEncryptedData Error: [' + error + ']');
                             });
                     }

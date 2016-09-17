@@ -2,7 +2,7 @@
 
  .controller('referAfriendCtrl', function ($scope, authenticationService, $ionicPlatform, $cordovaSocialSharing,
                                            $cordovaNetwork, $ionicLoading, $localStorage, $cordovaGoogleAnalytics,
-                                           $ionicContentBanner, ReferralCodeService, CommonServices) {
+                                           ReferralCodeService, CommonServices) {
 
      $scope.$on("$ionicView.beforeEnter", function (event, data) {
          $scope.referredUsersCount = 0;
@@ -35,13 +35,16 @@
              .error(function (error) {
                  console.log('GetReferralCode Error: [' + JSON.stringify(error) + ']');
                  $ionicLoading.hide();
-                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                 if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
                      CommonServices.logOut();
+                 else if (error != null)
+                     CommonServices.DisplayError('Unable to find your referral code :-(');
              })
          //}
          //else
          //    swal("Error", "Internet not connected!", "error");
      }
+
 
      $scope.getReferredUsersList = function () {
          //if ($cordovaNetwork.isOnline()) {
@@ -64,8 +67,10 @@
 		   .error(function (error) {
 		       console.log('getInvitedMemberList Error: [' + JSON.stringify(error) + ']');
 		       $ionicLoading.hide();
-		       if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+		       if (error != null && error.ExceptionMessage == 'Invalid OAuth 2 Access')
 		           CommonServices.logOut();
+		       else if (error != null)
+		           CommonServices.DisplayError('Unable to get invited friends list :-(');
 		   });
          //  }
          //else
@@ -90,7 +95,7 @@
                        .then(function (result) {
                            // Success!
                        }, function (err) {
-                           showErrorBanner(' text message');
+                           CommonServices.DisplayError('Oh no! Unable to send a text msg right now.');
                        });
                  });
              }
@@ -104,7 +109,7 @@
                         .then(function (result) {
                             // Success!
                         }, function (err) {
-                            showErrorBanner(' message');
+                            CommonServices.DisplayError('Oh no! Unable to send a message right now.');
                         });
                  });
              }
@@ -118,7 +123,7 @@
                         .then(function (result) {
                             // Success!
                         }, function (err) {
-                            showErrorBanner(' tweet');
+                            CommonServices.DisplayError('Oh no! Unable to send a tweet right now.');
                         });
                  });
              }
@@ -141,23 +146,13 @@
                        .then(function (result) {
                            // Success!
                        }, function (err) {
-                           showErrorBanner('n email');
+                           CommonServices.DisplayError('Oh no! Unable to send an email right now.');
                        });
                  });
              }
          }
          else
-             showErrorBanner(' message');
-     }
-
-
-     function showErrorBanner(str) {
-         $ionicContentBanner.show({
-             text: ['Oh no! Unable to send a' + str + ' right now.'],
-             autoClose: 5000,
-             type: 'error',
-             transition: 'vertical'
-         });
+             CommonServices.DisplayError('Oh no! Unable to send a message right now.');
      }
 
  })
