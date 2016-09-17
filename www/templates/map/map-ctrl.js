@@ -9,8 +9,8 @@
         console.log('map Ctrl loaded');
         $scope.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC3f2pIfit--Qr7Tvl5EGnzvEHpDAIsYoI';
 
-        //console.log($rootScope.Location.longi);
-        //console.log($rootScope.Location.lati);
+        console.log($rootScope.Location.longi);
+        console.log($rootScope.Location.lati);
 
         $ionicPlatform.ready(function () {
 

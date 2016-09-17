@@ -95,7 +95,7 @@
 
                     <ion-option-button class="button-positive" ui-sref-ignore ng-click="PayBack(trans)" ng-show="trans.MemberId != memberId && trans.TransactionType == 'Request' && trans.TransactionStatus == 'Success' ">Pay Back </ion-option-button>
 
-                    <ion-option-button class="button-positive" ui-sref-ignore ng-click="showMap(trans.Latitude,trans.Longitude)"><i class="ion-ios-location m-10"></i></ion-option-button>
+                    <ion-option-button class="button-positive" ui-sref-ignore ng-show="(trans.Latitude != 0 && trans.Longitude != 0) && (trans.Latitude != '' && trans.Longitude != '')" ng-click="showMap(trans.Latitude,trans.Longitude)"><i class="ion-ios-location m-10"></i></ion-option-button>
 
                 </ion-item>
 
