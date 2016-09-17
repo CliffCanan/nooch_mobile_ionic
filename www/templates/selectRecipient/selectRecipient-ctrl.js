@@ -4,11 +4,12 @@
 /*** SELECT RECIPIENT ***/
 /************************/
 .controller('SelectRecipCtrl', function ($scope, $rootScope, $state, $localStorage, $cordovaContacts, $ionicLoading, $filter,
-                                         $ionicPlatform, $ionicActionSheet, $cordovaGoogleAnalytics, $timeout, $ionicHistory,
-                                         CommonServices, selectRecipientService) {
+                                         $ionicPlatform, $cordovaGeolocation, $ionicActionSheet, $cordovaGoogleAnalytics, $timeout,
+                                         $ionicHistory, CommonServices, selectRecipientService) {
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
         $scope.loadComplete = false;
+        $scope.selectRecipListHeight = { 'height': $rootScope.screenHeight - 155 + 'px' }
     });
 
 
@@ -34,16 +35,6 @@
     });
 
 
-    //$scope.$on("$ionicView.afterEnter", function (event, data) {
-    //    if ($ionicHistory.forwardView() != null && $ionicHistory.forwardView().title == 'How Much')
-    //    {
-    //        console.log("SELECT RECIP CNTRLR -> afterEnter -> RELOADING THE STATE")
-    //        $ionicHistory.removeBackView();
-    //        $state.reload();
-    //    }
-    //});
-
-
     $scope.FindRecent = function () {
         console.log('FindRecent Fired');
 
@@ -51,8 +42,10 @@
             template: 'Loading Recent Friends...'
         });
 
+        $scope.loadComplete = false;
         $scope.currentView = 'recent';
         $scope.showEmPhDiv = false;
+        $scope.selectRecipListHeight = { 'height': $rootScope.screenHeight - 155 + 'px' }
 
         $('#searchBar').val('');
 
@@ -113,8 +106,8 @@
             })
             .error(function (error) {
                 console.log(error);
-                $ionicLoading.hide();
                 $scope.loadComplete = true;
+                $ionicLoading.hide();
 
                 if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
@@ -285,37 +278,124 @@
             template: 'Finding Nearby Users...'
         });
 
+        $scope.loadComplete = false;
         $scope.currentView = 'location';
         $scope.showEmPhDiv = false;
 
+        $scope.selectRecipListHeight = { 'height': $rootScope.screenHeight - 115 + 'px' }
+
         $('#searchBar').val('');
 
+        $scope.getCurrentLocation();
+    }
+
+
+    $scope.getCurrentLocation = function () {
+        console.log('getCurrentLocation Fired');
+        $ionicPlatform.ready(function () {
+            if (window.cordova)
+            {
+                cordova.plugins.diagnostic.isLocationEnabled(function (authorized) {
+                    if (authorized == true)
+                    {
+                        console.log('Location Authorized - CALLING GET LOACTION');
+
+                        $cordovaGeolocation
+                            .getCurrentPosition()
+                            .then(function (position) {
+                                var lat = position.coords.latitude
+                                var long = position.coords.longitude
+
+                                $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = long;
+                                $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = lat;
+
+                                console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
+
+                                $scope.getNearbyUsers();
+                            }, function (err) {
+                                console.log('$cordovaGeolocation error: [' + JSON.stringify(err) + ']');
+
+                                $scope.getNearbyUsers();
+                            });
+                    }
+                    else
+                    {
+                        // User has not yet authorized location access
+
+                        // CC (9/16/16): IS THIS WHEN THE USER HAS *DENIED* LOCATION?  OR THAT THE DEVICE'S GPS IS NOT TURNED ON?
+                        $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+                        //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '0.00';
+                        //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '0.00';
+
+                        $scope.getNearbyUsers();
+
+                        /*swal({
+                            title: "GPS Off",
+                            text: "Your Location is not shared with Nooch Would you like to share it",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes, Enable",
+                        }, function () {
+                            if (window.cordova) {
+                                cordova.plugins.diagnostic.switchToLocationSettings();
+                                $timeout($scope.getLocation, 4000); //calling this service after 4s b/c user will take some time to on the GPS :Surya
+                            }
+                        });*/
+                    }
+                }, function (error) {
+                    console.log("isLocationEnabled Error: [" + JSON.stringify(error) + ']');
+                });
+            }
+            else // For Browser Testing
+            {
+                console.log('getCurrentLocation --> Browser testing - going to getNearbyUsers()');
+                $scope.getNearbyUsers();
+            }
+        });
+    }
+
+
+    $scope.getNearbyUsers = function () {
         selectRecipientService.GetLocationSearch()
             .success(function (data) {
                 console.log(data);
 
-                for (var i = 0; i < data.length; i++)
+                if (data != null && data.length > 0)
                 {
-                    if (data[i].Miles < 1)
+                    for (var i = 0; i < data.length; i++)
                     {
-                        data[i].Miles = data[i].Miles * 5280;
-                        data[i].Miles = data[i].Miles + ' Feet';
+                        if (data[i].Miles < 1)
+                        {
+                            data[i].Miles = data[i].Miles * 5280;
+                            data[i].Miles = data[i].Miles + ' Feet';
+                        }
+                        else
+                        {
+                            data[i].Miles = data[i].Miles + ' Miles';
+                        }
                     }
-                    else
-                    {
-                        data[i].Miles = data[i].Miles + ' Miles';
-                    }
+
+                    console.log("Found Nearby Users!");
+                    $scope.memberList = data;
+                    $scope.foundNearbyUsers = true;
+                }
+                else
+                {
+                    console.log("No Nearby Users!");
+                    $scope.memberList = [];
+                    $scope.foundNearbyUsers = false;
                 }
 
-                $scope.memberList = data;
-
+                $scope.loadComplete = true;
                 $ionicLoading.hide();
             })
-            .error(function (data) {
-                console.log(data);
+            .error(function (error) {
+                console.log(error);
+                $scope.loadComplete = true;
                 $ionicLoading.hide();
 
-                if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
+                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
             });
     }
@@ -324,17 +404,16 @@
     $scope.checkSearchText = function () {
 
         var enteredText = $('#searchBar').val().trim();
-        console.log(enteredText);
+        //console.log(enteredText);
 
-        //if (enteredText == '') $scope.showEmPhDiv = false;
 
-        if ($('#recents-table').html() == undefined && enteredText.length > 2)
+        if ($('#recents-table').html() == undefined && enteredText.length > 3)
         {
             // Check if the user has entered only numbers so far to see if it's a phone number or not
 
             var stringToCheck = enteredText.replace(/[()-\s]/g, '');
 
-            console.log(stringToCheck);
+            //console.log(stringToCheck);
 
             if (isNaN(stringToCheck) && enteredText.length > 5)
             {
@@ -355,7 +434,7 @@
                     enteredText = enteredText.slice(0, -1);
                 else if (enteredText.length > 7)
                     enteredText = enteredText.replace(/^\((\d{3})\)\s(\d{3})(\d{1})/, '($1) $2-$3'); //"(XXX) XXX-XXXX"
-                else if (enteredText.length < $scope.nonUserText.length) // Last key entered was the 'Delete'
+                else if (enteredText.length < $scope.nonUserText.length) // Last key entered was 'Delete', so user may not be entering a phone # anymore, so remove punctuation
                     enteredText = stringToCheck;
                 else if (enteredText.length > 5)
                     enteredText = enteredText.replace(/^\(?(\d{3})(\d{1})/, '($1) $2'); //"(XXX) X"
@@ -479,6 +558,4 @@
             return false;
     }
 
-
-    $scope.selectRecipListHeight = { 'max-height': $rootScope.screenHeight - 150 + 'px' }
 })

@@ -259,8 +259,8 @@
                     var lat = position.coords.latitude
                     var long = position.coords.longitude
 
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = position.coords.longitude
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = position.coords.latitude
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = lat;
+                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = long;
 
                     console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
 
@@ -269,8 +269,8 @@
                     console.log('$cordovaGeolocation error: [' + JSON.stringify(err) + ']');
 
                     // Static Loaction in case user denied
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
+                    //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
+                    //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
 
                     $scope.loginService();
                 });
@@ -281,8 +281,8 @@
           $ionicPlatform.ready(function () {
               if (window.cordova)
               {
-                  cordova.plugins.diagnostic.isLocationEnabled(function (Location) {
-                      if (Location == true)
+                  cordova.plugins.diagnostic.isLocationEnabled(function (authorized) {
+                      if (authorized == true)
                       {
                           console.log('GPS IS ON - CALLING GET LOACTION');
                           $scope.getLocation();
@@ -303,7 +303,6 @@
                               showCancelButton: true,
                               confirmButtonColor: "#DD6B55",
                               confirmButtonText: "Yes, Enable",
-                              closeOnConfirm: true
                           }, function () {
                               if (window.cordova) {
                                   cordova.plugins.diagnostic.switchToLocationSettings();
@@ -312,7 +311,7 @@
                           });*/
                       }
                   }, function (error) {
-                      alert("The following error occurred: " + error);
+                      console.log("isLocationEnabled Error: [" + JSON.stringify(error) + ']');
                   });
               }
               else // For Browser Testing

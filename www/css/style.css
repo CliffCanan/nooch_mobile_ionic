@@ -43,7 +43,7 @@ ion-header-bar, .navheader, .bar.bar-header {
 }
 
 .lt-gray-text, .lt-gray-text::before {
-    color: #bcbec0 !important;
+    color: #939598 !important;
 }
 
 .gray-text-dark {
@@ -757,8 +757,9 @@ a {
 
 /*** SCREEN HEADER ***/
 .bar .title {
+    font-family: 'Roboto';
     font-weight: 400;
-    text-shadow: 0px -1px 0px rgba(19,32,38,.24);
+    text-shadow: 0px -1px 0px rgba(19,32,38,.2);
 }
 
 .bar .button, .bar button {
@@ -772,7 +773,7 @@ a {
 }
 
 .bar-stable .button.button-clear {
-    font-size: 18px;
+    /*font-size: 18px;*/
     text-shadow: 0px -1px 0px rgba(19,32,38,.2);
 }
 
@@ -898,10 +899,11 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     }
 
     .sweet-alert button {
+        font-size: 15px;
         margin: 8px 3px 5px;
         min-width: 88px;
         padding: 10px 14px;
-        text-shadow: 0px -1px rgba(19, 32, 38, 0.15);
+        text-shadow: 0px -1px rgba(19, 32, 38, 0.12);
         text-transform: uppercase;
     }
 
@@ -961,14 +963,14 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 /***  TI-SEGMENTED-CONTROL  ***/
 .ti-segmented-control a.button {
     color: #3fabe1 !important;
-    font-size: 16px;
-    padding: 6px 15px 7px;
+    font-size: 15px;
+    padding: 7px 6px 7px;
     max-height: 44px !important;
 }
 
 .ti-segmented-control .button i {
     font-size: 112%;
-    margin-right: 11px;
+    margin-right: 9px;
     position: relative;
     top: 1px;
 }
@@ -1414,7 +1416,7 @@ iframe {
     color: #fff;
     font-size: 11px;
     line-height: 1.5;
-    padding: 8px 10px 5px;
+    padding: 6px 10px 3px;
     text-align: center;
     text-shadow: 0 -1px 0 rgba(0,0,0,.18);
 }
@@ -2201,6 +2203,15 @@ div.hscroller-card {
         height: auto;
     }
 
+.emptyTable {
+    background: url(../img/gray-texture-bg.png);
+}
+
+    .emptyTable i {
+        font-size: 60px;
+        text-shadow: 0 0 95px rgba(88,90,92,.4), 0 2px 0 rgba(88,90,92,.8);
+    }
+
 
 /******************/
 /***  HOW MUCH  ***/
@@ -2293,6 +2304,20 @@ div.hscroller-card {
     }
 
 @media screen and (min-width: 360px) {
+    .ti-segmented-control a.button {
+        font-size: 16px;
+        padding: 7px 15px 7px;
+    }
+
+    .ti-segmented-control .button i {
+        font-size: 112%;
+        margin-right: 11px;
+    }
+
+    .emptyTable p {
+        font-size: 18px;
+    }
+
     .amount-container input {
         font-size: 45px;
         width: 240px;
@@ -2307,6 +2332,7 @@ div.hscroller-card {
     }
 
         .sweet-alert button {
+            font-size: 16.5px;
             margin: 10px 4px 5px;
             padding: 10px 20px;
         }
@@ -2369,12 +2395,13 @@ div.hscroller-card {
     #howMuchBox .button-bar button {
         font-family: Roboto;
         font-size: 20px;
+        font-weight: 400;
         height: 56px;
         letter-spacing: 0.5px;
         margin-bottom: -2px;
         text-overflow: clip;
         text-transform: uppercase;
-        transition: .5s all ease-in-out;
+        transition: .4s all ease-in-out;
     }
 
     #howMuchBox .button-bar > .button:first-child {
@@ -2429,7 +2456,7 @@ div.hscroller-card {
 }
 
     .instructionTextPin span:last-child {
-        margin-top: 3px;
+        margin-top: 4px;
         text-transform: uppercase;
     }
 
@@ -2699,8 +2726,13 @@ ul:not(.parsley-errors-list) {
     }
 
     .animated.fast {
-        -webkit-animation-duration: 0.8s !important;
-        animation-duration: 0.8s !important;
+        -webkit-animation-duration: 0.75s !important;
+        animation-duration: 0.75s !important;
+    }
+
+    .animated.veryFast {
+        -webkit-animation-duration: 0.5s !important;
+        animation-duration: 0.5s !important;
     }
 
 @-webkit-keyframes bounce {

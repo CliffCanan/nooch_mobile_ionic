@@ -13,7 +13,7 @@
                 template: 'Loading Payment History...'
             });
 
-            $scope.historyListHeight = { 'max-height': $rootScope.screenHeight - 150 + 'px' }
+            $scope.historyListHeight = { 'height': $rootScope.screenHeight - 155 + 'px' }
             $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 151 + 'px' }
             $scope.transDetailsForPin = {};
             var transDetails = {};
@@ -59,7 +59,7 @@
 				    $scope.transList = $scope.transactionList;
 				    $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
 
-				    //$ionicLoading.hide();
+				    $ionicLoading.hide();
 				})
 				.error(function (error) {
 				    $scope.isFinishedLoading = true;

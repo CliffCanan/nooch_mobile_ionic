@@ -9,8 +9,8 @@
         <br /><br />
 
         <h2 class="instructionTextPin m-t-40">
-            <div class="animated slideInDown">Enter PIN to complete your</div>
-            <div class="animated slideInRight" ng-class="{'text-success': type == 'transfer', 'text-primary': type == 'request'}">{{type}}</div>
+            <span class="show animated slideInDown">Enter PIN to complete your</span>
+            <span class="show animated slideInRight" ng-class="{'text-success': type == 'transfer', 'text-primary': type == 'request'}">{{type}}</span>
         </h2>
 
         <div class="row animated zoomIn">
@@ -31,10 +31,10 @@
             </div>
 
             <div class="memo-text">{{Details.Memo}}</div>
-			
-			<span id="picAttached" ng-if="attachedPicForLocalDisplay != null">
-				<img class="animated bounceIn" src="{{attachedPicForLocalDisplay}}"/>
-			</span>
+
+            <span id="picAttached" ng-if="attachedPicForLocalDisplay != null">
+                <img class="animated bounceIn" src="{{attachedPicForLocalDisplay}}" />
+            </span>
         </div>
 
     </ion-content>

@@ -56,8 +56,14 @@
                 </div>
 
                 <div class="button-bar">
-                    <button id="requestBtn" class="button btn-primary button-block" ng-class="{'expand': requestSelected == true, 'shrink': sendSelected == true}" ng-click="submitRequest()">REQUEST</button>
-                    <button id="sendBtn" class="button button-block btn-success" ng-class="{'expand': sendSelected == true, 'shrink': requestSelected == true}" ng-click="submitSend()">SEND</button>
+                    <button id="requestBtn" class="button btn-primary button-block" ng-class="{'expand': requestSelected == true, 'shrink': sendSelected == true}" ng-click="submitRequest()">
+                        <span ng-show="requestSelected">CONFIRM</span>
+                        REQUEST
+                    </button>
+                    <button id="sendBtn" class="button button-block btn-success" ng-class="{'expand': sendSelected == true, 'shrink': requestSelected == true}" ng-click="submitSend()">
+                        <span ng-show="sendSelected">CONFIRM</span>
+                        SEND
+                    </button>
                     <div id="resetBtn" class="animated fast fadeIn" ng-if="requestSelected || sendSelected" ng-click="resetBtns()"><i class="ion-close-round"></i></div>
                 </div>
 

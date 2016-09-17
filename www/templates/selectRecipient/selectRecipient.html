@@ -3,9 +3,9 @@
     <ion-content scroll="false">
 
         <div class="row">
-            <div class="col p-t-0">
+            <div class="col">
                 <ti-segmented-control>
-                    <ti-segmented-control-button ng-click="FindRecent()" class="button-positive" title="'Month'" selected><i class="ion-ios-clock-outline"></i>Recents</ti-segmented-control-button>
+                    <ti-segmented-control-button ng-click="FindRecent()" class="button-positive" title="'Month'" selected><i class="ion-ios-clock-outline"></i>Recent</ti-segmented-control-button>
                     <ti-segmented-control-button ng-click="GetLocationSearch()" class="button-positive" title="'Day'"><i class="ion-ios-location"></i>Find By Location</ti-segmented-control-button>
                 </ti-segmented-control>
             </div>
@@ -22,10 +22,16 @@
 
         <ion-scroll direction="y" class="history-list" ng-style="selectRecipListHeight">
 
-            <img src="././img/SelectRecip_Empty@2x.png" ng-show="loadComplete == true && recentCount === 0 && memberList.length === 0" class="emptyTableImg" />
+            <img src="././img/SelectRecip_Empty@2x.png" ng-show="loadComplete == true && (recentCount === 0 || memberList.length === 0) && currentView === 'recent'" class="emptyTableImg" />
+
+            <div ng-if="loadComplete == true && (!foundNearbyUsers || memberList.length == 0) && currentView == 'location'" ng-style="selectRecipListHeight" class="emptyTable text-center p-25 m-t-10">
+                <i class="ion-ios-location lt-gray-text"></i>
+                <h3 class="gray-text-dark">No Nearby Noochers!</h3>
+                <p class="lt-gray-text">There are no other Nooch users nearby. Tap 'Recent' to select from a list of recent friends or a contact from your address book.</p>
+            </div>
 
             <ion-list ng-if="loadComplete == true && memberList.length > 0">
-                <ion-item ng-repeat="member in memberList | filter:search" class="list" id="selectRecipList">
+                <ion-item ng-repeat="member in memberList | filter:search" class="list animated fadeIn veryFast" id="selectRecipList">
 
                     <a class="item item-avatar" ng-click="openFilterChoices(member)" nav-transition="ios" nav-direction="forward">
 

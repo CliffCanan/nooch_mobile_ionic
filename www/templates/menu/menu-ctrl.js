@@ -218,7 +218,7 @@
     };
 
 
-    // Cleanup the modal when we're done with it!
+    // Cleanup the modal when we're done with it
     $scope.$on('$destroy', function () {
         $scope.tosModal.remove();
         $scope.privacyModal.remove();
@@ -262,7 +262,6 @@
     $scope.rateNooch = function () {
         document.addEventListener("deviceready", function () {
 
-
             AppRate.preferences = {
                 openStoreInApp: true,
                 displayAppName: 'Nooch',
@@ -276,7 +275,7 @@
                     title: "Rate Nooch",
                     message: "If you enjoy using Nooch or are just in a good mood, we'd LOVE you forever if you take a quick minute to leave us a review!",
                     cancelButtonLabel: "Not Now",
-                    laterButtonLabel: "Remind Me Later",
+                    //laterButtonLabel: "Remind Me Later",
                     rateButtonLabel: "Sure, Let's Go"
                 }
             };
