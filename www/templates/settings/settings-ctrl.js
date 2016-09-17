@@ -81,6 +81,7 @@
 
 
      $scope.editBankTapped = function () {
+       
          $('#editBnkBtn i').addClass('animated bounceIn');
          $scope.editBank = true;
 
@@ -101,15 +102,13 @@
              confirmButtonText: "Yes - Delete",
              html: true
          }, function (isConfirm) {
-             if (isConfirm)
-             {
+             if (isConfirm) {
                  settingsService.DeleteAttachedBankNode()
                     .success(function (result) {
                         console.log(result);
                         $ionicLoading.hide();
 
-                        if (result == 'Deleted')
-                        {
+                        if (result == 'Deleted') {
                             $scope.editBank = false;
                             swal({
                                 title: "Bank Deleted",
@@ -130,6 +129,16 @@
 					.error(function (encError) {
 					    CommonServices.logOut();
 					});
+             }
+             else {
+                 
+                 $('#editBnkBtn span').addClass('animated bounceIn');
+                 $scope.editBank = false;
+
+                 $timeout(function () {
+                     $('#editBnkBtn span').removeClass('animated bounceIn');
+                 }, 1000);
+                  
              }
          });
      }
