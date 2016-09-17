@@ -23,8 +23,8 @@
         $scope.choosePhoto = function () {
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
-                    { text: 'From Photo Library' },
-                    { text: 'Use Camera' }
+                    { text: 'Choose From Library' },
+                    { text: 'Take Photo' }
                 ],
                 titleText: 'Add Your Picture',
                 cancelText: 'Cancel',
@@ -60,7 +60,6 @@
                 });
             });
         }
-
 
 
         $scope.takePhoto = function () {

@@ -43,6 +43,7 @@
         })
     })
 
+
     $scope.MemberDetails = function () {
         console.log('MemberDetails Function Fired');
         //console.log($localStorage.GLOBAL_VARIABLES);
@@ -88,7 +89,7 @@
                 template: 'Saving Profile...'
             });
 
-            console.log($scope.Details);
+            //console.log($scope.Details);
 
             profileService.UpdateProfile($scope.Details)
                 .success(function (data) {
@@ -118,7 +119,7 @@
                     else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
                     {
                         $ionicContentBanner.show({
-                            text: ['Phone Number already registered with Nooch :-( '],
+                            text: ['Phone Number already registered with Nooch'],
                             autoClose: '5000',
                             type: 'error',
                             transition: 'vertical'
@@ -149,7 +150,7 @@
                 })
             //}
             //else
-            //    swal("Oops...", "Internet not connected!", "error");
+            //    swal("Error", "Internet not connected!", "error");
         }
     }
 
@@ -293,8 +294,8 @@
     $scope.changePic = function () {
         var hideSheet = $ionicActionSheet.show({
             buttons: [
-                  { text: 'From Photo Library' },
-                  { text: 'Use Camera' }
+                  { text: 'Choose From Library' },
+                  { text: 'Take Photo' }
             ],
             titleText: 'Update Your Profile Picture',
             cancelText: 'Cancel',

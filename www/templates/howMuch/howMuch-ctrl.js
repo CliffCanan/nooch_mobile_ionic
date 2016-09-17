@@ -417,8 +417,8 @@
 
         var hideSheet = $ionicActionSheet.show({
             buttons: [
-              { text: 'From Photo Library' },
-              { text: 'Use Camera' }
+              { text: 'Choose From Library' },
+              { text: 'Take Photo' }
             ],
             titleText: 'Attach a Picture',
             cancelText: 'Cancel',

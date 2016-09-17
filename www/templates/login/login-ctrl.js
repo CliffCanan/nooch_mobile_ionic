@@ -79,14 +79,14 @@
                           {
                               // User has not yet authorized location access - so just login (we request permission later only at a relevant time, i.e. on Select Recipient -> Search By Location Tab)
                               $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                              $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '0.00';
-                              $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '0.00';
+                              //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '0.00';
+                              //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '0.00';
 
                               $scope.loginService();
                           }
                       }, function (error) {
                           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                          console.error("The following error occurred: " + error);
+                          console.error("Login -> isLocationAuthorized Error: [" + JSON.stringify(error) + ']');
                       });
                   }
                   else // for Browser testing
@@ -94,7 +94,7 @@
               });
           }
           //} else
-          //    swal("Oops...", "Internet not connected!", "error");
+          //    swal("Error", "Internet not connected!", "error");
       }
 
 
@@ -291,24 +291,10 @@
                       {
                           // User has not yet authorized location access - so just login (we request permission later only at a relevant time, i.e. on Select Recipient -> Search By Location Tab)
                           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                          $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '0.00';
-                          $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '0.00';
+                          //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '0.00';
+                          //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '0.00';
 
                           $scope.loginService();
-
-                          /*swal({
-                              title: "GPS Off",
-                              text: "Your Location is not shared with Nooch Would you like to share it",
-                              type: "warning",
-                              showCancelButton: true,
-                              confirmButtonColor: "#DD6B55",
-                              confirmButtonText: "Yes, Enable",
-                          }, function () {
-                              if (window.cordova) {
-                                  cordova.plugins.diagnostic.switchToLocationSettings();
-                                  $timeout($scope.getLocation, 4000); //calling this service after 4s b/c user will take some time to on the GPS :Surya
-                              }
-                          });*/
                       }
                   }, function (error) {
                       console.log("isLocationEnabled Error: [" + JSON.stringify(error) + ']');

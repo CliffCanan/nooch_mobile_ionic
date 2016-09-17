@@ -85,11 +85,11 @@
                                     cordova.plugins.diagnostic.requestContactsAuthorization(function (status) {
                                         if (status === cordova.plugins.diagnostic.permissionStatus.GRANTED)
                                         {
-                                            console.log("Contacts use is authorized");
+                                            //console.log("Contacts use is authorized");
                                             $scope.fetchContacts();
                                         }
-                                        else
-                                            console.log("Contact permisison is " + status);
+                                        //else
+                                        //    console.log("Contact permisison is " + status);
                                     }, function (error) {
                                         console.error(error);
                                     });
@@ -292,6 +292,7 @@
 
     $scope.getCurrentLocation = function () {
         console.log('getCurrentLocation Fired');
+
         $ionicPlatform.ready(function () {
             if (window.cordova)
             {
@@ -376,13 +377,13 @@
                         }
                     }
 
-                    console.log("Found Nearby Users!");
+                    //console.log("Found Nearby Users!");
                     $scope.memberList = data;
                     $scope.foundNearbyUsers = true;
                 }
                 else
                 {
-                    console.log("No Nearby Users!");
+                    //console.log("No Nearby Users!");
                     $scope.memberList = [];
                     $scope.foundNearbyUsers = false;
                 }

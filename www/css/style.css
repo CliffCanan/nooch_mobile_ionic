@@ -901,7 +901,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     .sweet-alert button {
         font-size: 15px;
         margin: 8px 3px 5px;
-        min-width: 88px;
+        min-width: 76px;
         padding: 10px 14px;
         text-shadow: 0px -1px rgba(19, 32, 38, 0.12);
         text-transform: uppercase;
@@ -2334,6 +2334,7 @@ div.hscroller-card {
         .sweet-alert button {
             font-size: 16.5px;
             margin: 10px 4px 5px;
+            min-width: 88px;
             padding: 10px 20px;
         }
 

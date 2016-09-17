@@ -1,6 +1,8 @@
 ﻿angular.module('noochApp.MenuCtrl', ['noochApp.services', 'noochApp.menu-service', 'ngStorage'])
 
-.controller('MenuCtrl', function ($scope, $timeout, authenticationService, $cordovaAppRate, $ionicActionSheet, $ionicModal, $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce, profileService, $rootScope, historyService, $ionicPlatform, CommonServices, $state, $cordovaGoogleAnalytics) {
+.controller('MenuCtrl', function ($scope, $timeout, authenticationService, $cordovaAppRate, $ionicActionSheet, $ionicModal,
+                                  $cordovaNetwork, menuService, $ionicLoading, $localStorage, $cordovaSocialSharing, $sce,
+                                  profileService, $rootScope, historyService, $ionicPlatform, CommonServices, $state, $cordovaGoogleAnalytics) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('MenuCtrl Ctrl Loaded');
@@ -20,12 +22,6 @@
             if ($rootScope.hasSynapseUserAccount && $rootScope.hasSynapseBank == true)
                 $timeout($scope.pendingList, 4000);
         }
-
-        // CC (9/13/16): Since this controller is called by many screens, we should not call Google Analytics here.
-        //$ionicPlatform.ready(function () {
-        //    console.log(typeof analytics);
-        //    if (typeof analytics !== 'undefined') analytics.trackView("Menu Controller");
-        //})
     });
 
 
@@ -74,9 +70,6 @@
                 $rootScope.synBankAllowed = res.synBankAllowed;
                 $rootScope.pinEnc = res.pin;
                 $rootScope.fbid = res.fbUserId;
-
-                // Now check if the user has any pending transactions
-                // $timeout($scope.pendingList, 2000);
 
                 //if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
                 //    $rootScope.$broadcast('isSuspended');

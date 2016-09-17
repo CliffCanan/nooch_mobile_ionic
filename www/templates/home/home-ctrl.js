@@ -11,7 +11,7 @@
     $scope.memberList = [];
     $scope.phoneContacts = [];
 
-    $scope.$on("$ionicView.enter", function (event, data) {
+    $scope.$on("$ionicView.beforeEnter", function (event, data) {
         //console.log('Home Ctrl BeforeEnter Fired');
         if ($('#searchMoreFriends').hasClass('flipOutX'))
             $('#searchMoreFriends').removeClass('flipOutX');
@@ -158,8 +158,8 @@
 			                                console.log("Contacts use is authorized");
 			                                $scope.fetchContacts();
 			                            }
-			                            else
-			                                console.log("Contact permisison is " + status);
+			                            //else
+			                            //    console.log("Contact permisison is " + status);
 			                        }, function (error) {
 			                            console.error(error);
 			                        });
@@ -177,7 +177,7 @@
 			.error(function (error) {
 			    $ionicLoading.hide();
 			    console.log(JSON.stringify(error));
-			    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+			    if (error == null || error.ExceptionMessage == 'Invalid OAuth 2 Access')
 			        CommonServices.logOut();
 			})
     }
