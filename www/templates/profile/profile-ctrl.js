@@ -88,8 +88,8 @@
             $ionicLoading.show({
                 template: 'Saving Profile...'
             });
-
-            //console.log($scope.Details);
+            $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
+            console.log($scope.Details);
 
             profileService.UpdateProfile($scope.Details)
                 .success(function (data) {
