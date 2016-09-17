@@ -31,10 +31,10 @@
                 $scope.getTransactions();
             }
 
-            //$rootScope.Location = {
-            //    longi: '',
-            //    lati: ''
-            //}
+            $rootScope.Location = {
+                longi: '',
+                lati: ''
+            }
 
             $ionicPlatform.ready(function () {
                 if (typeof analytics !== 'undefined') analytics.trackView("History Screen");
@@ -258,8 +258,8 @@
 
         $scope.showMap = function (longi, lati) {
             // if ($cordovaNetwork.isOnline()) {
-            console.log($rootScope.Location.longi);
-            console.log($rootScope.Location.lati);
+            //console.log($rootScope.Location.longi);
+            //console.log($rootScope.Location.lati);
 
             if (longi == 0 || lati == 0 || longi == '' || lati == '')
             {
@@ -274,12 +274,12 @@
             {
                 $ionicLoading.show({
                     template: 'Loading Payment Location...'
-                });
-
-                $state.go('app.map');
+                });              
 
                 $rootScope.Location.longi = longi;
                 $rootScope.Location.lati = lati;
+                $state.go('app.map');
+                $ionicLoading.hide();
             }
             //}
             //else
