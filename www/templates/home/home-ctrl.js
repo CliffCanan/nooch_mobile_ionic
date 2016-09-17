@@ -22,11 +22,10 @@
 
 
     $scope.$on("$ionicView.enter", function (event, data) {
+        console.log('Home Ctrl Enter Fired');
 
         $scope.memberList = [];
         $scope.phoneContacts = [];
-        $scope.pendingList();
-        console.log('Home Ctrl Enter Fired');
 
         $timeout(function () {
             //console.log($localStorage.GLOBAL_VARIABLES);
@@ -65,11 +64,11 @@
                     transition: 'vertical'
                 });
 
-                $scope.isBannerShowing == true;
-                $('#fav-container').css('margin-top', '40px');
+                $scope.isBannerShowing = true;
+                //$('#fav-container').css('margin-top', '40px');
             }
             else
-                $scope.isBannerShowing == false;
+                $scope.pendingList();
 
             if ($localStorage.GLOBAL_VARIABLES.MemberId != null &&
                 $localStorage.GLOBAL_VARIABLES.MemberId != '')
@@ -80,7 +79,6 @@
 
         }, 1000);
 
-        
 
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Home");
@@ -88,23 +86,32 @@
     });
 
     $scope.pendingList = function () {
-        
+
         historyService.getTransferList('Pending')
             .success(function (data) {
 
                 if (data.length > 0)
                 {
+                    console.log(data.length);
+                    $rootScope.pendingTransfersCount = data.length;
+
+                    var text = $rootScope.pendingTransfersCount > 1
+                    ? $rootScope.pendingTransfersCount + ' Pending Requests Waiting'
+                    : '1 Pending Request Waiting';
+
                     $ionicContentBanner.show({
-                        text: ['Pending Request Waiting'],
+                        text: [text],
                         type: 'info',
                         transition: 'vertical'
                     });
+                    $scope.isBannerShowing = true;
                 }
-
-              
+                else
+                    $scope.isBannerShowing = false;
             })
             .error(function (data) {
                 console.log('GetTransferList Error: [' + JSON.stringify(data) + ']');
+                $scope.isBannerShowing = false;
                 if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                     CommonServices.logOut();
             });

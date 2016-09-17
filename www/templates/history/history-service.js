@@ -4,7 +4,7 @@
       this.getTransferList = function (SubListType) {
           console.log(SubListType);
 		  var url = URLs.getTransferList + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId +
-		  '&listType=All&pSize=50&pIndex=0&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&SubListType=' + SubListType;
+		  '&listType=All&pSize=60&pIndex=0&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&SubListType=' + SubListType;
           return $http.get(url);
       };
 

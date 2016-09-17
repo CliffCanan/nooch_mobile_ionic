@@ -219,8 +219,6 @@
     });
 
 
- 
-
 
     $scope.goProfile = function () {
         $state.go('app.profile');

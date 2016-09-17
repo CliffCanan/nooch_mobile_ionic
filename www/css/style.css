@@ -862,10 +862,6 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
             width: 100%;
         }
 
-    .sweet-alert.singleBtn .sa-confirm-button-container {
-        float: none;
-    }
-
     .sweet-alert.text-left p {
         text-align: left;
     }
@@ -913,6 +909,11 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
     .sweet-alert .sa-confirm-button-container {
         float: right;
+    }
+
+    .sweet-alert.singleBtn .sa-confirm-button-container,
+    .sweet-alert[data-custom-class="singleBtn"] .sa-confirm-button-container {
+        float: none !important;
     }
 
     .sweet-alert fieldset {
@@ -1358,7 +1359,7 @@ iframe {
 }
 
 .menu #icon::before {
-    font-size: 38px;
+    font-size: 44px;
     margin: 0;
 }
 

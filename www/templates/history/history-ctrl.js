@@ -9,12 +9,8 @@
 
             console.log();
 
-            $ionicLoading.show({
-                template: 'Loading Payment History...'
-            });
-
-            $scope.historyListHeight = { 'height': $rootScope.screenHeight - 155 + 'px' }
-            $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 151 + 'px' }
+            $scope.historyListHeight = { 'height': $rootScope.screenHeight - 158 + 'px' }
+            $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 154 + 'px' }
             $scope.transDetailsForPin = {};
             var transDetails = {};
 
@@ -28,7 +24,7 @@
                 $('#btnCompleted').addClass('active');
                 $('#btnPending').removeClass('active');
 
-                $scope.getTransactions();
+                $scope.getTransactions('');
             }
 
             $rootScope.Location = {
@@ -42,20 +38,30 @@
         });
 
 
-        $scope.getTransactions = function () {
-            historyService.getTransferList('')
+        $scope.getTransactions = function (type) {
+            $ionicLoading.show({
+                template: 'Loading Payment History...'
+            });
+
+            historyService.getTransferList(type)
 				.success(function (data) {
 				    $scope.isFinishedLoading = true;
 
 				    $scope.transactionList = data;
 				    $scope.filterFlag = data;
 				    // console.log('GetTransferList Result Data >>>>>');
-				    // console.log($scope.transactionList);
+				    console.log($scope.transactionList.length);
+
+				    var pendingCount = 0;
 
 				    for (var i = 0; i < $scope.transactionList.length; i++)
 				    {
 				        $scope.transactionList[i].TransactionDate = new Date($scope.transactionList[i].TransactionDate);
+				        if ($scope.transactionList[i].TransactionStatus == 'Pending')
+				            pendingCount += 1;
 				    }
+
+				    $rootScope.pendingTransfersCount = pendingCount;
 				    $scope.transList = $scope.transactionList;
 				    $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
 
@@ -94,6 +100,7 @@
                 confirmButtonText: "Yes",
                 showCancelButton: true,
             }, function (isConfirm) {
+                $ionicListDelegate.closeOptionButtons();
                 if (isConfirm)
                 {
                     $ionicLoading.show({
@@ -104,11 +111,16 @@
                     {
                         transferDetailsService.CancelMoneyRequestForNonNoochUser(trans.TransactionId)
                             .success(function (data) {
+                                $ionicLoading.hide();
                                 if (data.Result.indexOf('Successfully') > -1)
                                 {
-                                    swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                                        $ionicLoading.hide();
-                                        $state.reload();
+                                    swal({
+                                        title: "Request Cancelled Successfully",
+                                        type: "success",
+                                        confirmButtonColor: "#3fabe1",
+                                        customClass: "singleBtn"
+                                    }, function () {
+                                        $scope.getTransactions('Pending');
                                     });
                                 }
                             })
@@ -122,11 +134,16 @@
                     {
                         transferDetailsService.CancelMoneyRequestForExistingNoochUser(trans.TransactionId)
                             .success(function (data) {
+                                $ionicLoading.hide();
                                 if (data.Result.indexOf('Successfully') > -1)
                                 {
-                                    swal({ title: "Request Cancelled", text: data.Result, type: "success", confirmButtonColor: "#DD6B55", confirmButtonText: "Ok!" }, function () {
-                                        $ionicLoading.hide();
-                                        $state.reload();
+                                    swal({
+                                        title: "Request Cancelled Successfully",
+                                        type: "success",
+                                        confirmButtonColor: "#3fabe1",
+                                        customClass: "singleBtn"
+                                    }, function () {
+                                        $scope.getTransactions('Pending');
                                     });
                                 }
                             })
@@ -145,33 +162,36 @@
 
             console.log("Reject Payment Fired: [" + trans.TransactionId + ']');
 
-            //$ionicLoading.show({
-            //    template: 'Rejecting Request...'
-            //});
-
             swal({
                 title: "Reject Payment",
-                text: "Are you sure you want to Reject this Payment ?",
+                text: "Are you sure you want to Reject this payment?",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Yes",
                 showCancelButton: true,
             }, function (isConfirm) {
+                $ionicListDelegate.closeOptionButtons();
                 if (isConfirm)
                 {
+                    $ionicLoading.show({
+                        template: 'Rejecting Request...'
+                    });
+
                     transferDetailsService.RejectPayment(trans.TransactionId)
                         .success(function (data) {
                             $ionicLoading.hide();
 
                             if (data.Result.indexOf('Successfully') > -1)
+                            {
                                 swal({
-                                    title: "Request Rejected",
-                                    text: data.Result,
+                                    title: "Request Rejected Successfully",
                                     type: "success",
-                                    confirmButtonColor: "#3fabe1"
+                                    confirmButtonColor: "#3fabe1",
+                                    customClass: "singleBtn"
                                 }, function () {
-                                    $state.reload();
+                                    $scope.getTransactions('Pending');
                                 });
+                            }
                         })
                         .error(function (error) {
                             $ionicLoading.hide();
@@ -193,6 +213,7 @@
                 confirmButtonText: "Yes",
                 showCancelButton: true,
             }, function (isConfirm) {
+                $ionicListDelegate.closeOptionButtons();
                 if (isConfirm)
                 {
                     $ionicLoading.show({
@@ -203,13 +224,12 @@
 		                .success(function (data) {
 		                    console.log(data);
 		                    $ionicLoading.hide();
-
 		                    if (data.Result.indexOf('successfully') > -1)
 		                        swal({
 		                            title: "Reminder Sent Successfully",
-		                            text: null,
 		                            type: "success",
-		                            confirmButtonColor: "#3fabe1"
+		                            confirmButtonColor: "#3fabe1",
+		                            customClass: "singleBtn"
 		                        });
 		                    else
 		                        swal("Error", data.Result, "error");
@@ -225,7 +245,6 @@
 
 
         $scope.PayBack = function (trans) {
-
             console.log("Pay Back Result: [" + JSON.stringify(trans) + ']');
             $state.go('app.howMuch', { myParam: trans });
         }
@@ -235,7 +254,7 @@
 
             swal({
                 title: "Pay Request?",
-                text: "Are you sure you want to pay for this request ?",
+                text: "Are you sure you want to pay this request ?",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Yes",
@@ -243,7 +262,6 @@
             }, function (isConfirm) {
                 if (isConfirm)
                 {
-
                     transDetails = trans;
                     transDetails.RecepientName = trans.Name;
                     console.log("Transfer Money Result: [" + JSON.stringify(transDetails) + ']');
@@ -261,6 +279,8 @@
             //console.log($rootScope.Location.longi);
             //console.log($rootScope.Location.lati);
 
+            $ionicListDelegate.closeOptionButtons();
+
             if (longi == 0 || lati == 0 || longi == '' || lati == '')
             {
                 $ionicContentBanner.show({
@@ -274,7 +294,7 @@
             {
                 $ionicLoading.show({
                     template: 'Loading Payment Location...'
-                });              
+                });
 
                 $rootScope.Location.longi = longi;
                 $rootScope.Location.lati = lati;
@@ -292,15 +312,19 @@
 
                 if (view == 'completed')
                 {
-                    $scope.transactionList = [];
-                    $scope.transactionList = $scope.transList;
+                    //$scope.transactionList = [];
+
+                    $scope.getTransactions('');
+
                     $scope.completed = true;
                     $scope.pending = false;
                 }
                 else
                 {
-                    $scope.transactionList = [];
-                    $scope.transactionList = $scope.transList;
+                    //$scope.transactionList = [];
+
+                    $scope.getTransactions('Pending');
+
                     $scope.pending = true;
                     $scope.completed = false;
                 }
