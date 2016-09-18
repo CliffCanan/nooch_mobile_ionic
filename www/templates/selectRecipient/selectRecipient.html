@@ -22,7 +22,7 @@
 
         <ion-scroll direction="y" class="history-list" ng-style="selectRecipListHeight">
 
-            <img src="././img/SelectRecip_Empty@2x.png" ng-show="loadComplete == true && (recentCount === 0 || memberList.length === 0) && currentView === 'recent'" class="emptyTableImg" />
+            <img src="././img/SelectRecip_Empty@2x.png" ng-show="loadComplete == true && (recentCount === 0 || memberList.length === 0) && currentView === 'recent' && showEmPhDiv != true" class="emptyTableImg" />
 
             <div ng-if="loadComplete == true && (!foundNearbyUsers || memberList.length == 0) && currentView == 'location'" ng-style="selectRecipListHeight" class="emptyTable text-center p-25 m-t-10">
                 <i class="ion-ios-location lt-gray-text"></i>

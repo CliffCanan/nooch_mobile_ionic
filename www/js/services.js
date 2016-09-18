@@ -207,7 +207,7 @@ angular.module('noochApp.services', ['ngStorage'])
 
       this.DisplayError = function (text) {
           $ionicContentBanner.show({
-              text: ['Error: ' + text],
+              text: ['Error - ' + text],
               autoClose: '5000',
               type: 'error',
               transition: 'vertical'

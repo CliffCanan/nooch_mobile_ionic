@@ -343,8 +343,7 @@
             title: "Non-cents!",
             text: bodyTxt,
             type: "warning",
-            confirmButtonColor: "#3fabe1",
-            customClass: "heavierText",
+            customClass: "heavierText singleBtn",
             html: true
         }, function () {
             $timeout(function () {
@@ -366,8 +365,7 @@
             title: "Whoa Now",
             text: bodyTxt,
             type: "warning",
-            confirmButtonColor: "#3fabe1",
-            customClass: "heavierText"
+            customClass: "heavierText singleBtn"
         }, function () {
             $timeout(function () {
                 $("#amountField").focus();
@@ -402,8 +400,7 @@
             title: "Almost There...",
             text: bodyTxt,
             type: "warning",
-            confirmButtonColor: "#3fabe1",
-            customClass: "heavierText",
+            customClass: "heavierText singleBtn",
             html: true
         }, function () {
             $timeout(function () {
@@ -442,11 +439,10 @@
 
 
     $scope.takePhoto = function () {
-        console.log($cordovaCamera);
 
         cordova.plugins.diagnostic.isCameraAuthorized(function (authorized) {
 
-            console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
+            //console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
 
             if (authorized)
             {
@@ -471,7 +467,7 @@
                     $scope.imgURI = null;
                     $scope.isPicAttachedToTrans = false;
 
-                    $scope.showErrorBanner('camera');
+                    CommonServices.DisplayError('Unable to get picture from the camera.');
                 });
             }
             else
@@ -481,33 +477,30 @@
                     text: "Do you want to take a picture to attach to this payment?",
                     type: "info",
                     confirmButtonText: "Yes",
-                    confirmButtonColor: "#3fabe1",
                     showCancelButton: true,
                     cancelButtonText: "Not Now"
                 }, function (isConfirm) {
                     if (isConfirm)
                     {
                         cordova.plugins.diagnostic.requestCameraAuthorization(function (status) {
-                            console.log("Authorization request for camera use was: [" + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted]" : "denied]"));
+                            //console.log("Authorization request for camera use was: [" + (status == cordova.plugins.diagnostic.permissionStatus.GRANTED ? "granted]" : "denied]"));
                             if (status)
                                 $scope.takePhoto();
                         }, function (error) {
-                            console.error(error);
-                            $scope.showErrorBanner('camera');
+                            //console.error(error);
+                            CommonServices.DisplayError('Unable to get picture from the camera.');
                         });
                     }
                 });
             }
         }, function (error) {
-            console.error("isCameraAuthorized error: [" + error + "]");
-            $scope.showErrorBanner('camera');
+            //console.error("isCameraAuthorized error: [" + error + "]");
+            CommonServices.DisplayError('Unable to get picture from the camera.');
         });
     }
 
 
     $scope.choosePhotoFromDevice = function () {
-        // CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
-
         $ionicPlatform.ready(function () {
             CommonServices.openPhotoGallery('howMuch', function (result) {
                 if (result != null && result != 'failed')
@@ -519,24 +512,14 @@
                 }
                 else
                 {
-                    console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
+                    //console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
                     $scope.pictureBase64 = null;
                     $scope.imgURI = null;
                     $scope.isPicAttachedToTrans = false;
 
-                    $scope.showErrorBanner('photo gallery');
+                    CommonServices.DisplayError('Unable to get picture from the photo gallery.');
                 }
             });
-        });
-    }
-
-
-    $scope.showErrorBanner = function (id) {
-        $ionicContentBanner.show({
-            text: ['Error - Unable to get picture from the ' + id + ' :-('],
-            autoClose: 4000,
-            type: 'error',
-            transition: 'vertical'
         });
     }
 

@@ -238,8 +238,9 @@
                  text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
                        "<span class='show'>" + bodyTxt + "</span>",
                  type: "warning",
-                 confirmButtonText: confirmBtnTxt,
                  showCancelButton: true,
+                 cancelButtonText: "OK",
+                 confirmButtonText: confirmBtnTxt,
                  html: true
              }, function (isConfirm) {
                  if (isConfirm)
@@ -263,8 +264,9 @@
                                         title: "Invalid Phone Number",
                                         text: "Looks like your phone number isn't valid! Please update your number and try again or contact Nooch Support.",
                                         type: "error",
-                                        confirmButtonText: "Update Number",
                                         showCancelButton: true,
+                                        cancelButtonText: "OK",
+                                        confirmButtonText: "Update Number",
                                         html: true
                                     }, function (isConfirm) {
                                         if (isConfirm)

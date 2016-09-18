@@ -7,14 +7,13 @@
         $scope.$on("$ionicView.enter", function (event, data) {
             console.log('History Page Loaded');
 
-            console.log();
-
             $scope.historyListHeight = { 'height': $rootScope.screenHeight - 158 + 'px' }
             $scope.firstTimeDivHeight = { 'min-height': $rootScope.screenHeight - 154 + 'px' }
 
             $scope.transDetailsForPin = {};
             var transDetails = {};
-            console.log($scope.transactionList);
+
+            //console.log($scope.transactionList);
 
             if (typeof $scope.transactionList == 'undefined')
             {
@@ -52,7 +51,7 @@
 				    $scope.transactionList = data;
 				    $scope.filterFlag = data;
 				    // console.log('GetTransferList Result Data >>>>>');
-				    console.log($scope.transactionList.length);
+				    //console.log($scope.transactionList.length);
 
 				    var pendingCount = 0;
 
@@ -63,9 +62,11 @@
 				            pendingCount += 1;
 				    }
 
-				    $rootScope.pendingTransfersCount = pendingCount;
+				    if ($rootScope.pendingTransfersCount == null || pendingCount > $rootScope.pendingTransfersCount)
+				        $rootScope.pendingTransfersCount = pendingCount;
+
 				    $scope.transList = $scope.transactionList;
-				    $scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
+				    //$scope.memberId = $localStorage.GLOBAL_VARIABLES.MemberId;
 
 				    $ionicLoading.hide();
 				})
@@ -113,6 +114,7 @@
                     {
                         transferDetailsService.CancelMoneyRequestForNonNoochUser(trans.TransactionId)
                             .success(function (data) {
+                                console.log(data);
                                 $ionicLoading.hide();
                                 if (data.Result.indexOf('Successfully') > -1)
                                 {
@@ -125,17 +127,22 @@
                                         $scope.getTransactions('Pending');
                                     });
                                 }
+                                else
+                                    CommonServices.DisplayError('Unable to cancel that payment!');
                             })
                             .error(function (data) {
                                 $ionicLoading.hide();
                                 if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                                     CommonServices.logOut();
+                                else
+                                    CommonServices.DisplayError('Unable to cancel that payment!');
                             });
                     }
                     else
                     {
                         transferDetailsService.CancelMoneyRequestForExistingNoochUser(trans.TransactionId)
                             .success(function (data) {
+                                console.log(data);
                                 $ionicLoading.hide();
                                 if (data.Result.indexOf('Successfully') > -1)
                                 {
@@ -148,11 +155,15 @@
                                         $scope.getTransactions('Pending');
                                     });
                                 }
+                                else
+                                    CommonServices.DisplayError('Unable to cancel that payment!');
                             })
                             .error(function (data) {
                                 $ionicLoading.hide();
                                 if (data.ExceptionMessage == 'Invalid OAuth 2 Access')
                                     CommonServices.logOut();
+                                else
+                                    CommonServices.DisplayError('Unable to cancel that payment!');
                             });
                     }
                 }
@@ -166,7 +177,7 @@
 
             swal({
                 title: "Reject Payment",
-                text: "Are you sure you want to Reject this payment?",
+                text: "Are you sure you want to reject this payment?",
                 type: "warning",
                 confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Yes",

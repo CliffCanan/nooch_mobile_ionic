@@ -52,6 +52,8 @@
         selectRecipientService.GetRecentMembers()
             .success(function (data) {
 
+                console.log(data);
+
                 $scope.memberList = data;
                 $scope.recentCount = $scope.memberList.length;
                 $scope.item2 = data;
@@ -524,6 +526,8 @@
         selectRecipientService.CheckMemberExistenceUsingEmailOrPhone(type, StringToCheck)
             .success(function (data) {
                 $ionicLoading.hide();
+
+                console.log(data);
 
                 if (data.IsMemberFound == true)
                 {

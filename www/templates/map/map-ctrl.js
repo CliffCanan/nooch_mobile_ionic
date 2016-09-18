@@ -6,11 +6,11 @@
 
     $scope.$on("$ionicView.enter", function (event, data) {
 
-        console.log('map Ctrl loaded');
+        //console.log('map Ctrl loaded');
         $scope.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC3f2pIfit--Qr7Tvl5EGnzvEHpDAIsYoI';
 
-        console.log($rootScope.Location.longi);
-        console.log($rootScope.Location.lati);
+        //console.log($rootScope.Location.longi);
+        //console.log($rootScope.Location.lati);
 
         $ionicPlatform.ready(function () {
 
@@ -20,8 +20,8 @@
                 //map.markers = [31.3260, 75.5762];
                 //map.shapes = 'lines';
                 console.log(map.getCenter());
-                console.log('markers', map.markers);
-                console.log('shapes', map.shapes);
+                //console.log('markers', map.markers);
+                //console.log('shapes', map.shapes);
 
                 vm.showCustomMarker = function (evt) {
                     map.customMarkers.foo.setVisible(true);
@@ -36,6 +36,6 @@
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Map");
         })
-    }); 
+    });
 });
 

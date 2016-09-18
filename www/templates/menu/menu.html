@@ -27,47 +27,47 @@
                 <div class="item item-divider">ACCOUNT</div>
 
                 <ion-item menu-close href="#/app/home">
-                    <div class="ion-ios-home">Home <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-ios-home">Home <i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#/app/history">
-                    <div class="ion-android-time">Transfer History <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-android-time">Transfer History<span class="alertIcon" id="pendingTrans" ng-if="pendingTransfersCount != null && pendingTransfersCount > 0">{{pendingTransfersCount}}</span><i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#/app/settings">
-                    <div class="ion-gear-b">Settings <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-gear-b">Settings <i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#/app/statistics">
-                    <div class="ion-arrow-graph-up-right">Statistics <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-arrow-graph-up-right">Statistics <i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <div class="item item-divider">SOCIAL</div>
 
                 <ion-item menu-close href="#/app/referAfriend">
-                    <div class="ion-ios-people">Refer a Friend <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-ios-people">Refer a Friend <i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <ion-item href="" ng-click="rateNooch()">
-                    <div class="ion-thumbsup">Rate Nooch <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-thumbsup">Rate Nooch <i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <div class="item item-divider">ABOUT</div>
 
                 <ion-item menu-close href="#/app/howItWorks">
-                    <div class="ion-help">How Nooch Works <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-help">How Nooch Works <i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <ion-item href="" ng-click="showActionSheet('support')">
-                    <div class="ion-ios-email">Contact Support <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-ios-email">Contact Support <i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <ion-item menu-close href="#/app/limitsAndFees">
-                    <div class="ion-social-usd">Limits &amp; Fees<i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-social-usd">Limits &amp; Fees<i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <ion-item href="" ng-click="showActionSheet('legal')">
-                    <div class="ion-briefcase">Legal Info <i class="ion-chevron-right FloatRight"></i></div>
+                    <div class="ion-briefcase">Legal Info <i class="ion-chevron-right"></i></div>
                 </ion-item>
 
                 <div id="btm-section" class="item">

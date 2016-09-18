@@ -130,7 +130,6 @@
 			                    type: "info",
 			                    showCancelButton: true,
 			                    cancelButtonText: "Not Now",
-			                    confirmButtonColor: "#3fabe1",
 			                    confirmButtonText: "Authorize",
 			                }, function (isConfirm) {
 			                    if (isConfirm)
@@ -330,7 +329,7 @@
 
                 if (data.length > 0)
                 {
-                    console.log(data.length);
+                    //console.log(data.length);
                     $rootScope.pendingTransfersCount = data.length;
 
                     var text = $rootScope.pendingTransfersCount > 1
@@ -515,7 +514,6 @@
                 title: "Account Suspended",
                 text: bodyTxt,
                 type: "error",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Ok",
                 showCancelButton: showCancelButton,
                 cancelButtonText: "Contact Support",
@@ -546,8 +544,6 @@
                 title: "Please Verify Your Email",
                 text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
-                confirmButtonText: "Ok",
                 showCancelButton: true,
                 cancelButtonText: "Resend Email"
             }, function (isConfirm) {
@@ -596,7 +592,6 @@
                 text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
                       "<span class='show'>" + bodyTxt + "</span>",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: confirmBtnTxt,
                 showCancelButton: true,
                 cancelButtonText: "Ok",
@@ -623,7 +618,6 @@
                                        title: "Invalid Phone Number",
                                        text: "Looks like your phone number isn't valid! Please update your number and try again or contact Nooch Support.",
                                        type: "error",
-                                       confirmButtonColor: "#3fabe1",
                                        confirmButtonText: "Update Number",
                                        showCancelButton: true,
                                        cancelButtonText: "Ok",
@@ -665,7 +659,6 @@
                 title: "Help Us Keep Nooch Safe",
                 text: "Please take 1 minute to verify your identity by completing your Nooch profile.",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Go Now",
                 showCancelButton: true,
                 cancelButtonText: "Later",
@@ -682,7 +675,6 @@
 					  "<ul><li>No routing or account number needed</li><li>Bank-grade encryption keeps your info safe</li>" +
 					  "<span class='show'>Would you like to take care of this now?</span>",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Go Now",
                 showCancelButton: true,
                 cancelButtonText: "Later",
@@ -698,7 +690,6 @@
                 text: "Looks like we need just a bit more info to verify your bank account. This usually happens when we were unable to match the contact info listed on the bank account with your Nooch profile information." +
 					  "<span class='show'>Don't worry - we can solve this quickly. Please tap 'Learn More' for what to do next.</span>",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Learn More",
                 showCancelButton: true,
                 cancelButtonText: "Not Now",

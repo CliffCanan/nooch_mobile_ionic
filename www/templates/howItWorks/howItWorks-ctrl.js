@@ -4,7 +4,7 @@
 .controller('howItWorksCtrl', function ($scope, $state, $ionicHistory, $cordovaGoogleAnalytics, $ionicPlatform) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('How It Works Controller Loadad');
+        //console.log('How It Works Controller Loadad');
 
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("How It Works");

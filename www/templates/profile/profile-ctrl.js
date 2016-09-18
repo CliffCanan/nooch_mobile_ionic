@@ -215,7 +215,8 @@
 
     $scope.ResendVerificationSMS = function () {
         $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g, '');
-        console.log($scope.Details.ContactNumber); 
+        //console.log($scope.Details.ContactNumber); 
+
         swal({
             title: "Resend Confirmation Link?",
             text: "<strong style='color:#888'>" + $rootScope.contactNumber + "</strong><span class='show'>Your phone number is unverified.</span>" +
