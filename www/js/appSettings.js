@@ -23,7 +23,7 @@ var URLs = {
     GetLocationSearch: PATH + 'GetLocationSearch',
     GetMemberIdByUsername: PATH + 'GetMemberIdByUsername',
     GetMemberIdByPhone: PATH + 'GetMemberIdByPhone',
-    GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
+    //GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
     GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings',
     GetMemberStatsGeneric: PATH + 'GetMemberStatsGeneric',
     GetMostFrequentFriends: PATH + 'GetMostFrequentFriends',
@@ -31,7 +31,7 @@ var URLs = {
     GetRecentMembers: PATH + 'GetRecentMembers',
     getReferralCode: PATH + 'getReferralCode',
     GetRecentMembers: PATH + 'GetRecentMembers',
-    GetSynapseBankAndUserDetails: PATH + 'GetUsersBankInfoForMobile', // CC (8/28/16) Updated this to call a new server method specifically for sending only the data needed for the mobile app (i.e. no OAuth key or bank OID stuff)
+    GetSynapseBankAndUserDetails: PATH + 'GetUsersBankInfoForMobile',
     getTransferList: PATH + 'GetTransactionsList',
     GetUserDetails: PATH + 'GetUserDetailsForApp',
     Login: PATH + 'LoginRequest',

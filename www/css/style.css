@@ -903,6 +903,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
         text-transform: uppercase;
     }
 
+        .sweet-alert button.confirm {
+            background-color: red;
+        }
+
         .sweet-alert button.cancel {
             float: left;
         }
@@ -1641,6 +1645,7 @@ div.hscroller-card {
     top: 0;
     left: 10px;
     padding: 4px 4px 0;
+    z-index: 1;
 }
 
     #profileTable button i {
@@ -2303,64 +2308,6 @@ div.hscroller-card {
         z-index: 9;
     }
 
-@media screen and (min-width: 360px) {
-    .ti-segmented-control a.button {
-        font-size: 16px;
-        padding: 7px 15px 7px;
-    }
-
-    .ti-segmented-control .button i {
-        font-size: 112%;
-        margin-right: 11px;
-    }
-
-    .emptyTable p {
-        font-size: 18px;
-    }
-
-    .amount-container input {
-        font-size: 45px;
-        width: 240px;
-    }
-
-    .amount-container #dollarSign {
-        font-size: 45px;
-    }
-
-    .sweet-alert {
-        padding: 4px 16px 12px;
-    }
-
-        .sweet-alert button {
-            font-size: 16.5px;
-            margin: 10px 4px 5px;
-            min-width: 88px;
-            padding: 10px 20px;
-        }
-
-    .item .badge {
-        right: 20px;
-    }
-
-
-    .history-list .name {
-        font-size: 18px;
-        font-weight: 500;
-        margin: 5px 0 4px;
-    }
-
-    .history-list .memo-container {
-        font-size: 15px;
-    }
-
-    .history-list .amount {
-        font-size: 19px;
-        letter-spacing: 0px;
-        top: 31px;
-    }
-}
-
-
 #memoField {
     border: 1px solid #c8c9cb;
     border-radius: 6px;
@@ -2624,9 +2571,13 @@ div.hscroller-card {
 /*******************/
 /***  UPLOAD ID  ***/
 /*******************/
-#uploadIdScrn .section-note {
-    text-align: left;
+#uploadIdScrn p {
+    padding: 0 12px;
     padding-top: 0;
+}
+
+#uploadIdScrn .btn-small {
+    padding: 0 25px;
 }
 
 ul:not(.parsley-errors-list) {
@@ -2655,7 +2606,7 @@ ul:not(.parsley-errors-list) {
     }
 
 .row.shadowBox {
-    border: 1px solid #e1e2e3;
+    border: 1px solid #d7d8d9;
     border-radius: 10px;
     padding: 2px 1px;
     margin: 15px auto;
@@ -2671,23 +2622,93 @@ ul:not(.parsley-errors-list) {
 
     .idPicWrap img {
         border-radius: 16px;
-        box-shadow: 0 4px 18px -4px rgba(0, 0, 0, .25);
-        max-width: 80%;
+        box-shadow: 0 3px 14px -3px rgba(0,0,0,.25);
+        max-width: 260px;
     }
 
     .idPicWrap #editTxt {
-        font-size: 15px;
+        background: #bbb;
+        border-radius: 10px;
+        bottom: 9px;
+        font-size: 14px;
         font-weight: 400;
-        bottom: 10px;
+        left: 30%;
+        max-width: 40%;
+        padding: 3px 0 2px;
     }
 
-#uploadIdScrn .btn-small {
-    padding: 0 25px;
+@media screen and (min-width: 360px) {
+    .ti-segmented-control a.button {
+        font-size: 16px;
+        padding: 7px 15px 7px;
+    }
+
+    .ti-segmented-control .button i {
+        font-size: 112%;
+        margin-right: 11px;
+    }
+
+    .emptyTable p {
+        font-size: 18px;
+    }
+
+    .amount-container input {
+        font-size: 45px;
+        width: 240px;
+    }
+
+    .amount-container #dollarSign {
+        font-size: 45px;
+    }
+
+    .sweet-alert {
+        padding: 4px 16px 12px;
+    }
+
+        .sweet-alert button {
+            font-size: 16.5px;
+            margin: 10px 4px 5px;
+            min-width: 88px;
+            padding: 10px 20px;
+        }
+
+    .item .badge {
+        right: 20px;
+    }
+
+
+    .history-list .name {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 5px 0 4px;
+    }
+
+    .history-list .memo-container {
+        font-size: 15px;
+    }
+
+    .history-list .amount {
+        font-size: 19px;
+        letter-spacing: 0px;
+        top: 31px;
+    }
+
+    #uploadIdScrn p {
+        padding: 0 20px;
+        padding-top: 0;
+    }
+
+    .row.shadowBox {
+        padding: 4px 1px;
+        margin: 15px auto;
+        width: 93%;
+    }
+
+    iframe {
+        min-height: 603px;
+    }
 }
 
-#uploadIdScrn .card p {
-    padding: 0 12px;
-}
 
 /*!
  * animate.css -http://daneden.me/animate

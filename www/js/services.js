@@ -125,6 +125,11 @@ angular.module('noochApp.services', ['ngStorage'])
               targetWidthHeight = 400;
               alertBodyText = "To attach a picture from your photo gallery, please grant Nooch access to your photos.";
           }
+          else if (from == 'uploadId')
+          {
+              targetWidthHeight = 500;
+              alertBodyText = "To upload a picture of your ID, please grant access to your photo gallery.";
+          }
 
           var options = {
               quality: 80,
@@ -156,11 +161,10 @@ angular.module('noochApp.services', ['ngStorage'])
                   else
                   {
                       swal({
-                          title: "Allow Access To Photos",
+                          title: "Allow Photo Gallery Access",
                           text: alertBodyText,
                           type: "info",
                           confirmButtonText: "Give Access",
-                          confirmButtonColor: "#3fabe1",
                           showCancelButton: true,
                           cancelButtonText: "Not Now"
                       }, function (isConfirm) {

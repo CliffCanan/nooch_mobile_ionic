@@ -3,8 +3,7 @@
 .controller('socialSettingCtrl', function ($scope, $rootScope, $state, $ionicHistory, $localStorage, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        // handle event
-        console.log('Social Setting Controller Loadad');
+        //console.log('Social Setting Controller Loadad');
 
         if ($rootScope.fbid == "")
             $rootScope.fbid = 'not connected';
@@ -52,8 +51,8 @@
 
                 authenticationService.SaveMembersFBId($localStorage.GLOBAL_VARIABLES.MemberId, $scope.socialSetting.fbid, $scope.isConnect)
                     .success(function (res) {
-                        console.log('SaveMembersFBId got success res');
-                        console.log(res);
+                        //console.log('SaveMembersFBId got success res');
+                        //console.log(res);
                         if (res.Result == "Success")
                             swal("Success", "Facebook Connected Successfully", "success");
                     })

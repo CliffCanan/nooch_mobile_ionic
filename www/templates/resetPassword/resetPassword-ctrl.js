@@ -69,8 +69,8 @@
                                             title: "Password Updated",
                                             text: "Your password was changed successfully.",
                                             type: "success",
-                                            confirmButtonColor: "#3fabe1",
                                             html: true,
+                                            customClass: "singleBtn"
                                         }, function () {
                                             $state.go('app.securitySetting');
                                         });
@@ -81,8 +81,8 @@
                                             title: "Error",
                                             text: "Something went wrong :-(",
                                             type: "error",
-                                            confirmButtonColor: "#3fabe1",
                                             html: true,
+                                            customClass: "singleBtn"
                                         });
                                     }
                                 })
@@ -108,7 +108,7 @@
                         title: "Incorrect Password",
                         text: "Please try again!",
                         type: "error",
-                        confirmButtonColor: "#3fabe1"
+                        customClass: "singleBtn"
                     });
                 }
             })
@@ -148,7 +148,7 @@
 					            title: "PIN Updated",
 					            text: "Your PIN was changed successfully.",
 					            type: "success",
-					            confirmButtonColor: "#3fabe1",
+					            customClass: "singleBtn"
 					        }, function () {
 					            $state.go('app.securitySetting');
 					        });
@@ -160,8 +160,7 @@
 					            title: "Incorrect PIN",
 					            text: "Please try again!",
 					            type: "error",
-					            confirmButtonColor: "#3fabe1",
-					            confirmButtonText: "Ok"
+					            customClass: "singleBtn"
 					        });
 					    }
 					    else if (data.Result.indexOf('oAuth') > -1)
@@ -267,9 +266,9 @@
                                             $scope.applyError('current');
                                             swal({
                                                 title: "Careful...",
-                                                text: "To keep Nooch safe your account will be suspended if you enter another incorrect PIN.",
+                                                text: "To keep Nooch safe, your account will be suspended if you enter another incorrect PIN.",
                                                 type: "warning",
-                                                confirmButtonColor: "#3fabe1"
+                                                customClass: "singleBtn"
                                             });
                                         }
                                         else if (response.Result != null && response.Result.indexOf('suspended') > -1)
@@ -277,14 +276,14 @@
                                             $scope.applyError('current');
                                             swal({
                                                 title: "Account Suspended",
-                                                text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect PIN too many times." +
+                                                text: "To keep Nooch safe, your account has been temporarily suspended because you entered an incorrect PIN too many times." +
                                                       "<span class='show'>In most cases your account will be automatically un-suspended in 24 hours.</span>",
                                                 type: "error",
                                                 showCancelButton: true,
                                                 cancelButtonText: "Ok",
-                                                confirmButtonColor: "#3fabe1",
                                                 confirmButtonText: "Contact Support",
-                                                html: true
+                                                html: true,
+                                                customClass: "singleBtn"
                                             }, function (isConfirm) {
                                                 if (isConfirm)
                                                 {

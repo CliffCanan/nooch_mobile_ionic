@@ -9,7 +9,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
   'noochApp.SettingCtrl', 'noochApp.socialSettingCtrl', 'noochApp.StatisticsCtrl', 'noochApp.transferDetailsCtrl',
   'noochApp.referAfriendCtrl', 'noochApp.enterPin', 'noochApp.createPinCtrl', 'noochApp.uploadIDCtrl', 'noochApp.microDepositCtrl',
   'noochApp.services', 'noochApp.addPicture', 'noochApp.welcome', 'noochApp.mapCtrl', 'noochApp.howItWorksCtrl', 'noochApp.limitsAndFeesCtrl',
-  'noochApp.enterPinForegroundCtrl', 'noochApp.addBankCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner',
+  'noochApp.enterPinForegroundCtrl', 'ngCordova', 'ti-segmented-control', 'ngStorage', 'jett.ionic.content.banner',
   'ionic.contrib.ui.hscrollcards', 'ngMap'])
 
 
@@ -65,6 +65,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       $rootScope.homeContactLength = 0;
       $rootScope.homeContacts = [];
 
+      $rootScope.baseNoochWebUrl = 'https://noochme.com/noochweb/Nooch/';
+      //$rootScope.baseNoochWebUrl = 'http://nooch.info/noochweb/Nooch/';
+
       $ionicPlatform.ready(function () {
           // Enable to debug issues.
           // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
@@ -116,7 +119,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           document.addEventListener("deviceready", onDeviceReadyApp, false);
 
           function onDeviceReadyApp() {
-              console.log('index ready fired from app js device ready');
 
               if (window.cordova)
               {
@@ -361,15 +363,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                 'menuContent': {
                     templateUrl: 'templates/notificationSetting/notificationSetting.html',
                     controller: 'notificationSettingCtrl'
-                }
-            }
-        })
-        .state('app.addBank', {
-            url: '/settings/addBank',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/addBank/addBank.html',
-                    controller: 'addBankCtrl'
                 }
             }
         })

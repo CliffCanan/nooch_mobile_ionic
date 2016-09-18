@@ -9,7 +9,7 @@
     <ion-content class="b-gray">
 
         <div id="profileTopSection">
-            <h3 class="text-center m-t-10 m-b-0 capitalize">{{Details.FirstName}}&nbsp;{{Details.LastName}}</h3>
+            <h3 class="text-center m-t-10 m-b-0 capitalize">{{Res.firstName}}&nbsp;{{Res.lastName}}</h3>
 
             <div class="row m-b-5">
 
@@ -57,7 +57,7 @@
                         Email
                     </span>
 
-                    <span id="emailTxt">{{Details.UserName}}</span>
+                    <span id="emailTxt">{{Res.email}}</span>
                 </div>
 
                 <div class="item item-input">
@@ -104,7 +104,7 @@
 
                 <div class="item item-input">
                     <span class="input-label">Date of Birth</span>
-                    <input type="date" placeholder="MM/DD/YYYY" max="1998-12-31" ng-model="Details.DateOfBirth" value="{{Details.DateOfBirth | date : 'yyyy-MM-dd' }}" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()">   <!--ng-click="showdate()"-->
+                    <input type="date" placeholder="MM/DD/YYYY" ng-model="Details.DateOfBirth" value="{{Details.DateOfBirth | date : 'yyyy-MM-dd' }}" data-parsley-required data-parsley-required-message="*" ng-change="isAnythingChange()"><!--ng-click="showdate()"-->
                 </div>
 
                 <div ng-show="Details.IsSsnAdded == false">

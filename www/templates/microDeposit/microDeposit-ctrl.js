@@ -19,14 +19,15 @@
         })
     });
 
+
     $scope.$on("$ionicView.afterEnter", function (event, data) {
         $ionicLoading.hide();
     })
 
+    
     $scope.microDeposit = function () {
         //if ($cordovaNetwork.isOnline()) {
-        $scope.url = 'https://noochme.com/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node + '&from=mobileapp';
-        //$scope.url = 'http://nooch.info/noochweb/Nooch/MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node + '&from=mobileapp';
+        $scope.url = $rootScope.baseNoochWebUrl + 'MicroDepositsVerification?mid=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&NodeId=' + $rootScope.bank_node + '&from=mobileapp';
 
         $scope.microDepositUrl = $sce.trustAsResourceUrl($scope.url);
 

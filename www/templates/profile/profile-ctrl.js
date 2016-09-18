@@ -1,5 +1,20 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
-.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage, $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform, $cordovaCamera, $ionicContentBanner, $rootScope, $ionicActionSheet) {
+.controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage,
+                                     $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform,
+                                     $cordovaCamera, $ionicContentBanner, $rootScope, $ionicActionSheet) {
+
+
+    $scope.$on("$ionicView.beforeEnter", function (event, data) {
+        $scope.isAnythingChanged = false;
+
+        $scope.Details = {
+            Photo: $rootScope.profilePicUrl != null ? $rootScope.profilePicUrl : '././img/profile_picture.png',
+            ContactNumber: $rootScope.contactNumber != null ? $rootScope.contactNumber : ''
+        }
+
+        $scope.MemberDetails();
+    });
+
 
     $scope.$on("$ionicView.enter", function (event, data) {
         //console.log('Profile Page Loadad');
@@ -35,8 +50,6 @@
         else if ($('#profileTopSection').hasClass('p-t-35'))
             $('#profileTopSection').removeClass('p-t-35');
 
-        $scope.isAnythingChanged = false;
-        $scope.MemberDetails();
 
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Profile");
@@ -44,39 +57,60 @@
     })
 
 
+    $scope.$on("$ionicView.afterEnter", function (event, data) {
+        if ($scope.shouldShowSuccessBanner == true)
+        {
+            $ionicContentBanner.show({
+                text: ['Profile Updated Successfully!'],
+                autoClose: '4000',
+                type: 'success',
+                transition: 'vertical'
+            });
+
+            $scope.shouldShowSuccessBanner = false;
+        }
+    });
+
+
     $scope.MemberDetails = function () {
-        console.log('MemberDetails Function Fired');
-        //console.log($localStorage.GLOBAL_VARIABLES);
+        //console.log('MemberDetails Function Fired');
+        try
+        {
+            //if ($cordovaNetwork.isOnline())
+            //{
+            $ionicLoading.show({
+                template: 'Loading Profile'
+            });
 
-        //if ($cordovaNetwork.isOnline()) {
-        $ionicLoading.show({
-            template: 'Loading Profile'
-        });
+            profileService.GetMyDetails()
+                .success(function (details) {
+                    // console.log('Profile Data GetMyDetails...');
+                    console.log(details);
 
-        profileService.GetMyDetails()
-            .success(function (details) {
-                // console.log('Profile Data GetMyDetails...');
-                // console.log(details);
+                    $scope.Details = details;
 
-                $scope.Details = details;
+                    if (details.DateOfBirth != null && details.DateOfBirth.length > 0)
+                        $scope.Details.DateOfBirth = new Date(details.DateOfBirth);
 
-                if (details.DateOfBirth != null && details.DateOfBirth.length > 0)
-                    $scope.Details.DateOfBirth = new Date(details.DateOfBirth);
+                    $ionicLoading.hide();
+                })
+                .error(function (error) {
+                    console.log('GetMyDetails Error: [' + JSON.stringify(error) + ']');
+                    $ionicLoading.hide();
 
-                $ionicLoading.hide();
-            })
-            .error(function (error) {
-                console.log('GetMyDetails Error: [' + JSON.stringify(error) + ']');
-                $ionicLoading.hide();
-
-                if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                    CommonServices.logOut();
-                else
-                    CommonServices.DisplayError('Unable to get profile details :-(');
-            })
-        //}
-        //else
-        //    swal("Error", "Internet not connected!", "error");
+                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+                        CommonServices.logOut();
+                    else
+                        CommonServices.DisplayError('Unable to get profile details :-(');
+                })
+            //}
+            //else
+            //    swal("Error", "Internet not connected!", "error");
+        }
+        catch (e)
+        {
+            console.log(e);
+        }
     }
 
 
@@ -99,14 +133,9 @@
 
                     $ionicLoading.hide();
 
-                    if (data.Result.indexOf('successfully') > -1)
+                    if (data.Result.indexOf('success') > -1)
                     {
-                        $ionicContentBanner.show({
-                            text: ['Profile Updated Successfully!'],
-                            autoClose: '5000',
-                            type: 'success',
-                            transition: 'vertical'
-                        });
+                        $scope.shouldShowSuccessBanner = true;
 
                         if ($scope.Details.SSN != null)
                             $scope.saveSSN($scope.Details);
@@ -149,8 +178,6 @@
                   "<span class='show'>Would you like us to re-send a verification link now?</span>",
             type: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3fabe1",
-            confirmButtonText: "OK",
             html: true
         }, function (isConfirm) {
             if (isConfirm)
@@ -188,15 +215,13 @@
 
     $scope.ResendVerificationSMS = function () {
         $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g, '');
-        // console.log($scope.Details.ContactNumber); 
+        console.log($scope.Details.ContactNumber); 
         swal({
             title: "Resend Confirmation Link?",
             text: "<strong style='color:#888'>" + $rootScope.contactNumber + "</strong><span class='show'>Your phone number is unverified.</span>" +
                   "<span class='show'>Would you like us to re-send a verification text message now?</span>",
             type: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3fabe1",
-            confirmButtonText: "OK",
             html: true
         }, function (isConfirm) {
             if (isConfirm)
@@ -211,7 +236,21 @@
                        $ionicLoading.hide();
 
                        if (result.Result == 'Success')
-                           swal("Check Your Phone!", "We just sent an SMS message to " + $scope.Details.ContactNumber + ".", "success");
+                           swal({
+                               title: "Check Your Phone!",
+                               text: "We just sent an SMS message to <span class='show f-500'>" + $rootScope.contactNumber +
+                                     ".</span><span class='show'>Please respond <strong>\"Go\"</strong> (case doesn't matter) to confirm your number.</span>",
+                               type: "success",
+                               html: true,
+                               customClass: "singleBtn"
+                           });
+                       else if (result.Result == 'Already Verified')
+                           swal({
+                               title: "You're Good To Go",
+                               text: "Your phone number has already been verified.",
+                               type: "success",
+                               customClass: "singleBtn"
+                           })
                        else
                            CommonServices.DisplayError('Verification SMS Not Sent :-(');
                    })
@@ -335,7 +374,6 @@
                         text: "This lets you take a picture to use for your profile.",
                         type: "info",
                         confirmButtonText: "Give Access",
-                        confirmButtonColor: "#3fabe1",
                         showCancelButton: true,
                         cancelButtonText: "Not Now"
                     }, function (isConfirm) {
@@ -401,8 +439,6 @@
                 type: "warning",
                 showCancelButton: true,
                 cancelButtonText: "NO",
-                confirmButtonColor: "#3fabe1",
-                confirmButtonText: "OK"
             }, function (isConfirm) {
                 if (isConfirm)
                 {

@@ -33,7 +33,7 @@
     $scope.gotoSlide3 = function () { $ionicSlideBoxDelegate.slide(2); }
 
     $scope.slideChanged = function (index) {
-        console.log('slideChanged');
+        //console.log('slideChanged');
 
         if (index == 0)
         {
@@ -72,7 +72,7 @@
     $scope.GetMemberStatsFn = function () {
         //if ($cordovaNetwork.isOnline()) {
         $ionicLoading.show({
-            template: 'Loading ...'
+            template: 'Gathering Account Stats...'
         });
 
         statisticsService.GetMemberStatsGeneric()

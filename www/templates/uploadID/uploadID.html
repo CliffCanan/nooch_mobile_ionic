@@ -7,17 +7,17 @@
 
             <p>
                 <span>Please upload a copy of any <span class="f-500">valid, government-issued photo ID</span> that shows your name and picture clearly.&nbsp;</span>
-                <span ng-click="learnMore()">
+                <span ng-class="{'show' : screenWidth > 360}" ng-click="learnMore()">
                     <span class='link-underline'>Why we ask</span>
                     <i class="ion-help-circled text-primary m-l-5"></i>
                 </span>
             </p>
 
             <div class="row shadowBox">
-                <div class="col">
+                <div class="col p-r-0">
                     <div class="callout-left">Best<br />Options<i class="ion-play"></i></div>
                 </div>
-                <div class="col">
+                <div class="col p-l-0">
                     <ul class="m-b-0">
                         <li>Driver's License</li>
                         <li>Passport</li>
@@ -28,7 +28,7 @@
             <div class="row m-t-10">
                 <div class="col">
                     <div class="idPicWrap" ng-click="choosePhoto()">
-                        <img src="./img/profile_picture.png" ng-value="picture" ng-if="picSelected != true" />
+                        <img src="./img/id-img.png" ng-value="picture" ng-if="picSelected != true" />
                         <img src="{{imgURI}}" ng-value="picture" ng-if="picSelected == true" />
                         <span id="editTxt">Tap To Edit</span>
                     </div>

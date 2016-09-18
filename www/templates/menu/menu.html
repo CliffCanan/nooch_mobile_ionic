@@ -15,7 +15,7 @@
         <ion-content>
             <ion-list>
                 <div class="item item-avatar side_menu_top">
-                    <img class="user-img" src="{{PicUrl}}" ng-click="goProfile()" ng-class="{'notValidated' : isProfileComplete == false || Status == 'Suspended' || Status == 'Temporarily_Blocked'}" menu-close>
+                    <img class="user-img" src="{{profilePicUrl}}" ng-click="goProfile()" ng-class="{'notValidated' : isProfileComplete == false || Status == 'Suspended' || Status == 'Temporarily_Blocked'}" menu-close>
                     <h2 id="first-name">{{Res.firstName}}</h2>
                     <h3 id="last-name">{{Res.lastName}}</h3>
                     <a href="#/app/settings" id="settings-cog" menu-close>

@@ -31,7 +31,6 @@
                 text: "<img src='./img/bank_info.png' class='animated fadeIn'/>",
                 showCancelButton: true,
                 cancelButtonText: "Close",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Complete Now",
                 customClass: 'hasImage',
                 html: true,

@@ -4,14 +4,14 @@
                                       $localStorage, $sce, $ionicContentBanner, settingsService, CommonServices, $cordovaGoogleAnalytics, $ionicPlatform) {
 
      $scope.$on("$ionicView.beforeEnter", function (event, data) {
-		 if ($scope.bankData == null)
-		 {
-			 console.log('$scope.bankData == null');
-	         $scope.bankData = {
-	             bankLogoUrl: '././img/bank.png'
-	         };
-		 }
-	 });
+         if ($scope.bankData == null)
+         {
+             console.log('$scope.bankData == null');
+             $scope.bankData = {
+                 bankLogoUrl: '././img/bank.png'
+             };
+         }
+     });
 
      $scope.$on("$ionicView.enter", function (event, data) {
 
@@ -62,7 +62,7 @@
              }
          }, 400);
 
-         $scope.url = 'http://nooch.info//noochweb//Nooch//AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
+         $scope.url = $rootScope.baseNoochWebUrl + 'AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
 
          $ionicPlatform.ready(function () {
@@ -81,7 +81,7 @@
 
 
      $scope.editBankTapped = function () {
-       
+
          $('#editBnkBtn i').addClass('animated bounceIn');
          $scope.editBank = true;
 
@@ -102,22 +102,23 @@
              confirmButtonText: "Yes - Delete",
              html: true
          }, function (isConfirm) {
-             if (isConfirm) {
+             if (isConfirm)
+             {
                  settingsService.DeleteAttachedBankNode()
                     .success(function (result) {
                         console.log(result);
                         $ionicLoading.hide();
 
-                        if (result == 'Deleted') {
+                        if (result == 'Deleted')
+                        {
                             $scope.editBank = false;
                             swal({
                                 title: "Bank Deleted",
                                 text: "The following bank account was successfully removed from your account:" +
 									  "<span class='show m-b-15'>" + $scope.bankData.bankName + "</span>",
                                 type: "success",
-                                confirmButtonColor: "#3fabe1",
-                                confirmButtonText: "Ok",
-                                html: true
+                                html: true,
+                                customClass: "singleBtn"
                             }, function (isConfirm) {
                                 if (isConfirm)
                                     $scope.checkBankDetails();
@@ -130,15 +131,15 @@
 					    CommonServices.logOut();
 					});
              }
-             else {
-                 
+             else
+             {
                  $('#editBnkBtn span').addClass('animated bounceIn');
                  $scope.editBank = false;
 
-                 $timeout(function () {
-                     $('#editBnkBtn span').removeClass('animated bounceIn');
-                 }, 1000);
-                  
+                 //$timeout(function () {
+                 //    $('#editBnkBtn span').removeClass('animated bounceIn');
+                 //}, 1000);
+
              }
          });
      }
@@ -163,8 +164,6 @@
                  title: "Account Suspended",
                  text: bodyTxt,
                  type: "error",
-                 confirmButtonColor: "#3fabe1",
-                 confirmButtonText: "Ok",
                  showCancelButton: showCancelButton,
                  cancelButtonText: "Contact Support",
                  customClass: "smallText",
@@ -192,8 +191,6 @@
                  title: "Please Verify Your Email",
                  text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
                  type: "warning",
-                 confirmButtonColor: "#3fabe1",
-                 confirmButtonText: "Ok",
                  showCancelButton: true,
                  cancelButtonText: "Resend Email"
              }, function (isConfirm) {
@@ -241,10 +238,8 @@
                  text: "To keep Nooch safe, we ask all users to verify a phone number before sending money." +
                        "<span class='show'>" + bodyTxt + "</span>",
                  type: "warning",
-                 confirmButtonColor: "#3fabe1",
                  confirmButtonText: confirmBtnTxt,
                  showCancelButton: true,
-                 cancelButtonText: "Ok",
                  html: true
              }, function (isConfirm) {
                  if (isConfirm)
@@ -268,10 +263,8 @@
                                         title: "Invalid Phone Number",
                                         text: "Looks like your phone number isn't valid! Please update your number and try again or contact Nooch Support.",
                                         type: "error",
-                                        confirmButtonColor: "#3fabe1",
                                         confirmButtonText: "Update Number",
                                         showCancelButton: true,
-                                        cancelButtonText: "Ok",
                                         html: true
                                     }, function (isConfirm) {
                                         if (isConfirm)
@@ -308,9 +301,8 @@
          {
              swal({
                  title: "Help Us Keep Nooch Safe",
-                 text: "Please take 1 minute to verify your identity by completing your Nooch profile.",
+                 text: "Please take 1 minute to verify your identity by completing your profile.",
                  type: "warning",
-                 confirmButtonColor: "#3fabe1",
                  confirmButtonText: "Go Now",
                  showCancelButton: true,
                  cancelButtonText: "Later",
@@ -326,7 +318,6 @@
                  text: "You can only have one bank account attached at a time. &nbsp;If you link a new account, it will replace your current bank account. &nbsp;This cannot be undone." +
                        "<span class='show'>Are you sure you want to replace this bank account?</span>",
                  type: "warning",
-                 confirmButtonColor: "#3fabe1",
                  confirmButtonText: "Yes",
                  showCancelButton: true,
                  cancelButtonText: "Cancel",
@@ -361,9 +352,7 @@
              type: "warning",
              showCancelButton: true,
              cancelButtonText: "Cancel",
-             confirmButtonColor: "#3fabe1",
-             confirmButtonText: "Yes",
-             customClass: "stackedBtns"
+             confirmButtonText: "Yes - Logout"
          }, function (isConfirm) {
              if (isConfirm)
              {
@@ -446,7 +435,6 @@
              text: bodyTxt,
              showCancelButton: true,
              cancelButtonText: "Close",
-             confirmButtonColor: "#3fabe1",
              confirmButtonText: confirmBtnTxt,
              html: true,
              customClass: "text-left"
@@ -465,4 +453,5 @@
      $scope.$on('$ionicView.leave', function () {
          $scope.editBank = false;
      });
+
  })

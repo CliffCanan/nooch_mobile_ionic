@@ -35,7 +35,6 @@
                 title: "Need a Full Name",
                 text: "For security, we ask all Nooch users to sign up with a full name (first and last).",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 customClass: "singleBtn"
             }, function () {
                 $('#nameField').focus();
@@ -49,7 +48,6 @@
                       "<span class='show'>Please enter a real name.</span>" +
                       "<span class='show'>Or if your name actually does contain a number, our bad... please contact support@nooch.com and we'll create an account for you.</span>",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 html: true,
                 customClass: "singleBtn"
             }, function () {
@@ -64,7 +62,6 @@
                       "<span class='show'>Please enter a real name.</span>" +
                       "<span class='show'>Or if your name actually does contain a symbol, our apologies... please contact support@nooch.com and we'll create an account for you.</span>",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 html: true,
                 customClass: "singleBtn"
             }, function () {
@@ -77,7 +74,6 @@
                 title: "Hmmm...",
                 text: "Please double check that you entered a valid email address!",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 customClass: "singleBtn"
             }, function () {
                 $('#email').focus();
@@ -90,7 +86,6 @@
                 text: "To protect your account, we ask that passwords contain at least 1 number." +
                       "<span class='show'>We know it's annoying, but you can't put a price on safety, right?</span>",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 html: true,
                 customClass: "singleBtn"
             }, function () {
@@ -103,7 +98,6 @@
                 title: "Insecure Password",
                 text: "Regrettably, your Nooch password must contain 1 actual letter!",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 customClass: "singleBtn"
             }, function () {
                 $('#pwField').focus();
@@ -116,7 +110,6 @@
                 text: "Please read Nooch's Terms of Service. <small class='show m-b-20'>(They're definitely as exciting as you think.)</span>",
                 type: "warning",
                 confirmButtonText: "View TOS",
-                confirmButtonColor: "#3fabe1",
                 showCancelButton: true,
                 cancelButtonText: "Ok",
                 html: true
@@ -251,7 +244,6 @@
                         text: "Terribly sorry, but it looks like <strong>" + $rootScope.signUpData.Email + "</strong> has already been registered!" +
                               "<span class='show'>If this is your account, click 'Login' to, well, login!</span>",
                         type: "error",
-                        confirmButtonColor: "#3fabe1",
                         showCancelButton: true,
                         cancelButtonText: "Login",
                         html: true,
