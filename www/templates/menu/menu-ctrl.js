@@ -5,7 +5,7 @@
                                   profileService, $rootScope, historyService, $ionicPlatform, CommonServices, $state, $cordovaGoogleAnalytics) {
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('MenuCtrl Ctrl Loaded');
+        //console.log('MenuCtrl Ctrl Loaded');
 
         if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
         {
@@ -20,7 +20,7 @@
 
             // Check if user has any Pending Requests
             if ($rootScope.hasSynapseUserAccount && $rootScope.hasSynapseBank == true)
-                $timeout($scope.pendingList, 4000);
+                $timeout($scope.pendingList, 3000);
         }
     });
 
@@ -65,11 +65,13 @@
                 $rootScope.showInSearch = res.showInSearch;
                 $rootScope.hasSynapseUserAccount = res.hasSynapseUserAccount;
                 $rootScope.hasSynapseBank = res.hasSynapseBank;
+				$rootScope.hasSubmittedId = res.hasSubmittedId;
                 $rootScope.bankStatus = res.bankStatus;
                 $rootScope.synUserPermission = res.synUserPermission;
                 $rootScope.synBankAllowed = res.synBankAllowed;
                 $rootScope.pinEnc = res.pin;
                 $rootScope.fbid = res.fbUserId;
+                $rootScope.cip_tag = res.cip_tag;
 
                 //if ($scope.Res.status === "Suspended" || $scope.Res.status === "Temporarily_Blocked")
                 //    $rootScope.$broadcast('isSuspended');
@@ -241,7 +243,7 @@
                     title: "Rate Nooch",
                     message: "If you enjoy using Nooch or are just in a good mood, we'd LOVE you forever if you take a quick minute to leave us a review!",
                     cancelButtonLabel: "Not Now",
-                    //laterButtonLabel: "Remind Me Later",
+                    laterButtonLabel: "Remind Me Later",
                     rateButtonLabel: "Sure, Let's Go"
                 }
             };

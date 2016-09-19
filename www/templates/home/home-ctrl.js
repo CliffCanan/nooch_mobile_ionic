@@ -61,7 +61,9 @@
                     text: $scope.errorBannerTextArray,
                     interval: '4000',
                     type: 'error',
-                    transition: 'vertical'
+                    transition: 'vertical',
+					icon: 'ion-close-circled',
+					cancelOnStateChange: false
                 });
 
                 $scope.isBannerShowing = true;
@@ -672,8 +674,8 @@
             swal({
                 title: "Connect A Funding Source",
                 text: "Adding a bank account to fund Nooch payments is lightning quick:" +
-					  "<ul><li>No routing or account number needed</li><li>Bank-grade encryption keeps your info safe</li>" +
-					  "<span class='show'>Would you like to take care of this now?</span>",
+					  "<ul class='p-l-25 text-left'><li>No routing or account number needed</li><li>Bank-grade encryption keeps your info safe</li></ul>" +
+					  "<span class='show m-b-15 f-400'>Would you like to take care of this now?</span>",
                 type: "warning",
                 confirmButtonText: "Go Now",
                 showCancelButton: true,

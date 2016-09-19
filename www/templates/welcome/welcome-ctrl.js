@@ -3,14 +3,17 @@
     .controller('welcomeCtrl', function ($scope, $state, $rootScope, $localStorage,
                                          $timeout, $ionicLoading, CommonServices, $cordovaGoogleAnalytics, $ionicPlatform) {
 
-        $scope.$on("$ionicView.enter", function (event, data) {
-            console.log('Welcome Controller Loaded');
+        $scope.$on("$ionicView.beforeEnter", function (event, data) {
+            //console.log('Welcome Controller Loaded');
 
-            console.log($rootScope.signUpData);
+            //console.log($rootScope.signUpData);
 
             if ($rootScope.signUpData == null)
                 $state.go('signup');
+        });
 
+        
+		$scope.$on("$ionicView.enter", function (event, data) {
             $ionicPlatform.ready(function () {
                 if (typeof analytics !== 'undefined') analytics.trackView("Signup Flow - Welcome");
             })
@@ -28,15 +31,15 @@
         $scope.tellMeMore = function () {
             swal({
                 title: "Connect Your Bank",
-                text: "<img src='./img/bank_info.png' class='animated fadeIn'/>",
+                text: "<img src='./img/bank_info.png'/>",
                 showCancelButton: true,
                 cancelButtonText: "Close",
                 confirmButtonText: "Complete Now",
-                customClass: 'hasImage',
+                customClass: "hasImage",
                 html: true,
             }, function (isConfirm) {
                 if (isConfirm)
-                    $state.go('app.profile');
+                    $state.go("app.profile");
             });
         };
 

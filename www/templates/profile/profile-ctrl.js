@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
 .controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage,
                                      $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform,
-                                     $cordovaCamera, $ionicContentBanner, $rootScope, $ionicActionSheet) {
+                                     $cordovaCamera, $ionicContentBanner, $rootScope, $ionicActionSheet, $timeout) {
 
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
@@ -42,7 +42,10 @@
                 text: $scope.errorBannerTextArray,
                 interval: '4000',
                 type: 'error',
-                transition: 'vertical'
+                transition: 'vertical',
+				icon: 'ion-close-circled'
+            }, function(test) {
+            	console.log(test);
             });
 
             $('#profileTopSection').addClass('p-t-35');
@@ -57,19 +60,8 @@
     })
 
 
-    $scope.$on("$ionicView.afterEnter", function (event, data) {
-        if ($scope.shouldShowSuccessBanner == true)
-        {
-            $ionicContentBanner.show({
-                text: ['Profile Updated Successfully!'],
-                autoClose: '4000',
-                type: 'success',
-                transition: 'vertical'
-            });
-
-            $scope.shouldShowSuccessBanner = false;
-        }
-    });
+    //$scope.$on("$ionicView.afterEnter", function (event, data) {
+		//});
 
 
     $scope.MemberDetails = function () {
@@ -124,7 +116,8 @@
             $ionicLoading.show({
                 template: 'Saving Profile...'
             });
-            $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
+            
+			//$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
             console.log($scope.Details);
 
             profileService.UpdateProfile($scope.Details)
@@ -135,17 +128,29 @@
 
                     if (data.Result.indexOf('success') > -1)
                     {
-                        $scope.shouldShowSuccessBanner = true;
+			            $ionicContentBanner.show({
+			                text: ['Profile Updated Successfully!'],
+			                autoClose: '4000',
+			                type: 'success',
+			                transition: 'vertical',
+			                cancelOnStateChange: false,
+							icon: 'ion-close-circled'
+			            });
 
                         if ($scope.Details.SSN != null)
                             $scope.saveSSN($scope.Details);
 
                         $scope.isAnythingChanged = false;
 
-                        if ($scope.shouldGoToSettings)
-                            $state.go('app.settings');
-                        else
-                            $state.reload();
+			            $timeout(function () {
+	                        if ($scope.shouldGoToSettings)
+	                            $state.go('app.settings');
+	                        
+							// CC (9/18/16): This was reloading the screen, but since the changes are already on the screen, why
+							// bother to reload?  It's closing the Success Banner anyway, so commenting this out for now.
+							//else
+	                        //    $state.reload();
+						}, 2000);
                     }
                     else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
                     {
@@ -178,6 +183,8 @@
                   "<span class='show'>Would you like us to re-send a verification link now?</span>",
             type: "warning",
             showCancelButton: true,
+			cancelButtonText: "Not Now",
+			confirmButtonText: "Yes",
             html: true
         }, function (isConfirm) {
             if (isConfirm)
@@ -192,10 +199,11 @@
 
                        if (result.Result == 'Success')
                            $ionicContentBanner.show({
-                               text: ['Email Confirmation Link Sent'],
+                               text: ['Verification link sent to: ' + $rootScope.emailAddress],
                                autoClose: '5000',
                                type: 'success',
-                               transition: 'vertical'
+                               transition: 'vertical',
+							   icon: 'ion-close-circled'
                            });
                        else
                            CommonServices.DisplayError('Email verification link not sent :-(');
@@ -214,15 +222,17 @@
 
 
     $scope.ResendVerificationSMS = function () {
-        $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g, '');
+        //$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g, '');
         //console.log($scope.Details.ContactNumber); 
 
         swal({
-            title: "Resend Confirmation Link?",
+            title: "Resend Confirmation SMS?",
             text: "<strong style='color:#888'>" + $rootScope.contactNumber + "</strong><span class='show'>Your phone number is unverified.</span>" +
                   "<span class='show'>Would you like us to re-send a verification text message now?</span>",
             type: "warning",
             showCancelButton: true,
+			cancelButtonText: "Not Now",
+			confirmButtonText: "Yes",
             html: true
         }, function (isConfirm) {
             if (isConfirm)
@@ -238,9 +248,9 @@
 
                        if (result.Result == 'Success')
                            swal({
-                               title: "Check Your Phone!",
-                               text: "We just sent an SMS message to <span class='show f-500'>" + $rootScope.contactNumber +
-                                     ".</span><span class='show'>Please respond <strong>\"Go\"</strong> (case doesn't matter) to confirm your number.</span>",
+                               title: "Check Your Messages",
+                               text: "We just sent a text message to <span class='show f-600'>" + $rootScope.contactNumber +
+                                     "</span><span class='show'>Please respond <strong>\"Go\"</strong> to confirm your number (case doesn't matter).</span>",
                                type: "success",
                                html: true,
                                customClass: "singleBtn"
@@ -318,8 +328,6 @@
 
 
     $scope.choosePhotoFromDevice = function () {
-        // CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
-
         $ionicPlatform.ready(function () {
             CommonServices.openPhotoGallery('profile', function (result) {
                 if (result != null && result != 'failed')
@@ -364,8 +372,8 @@
                         $scope.Details.Photo = "data:image/jpeg;base64," + imageData;
                         $scope.Details.Photos = imageData;
                     }, function (error) {
-                        // An error occured. Show a message to the user
-                        CommonServices.DisplayError('Unable to access the camera :-(');
+                        //CommonServices.DisplayError('Unable to access the camera :-(');
+						console.log(error);
                     });
                 }
                 else
@@ -385,8 +393,8 @@
                                 if (status)
                                     $scope.takePhoto();
                             }, function (error) {
-                                console.error(error);
-                                CommonServices.DisplayError('Unable to access the camera :-(');
+								console.log(error);
+                                //CommonServices.DisplayError('Unable to access the camera :-(');
                             });
                         }
                     });
@@ -439,7 +447,8 @@
                 text: "Would you like to save the changes to your profile?",
                 type: "warning",
                 showCancelButton: true,
-                cancelButtonText: "NO",
+                cancelButtonText: "Not Now",
+				confirmButtonText: "Yes - Save"
             }, function (isConfirm) {
                 if (isConfirm)
                 {

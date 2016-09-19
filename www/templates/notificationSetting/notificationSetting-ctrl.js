@@ -2,7 +2,7 @@
 
 .controller('notificationSettingCtrl', function ($scope, $rootScope, $ionicLoading, $state, CommonServices, notificationServices, $cordovaGoogleAnalytics, $ionicPlatform) {
 
-    $scope.$on("$ionicView.enter", function (event, data) {
+    $scope.$on("$ionicView.beforeEnter", function (event, data) {
         if ($rootScope.ChkBox == null)
         {
             $rootScope.ChkBox = {
@@ -13,7 +13,10 @@
         }
 
         $scope.GetNotificationFn();
+	});
 
+
+	$scope.$on("$ionicView.enter", function (event, data) {
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Notification Settings");
         })

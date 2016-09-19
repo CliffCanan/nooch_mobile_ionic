@@ -2,10 +2,10 @@
 <widget id="com.money.nooch" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Nooch</name>
     <description>
-      Seamlessly, securely connect your bank account with your mobile phone and send money to anyone using just an email address or phone number - with no transaction fees. Ever.
+      Seamlessly, securely connect your bank account with your mobile phone to pay or send payment requests to anyone with just an email address or phone number. Money transfer made simple.
     </description>
-    <author email="info@nooch.com" href="https://nooch.com/">
-      Nooch
+    <author email="info@nooch.com" href="https://www.nooch.com/">
+      Nooch Inc.
     </author>
     <content src="index.html" />
     <access origin="*" />

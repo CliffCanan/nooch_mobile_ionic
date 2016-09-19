@@ -4,16 +4,17 @@
                                       $localStorage, $sce, $ionicContentBanner, settingsService, CommonServices, $cordovaGoogleAnalytics, $ionicPlatform) {
 
      $scope.$on("$ionicView.beforeEnter", function (event, data) {
-         if ($scope.bankData == null)
+         console.log("SETTINGS -> beforeEnter fired");
+		 if ($scope.bankData == null)
          {
              console.log('$scope.bankData == null');
              $scope.bankData = {
                  bankLogoUrl: '././img/bank.png'
              };
          }
-     });
+		 //});
 
-     $scope.$on("$ionicView.enter", function (event, data) {
+     //$scope.$on("$ionicView.enter", function (event, data) {
 
          $scope.editBank = false;
          $scope.shouldDisplayErrorBanner = false;
@@ -55,12 +56,14 @@
                      text: $scope.errorBannerTextArray,
                      interval: '4000',
                      type: 'error',
-                     transition: 'vertical'
+                     transition: 'vertical',
+					 icon: 'ion-close-circled',
+					 cancelOnStateChange: false
                  });
 
                  $('#settings_cntnr').css('margin-top', '50px');
              }
-         }, 400);
+         }, 300);
 
          $scope.url = $rootScope.baseNoochWebUrl + 'AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);

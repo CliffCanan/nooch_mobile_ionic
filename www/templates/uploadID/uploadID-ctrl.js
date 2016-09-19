@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.uploadIDCtrl', ['noochApp.uploadID-service', 'noochApp.services'])
 
     .controller('uploadIDCtrl', function ($scope, $ionicLoading, $ionicPlatform, $cordovaCamera, $cordovaImagePicker,
-                                          $ionicActionSheet, $ionicContentBanner, uploadIDService, CommonServices) {
+                                          $ionicActionSheet, $ionicContentBanner, $state, $timeout, uploadIDService, CommonServices) {
 
         $scope.$on("$ionicView.beforeEnter", function (event, data) {
             $scope.picSelected = false;
@@ -9,6 +9,7 @@
 
 
         $scope.$on("$ionicView.enter", function (event, data) {
+			$scope.picSelected = false;
             $ionicPlatform.ready(function () {
                 if (typeof analytics !== 'undefined') analytics.trackView("Upload ID");
             })
@@ -23,12 +24,19 @@
                 ],
                 titleText: 'Upload ID',
                 cancelText: 'Cancel',
+				destructiveText: $scope.picSelected == true ? 'Remove Picture' : null,
                 buttonClicked: function (index) {
                     if (index == 0) $scope.choosePhotoFromDevice();
                     else if (index == 1) $scope.takePhoto();
 
                     return true;
-                }
+                },
+	            destructiveButtonClicked: function () {
+                    $scope.picture = null;
+                    $scope.imgURI = null;
+                    $scope.picSelected = false;
+	                return true;
+	            }
             });
         }
 
@@ -38,8 +46,8 @@
                 CommonServices.openPhotoGallery('uploadId', function (result) {
                     if (result != null && result != 'failed')
                     {
-                        $scope.picture = imageData;
-                        $scope.imgURI = "data:image/jpeg;base64," + imageData;
+                        $scope.picture = result;
+                        $scope.imgURI = "data:image/jpeg;base64," + result;
                         $scope.picSelected = true;
                     }
                     else if (result != null && result == 'failed')
@@ -106,7 +114,7 @@
 
 
         $scope.sendDoc = function () {
-            console.log('sendDoc Function');
+            //console.log('sendDoc Function');
 
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
@@ -121,14 +129,21 @@
                      if (data.isSuccess == true)
                      {
                          $ionicContentBanner.show({
-                             text: ['Your ID uploaded Successfully'],
-                             autoClose: '5000',
+                             text: ['Roger that, ID submitted successfully!'],
+                             autoClose: '4500',
                              type: 'success',
-                             transition: 'vertical'
+                             transition: 'vertical',
+							 cancelOnStateChange: false,
+							 icon: 'ion-close-circled'
                          });
                      }
                      else
-                         CommonServices.DisplayError('Unable to upload ID :-(');
+                         CommonServices.DisplayError('Unable to upload ID. Please contact support!');
+
+
+					 $timeout(function () {
+						 $state.go('app.settings');
+					 }, 1500);
                  })
                  .error(function (error) {
                      console.log('submitDocumentToSynapseV3 Error: [' + JSON.stringify(error) + ']');
@@ -136,7 +151,13 @@
                      if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                          CommonServices.logOut();
                      else
+					 {
                          CommonServices.DisplayError('Unable to upload ID :-(');
+						 
+						 $timeout(function () {
+							 $state.go('app.settings');
+						 }, 1500);
+					 }
                  })
             //}
             //else
@@ -146,10 +167,11 @@
         $scope.learnMore = function () {
             swal({
                 title: "What Gives?",
-                text: "To help keep Nooch secure for everyone (and to comply with a variety of state & federal laws), we have to make sure you're not a Soviet spy. &nbsp;Well, actually, any kind of spy.",
+                text: "To help keep Nooch secure for everyone (and to comply with a variety of state & federal laws, including the PATRIOT ACT), we have to make sure you're not a Soviet spy. &nbsp;Well, actually, any kind of spy.",
                 type: "info",
                 confirmButtonText: "Ok, Got It!",
-                customClass: "singleBtn"
+                customClass: "singleBtn",
+				htmp: true
             });
         }
     })

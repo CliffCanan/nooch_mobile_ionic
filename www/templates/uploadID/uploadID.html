@@ -1,5 +1,5 @@
 ﻿<ion-view view-title="Upload ID">
-    <ion-content id="uploadIdScrn" class="b-gray" scroll="false">
+    <ion-content id="uploadIdScrn" class="b-gray">
 
         <div class="section-header m-t-20">Identity Verification</div>
 
@@ -29,16 +29,16 @@
                 <div class="col">
                     <div class="idPicWrap" ng-click="choosePhoto()">
                         <img src="./img/id-img.png" ng-value="picture" ng-if="picSelected != true" />
-                        <img src="{{imgURI}}" ng-value="picture" ng-if="picSelected == true" />
-                        <span id="editTxt">Tap To Edit</span>
+                        <img src="{{imgURI}}" ng-value="picture" ng-if="picSelected === true" />
+                        <span id="editTxt" ng-class="{'gray-dark': !picSelected}">Tap To Edit</span>
                     </div>
                 </div>
             </div>
 
             <div class="row m-t-5 m-b-10">
                 <div class="col text-center">
-                    <button class="btn btn-primary btn-small" ng-click="choosePhoto()" ng-if="picSelected != true"> <i class="ion-camera"></i> Take Photo </button>
-                    <button class="btn btn-success btn-small" ng-click="sendDoc()" ng-if="picSelected == true"> <i class="ion-checkmark-circled"></i> Submit ID </button>
+                    <button class="btn btn-primary btn-small" ng-click="choosePhoto()" ng-show="picSelected != true"><i class="ion-camera"></i> Choose Photo </button>
+                    <button class="btn btn-success btn-small" ng-click="sendDoc()" ng-show="picSelected === true"><i class="ion-checkmark-circled"></i> Submit ID </button>
                 </div>
             </div>
 

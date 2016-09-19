@@ -33,8 +33,8 @@
 
 
         $scope.signUpFn = function () {
-            console.log('signUpFn Fired');
-            console.log($rootScope.signUpData);
+            //console.log('signUpFn Fired');
+            //console.log($rootScope.signUpData);
 
             //if ($cordovaNetwork.isOnline()) {
             $ionicLoading.show({
@@ -56,7 +56,7 @@
 
 						    $ionicLoading.hide();
 
-						    if (data = 'Thanks for registering! Check your email to complete activation.')
+						    if (data != null && data.indexOf('Thanks for registering') > -1)
 						    {
 						        $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
 						        //console.log('RunTime values ----->> DeviceId And DeviceToken');
@@ -64,13 +64,43 @@
 						        //console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
 						        $scope.SignIn();
 						    }
-						    else if (data = 'Duplicate random Nooch ID was generating')
+						    else if (data == 'Duplicate random Nooch ID was generating')
 						    {
 						        swal("Uh Oh...", "Looks like that email is already registered!", "error");
 						        $state.go('login');
 						    }
 						    else
-						        swal("Error", "Something went wrong", "error");
+							{
+								swal({
+									title: "Unexpected Error",
+									text: "Oh no! Something went wrong - please try again or contact our support team to let us know!",
+									type: "error",
+									showCancelButton: true,
+									confirmButtonText: "Contact Support",
+									html: true,
+								}, function (isConfirm) {
+									if (isConfirm)
+									{
+										$cordovaSocialSharing
+											.shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
+											.then(function (result) {
+												swal({
+													title: "Message Sent",
+													text: "Your email has been sent - we will get back to you soon!",
+													type: "success",
+													customeClass: "singleBtn"
+												}, function () {
+													$state.go('signup');
+												});
+											}, function (err) {
+												console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
+												$state.go('signup');
+											});
+									}
+									else
+									  $state.go('signup');
+								});
+							}
 						})
 						.error(function (encError) {
 						    $ionicLoading.hide();
@@ -113,10 +143,7 @@
 	                              text: "To keep Nooch safe your account has been temporarily suspended because you entered an incorrect passwod too many times.<br><br> In most cases your account will be automatically un-suspended in 24 hours. you can always contact support if this is an error.<br><br> We really apologize for the inconvenience and ask for your patience. Our top priority is keeping Nooch safe and secure.",
 	                              type: "error",
 	                              showCancelButton: true,
-	                              cancelButtonText: "Ok",
-	                              confirmButtonColor: "#3fabe1",
 	                              confirmButtonText: "Contact Support",
-	                              customClass: "stackedBtns",
 	                              html: true,
 	                          }, function (isConfirm) {
 	                              if (isConfirm)
@@ -155,7 +182,7 @@
 					.success(function (data) {
 					    $ionicLoading.hide();
 
-					    console.log(data);
+					    //console.log(data);
 
 					    if (data != null)
 					    {

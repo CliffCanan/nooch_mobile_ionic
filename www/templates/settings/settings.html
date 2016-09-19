@@ -73,9 +73,11 @@
                     <i class="icon ion-chevron-right"></i>
                 </a>
 
-                <a class="item item-icon-left item-icon-right" href="#/app/settings/uploadID" ng-if="hasSynapseUserAccount == true && synUserPermission != 'SEND-AND-RECEIVE'">
-                    <i class="icon ion-document-text">
-                    </i>Upload ID
+                <a class="item item-icon-left item-icon-right" href="#/app/settings/uploadID" ng-if="hasSubmittedId != true && cip_tag != 'vendor' && synUserPermission != 'SEND-AND-RECEIVE'">
+                    <i class="icon ion-document-text"></i>Upload ID
+                    <div class="animated bounceIn" style="display:inline-block">
+                        <span class="alertIcon">!</span>
+                    </div>
                     <i class="icon ion-chevron-right"></i>
                 </a>
 

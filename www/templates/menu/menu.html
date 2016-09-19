@@ -20,7 +20,7 @@
                     <h3 id="last-name">{{Res.lastName}}</h3>
                     <a href="#/app/settings" id="settings-cog" menu-close>
                         <i class="ion-gear-a white-text" id="icon"></i>
-                        <span class="alertIcon" ng-if="!isProfileComplete">!</span>
+                        <span class="alertIcon" ng-if="isProfileComplete === false || hasSynapseBank === false">!</span>
                     </a>
                 </div>
 

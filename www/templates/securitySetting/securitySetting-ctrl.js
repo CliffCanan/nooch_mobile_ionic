@@ -7,8 +7,8 @@
                                              $ionicPlatform, $ionicContentBanner, $timeout, CommonServices, MemberPrivacy) {
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
-        console.log('Security Settings Screen Loaded');
-        console.log('beforeEnter: isRequiredImmediately ROOTSCOPE: [' + $rootScope.isRequiredImmediately + '], showInSearch: [' + $rootScope.showInSearch + ']');
+        //console.log('Security Settings Screen Loaded');
+        //console.log('beforeEnter: isRequiredImmediately ROOTSCOPE: [' + $rootScope.isRequiredImmediately + '], showInSearch: [' + $rootScope.showInSearch + ']');
 
         $scope.SecSettings = {
             isRequiredImmediately: $rootScope.isRequiredImmediately != null ? $rootScope.isRequiredImmediately : true,
@@ -18,8 +18,6 @@
 
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('Enter: isRequiredImmediately ROOTSCOPE: [' + $rootScope.isRequiredImmediately + '], showInSearch: [' + $rootScope.showInSearch + ']');
-
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Security Settings");
         })
@@ -33,12 +31,12 @@
         $timeout(function () {
             if ($rootScope.isRequiredImmediately != $scope.SecSettings.isRequiredImmediately)
             {
-                console.log('REQUIRE IMMEDIATELY DIDNT MATCH');
+                //console.log('REQUIRE IMMEDIATELY DIDNT MATCH');
                 $scope.SecSettings.isRequiredImmediately = $rootScope.isRequiredImmediately;
             }
             if ($rootScope.showInSearch != $scope.SecSettings.showInSearch)
             {
-                console.log('SHOW IN SEARCH DIDNT MATCH');
+                //console.log('SHOW IN SEARCH DIDNT MATCH');
                 $scope.SecSettings.showInSearch = $rootScope.showInSearch;
             }
         }, 700);
@@ -47,12 +45,12 @@
 
     $scope.MemberPrivacyFn = function () {
 
-        console.log('isRequiredImmediately ROOTSCOPE: [' + $rootScope.isRequiredImmediately + '], showInSearch: [' + $rootScope.showInSearch + ']');
-        console.log('isRequiredImmediately SECSETTINGS: [' + $scope.SecSettings.isRequiredImmediately + '], showInSearch: [' + $scope.SecSettings.showInSearch + ']');
+        //console.log('isRequiredImmediately ROOTSCOPE: [' + $rootScope.isRequiredImmediately + '], showInSearch: [' + $rootScope.showInSearch + ']');
+        //console.log('isRequiredImmediately SECSETTINGS: [' + $scope.SecSettings.isRequiredImmediately + '], showInSearch: [' + $scope.SecSettings.showInSearch + ']');
 
         MemberPrivacy.UpdateSecuritySettings($scope.SecSettings)
             .success(function (data) {
-                console.log(data);
+                //console.log(data);
 
                 if (data != null && data.Result != null && data.Result.indexOf('success') > -1)
                 {
@@ -64,7 +62,8 @@
                         text: ['Settings Updated Successfully!'],
                         autoClose: '4000',
                         type: 'success',
-                        transition: 'vertical'
+                        transition: 'vertical',
+						icon: 'ion-close-circled'
                     });
                 }
             })
