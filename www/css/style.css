@@ -643,7 +643,7 @@ a {
 }
 
 :not(.btn-group) > .btn:active {
-    margin: 3px auto -3px;
+    margin: 2px auto -2px;
     -webkit-transition: all 150ms;
     transition: all 150ms;
 }
@@ -954,24 +954,22 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
     .content-banner .content-banner-text {
         font-size: 13.5px;
-        letter-spacing: .25px;
-        left: 15px;
+        left: 13px;
         right: 18px;
         overflow: hidden;
-        padding: 4px 5px 0;
+        padding: 4px 7px 0 0;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
     .content-banner .content-banner-close {
-        font-size: 18px;
         min-width: 30px;
         padding: 0;
-        right: 2px;
+        right: 4px;
     }
 
         .content-banner .content-banner-close:before {
-            font-size: 28px;
+            font-size: 17px;
         }
 
 
@@ -1402,7 +1400,7 @@ iframe {
     opacity: .45;
     position: absolute;
     right: 14px;
-    top: 13px;
+    top: 14px;
 }
 
 .menu .item {
@@ -1433,10 +1431,10 @@ iframe {
     }
 
 .menu div[class*="ion"]::before {
-    font-size: 22px;
+    font-size: 23px;
     margin-right: 16px;
     position: relative;
-    top: 1px;
+    top: 3px;
     width: 1em;
 }
 
@@ -1628,7 +1626,7 @@ div.hscroller-card {
     font-weight: 300;
     position: absolute;
     text-align: center;
-    text-shadow: 0 -1px 0 rgba(31,32,33,.6);
+    text-shadow: 0 1px 0 rgba(31,32,33,.6);
     width: 100%;
     z-index: 10;
 }
@@ -2664,11 +2662,10 @@ ul:not(.parsley-errors-list) {
     .idPicWrap img {
         border-radius: 16px;
         box-shadow: 0 3px 14px -3px rgba(0,0,0,.25);
-        max-width: 260px;
+        max-height: 240px;
     }
 
     .idPicWrap #editTxt {
-        background: #bbb;
         border-radius: 10px;
         bottom: 9px;
         font-size: 14px;
@@ -2677,6 +2674,10 @@ ul:not(.parsley-errors-list) {
         max-width: 40%;
         padding: 3px 0 2px;
     }
+	
+	.idPicWrap #editTxt.gray-dark {
+		background: #bbb;
+	}
 
 @media screen and (min-width: 360px) {
 

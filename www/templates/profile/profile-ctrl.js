@@ -42,7 +42,10 @@
                 text: $scope.errorBannerTextArray,
                 interval: '4000',
                 type: 'error',
-                transition: 'vertical'
+                transition: 'vertical',
+				icon: 'ion-close-circled'
+            }, function(test) {
+            	console.log(test);
             });
 
             $('#profileTopSection').addClass('p-t-35');
@@ -57,19 +60,8 @@
     })
 
 
-    $scope.$on("$ionicView.afterEnter", function (event, data) {
-        if ($scope.shouldShowSuccessBanner == true)
-        {
-            $ionicContentBanner.show({
-                text: ['Profile Updated Successfully!'],
-                autoClose: '4000',
-                type: 'success',
-                transition: 'vertical'
-            });
-
-            $scope.shouldShowSuccessBanner = false;
-        }
-    });
+    //$scope.$on("$ionicView.afterEnter", function (event, data) {
+		//});
 
 
     $scope.MemberDetails = function () {
@@ -135,7 +127,16 @@
 
                     if (data.Result.indexOf('success') > -1)
                     {
-                        $scope.shouldShowSuccessBanner = true;
+						console.log("SAVE PROFILE SUCCESS, NOW SHOWING BANNER");
+			            $ionicContentBanner.show({
+			                text: ['Profile Updated Successfully!'],
+			                autoClose: '4000',
+			                type: 'success',
+			                transition: 'vertical',
+			                cancelOnStateChange: false,
+							icon: 'ion-close-circled'
+			            });
+						console.log("SAVE PROFILE SUCCESS, JUST SHOWED BANNER");
 
                         if ($scope.Details.SSN != null)
                             $scope.saveSSN($scope.Details);
@@ -178,6 +179,8 @@
                   "<span class='show'>Would you like us to re-send a verification link now?</span>",
             type: "warning",
             showCancelButton: true,
+			cancelButtonText: "Not Now",
+			confirmButtonText: "Yes",
             html: true
         }, function (isConfirm) {
             if (isConfirm)
@@ -192,10 +195,11 @@
 
                        if (result.Result == 'Success')
                            $ionicContentBanner.show({
-                               text: ['Email Confirmation Link Sent'],
+                               text: ['Verification link sent to: ' + $rootScope.emailAddress],
                                autoClose: '5000',
                                type: 'success',
-                               transition: 'vertical'
+                               transition: 'vertical',
+							   icon: 'ion-close-circled'
                            });
                        else
                            CommonServices.DisplayError('Email verification link not sent :-(');
@@ -218,11 +222,13 @@
         //console.log($scope.Details.ContactNumber); 
 
         swal({
-            title: "Resend Confirmation Link?",
+            title: "Resend Confirmation SMS?",
             text: "<strong style='color:#888'>" + $rootScope.contactNumber + "</strong><span class='show'>Your phone number is unverified.</span>" +
                   "<span class='show'>Would you like us to re-send a verification text message now?</span>",
             type: "warning",
             showCancelButton: true,
+			cancelButtonText: "Not Now",
+			confirmButtonText: "Yes",
             html: true
         }, function (isConfirm) {
             if (isConfirm)
@@ -318,8 +324,6 @@
 
 
     $scope.choosePhotoFromDevice = function () {
-        // CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
-
         $ionicPlatform.ready(function () {
             CommonServices.openPhotoGallery('profile', function (result) {
                 if (result != null && result != 'failed')
@@ -364,8 +368,8 @@
                         $scope.Details.Photo = "data:image/jpeg;base64," + imageData;
                         $scope.Details.Photos = imageData;
                     }, function (error) {
-                        // An error occured. Show a message to the user
-                        CommonServices.DisplayError('Unable to access the camera :-(');
+                        //CommonServices.DisplayError('Unable to access the camera :-(');
+						console.log(error);
                     });
                 }
                 else
@@ -385,8 +389,8 @@
                                 if (status)
                                     $scope.takePhoto();
                             }, function (error) {
-                                console.error(error);
-                                CommonServices.DisplayError('Unable to access the camera :-(');
+								console.log(error);
+                                //CommonServices.DisplayError('Unable to access the camera :-(');
                             });
                         }
                     });
@@ -439,7 +443,8 @@
                 text: "Would you like to save the changes to your profile?",
                 type: "warning",
                 showCancelButton: true,
-                cancelButtonText: "NO",
+                cancelButtonText: "Not Now",
+				confirmButtonText: "Yes - Save"
             }, function (isConfirm) {
                 if (isConfirm)
                 {

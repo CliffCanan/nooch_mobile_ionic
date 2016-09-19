@@ -55,7 +55,9 @@
                      text: $scope.errorBannerTextArray,
                      interval: '4000',
                      type: 'error',
-                     transition: 'vertical'
+                     transition: 'vertical',
+					 icon: 'ion-close-circled',
+					 cancelOnStateChange: false
                  });
 
                  $('#settings_cntnr').css('margin-top', '50px');

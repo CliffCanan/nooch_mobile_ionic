@@ -17,7 +17,7 @@
         };
 
         $scope.isConnect = false;
-        console.log($scope.socialSetting.fbid);
+        //console.log($scope.socialSetting.fbid);
 
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Social Settings");
