@@ -12,8 +12,8 @@
                 $state.go('signup');
         });
 
-        
-		$scope.$on("$ionicView.enter", function (event, data) {
+
+        $scope.$on("$ionicView.enter", function (event, data) {
             $ionicPlatform.ready(function () {
                 if (typeof analytics !== 'undefined') analytics.trackView("Signup Flow - Welcome");
             })

@@ -155,7 +155,7 @@ angular.module('noochApp.services', ['ngStorage'])
                           callback(imgData);
                       }, function (err) {
                           console.log(err);
-						  if (err != null) callback(err)
+                          if (err != null) callback(err)
                           else callback('failed');
                       });
                   }
@@ -179,8 +179,8 @@ angular.module('noochApp.services', ['ngStorage'])
                                           console.log('Got picture successfully (was NOT previously authorized)');
                                           callback(imgData);
                                       }, function (err) {
-										  if (err != null) callback(err)
-				                          else callback('failed');
+                                          if (err != null) callback(err)
+                                          else callback('failed');
                                       });
                                   }
                               }, function (error) {
@@ -212,7 +212,7 @@ angular.module('noochApp.services', ['ngStorage'])
               autoClose: '5000',
               type: 'error',
               transition: 'vertical',
-			  icon: 'ion-close-circled'
+              icon: 'ion-close-circled'
           });
       }
   })

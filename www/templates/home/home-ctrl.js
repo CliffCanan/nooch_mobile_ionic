@@ -62,8 +62,8 @@
                     interval: '4000',
                     type: 'error',
                     transition: 'vertical',
-					icon: 'ion-close-circled',
-					cancelOnStateChange: false
+                    icon: 'ion-close-circled',
+                    cancelOnStateChange: false
                 });
 
                 $scope.isBannerShowing = true;

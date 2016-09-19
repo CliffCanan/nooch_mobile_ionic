@@ -1747,11 +1747,11 @@ div.hscroller-card {
         top: 6px;
     }
 
-    .history-list .typeDateContainer > i::before{
-        color: #555;
-        font-size: 18px;
-        margin-right: 2px;
-    }
+        .history-list .typeDateContainer > i::before {
+            color: #555;
+            font-size: 18px;
+            margin-right: 2px;
+        }
 
         .history-list .typeDateContainer .date i::before {
             color: #666;
@@ -1829,6 +1829,7 @@ div.hscroller-card {
     .transTypeLabel.Rent {
         background-color: #5a538d;
     }
+
     .transTypeLabel.Reward {
         background-color: yellow;
     }
@@ -2673,10 +2674,10 @@ ul:not(.parsley-errors-list) {
         max-width: 40%;
         padding: 3px 0 2px;
     }
-	
-	.idPicWrap #editTxt.gray-dark {
-		background: #bbb;
-	}
+
+        .idPicWrap #editTxt.gray-dark {
+            background: #bbb;
+        }
 
 @media screen and (min-width: 360px) {
 

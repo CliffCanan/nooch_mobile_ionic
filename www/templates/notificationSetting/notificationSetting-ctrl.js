@@ -13,10 +13,10 @@
         }
 
         $scope.GetNotificationFn();
-	});
+    });
 
 
-	$scope.$on("$ionicView.enter", function (event, data) {
+    $scope.$on("$ionicView.enter", function (event, data) {
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Notification Settings");
         })

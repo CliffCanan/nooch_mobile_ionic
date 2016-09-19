@@ -65,7 +65,7 @@
                 $rootScope.showInSearch = res.showInSearch;
                 $rootScope.hasSynapseUserAccount = res.hasSynapseUserAccount;
                 $rootScope.hasSynapseBank = res.hasSynapseBank;
-				$rootScope.hasSubmittedId = res.hasSubmittedId;
+                $rootScope.hasSubmittedId = res.hasSubmittedId;
                 $rootScope.bankStatus = res.bankStatus;
                 $rootScope.synUserPermission = res.synUserPermission;
                 $rootScope.synBankAllowed = res.synBankAllowed;

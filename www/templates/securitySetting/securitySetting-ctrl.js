@@ -63,7 +63,7 @@
                         autoClose: '4000',
                         type: 'success',
                         transition: 'vertical',
-						icon: 'ion-close-circled'
+                        icon: 'ion-close-circled'
                     });
                 }
             })

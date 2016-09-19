@@ -43,9 +43,9 @@
                 interval: '4000',
                 type: 'error',
                 transition: 'vertical',
-				icon: 'ion-close-circled'
-            }, function(test) {
-            	console.log(test);
+                icon: 'ion-close-circled'
+            }, function (test) {
+                console.log(test);
             });
 
             $('#profileTopSection').addClass('p-t-35');
@@ -61,7 +61,7 @@
 
 
     //$scope.$on("$ionicView.afterEnter", function (event, data) {
-		//});
+    //});
 
 
     $scope.MemberDetails = function () {
@@ -116,8 +116,8 @@
             $ionicLoading.show({
                 template: 'Saving Profile...'
             });
-            
-			//$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
+
+            //$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
             console.log($scope.Details);
 
             profileService.UpdateProfile($scope.Details)
@@ -128,29 +128,29 @@
 
                     if (data.Result.indexOf('success') > -1)
                     {
-			            $ionicContentBanner.show({
-			                text: ['Profile Updated Successfully!'],
-			                autoClose: '4000',
-			                type: 'success',
-			                transition: 'vertical',
-			                cancelOnStateChange: false,
-							icon: 'ion-close-circled'
-			            });
+                        $ionicContentBanner.show({
+                            text: ['Profile Updated Successfully!'],
+                            autoClose: '4000',
+                            type: 'success',
+                            transition: 'vertical',
+                            cancelOnStateChange: false,
+                            icon: 'ion-close-circled'
+                        });
 
                         if ($scope.Details.SSN != null)
                             $scope.saveSSN($scope.Details);
 
                         $scope.isAnythingChanged = false;
 
-			            $timeout(function () {
-	                        if ($scope.shouldGoToSettings)
-	                            $state.go('app.settings');
-	                        
-							// CC (9/18/16): This was reloading the screen, but since the changes are already on the screen, why
-							// bother to reload?  It's closing the Success Banner anyway, so commenting this out for now.
-							//else
-	                        //    $state.reload();
-						}, 2000);
+                        $timeout(function () {
+                            if ($scope.shouldGoToSettings)
+                                $state.go('app.settings');
+
+                            // CC (9/18/16): This was reloading the screen, but since the changes are already on the screen, why
+                            // bother to reload?  It's closing the Success Banner anyway, so commenting this out for now.
+                            //else
+                            //    $state.reload();
+                        }, 2000);
                     }
                     else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
                     {
@@ -183,8 +183,8 @@
                   "<span class='show'>Would you like us to re-send a verification link now?</span>",
             type: "warning",
             showCancelButton: true,
-			cancelButtonText: "Not Now",
-			confirmButtonText: "Yes",
+            cancelButtonText: "Not Now",
+            confirmButtonText: "Yes",
             html: true
         }, function (isConfirm) {
             if (isConfirm)
@@ -203,7 +203,7 @@
                                autoClose: '5000',
                                type: 'success',
                                transition: 'vertical',
-							   icon: 'ion-close-circled'
+                               icon: 'ion-close-circled'
                            });
                        else
                            CommonServices.DisplayError('Email verification link not sent :-(');
@@ -231,8 +231,8 @@
                   "<span class='show'>Would you like us to re-send a verification text message now?</span>",
             type: "warning",
             showCancelButton: true,
-			cancelButtonText: "Not Now",
-			confirmButtonText: "Yes",
+            cancelButtonText: "Not Now",
+            confirmButtonText: "Yes",
             html: true
         }, function (isConfirm) {
             if (isConfirm)
@@ -373,7 +373,7 @@
                         $scope.Details.Photos = imageData;
                     }, function (error) {
                         //CommonServices.DisplayError('Unable to access the camera :-(');
-						console.log(error);
+                        console.log(error);
                     });
                 }
                 else
@@ -393,7 +393,7 @@
                                 if (status)
                                     $scope.takePhoto();
                             }, function (error) {
-								console.log(error);
+                                console.log(error);
                                 //CommonServices.DisplayError('Unable to access the camera :-(');
                             });
                         }
@@ -448,7 +448,7 @@
                 type: "warning",
                 showCancelButton: true,
                 cancelButtonText: "Not Now",
-				confirmButtonText: "Yes - Save"
+                confirmButtonText: "Yes - Save"
             }, function (isConfirm) {
                 if (isConfirm)
                 {

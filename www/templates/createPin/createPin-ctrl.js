@@ -70,37 +70,37 @@
 						        $state.go('login');
 						    }
 						    else
-							{
-								swal({
-									title: "Unexpected Error",
-									text: "Oh no! Something went wrong - please try again or contact our support team to let us know!",
-									type: "error",
-									showCancelButton: true,
-									confirmButtonText: "Contact Support",
-									html: true,
-								}, function (isConfirm) {
-									if (isConfirm)
-									{
-										$cordovaSocialSharing
+						    {
+						        swal({
+						            title: "Unexpected Error",
+						            text: "Oh no! Something went wrong - please try again or contact our support team to let us know!",
+						            type: "error",
+						            showCancelButton: true,
+						            confirmButtonText: "Contact Support",
+						            html: true,
+						        }, function (isConfirm) {
+						            if (isConfirm)
+						            {
+						                $cordovaSocialSharing
 											.shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
 											.then(function (result) {
-												swal({
-													title: "Message Sent",
-													text: "Your email has been sent - we will get back to you soon!",
-													type: "success",
-													customeClass: "singleBtn"
-												}, function () {
-													$state.go('signup');
-												});
+											    swal({
+											        title: "Message Sent",
+											        text: "Your email has been sent - we will get back to you soon!",
+											        type: "success",
+											        customeClass: "singleBtn"
+											    }, function () {
+											        $state.go('signup');
+											    });
 											}, function (err) {
-												console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
-												$state.go('signup');
+											    console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
+											    $state.go('signup');
 											});
-									}
-									else
-									  $state.go('signup');
-								});
-							}
+						            }
+						            else
+						                $state.go('signup');
+						        });
+						    }
 						})
 						.error(function (encError) {
 						    $ionicLoading.hide();

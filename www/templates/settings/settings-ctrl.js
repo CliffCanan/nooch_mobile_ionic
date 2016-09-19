@@ -5,16 +5,14 @@
 
      $scope.$on("$ionicView.beforeEnter", function (event, data) {
          console.log("SETTINGS -> beforeEnter fired");
-		 if ($scope.bankData == null)
+
+         if ($scope.bankData == null)
          {
              console.log('$scope.bankData == null');
              $scope.bankData = {
                  bankLogoUrl: '././img/bank.png'
              };
          }
-		 //});
-
-     //$scope.$on("$ionicView.enter", function (event, data) {
 
          $scope.editBank = false;
          $scope.shouldDisplayErrorBanner = false;
@@ -57,8 +55,8 @@
                      interval: '4000',
                      type: 'error',
                      transition: 'vertical',
-					 icon: 'ion-close-circled',
-					 cancelOnStateChange: false
+                     icon: 'ion-close-circled',
+                     cancelOnStateChange: false
                  });
 
                  $('#settings_cntnr').css('margin-top', '50px');
@@ -67,7 +65,10 @@
 
          $scope.url = $rootScope.baseNoochWebUrl + 'AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
+     });
 
+
+     $scope.$on("$ionicView.enter", function (event, data) {
          $ionicPlatform.ready(function () {
              if (typeof analytics !== 'undefined') analytics.trackView("Settings Main Screen");
          })

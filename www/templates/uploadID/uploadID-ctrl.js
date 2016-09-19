@@ -9,7 +9,7 @@
 
 
         $scope.$on("$ionicView.enter", function (event, data) {
-			$scope.picSelected = false;
+            $scope.picSelected = false;
             $ionicPlatform.ready(function () {
                 if (typeof analytics !== 'undefined') analytics.trackView("Upload ID");
             })
@@ -24,19 +24,19 @@
                 ],
                 titleText: 'Upload ID',
                 cancelText: 'Cancel',
-				destructiveText: $scope.picSelected == true ? 'Remove Picture' : null,
+                destructiveText: $scope.picSelected == true ? 'Remove Picture' : null,
                 buttonClicked: function (index) {
                     if (index == 0) $scope.choosePhotoFromDevice();
                     else if (index == 1) $scope.takePhoto();
 
                     return true;
                 },
-	            destructiveButtonClicked: function () {
+                destructiveButtonClicked: function () {
                     $scope.picture = null;
                     $scope.imgURI = null;
                     $scope.picSelected = false;
-	                return true;
-	            }
+                    return true;
+                }
             });
         }
 
@@ -133,17 +133,17 @@
                              autoClose: '4500',
                              type: 'success',
                              transition: 'vertical',
-							 cancelOnStateChange: false,
-							 icon: 'ion-close-circled'
+                             cancelOnStateChange: false,
+                             icon: 'ion-close-circled'
                          });
                      }
                      else
                          CommonServices.DisplayError('Unable to upload ID. Please contact support!');
 
 
-					 $timeout(function () {
-						 $state.go('app.settings');
-					 }, 1500);
+                     $timeout(function () {
+                         $state.go('app.settings');
+                     }, 1500);
                  })
                  .error(function (error) {
                      console.log('submitDocumentToSynapseV3 Error: [' + JSON.stringify(error) + ']');
@@ -151,13 +151,13 @@
                      if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                          CommonServices.logOut();
                      else
-					 {
+                     {
                          CommonServices.DisplayError('Unable to upload ID :-(');
-						 
-						 $timeout(function () {
-							 $state.go('app.settings');
-						 }, 1500);
-					 }
+
+                         $timeout(function () {
+                             $state.go('app.settings');
+                         }, 1500);
+                     }
                  })
             //}
             //else
@@ -171,7 +171,7 @@
                 type: "info",
                 confirmButtonText: "Ok, Got It!",
                 customClass: "singleBtn",
-				htmp: true
+                htmp: true
             });
         }
     })
