@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.profileCtrl', ['noochApp.profile-service', 'noochApp.services', 'ngCordova'])
 .controller('profileCtrl', function ($scope, CommonServices, profileService, $state, $ionicHistory, $localStorage,
                                      $cordovaNetwork, $ionicLoading, $cordovaDatePicker, $cordovaImagePicker, $ionicPlatform,
-                                     $cordovaCamera, $ionicContentBanner, $rootScope, $ionicActionSheet) {
+                                     $cordovaCamera, $ionicContentBanner, $rootScope, $ionicActionSheet, $timeout) {
 
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
@@ -116,7 +116,8 @@
             $ionicLoading.show({
                 template: 'Saving Profile...'
             });
-            $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
+            
+			//$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
             console.log($scope.Details);
 
             profileService.UpdateProfile($scope.Details)
@@ -127,7 +128,6 @@
 
                     if (data.Result.indexOf('success') > -1)
                     {
-						console.log("SAVE PROFILE SUCCESS, NOW SHOWING BANNER");
 			            $ionicContentBanner.show({
 			                text: ['Profile Updated Successfully!'],
 			                autoClose: '4000',
@@ -136,17 +136,21 @@
 			                cancelOnStateChange: false,
 							icon: 'ion-close-circled'
 			            });
-						console.log("SAVE PROFILE SUCCESS, JUST SHOWED BANNER");
 
                         if ($scope.Details.SSN != null)
                             $scope.saveSSN($scope.Details);
 
                         $scope.isAnythingChanged = false;
 
-                        if ($scope.shouldGoToSettings)
-                            $state.go('app.settings');
-                        else
-                            $state.reload();
+			            $timeout(function () {
+	                        if ($scope.shouldGoToSettings)
+	                            $state.go('app.settings');
+	                        
+							// CC (9/18/16): This was reloading the screen, but since the changes are already on the screen, why
+							// bother to reload?  It's closing the Success Banner anyway, so commenting this out for now.
+							//else
+	                        //    $state.reload();
+						}, 2000);
                     }
                     else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
                     {
@@ -218,7 +222,7 @@
 
 
     $scope.ResendVerificationSMS = function () {
-        $scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g, '');
+        //$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g, '');
         //console.log($scope.Details.ContactNumber); 
 
         swal({
@@ -244,9 +248,9 @@
 
                        if (result.Result == 'Success')
                            swal({
-                               title: "Check Your Phone!",
-                               text: "We just sent an SMS message to <span class='show f-500'>" + $rootScope.contactNumber +
-                                     ".</span><span class='show'>Please respond <strong>\"Go\"</strong> (case doesn't matter) to confirm your number.</span>",
+                               title: "Check Your Messages",
+                               text: "We just sent a text message to <span class='show f-600'>" + $rootScope.contactNumber +
+                                     "</span><span class='show'>Please respond <strong>\"Go\"</strong> to confirm your number (case doesn't matter).</span>",
                                type: "success",
                                html: true,
                                customClass: "singleBtn"

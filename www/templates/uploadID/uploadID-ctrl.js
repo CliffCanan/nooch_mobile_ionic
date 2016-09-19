@@ -1,7 +1,7 @@
 ﻿angular.module('noochApp.uploadIDCtrl', ['noochApp.uploadID-service', 'noochApp.services'])
 
     .controller('uploadIDCtrl', function ($scope, $ionicLoading, $ionicPlatform, $cordovaCamera, $cordovaImagePicker,
-                                          $ionicActionSheet, $ionicContentBanner, $timeout, uploadIDService, CommonServices) {
+                                          $ionicActionSheet, $ionicContentBanner, $state, $timeout, uploadIDService, CommonServices) {
 
         $scope.$on("$ionicView.beforeEnter", function (event, data) {
             $scope.picSelected = false;
@@ -9,6 +9,7 @@
 
 
         $scope.$on("$ionicView.enter", function (event, data) {
+			$scope.picSelected = false;
             $ionicPlatform.ready(function () {
                 if (typeof analytics !== 'undefined') analytics.trackView("Upload ID");
             })
