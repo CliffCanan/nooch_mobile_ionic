@@ -1,10 +1,9 @@
 angular.module('noochApp.services', ['ngStorage'])
 
-
 // Adding some common usefull services in here like enc, dec etc.
   .service('CommonServices', function ($http, $localStorage, $state, $window, $ionicLoading, $cordovaCamera, $ionicContentBanner) {
       this.GetEncryptedData = function (dataToEncrypt) {
-          return $http.get(URLs.GetEncryptedData + '?data=' + btoa(dataToEncrypt));   // btoa DOES THE BASE 64 ENCRYPTION FOR GIVEN INPUT
+          return $http.get(URLs.GetEncryptedData + '?data=' + btoa(dataToEncrypt)); // btoa DOES THE BASE 64 ENCRYPTION FOR GIVEN INPUT
       }
 
       this.GetDecryptedData = function (dataToDecrypt) {
@@ -49,7 +48,7 @@ angular.module('noochApp.services', ['ngStorage'])
           $localStorage.GLOBAL_VARIABLES.synBankAllowed = '';
           $localStorage.GLOBAL_VARIABLES.synUserPermission = '';
 
-          console.log($localStorage.GLOBAL_VARIABLES);
+          //console.log($localStorage.GLOBAL_VARIABLES);
 
           var destination = 'signup';
           if ($localStorage.GLOBAL_VARIABLES.UserName != '')
@@ -249,16 +248,6 @@ angular.module('noochApp.services', ['ngStorage'])
           name: 'Adam Bradleyson',
           lastText: 'I should buy a boat',
           face: 'img/adam.jpg'
-      }, {
-          id: 3,
-          name: 'Perry Governor',
-          lastText: 'Look at my mukluks!',
-          face: 'img/perry.png'
-      }, {
-          id: 4,
-          name: 'Mike Harrington',
-          lastText: 'This is wicked good ice cream.',
-          face: 'img/mike.png'
       }];
 
       return {

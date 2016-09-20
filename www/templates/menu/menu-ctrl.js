@@ -32,8 +32,7 @@
 
         menuService.GetUserDetails()
             .success(function (res) {
-                //console.log("GetUserDetails - Menu Cntrlr -->");
-                console.log(res);
+                //console.log(res);
 
                 $scope.Res = res;
 

@@ -7,8 +7,8 @@
 // pass - test123!
 
 //var PATH = 'https://noochme.com/landlords/db/api/';
-// var PATH = 'https://www.noochme.com/noochservice/api/NoochServices/';
-var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
+var PATH = 'https://www.noochme.com/noochservice/api/NoochServices/';
+//var PATH = 'http://www.nooch.info/noochservice/api/NoochServices/';
 //var PATH = 'http://localhost:40972/api/NoochServices/';
 
 var URLs = {
