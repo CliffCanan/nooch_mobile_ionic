@@ -288,19 +288,15 @@
                                                 if (isConfirm)
                                                 {
                                                     $cordovaSocialSharing.shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
-                                                        .then(function (result) {
-                                                            if (result.completed)
-                                                            {
-                                                                swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
-                                                                $state.go('app.home');
-                                                            }
+                                                        .then(function (res) {
+                                                            $state.go('app.settings');
                                                         }, function (err) {
-                                                            swal("Message Not Sent", "Your email was not sent - please try again!", "error");
-                                                            console.log('Error attempting to send email from social sharing: [' + err + ']');
+															$state.go('app.settings');
+                                                            console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
                                                         });
                                                 }
                                                 else
-                                                    $state.go('app.home');
+                                                    $state.go('app.settings');
                                             });
                                         }
                                         else if (response.Result != "Success")

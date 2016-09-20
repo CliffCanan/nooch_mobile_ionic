@@ -1,29 +1,49 @@
-﻿angular.module('noochApp.SignupCtrl', ['noochApp.services', 'noochApp.signup-service'])
+﻿angular.module('noochApp.SignupCtrl', ['noochApp.services', 'noochApp.signup-service', 'ngStorage'])
 
-.controller('SignupCtrl', function ($scope, $location, $ionicModal, $ionicLoading, $timeout, MemberRegistration,
-									$state, CommonServices, $rootScope, $localStorage, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform) {
+	.controller('SignupCtrl', function ($scope, $rootScope, $state, $ionicPlatform, $ionicLoading, $localStorage, $ionicModal, $timeout, MemberRegistration,
+									authenticationService, CommonServices, $cordovaGoogleAnalytics) {
 
-    $rootScope.signUpData = {
-        FirstName: '',
-        Name: '',
-        Email: '',
-        Password: '',
-        Photo: '',
-        Pin: '',
-        rmmbrMe: {
-            chk: true
-        },
-        FBId: '',
-        FbPicUrl: ''
-    };
+	$ionicPlatform.ready(function () {
+
+		//console.log(typeof $rootScope.signUpData);
+		if (typeof $rootScope.signUpData == 'undefined')
+		{
+			$rootScope.signUpData = {
+				FirstName: '',
+				Name: '',
+				Email: '',
+				Password: '',
+				Photo: '',
+				Pin: '',
+				rmmbrMe: {
+				    chk: true
+				},
+				FBId: '',
+				FbPicUrl: ''
+			};
+		}
+
+		//console.log($rootScope.signUpData);
+
+		if ($localStorage.GLOBAL_VARIABLES)
+		{
+			if ($localStorage.GLOBAL_VARIABLES.MemberId != null &&
+			  	$localStorage.GLOBAL_VARIABLES.MemberId.length > 0 &&
+			  	$localStorage.GLOBAL_VARIABLES.AccessToken != null &&
+			  	$localStorage.GLOBAL_VARIABLES.AccessToken.length > 0)
+			{
+				console.log("Login -> Sending to Home");
+			    $state.go('app.home');
+			}
+		}
+
+		if (typeof analytics !== 'undefined') analytics.trackView("Signup / Register");
+	});
+
 
     $scope.$on("$ionicView.enter", function (event, data) {
         console.log('Signup Controller Loaded');
         console.log('signUpData: [' + JSON.stringify($rootScope.signUpData) + ']');
-
-        $ionicPlatform.ready(function () {
-            if (typeof analytics !== 'undefined') analytics.trackView("Signup / Register");
-        })
     });
 
 
@@ -196,9 +216,9 @@
     }
 
 
-    $scope.keyEntered = function (btn) {
+    $scope.keyEntered = function (field) {
 
-        if (btn == 1)
+        if (field == 1)
         {
             var fName = $rootScope.signUpData.Name;
 
@@ -215,7 +235,7 @@
             $('#email').val($('#email').val().trim());
 
         if ($rootScope.signUpData.Name.length > 3 &&
-            $rootScope.signUpData.Email.length > 3 &&
+            $rootScope.signUpData.Email != null && $rootScope.signUpData.Email.length > 3 &&
             $rootScope.signUpData.Password.length > 4)
             $('#createAccount').attr('disabled', false);
         else
@@ -225,40 +245,43 @@
 
     $scope.checkIfEmailAlreadyRegistered = function () {
         console.log('checkIfEmailAlreadyRegistered Fired');
+		//console.log($rootScope.signUpData);
 
         var isEmailValid = $('#email').parsley().validate();
 
-        if (isEmailValid == true)
+        if ($rootScope.signUpData.Email != null && isEmailValid == true)
         {
             console.log("Checking Email with server...");
-            MemberRegistration.CheckIfEmailIsRegistered($rootScope.signUpData.Email).success(function (data) {
+            MemberRegistration.CheckIfEmailIsRegistered($rootScope.signUpData.Email)
+				.success(function (data) {
 
-                console.log(data);
+	                console.log(data);
 
-                if (data != null && data.matchFound == true)
-                {
-                    $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = data.rememberMe == true ? true : false;
+	                if (data != null && data.matchFound == true)
+	                {
+	                    $localStorage.GLOBAL_VARIABLES.IsRemeberMeEnabled = data.rememberMe == true ? true : false;
 
-                    swal({
-                        title: "Email Already Registered",
-                        text: "Terribly sorry, but it looks like <strong>" + $rootScope.signUpData.Email + "</strong> has already been registered!" +
-                              "<span class='show'>If this is your account, click 'Login' to, well, login!</span>",
-                        type: "error",
-                        showCancelButton: true,
-                        cancelButtonText: "Login",
-                        html: true,
-                    }, function (isConfirm) {
-                        console.log(isConfirm);
-                        if (!isConfirm)
-                        {
-                            $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
-                            $state.go('login');
-                        }
-                    });
-                }
-            }).error(function (err) {
-                $ionicLoading.hide();
-            });
+	                    swal({
+	                        title: "Email Already Registered",
+	                        text: "Terribly sorry, but it looks like <strong>" + $rootScope.signUpData.Email + "</strong> has already been registered!" +
+	                              "<span class='show'>If this is your account, click 'Login' to, well, login!</span>",
+	                        type: "error",
+	                        showCancelButton: true,
+	                        cancelButtonText: "Login",
+	                        html: true,
+	                    }, function (isConfirm) {
+	                        console.log(isConfirm);
+	                        if (!isConfirm)
+	                        {
+	                            $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
+	                            $state.go('login');
+	                        }
+	                    });
+	                }
+	            })
+				.error(function (err) {
+	                $ionicLoading.hide();
+	            });
         }
     }
 

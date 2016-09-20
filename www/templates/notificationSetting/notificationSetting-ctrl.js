@@ -1,6 +1,7 @@
 ﻿angular.module('noochApp.notificationSettingCtrl', ['noochApp.services', 'noochApp.notificationSetting-service'])
 
-.controller('notificationSettingCtrl', function ($scope, $rootScope, $ionicLoading, $state, CommonServices, notificationServices, $cordovaGoogleAnalytics, $ionicPlatform) {
+.controller('notificationSettingCtrl', function ($scope, $rootScope, $ionicPlatform, $ionicLoading, $state, $cordovaGoogleAnalytics,
+												 $ionicContentBanner, CommonServices, notificationServices) {
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
         if ($rootScope.ChkBox == null)
@@ -53,6 +54,15 @@
         notificationServices.MemberEmailNotificationSettings($rootScope.ChkBox)
             .success(function (data) {
                 console.log(data);
+				
+				if (data.Result != null && data.Result =="Success")
+	                $ionicContentBanner.show({
+	                    text: ['Notification Settings Updated Successfully!'],
+	                    autoClose: '3000',
+	                    type: 'success',
+	                    transition: 'vertical',
+	                    icon: 'ion-close-circled'
+	                });
             })
             .error(function (data) {
                 console.log('MemberEmailNotificationSettings Error: [' + JSON.stringify(data) + ']');

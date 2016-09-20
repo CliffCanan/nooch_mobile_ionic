@@ -42,16 +42,13 @@
                 text: $scope.errorBannerTextArray,
                 interval: '4000',
                 type: 'error',
-                transition: 'vertical',
                 icon: 'ion-close-circled'
-            }, function (test) {
-                console.log(test);
             });
-
-            $('#profileTopSection').addClass('p-t-35');
+			
+			$scope.isBannerShowing = true;
         }
-        else if ($('#profileTopSection').hasClass('p-t-35'))
-            $('#profileTopSection').removeClass('p-t-35');
+        else
+            $scope.isBannerShowing = false;
 
 
         $ionicPlatform.ready(function () {
@@ -76,7 +73,6 @@
 
             profileService.GetMyDetails()
                 .success(function (details) {
-                    // console.log('Profile Data GetMyDetails...');
                     console.log(details);
 
                     $scope.Details = details;
@@ -287,7 +283,7 @@
             date: new Date(),
             mode: 'date', // or 'time'
             minDate: 0,
-            maxDate: new Date('01/01/1990'),
+            maxDate: new Date('01/01/1998'),
             allowOldDates: true,
             allowFutureDates: false,
             doneButtonLabel: 'DONE',
@@ -300,22 +296,27 @@
 
             $cordovaDatePicker.show(options).then(function (date) {
                 $scope.Details.DateOfBirth = date;
-                if ($scope.Details.DateOfBirth != null)
+                if ($scope.Details.DateOfBirth != null) {
                     //$scope.Details.DateOfBirth = new Date($scope.Details.DateOfBirth);
                     console.log('From DatePicker: [' + $scope.Details.DateOfBirth + ']');
+				}
             });
         }, false);
     }
 
 
-    $scope.changePic = function () {
-        var hideSheet = $ionicActionSheet.show({
-            buttons: [
-                  { text: 'Choose From Library' },
-                  { text: 'Take Photo' }
-            ],
-            titleText: 'Update Your Profile Picture',
-            cancelText: 'Cancel',
+
+
+	
+	$scope.changePic = function () {
+		var hideSheet = $ionicActionSheet.show({
+			buttons: [
+				{ text: 'Choose From Library' },
+				{ text: 'Take Photo' }
+			
+			],
+			titleText: 'Update Your Profile Picture',
+			cancelText: 'Cancel',
             buttonClicked: function (index) {
                 if (index == 0)
                     $scope.choosePhotoFromDevice();
@@ -410,8 +411,7 @@
     $scope.saveSSN = function (Details) {
         console.log('saveSSN Function Fired');
         $scope.Details.SSN = $scope.Details.SSN.replace(/-/g, '');
-        console.log($scope.Details.SSN);
-        //if ($cordovaNetwork.isOnline()) {
+        //console.log($scope.Details.SSN);
 
         profileService.SaveMemberSSN($scope.Details)
             .success(function (details) {
@@ -428,9 +428,6 @@
 			    else
 			        CommonServices.DisplayError('Unable to save SSN :-(');
 			})
-        //}
-        //else
-        //    swal("Error", "Internet not connected!", "error");
     }
 
 
@@ -462,11 +459,6 @@
         else
             $state.go('app.settings');
     }
-
-
-    $('.content-banner *').on('click', function () {
-        $('#profileTopSection').removeClass('p-t-35');
-    });
 
 
     $scope.checkLength = function (value) {
@@ -511,4 +503,9 @@
         }
     }
 
+
+	// CC (9/19/16): Called from $rootScope.ionicContentBannerHasHidden() which is fired from ionic.content.banner.js
+	$scope.$on("ionicContentBannerHasHidden",function () {
+		$scope.isBannerShowing = false;
+	});
 })

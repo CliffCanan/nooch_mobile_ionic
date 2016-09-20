@@ -20,7 +20,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
       {
           console.log("App.js -> Run -> GLOBAL_VARs did not exist, setting defaults now");
           $localStorage.GLOBAL_VARIABLES = {
-              IsDemoDone: false, // for displaying tutorial screens to user - if any
+              IsDemoDone: false, // for displaying tutorial screens to user
               IsRemeberMeEnabled: true, // for remembering user
 
               IsUserLocationSharedWithNooch: false, // to keep track of location sharing
@@ -53,7 +53,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
       if ($localStorage.GLOBAL_VARIABLES.MemberId == '')
       {
-          console.log("App.js -> Run -> MemberId == '' so calling LOGOUT CommonService");
+          //console.log("App.js -> Run -> MemberId == '' so calling LOGOUT CommonService");
           CommonServices.logOut();
       }
 
@@ -152,24 +152,28 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                       console.log('App.js --> OneSignal.getIds: [' + JSON.stringify(ids) + ']');
 
                       $localStorage.GLOBAL_VARIABLES.DeviceToken = ids.pushToken;
+					  $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven == true;
 
                       // console.log("OneSignalUserId UserId: " + ids.userId);
                       // console.log("OneSignalPushToken PushToken: " + ids.pushToken);
                   });
 
-                  var isOnline = $cordovaNetwork.isOnline();
+                  /*var isOnline = $cordovaNetwork.isOnline();
                   if (isOnline == true)
                       $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = true;
+				  console.log("APP.JS -> CHECKPOINT #1");
 
                   var isOffline = $cordovaNetwork.isOffline();
                   if (isOffline == true)
                       $localStorage.GLOBAL_VARIABLES.IsNetworkAvailable = false;
 
+				  console.log("APP.JS -> CHECKPOINT #2");
+
                   // listen for Online event
                   $rootScope.$on('$cordovaNetwork:online', function (event, networkState) {
                       var onlineState = networkState;
                       console.log('Network is ONLINE - ' + JSON.stringify(networkState));
-                  })
+                  });*/
 
                   // listen for Offline event
                   $rootScope.$on('$cordovaNetwork:offline', function (event, networkState) {
@@ -197,6 +201,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
           if (window.StatusBar)
               StatusBar.styleDefault();
+		  
+		  $rootScope.ionicContentBannerHasHidden = function() {
+			  //console.log('$rootScope.ionicContentBannerHasHidden FIRED');
+			  $rootScope.$broadcast('ionicContentBannerHasHidden');
+		  }
 
       });
 

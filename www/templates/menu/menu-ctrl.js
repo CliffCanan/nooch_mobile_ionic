@@ -114,11 +114,10 @@
                         // .shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                         $cordovaSocialSharing
                           .shareViaEmail('Hi Nooch, I found a bug and wanted to tell you!', 'Found a Nooch Bug!', 'bugs@nooch.com', null, null, null)
-                          .then(function (result) {
-                              // Success!
+                          .then(function (res) {
                           }, function (err) {
                               // An error occurred. Show a message to the user
-                              console.log('from social sharing fail');
+                              console.log('from social sharing error: [' + JSON.stringify(err) + ']');
                           });
                     }
                     else if (index == 1)
@@ -127,11 +126,10 @@
                         //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                         $cordovaSocialSharing
                           .shareViaEmail('Hi Nooch - Please help me!', 'Nooch Support Request', 'support@nooch.com', null, null, null)
-                          .then(function (result) {
-                              // Success!
+                          .then(function (res) {
                           }, function (err) {
                               // An error occurred. Show a message to the user
-                              console.log('from social sharing fail');
+                              console.log('from social sharing error: ' + JSON.stringify(err) + ']');
                           });
                     }
                     else if (index == 2)

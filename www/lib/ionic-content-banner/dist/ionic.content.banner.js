@@ -97,9 +97,9 @@ angular.module('jett.ionic.content.banner', ['ionic']);
           var scope = $rootScope.$new(true);
 
           angular.extend(scope, {
-            icon: 'ion-ios-close-empty',
+            icon: 'ion-close-circled',
             transition: 'vertical',
-            interval: 7000,
+            interval: 4000,
             type: 'info',
             $deregisterBackButton: angular.noop,
             closeOnStateChange: true,
@@ -129,6 +129,8 @@ angular.module('jett.ionic.content.banner', ['ionic']);
 
             ionic.requestAnimationFrame(function () {
               element.removeClass('content-banner-in');
+			  
+			  $rootScope.ionicContentBannerHasHidden();
 
               $timeout(function () {
                 scope.$destroy();
@@ -164,7 +166,7 @@ angular.module('jett.ionic.content.banner', ['ionic']);
           //set small timeout to let ionic set the active/cached view
           $timeout(function () {
             scope.show();
-          }, 10, false);
+          }, 500, false);
 
           // Expose the scope on $ionContentBanner's return value for the sake of testing it.
           scope.close.$scope = scope;

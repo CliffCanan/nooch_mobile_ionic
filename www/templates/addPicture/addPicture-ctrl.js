@@ -47,7 +47,6 @@
                 CommonServices.openPhotoGallery('addPicture', function (result) {
                     if (result != null && result != 'failed')
                     {
-                        console.log("ADD - PICTURE - SUCCESS FROM COMMONSERVICES")
                         $rootScope.signUpData.Photo = "data:image/jpeg;base64," + result;
 
                         $scope.showContinueBtn = true;
@@ -98,7 +97,6 @@
                         text: "This lets you take a picture to use for your profile.",
                         type: "info",
                         confirmButtonText: "Give Access",
-                        confirmButtonColor: "#3fabe1",
                         showCancelButton: true,
                         cancelButtonText: "Not Now"
                     }, function (isConfirm) {

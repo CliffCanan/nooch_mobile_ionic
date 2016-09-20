@@ -12,12 +12,20 @@
     $scope.phoneContacts = [];
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
-        //console.log('Home Ctrl BeforeEnter Fired');
-        if ($('#searchMoreFriends').hasClass('flipOutX'))
+        console.log('Home Ctrl BeforeEnter Fired');
+
+		if ($('#searchMoreFriends').hasClass('flipOutX'))
             $('#searchMoreFriends').removeClass('flipOutX');
 
         $scope.shouldDisplayErrorBanner = false;
         $scope.errorBannerTextArray = [];
+
+        if ($localStorage.GLOBAL_VARIABLES.MemberId == null ||
+			$localStorage.GLOBAL_VARIABLES.MemberId == '')
+        {
+            console.log("HOME CNTRL -> MemberId == '' so calling LOGOUT CommonService");
+            CommonServices.logOut();
+        }
     });
 
 
@@ -27,61 +35,6 @@
         $scope.memberList = [];
         $scope.phoneContacts = [];
 
-        $timeout(function () {
-            //console.log($localStorage.GLOBAL_VARIABLES);
-
-            if ($rootScope.Status === "Suspended" ||
-                $rootScope.Status === "Temporarily_Blocked")
-            {
-                $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
-                $scope.shouldDisplayErrorBanner = true;
-            }
-            else
-            {
-                if ($rootScope.IsPhoneVerified == false)
-                {
-                    $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
-                    $scope.shouldDisplayErrorBanner = true;
-                }
-                if ($rootScope.isProfileComplete == false ||
-	                $rootScope.Status == "Registered")
-                {
-                    $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
-                    $scope.shouldDisplayErrorBanner = true;
-                }
-                if ($rootScope.hasSynapseBank == false)
-                {
-                    $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
-                    $scope.shouldDisplayErrorBanner = true;
-                }
-            }
-            if ($scope.shouldDisplayErrorBanner)
-            {
-                $ionicContentBanner.show({
-                    text: $scope.errorBannerTextArray,
-                    interval: '4000',
-                    type: 'error',
-                    transition: 'vertical',
-                    icon: 'ion-close-circled',
-                    cancelOnStateChange: false
-                });
-
-                $scope.isBannerShowing = true;
-                //$('#fav-container').css('margin-top', '40px');
-            }
-            else
-                $scope.pendingList();
-
-            if ($localStorage.GLOBAL_VARIABLES.MemberId != null &&
-                $localStorage.GLOBAL_VARIABLES.MemberId != '')
-            {
-                $scope.FindRecentFriends();
-                $scope.deviceIp();
-            }
-
-        }, 1000);
-
-
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Home");
         })
@@ -89,10 +42,73 @@
 
 
     $scope.$on("$ionicView.afterEnter", function (event, data) {
+		console.log("Home Cntrl --> After Enter Fired");
+
+        $timeout(function () {
+            //console.log($localStorage.GLOBAL_VARIABLES);
+
+            if ($localStorage.GLOBAL_VARIABLES.MemberId != null &&
+                $localStorage.GLOBAL_VARIABLES.MemberId != '')
+            {
+				if ($rootScope.Status === "Suspended" ||
+	                $rootScope.Status === "Temporarily_Blocked")
+	            {
+	                $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
+	                $scope.shouldDisplayErrorBanner = true;
+	            }
+	            else
+	            {
+	                if ($rootScope.IsPhoneVerified == false)
+	                {
+	                    $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
+	                    $scope.shouldDisplayErrorBanner = true;
+	                }
+	                if ($rootScope.isProfileComplete == false ||
+		                $rootScope.Status == "Registered")
+	                {
+	                    $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
+	                    $scope.shouldDisplayErrorBanner = true;
+	                }
+	                if ($rootScope.hasSynapseBank == false)
+	                {
+	                    $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
+	                    $scope.shouldDisplayErrorBanner = true;
+	                }
+	            }
+	            if ($scope.shouldDisplayErrorBanner)
+	            {
+	                $ionicContentBanner.show({
+	                    text: $scope.errorBannerTextArray,
+	                    interval: '4000',
+	                    type: 'error',
+	                    icon: 'ion-close-circled',
+	                    cancelOnStateChange: false
+	                });
+
+	                $scope.isBannerShowing = true;
+	                //$('#fav-container').css('margin-top', '40px');
+	            }
+	            else
+				{
+					console.log("Home Cntrl --> AfterEnter --> About to call PendingList()");
+					$scope.pendingList();
+				}
+
+                $scope.FindRecentFriends();
+                $scope.deviceIp();
+            }
+
+        }, 1000);
+
+
         if (window.cordova)
         {
-            if ($rootScope.isProfileComplete == true && $localStorage.GLOBAL_VARIABLES.DeviceToken == '')
+            if ($rootScope.isProfileComplete == true &&
+				$localStorage.GLOBAL_VARIABLES.DeviceToken == '' &&
+				$localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven == false)
+			{
                 window.plugins.OneSignal.registerForPushNotifications();
+			}
         }
     });
 
@@ -340,8 +356,7 @@
 
                     $ionicContentBanner.show({
                         text: [text],
-                        type: 'info',
-                        transition: 'vertical'
+                        type: 'info'
                     });
                     $scope.isBannerShowing = true;
                 }
@@ -493,7 +508,7 @@
             $('#searchMoreFriends').addClass('flipOutX fast');
             $timeout(function () {
                 $state.go('app.selectRecipient');
-            }, 800);
+            }, 700);
         }
     }
 
@@ -527,15 +542,9 @@
                     //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                     $cordovaSocialSharing
                       .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
-                      .then(function (result) {
-                          console.log(result);
-                          console.log(JSON.stringify(result));
-                          if (result.Completed)
-                              swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                      .then(function (res) {
                       }, function (err) {
-                          // An error occurred. Show a message to the user
-                          swal("Message Not Sent", "Your email was not sent - please try again!", "error");
-                          console.log('Error attempting to send email from social sharing: [' + err + ']');
+                          console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
                       });
                 }
             });
@@ -737,4 +746,10 @@
 		      console.log('UdateMemberIPAddress Error: [' + JSON.stringify(error) + ']');
 		  });
     }
+	
+	
+	// CC (9/19/16): Called from $rootScope.ionicContentBannerHasHidden() which is fired from ionic.content.banner.js (which I edited to add this)
+	$scope.$on("ionicContentBannerHasHidden",function () {
+		$scope.isBannerShowing = false;
+	});
 })

@@ -167,11 +167,12 @@
         $scope.learnMore = function () {
             swal({
                 title: "What Gives?",
-                text: "To help keep Nooch secure for everyone (and to comply with a variety of state & federal laws, including the PATRIOT ACT), we have to make sure you're not a Soviet spy. &nbsp;Well, actually, any kind of spy.",
+                text: "To help keep Nooch secure for everyone (and to comply with a variety of state & federal laws, including the PATRIOT ACT), we have to make sure you're not a Soviet spy. &nbsp;Well, actually, any kind of spy." +
+                      "<span class='show m-b-20'>Your money is important and we take security very seriously. &nbsp;Part of our commitment to a safe service includes complying with <span class='f-500'>\"Know Your Customer\"</span> regulations which just means we must verify your identity before you can send money.",
                 type: "info",
-                confirmButtonText: "Ok, Got It!",
-                customClass: "singleBtn",
-                htmp: true
+                confirmButtonText: "Ok, Got It",
+                customClass: "singleBtn smText",
+                html: true
             });
         }
     })

@@ -79,7 +79,6 @@
                                 type: "info",
                                 showCancelButton: true,
                                 cancelButtonText: "Not Now",
-                                confirmButtonColor: "#3fabe1",
                                 confirmButtonText: "Authorize"
                             }, function (isConfirm) {
                                 if (isConfirm)
@@ -341,7 +340,6 @@
                             text: "Your Location is not shared with Nooch Would you like to share it",
                             type: "warning",
                             showCancelButton: true,
-                            confirmButtonColor: "#DD6B55",
                             confirmButtonText: "Yes, Enable",
                         }, function () {
                             if (window.cordova) {
@@ -482,7 +480,6 @@
                     title: "Almost There...",
                     text: "Please make sure you entered a valid 10-digit phone number!",
                     type: "warning",
-                    confirmButtonColor: "#3fabe1",
                     customClass: "heavierText"
                 }, function () {
                     $timeout(function () {
@@ -504,7 +501,6 @@
                     title: "Almost There...",
                     text: "Please make sure you entered a valid email address!",
                     type: "warning",
-                    confirmButtonColor: "#3fabe1",
                     customClass: "heavierText"
                 }, function () {
                     $timeout(function () {

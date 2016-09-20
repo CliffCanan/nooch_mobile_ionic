@@ -666,13 +666,13 @@ a {
     background: rgb(200, 68, 66);
     border-radius: 50%;
     border: 1px solid #fff;
-    box-shadow: 0 1px 8px 0px rgba(0,0,0,.5);
     color: #fff;
     font-size: 15px;
     font-weight: 600;
     width: 20px;
     height: 20px;
     text-align: center;
+	text-shadow: 0 1px 3px rgba(17,2,2,.35);
 }
 
 .link-underline {
@@ -875,6 +875,11 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
     .sweet-alert.heavierText p {
         font-weight: 400;
+    }
+	
+    .sweet-alert.smText p {
+        font-size: 16px;
+		line-height: 1.35;
     }
 
     .sweet-alert .show {
@@ -1375,6 +1380,10 @@ iframe {
     margin: 0;
 }
 
+.menu .alertIcon {
+	box-shadow: 0 1px 8px 0px rgba(0,0,0,.45);
+}
+
 .menu #settings-cog .alertIcon {
     text-shadow: 0 1px 4px rgba(0,0,0,.4);
     position: absolute;
@@ -1506,11 +1515,10 @@ div.hscroller-card {
 /******************/
 
 #settings_cntnr {
-    transition: .7s all ease-out;
+    transition: .5s all ease-in-out;
 }
 
     #settings_cntnr .alertIcon {
-        box-shadow: 0 1px 4px -1px rgba(0,0,0,.2);
         display: inline-block;
         margin-left: 10px;
     }
@@ -1595,7 +1603,7 @@ div.hscroller-card {
 /***   PROFILE   ***/
 /*******************/
 #profileTopSection {
-    transition: .6s ease-in-out all;
+    transition: .5s ease-in-out all;
 }
 
 .profilePicWrapper {
@@ -1690,10 +1698,15 @@ div.hscroller-card {
     text-align: center;
 }
 
-#notifScrn i {
+#notifScrn .icon-row i {
     color: #5a538d;
-    font-size: 25px;
+    font-size: 28px;
 }
+
+#notifScrn .icon-row i:active {
+    color: #ACA9C6;
+}
+
 
 #notifScrn .row .col:first-child {
     font-size: 17px;
@@ -5783,7 +5796,7 @@ ul:not(.parsley-errors-list) {
     }
 
         .platform-android .action-sheet .button.destructive {
-            color: red;
+            color: #C84442;
         }
 
         .platform-android .action-sheet .button.active, .platform-android .action-sheet .button.activated {

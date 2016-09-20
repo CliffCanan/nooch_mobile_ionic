@@ -200,8 +200,7 @@
 	                               title: "Incorrect PIN",
 	                               text: "Looks like your PIN wasn't quite right! Please try again.",
 	                               type: "error",
-	                               confirmButtonColor: "#DD6B55",
-	                               confirmButtonText: "Ok",
+	                               customClass: "singleBtn",
 	                           }, function () {
 	                               $scope.Details.enterPin = '';
 	                               $("#pin").val('').focus();
@@ -260,7 +259,6 @@
                 text: msg,
                 type: "success",
                 showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
                 confirmButtonText: "View Details",
                 cancelButtonText: "Ok",
             }, function (isConfirm) {
@@ -293,22 +291,18 @@
                 type: "error",
                 showCancelButton: true,
                 cancelButtonText: "Ok",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Contact Support",
                 html: true
             }, function (isConfirm) {
                 if (isConfirm)
                 {
-                    // toArr, ccArr and bccArr must be an array, file can be either null, string or array
-                    //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                     $cordovaSocialSharing
                       .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
-                      .then(function (result) {
-                          if (result.Completed)
-                              swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                      .then(function (res) {
+						  $state.go('app.home');
                       }, function (err) {
-                          // An error occurred. Show a message to the user
-                          console.log('Error attempting to send email from social sharing: [' + err + ']');
+                          console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
+						  $state.go('app.home');
                       });
                 }
             });

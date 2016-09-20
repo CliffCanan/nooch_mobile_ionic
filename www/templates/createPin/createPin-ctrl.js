@@ -4,20 +4,18 @@
                                            $timeout, createPinServices, $ionicLoading, CommonServices, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
-            console.log('Create PIN Controller Loaded');
+			$scope.showBackBtn = true;
+		});
 
 
-            $ionicPlatform.ready(function () {
-                if (typeof analytics !== 'undefined') analytics.trackView("Singup Flow - Create PIN");
-            })
-
-            console.log($rootScope.signUpData);
+		$scope.$on("$ionicView.enter", function (event, data) {
+            //console.log('Create PIN Controller Loaded');
+            //console.log($rootScope.signUpData);
 
             if ($rootScope.signUpData == null)
                 $state.go('signup');
             else
             {
-                $("#pinTxt").focus();
                 $rootScope.signUpData.Pin = '';
                 $scope.firstPinEntered = '';
                 $scope.onConfirm = false;
@@ -29,7 +27,16 @@
                 else
                     console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
             }
+
+            $ionicPlatform.ready(function () {
+                if (typeof analytics !== 'undefined') analytics.trackView("Singup Flow - Create PIN");
+            })
         });
+
+
+		$scope.$on("$ionicView.afterEnter", function (event, data) {
+			$("#pinTxt").focus();
+		});
 
 
         $scope.signUpFn = function () {
@@ -40,31 +47,31 @@
             $ionicLoading.show({
                 template: 'Creating PIN...'
             });
-
+			
+			$scope.showBackBtn = false;
 
             if ($rootScope.signUpData.Photo != null && $rootScope.signUpData.Photo.indexOf('base64'))
                 $rootScope.signUpData.Photo = $rootScope.signUpData.Photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-
 
             CommonServices.GetEncryptedData($rootScope.signUpData.Password)
 				.success(function (data) {
 				    $rootScope.signUpData.Password = data.Status;
 
 				    createPinServices.Signup($rootScope.signUpData)
-						.success(function (data) {
-						    console.log(data);
+						.success(function (createAccountRes) {
+						    console.log(createAccountRes);
 
 						    $ionicLoading.hide();
 
-						    if (data != null && data.indexOf('Thanks for registering') > -1)
+						    if (createAccountRes != null && createAccountRes.Result.indexOf('Thanks for registering') > -1)
 						    {
 						        $localStorage.GLOBAL_VARIABLES.UserName = $rootScope.signUpData.Email;
-						        //console.log('RunTime values ----->> DeviceId And DeviceToken');
+						        //console.log('DeviceId And DeviceToken');
 						        //console.log($localStorage.GLOBAL_VARIABLES.DeviceId);
 						        //console.log($localStorage.GLOBAL_VARIABLES.DeviceToken);
 						        $scope.SignIn();
 						    }
-						    else if (data == 'Duplicate random Nooch ID was generating')
+						    else if (createAccountRes.Result == 'Duplicate random Nooch ID was generating')
 						    {
 						        swal("Uh Oh...", "Looks like that email is already registered!", "error");
 						        $state.go('login');
@@ -83,15 +90,8 @@
 						            {
 						                $cordovaSocialSharing
 											.shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
-											.then(function (result) {
-											    swal({
-											        title: "Message Sent",
-											        text: "Your email has been sent - we will get back to you soon!",
-											        type: "success",
-											        customeClass: "singleBtn"
-											    }, function () {
-											        $state.go('signup');
-											    });
+											.then(function (res) {
+												$state.go('signup');
 											}, function (err) {
 											    console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
 											    $state.go('signup');
@@ -102,9 +102,9 @@
 						        });
 						    }
 						})
-						.error(function (encError) {
+						.error(function (error) {
 						    $ionicLoading.hide();
-						    console.log('Signup Attempt -> Error [' + encError + ']');
+						    console.log('Signup Attempt -> Error [' + JSON.stringify(error) + ']');
 						    $state.go('signup');
 						})
 				})
@@ -148,15 +148,15 @@
 	                          }, function (isConfirm) {
 	                              if (isConfirm)
 	                              {
-	                                  // toArr, ccArr and bccArr must be an array, file can be either null, string or array
 	                                  //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
 	                                  $cordovaSocialSharing
 	                                    .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
-	                                    .then(function (result) {
-	                                        swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+	                                    .then(function (res) {
+	                                        $state.go('signup');
 	                                    }, function (err) {
 	                                        // An error occurred. Show a message to the user
-	                                        console.log('Error attempting to send email from social sharing: [' + err + ']');
+	                                        console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
+											$state.go('signup');
 	                                    });
 	                              }
 	                          });

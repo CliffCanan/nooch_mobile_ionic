@@ -96,10 +96,9 @@
             bodyText += "?";
 
             swal({
-                title: "Cancelled Request?",
+                title: "Cancel Request?",
                 text: bodyText,
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Yes",
                 showCancelButton: true,
             }, function (isConfirm) {
@@ -121,7 +120,6 @@
                                     swal({
                                         title: "Request Cancelled Successfully",
                                         type: "success",
-                                        confirmButtonColor: "#3fabe1",
                                         customClass: "singleBtn"
                                     }, function () {
                                         $scope.getTransactions('Pending');
@@ -149,7 +147,6 @@
                                     swal({
                                         title: "Request Cancelled Successfully",
                                         type: "success",
-                                        confirmButtonColor: "#3fabe1",
                                         customClass: "singleBtn"
                                     }, function () {
                                         $scope.getTransactions('Pending');
@@ -179,7 +176,6 @@
                 title: "Reject Payment",
                 text: "Are you sure you want to reject this payment?",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Yes",
                 showCancelButton: true,
             }, function (isConfirm) {
@@ -199,7 +195,6 @@
                                 swal({
                                     title: "Request Rejected Successfully",
                                     type: "success",
-                                    confirmButtonColor: "#3fabe1",
                                     customClass: "singleBtn"
                                 }, function () {
                                     $scope.getTransactions('Pending');
@@ -223,7 +218,6 @@
                 title: "Send Reminder",
                 text: "Do you want to send a reminder about this request?",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Yes",
                 showCancelButton: true,
             }, function (isConfirm) {
@@ -242,7 +236,6 @@
 		                        swal({
 		                            title: "Reminder Sent Successfully",
 		                            type: "success",
-		                            confirmButtonColor: "#3fabe1",
 		                            customClass: "singleBtn"
 		                        });
 		                    else
@@ -270,7 +263,6 @@
                 title: "Pay Request?",
                 text: "Are you sure you want to pay this request ?",
                 type: "warning",
-                confirmButtonColor: "#3fabe1",
                 confirmButtonText: "Yes",
                 showCancelButton: true,
             }, function (isConfirm) {

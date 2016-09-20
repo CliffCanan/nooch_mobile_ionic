@@ -1,7 +1,8 @@
 ﻿angular.module('noochApp.SettingCtrl', ['noochApp.settings-service', 'noochApp.services', 'ngStorage'])
 
- .controller('SettingCtrl', function ($scope, $rootScope, $timeout, $state, $ionicModal, $ionicLoading,
-                                      $localStorage, $sce, $ionicContentBanner, settingsService, CommonServices, $cordovaGoogleAnalytics, $ionicPlatform) {
+ .controller('SettingCtrl', function ($scope, $rootScope, $timeout, $state, $ionicModal, $ionicLoading, $localStorage,
+	                                  $cordovaSocialSharing, $sce, $ionicContentBanner, $ionicPlatform, $cordovaGoogleAnalytics,
+	                                  CommonServices, settingsService) {
 
      $scope.$on("$ionicView.beforeEnter", function (event, data) {
          console.log("SETTINGS -> beforeEnter fired");
@@ -19,6 +20,7 @@
          $scope.errorBannerTextArray = [];
 
          $timeout(function () {
+			 console.log("Settings -> BeforeEnter -> Timeout Fired");
              if ($rootScope.IsPhoneVerified === false)
              {
                  $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
@@ -47,6 +49,9 @@
                  $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
                  $scope.shouldDisplayErrorBanner = true;
              }
+			 
+			 console.log($scope.errorBannerTextArray);
+			 console.log($scope.shouldDisplayErrorBanner);
 
              if ($scope.shouldDisplayErrorBanner)
              {
@@ -54,14 +59,15 @@
                      text: $scope.errorBannerTextArray,
                      interval: '4000',
                      type: 'error',
-                     transition: 'vertical',
                      icon: 'ion-close-circled',
                      cancelOnStateChange: false
                  });
 
-                 $('#settings_cntnr').css('margin-top', '50px');
+                 $scope.isBannerShowing = true;
              }
-         }, 300);
+			 else
+				 $scope.isBannerShowing = false;
+         }, 500);
 
          $scope.url = $rootScope.baseNoochWebUrl + 'AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
          $scope.trustedUrl = $sce.trustAsResourceUrl($scope.url);
@@ -102,7 +108,7 @@
 			 	   "</span><span class='show f-500 m-b-15'>This cannot be undone.</span>",
              type: "warning",
              showCancelButton: true,
-             confirmButtonColor: "red",
+             confirmButtonClass: "btn-danger",
              confirmButtonText: "Yes - Delete",
              html: true
          }, function (isConfirm) {
@@ -178,13 +184,9 @@
                      //.shareViaEmail(message, subject, toArr, ccArr, bccArr, file) --Params
                      $cordovaSocialSharing
                        .shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
-                       .then(function (result) {
-                           if (result.Completed)
-                               swal("Message Sent", "Your email has been sent - we will get back to you soon!", "success");
+                       .then(function (res) {
                        }, function (err) {
-                           // An error occurred. Show a message to the user
-                           swal("Message Not Sent", "Your email was not sent - please try again!", "error");
-                           console.log('Error attempting to send email from social sharing: [' + err + ']');
+                           console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
                        });
                  }
              });
@@ -350,8 +352,6 @@
 
      $scope.signOut = function () {
 
-         //  if ($cordovaNetwork.isOnline()) {
-
          swal({
              title: "Sign Out?",
              text: "Are you sure you want to sign out?",
@@ -381,9 +381,7 @@
                  });
              }
          });
-         //}
-         //else
-         //  swal("Oops...", "Internet not connected!", "error");
+
      };
 
 
@@ -456,8 +454,14 @@
      };
 
 
-     $scope.$on('$ionicView.leave', function () {
-         $scope.editBank = false;
-     });
+	// CC (9/19/16): Called from $rootScope.ionicContentBannerHasHidden() which is fired from ionic.content.banner.js
+	$scope.$on("ionicContentBannerHasHidden",function () {
+		$scope.isBannerShowing = false;
+	});
+
+	
+	$scope.$on('$ionicView.leave', function () {
+		$scope.editBank = false;
+	});
 
  })

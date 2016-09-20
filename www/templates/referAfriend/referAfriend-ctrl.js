@@ -92,8 +92,7 @@
                  $ionicPlatform.ready(function () {
                      $cordovaSocialSharing
                        .shareViaSMS(msg, "")
-                       .then(function (result) {
-                           // Success!
+                       .then(function (res) {
                        }, function (err) {
                            CommonServices.DisplayError('Oh no! Unable to send a text msg right now.');
                        });
@@ -106,8 +105,7 @@
                  $ionicPlatform.ready(function () {
                      $cordovaSocialSharing
                         .shareViaFacebook(shareDesc, imageURL, addUrl)
-                        .then(function (result) {
-                            // Success!
+                        .then(function (res) {
                         }, function (err) {
                             CommonServices.DisplayError('Oh no! Unable to send a message right now.');
                         });
@@ -120,8 +118,7 @@
                  $ionicPlatform.ready(function () {
                      $cordovaSocialSharing
                         .shareViaTwitter(tweetTxt, imageURL, addUrl)
-                        .then(function (result) {
-                            // Success!
+                        .then(function (res) {
                         }, function (err) {
                             CommonServices.DisplayError('Oh no! Unable to send a tweet right now.');
                         });

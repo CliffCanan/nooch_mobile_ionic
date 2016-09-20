@@ -1,4 +1,4 @@
-﻿<ion-view>
+﻿<ion-view view-title="Signup">
 
     <div id="fb-root"></div>
     <script src="libs/facebookConnectPlugin.js"></script>
@@ -35,12 +35,12 @@
 
                             <label class="item item-input">
                                 <span class="input-label calm">Full Name</span>
-                                <input type="text" placeholder="Abe Lincoln" ng-model="signUpData.Name" value="{{na}}" id="nameField" class="form-control capitalize" ng-keyup="keyEntered(1)" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
+                                <input type="text" placeholder="Abe Lincoln" ng-model="signUpData.Name" id="nameField" class="form-control capitalize" ng-keyup="keyEntered(1)" data-parsley-minlength="3" data-parsley-minlength-message="*" data-parsley-required data-parsley-required-message="*">
                             </label>
 
                             <label class="item item-input">
                                 <span class="input-label calm">Email</span>
-                                <input type="email" ng-blur="checkIfEmailAlreadyRegistered()" placeholder="example@email.com" ng-model="signUpData.Email" value="{{em}}" class="form-control" id="email" ng-keyup="keyEntered(2)" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
+                                <input type="email" ng-blur="checkIfEmailAlreadyRegistered()" placeholder="example@email.com" ng-model="signUpData.Email" class="form-control" id="email" ng-keyup="keyEntered(2)" data-parsley-type="email" data-parsley-type-message="*" data-parsley-email-message="*" data-parsley-required data-parsley-required-message="*">
                             </label>
 
                             <label class="item item-input">
