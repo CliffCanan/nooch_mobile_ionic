@@ -672,7 +672,7 @@ a {
     width: 20px;
     height: 20px;
     text-align: center;
-	text-shadow: 0 1px 3px rgba(17,2,2,.35);
+    text-shadow: 0 1px 3px rgba(17,2,2,.35);
 }
 
 .link-underline {
@@ -876,10 +876,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     .sweet-alert.heavierText p {
         font-weight: 400;
     }
-	
+
     .sweet-alert.smText p {
         font-size: 16px;
-		line-height: 1.35;
+        line-height: 1.35;
     }
 
     .sweet-alert .show {
@@ -1381,7 +1381,7 @@ iframe {
 }
 
 .menu .alertIcon {
-	box-shadow: 0 1px 8px 0px rgba(0,0,0,.45);
+    box-shadow: 0 1px 8px 0px rgba(0,0,0,.45);
 }
 
 .menu #settings-cog .alertIcon {
@@ -1703,9 +1703,9 @@ div.hscroller-card {
     font-size: 28px;
 }
 
-#notifScrn .icon-row i:active {
-    color: #ACA9C6;
-}
+    #notifScrn .icon-row i:active {
+        color: #ACA9C6;
+    }
 
 
 #notifScrn .row .col:first-child {

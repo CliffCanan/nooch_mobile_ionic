@@ -44,8 +44,8 @@
                 type: 'error',
                 icon: 'ion-close-circled'
             });
-			
-			$scope.isBannerShowing = true;
+
+            $scope.isBannerShowing = true;
         }
         else
             $scope.isBannerShowing = false;
@@ -108,27 +108,27 @@
 
         if ($('#profileForm').parsley().validate() == true)
         {
-			var tempContNum = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
-			if (tempContNum != null && tempContNum.length != 10 && !$rootScope.IsPhoneVerified)
-			{
+            var tempContNum = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
+            if (tempContNum != null && tempContNum.length != 10 && !$rootScope.IsPhoneVerified)
+            {
                 swal({
                     title: "Phone Number Trouble",
                     text: "Please double check that you entered a valid 10-digit phone number.",
                     type: "warning",
                     customClass: "singleBtn heavierText"
                 });
-			}
-			else
-			{
-	            //if ($cordovaNetwork.isOnline()) {
-	            $ionicLoading.show({
-	                template: 'Saving Profile...'
-	            });
+            }
+            else
+            {
+                //if ($cordovaNetwork.isOnline()) {
+                $ionicLoading.show({
+                    template: 'Saving Profile...'
+                });
 
-	            //$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
-	            console.log($scope.Details);
+                //$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
+                console.log($scope.Details);
 
-	            profileService.UpdateProfile($scope.Details)
+                profileService.UpdateProfile($scope.Details)
 	                .success(function (data) {
 	                    console.log(data);
 
@@ -177,10 +177,10 @@
 	                    else
 	                        CommonServices.DisplayError('Unable to save profile changes :-(');
 	                })
-	            //}
-	            //else
-	            //    swal("Error", "Internet not connected!", "error");
-			}
+                //}
+                //else
+                //    swal("Error", "Internet not connected!", "error");
+            }
         }
     }
 
@@ -307,24 +307,25 @@
 
             $cordovaDatePicker.show(options).then(function (date) {
                 $scope.Details.DateOfBirth = date;
-                if ($scope.Details.DateOfBirth != null) {
+                if ($scope.Details.DateOfBirth != null)
+                {
                     //$scope.Details.DateOfBirth = new Date($scope.Details.DateOfBirth);
                     console.log('From DatePicker: [' + $scope.Details.DateOfBirth + ']');
-				}
+                }
             });
         }, false);
     }
 
 
-	$scope.changePic = function () {
-		var hideSheet = $ionicActionSheet.show({
-			buttons: [
+    $scope.changePic = function () {
+        var hideSheet = $ionicActionSheet.show({
+            buttons: [
 				{ text: 'Choose From Library' },
 				{ text: 'Take Photo' }
-			
-			],
-			titleText: 'Update Your Profile Picture',
-			cancelText: 'Cancel',
+
+            ],
+            titleText: 'Update Your Profile Picture',
+            cancelText: 'Cancel',
             buttonClicked: function (index) {
                 if (index == 0)
                     $scope.choosePhotoFromDevice();
@@ -343,7 +344,7 @@
                 {
                     $scope.Details.Photo = "data:image/jpeg;base64," + result;
                     $scope.Details.Photos = result;
-					$scope.isAnythingChanged = true;
+                    $scope.isAnythingChanged = true;
                 }
                 else
                 {
@@ -381,7 +382,7 @@
                         //console.log(imageData);
                         $scope.Details.Photo = "data:image/jpeg;base64," + imageData;
                         $scope.Details.Photos = imageData;
-						$scope.isAnythingChanged = true;
+                        $scope.isAnythingChanged = true;
                     }, function (error) {
                         //CommonServices.DisplayError('Unable to access the camera :-(');
                         console.log(error);
@@ -513,8 +514,8 @@
     }
 
 
-	// CC (9/19/16): Called from $rootScope.ionicContentBannerHasHidden() which is fired from ionic.content.banner.js
-	$scope.$on("ionicContentBannerHasHidden",function () {
-		$scope.isBannerShowing = false;
-	});
+    // CC (9/19/16): Called from $rootScope.ionicContentBannerHasHidden() which is fired from ionic.content.banner.js
+    $scope.$on("ionicContentBannerHasHidden", function () {
+        $scope.isBannerShowing = false;
+    });
 })

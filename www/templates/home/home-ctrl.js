@@ -14,7 +14,7 @@
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
         //console.log('Home Ctrl BeforeEnter Fired');
 
-		if ($('#searchMoreFriends').hasClass('flipOutX'))
+        if ($('#searchMoreFriends').hasClass('flipOutX'))
             $('#searchMoreFriends').removeClass('flipOutX');
 
         $scope.shouldDisplayErrorBanner = false;
@@ -42,7 +42,7 @@
 
 
     $scope.$on("$ionicView.afterEnter", function (event, data) {
-		console.log("Home Cntrl --> After Enter Fired");
+        console.log("Home Cntrl --> After Enter Fired");
 
         $timeout(function () {
             //console.log($localStorage.GLOBAL_VARIABLES);
@@ -50,49 +50,49 @@
             if ($localStorage.GLOBAL_VARIABLES.MemberId != null &&
                 $localStorage.GLOBAL_VARIABLES.MemberId != '')
             {
-				if ($rootScope.Status === "Suspended" ||
+                if ($rootScope.Status === "Suspended" ||
 	                $rootScope.Status === "Temporarily_Blocked")
-	            {
-	                $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
-	                $scope.shouldDisplayErrorBanner = true;
-	            }
-	            else
-	            {
-	                if ($rootScope.IsPhoneVerified == false)
-	                {
-	                    $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
-	                    $scope.shouldDisplayErrorBanner = true;
-	                }
-	                if ($rootScope.isProfileComplete == false ||
+                {
+                    $scope.errorBannerTextArray.push('ACCOUNT SUSPENDED');
+                    $scope.shouldDisplayErrorBanner = true;
+                }
+                else
+                {
+                    if ($rootScope.IsPhoneVerified == false)
+                    {
+                        $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
+                        $scope.shouldDisplayErrorBanner = true;
+                    }
+                    if ($rootScope.isProfileComplete == false ||
 		                $rootScope.Status == "Registered")
-	                {
-	                    $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
-	                    $scope.shouldDisplayErrorBanner = true;
-	                }
-	                if ($rootScope.hasSynapseBank == false)
-	                {
-	                    $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
-	                    $scope.shouldDisplayErrorBanner = true;
-	                }
-	            }
-	            if ($scope.shouldDisplayErrorBanner)
-	            {
-	                $ionicContentBanner.show({
-	                    text: $scope.errorBannerTextArray,
-	                    interval: '4000',
-	                    type: 'error',
-	                    icon: 'ion-close-circled',
-	                    cancelOnStateChange: false
-	                });
+                    {
+                        $scope.errorBannerTextArray.push('ACTION REQUIRED: Profile Not Complete');
+                        $scope.shouldDisplayErrorBanner = true;
+                    }
+                    if ($rootScope.hasSynapseBank == false)
+                    {
+                        $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
+                        $scope.shouldDisplayErrorBanner = true;
+                    }
+                }
+                if ($scope.shouldDisplayErrorBanner)
+                {
+                    $ionicContentBanner.show({
+                        text: $scope.errorBannerTextArray,
+                        interval: '4000',
+                        type: 'error',
+                        icon: 'ion-close-circled',
+                        cancelOnStateChange: false
+                    });
 
-	                $scope.isBannerShowing = true;
-	                //$('#fav-container').css('margin-top', '40px');
-	            }
-	            else
-				{
-					console.log("Home Cntrl --> AfterEnter --> About to call PendingList()");
-					$scope.pendingList();
-				}
+                    $scope.isBannerShowing = true;
+                    //$('#fav-container').css('margin-top', '40px');
+                }
+                else
+                {
+                    console.log("Home Cntrl --> AfterEnter --> About to call PendingList()");
+                    $scope.pendingList();
+                }
 
                 $scope.FindRecentFriends();
                 $scope.deviceIp();
@@ -106,9 +106,9 @@
             if ($rootScope.isProfileComplete == true &&
 				$localStorage.GLOBAL_VARIABLES.DeviceToken == '' &&
 				$localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven == false)
-			{
+            {
                 window.plugins.OneSignal.registerForPushNotifications();
-			}
+            }
         }
     });
 
@@ -622,21 +622,21 @@
                                //console.log(result);
 
                                if (result.Result == 'Success')
-		                           swal({
-		                               title: "Check Your Messages",
-		                               text: "We just sent a text message to <span class='show f-600'>" + $rootScope.contactNumber +
+                                   swal({
+                                       title: "Check Your Messages",
+                                       text: "We just sent a text message to <span class='show f-600'>" + $rootScope.contactNumber +
 		                                     "</span><span class='show'>Please respond <strong>\"Go\"</strong> to confirm your number (case doesn't matter).</span>",
-		                               type: "success",
-		                               html: true,
-		                               customClass: "singleBtn"
-		                           });
-		                       else if (result.Result == 'Already Verified')
-		                           swal({
-		                               title: "You're Good To Go",
-		                               text: "Your phone number has already been verified.",
-		                               type: "success",
-		                               customClass: "singleBtn heavierText"
-		                           })
+                                       type: "success",
+                                       html: true,
+                                       customClass: "singleBtn"
+                                   });
+                               else if (result.Result == 'Already Verified')
+                                   swal({
+                                       title: "You're Good To Go",
+                                       text: "Your phone number has already been verified.",
+                                       type: "success",
+                                       customClass: "singleBtn heavierText"
+                                   })
                                else if (result.Result == 'Invalid phone number')
                                {
                                    swal({
@@ -760,10 +760,10 @@
 		      console.log('UdateMemberIPAddress Error: [' + JSON.stringify(error) + ']');
 		  });
     }
-	
-	
-	// CC (9/19/16): Called from $rootScope.ionicContentBannerHasHidden() which is fired from ionic.content.banner.js (which I edited to add this)
-	$scope.$on("ionicContentBannerHasHidden",function () {
-		$scope.isBannerShowing = false;
-	});
+
+
+    // CC (9/19/16): Called from $rootScope.ionicContentBannerHasHidden() which is fired from ionic.content.banner.js (which I edited to add this)
+    $scope.$on("ionicContentBannerHasHidden", function () {
+        $scope.isBannerShowing = false;
+    });
 })

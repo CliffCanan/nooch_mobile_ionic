@@ -54,15 +54,15 @@
         notificationServices.MemberEmailNotificationSettings($rootScope.ChkBox)
             .success(function (data) {
                 console.log(data);
-				
-				if (data.Result != null && data.Result =="Success")
-	                $ionicContentBanner.show({
-	                    text: ['Notification Settings Updated Successfully!'],
-	                    autoClose: '3000',
-	                    type: 'success',
-	                    transition: 'vertical',
-	                    icon: 'ion-close-circled'
-	                });
+
+                if (data.Result != null && data.Result == "Success")
+                    $ionicContentBanner.show({
+                        text: ['Notification Settings Updated Successfully!'],
+                        autoClose: '3000',
+                        type: 'success',
+                        transition: 'vertical',
+                        icon: 'ion-close-circled'
+                    });
             })
             .error(function (data) {
                 console.log('MemberEmailNotificationSettings Error: [' + JSON.stringify(data) + ']');

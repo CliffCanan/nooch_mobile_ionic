@@ -4,11 +4,11 @@
                                            $timeout, createPinServices, $ionicLoading, CommonServices, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform) {
 
         $scope.$on("$ionicView.enter", function (event, data) {
-			$scope.showBackBtn = true;
-		});
+            $scope.showBackBtn = true;
+        });
 
 
-		$scope.$on("$ionicView.enter", function (event, data) {
+        $scope.$on("$ionicView.enter", function (event, data) {
             //console.log('Create PIN Controller Loaded');
             //console.log($rootScope.signUpData);
 
@@ -34,9 +34,9 @@
         });
 
 
-		$scope.$on("$ionicView.afterEnter", function (event, data) {
-			$("#pinTxt").focus();
-		});
+        $scope.$on("$ionicView.afterEnter", function (event, data) {
+            $("#pinTxt").focus();
+        });
 
 
         $scope.signUpFn = function () {
@@ -47,8 +47,8 @@
             $ionicLoading.show({
                 template: 'Creating PIN...'
             });
-			
-			$scope.showBackBtn = false;
+
+            $scope.showBackBtn = false;
 
             if ($rootScope.signUpData.Photo != null && $rootScope.signUpData.Photo.indexOf('base64'))
                 $rootScope.signUpData.Photo = $rootScope.signUpData.Photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
@@ -91,7 +91,7 @@
 						                $cordovaSocialSharing
 											.shareViaEmail('', 'Nooch Support Request - Account Suspended', 'support@nooch.com', null, null, null)
 											.then(function (res) {
-												$state.go('signup');
+											    $state.go('signup');
 											}, function (err) {
 											    console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
 											    $state.go('signup');
@@ -156,7 +156,7 @@
 	                                    }, function (err) {
 	                                        // An error occurred. Show a message to the user
 	                                        console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
-											$state.go('signup');
+	                                        $state.go('signup');
 	                                    });
 	                              }
 	                          });
