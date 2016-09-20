@@ -44,7 +44,7 @@
         $scope.choosePhotoFromDevice = function () {
             $ionicPlatform.ready(function () {
                 CommonServices.openPhotoGallery('uploadId', function (result) {
-                    if (result != null && result != 'failed')
+                    if (result != null && result != 'failed' && result != 'no image selected')
                     {
                         $scope.picture = result;
                         $scope.imgURI = "data:image/jpeg;base64," + result;

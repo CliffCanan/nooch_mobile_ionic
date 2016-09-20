@@ -503,7 +503,7 @@
     $scope.choosePhotoFromDevice = function () {
         $ionicPlatform.ready(function () {
             CommonServices.openPhotoGallery('howMuch', function (result) {
-                if (result != null && result != 'failed')
+                if (result != null && result != 'failed' && result != 'no image selected')
                 {
                     $scope.pictureBase64 = "data:image/jpeg;base64," + result;
                     $scope.imgURI = result;

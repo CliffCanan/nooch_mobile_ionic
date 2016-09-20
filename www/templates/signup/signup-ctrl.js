@@ -263,7 +263,7 @@
 
 	                    swal({
 	                        title: "Email Already Registered",
-	                        text: "Terribly sorry, but it looks like <strong>" + $rootScope.signUpData.Email + "</strong> has already been registered!" +
+	                        text: "Terribly sorry, but it looks like <span class='f-500'>" + $rootScope.signUpData.Email + "</span> has already been registered" +
 	                              "<span class='show'>If this is your account, click 'Login' to, well, login!</span>",
 	                        type: "error",
 	                        showCancelButton: true,

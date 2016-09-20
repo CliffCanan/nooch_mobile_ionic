@@ -82,14 +82,6 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
           }
 
           $rootScope.phoneContacts = [];
-          /*var readContact = {
-              FirstName: '',
-              UserName: '',
-              ContactNumber: '',
-              Photo: '',
-              id: '',
-              bit: ''
-          };*/
 
           // Fired when the app enters the foreground
           document.addEventListener("resume", function () {

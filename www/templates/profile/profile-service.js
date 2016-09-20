@@ -39,9 +39,8 @@ angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
       }
 
 
-      this.SaveMemberSSN = function (Details) {
+      this.SaveMemberSSN = function (ssn) {
           //console.log('Profile Service --> SSN...');
-          //console.log(Details);
 
           var reqForSaveMemberSSN = {
               method: 'POST',
@@ -51,7 +50,7 @@ angular.module('noochApp.profile-service', ['noochApp.services', 'ngStorage'])
               },
               data: {
                   memberId: $localStorage.GLOBAL_VARIABLES.MemberId,
-                  SSN: Details.SSN,
+                  SSN: ssn,
                   accessToken: $localStorage.GLOBAL_VARIABLES.AccessToken,
               }
           };

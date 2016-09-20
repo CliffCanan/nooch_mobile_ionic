@@ -5,7 +5,7 @@
 
 
         $scope.$on("$ionicView.beforeEnter", function (event, data) {
-            console.log('Add Picture Controller Loaded');
+            //console.log('Add Picture Controller Loaded');
 
             //console.log($rootScope.signUpData);
 
@@ -45,10 +45,9 @@
 
             $ionicPlatform.ready(function () {
                 CommonServices.openPhotoGallery('addPicture', function (result) {
-                    if (result != null && result != 'failed')
+                    if (result != null && result != 'failed' && result != 'no image selected')
                     {
                         $rootScope.signUpData.Photo = "data:image/jpeg;base64," + result;
-
                         $scope.showContinueBtn = true;
                     }
                     else

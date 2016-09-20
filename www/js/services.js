@@ -25,9 +25,6 @@ angular.module('noochApp.services', ['ngStorage'])
       }
 
       this.logOut = function () {
-          //$ionicLoading.show({
-          //    template: 'Logging out...'
-          //});
 
           $localStorage.GLOBAL_VARIABLES.IsDemoDone = false;
           $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;

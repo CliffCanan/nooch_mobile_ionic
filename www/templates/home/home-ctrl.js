@@ -12,7 +12,7 @@
     $scope.phoneContacts = [];
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
-        console.log('Home Ctrl BeforeEnter Fired');
+        //console.log('Home Ctrl BeforeEnter Fired');
 
 		if ($('#searchMoreFriends').hasClass('flipOutX'))
             $('#searchMoreFriends').removeClass('flipOutX');
@@ -30,7 +30,7 @@
 
 
     $scope.$on("$ionicView.enter", function (event, data) {
-        console.log('Home Ctrl Enter Fired');
+        //console.log('Home Ctrl Enter Fired');
 
         $scope.memberList = [];
         $scope.phoneContacts = [];
@@ -619,10 +619,24 @@
                         CommonServices.ResendVerificationSMS()
                            .success(function (result) {
                                $ionicLoading.hide();
-                               console.log(result);
+                               //console.log(result);
 
                                if (result.Result == 'Success')
-                                   swal("Check Your Phone!", "We just sent you an SMS message. Reply with 'Go' to verify your phone number.", "success");
+		                           swal({
+		                               title: "Check Your Messages",
+		                               text: "We just sent a text message to <span class='show f-600'>" + $rootScope.contactNumber +
+		                                     "</span><span class='show'>Please respond <strong>\"Go\"</strong> to confirm your number (case doesn't matter).</span>",
+		                               type: "success",
+		                               html: true,
+		                               customClass: "singleBtn"
+		                           });
+		                       else if (result.Result == 'Already Verified')
+		                           swal({
+		                               title: "You're Good To Go",
+		                               text: "Your phone number has already been verified.",
+		                               type: "success",
+		                               customClass: "singleBtn heavierText"
+		                           })
                                else if (result.Result == 'Invalid phone number')
                                {
                                    swal({

@@ -5,7 +5,7 @@
 	                                  CommonServices, settingsService) {
 
      $scope.$on("$ionicView.beforeEnter", function (event, data) {
-         console.log("SETTINGS -> beforeEnter fired");
+         //console.log("SETTINGS -> beforeEnter fired");
 
          if ($scope.bankData == null)
          {
@@ -20,7 +20,7 @@
          $scope.errorBannerTextArray = [];
 
          $timeout(function () {
-			 console.log("Settings -> BeforeEnter -> Timeout Fired");
+			 //console.log("Settings -> BeforeEnter -> Timeout Fired");
              if ($rootScope.IsPhoneVerified === false)
              {
                  $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
@@ -49,9 +49,6 @@
                  $scope.errorBannerTextArray.push('ACTION REQUIRED: Missing Bank Account');
                  $scope.shouldDisplayErrorBanner = true;
              }
-			 
-			 console.log($scope.errorBannerTextArray);
-			 console.log($scope.shouldDisplayErrorBanner);
 
              if ($scope.shouldDisplayErrorBanner)
              {

@@ -108,66 +108,79 @@
 
         if ($('#profileForm').parsley().validate() == true)
         {
-            //if ($cordovaNetwork.isOnline()) {
-            $ionicLoading.show({
-                template: 'Saving Profile...'
-            });
+			var tempContNum = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
+			if (tempContNum != null && tempContNum.length != 10 && !$rootScope.IsPhoneVerified)
+			{
+                swal({
+                    title: "Phone Number Trouble",
+                    text: "Please double check that you entered a valid 10-digit phone number.",
+                    type: "warning",
+                    customClass: "singleBtn heavierText"
+                });
+			}
+			else
+			{
+	            //if ($cordovaNetwork.isOnline()) {
+	            $ionicLoading.show({
+	                template: 'Saving Profile...'
+	            });
 
-            //$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
-            console.log($scope.Details);
+	            //$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/[()-\s]/g, '');
+	            console.log($scope.Details);
 
-            profileService.UpdateProfile($scope.Details)
-                .success(function (data) {
-                    console.log(data);
+	            profileService.UpdateProfile($scope.Details)
+	                .success(function (data) {
+	                    console.log(data);
 
-                    $ionicLoading.hide();
+	                    $ionicLoading.hide();
 
-                    if (data.Result.indexOf('success') > -1)
-                    {
-                        $ionicContentBanner.show({
-                            text: ['Profile Updated Successfully!'],
-                            autoClose: '4000',
-                            type: 'success',
-                            transition: 'vertical',
-                            cancelOnStateChange: false,
-                            icon: 'ion-close-circled'
-                        });
+	                    if (data.Result.indexOf('success') > -1)
+	                    {
+	                        $ionicContentBanner.show({
+	                            text: ['Profile Updated Successfully!'],
+	                            autoClose: '4000',
+	                            type: 'success',
+	                            transition: 'vertical',
+	                            cancelOnStateChange: false,
+	                            icon: 'ion-close-circled'
+	                        });
 
-                        if ($scope.Details.SSN != null)
-                            $scope.saveSSN($scope.Details);
+	                        if ($scope.Details.SSN != null)
+	                            $scope.saveSSN($scope.Details);
 
-                        $scope.isAnythingChanged = false;
+	                        $scope.isAnythingChanged = false;
 
-                        $timeout(function () {
-                            if ($scope.shouldGoToSettings)
-                                $state.go('app.settings');
+	                        $timeout(function () {
+	                            if ($scope.shouldGoToSettings)
+	                                $state.go('app.settings');
 
-                            // CC (9/18/16): This was reloading the screen, but since the changes are already on the screen, why
-                            // bother to reload?  It's closing the Success Banner anyway, so commenting this out for now.
-                            //else
-                            //    $state.reload();
-                        }, 2000);
-                    }
-                    else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
-                    {
-                        CommonServices.DisplayError('Phone # already registered to another user!');
-                    }
-                    else
-                        CommonServices.DisplayError('Profile not updated :-(');
-                })
-                .error(function (error) {
-                    console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
+	                            // CC (9/18/16): This was reloading the screen, but since the changes are already on the screen, why
+	                            // bother to reload?  It's closing the Success Banner anyway, so commenting this out for now.
+	                            //else
+	                            //    $state.reload();
+	                        }, 2000);
+	                    }
+	                    else if (data.Result.indexOf('Phone Number already registered with Nooch') > -1)
+	                    {
+	                        CommonServices.DisplayError('Phone # already registered to another user!');
+	                    }
+	                    else
+	                        CommonServices.DisplayError('Profile not updated :-(');
+	                })
+	                .error(function (error) {
+	                    console.log('UpdateProfile Error: [' + JSON.stringify(error) + ']');
 
-                    $ionicLoading.hide();
+	                    $ionicLoading.hide();
 
-                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
-                        CommonServices.logOut();
-                    else
-                        CommonServices.DisplayError('Unable to save profile changes :-(');
-                })
-            //}
-            //else
-            //    swal("Error", "Internet not connected!", "error");
+	                    if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
+	                        CommonServices.logOut();
+	                    else
+	                        CommonServices.DisplayError('Unable to save profile changes :-(');
+	                })
+	            //}
+	            //else
+	            //    swal("Error", "Internet not connected!", "error");
+			}
         }
     }
 
@@ -218,8 +231,6 @@
 
 
     $scope.ResendVerificationSMS = function () {
-        //$scope.Details.ContactNumber = $scope.Details.ContactNumber.replace(/\(|\)|-/g, '');
-        //console.log($scope.Details.ContactNumber); 
 
         swal({
             title: "Resend Confirmation SMS?",
@@ -256,7 +267,7 @@
                                title: "You're Good To Go",
                                text: "Your phone number has already been verified.",
                                type: "success",
-                               customClass: "singleBtn"
+                               customClass: "singleBtn heavierText"
                            })
                        else
                            CommonServices.DisplayError('Verification SMS Not Sent :-(');
@@ -305,9 +316,6 @@
     }
 
 
-
-
-	
 	$scope.changePic = function () {
 		var hideSheet = $ionicActionSheet.show({
 			buttons: [
@@ -331,10 +339,11 @@
     $scope.choosePhotoFromDevice = function () {
         $ionicPlatform.ready(function () {
             CommonServices.openPhotoGallery('profile', function (result) {
-                if (result != null && result != 'failed')
+                if (result != null && result != 'failed' && result != 'no image selected')
                 {
                     $scope.Details.Photo = "data:image/jpeg;base64," + result;
                     $scope.Details.Photos = result;
+					$scope.isAnythingChanged = true;
                 }
                 else
                 {
@@ -372,6 +381,7 @@
                         //console.log(imageData);
                         $scope.Details.Photo = "data:image/jpeg;base64," + imageData;
                         $scope.Details.Photos = imageData;
+						$scope.isAnythingChanged = true;
                     }, function (error) {
                         //CommonServices.DisplayError('Unable to access the camera :-(');
                         console.log(error);
@@ -410,12 +420,11 @@
 
     $scope.saveSSN = function (Details) {
         console.log('saveSSN Function Fired');
-        $scope.Details.SSN = $scope.Details.SSN.replace(/-/g, '');
-        //console.log($scope.Details.SSN);
+        var tempSSN = $scope.Details.SSN.replace(/-/g, '');
 
-        profileService.SaveMemberSSN($scope.Details)
+        profileService.SaveMemberSSN(tempSSN)
             .success(function (details) {
-                console.log(details);
+                //console.log(details);
 
                 if (details == null || details.Result != 'SSN saved successfully.')
                     CommonServices.DisplayError('Unable to save SSN :-(');
