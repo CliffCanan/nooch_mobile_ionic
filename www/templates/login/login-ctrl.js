@@ -35,7 +35,8 @@
 
           //console.log($scope.loginData);
 	  });
-	  
+
+
 	  $scope.$on("$ionicView.enter", function (event, data) {
           $ionicPlatform.ready(function () {
               if (typeof analytics !== 'undefined') analytics.trackView("Login");
@@ -243,6 +244,7 @@
               confirmButtonText: "Submit",
               closeOnConfirm: false,
               html: true,
+			  customClass: "heavierText"
           }, function (inputValue) {
               if (inputValue === false) return false;
 
@@ -252,15 +254,20 @@
                   return false
               }
 
-              if (inputValue.indexOf('@') > 1 &&
-                  inputValue.indexOf('.') > inputValue.indexOf('@') &&
-                  inputValue.indexOf('.') < inputValue.length - 2)
+              if (CommonServices.ValidateEmail(inputValue))
               {
+				  swal.close();
+
                   authenticationService.ForgotPassword(inputValue).success(function (data) {
                       console.log(data);
 
                       if (data.success == true)
-                          swal("Reset Link Sent", "If that email is associated with a Nooch account, you will receive an email with a link to reset your password.", "success");
+                          swal({
+							  title: "Reset Link Sent",
+							  text: "If that email is associated with a Nooch account, you will receive an email with a link to reset your password.",
+							  type: "success",
+							  customClass: "singleBtn heavierText"
+						  });
                       else
                           swal("Error", data.msg, "error");
                   }).error(function (encError) {

@@ -1,7 +1,7 @@
 {
-  "name": "nooch",
-  "version": "1.1.1",
-  "description": "nooch: An Ionic project",
+  "name": "Nooch",
+  "version": "2.0.1",
+  "description": "Nooch: Money Made Simple",
   "dependencies": {
     "angular-chart.js": "^1.0.0",
     "chart.js": "^2.2.1",
@@ -35,7 +35,7 @@
       "id": "cordova-plugin-facebook4",
       "locator": "cordova-plugin-facebook4",
       "variables": {
-        "APP_ID": "494453537413420",
+        "APP_ID": "198279616971457",
         "APP_NAME": "Nooch"
       }
     },
