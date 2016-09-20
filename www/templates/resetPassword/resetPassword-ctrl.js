@@ -291,7 +291,7 @@
                                                         .then(function (res) {
                                                             $state.go('app.settings');
                                                         }, function (err) {
-															$state.go('app.settings');
+                                                            $state.go('app.settings');
                                                             console.log('Error attempting to send email from social sharing: [' + JSON.stringify(err) + ']');
                                                         });
                                                 }

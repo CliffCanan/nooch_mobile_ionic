@@ -34,9 +34,9 @@
           }
 
           //console.log($scope.loginData);
-	  });
-	  
-	  $scope.$on("$ionicView.enter", function (event, data) {
+      });
+
+      $scope.$on("$ionicView.enter", function (event, data) {
           $ionicPlatform.ready(function () {
               if (typeof analytics !== 'undefined') analytics.trackView("Login");
           })
@@ -122,25 +122,25 @@
                         {
                             $ionicLoading.hide();
                             swal({
-								title: "Invalid Email or Password",
-								text: "We don't recognize that information. &nbsp;Please double check that your email and password are entered correctly and try again.",
-								type: "error",
-								customClass: "singleBtn",
-								html: true
-							});
+                                title: "Invalid Email or Password",
+                                text: "We don't recognize that information. &nbsp;Please double check that your email and password are entered correctly and try again.",
+                                type: "error",
+                                customClass: "singleBtn",
+                                html: true
+                            });
                         }
                         else if (response.Result.indexOf('incorrect') > -1)
                         {
                             $ionicLoading.hide();
                             swal({
-								title: "This is Awkward",
-								text: "That doesn't appear to be the correct password. &nbsp;Please try again or contact us for further help.",
-								type: "error",
+                                title: "This is Awkward",
+                                text: "That doesn't appear to be the correct password. &nbsp;Please try again or contact us for further help.",
+                                type: "error",
                                 showCancelButton: true,
                                 cancelButtonText: "Ok",
                                 confirmButtonText: "Contact Support",
-								html: true
-							}, function (isConfirm) {
+                                html: true
+                            }, function (isConfirm) {
                                 if (isConfirm)
                                 {
                                     $cordovaSocialSharing

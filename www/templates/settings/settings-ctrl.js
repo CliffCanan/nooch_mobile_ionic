@@ -20,7 +20,7 @@
          $scope.errorBannerTextArray = [];
 
          $timeout(function () {
-			 //console.log("Settings -> BeforeEnter -> Timeout Fired");
+             //console.log("Settings -> BeforeEnter -> Timeout Fired");
              if ($rootScope.IsPhoneVerified === false)
              {
                  $scope.errorBannerTextArray.push('ACTION REQUIRED: Phone Number Not Verified');
@@ -62,8 +62,8 @@
 
                  $scope.isBannerShowing = true;
              }
-			 else
-				 $scope.isBannerShowing = false;
+             else
+                 $scope.isBannerShowing = false;
          }, 500);
 
          $scope.url = $rootScope.baseNoochWebUrl + 'AddBank?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId;
@@ -451,14 +451,14 @@
      };
 
 
-	// CC (9/19/16): Called from $rootScope.ionicContentBannerHasHidden() which is fired from ionic.content.banner.js
-	$scope.$on("ionicContentBannerHasHidden",function () {
-		$scope.isBannerShowing = false;
-	});
+     // CC (9/19/16): Called from $rootScope.ionicContentBannerHasHidden() which is fired from ionic.content.banner.js
+     $scope.$on("ionicContentBannerHasHidden", function () {
+         $scope.isBannerShowing = false;
+     });
 
-	
-	$scope.$on('$ionicView.leave', function () {
-		$scope.editBank = false;
-	});
+
+     $scope.$on('$ionicView.leave', function () {
+         $scope.editBank = false;
+     });
 
  })

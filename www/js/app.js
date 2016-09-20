@@ -144,7 +144,7 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
                       console.log('App.js --> OneSignal.getIds: [' + JSON.stringify(ids) + ']');
 
                       $localStorage.GLOBAL_VARIABLES.DeviceToken = ids.pushToken;
-					  $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven == true;
+                      $localStorage.GLOBAL_VARIABLES.IsNotificationPermissionGiven == true;
 
                       // console.log("OneSignalUserId UserId: " + ids.userId);
                       // console.log("OneSignalPushToken PushToken: " + ids.pushToken);
@@ -193,11 +193,11 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
           if (window.StatusBar)
               StatusBar.styleDefault();
-		  
-		  $rootScope.ionicContentBannerHasHidden = function() {
-			  //console.log('$rootScope.ionicContentBannerHasHidden FIRED');
-			  $rootScope.$broadcast('ionicContentBannerHasHidden');
-		  }
+
+          $rootScope.ionicContentBannerHasHidden = function () {
+              //console.log('$rootScope.ionicContentBannerHasHidden FIRED');
+              $rootScope.$broadcast('ionicContentBannerHasHidden');
+          }
 
       });
 
