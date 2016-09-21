@@ -3,8 +3,9 @@
     .controller('createPinCtrl', function ($scope, $state, $rootScope, $localStorage, $cordovaGeolocation, $cordovaSocialSharing,
                                            $timeout, createPinServices, $ionicLoading, CommonServices, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform) {
 
-        $scope.$on("$ionicView.enter", function (event, data) {
+        $scope.$on("$ionicView.beforeEnter", function (event, data) {
             $scope.showBackBtn = true;
+			$scope.instructionTxt = "You'll be asked to enter this PIN anytime you send or request money.";
         });
 
 
@@ -223,14 +224,20 @@
                     }
                     else
                     {
+						// 4th Digit Entered
                         pin += num;
 
                         $('.indicatorDotWrap .col div:last-child').addClass('filled');
 
-                        // 4th Digit Entered
                         if ($scope.onConfirm == false)
                         {
                             $('#header').text('Confirm Your PIN');
+
+                            if ($('.instructionTxt').hasClass('text-danger')) 
+                            {
+								$scope.instructionTxt = "";
+                                $('.instructionTxt').removeClass('text-danger');
+                            }
 
                             $('.numPadWrap').addClass('bounceOutLeft');
                             $timeout(function () {
@@ -252,7 +259,8 @@
                                 $scope.pauseForError = true;
                                 $('.indicatorDotWrap .col div').addClass('incorrect');
                                 $('.indicatorDotWrap').addClass('shake');
-                                $('.instructionTxt').html('PINs did not match!<br\/>Try again...').addClass('text-danger');
+                                $('.instructionTxt').addClass('text-danger');
+                                $scope.instructionTxt = "PINs did not match! Please ry again...";
 
                                 $timeout(function () {
                                     $('#header').text('Create Your PIN');

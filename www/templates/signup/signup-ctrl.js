@@ -292,7 +292,7 @@
 
 	            $timeout(function () {
 	                $('#toLoginBtn').removeClass('bounceOutRight');
-	            }, 500);
+	            }, 800);
 	        }, 400);
 	    }
 

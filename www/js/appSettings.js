@@ -1,10 +1,4 @@
-﻿// Google project number - 104707683579
-// google project number is needed while adding push notification token
-
-
-// app test credentials
-// username - rick.lassin@gmail.com
-// pass - test123!
+﻿// Google project number - 104707683579 (needed while adding push notification token)
 
 //var PATH = 'https://noochme.com/landlords/db/api/';
 var PATH = 'https://www.noochme.com/noochservice/api/NoochServices/';
@@ -23,7 +17,6 @@ var URLs = {
     GetLocationSearch: PATH + 'GetLocationSearch',
     GetMemberIdByUsername: PATH + 'GetMemberIdByUsername',
     GetMemberIdByPhone: PATH + 'GetMemberIdByPhone',
-    //GetMemberPrivacySettings: PATH + 'GetMemberPrivacySettings',
     GetMemberNotificationSettings: PATH + 'GetMemberNotificationSettings',
     GetMemberStatsGeneric: PATH + 'GetMemberStatsGeneric',
     GetMostFrequentFriends: PATH + 'GetMostFrequentFriends',

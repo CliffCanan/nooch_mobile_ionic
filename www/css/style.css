@@ -1311,10 +1311,10 @@ iframe {
         font-family: 'Roboto';
         font-size: 21px;
         font-weight: 500;
-        height: 68px;
+        height: 72px;
         line-height: 64px;
-        width: 68px;
-        margin: 0 auto 22px;
+        width: 72px;
+        margin: 0 auto 20px;
         transition: .2s all ease-out;
     }
 

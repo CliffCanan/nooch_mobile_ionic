@@ -2,7 +2,7 @@
 
 .controller('socialSettingCtrl', function ($scope, $rootScope, $state, $ionicHistory, $localStorage, authenticationService, $cordovaGoogleAnalytics, $ionicPlatform) {
 
-    $scope.$on("$ionicView.enter", function (event, data) {
+    $scope.$on("$ionicView.beforeEnter", function (event, data) {
         //console.log('Social Setting Controller Loadad');
 
         if ($rootScope.fbid == "")
@@ -16,16 +16,20 @@
             fbStatus: ''
         };
 
-        $scope.isConnect = false;
+        if ($scope.isConnect == null)
+			$scope.isConnect = false;
         //console.log($scope.socialSetting.fbid);
+	});
 
+    $scope.$on("$ionicView.enter", function (event, data) {
         $ionicPlatform.ready(function () {
             if (typeof analytics !== 'undefined') analytics.trackView("Social Settings");
         })
     })
 
+
     $scope.connectFb = function () {
-        console.log('connectFb Fired');
+        //console.log('connectFb Fired');
 
         if (!window.cordova)
             facebookConnectPlugin.browserInit("738390306293716"); //facebookConnectPlugin.browserInit("198279616971457");
@@ -54,11 +58,15 @@
                         //console.log('SaveMembersFBId got success res');
                         //console.log(res);
                         if (res.Result == "Success")
-                            swal("Success", "Facebook Connected Successfully", "success");
+	                        $ionicContentBanner.show({
+	                            text: ['Facebook Connected Successfully!'],
+	                            autoClose: '5000',
+	                            type: 'success',
+	                            icon: 'ion-close-circled'
+	                        });
                     })
                     .error(function (error) {
-                        console.log('SaveMembersFBId Error...');
-                        console.log(error);
+                        console.log('SaveMembersFBId Error: [' + JSON.stringify(error) + ']');
                         swal("Error", "Something went wrong - please try again or contact Nooch Support to report a bug!", "error");
                     })
             }, function (error) {
