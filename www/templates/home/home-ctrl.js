@@ -570,11 +570,11 @@
 
 	                       if (result.Result == 'Success')
 	                           swal({
-								   title: "Check Your Email",
-								   text: "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.",
-								   type: "success",
-								   customClass: "singleBtn"
-							   });
+	                               title: "Check Your Email",
+	                               text: "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.",
+	                               type: "success",
+	                               customClass: "singleBtn"
+	                           });
 	                       else
 	                           swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
 	                   })

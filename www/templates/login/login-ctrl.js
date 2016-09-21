@@ -243,7 +243,7 @@
               confirmButtonText: "Submit",
               closeOnConfirm: false,
               html: true,
-			  customClass: "heavierText"
+              customClass: "heavierText"
           }, function (inputValue) {
               if (inputValue === false) return false;
 
@@ -255,18 +255,18 @@
 
               if (CommonServices.ValidateEmail(inputValue))
               {
-				  swal.close();
+                  swal.close();
 
                   authenticationService.ForgotPassword(inputValue).success(function (data) {
                       console.log(data);
 
                       if (data.success == true)
                           swal({
-							  title: "Reset Link Sent",
-							  text: "If that email is associated with a Nooch account, you will receive an email with a link to reset your password.",
-							  type: "success",
-							  customClass: "singleBtn heavierText"
-						  });
+                              title: "Reset Link Sent",
+                              text: "If that email is associated with a Nooch account, you will receive an email with a link to reset your password.",
+                              type: "success",
+                              customClass: "singleBtn heavierText"
+                          });
                       else
                           swal("Error", data.msg, "error");
                   }).error(function (encError) {

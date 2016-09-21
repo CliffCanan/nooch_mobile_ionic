@@ -5,7 +5,7 @@
 
         $scope.$on("$ionicView.beforeEnter", function (event, data) {
             $scope.showBackBtn = true;
-			$scope.instructionTxt = "You'll be asked to enter this PIN anytime you send or request money.";
+            $scope.instructionTxt = "You'll be asked to enter this PIN anytime you send or request money.";
         });
 
 
@@ -224,7 +224,7 @@
                     }
                     else
                     {
-						// 4th Digit Entered
+                        // 4th Digit Entered
                         pin += num;
 
                         $('.indicatorDotWrap .col div:last-child').addClass('filled');
@@ -233,9 +233,9 @@
                         {
                             $('#header').text('Confirm Your PIN');
 
-                            if ($('.instructionTxt').hasClass('text-danger')) 
+                            if ($('.instructionTxt').hasClass('text-danger'))
                             {
-								$scope.instructionTxt = "";
+                                $scope.instructionTxt = "";
                                 $('.instructionTxt').removeClass('text-danger');
                             }
 

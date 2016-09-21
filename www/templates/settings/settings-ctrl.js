@@ -209,11 +209,11 @@
 
                             if (result.Result == 'Success')
                                 swal({
-									title: "Check Your Email",
-									text: "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.",
-									type: "success",
-									customClass: "singleBtn"
-								});
+                                    title: "Check Your Email",
+                                    text: "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.",
+                                    type: "success",
+                                    customClass: "singleBtn"
+                                });
                             else
                                 swal("Error", "We were unable to re-send the email verification link. Please try again or contact Nooch Support.", "error");
                         })
@@ -265,14 +265,14 @@
                                 console.log(result);
 
                                 if (result.Result == 'Success')
-	                                swal({
-	                                    title: "Check Your Messages",
-	                                    text: "We just sent a text message to <span class='show f-600'>" + $rootScope.contactNumber +
+                                    swal({
+                                        title: "Check Your Messages",
+                                        text: "We just sent a text message to <span class='show f-600'>" + $rootScope.contactNumber +
 		                                     "</span><span class='show'>Please respond <strong>\"Go\"</strong> to confirm your number (case doesn't matter).</span>",
-	                                    type: "success",
-	                                    html: true,
-	                                    customClass: "singleBtn"
-	                                });
+                                        type: "success",
+                                        html: true,
+                                        customClass: "singleBtn"
+                                    });
                                 else if (result.Result == 'Invalid phone number')
                                 {
                                     swal({

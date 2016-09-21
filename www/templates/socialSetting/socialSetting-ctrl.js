@@ -17,9 +17,9 @@
         };
 
         if ($scope.isConnect == null)
-			$scope.isConnect = false;
+            $scope.isConnect = false;
         //console.log($scope.socialSetting.fbid);
-	});
+    });
 
     $scope.$on("$ionicView.enter", function (event, data) {
         $ionicPlatform.ready(function () {
@@ -58,12 +58,12 @@
                         //console.log('SaveMembersFBId got success res');
                         //console.log(res);
                         if (res.Result == "Success")
-	                        $ionicContentBanner.show({
-	                            text: ['Facebook Connected Successfully!'],
-	                            autoClose: '5000',
-	                            type: 'success',
-	                            icon: 'ion-close-circled'
-	                        });
+                            $ionicContentBanner.show({
+                                text: ['Facebook Connected Successfully!'],
+                                autoClose: '5000',
+                                type: 'success',
+                                icon: 'ion-close-circled'
+                            });
                     })
                     .error(function (error) {
                         console.log('SaveMembersFBId Error: [' + JSON.stringify(error) + ']');

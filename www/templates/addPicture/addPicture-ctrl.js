@@ -41,23 +41,21 @@
 
 
         $scope.choosePhotoFromDevice = function () {
-            // CC (9/15/16): Apparently isCameraRollAuthorized() is only for iOS... so need to check to see which platform the user is on.
-
             $ionicPlatform.ready(function () {
                 CommonServices.openPhotoGallery('addPicture', function (result) {
                     if (result != null)
-					{
-						if (result == 'failed')
-	                    {
-	                        console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
-	                        CommonServices.DisplayError('Unable to get picture from the photo gallery :-(');
-	                    }
-						else if (result != 'no image selected')
-	                    {
-	                        $rootScope.signUpData.Photo = "data:image/jpeg;base64," + result;
-	                        $scope.showContinueBtn = true;
-	                    }
-					}
+                    {
+                        if (result == 'failed')
+                        {
+                            console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
+                            CommonServices.DisplayError('Unable to get picture from the photo gallery :-(');
+                        }
+                        else if (result != 'no image selected')
+                        {
+                            $rootScope.signUpData.Photo = "data:image/jpeg;base64," + result;
+                            $scope.showContinueBtn = true;
+                        }
+                    }
                 });
             });
         }

@@ -929,26 +929,26 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
             margin-bottom: 10px;
         }
 
-	.sweet-alert div.sa-input-error {
-		margin: 0;
-		top: 23px;
-		right: 14px;
-	}
+    .sweet-alert div.sa-input-error {
+        margin: 0;
+        top: 23px;
+        right: 14px;
+    }
 
         .sweet-alert div.sa-input-error::before {
             background-color: rgb(200, 68, 66) !important;
         }
 
-.sweet-alert .sa-error-container .icon {
-    font-family: 'Roboto';
-    font-weight: 600;
-    line-height: 26px;
-    text-shadow: 0 1px 3px rgba(17,2,2,.35);
-}
+    .sweet-alert .sa-error-container .icon {
+        font-family: 'Roboto';
+        font-weight: 600;
+        line-height: 26px;
+        text-shadow: 0 1px 3px rgba(17,2,2,.35);
+    }
 
-.sweet-alert .sa-error-container .p {
-    margin-bottom: 0px;
-}
+    .sweet-alert .sa-error-container .p {
+        margin-bottom: 0px;
+    }
 
 /***  BANNER ALERTS  ***/
 .content-banner {
