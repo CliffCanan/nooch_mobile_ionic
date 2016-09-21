@@ -52,6 +52,7 @@ var URLs = {
     TransferMoney: PATH + 'TransferMoneyUsingSynapse',
     TransferMoneyToNonNoochUserThroughPhoneUsingsynapse: PATH + 'TransferMoneyToNonNoochUserThroughPhoneUsingsynapse',
     TransferMoneyToNonNoochUserUsingSynapse: PATH + 'TransferMoneyToNonNoochUserUsingSynapse',
+	UpdateLatLong: PATH + 'UpdateLatLongOfUser',
     ValidatePinNumberToEnterForEnterForeground: PATH + 'ValidatePinNumberToEnterForEnterForeground',
     ValidatePinNumber: PATH + 'ValidatePinNumber',
     UdateMemberIPAddress: PATH + 'UdateMemberIPAddress',

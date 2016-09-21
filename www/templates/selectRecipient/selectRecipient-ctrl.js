@@ -304,7 +304,7 @@
                 cordova.plugins.diagnostic.isLocationEnabled(function (authorized) {
                     if (authorized == true)
                     {
-                        console.log('Location Authorized - CALLING GET LOACTION');
+                        //console.log('Location Authorized - CALLING GET LOACTION');
 
                         $cordovaGeolocation
                             .getCurrentPosition()
@@ -317,7 +317,31 @@
 
                                 console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
 
-                                $scope.getNearbyUsers();
+						        selectRecipientService.UpdateLatLong()
+						            .success(function (data) {
+						                console.log(data);
+
+						                if (data.Result != null && data.Result == 'success')
+						                {
+						                    $scope.getNearbyUsers();
+						                }
+						                else
+						                {
+						                    // Not sure what to do in this case
+						                    $scope.memberList = [];
+						                    $scope.foundNearbyUsers = false;
+							                $scope.loadComplete = true;
+							                $ionicLoading.hide();
+						                }
+						            })
+						            .error(function (error) {
+						                console.log(error);
+					                    // Not sure what to do in this case
+					                    $scope.memberList = [];
+					                    $scope.foundNearbyUsers = false;
+						                $scope.loadComplete = true;
+						                $ionicLoading.hide();
+						            });
                             }, function (err) {
                                 console.log('$cordovaGeolocation error: [' + JSON.stringify(err) + ']');
                                 CommonServices.DisplayError('Unable to get current location');

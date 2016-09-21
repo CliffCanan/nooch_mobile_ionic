@@ -1,5 +1,6 @@
 angular.module('noochApp.selectRecipientService', ['ngStorage'])
   .service('selectRecipientService', function ($http, $localStorage) {
+
       this.MemberEmailNotificationSettings = function (MemberNotifications) {
 
           var postData = {
@@ -9,7 +10,6 @@ angular.module('noochApp.selectRecipientService', ['ngStorage'])
               EmailTransferSent: MemberNotifications.EmailTransferSent,
               EmailTransferReceived: MemberNotifications.EmailTransferReceived,
               EmailTransferAttemptFailure: MemberNotifications.EmailTransferAttemptFailure,
-
 
               // Malkit (19 July 2016) not in use but must pass to match expected input parameters - Will remove these once input model @ server gets modified
               TransferUnclaimed: '',
@@ -38,13 +38,21 @@ angular.module('noochApp.selectRecipientService', ['ngStorage'])
           return $http.post(URLs.MemberEmailNotificationSettings + '?accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken, data);
       };
 
+
       this.GetRecentMembers = function () {
           return $http.get(URLs.GetRecentMembers + '?memberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
       };
 
+
       this.GetLocationSearch = function () {
           return $http.get(URLs.GetLocationSearch + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&Radius=20&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken);
       };
+
+
+	  this.UpdateLatLong = function () {
+		  return $http.get(URLs.UpdateLatLong + '?MemberId=' + $localStorage.GLOBAL_VARIABLES.MemberId + '&accessToken=' + $localStorage.GLOBAL_VARIABLES.AccessToken + '&Lat=' + $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude + '&Long=' + $localStorage.GLOBAL_VARIABLES.UserCurrentLongi);
+	  }
+
 
       this.CheckMemberExistenceUsingEmailOrPhone = function (CheckType, StringToCheck) {
 

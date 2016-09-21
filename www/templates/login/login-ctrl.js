@@ -362,7 +362,7 @@
                       $scope.isConnectedToFb = true;
 
                   $localStorage.GLOBAL_VARIABLES.UserName = $scope.loginWithFbData.Email;
-                  console.log('Printing from local Storage-->>' + $localStorage.GLOBAL_VARIABLES.UserName);
+                  //console.log('Printing from local Storage-->>' + $localStorage.GLOBAL_VARIABLES.UserName);
                   console.log('$scope.loginWithFbData: [' + JSON.stringify($scope.loginWithFbData) + ']');
 
                   authenticationService.LoginWithFacebookGeneric($localStorage.GLOBAL_VARIABLES.UserName, $scope.loginWithFbData.FBId, $scope.loginWithFbData.rmmbrMe.chk, $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude, $localStorage.GLOBAL_VARIABLES.UserCurrentLongi, $localStorage.GLOBAL_VARIABLES.DeviceId, $localStorage.GLOBAL_VARIABLES.DeviceToken)
