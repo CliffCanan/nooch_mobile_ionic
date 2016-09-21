@@ -208,9 +208,14 @@
                             $ionicLoading.hide();
 
                             if (result.Result == 'Success')
-                                swal("Check Your Email", "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.", "success");
+                                swal({
+									title: "Check Your Email",
+									text: "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.",
+									type: "success",
+									customClass: "singleBtn"
+								});
                             else
-                                swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
+                                swal("Error", "We were unable to re-send the email verification link. Please try again or contact Nooch Support.", "error");
                         })
                         .error(function (error) {
                             console.log('ResendVerificationLink Error: [' + JSON.stringify(error) + ']');
@@ -218,7 +223,7 @@
                             if (error.ExceptionMessage == 'Invalid OAuth 2 Access')
                                 CommonServices.logOut();
                             else
-                                swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
+                                swal("Error", "We were unable to re-send the email verification link. Please try again or contact Nooch Support.", "error");
                         });
                  }
              });
@@ -260,7 +265,14 @@
                                 console.log(result);
 
                                 if (result.Result == 'Success')
-                                    swal("Check Your Phone!", "We just sent you an SMS message. Reply with 'Go' to verify your phone number.", "success");
+	                                swal({
+	                                    title: "Check Your Messages",
+	                                    text: "We just sent a text message to <span class='show f-600'>" + $rootScope.contactNumber +
+		                                     "</span><span class='show'>Please respond <strong>\"Go\"</strong> to confirm your number (case doesn't matter).</span>",
+	                                    type: "success",
+	                                    html: true,
+	                                    customClass: "singleBtn"
+	                                });
                                 else if (result.Result == 'Invalid phone number')
                                 {
                                     swal({

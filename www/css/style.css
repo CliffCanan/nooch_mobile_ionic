@@ -929,6 +929,26 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
             margin-bottom: 10px;
         }
 
+	.sweet-alert div.sa-input-error {
+		margin: 0;
+		top: 23px;
+		right: 14px;
+	}
+
+        .sweet-alert div.sa-input-error::before {
+            background-color: rgb(200, 68, 66) !important;
+        }
+
+.sweet-alert .sa-error-container .icon {
+    font-family: 'Roboto';
+    font-weight: 600;
+    line-height: 26px;
+    text-shadow: 0 1px 3px rgba(17,2,2,.35);
+}
+
+.sweet-alert .sa-error-container .p {
+    margin-bottom: 0px;
+}
 
 /***  BANNER ALERTS  ***/
 .content-banner {
@@ -5513,8 +5533,8 @@ ul:not(.parsley-errors-list) {
 
 @-webkit-keyframes slideInDown {
     from {
-        -webkit-transform: translate3d(0, -100%, 0);
-        transform: translate3d(0, -100%, 0);
+        -webkit-transform: translate3d(0, -200%, 0);
+        transform: translate3d(0, -200%, 0);
         visibility: visible;
     }
 
@@ -5526,8 +5546,8 @@ ul:not(.parsley-errors-list) {
 
 @keyframes slideInDown {
     from {
-        -webkit-transform: translate3d(0, -100%, 0);
-        transform: translate3d(0, -100%, 0);
+        -webkit-transform: translate3d(0, -200%, 0);
+        transform: translate3d(0, -200%, 0);
         visibility: visible;
     }
 
@@ -5540,8 +5560,8 @@ ul:not(.parsley-errors-list) {
 .slideInDown {
     -webkit-animation-name: slideInDown;
     animation-name: slideInDown;
-    -webkit-animation-duration: .8s;
-    animation-duration: .8s;
+    -webkit-animation-duration: .7s;
+    animation-duration: .7s;
 }
 
 @-webkit-keyframes slideInLeft {

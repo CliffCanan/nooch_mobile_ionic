@@ -242,18 +242,17 @@
 
 
 	    $scope.checkIfEmailAlreadyRegistered = function () {
-	        console.log('checkIfEmailAlreadyRegistered Fired');
-	        //console.log($rootScope.signUpData);
+	        //console.log('checkIfEmailAlreadyRegistered Fired');
 
 	        var isEmailValid = $('#email').parsley().validate();
 
 	        if ($rootScope.signUpData.Email != null && isEmailValid == true)
 	        {
-	            console.log("Checking Email with server...");
+	            //console.log("Checking Email with server...");
 	            MemberRegistration.CheckIfEmailIsRegistered($rootScope.signUpData.Email)
                     .success(function (data) {
 
-                        console.log(data);
+                        //console.log(data);
 
                         if (data != null && data.matchFound == true)
                         {

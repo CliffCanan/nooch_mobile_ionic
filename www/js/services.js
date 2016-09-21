@@ -147,7 +147,7 @@ angular.module('noochApp.services', ['ngStorage'])
                   if (authorized)
                   {
                       $cordovaCamera.getPicture(options).then(function (imgData) {
-                          console.log('Got picture successfully (was already authorized)');
+                          //console.log('Got picture successfully (was already authorized)');
                           callback(imgData);
                       }, function (err) {
                           console.log(err);

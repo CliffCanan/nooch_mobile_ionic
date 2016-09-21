@@ -260,7 +260,7 @@
                                 $('.indicatorDotWrap .col div').addClass('incorrect');
                                 $('.indicatorDotWrap').addClass('shake');
                                 $('.instructionTxt').addClass('text-danger');
-                                $scope.instructionTxt = "PINs did not match! Please ry again...";
+                                $scope.instructionTxt = "PINs did not match! Please try again...";
 
                                 $timeout(function () {
                                     $('#header').text('Create Your PIN');

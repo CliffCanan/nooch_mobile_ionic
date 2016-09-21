@@ -16,15 +16,15 @@
                 <p class="f-30 m-b-15 capitalize">Hey&nbsp;{{signUpData.FirstName}}!</p>
 
                 <div id="picWrap" ng-click="choosePhoto()">
-                    <img class="m-b-20 defaultPic" src="./img/RoundLoading.png" ng-if="signUpData.Photo == null || signUpData.Photo == ''" />
-                    <img class="m-b-20" src="{{signUpData.Photo}}" ng-if="signUpData.Photo != null && signUpData.Photo.length > 10" />
+                    <img class="m-b-20 defaultPic" src="./img/RoundLoading.png" ng-show="signUpData.Photo == null || signUpData.Photo == ''" />
+                    <img class="m-b-20" src="{{signUpData.Photo}}" ng-show="signUpData.Photo != null && signUpData.Photo.length > 10" />
                 </div>
 
                 <div class="p-l-5 p-r-5">
                     <p class="m-b-20 f-17" ng-show="showContinueBtn != true">Add a picture so people will be able to identify you better when sending you money.</p>
                     <p class="m-b-20 f-17" ng-show="showContinueBtn == true">Great pic! If you're happy with it, tap <span class="f-500">"Continue"</span>.</p>
 
-                    <button ng-if="showContinueBtn == true" id="continueBtn" class="button btn-success button-block m-t-5 animated bounceIn" ng-click="continue()">
+                    <button ng-if="showContinueBtn == true" id="continueBtn" class="button btn-success button-block m-t-5 animated fast bounceIn" ng-click="continue()">
                         Continue
                         <i class="ion-arrow-right-b m-l-15"></i>
                     </button>

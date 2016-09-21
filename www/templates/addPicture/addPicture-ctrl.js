@@ -45,16 +45,19 @@
 
             $ionicPlatform.ready(function () {
                 CommonServices.openPhotoGallery('addPicture', function (result) {
-                    if (result != null && result != 'failed' && result != 'no image selected')
-                    {
-                        $rootScope.signUpData.Photo = "data:image/jpeg;base64," + result;
-                        $scope.showContinueBtn = true;
-                    }
-                    else
-                    {
-                        console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
-                        $scope.showErrorBanner('photo gallery');
-                    }
+                    if (result != null)
+					{
+						if (result == 'failed')
+	                    {
+	                        console.log("ADD - PICTURE - failure FROM COMMONSERVICES [" + result + "]");
+	                        CommonServices.DisplayError('Unable to get picture from the photo gallery :-(');
+	                    }
+						else if (result != 'no image selected')
+	                    {
+	                        $rootScope.signUpData.Photo = "data:image/jpeg;base64," + result;
+	                        $scope.showContinueBtn = true;
+	                    }
+					}
                 });
             });
         }
@@ -86,7 +89,7 @@
                         $scope.showContinueBtn = true;
                     }, function (error) {
                         console.log(error);
-                        $scope.showErrorBanner('camera');
+                        CommonServices.DisplayError('Unable to get picture from the camera :-(');
                     });
                 }
                 else
@@ -107,24 +110,14 @@
                                     $scope.takePhoto();
                             }, function (error) {
                                 console.error(error);
-                                $scope.showErrorBanner('camera');
+                                CommonServices.DisplayError('Unable to get picture from the camera :-(');
                             });
                         }
                     });
                 }
             }, function (error) {
                 console.error("isCameraAuthorized Error: [" + error + ']');
-                $scope.showErrorBanner('camera');
-            });
-        }
-
-
-        $scope.showErrorBanner = function (id) {
-            $ionicContentBanner.show({
-                text: ['Error - Unable to get picture from the ' + id + ' :-('],
-                autoClose: 5000,
-                type: 'error',
-                transition: 'vertical'
+                CommonServices.DisplayError('Unable to get picture from the camera :-(');
             });
         }
 

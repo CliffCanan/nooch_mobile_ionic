@@ -42,7 +42,7 @@
 
 
     $scope.$on("$ionicView.afterEnter", function (event, data) {
-        console.log("Home Cntrl --> After Enter Fired");
+        //console.log("Home Cntrl --> After Enter Fired");
 
         $timeout(function () {
             //console.log($localStorage.GLOBAL_VARIABLES);
@@ -569,7 +569,12 @@
 	                       $ionicLoading.hide();
 
 	                       if (result.Result == 'Success')
-	                           swal("Check Your Email", "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.", "success");
+	                           swal({
+								   title: "Check Your Email",
+								   text: "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.",
+								   type: "success",
+								   customClass: "singleBtn"
+							   });
 	                       else
 	                           swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
 	                   })
