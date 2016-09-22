@@ -1,7 +1,7 @@
 angular.module('noochApp.services', ['ngStorage'])
 
 // Adding some common usefull services in here like enc, dec etc.
-  .service('CommonServices', function ($http, $localStorage, $state, $window, $ionicLoading, $cordovaCamera, $ionicContentBanner) {
+  .service('CommonServices', function ($http, $localStorage, $state, $window, $ionicLoading, $cordovaCamera, $ionicContentBanner, $ionicPlatform, $cordovaTouchID) {
       this.GetEncryptedData = function (dataToEncrypt) {
           return $http.get(URLs.GetEncryptedData + '?data=' + btoa(dataToEncrypt)); // btoa DOES THE BASE 64 ENCRYPTION FOR GIVEN INPUT
       }
@@ -205,11 +205,25 @@ angular.module('noochApp.services', ['ngStorage'])
       this.DisplayError = function (text) {
           $ionicContentBanner.show({
               text: ['Error - ' + text],
-              autoClose: '4500',
+              autoClose: '5000',
               type: 'error',
               icon: 'ion-close-circled'
           });
       }
+
+	  this.checkIfTouchIdAvailable = function () {
+          $ionicPlatform.ready(function () {
+			  $cordovaTouchID.checkSupport().then(function() {
+			      // success, TouchID supported
+				  console.log("TouchID Supported!");
+				  return true;
+			  }, function (error) {
+				  // TouchID not supported
+				  console.log(JSON.stringify(error));
+				  return false;
+			  });
+		  })
+	  }
   })
 
 

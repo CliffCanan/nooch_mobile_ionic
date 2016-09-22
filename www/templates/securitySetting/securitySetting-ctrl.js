@@ -3,7 +3,7 @@
 /***  SECURITY SETTINGS  ***/
 /***************************/
 .controller('securitySettingCtrl', function ($scope, $rootScope, $state, $ionicHistory, $cordovaNetwork,
-                                             $localStorage, $cordovaGoogleAnalytics, $cordovaGoogleAnalytics,
+                                             $localStorage, $cordovaGoogleAnalytics, $cordovaGoogleAnalytics, $cordovaTouchID,
                                              $ionicPlatform, $ionicContentBanner, $timeout, CommonServices, MemberPrivacy) {
 
     $scope.$on("$ionicView.beforeEnter", function (event, data) {
@@ -13,7 +13,18 @@
         $scope.SecSettings = {
             isRequiredImmediately: $rootScope.isRequiredImmediately != null ? $rootScope.isRequiredImmediately : true,
             showInSearch: $rootScope.showInSearch != null ? $rootScope.showInSearch : true
-        }
+		}
+
+		$scope.isTouchIdAvailable = CommonServices.checkIfTouchIdAvailable(); // *NOTE: REMOVE "!" WHEN FINISHED TESTING
+
+		if ($scope.isTouchIdAvailable)
+		{
+	        $scope.SecSettings.touchId = {
+				isEnabled: $localStorage.GLOBAL_VARIABLES.touchId.isEnabled,
+				login: !$localStorage.GLOBAL_VARIABLES.touchId.isEnabled ? false : $localStorage.GLOBAL_VARIABLES.touchId.requireForLogin,
+				payments: !$localStorage.GLOBAL_VARIABLES.touchId.isEnabled ? false : $localStorage.GLOBAL_VARIABLES.touchId.requireForPayments
+			}
+		}
     });
 
 
@@ -39,7 +50,7 @@
                 //console.log('SHOW IN SEARCH DIDNT MATCH');
                 $scope.SecSettings.showInSearch = $rootScope.showInSearch;
             }
-        }, 700);
+        }, 800);
     });
 
 
@@ -75,4 +86,68 @@
                     CommonServices.DisplayError('Unable to update settings right now :-(');
             });
     }
+	
+	
+	$scope.editTouchIdSettings = function (key) {
+		// Store the existing settings in case TouchID fails so we can revert back
+		// (since the toggle that was tapped has already fired)
+		var tempTouchIdSettings = {
+			isEnabled: key == 1 ? !$scope.SecSettings.touchId.isEnabled : $scope.SecSettings.touchId.isEnabled,
+			login: key == 2 ? !$scope.SecSettings.touchId.login : $scope.SecSettings.touchId.login,
+			payments: key == 3 ? !$scope.SecSettings.touchId.payments : $scope.SecSettings.touchId.payments
+		}
+		//console.log(tempTouchIdSettings);
+
+		if (CommonServices.checkIfTouchIdAvailable())
+		{
+			$cordovaTouchID.authenticate("Please verify your ID to change this setting.")
+				.then(function() {
+					if (key == 1)
+					{
+						var titlePrefix = "En";
+						var onOffTxt = "ON";
+		
+						if (!$scope.SecSettings.touchId.isEnabled)
+						{
+							titlePrefix = "Dis";
+							onOffTxt = "OFF";
+			
+							// If user disables TouchID entirely, then set the 2 sub-options as False
+							$scope.SecSettings.touchId.login = false;
+							$scope.SecSettings.touchId.payments = false;
+						}
+						
+			            swal({
+			                title: "TouchID " + titlePrefix + "abled",
+			                text: "TouchID is now turned " + onOffTxt + " for your Nooch account.",
+			                type: "success",
+			                customClass: "heavierText singleBtn"
+			            });
+					}
+
+					$localStorage.GLOBAL_VARIABLES.touchId = {
+						isEnabled: $scope.SecSettings.touchId.isEnabled,
+						requireForLogin: $scope.SecSettings.touchId.login,
+						requireForPayments: $scope.SecSettings.touchId.payments
+					}
+				}, function (error) {
+					console.log(JSON.stringify(error));
+					$scope.SecSettings.touchId = tempTouchIdSettings;
+				});
+
+			//console.log($scope.SecSettings.touchId);
+		}
+		else
+		{
+			CommonServices.DisplayError("TouchID not available!");
+			$scope.SecSettings.touchId = tempTouchIdSettings;
+
+			$timeout(function () {
+				$('#touchId').addClass('animated zoomOut');
+				$timeout(function () {
+					$scope.isTouchIdAvailable = false;
+				}, 900);
+			}, 300);
+		}
+	}
 })

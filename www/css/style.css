@@ -2756,6 +2756,13 @@ ul:not(.parsley-errors-list) {
             padding: 10px 20px;
         }
 
+    .content-banner .content-banner-text {
+        font-size: 14px;
+        left: 14px;
+        right: 19px;
+        padding: 4px 7px 0 0;
+    }
+
     .item .badge {
         right: 20px;
     }

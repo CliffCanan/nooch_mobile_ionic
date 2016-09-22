@@ -47,7 +47,13 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
               shouldNotDisplayContactsAlert: false, // to show share contacts alert at various locations.. if true user denied to share contact and we shouldn't ask.
               HasSharedContacts: false, // if true then shouldn't ask for contact permission again
               contactsLength: 0,
-              pinValidatorData: {}
+              pinValidatorData: {},
+
+              touchId: {
+                  isEnabled: false,
+                  requireForLogin: false,
+                  requireForPayments: false
+              }
           };
       }
 

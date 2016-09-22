@@ -1,7 +1,8 @@
 ﻿angular.module('noochApp.LoginCtrl', ['noochApp.login-service', 'noochApp.services', 'ngStorage'])
 
   .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicPlatform, $ionicLoading, $localStorage, $cordovaGeolocation, $cordovaDevice,
-	  								 $cordovaNetwork, $cordovaSocialSharing, $timeout, CommonHelper, authenticationService, CommonServices, $cordovaGoogleAnalytics) {
+	  								 $cordovaNetwork, $cordovaSocialSharing, $timeout, $cordovaGoogleAnalytics, $cordovaTouchID, CommonHelper,
+	  								 CommonServices, authenticationService) {
 
       $scope.$on("$ionicView.beforeEnter", function (event, data) {
           console.log('Login Controller Loaded');
@@ -36,10 +37,21 @@
           //console.log($scope.loginData);
       });
 
-      $scope.$on("$ionicView.enter", function (event, data) {
+
+	  $scope.$on("$ionicView.enter", function (event, data) {
           $ionicPlatform.ready(function () {
               if (typeof analytics !== 'undefined') analytics.trackView("Login");
-          })
+
+			  if (CommonServices.checkIfTouchIdAvailable())
+			  {
+			  	  $cordovaTouchID.authenticate("Please verify your ID.")
+					  .then(function() {
+					      // Success --> Log the user in
+					  }, function (error) {
+					      console.log(JSON.stringify(error));
+					  });
+			  }
+		  })
       });
 
 

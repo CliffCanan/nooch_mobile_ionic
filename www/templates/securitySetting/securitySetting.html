@@ -1,6 +1,6 @@
 ﻿
 <ion-view view-title="Security Settings">
-    <ion-content class="b-gray" scroll="false">
+    <ion-content class="b-gray">
 
         <div class="section-header m-t-20">PIN</div>
 
@@ -26,7 +26,7 @@
         <div class="section-note">Require your PIN to enter the app.</div>
 
 
-        <div class="section-header m-t-25">Password</div>
+        <div class="section-header m-t-20">Password</div>
 
         <div class="list" ng-click="goo()">
             <a href="#/app/settings/securitySetting/ResetPwd" class="item item-icon-right">
@@ -36,7 +36,45 @@
         </div>
 
 
-        <div class="section-header m-t-30">Privacy</div>
+		<div id="touchId" ng-if="isTouchIdAvailable">
+	        <div class="section-header m-t-25">TouchID</div>
+
+	        <div class="list m-b-5" ng-if="isTouchIdAvailable">
+	            <div class="item item-toggle">
+	                Enable TouchID
+	                <label class="toggle toggle-calm">
+	                    <input type="checkbox" ng-model="SecSettings.touchId.isEnabled" ng-click="editTouchIdSettings(1)" ng-checked="SecSettings.touchId.isEnabled">
+	                    <div class="track">
+	                        <div class="handle"></div>
+	                    </div>
+	                </label>
+	            </div>
+
+	            <div class="item item-toggle">
+	                Allow For Login
+	                <label class="toggle toggle-calm">
+	                    <input type="checkbox" ng-model="SecSettings.touchId.login" ng-click="editTouchIdSettings(2)" ng-checked="SecSettings.touchId.login" ng-disabled="!SecSettings.touchId.isEnabled">
+	                    <div class="track">
+	                        <div class="handle"></div>
+	                    </div>
+	                </label>
+	            </div>
+
+	            <div class="item item-toggle">
+	                Require for Payments
+	                <label class="toggle toggle-calm">
+	                    <input type="checkbox" ng-model="SecSettings.touchId.payments" ng-click="editTouchIdSettings(3)" ng-checked="SecSettings.touchId.payments" ng-disabled="!SecSettings.touchId.isEnabled">
+	                    <div class="track">
+	                        <div class="handle"></div>
+	                    </div>
+	                </label>
+	            </div>
+	        </div>
+
+			<div class="section-note">Use your device's fingerprint reader for authentication.</div>
+		</div>
+
+        <div class="section-header m-t-20">Privacy</div>
 
         <div class="list m-b-5">
             <div class="item item-toggle">
