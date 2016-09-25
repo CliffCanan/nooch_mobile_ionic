@@ -101,7 +101,7 @@
      $scope.delBank = function () {
          swal({
              title: "Remove Bank?",
-             text: "Are you sure you want to remove this bank account?<span class='show f-600'>" + $scope.bankData.bankName +
+             text: "Are you sure you want to remove this bank account?<span class='show f-600 capitalize'>" + $scope.bankData.bankName +
 			 	   "</span><span class='show f-500 m-b-15'>This cannot be undone.</span>",
              type: "warning",
              showCancelButton: true,
@@ -122,7 +122,7 @@
                             swal({
                                 title: "Bank Deleted",
                                 text: "The following bank account was successfully removed from your account:" +
-									  "<span class='show m-b-15'>" + $scope.bankData.bankName + "</span>",
+									  "<span class='show m-b-15 capitalize'>" + $scope.bankData.bankName + "</span>",
                                 type: "success",
                                 html: true,
                                 customClass: "singleBtn"
@@ -146,7 +146,6 @@
                  //$timeout(function () {
                  //    $('#editBnkBtn span').removeClass('animated bounceIn');
                  //}, 1000);
-
              }
          });
      }
@@ -408,8 +407,6 @@
                  $scope.bankData = data;
 
                  $rootScope.bank_node = $scope.bankData.bank_node_id;
-
-                 console.log($scope.bankData);
 
                  $ionicLoading.hide();
              })

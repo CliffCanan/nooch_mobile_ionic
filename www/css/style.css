@@ -615,8 +615,8 @@ a {
 }
 
 .btn-danger {
-    background: linear-gradient(#e02d33, #d2232a);
-    text-shadow: 0px 1px 0px rgba(38,26,19,.25);
+    background: linear-gradient(#e02d33, #d2232a) !important;
+    text-shadow: 0px 1px 0px rgba(38,26,19,.25) !important;
 }
 
 .btn-purp, .label-purple {

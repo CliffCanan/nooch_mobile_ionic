@@ -203,8 +203,8 @@
         $cordovaContacts.find(options).then(onSuccess, onError);
 
         function onSuccess(contacts) {
-            console.log('Phone Contacts...');
-            console.log(contacts);
+            //console.log('Phone Contacts...');
+            //console.log(contacts);
 
             if ($rootScope.homeContactLength != contacts.length)
             {
@@ -262,7 +262,7 @@
                 $scope.phoneContacts.push.apply($scope.phoneContacts, $rootScope.homeContacts);
             }
 
-            console.log($scope.phoneContacts);
+            //console.log($scope.phoneContacts);
 
             $scope.setFavoritesForDisplay();
         };

@@ -211,16 +211,17 @@ angular.module('noochApp.services', ['ngStorage'])
           });
       }
 
-	  this.checkIfTouchIdAvailable = function () {
+	  this.checkIfTouchIdAvailable = function (callback) {
           $ionicPlatform.ready(function () {
 			  $cordovaTouchID.checkSupport().then(function() {
 			      // success, TouchID supported
 				  console.log("TouchID Supported!");
-				  return true;
+				  callback(true);
 			  }, function (error) {
 				  // TouchID not supported
 				  console.log(JSON.stringify(error));
-				  return false;
+				  alert(error);
+				  callback(false);
 			  });
 		  })
 	  }

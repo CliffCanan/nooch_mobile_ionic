@@ -15,16 +15,21 @@
             showInSearch: $rootScope.showInSearch != null ? $rootScope.showInSearch : true
 		}
 
-		$scope.isTouchIdAvailable = CommonServices.checkIfTouchIdAvailable(); // *NOTE: REMOVE "!" WHEN FINISHED TESTING
-
-		if ($scope.isTouchIdAvailable)
-		{
-	        $scope.SecSettings.touchId = {
-				isEnabled: $localStorage.GLOBAL_VARIABLES.touchId.isEnabled,
-				login: !$localStorage.GLOBAL_VARIABLES.touchId.isEnabled ? false : $localStorage.GLOBAL_VARIABLES.touchId.requireForLogin,
-				payments: !$localStorage.GLOBAL_VARIABLES.touchId.isEnabled ? false : $localStorage.GLOBAL_VARIABLES.touchId.requireForPayments
+		CommonServices.checkIfTouchIdAvailable(function(result) {
+			if (result)
+			{
+				$scope.isTouchIdAvailable = true;
+		        $scope.SecSettings.touchId = {
+					isEnabled: $localStorage.GLOBAL_VARIABLES.touchId.isEnabled,
+					login: !$localStorage.GLOBAL_VARIABLES.touchId.isEnabled ? false : $localStorage.GLOBAL_VARIABLES.touchId.requireForLogin,
+					payments: !$localStorage.GLOBAL_VARIABLES.touchId.isEnabled ? false : $localStorage.GLOBAL_VARIABLES.touchId.requireForPayments
+				}
 			}
-		}
+			else
+			{
+				$scope.isTouchIdAvailable = false;
+			}
+		});
     });
 
 
@@ -98,56 +103,58 @@
 		}
 		//console.log(tempTouchIdSettings);
 
-		if (CommonServices.checkIfTouchIdAvailable())
-		{
-			$cordovaTouchID.authenticate("Please verify your ID to change this setting.")
-				.then(function() {
-					if (key == 1)
-					{
-						var titlePrefix = "En";
-						var onOffTxt = "ON";
-		
-						if (!$scope.SecSettings.touchId.isEnabled)
+		CommonServices.checkIfTouchIdAvailable(function(result) {
+			if (result)
+			{
+				$cordovaTouchID.authenticate("Please verify your ID to change this setting.")
+					.then(function() {
+						if (key == 1)
 						{
-							titlePrefix = "Dis";
-							onOffTxt = "OFF";
+							var titlePrefix = "En";
+							var onOffTxt = "ON";
+
+							if (!$scope.SecSettings.touchId.isEnabled)
+							{
+								titlePrefix = "Dis";
+								onOffTxt = "OFF";
 			
-							// If user disables TouchID entirely, then set the 2 sub-options as False
-							$scope.SecSettings.touchId.login = false;
-							$scope.SecSettings.touchId.payments = false;
+								// If user disables TouchID entirely, then set the 2 sub-options as False
+								$scope.SecSettings.touchId.login = false;
+								$scope.SecSettings.touchId.payments = false;
+							}
+
+				            swal({
+				                title: "TouchID " + titlePrefix + "abled",
+				                text: "TouchID is now turned " + onOffTxt + " for your Nooch account.",
+				                type: "success",
+				                customClass: "heavierText singleBtn"
+				            });
 						}
-						
-			            swal({
-			                title: "TouchID " + titlePrefix + "abled",
-			                text: "TouchID is now turned " + onOffTxt + " for your Nooch account.",
-			                type: "success",
-			                customClass: "heavierText singleBtn"
-			            });
-					}
 
-					$localStorage.GLOBAL_VARIABLES.touchId = {
-						isEnabled: $scope.SecSettings.touchId.isEnabled,
-						requireForLogin: $scope.SecSettings.touchId.login,
-						requireForPayments: $scope.SecSettings.touchId.payments
-					}
-				}, function (error) {
-					console.log(JSON.stringify(error));
-					$scope.SecSettings.touchId = tempTouchIdSettings;
-				});
+						$localStorage.GLOBAL_VARIABLES.touchId = {
+							isEnabled: $scope.SecSettings.touchId.isEnabled,
+							requireForLogin: $scope.SecSettings.touchId.login,
+							requireForPayments: $scope.SecSettings.touchId.payments
+						}
+					}, function (error) {
+						console.log(JSON.stringify(error));
+						$scope.SecSettings.touchId = tempTouchIdSettings;
+					});
 
-			//console.log($scope.SecSettings.touchId);
-		}
-		else
-		{
-			CommonServices.DisplayError("TouchID not available!");
-			$scope.SecSettings.touchId = tempTouchIdSettings;
+				//console.log($scope.SecSettings.touchId);
+			}
+			else
+			{
+				CommonServices.DisplayError("TouchID not available!");
+				$scope.SecSettings.touchId = tempTouchIdSettings;
 
-			$timeout(function () {
-				$('#touchId').addClass('animated zoomOut');
 				$timeout(function () {
-					$scope.isTouchIdAvailable = false;
-				}, 900);
-			}, 300);
-		}
+					$('#touchId').addClass('animated zoomOut');
+					$timeout(function () {
+						$scope.isTouchIdAvailable = false;
+					}, 900);
+				}, 300);
+			}
+		});
 	}
 })
