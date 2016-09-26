@@ -553,7 +553,7 @@
         {
             swal({
                 title: "Please Verify Your Email",
-                text: "Terribly sorry, but before you send money or add a bank account, please confirm your email address by clicking the link we sent to the email address you used to sign up.",
+                text: "Before you send money or add a bank account, please confirm your email address by clicking the link we sent to <span class='f-500'>" + $rootScope.emailAddress + "</span>.",
                 type: "warning",
                 showCancelButton: true,
                 cancelButtonText: "Resend Email"
@@ -571,9 +571,10 @@
 	                       if (result.Result == 'Success')
 	                           swal({
 	                               title: "Check Your Email",
-	                               text: "We just sent an email to " + $rootScope.emailAddress + ". Please click the verification link to activate your account.",
+	                               text: "We just sent an email to <span class='f-500'>" + $rootScope.emailAddress + "</span>.<span class='show'>Please click the verification link to activate your account.</show>",
 	                               type: "success",
-	                               customClass: "singleBtn"
+	                               customClass: "singleBtn",
+	                               html: true
 	                           });
 	                       else
 	                           swal("Error", "We were unable to re-send the email verification link.  Please try again or contact Nooch Support.", "error");
