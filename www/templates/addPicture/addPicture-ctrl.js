@@ -64,7 +64,6 @@
         $scope.takePhoto = function () {
 
             cordova.plugins.diagnostic.isCameraAuthorized(function (authorized) {
-                console.log(authorized);
                 console.log("App is " + (authorized ? "authorized" : "denied") + " access to the camera");
 
                 if (authorized)
@@ -87,7 +86,7 @@
                         $scope.showContinueBtn = true;
                     }, function (error) {
                         console.log(error);
-                        CommonServices.DisplayError('Unable to get picture from the camera :-(');
+                        //CommonServices.DisplayError('Unable to get picture from the camera :-(');
                     });
                 }
                 else

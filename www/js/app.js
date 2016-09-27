@@ -115,6 +115,8 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
 
           document.addEventListener("deviceready", onDeviceReadyApp, false);
+		  
+		  $rootScope.appVersion = "2.0.3"; // Hard-coded default... should be updated below to whatever the current version is in config.xml
 
           function onDeviceReadyApp() {
 
@@ -129,6 +131,9 @@ angular.module('noochApp', ['ionic', 'ionic.service.core', 'noochApp.controllers
 
                   console.log('Device OS is: [' + device.platform + '], UUID: [' + device.uuid + ']');
 
+				  cordova.getAppVersion(function (version) {
+					  $rootScope.appVersion = version;
+				  });
 
                   // Called when the user taps on a notification
                   var notificationOpenedCallback = function (jsonData) {

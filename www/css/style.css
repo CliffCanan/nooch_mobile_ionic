@@ -1699,10 +1699,14 @@ div.hscroller-card {
         margin: 0;
     }
 
-#profileTable .btn i::before {
+#profileTable button i::before {
     color: #5a538d;
     font-size: 22px;
     margin: 0;
+}
+
+#profileTable button i.ion-ios-paperplane::before {
+	top: -5px;
 }
 
 #profileTable i::before {

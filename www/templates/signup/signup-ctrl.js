@@ -186,18 +186,16 @@
 
 	    $scope.SignUpWithFB = function () {
 
-	        console.log('came in sign in with fb');
-
 	        if (!window.cordova)
 	            facebookConnectPlugin.browserInit("198279616971457");
 
 	        facebookConnectPlugin.login(['email', 'public_profile'], function (response) {
 
-	            console.log('login response from fb ' + JSON.stringify(response));
+	            console.log('FB Login Response: ' + JSON.stringify(response));
 
 	            facebookConnectPlugin.api("/me?fields=name,email,picture.type(large)", ['email'], function (success) {
 	                // success
-	                console.log('got this from fb ' + JSON.stringify(success));
+	                console.log('FB API Response: ' + JSON.stringify(success));
 
 	                $rootScope.signUpData.Email = _.get(success, 'email');
 	                $rootScope.signUpData.Name = _.get(success, 'name');
@@ -206,6 +204,9 @@
 
 	                $scope.$apply();
 	                console.log('signUpData: ' + JSON.stringify($rootScope.signUpData));
+					
+					// Check if email returned by FB is already registered
+					$scope.checkIfEmailAlreadyRegistered();
 	            }, function (error) {
 	                console.log(error);
 	                CommonServices.DisplayError('Unable to connect with Facebook :-(');
@@ -260,8 +261,8 @@
 
                             swal({
                                 title: "Email Already Registered",
-                                text: "Terribly sorry, but it looks like <span class='f-500'>" + $rootScope.signUpData.Email + "</span> has already been registered" +
-                                      "<span class='show'>If this is your account, click 'Login' to, well, login!</span>",
+                                text: "Looks like <span class='f-500'>" + $rootScope.signUpData.Email + "</span> has already been registered" +
+                                      "<span class='show'>If this is your account, tap <span class='f-500'>'Login'</span> to, well, login!</span>",
                                 type: "error",
                                 showCancelButton: true,
                                 cancelButtonText: "Login",
