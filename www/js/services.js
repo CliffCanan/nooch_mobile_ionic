@@ -211,20 +211,20 @@ angular.module('noochApp.services', ['ngStorage'])
           });
       }
 
-	  this.checkIfTouchIdAvailable = function (callback) {
+      this.checkIfTouchIdAvailable = function (callback) {
           $ionicPlatform.ready(function () {
-			  $cordovaTouchID.checkSupport().then(function() {
-			      // success, TouchID supported
-				  console.log("TouchID Supported!");
-				  callback(true);
-			  }, function (error) {
-				  // TouchID not supported
-				  console.log(JSON.stringify(error));
-				  //alert(error);
-				  callback(false);
-			  });
-		  })
-	  }
+              $cordovaTouchID.checkSupport().then(function () {
+                  // success, TouchID supported
+                  console.log("TouchID Supported!");
+                  callback(true);
+              }, function (error) {
+                  // TouchID not supported
+                  console.log(JSON.stringify(error));
+                  //alert(error);
+                  callback(false);
+              });
+          })
+      }
   })
 
 

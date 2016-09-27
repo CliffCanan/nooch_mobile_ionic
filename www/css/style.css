@@ -1508,7 +1508,7 @@ div.hscroller {
 div.hscroller-card {
     background: transparent;
     color: #333;
-	height: 180px;
+    height: 180px;
     margin: 0 5px;
     padding-top: 5px;
 }
@@ -1518,7 +1518,7 @@ div.hscroller-card {
         box-shadow: 0 7px 14px -4px rgba(0,0,0,.3);
         display: block;
         height: auto;
-		max-height: 110px;
+        max-height: 110px;
         margin: 0 auto;
         width: 100px;
     }
@@ -1701,15 +1701,15 @@ div.hscroller-card {
         margin: 0;
     }
 
-#profileTable button i::before {
-    color: #5a538d;
-    font-size: 22px;
-    margin: 0;
-}
+        #profileTable button i::before {
+            color: #5a538d;
+            font-size: 22px;
+            margin: 0;
+        }
 
-#profileTable button i.ion-ios-paperplane::before {
-	top: -5px;
-}
+        #profileTable button i.ion-ios-paperplane::before {
+            top: -5px;
+        }
 
 #profileTable i::before {
     font-size: 20px;

@@ -204,9 +204,9 @@
 
 	                $scope.$apply();
 	                console.log('signUpData: ' + JSON.stringify($rootScope.signUpData));
-					
-					// Check if email returned by FB is already registered
-					$scope.checkIfEmailAlreadyRegistered();
+
+	                // Check if email returned by FB is already registered
+	                $scope.checkIfEmailAlreadyRegistered();
 	            }, function (error) {
 	                console.log(error);
 	                CommonServices.DisplayError('Unable to connect with Facebook :-(');
@@ -261,7 +261,7 @@
 
                             swal({
                                 title: "Email Already Registered",
-                                text: "Looks like <span class='f-500'>" + $rootScope.signUpData.Email + "</span> has already been registered" +
+                                text: "Looks like <span class='f-500'>" + $rootScope.signUpData.Email + "</span> has already been registered." +
                                       "<span class='show'>If this is your account, tap <span class='f-500'>'Login'</span> to, well, login!</span>",
                                 type: "error",
                                 showCancelButton: true,
