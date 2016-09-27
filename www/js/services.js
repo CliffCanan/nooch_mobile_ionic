@@ -220,7 +220,7 @@ angular.module('noochApp.services', ['ngStorage'])
 			  }, function (error) {
 				  // TouchID not supported
 				  console.log(JSON.stringify(error));
-				  alert(error);
+				  //alert(error);
 				  callback(false);
 			  });
 		  })

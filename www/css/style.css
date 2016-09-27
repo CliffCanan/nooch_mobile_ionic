@@ -1496,6 +1496,11 @@ iframe {
 /******************/
 /***    HOME    ***/
 /******************/
+#fav-container {
+    transition: .6s all ease-out;
+    height: 168px;
+}
+
 div.hscroller {
     overflow-y: visible;
 }
@@ -1503,6 +1508,7 @@ div.hscroller {
 div.hscroller-card {
     background: transparent;
     color: #333;
+	height: 180px;
     margin: 0 5px;
     padding-top: 5px;
 }
@@ -1512,8 +1518,9 @@ div.hscroller-card {
         box-shadow: 0 7px 14px -4px rgba(0,0,0,.3);
         display: block;
         height: auto;
-        width: 100px;
+		max-height: 110px;
         margin: 0 auto;
+        width: 100px;
     }
 
     div.hscroller-card div.hscroller-label {
@@ -1524,18 +1531,13 @@ div.hscroller-card {
         margin-top: 9px;
     }
 
-#fav-container {
-    transition: .7s all ease-out;
-    height: 150px;
-}
-
 
 /******************/
 /***  SETTINGS  ***/
 /******************/
 
 #settings_cntnr {
-    transition: .5s all ease-in-out;
+    transition: .4s all ease-in-out;
 }
 
     #settings_cntnr .alertIcon {

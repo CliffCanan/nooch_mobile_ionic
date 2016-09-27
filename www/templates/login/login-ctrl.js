@@ -5,7 +5,7 @@
 	  								 CommonServices, authenticationService) {
 
       $scope.$on("$ionicView.beforeEnter", function (event, data) {
-          console.log('Login Controller Loaded');
+          //console.log('Login Controller Loaded');
 
           $scope.loginData = {
               email: '',
@@ -73,9 +73,6 @@
 
 
       $scope.SignIn = function () {
-
-          //if ($cordovaNetwork.isOnline())
-          //{
           if ($('#frmLogin').parsley().validate() == true)
           {
               $ionicPlatform.ready(function () {
@@ -85,8 +82,9 @@
 
                   if (window.cordova)
                   {
-                      cordova.plugins.diagnostic.isLocationAuthorized(function (enabled) {
-                          if (enabled == true)
+                      cordova.plugins.diagnostic.isLocationAuthorized(function (authorized) {
+						  //console.log(authorized)
+                          if (authorized == true)
                           {
                               $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = true;
                               $scope.checkGpsStatus();
@@ -109,8 +107,6 @@
                       $scope.loginService();
               });
           }
-          //} else
-          //    swal("Error", "Internet not connected!", "error");
       }
 
 
@@ -220,6 +216,54 @@
       }
 
 
+      $scope.checkGpsStatus = function () {
+		  console.log('checkGpsStatus Fired');
+
+          $ionicPlatform.ready(function () {
+              if (window.cordova)
+              {
+                  cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
+					  if (enabled == true)
+					  {
+                          console.log('GPS IS ON - CALLING GET LOACTION');
+                          
+                          $cordovaGeolocation
+                          	.getCurrentPosition()
+                          	.then(function (position) {
+								var lat = position.coords.latitude
+								var long = position.coords.longitude
+
+								$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = lat;
+								$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = long;
+
+								console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
+
+								$scope.loginService();
+							}, function (err) {
+								console.log('$cordovaGeolocation error: [' + JSON.stringify(err) + ']');
+								// Static Loaction in case user denied
+
+								$scope.loginService();
+							});
+                      }
+                      else
+                      {
+						  console.log('Geolocation NOT Enabled');
+                          // User has not yet authorized location access - so just login (we request permission later only at a relevant time, i.e. on Select Recipient -> Search By Location Tab)
+                          $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
+
+                          $scope.loginService();
+                      }
+                  }, function (error) {
+                      console.log("isLocationEnabled Error: [" + JSON.stringify(error) + ']');
+                  });
+              }
+              else // For Browser Testing
+                  $scope.loginService();
+          });
+      }
+
+
       $scope.genericLoginError = function () {
           swal({
               title: "Oh no",
@@ -288,60 +332,6 @@
               }
               else
                   $scope.forgotPw(2)
-          });
-      }
-
-
-      $scope.getLocation = function () {
-          $cordovaGeolocation
-                .getCurrentPosition()
-                .then(function (position) {
-                    var lat = position.coords.latitude
-                    var long = position.coords.longitude
-
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = lat;
-                    $localStorage.GLOBAL_VARIABLES.UserCurrentLongi = long;
-
-                    console.log('$cordovaGeolocation success -> Lat/Long: [' + lat + ', ' + long + ']');
-
-                    $scope.loginService();
-                }, function (err) {
-                    console.log('$cordovaGeolocation error: [' + JSON.stringify(err) + ']');
-
-                    // Static Loaction in case user denied
-                    //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '31.33';
-                    //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '54.33';
-
-                    $scope.loginService();
-                });
-      }
-
-
-      $scope.checkGpsStatus = function () {
-          $ionicPlatform.ready(function () {
-              if (window.cordova)
-              {
-                  cordova.plugins.diagnostic.isLocationEnabled(function (authorized) {
-                      if (authorized == true)
-                      {
-                          console.log('GPS IS ON - CALLING GET LOACTION');
-                          $scope.getLocation();
-                      }
-                      else
-                      {
-                          // User has not yet authorized location access - so just login (we request permission later only at a relevant time, i.e. on Select Recipient -> Search By Location Tab)
-                          $localStorage.GLOBAL_VARIABLES.IsUserLocationSharedWithNooch = false;
-                          //$localStorage.GLOBAL_VARIABLES.UserCurrentLongi = '0.00';
-                          //$localStorage.GLOBAL_VARIABLES.UserCurrentLatitude = '0.00';
-
-                          $scope.loginService();
-                      }
-                  }, function (error) {
-                      console.log("isLocationEnabled Error: [" + JSON.stringify(error) + ']');
-                  });
-              }
-              else // For Browser Testing
-                  $scope.loginService();
           });
       }
 
